@@ -1,0 +1,9 @@
+# Python environments and caches
+.env
+**/.env
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Common local files
+.DS_Store

@@ -1,0 +1,81 @@
+<svg id="audio-btn-loading-blue" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="20 25 60.6 48.1" preserveAspectRatio="xMidYMid meet" width="27px" height="21px" style="enable-background:new 20 25 60.6 48.1;" xml:space="preserve">
+  <style>
+#audio-btn-loading-blue .animatedCircle {
+  fill: #009aef;
+  -webkit-animation-name: circleAnimation;
+  -webkit-animation-duration: 1.2s;
+  -webkit-animation-timing-function: ease-in;
+  -webkit-animation-iteration-count: infinite;
+  animation-name: circleAnimation;
+  animation-duration: 1.2s;
+  animation-timing-function: ease-in;
+  animation-iteration-count: infinite;
+}
+
+#audio-btn-loading-blue .circle2 {
+  -webkit-animation-delay: -1.05s;
+  animation-delay: -1.05s;
+}
+
+#audio-btn-loading-blue .circle3 {
+  -webkit-animation-delay: -0.9s;
+  animation-delay: -0.9s;
+}
+
+#audio-btn-loading-blue .circle4 {
+  -webkit-animation-delay: -0.75s;
+  animation-delay: -0.75s;
+}
+
+#audio-btn-loading-blue .circle5 {
+  -webkit-animation-delay: -0.6s;
+  animation-delay: -0.6s;
+}
+
+#audio-btn-loading-blue .circle6 {
+  -webkit-animation-delay: -0.45s;
+  animation-delay: -0.45s;
+}
+
+#audio-btn-loading-blue .circle7 {
+  -webkit-animation-delay: -0.3s;
+  animation-delay: -0.3s;
+}
+
+#audio-btn-loading-blue .circle0 {
+  -webkit-animation-delay: -0.15s;
+  animation-delay: -0.15s;
+}
+
+@keyframes circleAnimation {
+  0%,
+  39%,
+  100% {
+    opacity: 0.25;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes circleAnimation {
+  0%,
+  39%,
+  100% {
+    opacity: 0.25;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+
+  </style>
+  <circle class="circle7 animatedCircle" cx="33" cy="50" r="5"></circle>
+  <circle class="circle6 animatedCircle" cx="38" cy="62" r="5"></circle>
+  <circle class="circle5 animatedCircle" cx="50" cy="67" r="5"></circle>
+  <circle class="circle4 animatedCircle" cx="62" cy="62" r="5"></circle>
+  <circle class="circle3 animatedCircle" cx="67" cy="50" r="5"></circle>
+  <circle class="circle2 animatedCircle" cx="62" cy="38" r="5"></circle>
+  <circle class="circle1 animatedCircle" cx="50" cy="33" r="5"></circle>
+  <circle class="circle0 animatedCircle" cx="38" cy="38" r="5"></circle>
+</svg>

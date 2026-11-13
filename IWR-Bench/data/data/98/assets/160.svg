@@ -1,0 +1,7 @@
+<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g>
+    <path class="skill-node-tooltip-icon-stroke" d="M12.8124 3.36833L10.512 1.15211C10.4013 1.05087 10.2557 0.996461 10.1058 1.00018C9.95578 1.0039 9.81307 1.06553 9.70753 1.17213L1.68705 9.05518L1 13L4.73213 12.3131L12.8346 4.21272C12.8901 4.15664 12.9337 4.0899 12.9628 4.01653C12.9918 3.94316 13.0057 3.8647 13.0036 3.78582C13.0015 3.70694 12.9835 3.62934 12.9507 3.55759C12.9178 3.48585 12.8708 3.42142 12.8124 3.36833Z" fill="white" stroke="#3b6715" stroke-width="0.65" stroke-miterlimit="10"></path>
+    <path class="skill-node-tooltip-icon-stroke" d="M2.03052 9.05518L3.6594 9.31226L3.78796 10.1722L4.68998 10.2143L4.81848 11.9296" stroke="#3b6715" stroke-width="0.65" stroke-miterlimit="10"></path>
+    <path class="skill-node-tooltip-icon-stroke" d="M11.5513 5.23893L8.80762 2.62158" stroke="#3b6715" stroke-width="0.65" stroke-miterlimit="10"></path>
+  </g>
+</svg>
