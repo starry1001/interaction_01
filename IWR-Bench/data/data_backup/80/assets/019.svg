@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 16 16" width="16px" height="16px" version="1.1" focusable="false" class="table-of-contents__item-status-svg--locked lazy-loaded" aria-busy="false">
+  <g style="fill: currentColor;">
+    <path d="M12,7H11V4A3,3,0,0,0,5,4V7H4A1,1,0,0,0,3,8v6a1,1,0,0,0,1,1h8a1,1,0,0,0,1-1V8A1,1,0,0,0,12,7ZM7,3.88a1,1,0,0,1,2,0V7H7V3.88ZM11,13H5V9h6v4Z"></path>
+  </g>
+</svg>

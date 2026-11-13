@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2048 Game</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;color:#1e1d1d;background:#fafaf3}
+  body{overflow-x:hidden}
+  .page{width:100%;min-height:1260px}
+  .game-wrap{width:500px;margin:0 auto}
+  .mode-tabs{height:49px;display:flex;justify-content:center;align-items:flex-start;gap:5px;padding-top:10px;font-size:15px;font-weight:700}
+  .mode-tabs .btn{border:0;background:transparent;padding:11px 15px;border-radius:8px;cursor:pointer;color:#111}
+  .mode-tabs .active{background:#f7bd54}
+  h1{font-size:39px;line-height:42px;text-align:center;margin:5px 0 11px;font-weight:800;letter-spacing:-1px}
+  .score-row{height:50px;display:flex;align-items:stretch;justify-content:space-between;margin-bottom:20px}
+  .scores{display:flex;gap:5px}
+  .score-box{width:72px;height:50px;border-radius:3px;background:#bba18b;color:#fff;text-align:center;padding-top:7px;text-transform:uppercase;font-weight:700}
+  .score-box small{display:block;font-size:11px;line-height:13px}
+  .score-box strong{display:block;font-size:20px;line-height:20px}
+  .new-game{width:100px;border:0;border-radius:4px;background:#bd9c7f;color:#fff;font-size:14px;font-weight:700;cursor:pointer}
+  .board{
+    width:500px;height:517px;padding:15px;border-radius:7px;
+    background:#bbada0;display:grid;grid-template-columns:repeat(4,1fr);
+    grid-template-rows:repeat(4,1fr);gap:14px;
+  }
+  .cell{border-radius:3px;background:rgba(238,228,218,.35);display:flex;align-items:center;justify-content:center}
+  .tile{width:100%;height:100%;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:56px;font-weight:800;color:#776e65}
+  .tile-2{background:#eee4da}
+  .tile-4{background:#ede0c8}
+  .tile-8{background:#f2b179;color:#fff}
+  .tile-16{background:#f59563;color:#fff}
+  .tile-32{background:#f67c5f;color:#fff}
+  .tile-64{background:#f65e3b;color:#fff}
+  .tile-128{background:#edcf72;color:#fff;font-size:48px}
+  .tile-256{background:#edcc61;color:#fff;font-size:48px}
+  .tile-512{background:#edc850;color:#fff;font-size:48px}
+  .tile-1024,.tile-2048{background:#edc53f;color:#fff;font-size:40px}
+  .ad-area{height:324px;display:flex;align-items:center;justify-content:center}
+  .ad-area img{display:block;width:294px;height:255px;object-fit:fill}
+  .instructions{
+    width:100%;height:146px;background:#ffebc8;
+    display:flex;align-items:center;justify-content:center;
+    text-align:center;color:#5e564e;font-size:16px;line-height:25px;
+  }
+  .instructions p{width:990px;max-width:90%;margin:0}
+  .other-games{background:#fff;min-height:260px;padding-top:29px;text-align:center}
+  .other-games h2{font-size:27px;margin:0 0 18px;font-weight:800}
+  .cards{display:flex;justify-content:center;gap:30px}
+  .game-card{width:200px;height:125px;border:0;padding:0;overflow:hidden;border-radius:8px;cursor:pointer;background:#ddd}
+  .game-card img{display:block;width:200px;height:125px;object-fit:cover}
+  .btn{cursor:pointer}
+  @media(max-width:600px){
+    .game-wrap{width:calc(100vw - 24px)}
+    .board{width:100%;height:auto;aspect-ratio:500/517}
+    .tile{font-size:11vw}
+    .score-row{margin-bottom:14px}
+    .instructions{height:auto;min-height:146px}
+    .cards{gap:10px;flex-wrap:wrap}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <main class="game-wrap">
+    <nav class="mode-tabs">
+      <button class="btn active" id="classicBtn">Classic</button>
+      <button class="btn" id="cupcakeBtn">Cupcakes</button>
+    </nav>
+
+    <h1>2048 Game</h1>
+
+    <div class="score-row">
+      <div class="scores">
+        <div class="score-box"><small>Score</small><strong id="score">20</strong></div>
+        <div class="score-box"><small>Best</small><strong id="best">20</strong></div>
+      </div>
+      <button class="btn new-game" id="newGame">New game</button>
+    </div>
+
+    <section class="board" id="board" aria-label="2048 board"></section>
+
+    <div class="ad-area">
+      <img src="../../../data/data/1/assets/015.png" width="294" height="255" alt="Advertisement">
+    </div>
+  </main>
+
+  <section class="instructions">
+    <p>
+      Use your arrow keys (also W, A, S, and D keys alternatively) or swipe with your fingers to move the tiles.
+      For example, if you joined 2 tiles with the number 2, they will become 4, 2 tiles with 4 will become 8,
+      and so on. The point of the game is to get the 2048 tile!
+    </p>
+  </section>
+
+  <section class="other-games">
+    <h2>Play Other Games</h2>
+    <div class="cards">
+      <button class="btn game-card"><img src="../../../data/data/1/assets/004.png" width="200" height="125" alt="Tetris"></button>
+      <button class="btn game-card"><img src="../../../data/data/1/assets/007.png" width="200" height="125" alt="Number game"></button>
+      <button class="btn game-card"><img src="../../../data/data/1/assets/008.png" width="200" height="125" alt="Calculator game"></button>
+      <button class="btn game-card"><img src="../../../data/data/1/assets/009.png" width="200" height="125" alt="Cards game"></button>
+    </div>
+  </section>
+</div>
+
+<script>
+  const boardEl = document.getElementById('board');
+  const scoreEl = document.getElementById('score');
+  const bestEl = document.getElementById('best');
+  const newGameBtn = document.getElementById('newGame');
+  const classicBtn = document.getElementById('classicBtn');
+  const cupcakeBtn = document.getElementById('cupcakeBtn');
+
+  let board = [
+    [0,0,2,0],
+    [0,0,0,0],
+    [0,2,4,2],
+    [0,0,8,0]
+  ];
+  let score = 20;
+  let best = 20;
+
+  function render(){
+    boardEl.innerHTML = '';
+    board.forEach(row=>{
+      row.forEach(value=>{
+        const cell = document.createElement('div');
+        cell.className = 'cell';
+        if(value){
+          const tile = document.createElement('div');
+          tile.className = 'tile tile-' + value;
+          tile.textContent = value;
+          cell.appendChild(tile);
+        }
+        boardEl.appendChild(cell);
+      });
+    });
+    scoreEl.textContent = score;
+    bestEl.textContent = best;
+  }
+
+  function emptyCells(){
+    const cells=[];
+    for(let r=0;r<4;r++) for(let c=0;c<4;c++) if(!board[r][c]) cells.push([r,c]);
+    return cells;
+  }
+
+  function addRandom(){
+    const cells=emptyCells();
+    if(!cells.length)return;
+    const [r,c]=cells[Math.floor(Math.random()*cells.length)];
+    board[r][c]=Math.random()<.9?2:4;
+  }
+
+  function compact(line){
+    return line.filter(v=>v);
+  }
+
+  function merge(line){
+    let result=[], gained=0;
+    for(let i=0;i<line.length;i++){
+      if(line[i]===line[i+1]){
+        const val=line[i]*2;
+        result.push(val); gained+=val; i++;
+      }else result.push(line[i]);
+    }
+    while(result.length<4)result.push(0);
+    return {result,gained};
+  }
+
+  function move(dir){
+    const before=JSON.stringify(board);
+    let gained=0;
+    if(dir==='left'||dir==='right'){
+      for(let r=0;r<4;r++){
+        let line=compact(board[r]);
+        if(dir==='right')line.reverse();
+        const merged=merge(line);
+        gained+=merged.gained;
+        if(dir==='right')merged.result.reverse();
+        board[r]=merged.result;
+      }
+    }else{
+      for(let c=0;c<4;c++){
+        let line=[];
+        for(let r=0;r<4;r++)line.push(board[r][c]);
+        if(dir==='down')line.reverse();
+        line=compact(line);
+        const merged=merge(line);
+        gained+=merged.gained;
+        let result=merged.result;
+        if(dir==='down')result.reverse();
+        for(let r=0;r<4;r++)board[r][c]=result[r];
+      }
+    }
+    if(JSON.stringify(board)!==before){
+      score+=gained;
+      if(score>best)best=score;
+      addRandom();
+      render();
+    }
+  }
+
+  function reset(){
+    board=[
+      [0,0,2,0],
+      [0,0,0,0],
+      [0,2,4,2],
+      [0,0,8,0]
+    ];
+    score=20;
+    render();
+  }
+
+  document.addEventListener('keydown',e=>{
+    const key=e.key.toLowerCase();
+    const map={arrowleft:'left',a:'left',arrowright:'right',d:'right',arrowup:'up',w:'up',arrowdown:'down',s:'down'};
+    if(map[key]){
+      e.preventDefault();
+      move(map[key]);
+    }
+  });
+
+  let touchStart=null;
+  boardEl.addEventListener('touchstart',e=>{touchStart=e.touches[0]},{passive:true});
+  boardEl.addEventListener('touchend',e=>{
+    if(!touchStart)return;
+    const t=e.changedTouches[0], dx=t.clientX-touchStart.clientX, dy=t.clientY-touchStart.clientY;
+    if(Math.max(Math.abs(dx),Math.abs(dy))<25)return;
+    if(Math.abs(dx)>Math.abs(dy))move(dx>0?'right':'left');
+    else move(dy>0?'down':'up');
+    touchStart=null;
+  },{passive:true});
+
+  newGameBtn.addEventListener('click',reset);
+  classicBtn.addEventListener('click',()=>{
+    classicBtn.classList.add('active');
+    cupcakeBtn.classList.remove('active');
+  });
+  cupcakeBtn.addEventListener('click',()=>{
+    cupcakeBtn.classList.add('active');
+    classicBtn.classList.remove('active');
+  });
+
+  render();
+</script>
+</body>
+</html>

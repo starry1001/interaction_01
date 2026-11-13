@@ -2,7 +2,6 @@ import os
 
 API_CONFIG = {
     "claude":{
-        "max_tokens": 16384,
         "max_images": 70,
         "video_fps": 1,
         "max_video_frames": 64,
@@ -10,49 +9,42 @@ API_CONFIG = {
         "max_single_image_size": 1000,
     },
     "glm": {
-        "max_tokens": 16384,
         "max_images": 20,
         "video_fps": 1,
         "max_video_frames": 20,
         "timeout": 600
     },
     "qwen": {
-        "max_tokens": 4096,
         "max_images": 20,
         "video_fps": 1,
         "max_video_frames": 20,
         "timeout": 300,
     },
     "gpt-4o-2024-05-13": {
-        "max_tokens": 4096,
         "max_images": 70,
         "video_fps": 1,
         "max_video_frames": 64,
         "timeout": 600
     },
     "gpt-5": {
-        "max_tokens": 16384,
         "max_images": 70,
         "video_fps": 1,
         "max_video_frames": 64,
         "timeout": 600
     },
     "doubao-seed-1-6-thinking-250615": {
-        "max_tokens": 16384,
         "max_images": 70,
         "video_fps": 1,
         "max_video_frames": 64,
         "timeout": 600
     },
     "gpt-4.1-2025-04-14":{
-        "max_tokens": 16384,
         "max_images": 70,
         "video_fps": 1,
         "max_video_frames": 64,
         "timeout": 600
     },
     "default": {
-        "max_tokens": 16384,
         "max_images": 70,
         "video_fps": 1,
         "max_video_frames": 64,

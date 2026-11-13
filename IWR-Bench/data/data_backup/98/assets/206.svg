@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16">
+    <g fill="none" fill-rule="evenodd">
+        <g>
+            <g>
+                <g transform="translate(-229 -794) translate(229 794) translate(1.214 1.2)">
+                    <ellipse cx="7.367" cy="6.76" fill="#00AEEF" rx="6.84" ry="6.76"/>
+                    <path fill="#FFF" d="M5.779 3.6L8.979 6.48 8.979 6.48 9.779 7.2 5.779 10.8 4.979 10.08 8.179 7.2 4.979 4.32z" transform="rotate(90 7.379 7.2)"/>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

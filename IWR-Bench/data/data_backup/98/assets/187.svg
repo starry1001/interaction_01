@@ -1,0 +1,18 @@
+<svg height="21" version="1.1" width="27" xmlns="http://www.w3.org/2000/svg" class="practice-audio-button-svg"><desc>Created with Snap</desc><defs></defs><!--?xml version="1.0" encoding="utf-8"?-->
+<!-- Generator: Adobe Illustrator 19.2.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 60.6 48.1" width="27px" height="21px" style="enable-background:new 0 0 60.6 48.1;" xml:space="preserve">
+    <g class="audio_speaker" style="fill: #00aeef">
+        <path d="M30.3,42.9c0,1.1-0.6,2-1.6,2.5c-0.4,0.2-0.8,0.3-1.2,0.3c-0.6,0-1.2-0.2-1.8-0.6l-15-12.4h-8
+            C1.2,32.7,0,31.5,0,30V18.9c0-1.5,1.2-2.7,2.7-2.7h8l15-12.4c0.8-0.7,2-0.8,2.9-0.4c1,0.5,1.6,1.4,1.6,2.5L30.3,42.9z"></path>
+    </g>
+    <g class="audio_waves" style="fill: #00aeef">
+        <path d="M40.7,38.5c-0.6,0-1.3-0.1-2.3-1c-1-0.9-1.1-2.5-0.3-3.6c2.1-2.8,3.1-6.1,3.1-9.5c0-3.7-1.2-7.2-3.6-10.1
+            c-0.9-1.1-0.8-2.7,0.2-3.7l0.4-0.4c0.5-0.5,1.3-0.8,2.1-0.8s1.5,0.4,2,1c3.2,4,4.9,8.8,4.9,13.9c0,4.8-1.5,9.3-4.4,13.1
+            C42.3,38.1,41.3,38.5,40.7,38.5z">
+        </path>
+        <path d="M52.2,47.1c-0.5,0.6-1.2,0.9-2,1h-0.1c-0.7,0-1.4-0.3-1.9-0.8l-0.4-0.4c-1-1-1.1-2.6-0.2-3.7
+            c4.4-5.3,6.9-11.9,6.9-18.8c0-7.2-2.6-14-7.3-19.4c-1-1.1-0.9-2.7,0.1-3.8l0.4-0.4c0.5-0.5,1.2-0.8,2-0.8s1.5,0.4,2,0.9
+            c5.7,6.4,8.9,14.8,8.9,23.4C60.5,32.7,57.6,40.8,52.2,47.1L52.2,47.1z">
+        </path>
+    </g>
+</svg></svg>

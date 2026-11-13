@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" xml:space="preserve">
+  <title>icon-highlight-storagetype-ssd.svg</title>
+<metadata><?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 8.0-c001 1.000000, 0000/00/00-00:00:00        ">
+   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about=""
+            xmlns:dc="http://purl.org/dc/elements/1.1/"
+            xmlns:ns1="http://www.bestbuy.com/bby">
+         <dc:format>image/svg+xml</dc:format>
+         <dc:modified>2024-10-16T22:36:19.880Z</dc:modified>
+         <dc:title>
+            <rdf:Alt>
+               <rdf:li xml:lang="x-default">icon-highlight-storagetype-ssd.svg</rdf:li>
+            </rdf:Alt>
+         </dc:title>
+         <ns1:assetType>
+            <rdf:Bag>
+               <rdf:li>assetType:derived/graphic/icon---general-icon</rdf:li>
+            </rdf:Bag>
+         </ns1:assetType>
+         <ns1:sourceType>
+            <rdf:Bag>
+               <rdf:li>sourceType:best-buy</rdf:li>
+            </rdf:Bag>
+         </ns1:sourceType>
+         <ns1:category>
+            <rdf:Bag>
+               <rdf:li>category:global</rdf:li>
+            </rdf:Bag>
+         </ns1:category>
+      </rdf:Description>
+   </rdf:RDF>
+</x:xmpmeta>
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                           
+<?xpacket end="w"?></metadata>
+<path d="M24.75 29H7.25c-1.52 0-2.75-1.23-2.75-2.75V5.75C4.5 4.23 5.73 3 7.25 3h2.87c.57 0 1.11.17 1.58.5l1.11.78c.21.15.46.23.72.23h4.91c.25 0 .49-.07.7-.22l1.19-.81c.46-.31.99-.48 1.55-.48h2.88c1.52 0 2.75 1.23 2.75 2.75v20.5c0 1.52-1.23 2.75-2.75 2.75ZM7.25 4.5C6.56 4.5 6 5.06 6 5.75v20.5c0 .69.56 1.25 1.25 1.25h17.5c.69 0 1.25-.56 1.25-1.25V5.75c0-.69-.56-1.25-1.25-1.25h-2.88c-.25 0-.49.07-.7.22l-1.19.81c-.46.31-.99.48-1.55.48h-4.91c-.57 0-1.11-.17-1.58-.5l-1.11-.78c-.21-.15-.46-.23-.72-.23H7.24Z"/>
+  <path d="M20.25 4c-.41 0-.75.34-.75.75v1.5c0 .69-.56 1.25-1.25 1.25h-1.5V5.25c0-.41-.34-.75-.75-.75s-.75.34-.75.75V7.5h-1.5c-.69 0-1.25-.56-1.25-1.25v-1.5c0-.41-.34-.75-.75-.75s-.75.34-.75.75v1.5C11 7.77 12.23 9 13.75 9h4.5C19.77 9 21 7.77 21 6.25v-1.5c0-.41-.34-.75-.75-.75Z"/>
+  <circle cx="24" cy="7" r="1"/>
+  <circle cx="24" cy="25" r="1"/>
+  <circle cx="8" cy="25" r="1"/>
+  <circle cx="8" cy="7" r="1"/>
+</svg>

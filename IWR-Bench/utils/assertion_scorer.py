@@ -49,7 +49,7 @@ class AssertionScorer:
         }]
 
         try:
-            response = self.client.chat.completions.create(model=self.model, messages=messages, temperature=0, max_tokens=4096, timeout=120)
+            response = self.client.chat.completions.create(model=self.model, messages=messages, temperature=0, timeout=120)
             full_response = response.choices[0].message.content.strip()
             try:
                 if "```json" in full_response:

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="142" height="38" viewBox="0 0 142 38">
+    <g fill="none" fill-rule="evenodd">
+        <g>
+            <g>
+                <g>
+                    <g>
+                        <g>
+                            <g>
+                                <path fill="#52B601" d="M0 10L141 10 131 24 141 38 0 38z" transform="translate(-386 -1580) translate(-65 691) translate(230.5 489.5) translate(56 298.5) translate(165 101) matrix(-1 0 0 1 141 0)"/>
+                                <path fill="#387C00" d="M0 0L7 0 7 10z" transform="translate(-386 -1580) translate(-65 691) translate(230.5 489.5) translate(56 298.5) translate(165 101) matrix(-1 0 0 1 141 0) matrix(1 0 0 -1 0 10)"/>
+                            </g>
+                            <text fill="#FFF" font-family="Verdana" font-size="14" transform="translate(-386 -1580) translate(-65 691) translate(230.5 489.5) translate(56 298.5) translate(165 101)">
+                                <tspan x="26.886" y="28">Language arts</tspan>
+                            </text>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,18 @@
+<svg width="56" height="51" viewBox="0 0 56 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Walt Disney World / epcot" opacity="0.4">
+<g id="vector">
+<path d="M52.6197 52.162L52.6403 52.1854V52.1621L52.6197 52.162Z" fill="url(#paint0_linear_2054_3455)"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M52.6197 52.162L44.1237 42.5021C48.207 38.3954 50.7037 32.7488 50.7037 26.5188C50.7037 13.9888 40.5303 3.81543 28.0003 3.81543C15.4704 3.81543 5.29702 13.9654 5.29702 26.4954C5.29702 32.7254 7.81702 38.3721 11.877 42.4788L3.36035 52.1621L15.7737 52.0921L18.0604 46.9121C21.0704 48.3821 24.4303 49.1988 28.0003 49.1988C31.5703 49.1988 34.9303 48.3821 37.9403 46.9121L40.227 52.0921L52.6197 52.162ZM33.5304 18.1654L29.727 24.7454H37.3337L33.5304 31.3254H41.137L37.3337 24.7454L35.4441 21.4555L33.5304 18.1654L41.137 18.1655L37.3337 11.5854L33.5304 18.1654ZM33.5304 18.1654L29.727 11.5854L25.9237 18.1654H33.5304ZM41.137 18.1655L39.2474 21.4555L37.3337 24.7454H44.9403L41.137 18.1655Z" fill="url(#paint1_linear_2054_3455)"/>
+</g>
+</g>
+<defs>
+<linearGradient id="paint0_linear_2054_3455" x1="28.0003" y1="3.81543" x2="28.0003" y2="52.1854" gradientUnits="userSpaceOnUse">
+<stop stop-color="#ABCDFF"/>
+<stop offset="1" stop-color="#B8D5FF" stop-opacity="0.4"/>
+</linearGradient>
+<linearGradient id="paint1_linear_2054_3455" x1="28.0003" y1="3.81543" x2="28.0003" y2="52.1854" gradientUnits="userSpaceOnUse">
+<stop stop-color="#ABCDFF"/>
+<stop offset="1" stop-color="#B8D5FF" stop-opacity="0.4"/>
+</linearGradient>
+</defs>
+</svg>

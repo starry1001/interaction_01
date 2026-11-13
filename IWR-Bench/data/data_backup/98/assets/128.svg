@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="138" height="39" viewBox="0 0 138 39">
+    <g fill="none" fill-rule="evenodd">
+        <g>
+            <g>
+                <g>
+                    <g>
+                        <g>
+                            <g>
+                                <path fill="#F48522" d="M0 10L136.824 10 126.824 24 136.824 38 0 38z" transform="translate(-827 -1811) translate(-65 691) translate(230.5 489.5) translate(507.5 530) translate(154.676 101) matrix(-1 0 0 1 136.824 0)"/>
+                                <path fill="#C15E00" d="M0 0L7 0 7 10z" transform="translate(-827 -1811) translate(-65 691) translate(230.5 489.5) translate(507.5 530) translate(154.676 101) matrix(-1 0 0 1 136.824 0) matrix(1 0 0 -1 0 10)"/>
+                            </g>
+                            <text fill="#FFF" font-family="Verdana" font-size="14" transform="translate(-827 -1811) translate(-65 691) translate(230.5 489.5) translate(507.5 530) translate(154.676 101)">
+                                <tspan x="24.564" y="28">Social Studies</tspan>
+                            </text>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

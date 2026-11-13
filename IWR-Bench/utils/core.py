@@ -187,7 +187,7 @@ def mock_model_call(prompt: str, image_paths: List[str], resolution: str) -> str
     return html
 
 
-def call_mllm(model_name: str, content_list: List[dict], timeout: int = 300, max_tokens: int = 16384, extra_params: dict | None = None, http_client=None) -> str:
+def call_mllm(model_name: str, content_list: List[dict], timeout: int = 300, extra_params: dict | None = None, http_client=None) -> str:
     api_key = os.getenv('OPENAI_API_KEY')
     base_url = os.getenv('OPENAI_BASE_URL', None)
     if not api_key:
@@ -209,7 +209,6 @@ def call_mllm(model_name: str, content_list: List[dict], timeout: int = 300, max
     api_params = {
         "model": model_name,
         "messages": [{"role": "user", "content": content_list}],
-        "max_tokens": max_tokens,
         "temperature": 0.0,
     }
     if extra_params:
@@ -238,7 +237,7 @@ def call_mllm_html(model_name: str, image_paths: List[str], video_path: str, tem
             "image_url": {"url": f"data:{get_media_type(img_path)};base64,{encode_file(img_path)}"}
         })
 
-    return call_mllm(model_name, content_list, timeout=config_dict.get('timeout', 300), max_tokens=config_dict.get('max_tokens', 16384), extra_params=config_dict.get('extra_params', None))
+    return call_mllm(model_name, content_list, timeout=config_dict.get('timeout', 300), extra_params=config_dict.get('extra_params', None))
 
 
 __all__ = [
