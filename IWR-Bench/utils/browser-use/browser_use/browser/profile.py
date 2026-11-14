@@ -690,6 +690,8 @@ class BrowserProfile(BrowserConnectArgs, BrowserLaunchPersistentContextArgs, Bro
 		pre_conversion_args = [
 			*default_args,
 			*self.args,
+			# Playwright >=1.58 removed the devtools keyword; use Chromium's CLI flag instead.
+			*(['--auto-open-devtools-for-tabs'] if self.devtools else []),
 			f'--profile-directory={self.profile_directory}',
 			*(CHROME_DOCKER_ARGS if CONFIG.IN_DOCKER else []),
 			*(CHROME_HEADLESS_ARGS if self.headless else []),

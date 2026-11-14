@@ -997,7 +997,7 @@ class BrowserSession(BaseModel):
 					try:
 						assert self.playwright is not None, 'playwright instance is None'
 						self.browser_context = await self.playwright.chromium.launch_persistent_context(
-							**self.browser_profile.kwargs_for_launch_persistent_context().model_dump(mode='json')
+							**self.browser_profile.kwargs_for_launch_persistent_context().model_dump(mode='json', exclude={'devtools'})
 						)
 					except Exception as e:
 						# Check if it's a SingletonLock error
@@ -1012,7 +1012,7 @@ class BrowserSession(BaseModel):
 							# Retry the launch
 							assert self.playwright is not None, 'playwright instance is None'
 							self.browser_context = await self.playwright.chromium.launch_persistent_context(
-								**self.browser_profile.kwargs_for_launch_persistent_context().model_dump(mode='json')
+								**self.browser_profile.kwargs_for_launch_persistent_context().model_dump(mode='json', exclude={'devtools'})
 							)
 						# Re-raise if not a timeout
 						elif not isinstance(e, asyncio.TimeoutError):
@@ -1028,7 +1028,7 @@ class BrowserSession(BaseModel):
 				async with asyncio.timeout(self.browser_profile.timeout / 1000):
 					assert self.playwright is not None, 'playwright instance is None'
 					self.browser_context = await self.playwright.chromium.launch_persistent_context(
-						**self.browser_profile.kwargs_for_launch_persistent_context().model_dump(mode='json')
+						**self.browser_profile.kwargs_for_launch_persistent_context().model_dump(mode='json', exclude={'devtools'})
 					)
 			except Exception as e:
 				# show a nice logger hint explaining what went wrong with the user_data_dir
