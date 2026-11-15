@@ -49,6 +49,7 @@ dmypy.json
 
 # Results and logs
 datasets/
+data/vision2web_frontend_download/
 results/
 logs/
 *.log

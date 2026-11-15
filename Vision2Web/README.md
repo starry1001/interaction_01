@@ -73,6 +73,14 @@ Vision2Web is licensed under CC-BY-NC-SA-4.0 and is intended for academic resear
 
 ### Download
 
+To download and extract only the **frontend** subset (66 tasks, approximately 2.63 GB compressed):
+
+```bash
+python scripts/download_frontend.py
+```
+
+This uses `huggingface_hub`, downloads only the frontend archive and its index from the `main` branch, and extracts tasks to `datasets/frontend/`. The `frontend` name is a subset, not a Git branch. Interrupted downloads resume when the command is rerun. Raw downloads are retained in `data/vision2web_frontend_download/`; use `--datasets-dir`, `--download-dir`, or `--download-only` to customize the operation.
+
 The dataset is organized in the following structure:
 
 ```
