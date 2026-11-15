@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pomofocus</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;color:#fff}
+  body{background:#b83d4e}
+  button,input{font:inherit}
+  .app{min-height:100vh;background:#b83d4e;padding:20px 18px 35px;transition:.25s}
+  .app.break{background:#8b6669}
+  .app.long{background:#3d8c8d}
+  .wrap{max-width:610px;margin:auto}
+  header{height:70px;border-bottom:1px solid rgba(80,20,30,.25);display:flex;align-items:flex-start;justify-content:space-between}
+  .brand{font-weight:bold;font-size:27px;line-height:44px;white-space:nowrap}
+  .brand:before{content:"✓";display:inline-flex;width:27px;height:27px;border-radius:50%;background:#fff;color:#b83d4e;align-items:center;justify-content:center;font-size:21px;margin-right:7px;vertical-align:2px}
+  .break .brand:before{color:#8b6669}.long .brand:before{color:#3d8c8d}
+  .head-actions{display:flex;gap:12px}
+  .icon-btn{border:0;border-radius:5px;background:rgba(255,255,255,.17);color:white;width:50px;height:50px;font-size:25px;cursor:pointer}
+  .icon-btn.small{width:50px;height:50px}
+  .timer-card{margin-top:60px;background:rgba(255,255,255,.13);border-radius:6px;padding:30px 18px 35px;text-align:center}
+  .modes{display:flex;justify-content:center;gap:15px;align-items:center;font-size:24px}
+  .mode{border:0;background:transparent;color:#fff;padding:8px 12px;border-radius:4px;cursor:pointer}
+  .mode.active{background:rgba(120,25,40,.28);font-weight:bold}
+  .time{font-size:148px;line-height:1.05;font-weight:bold;letter-spacing:-4px;margin:45px 0 42px}
+  .start{width:300px;height:90px;border:0;border-radius:5px;background:#fff;color:#a93647;font-weight:bold;font-size:29px;box-shadow:0 5px 0 rgba(0,0,0,.08);cursor:pointer}
+  .break .start{color:#8b6669}.long .start{color:#3d8c8d}
+  .skip{margin-left:20px;font-size:28px;vertical-align:middle;cursor:pointer;display:none}
+  .session{text-align:center;margin-top:30px;font-size:21px;line-height:1.35}
+  .session small{display:block;font-size:19px;opacity:.8}
+  .tasks-head{display:flex;justify-content:space-between;align-items:center;margin-top:38px}
+  .tasks-head h2{font-size:25px;margin:0}
+  .task-menu{width:50px;height:50px;border:0;border-radius:5px;color:#fff;background:rgba(255,255,255,.17);font-size:27px;cursor:pointer}
+  .rule{height:3px;background:rgba(255,255,255,.75);margin:20px 0 10px}
+  .add-task{height:95px;border:3px dashed rgba(255,255,255,.38);border-radius:10px;color:rgba(255,255,255,.7);background:transparent;width:100%;font-size:24px;font-weight:bold;cursor:pointer}
+  .task-row{height:64px;background:#fff;border-left:6px solid #333;border-radius:5px;margin:14px 0 6px;color:#555;display:flex;align-items:center;padding:0 14px;gap:12px;font-weight:bold}
+  .check{width:25px;height:25px;border-radius:50%;border:2px solid #ddd;color:#fff;background:#ddd;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+  .task-row.done .check{background:#d18a97;border-color:#d18a97}
+  .task-row.done .task-name{text-decoration:line-through;color:#aaa}
+  .task-name{flex:1}
+  .count{color:#aaa}
+  .row-more{background:#eee;border:0;color:#999;border-radius:3px;padding:5px;font-size:20px;cursor:pointer}
+  .editor{background:#fff;color:#555;border-radius:6px;overflow:hidden;margin-top:10px;box-shadow:0 2px 5px rgba(0,0,0,.15)}
+  .editor-main{padding:18px 15px 15px}
+  .task-input{display:block;width:100%;height:52px;border:1px solid #d9dce4;border-radius:5px;padding:0 8px;font-size:22px;color:#555}
+  .task-input::placeholder{font-style:italic;font-weight:bold;color:#d8d8dc}
+  .est{font-weight:bold;margin-top:16px}
+  .est-row{display:flex;gap:9px;margin-top:8px}
+  .estimate{width:58px;height:42px;background:#eee;border:0;border-radius:5px;padding-left:10px}
+  .arrow{width:38px;height:42px;background:#fff;border:1px solid #ddd;border-radius:7px;color:#777;cursor:pointer}
+  .links{margin-top:13px;color:#999;text-decoration:underline;font-size:15px}
+  .editor-foot{height:55px;background:#f6f6f6;display:flex;align-items:center;justify-content:flex-end;gap:20px;padding:0 15px;color:#999;font-size:14px}
+  .cancel{border:0;background:none;color:#999;cursor:pointer}
+  .save{border:0;background:#45464e;color:#fff;border-radius:9px;padding:10px 20px;font-weight:bold;cursor:pointer}
+  .pomodoro-summary{height:55px;background:rgba(255,255,255,.13);border-top:1px solid rgba(255,255,255,.4);margin-top:20px;text-align:center;padding:18px;font-size:16px}
+  .pomodoro-summary b{font-size:22px}
+  .info{background:#fff;color:#60303a;padding:28px 18px 40px}
+  .info h1{font-size:23px;line-height:1.25;margin:0 0 30px}
+  .info h2{font-size:19px;margin:0 0 25px}
+  .info h2:after{content:"";display:block;width:18px;height:3px;background:#e88c9a;margin-top:10px}
+  .info p{font-size:15px;line-height:1.6;color:#6c6265;margin:0}
+  .info a{color:#e24b5e}
+  .toast{position:fixed;bottom:16px;left:10px;right:10px;background:#fff;color:#333;border-radius:7px;padding:15px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 8px #3335;font-size:15px}
+  .toast button{background:#4ca88e;border:0;color:#fff;border-radius:4px;padding:9px 14px;cursor:pointer}
+  .dropdown{position:absolute;right:18px;top:76px;background:#fff;color:#555;width:190px;border-radius:4px;box-shadow:0 3px 10px #0004;z-index:5;display:none}
+  .dropdown button{display:block;border:0;background:#fff;width:100%;text-align:left;padding:14px;cursor:pointer;color:#555}
+  .dropdown button:hover{background:#eee}
+  .confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:10}
+  .confetti i{position:absolute;width:8px;height:8px;animation:fall 2.4s linear forwards}
+  @keyframes fall{0%{transform:translateY(-20px) rotate(0)}100%{transform:translateY(100vh) rotate(700deg)}}
+  @media(max-width:650px){
+    .app{padding:10px 9px 25px}
+    header{height:36px}
+    .brand{font-size:16px;line-height:28px}
+    .brand:before{width:15px;height:15px;font-size:12px;margin-right:3px;vertical-align:1px}
+    .head-actions{gap:7px}
+    .icon-btn,.icon-btn.small{width:29px;height:29px;font-size:16px}
+    .timer-card{margin-top:30px;padding:15px 10px 18px}
+    .modes{font-size:13px;gap:1px}
+    .mode{padding:5px 8px}
+    .time{font-size:76px;letter-spacing:-2px;margin:26px 0 22px}
+    .start{width:150px;height:46px;font-size:17px}
+    .session{font-size:14px;margin-top:14px}.session small{font-size:13px}
+    .tasks-head{margin-top:24px}.tasks-head h2{font-size:15px}
+    .task-menu{width:29px;height:29px;font-size:17px}
+    .rule{height:2px;margin:10px 0 12px}
+    .add-task{height:49px;font-size:14px;border-width:2px}
+    .task-row{height:48px;font-size:13px;margin:8px 0 5px;padding:0 9px}
+    .check{width:19px;height:19px}.row-more{font-size:15px}
+    .editor-main{padding:17px 15px 12px}
+    .task-input{height:35px;font-size:18px}
+    .est{font-size:13px;margin-top:12px}.estimate,.arrow{height:30px}.estimate{width:56px}.arrow{width:30px}
+    .links{font-size:12px;margin-top:10px}
+    .editor-foot{height:49px;font-size:12px}
+    .save{padding:8px 15px}
+    .pomodoro-summary{font-size:12px;padding:16px}.pomodoro-summary b{font-size:18px}
+    .info{padding:25px 9px}.info h1{font-size:19px;margin-bottom:27px}.info h2{font-size:16px}.info p{font-size:13px}
+  }
+</style>
+</head>
+<body>
+<div id="app" class="app">
+  <div class="wrap">
+    <header>
+      <div class="brand">Pomofocus</div>
+      <div class="head-actions">
+        <button class="btn icon-btn" title="Reports" onclick="noop()">▥</button>
+        <button class="btn icon-btn" title="Settings" onclick="noop()">⚙</button>
+        <button class="btn icon-btn" title="Account" onclick="noop()">●</button>
+        <button class="btn icon-btn" title="More" onclick="toggleMenu()">⋮</button>
+      </div>
+    </header>
+    <div id="dropdown" class="dropdown">
+      <button class="btn" onclick="clearTasks()">Clear finished tasks</button>
+      <button class="btn" onclick="alert('Settings')">Settings</button>
+      <button class="btn" onclick="alert('Keyboard shortcuts')">Keyboard shortcuts</button>
+    </div>
+
+    <section class="timer-card">
+      <div class="modes">
+        <button class="btn mode active" data-mode="pomodoro" onclick="setMode('pomodoro')">Pomodoro</button>
+        <button class="btn mode" data-mode="short" onclick="setMode('short')">Short Break</button>
+        <button class="btn mode" data-mode="long" onclick="setMode('long')">Long Break</button>
+      </div>
+      <div id="time" class="time">25:00</div>
+      <button id="start" class="btn start" onclick="toggleTimer()">START</button><span id="skip" class="skip btn" onclick="skipTimer()">▶|</span>
+    </section>
+
+    <div class="session"><small>#1</small><span id="sessionText">Time to focus!</span></div>
+
+    <section class="tasks">
+      <div class="tasks-head"><h2>Tasks</h2><button class="btn task-menu" onclick="toggleMenu()">⋮</button></div>
+      <div class="rule"></div>
+      <div id="taskArea">
+        <button class="btn add-task" onclick="openEditor()">⊕&nbsp; Add Task</button>
+      </div>
+      <div id="summary" class="pomodoro-summary" style="display:none">Pomos: <b>0 / 1</b>&nbsp;&nbsp; Finish At: <b>14:57</b> (0h)</div>
+    </section>
+  </div>
+</div>
+
+<section class="info" id="info" style="display:none">
+  <div class="wrap">
+    <h1>An online Pomodoro Timer to boost<br>your productivity</h1>
+    <h2>What is Pomofocus?</h2>
+    <p>Pomofocus is a customizable pomodoro timer that works on desktop &amp; mobile browser. The aim of this app is to help you focus on any task you are working on, such as study, writing, or coding. This app is inspired by <a>Pomodoro Technique</a> which is a time management method developed by Francesco Cirillo.</p>
+  </div>
+</section>
+
+<script>
+let mode='pomodoro', seconds=1500, timer=null, running=false, task=null, editor=false, completed=false;
+const app=document.getElementById('app'), timeEl=document.getElementById('time'), startEl=document.getElementById('start');
+function noop(){}
+function setMode(m){
+  if(running)return;
+  mode=m; seconds=m==='pomodoro'?1500:m==='short'?300:900;
+  app.className='app '+(m==='short'?'break':m==='long'?'long':'');
+  document.querySelectorAll('.mode').forEach(x=>x.classList.toggle('active',x.dataset.mode===m));
+  document.getElementById('sessionText').textContent=m==='pomodoro'?'Time to focus!':'Time for a break!';
+  updateTime();
+}
+function updateTime(){let s=seconds;timeEl.textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
+function toggleTimer(){
+  if(running){clearInterval(timer);running=false;startEl.textContent='START';document.getElementById('skip').style.display='none';return}
+  running=true;startEl.textContent='PAUSE';document.getElementById('skip').style.display='inline-block';
+  timer=setInterval(()=>{seconds--;updateTime();if(seconds<=0){clearInterval(timer);running=false;startEl.textContent='START';completeTimer()}},1000)
+}
+function skipTimer(){clearInterval(timer);running=false;startEl.textContent='START';setMode(mode==='pomodoro'?'short':'pomodoro')}
+function openEditor(){
+  editor=true; document.getElementById('info').style.display='block';
+  renderTasks();
+  setTimeout(()=>document.querySelector('.task-input')?.focus(),30)
+}
+function renderTasks(){
+  const area=document.getElementById('taskArea');
+  let html='';
+  if(task) html+=`<div class="task-row ${completed?'done':''}"><span class="btn check" onclick="toggleDone()">✓</span><span class="task-name">${task}</span><span class="count">0 / 1</span><button class="btn row-more">⋮</button></div>`;
+  if(editor) html+=`<div class="editor"><div class="editor-main"><input class="task-input" id="taskInput" placeholder="What are you working on?" value="${task||''}"><div class="est">Est Pomodoros</div><div class="est-row"><input class="estimate" value="1"><button class="btn arrow">⌃</button><button class="btn arrow">⌄</button></div><div class="links">＋ Add Note&nbsp;&nbsp; ＋ Add Project&nbsp; 🔒</div></div><div class="editor-foot"><button class="btn cancel" onclick="cancelEditor()">Cancel</button><button class="btn save" onclick="saveTask()">Save</button></div></div>`;
+  if(!editor && !task) html='<button class="btn add-task" onclick="openEditor()">⊕&nbsp; Add Task</button>';
+  if(!editor && task) html+='<button class="btn add-task" onclick="openEditor()">⊕&nbsp; Add Task</button>';
+  area.innerHTML=html;
+  document.getElementById('summary').style.display=task?'block':'none';
+}
+function saveTask(){
+  const input=document.getElementById('taskInput'); if(!input||!input.value.trim())return;
+  task=input.value.trim(); editor=false; renderTasks();
+}
+function cancelEditor(){editor=false;renderTasks();if(!task)document.getElementById('info').style.display='none'}
+function toggleDone(){completed=!completed;renderTasks();if(completed){document.getElementById('summary').innerHTML='Pomos: <b>0 / 0</b>&nbsp;&nbsp; Finish At: <b>14:32</b> (0h)';showToast()}}
+function showToast(){
+  if(document.querySelector('.toast'))return;
+  const t=document.createElement('div');t.className='toast';t.innerHTML=`<span>You've finished all your tasks for today 🎉</span><button class="btn" onclick="clearTasks()">Clear Tasks</button>`;document.body.appendChild(t)
+}
+function clearTasks(){
+  task=null;completed=false;editor=false;document.querySelector('.toast')?.remove();document.getElementById('info').style.display='none';renderTasks();makeConfetti()
+}
+function toggleMenu(){const d=document.getElementById('dropdown');d.style.display=d.style.display==='block'?'none':'block'}
+function completeTimer(){if(task){completed=true;renderTasks();showToast()}else makeConfetti()}
+function makeConfetti(){
+  const box=document.createElement('div');box.className='confetti';
+  const colors=['#fff','#f7d35c','#48cf80','#42a5f5','#d65fe8','#ff8b4d'];
+  for(let i=0;i<80;i++){let x=document.createElement('i');x.style.left=Math.random()*100+'%';x.style.top=(Math.random()*25+20)+'%';x.style.background=colors[i%colors.length];x.style.animationDelay=Math.random()*.8+'s';x.style.transform=`rotate(${Math.random()*360}deg)`;box.appendChild(x)}
+  document.body.appendChild(box);setTimeout(()=>box.remove(),3000)
+}
+updateTime();
+</script>
+</body>
+</html>

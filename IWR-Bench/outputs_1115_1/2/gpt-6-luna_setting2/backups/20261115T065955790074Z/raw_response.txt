@@ -1,0 +1,156 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apple Music Beta</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;width:100%;height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:#262626;overflow:hidden}
+  button{font-family:inherit;border:0;background:none;cursor:pointer}
+  .btn{cursor:pointer}
+  .app{width:100vw;height:100vh;background:#fafafa;display:flex;flex-direction:column}
+  .topbar{
+    height:58px;min-height:58px;background:#f8f8f8;border-bottom:1px solid #d8d8d8;
+    display:flex;align-items:center;padding-left:calc(13.5vw + 80px);padding-right:18px;position:relative;
+    color:#656565;font-size:12px
+  }
+  .transport{display:flex;align-items:center;gap:13px;width:180px}
+  .transport button{font-size:13px;color:#666;padding:2px}
+  .transport .play{font-size:16px}
+  .trackbar{height:100%;flex:1;display:flex;align-items:center;justify-content:center;gap:14px}
+  .mini-cover{width:24px;height:24px;object-fit:cover}
+  .mini-info{width:300px;text-align:center;line-height:13px;font-size:10px;color:#8a8a8a}
+  .mini-info b{display:block;color:#555;font-weight:500}
+  .mini-progress{width:250px;height:3px;background:#ddd;border-radius:5px;position:relative}
+  .mini-progress i{display:block;width:15%;height:100%;background:#d90036}
+  .volume{display:flex;align-items:center;gap:10px;width:165px;justify-content:flex-end}
+  .volume-line{width:74px;height:3px;background:#c7c7c7;border-radius:3px;position:relative}
+  .volume-line:after{content:"";position:absolute;width:8px;height:8px;border:1px solid #aaa;background:#fff;border-radius:50%;left:37px;top:-3px}
+  .account{width:23px;height:23px;border-radius:50%;background:#e4003a;color:#fff;text-align:center;line-height:23px;font-size:12px;margin-left:15px}
+  .body{flex:1;min-height:0;display:flex}
+  .sidebar{width:13.5vw;min-width:130px;background:#fafafa;border-right:1px solid #ddd;display:flex;flex-direction:column}
+  .brand{height:44px;display:flex;align-items:center;padding-left:15px;font-size:17px;font-weight:600;color:#111}
+  .brand img{width:94px;height:27px;object-fit:contain;object-position:left center}
+  .search{height:30px;margin:0 12px 9px;border:1px solid #dedede;background:white;border-radius:2px;display:flex;align-items:center;padding:0 8px;color:#929292;font-size:11px}
+  .search span{font-size:13px;margin-right:6px}
+  .nav{padding:0 10px}
+  .nav-item{height:29px;display:flex;align-items:center;gap:9px;font-size:12px;padding:0 7px;border-radius:3px;color:#333}
+  .nav-item.active{background:#e6e6e6;font-weight:500}
+  .nav-item .ico{width:14px;text-align:center;color:#dc0038;font-size:12px}
+  .sidebar-bottom{margin-top:auto;border-top:1px solid #dedede;padding:10px 15px 13px;color:#777;font-size:10px;line-height:27px}
+  .sidebar-bottom div{cursor:pointer}
+  .main{flex:1;position:relative;overflow:hidden}
+  .landing{
+    width:100%;height:100%;background:linear-gradient(112deg,#ed0038 0%,#eb003a 45%,#d50645 100%);
+    color:white;display:flex;align-items:center;flex-direction:column;text-align:center
+  }
+  .red-logo{margin-top:11px;width:65px;height:24px;object-fit:contain}
+  .landing h1{font-size:36px;line-height:1.1;letter-spacing:-1.3px;margin:9px 0 22px;font-weight:700}
+  .hero-note{width:165px;height:180px;object-fit:contain;margin-bottom:22px;filter:drop-shadow(8px 10px 5px rgba(90,0,20,.35))}
+  .landing p{font-size:10px;line-height:14px;margin:0 0 16px}
+  .start{background:white;color:#333;border-radius:3px;padding:7px 18px;font-size:10px;font-weight:600}
+  .student{font-size:9px;color:#fff;text-decoration:none;margin-top:13px}
+  .player{
+    width:100%;height:100%;display:none;position:relative;
+    background:radial-gradient(ellipse at 50% 40%,#9a0b70 0%,#850064 42%,#69004e 100%);
+    color:#fff
+  }
+  .close{position:absolute;top:8px;left:10px;color:#f1bfdc;font-size:22px;font-weight:200;z-index:2}
+  .player-inner{width:300px;position:absolute;left:50%;top:50%;transform:translate(-50%,-47%)}
+  .album{width:300px;height:318px;object-fit:cover;border-radius:6px;display:block;box-shadow:0 3px 10px rgba(0,0,0,.18)}
+  .song-head{display:flex;justify-content:space-between;align-items:center;margin-top:11px}
+  .song-title{font-size:12px;font-weight:700}
+  .song-actions{display:flex;gap:8px;font-size:13px}
+  .artist{font-size:10px;font-weight:600;margin-top:3px}
+  .seek{margin-top:10px}
+  .seekline{height:2px;background:rgba(255,255,255,.55);position:relative}
+  .seekline:before{content:"";position:absolute;left:0;top:-2px;width:9px;height:6px;background:white;border-radius:50%}
+  .seek-times{display:flex;justify-content:space-between;font-size:8px;margin-top:4px;color:#e6bed9}
+  .controls{display:flex;justify-content:center;align-items:center;gap:19px;margin-top:13px}
+  .controls button{color:#fff;font-size:16px;padding:0}
+  .controls .mainplay{font-size:21px}
+  .master{display:flex;align-items:center;gap:9px;margin-top:13px}
+  .master .speaker{font-size:10px}
+  .masterline{height:2px;background:rgba(255,255,255,.6);flex:1;position:relative}
+  .masterline:before{content:"";position:absolute;left:48%;top:-3px;width:7px;height:7px;background:#fff;border-radius:50%}
+  @media(max-width:800px){
+    .topbar{padding-left:145px}
+    .player-inner{transform:translate(-50%,-45%) scale(.82)}
+    .landing h1{font-size:30px}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="transport">
+      <button class="btn" aria-label="shuffle">↝</button>
+      <button class="btn" aria-label="previous">◀</button>
+      <button class="btn play btn" id="topPlay">▶</button>
+      <button class="btn" aria-label="next">▶</button>
+      <button class="btn" aria-label="repeat">↝</button>
+    </div>
+    <div class="trackbar">
+      <img class="mini-cover" src="__PLACEHOLDER_ASSETS_BASE_DIR__/017.jpg" width="24" height="24" alt="">
+      <div class="mini-info"><b>Sacrifice</b>Mariah the Scientist — HEARTS SOLD SEPARATELY</div>
+      <div class="mini-progress"><i></i></div>
+    </div>
+    <div class="volume"><span>⌁</span><div class="volume-line"></div><div class="account">●</div></div>
+  </header>
+
+  <div class="body">
+    <aside class="sidebar">
+      <div class="brand"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/001.svg" width="94" height="27" alt="Apple Music"></div>
+      <div class="search"><span>⌕</span>Search</div>
+      <nav class="nav">
+        <div class="nav-item active btn"><span class="ico">⌂</span>Home</div>
+        <div class="nav-item btn"><span class="ico">◻</span>New</div>
+        <div class="nav-item btn"><span class="ico">◉</span>Radio</div>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="btn">ⓘ &nbsp;Open in Music ↗</div>
+        <div class="btn">Exit Beta ↗</div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <section class="landing" id="landing">
+        <img class="red-logo" src="__PLACEHOLDER_ASSETS_BASE_DIR__/018.png" width="65" height="24" alt="Music">
+        <h1>Discover new music<br>every day.</h1>
+        <img class="hero-note" src="__PLACEHOLDER_ASSETS_BASE_DIR__/013.webp" width="165" height="180" alt="">
+        <p>Get playlists and albums inspired by the artists and genres<br>you’re listening to.</p>
+        <button class="start btn" id="startBtn">Get Started</button>
+        <a class="student btn" href="#">See Student Plan ›</a>
+      </section>
+
+      <section class="player" id="player">
+        <button class="close btn" id="closeBtn">×</button>
+        <div class="player-inner">
+          <img class="album" src="__PLACEHOLDER_ASSETS_BASE_DIR__/017.jpg" width="300" height="318" alt="Sacrifice album artwork">
+          <div class="song-head"><div class="song-title">Sacrifice</div><div class="song-actions"><button class="btn">☆</button><button class="btn">•••</button></div></div>
+          <div class="artist">Mariah the Scientist — HEARTS SOLD SEPARATELY</div>
+          <div class="seek"><div class="seekline"></div><div class="seek-times"><span id="elapsed">0:11</span><span>-1:19</span></div></div>
+          <div class="controls">
+            <button class="btn">↝</button><button class="btn">◀◀</button><button class="btn mainplay" id="playerPlay">Ⅱ</button><button class="btn">▶▶</button><button class="btn">↻</button>
+          </div>
+          <div class="master"><span class="speaker">⌁</span><div class="masterline"></div></div>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+<script>
+  const landing=document.getElementById('landing'), player=document.getElementById('player');
+  const start=document.getElementById('startBtn'), close=document.getElementById('closeBtn');
+  const pbtn=document.getElementById('playerPlay'), top=document.getElementById('topPlay');
+  let playing=true;
+  start.onclick=()=>{landing.style.display='none';player.style.display='block'};
+  close.onclick=()=>{player.style.display='none';landing.style.display='flex'};
+  function toggle(){playing=!playing;pbtn.textContent=playing?'Ⅱ':'▶';top.textContent=playing?'Ⅱ':'▶'}
+  pbtn.onclick=toggle;top.onclick=toggle;
+</script>
+</body>
+</html>
+```

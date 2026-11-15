@@ -1,0 +1,194 @@
+{
+  "algorithm": "experimental_theme_aware_per_step_v2",
+  "preview_only": true,
+  "options": {
+    "pixel_threshold": 18,
+    "min_component_pixels": 8,
+    "padding": 24,
+    "max_changed_fraction": 0.35,
+    "min_scene_ssim": 0.55,
+    "max_crop_fraction": 0.65,
+    "theme_min_ssim": 0.9,
+    "theme_min_edge_overlap": 0.88,
+    "theme_min_changed_fraction": 0.5,
+    "theme_component_pixels": 64
+  },
+  "screenshots": [
+    {
+      "index": 0,
+      "source": "/home/zzy/projects/interaction/IWR-Bench/data/data_backup/113/checkpoints/step_0.png",
+      "scene_id": 0,
+      "original_size": [
+        644,
+        1398
+      ],
+      "compared_to": null,
+      "scene_change": true,
+      "reason": "first_screenshot",
+      "box": [
+        0,
+        0,
+        644,
+        1398
+      ],
+      "metrics": {},
+      "mode": "full",
+      "output_size": [
+        644,
+        1398
+      ],
+      "output": "screenshot_0.png",
+      "retained_pixel_fraction": 1.0
+    },
+    {
+      "index": 1,
+      "source": "/home/zzy/projects/interaction/IWR-Bench/data/data_backup/113/checkpoints/step_1.png",
+      "scene_id": 1,
+      "original_size": [
+        644,
+        1398
+      ],
+      "compared_to": 0,
+      "scene_change": true,
+      "reason": "large_visual_change",
+      "box": [
+        0,
+        0,
+        644,
+        1398
+      ],
+      "metrics": {
+        "changed_fraction": 0.7738717244688508,
+        "ssim": 0.3000580668449402
+      },
+      "mode": "full",
+      "output_size": [
+        644,
+        1398
+      ],
+      "output": "screenshot_1.png",
+      "retained_pixel_fraction": 1.0
+    },
+    {
+      "index": 2,
+      "source": "/home/zzy/projects/interaction/IWR-Bench/data/data_backup/113/checkpoints/step_2.png",
+      "scene_id": 2,
+      "original_size": [
+        644,
+        1398
+      ],
+      "compared_to": 1,
+      "scene_change": true,
+      "reason": "large_visual_change",
+      "box": [
+        0,
+        0,
+        644,
+        1398
+      ],
+      "metrics": {
+        "changed_fraction": 0.8031093665307137,
+        "ssim": 0.30606427788734436
+      },
+      "mode": "full",
+      "output_size": [
+        644,
+        1398
+      ],
+      "output": "screenshot_2.png",
+      "retained_pixel_fraction": 1.0
+    },
+    {
+      "index": 3,
+      "source": "/home/zzy/projects/interaction/IWR-Bench/data/data_backup/113/checkpoints/step_3.png",
+      "scene_id": 3,
+      "original_size": [
+        644,
+        1398
+      ],
+      "compared_to": 2,
+      "scene_change": true,
+      "reason": "large_visual_change",
+      "box": [
+        0,
+        0,
+        644,
+        1398
+      ],
+      "metrics": {
+        "changed_fraction": 0.7538031260274216,
+        "ssim": 0.3445461392402649
+      },
+      "mode": "full",
+      "output_size": [
+        644,
+        1398
+      ],
+      "output": "screenshot_3.png",
+      "retained_pixel_fraction": 1.0
+    },
+    {
+      "index": 4,
+      "source": "/home/zzy/projects/interaction/IWR-Bench/data/data_backup/113/checkpoints/step_4.png",
+      "scene_id": 4,
+      "original_size": [
+        644,
+        1398
+      ],
+      "compared_to": 3,
+      "scene_change": true,
+      "reason": "large_visual_change",
+      "box": [
+        0,
+        0,
+        644,
+        1398
+      ],
+      "metrics": {
+        "changed_fraction": 0.6691391428749145,
+        "ssim": 0.37382060289382935
+      },
+      "mode": "full",
+      "output_size": [
+        644,
+        1398
+      ],
+      "output": "screenshot_4.png",
+      "retained_pixel_fraction": 1.0
+    },
+    {
+      "index": 5,
+      "source": "/home/zzy/projects/interaction/IWR-Bench/data/data_backup/113/checkpoints/step_5.png",
+      "scene_id": 5,
+      "original_size": [
+        644,
+        1398
+      ],
+      "compared_to": 4,
+      "scene_change": true,
+      "reason": "large_visual_change",
+      "box": [
+        0,
+        0,
+        644,
+        1398
+      ],
+      "metrics": {
+        "changed_fraction": 0.8295168785931988,
+        "ssim": 0.2948949635028839
+      },
+      "mode": "full",
+      "output_size": [
+        644,
+        1398
+      ],
+      "output": "screenshot_5.png",
+      "retained_pixel_fraction": 1.0
+    }
+  ],
+  "limitations": [
+    "Broad recoloring is summarized as palette changes; scene detection is heuristic.",
+    "Color-only edits to existing flat elements may be outside the crop.",
+    "Production generation is unchanged."
+  ]
+}

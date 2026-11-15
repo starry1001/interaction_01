@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apple Music Beta</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:Arial,Helvetica,sans-serif;color:#222}
+  button{font:inherit;border:0;background:none;cursor:pointer}
+  .app{width:100vw;height:100vh;background:#fff;display:flex}
+  .sidebar{
+    width:260px;height:100%;flex:none;background:#fafafa;border-right:1px solid #ddd;
+    display:flex;flex-direction:column;color:#555;position:relative;z-index:2
+  }
+  .brand{height:62px;padding:17px 29px 0;font-size:24px;letter-spacing:-1.4px;color:#111;white-space:nowrap}
+  .apple{font-size:26px;font-weight:bold;vertical-align:-1px}
+  .beta{
+    display:inline-block;background:#bdbdbd;color:#fff;border-radius:5px;
+    font-size:10px;font-weight:bold;padding:2px 5px;margin-left:4px;vertical-align:5px;letter-spacing:0
+  }
+  .search{
+    margin:8px 26px 18px;height:34px;border:1px solid #d5d5d5;background:white;
+    display:flex;align-items:center;padding:0 9px;color:#777;font-size:14px
+  }
+  .search span{color:#c9003f;font-size:21px;margin-right:7px;line-height:0;transform:rotate(-20deg)}
+  .nav{padding:0 25px}
+  .nav-item{
+    height:35px;border-radius:5px;display:flex;align-items:center;padding:0 8px;
+    font-size:16px;margin-bottom:3px;color:#444
+  }
+  .nav-item.active{background:#e3e3e3;color:#222;font-weight:bold}
+  .nav-icon{width:22px;color:#d00042;font-size:19px;margin-right:5px;text-align:center}
+  .bottom{
+    margin-top:auto;border-top:1px solid #e1e1e1;padding:16px 29px 18px;font-size:14px;color:#777
+  }
+  .bottom div{height:43px;display:flex;align-items:center}
+  .music-round{border:1px solid #999;border-radius:50%;width:24px;height:24px;text-align:center;line-height:22px;margin-right:9px;color:#555}
+  .main{height:100%;flex:1;position:relative;min-width:0}
+  .topbar{
+    height:57px;background:#f8f0f2;border-bottom:1px solid #ddd;display:flex;align-items:center;
+    position:relative;padding:0 25px;color:#666
+  }
+  .controls{display:flex;gap:14px;align-items:center;width:300px}
+  .control{font-size:18px;color:#666;line-height:1}
+  .play-small{font-size:24px;color:#555}
+  .track{
+    position:absolute;left:50%;transform:translateX(-50%);height:46px;top:5px;
+    width:655px;display:flex;align-items:center;justify-content:center
+  }
+  .track img{width:47px;height:47px;object-fit:cover;margin-right:8px}
+  .track-info{height:43px;flex:1;text-align:center;border-bottom:1px solid #ddd;padding-top:2px;position:relative}
+  .track-title{font-size:12px;font-weight:bold;color:#222}
+  .track-artist{font-size:11px;color:#777;margin-top:3px}
+  .preview{position:absolute;right:0;top:27px;background:#c9003f;color:white;font-weight:bold;font-size:9px;padding:2px 5px}
+  .volume{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:14px}
+  .vol-line{width:75px;height:3px;background:#aaa;border-radius:4px;position:relative}
+  .vol-line:after{content:"";position:absolute;width:11px;height:11px;border-radius:50%;background:white;border:1px solid #aaa;right:24px;top:-4px}
+  .list{font-size:18px;margin-left:42px}
+  .account{width:24px;height:24px;border:2px solid #c9003f;border-radius:50%;margin-left:20px;color:#c9003f;text-align:center;line-height:20px;font-size:13px}
+  .hero{
+    position:absolute;left:0;right:0;top:57px;bottom:0;
+    background:linear-gradient(112deg,#f3083d 0%,#e6003b 47%,#e51b54 100%);
+    color:#fff;text-align:center;overflow:hidden
+  }
+  .hero-logo{font-size:25px;font-weight:bold;margin-top:25px;letter-spacing:-1.5px}
+  .hero h1{font-size:66px;line-height:1.1;margin:20px auto 0;font-weight:700;letter-spacing:-3px;max-width:700px}
+  .hero-note{display:block;width:300px;height:300px;object-fit:contain;margin:30px auto 0}
+  .hero p{font-size:17px;line-height:25px;margin:4px auto 34px;max-width:500px}
+  .start{
+    background:#fff;color:#222;border-radius:4px;padding:11px 32px;font-size:16px;font-weight:bold;
+    box-shadow:0 1px 2px #b50035
+  }
+  .student{display:block;color:#fff;margin-top:24px;font-size:14px;text-decoration:none}
+  .player{
+    display:none;position:fixed;inset:0;z-index:10;
+    background:radial-gradient(circle at 50% 48%,#9b1b70 0%,#80005d 55%,#690047 100%);
+    color:#fff
+  }
+  .player.open{display:block}
+  .close{position:absolute;left:10px;top:5px;color:#ddd;font-size:26px;font-weight:200}
+  .player-card{width:300px;margin:29px auto 0}
+  .album{width:300px;height:317px;object-fit:cover;border-radius:7px;display:block}
+  .song-head{height:43px;position:relative;padding-top:10px}
+  .song-name{font-size:13px;font-weight:bold}
+  .song-artist{font-size:12px;color:#ddd;margin-top:3px}
+  .heart,.more{position:absolute;top:13px;border:1px solid rgba(255,255,255,.3);width:17px;height:17px;border-radius:50%;font-size:11px;text-align:center;line-height:15px}
+  .heart{right:23px}.more{right:0}
+  .progress{height:3px;background:rgba(255,255,255,.45);position:relative}
+  .progress:before{content:"";position:absolute;left:0;top:0;height:3px;background:#fff;width:13%}
+  .progress:after{content:"";position:absolute;left:13%;top:-3px;width:9px;height:9px;background:#fff;border-radius:50%}
+  .times{display:flex;justify-content:space-between;font-size:9px;color:#ddd;margin-top:4px}
+  .play-controls{height:43px;display:flex;align-items:center;justify-content:center;gap:21px}
+  .pctrl{font-size:19px;color:#eee}
+  .pctrl.center{font-size:23px}
+  .soundline{height:3px;background:rgba(255,255,255,.45);position:relative;margin-top:5px}
+  .soundline:after{content:"";position:absolute;left:51%;top:-3px;width:9px;height:9px;background:#fff;border-radius:50%}
+  .soundline:before{content:"◀";position:absolute;left:0;top:-7px;font-size:7px;color:#fff}
+  @media(max-width:1200px){
+    .sidebar{width:130px}
+    .brand{font-size:14px;padding:9px 15px 0;height:32px}.apple{font-size:16px}.beta{font-size:6px;padding:1px 3px;vertical-align:3px}
+    .search{margin:4px 13px 9px;height:17px;font-size:8px;padding:0 4px}.search span{font-size:12px;margin-right:3px}
+    .nav{padding:0 12px}.nav-item{height:18px;font-size:9px;padding:0 3px}.nav-icon{font-size:11px;width:13px}
+    .bottom{padding:8px 14px 5px;font-size:8px}.bottom div{height:23px}.music-round{width:12px;height:12px;line-height:10px;font-size:8px;margin-right:4px}
+    .topbar{height:29px;padding:0 12px}.controls{gap:7px;width:150px}.control{font-size:9px}.play-small{font-size:12px}
+    .track{height:24px;top:2px;width:330px}.track img{width:24px;height:24px}.track-info{height:23px}.track-title{font-size:6px}.track-artist{font-size:6px;margin-top:1px}.preview{font-size:5px;top:14px}
+    .volume{font-size:8px;gap:4px}.vol-line{width:38px;height:2px}.vol-line:after{width:6px;height:6px;top:-2px}.list{font-size:10px;margin-left:18px}.account{width:13px;height:13px;line-height:9px;font-size:7px;margin-left:9px}
+    .hero{top:29px}.hero-logo{font-size:13px;margin-top:12px}.hero h1{font-size:34px;letter-spacing:-1.5px;margin-top:10px}.hero-note{width:150px;height:150px;margin-top:14px}.hero p{font-size:9px;line-height:13px;margin-bottom:17px}.start{font-size:8px;padding:6px 16px}.student{font-size:7px;margin-top:12px}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><span class="apple"></span>Music <span class="beta">Beta</span></div>
+    <div class="search"><span>⌕</span>Search</div>
+    <nav class="nav">
+      <div class="nav-item active btn"><span class="nav-icon">⌂</span>Home</div>
+      <div class="nav-item btn"><span class="nav-icon">⊞</span>New</div>
+      <div class="nav-item btn"><span class="nav-icon">◉</span>Radio</div>
+    </nav>
+    <div class="bottom">
+      <div class="btn"><span class="music-round">♫</span>Open in Music ↗</div>
+      <div class="btn">Exit Beta ↗</div>
+    </div>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <div class="controls">
+        <button class="control btn">×</button><button class="control btn">◀</button><button class="control play-small btn">▶</button><button class="control btn">▶</button><button class="control btn">↝</button>
+      </div>
+      <div class="track btn" id="trackButton">
+        <img src="../../../data/data/2/assets/017.jpg" width="47" height="47">
+        <div class="track-info"><div class="track-title">Sacrifice</div><div class="track-artist">Mariah the Scientist — HEARTS SOLD SEPARATELY</div><span class="preview">PREVIEW</span></div>
+      </div>
+      <div class="volume">⌁ <span class="vol-line"></span><span class="list">☷</span><span class="account">●</span></div>
+    </header>
+    <section class="hero">
+      <div class="hero-logo">Music</div>
+      <h1>Discover new music<br>every day.</h1>
+      <img class="hero-note" src="../../../data/data/2/assets/013.webp" width="300" height="300">
+      <p>Get playlists and albums inspired by the artists and genres<br>you’re listening to.</p>
+      <button class="start btn" id="startButton">Get Started</button>
+      <a class="student btn" href="#">See Student Plan ›</a>
+    </section>
+  </main>
+</div>
+
+<div class="player" id="player">
+  <button class="close btn" id="closeButton">×</button>
+  <div class="player-card">
+    <img class="album" src="../../../data/data/2/assets/017.jpg" width="300" height="317">
+    <div class="song-head">
+      <div class="song-name">Sacrifice</div>
+      <div class="song-artist">Mariah the Scientist — HEARTS SOLD SEPARATELY</div>
+      <button class="heart btn">☆</button><button class="more btn">•••</button>
+    </div>
+    <div class="progress"></div>
+    <div class="times"><span id="elapsed">0:11</span><span>-1:19</span></div>
+    <div class="play-controls">
+      <button class="pctrl btn">×</button><button class="pctrl btn">◀</button>
+      <button class="pctrl center btn" id="pauseButton">Ⅱ</button>
+      <button class="pctrl btn">▶</button><button class="pctrl btn">↝</button>
+    </div>
+    <div class="soundline"></div>
+  </div>
+</div>
+
+<script>
+  const player=document.getElementById('player');
+  const open=()=>player.classList.add('open');
+  document.getElementById('trackButton').onclick=open;
+  document.getElementById('startButton').onclick=open;
+  document.getElementById('closeButton').onclick=()=>player.classList.remove('open');
+  let playing=true, seconds=11;
+  const pause=document.getElementById('pauseButton'), elapsed=document.getElementById('elapsed');
+  pause.onclick=()=>{
+    playing=!playing;
+    pause.textContent=playing?'Ⅱ':'▶';
+  };
+  setInterval(()=>{
+    if(playing && player.classList.contains('open')){
+      seconds++;
+      let m=Math.floor(seconds/60), s=String(seconds%60).padStart(2,'0');
+      elapsed.textContent=m+':'+s;
+    }
+  },1000);
+</script>
+</body>
+</html>

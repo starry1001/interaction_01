@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>2048 Game - Classic</title>
+<style>
+  :root{
+    --bg:#f7f4ea;
+    --text:#222;
+    --muted:#6d6a66;
+    --accent:#c4a77a;
+    --board:#bbada0;
+    --cell:#cdc1b4;
+    --gap:14px;
+    --radius:8px;
+    --tile-font:700 32px/1 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font:16px/1.45 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  }
+  .wrap{
+    width: 760px;
+    margin: 28px auto 80px;
+    text-align:center;
+  }
+
+  /* Top mode switch */
+  .modes{
+    display:inline-flex;
+    gap:18px;
+    align-items:center;
+    justify-content:center;
+    color:#a08e76;
+    margin-bottom:8px;
+  }
+  .pill{
+    display:inline-block;
+    padding:7px 14px;
+    background:#f1e7d6;
+    border-radius:999px;
+    font-weight:700;
+    color:#6b5a44;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05);
+  }
+  .modes .btn{
+    padding:6px 12px;
+    border-radius:999px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .modes .btn.active{
+    background:#eccc95;
+    color:#3a2f20;
+    font-weight:800;
+  }
+
+  h1{
+    margin:6px 0 18px;
+    font:800 36px/1.1 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    letter-spacing:.2px;
+  }
+
+  /* Scorebar */
+  .scorebar{
+    width: 540px;
+    margin: 0 auto 10px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .metas{display:flex; gap:10px; align-items:center}
+  .box{
+    min-width:86px;
+    padding:10px 10px 8px;
+    background:#bb9c7a;
+    color:#fff;
+    border-radius:6px;
+    text-align:center;
+  }
+  .box .label{
+    display:block;
+    font-size:11px;
+    opacity:.8;
+    letter-spacing:.6px;
+    text-transform:uppercase;
+  }
+  .box .value{
+    margin-top:2px;
+    font-weight:800;
+    font-size:20px;
+  }
+  .btn.new{
+    background:#bb9c7a;
+    color:#fff;
+    padding:10px 14px;
+    font-weight:700;
+    border-radius:6px;
+    cursor:pointer;
+    user-select:none;
+  }
+
+  /* Board */
+  .board-wrap{
+    position:relative;
+    width:540px;
+    margin: 0 auto;
+  }
+  .board{
+    background:var(--board);
+    padding: var(--gap);
+    border-radius: 10px;
+    box-shadow: inset 0 2px 0 rgba(255,255,255,0.2);
+  }
+  .grid{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--gap);
+  }
+  .cell{
+    background:#cdc1b4;
+    border-radius: 6px;
+    width:100%;
+    aspect-ratio:1/1;
+  }
+  .tile{
+    border-radius:6px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font: var(--tile-font);
+    color:#776e65;
+    width:100%;
+    aspect-ratio:1/1;
+    transition: transform .08s ease;
+    user-select:none;
+  }
+  .tile.-0{background:#cdc1b4; color:transparent}
+  .tile.-2{background:#eee4da}
+  .tile.-4{background:#ede0c8}
+  .tile.-8{background:#f2b179; color:#f9f6f2}
+  .tile.-16{background:#f59563; color:#f9f6f2}
+  .tile.-32{background:#f67c5f; color:#f9f6f2}
+  .tile.-64{background:#f65e3b; color:#f9f6f2}
+  .tile.-128{background:#edcf72; color:#f9f6f2; font-size:28px}
+  .tile.-256{background:#edcc61; color:#f9f6f2; font-size:28px}
+  .tile.-512{background:#edc850; color:#f9f6f2; font-size:26px}
+  .tile.-1024{background:#edc53f; color:#f9f6f2; font-size:22px}
+  .tile.-2048{background:#edc22e; color:#f9f6f2; font-size:22px}
+
+  /* Cupcakes skin (colors only, content handled in JS) */
+  .skin-cupcakes .tile.-2{background:#fff0b3}
+  .skin-cupcakes .tile.-4{background:#ffe199}
+  .skin-cupcakes .tile.-8{background:#ffc7c7}
+  .skin-cupcakes .tile.-16{background:#f7a8d2}
+  .skin-cupcakes .tile.-32{background:#cfa7ff}
+  .skin-cupcakes .tile.-64{background:#a3c4f3}
+  .skin-cupcakes .tile.-128{background:#90dbf4}
+  .skin-cupcakes .tile.-256{background:#8eecf5}
+  .skin-cupcakes .tile.-512{background:#b9fbc0}
+  .skin-cupcakes .tile.-1024{background:#ffd6a5}
+  .skin-cupcakes .tile.-2048{background:#ffadad}
+
+  .notice{
+    position:absolute;
+    left:0; right:0;
+    top: 38%;
+    display:none;
+    align-items:center; justify-content:center;
+  }
+  .notice .panel{
+    background:rgba(238,228,218,0.95);
+    border-radius:10px;
+    padding:22px 26px;
+    font-weight:800;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+  }
+  .notice .panel .title{font-size:24px; margin-bottom:12px}
+  .notice .panel .btn{
+    display:inline-block;
+    background:#bb9c7a; color:#fff; border-radius:6px;
+    padding:10px 14px; margin-top:6px; cursor:pointer; font-weight:700;
+  }
+  .notice.show{display:flex}
+
+  /* Ad image */
+  .ad{
+    margin: 18px auto 18px;
+    width: 320px;
+  }
+  .ad img{
+    display:block;
+    width:320px; height:auto;
+    border-radius:6px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.08);
+  }
+
+  /* Instructions bar */
+  .info{
+    margin-top: 8px;
+    background:#f4d9b5;
+    padding: 18px 22px;
+    color:#5a5044;
+    border-radius:10px;
+    width: 760px;
+    margin-left:auto;
+    margin-right:auto;
+  }
+
+  /* Other games */
+  .games{
+    margin: 34px auto 0;
+    width: 1200px;
+    max-width: calc(100vw - 80px);
+    text-align:center;
+  }
+  .games h2{
+    font:800 26px/1.1 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    margin:0 0 14px;
+  }
+  .grid-games{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap:18px;
+  }
+  .card.btn{
+    background:#fff;
+    border-radius:12px;
+    padding:14px;
+    display:flex; gap:12px; align-items:center;
+    box-shadow:0 2px 10px rgba(0,0,0,0.06);
+    cursor:pointer; user-select:none;
+    transition:transform .08s ease, box-shadow .15s ease;
+  }
+  .card.btn:hover{transform:translateY(-2px); box-shadow:0 6px 16px rgba(0,0,0,0.12)}
+  .card img{width:64px; height:64px; border-radius:10px; flex:0 0 auto; object-fit:cover}
+  .card .c-title{font-weight:800; margin-bottom:4px}
+  .card .c-sub{color:#777; font-size:13px}
+
+  /* Toast */
+  .toast{
+    position: fixed;
+    left:50%; transform:translateX(-50%);
+    bottom:20px;
+    background:#333; color:#fff;
+    padding:10px 14px; border-radius:6px;
+    opacity:0; pointer-events:none;
+    transition: opacity .2s ease, transform .2s ease;
+    font-weight:600;
+  }
+  .toast.show{opacity:1; transform:translateX(-50%) translateY(-6px)}
+
+  /* Score gain bubble */
+  .gain{
+    position:absolute;
+    font-weight:800;
+    color:#8a6d3b;
+    pointer-events:none;
+    opacity:0;
+    transform:translateY(0);
+    transition: all .35s ease;
+    font-size:14px;
+  }
+  .gain.show{
+    opacity:1;
+    transform:translateY(-16px);
+  }
+
+  @media (max-width:900px){
+    .wrap{width:92vw}
+    .board-wrap, .scorebar{width:min(92vw,540px)}
+    .info{width:min(92vw,760px)}
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="modes">
+      <span class="pill">Classic</span>
+      <div class="btn mode-btn active" data-mode="classic" aria-label="Classic mode">Classic</div>
+      <div class="btn mode-btn" data-mode="cupcakes" aria-label="Cupcakes mode">Cupcakes</div>
+    </div>
+    <h1>2048 Game</h1>
+
+    <div class="scorebar">
+      <div class="metas">
+        <div class="box">
+          <span class="label">Score</span>
+          <span class="value" id="score">0</span>
+        </div>
+        <div class="box">
+          <span class="label">Best</span>
+          <span class="value" id="best">0</span>
+        </div>
+      </div>
+      <div class="btn new" id="newGameBtn">New game</div>
+    </div>
+
+    <div class="board-wrap">
+      <div class="board" id="board">
+        <div class="grid" id="grid">
+          <!-- 16 cells (background) + tiles rendered in place -->
+        </div>
+      </div>
+      <div class="notice" id="gameOver">
+        <div class="panel">
+          <div class="title">Game over!</div>
+          <div class="btn btn-restart">Try again</div>
+        </div>
+      </div>
+      <div class="gain" id="gain">+0</div>
+    </div>
+
+    <div class="ad">
+      <img src="../../../data/data/1/assets/015.png" alt="Sponsored" width="320" height="210" />
+    </div>
+
+    <div class="info">
+      Use your arrow keys (also W, A, S, and D keys) or swipe with your fingers to move the tiles. If you join two tiles with the same number they become one with the sum. Keep joining to reach the 2048 tile!
+    </div>
+  </div>
+
+  <div class="games">
+    <h2>Play Other Games</h2>
+    <div class="grid-games">
+      <div class="card btn" data-game="tetris">
+        <img src="../../../data/data/1/assets/004.png" alt="Tetris" width="64" height="64">
+        <div>
+          <div class="c-title">Block Stacker</div>
+          <div class="c-sub">Classic falling blocks</div>
+        </div>
+      </div>
+      <div class="card btn" data-game="sudoku">
+        <img src="../../../data/data/1/assets/007.png" alt="Sudoku" width="64" height="64">
+        <div>
+          <div class="c-title">Number Puzzle</div>
+          <div class="c-sub">Fill the grid 1-9</div>
+        </div>
+      </div>
+      <div class="card btn" data-game="calc">
+        <img src="../../../data/data/1/assets/008.png" alt="Math Trainer" width="64" height="64">
+        <div>
+          <div class="c-title">Math Trainer</div>
+          <div class="c-sub">Quick calculations</div>
+        </div>
+      </div>
+      <div class="card btn" data-game="cards">
+        <img src="../../../data/data/1/assets/009.png" alt="Cards" width="64" height="64">
+        <div>
+          <div class="c-title">Card Mini</div>
+          <div class="c-sub">Casual play</div>
+        </div>
+      </div>
+      <div class="card btn" data-game="snake">
+        <img src="../../../data/data/1/assets/011.png" alt="Snake" width="64" height="64">
+        <div>
+          <div class="c-title">Tiny Snake</div>
+          <div class="c-sub">Eat and grow</div>
+        </div>
+      </div>
+      <div class="card btn" data-game="trex">
+        <img src="../../../data/data/1/assets/012.png" alt="Dino Run" width="64" height="64">
+        <div>
+          <div class="c-title">Dino Run</div>
+          <div class="c-sub">Jump the cacti</div>
+        </div>
+      </div>
+      <div class="card btn" data-game="flappy">
+        <img src="../../../data/data/1/assets/013.png" alt="Flappy" width="64" height="64">
+        <div>
+          <div class="c-title">Flappy Dot</div>
+          <div class="c-sub">Tap to fly</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">Opening game…</div>
+
+<script>
+(function(){
+  const size = 4;
+  const boardEl = document.getElementById('grid');
+  const scoreEl = document.getElementById('score');
+  const bestEl = document.getElementById('best');
+  const gainEl = document.getElementById('gain');
+  const noticeEl = document.getElementById('gameOver');
+  const newBtn = document.getElementById('newGameBtn');
+  const restartBtn = document.querySelector('.btn-restart');
+  const modeBtns = document.querySelectorAll('.mode-btn');
+  const boardWrap = document.querySelector('.board');
+  const toast = document.getElementById('toast');
+
+  let grid = [];
+  let score = 0;
+  let best = Number(localStorage.getItem('best2048') || 0);
+  let mode = 'classic'; // or cupcakes
+
+  bestEl.textContent = best;
+
+  // Build 16 background cells once
+  function buildBackground(){
+    boardEl.innerHTML = '';
+    for(let i=0;i<size*size;i++){
+      const empty = document.createElement('div');
+      empty.className = 'cell';
+      boardEl.appendChild(empty);
+    }
+  }
+
+  function reset(){
+    score = 0;
+    grid = Array.from({length:size}, _ => Array(size).fill(0));
+    addRandomTile();
+    addRandomTile();
+    render();
+    hideGameOver();
+  }
+
+  function addRandomTile(){
+    const empties = [];
+    for(let r=0;r<size;r++){
+      for(let c=0;c<size;c++){
+        if(grid[r][c] === 0) empties.push({r,c});
+      }
+    }
+    if(!empties.length) return;
+    const pick = empties[Math.floor(Math.random()*empties.length)];
+    grid[pick.r][pick.c] = Math.random()<0.9 ? 2 : 4;
+  }
+
+  function render(){
+    // remove any existing tiles (we'll fully re-render)
+    // Keep background cells as first 16 children
+    // So remove children after 16
+    while(boardEl.children.length > size*size){
+      boardEl.removeChild(boardEl.lastChild);
+    }
+    // Create tiles
+    for(let r=0;r<size;r++){
+      for(let c=0;c<size;c++){
+        const v = grid[r][c];
+        const tile = document.createElement('div');
+        tile.className = 'tile -'+v;
+        tile.textContent = displayValue(v);
+        boardEl.appendChild(tile);
+      }
+    }
+    scoreEl.textContent = score;
+    if(score > best){
+      best = score;
+      localStorage.setItem('best2048', best);
+      bestEl.textContent = best;
+    }
+    boardWrap.classList.toggle('skin-cupcakes', mode === 'cupcakes');
+  }
+
+  function displayValue(v){
+    if(v === 0) return '';
+    if(mode === 'classic') return String(v);
+    // cupcakes mode: small "ingredient to dessert" emoji mapping
+    const map = {
+      2:'🥚',4:'🧈',8:'🍶',16:'🥣',32:'🧁',64:'🍰',
+      128:'🎂',256:'🍮',512:'🍨',1024:'🍧',2048:'🍩'
+    };
+    return map[v] || '🍭';
+  }
+
+  function move(dir){
+    // dir: 'left','right','up','down'
+    let moved = false;
+    let gained = 0;
+
+    const range = [...Array(size).keys()];
+    const rev = [...range].reverse();
+
+    function slideLine(line){
+      // remove zeros
+      let arr = line.filter(x => x!==0);
+      // merge
+      for(let i=0;i<arr.length-1;i++){
+        if(arr[i]!==0 && arr[i]===arr[i+1]){
+          arr[i] *= 2;
+          gained += arr[i];
+          arr[i+1] = 0;
+        }
+      }
+      arr = arr.filter(x => x!==0);
+      while(arr.length < size) arr.push(0);
+      return arr;
+    }
+
+    if(dir==='left'){
+      for(let r of range){
+        const before = grid[r].slice();
+        const after = slideLine(before);
+        if(!arraysEqual(before, after)) moved = true;
+        grid[r] = after;
+      }
+    }
+    if(dir==='right'){
+      for(let r of range){
+        const before = grid[r].slice().reverse();
+        const after = slideLine(before).reverse();
+        if(!arraysEqual(grid[r], after)) moved = true;
+        grid[r] = after;
+      }
+    }
+    if(dir==='up'){
+      for(let c of range){
+        const col = range.map(r => grid[r][c]);
+        const after = slideLine(col);
+        for(let r of range){
+          if(grid[r][c] !== after[r]) moved = true;
+          grid[r][c] = after[r];
+        }
+      }
+    }
+    if(dir==='down'){
+      for(let c of range){
+        const col = rev.map(r => grid[r][c]);
+        const after = slideLine(col).reverse();
+        for(let i=0;i<size;i++){
+          const r = i;
+          if(grid[r][c] !== after[i]) moved = true;
+          grid[r][c] = after[i];
+        }
+      }
+    }
+
+    if(moved){
+      score += gained;
+      if(gained>0) showGain('+'+gained);
+      addRandomTile();
+      render();
+      if(isGameOver()) showGameOver();
+    }
+  }
+
+  function arraysEqual(a,b){
+    if(a.length!==b.length) return false;
+    for(let i=0;i<a.length;i++) if(a[i]!==b[i]) return false;
+    return true;
+  }
+
+  function isGameOver(){
+    // any empty?
+    for(let r=0;r<size;r++) for(let c=0;c<size;c++) if(grid[r][c]===0) return false;
+    // any mergeable neighbours?
+    for(let r=0;r<size;r++){
+      for(let c=0;c<size;c++){
+        const v = grid[r][c];
+        if(r+1<size && grid[r+1][c]===v) return false;
+        if(c+1<size && grid[r][c+1]===v) return false;
+      }
+    }
+    return true;
+  }
+
+  function showGameOver(){
+    noticeEl.classList.add('show');
+  }
+  function hideGameOver(){
+    noticeEl.classList.remove('show');
+  }
+
+  function showGain(text){
+    gainEl.textContent = text;
+    // position gain near Score box (rough)
+    const sb = document.querySelector('.metas .box').getBoundingClientRect();
+    const wrap = document.querySelector('.board-wrap').getBoundingClientRect();
+    gainEl.style.left = (sb.left - wrap.left + 16) + 'px';
+    gainEl.style.top = (sb.top - wrap.top - 6) + 'px';
+    gainEl.classList.remove('show');
+    // force reflow
+    void gainEl.offsetWidth;
+    gainEl.classList.add('show');
+    setTimeout(()=>gainEl.classList.remove('show'), 500);
+  }
+
+  // Controls
+  window.addEventListener('keydown', (e)=>{
+    const key = e.key.toLowerCase();
+    if(['arrowleft','a'].includes(key)) { e.preventDefault(); move('left'); }
+    if(['arrowright','d'].includes(key)) { e.preventDefault(); move('right'); }
+    if(['arrowup','w'].includes(key)) { e.preventDefault(); move('up'); }
+    if(['arrowdown','s'].includes(key)) { e.preventDefault(); move('down'); }
+    if(key==='n'){ reset(); }
+  });
+
+  // Swipe controls (simple)
+  let tX=0, tY=0, isTouch=false;
+  boardEl.addEventListener('touchstart', (e)=>{ 
+    if(!e.touches.length) return;
+    isTouch=true; tX=e.touches[0].clientX; tY=e.touches[0].clientY;
+  }, {passive:true});
+  boardEl.addEventListener('touchend', (e)=>{
+    if(!isTouch) return;
+    const dX = (e.changedTouches[0].clientX - tX);
+    const dY = (e.changedTouches[0].clientY - tY);
+    const absX = Math.abs(dX), absY = Math.abs(dY);
+    const thresh = 24;
+    if(Math.max(absX,absY) < thresh) return;
+    if(absX > absY){ move(dX>0?'right':'left'); }
+    else{ move(dY>0?'down':'up'); }
+    isTouch=false;
+  });
+
+  // Buttons
+  newBtn.addEventListener('click', ()=> reset());
+  restartBtn.addEventListener('click', ()=> reset());
+
+  modeBtns.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      modeBtns.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      mode = btn.dataset.mode;
+      render();
+    });
+  });
+
+  // Other games demo navigation
+  document.querySelectorAll('.card.btn').forEach(card=>{
+    card.addEventListener('click', ()=>{
+      toast.textContent = 'Opening '+card.querySelector('.c-title').textContent+'…';
+      toast.classList.add('show');
+      setTimeout(()=>toast.classList.remove('show'), 1200);
+    });
+  });
+
+  // Init
+  buildBackground();
+  reset();
+
+})();
+</script>
+</body>
+</html>

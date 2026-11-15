@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Apple Music – Mock</title>
+<style>
+  :root{
+    --sidebar-w:260px;
+    --header-h:56px;
+    --soft-border:#e6e6e6;
+    --txt:#111;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family:system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color:var(--txt);
+    background:#f6f6f7;
+    overflow:hidden; /* keep viewport 1920x944 feel */
+  }
+  a{color:inherit;text-decoration:none}
+  .app{
+    display:grid;
+    grid-template-columns:var(--sidebar-w) 1fr;
+    grid-template-rows:var(--header-h) 1fr;
+    height:100vh;
+  }
+  /* Header */
+  header{
+    grid-column:1 / -1;
+    position:fixed;
+    left:0;right:0;top:0;height:var(--header-h);
+    display:flex;align-items:center;gap:16px;
+    padding:0 18px;
+    background:rgba(255,255,255,.82);
+    border-bottom:1px solid var(--soft-border);
+    z-index:5;
+  }
+  header .left, header .center, header .right{display:flex;align-items:center}
+  header .left{gap:10px;min-width:var(--sidebar-w)}
+  header .center{flex:1;justify-content:center;gap:8px;color:#555}
+  header .right{gap:12px;min-width:var(--sidebar-w);justify-content:flex-end}
+  .pill{
+    padding:6px 10px;border-radius:20px;background:#f0f0f0;font-size:12px;color:#666
+  }
+  .icon-btn{
+    width:32px;height:32px;border-radius:8px;border:1px solid var(--soft-border);
+    display:flex;align-items:center;justify-content:center;background:#fff;cursor:pointer;
+    transition:background .15s,border-color .15s,transform .05s;
+  }
+  .icon-btn:hover{background:#fafafa}
+  .icon-btn:active{transform:scale(.98)}
+  .icon{display:block;width:18px;height:18px;object-fit:contain}
+  .search{
+    display:flex;align-items:center;border:1px solid var(--soft-border);background:#fff;
+    padding:6px 10px;border-radius:8px;gap:8px;min-width:220px;
+  }
+  .search input{border:0;outline:0;font-size:14px;width:160px;background:transparent}
+  /* Sidebar */
+  aside{
+    grid-row:2;grid-column:1;
+    padding:16px 14px 14px;
+    border-right:1px solid var(--soft-border);
+    overflow:auto;
+    margin-top:var(--header-h);
+    background:#fff;
+  }
+  .brand{
+    display:flex;align-items:center;gap:10px;margin:6px 8px 18px;
+  }
+  .brand img{display:block}
+  .menu{display:flex;flex-direction:column;gap:6px}
+  .menu .section-title{font-size:12px;color:#777;margin:6px 8px}
+  .nav-item{
+    display:flex;align-items:center;gap:10px;
+    padding:8px 10px;border-radius:8px;cursor:pointer;
+  }
+  .nav-item:hover{background:#f4f4f6}
+  .nav-item.active{background:#eef2ff}
+  .nav-item img{width:20px;height:20px}
+  .spacer{height:14px}
+  .sidebar-footer{
+    margin-top:18px;border-top:1px solid var(--soft-border);padding-top:12px;color:#666;font-size:14px
+  }
+  .footer-link{display:flex;align-items:center;gap:8px;padding:8px 8px;border-radius:8px;cursor:pointer}
+  .footer-link:hover{background:#f6f6f7}
+  /* Main / hero */
+  main{
+    grid-row:2;grid-column:2;
+    position:relative;
+    overflow:auto;
+    margin-top:var(--header-h);
+    background:linear-gradient(135deg,#ea0036 0%, #ff3950 45%, #ff5a6a 100%);
+  }
+  .hero{
+    min-height:calc(100vh - var(--header-h));
+    display:flex;align-items:center;justify-content:center;
+    position:relative;color:#fff;text-align:center;
+    padding:80px 20px 40px;
+  }
+  .hero-inner{max-width:1040px;position:relative}
+  .apple-label{
+    display:inline-flex;align-items:center;gap:8px;opacity:.95;margin-bottom:18px
+  }
+  .apple-label img{display:block}
+  .hero h1{
+    font-size:56px;line-height:1.08;margin:0 0 14px;font-weight:700;letter-spacing:.2px
+  }
+  .hero p{
+    font-size:18px;opacity:.92;margin-top:16px;margin-bottom:24px
+  }
+  .note-graphic{
+    width:240px;height:240px;object-fit:contain;display:block;margin:26px auto 10px;
+    filter:drop-shadow(0 20px 30px rgba(0,0,0,.25));
+  }
+  .cta-row{display:flex;gap:12px;justify-content:center;align-items:center}
+  .btn-primary{
+    background:#fff;color:#111;border:0;padding:10px 18px;border-radius:8px;font-weight:600;cursor:pointer
+  }
+  .btn-link{color:#fff;opacity:.9;text-decoration:underline;cursor:pointer}
+  /* Mini player strip (header, right side) */
+  .mini{
+    display:flex;align-items:center;gap:8px;padding:4px 8px;border-radius:10px;background:#fff;border:1px solid var(--soft-border);
+    cursor:pointer
+  }
+  .mini img.cover{width:24px;height:24px;border-radius:4px;object-fit:cover}
+  .mini .title{font-size:12px;color:#333;max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  /* Fullscreen player */
+  .player{
+    position:fixed;inset:0;display:none;flex-direction:column;background:linear-gradient(135deg,#7a005e,#b1006d,#d11a6b);
+    color:#fff;z-index:20;
+  }
+  .player.show{display:flex}
+  .player .top{
+    height:56px;display:flex;align-items:center;padding:0 18px;color:#f3f3f3
+  }
+  .player .close{font-size:22px;line-height:1;padding:6px 10px;border-radius:8px;cursor:pointer}
+  .player .close:hover{background:rgba(255,255,255,.1)}
+  .player .content{
+    flex:1;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;padding:20px
+  }
+  .album{
+    width:540px;height:540px;border-radius:16px;box-shadow:0 35px 60px rgba(0,0,0,.35);object-fit:cover
+  }
+  .track-meta{
+    width:min(820px,90%);margin-top:12px
+  }
+  .title-main{font-weight:700}
+  .subtitle{opacity:.85}
+  .controls{
+    width:min(820px,90%);
+    display:flex;align-items:center;justify-content:center;gap:18px;margin-top:12px
+  }
+  .control{
+    width:44px;height:44px;border-radius:12px;border:1px solid rgba(255,255,255,.35);
+    display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.12);cursor:pointer
+  }
+  .control:hover{background:rgba(255,255,255,.18)}
+  .control img{width:18px;height:18px;filter:invert(1)}
+  .progress{
+    width:min(820px,90%);
+    margin:16px auto 0;
+  }
+  .bar{
+    height:4px;background:rgba(255,255,255,.35);border-radius:3px;position:relative;overflow:hidden
+  }
+  .bar .fill{
+    position:absolute;left:0;top:0;bottom:0;background:#fff;width:0%
+  }
+  .time-row{
+    display:flex;justify-content:space-between;font-size:12px;color:#f7f7f7;margin-top:6px;opacity:.9
+  }
+  /* Utility */
+  .btn{cursor:pointer}
+  /* Scroll aesthetics inside main */
+  main::-webkit-scrollbar,aside::-webkit-scrollbar{width:10px;height:10px}
+  main::-webkit-scrollbar-thumb,aside::-webkit-scrollbar-thumb{background:#d7d7d7;border-radius:8px}
+  main::-webkit-scrollbar-track,aside::-webkit-scrollbar-track{background:transparent}
+  /* Make things roughly match 1920x944 proportions */
+  @media (max-width:1400px){
+    .album{width:420px;height:420px}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="left">
+      <div class="pill"> Music</div>
+    </div>
+
+    <div class="center">
+      <div class="icon-btn btn" id="hdr-prev" title="Previous">
+        <img class="icon" src="../../../data/data/2/assets/014.svg" width="18" height="18" alt="prev" style="transform:rotate(180deg);">
+      </div>
+      <div class="icon-btn btn" id="hdr-play">
+        <img class="icon" src="../../../data/data/2/assets/011.svg" width="18" height="18" alt="play">
+      </div>
+      <div class="icon-btn btn" id="hdr-next" title="Next">
+        <img class="icon" src="../../../data/data/2/assets/014.svg" width="18" height="18" alt="next">
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="search" title="Search">
+        <img class="icon" src="../../../data/data/2/assets/010.svg" width="18" height="18" alt="search">
+        <input type="text" placeholder="Search">
+      </div>
+      <div class="mini btn" id="openPlayerFromMini" title="Open Now Playing">
+        <img class="cover" src="../../../data/data/2/assets/017.jpg" width="24" height="24" alt="cover">
+        <div class="title">Sacrifice — Mariah the Scientist</div>
+      </div>
+      <div class="icon-btn btn" title="Account">
+        <img class="icon" src="../../../data/data/2/assets/009.svg" width="18" height="18" alt="account">
+      </div>
+    </div>
+  </header>
+
+  <aside>
+    <div class="brand">
+      <img src="../../../data/data/2/assets/001.svg" width="120" height="28" alt="Apple Music">
+      <img src="../../../data/data/2/assets/002.svg" width="52" height="26" alt="Beta">
+    </div>
+
+    <div class="menu">
+      <div class="section-title">Library</div>
+      <div class="nav-item active btn">
+        <img src="../../../data/data/2/assets/006.svg" width="20" height="20" alt="Home"> <span>Home</span>
+      </div>
+      <div class="nav-item btn">
+        <img src="../../../data/data/2/assets/010.svg" width="20" height="20" alt="New"> <span>New</span>
+      </div>
+      <div class="nav-item btn">
+        <img src="../../../data/data/2/assets/007.svg" width="20" height="20" alt="Radio"> <span>Radio</span>
+      </div>
+    </div>
+
+    <div class="spacer"></div>
+
+    <div class="sidebar-footer">
+      <div class="footer-link btn">
+        <img src="../../../data/data/2/assets/014.svg" width="16" height="16" alt="Open">
+        <span>Open in Music</span>
+      </div>
+      <div class="footer-link btn">
+        <img src="../../../data/data/2/assets/015.svg" width="16" height="16" alt="Exit">
+        <span>Exit Beta</span>
+      </div>
+    </div>
+  </aside>
+
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="apple-label">
+          <img src="../../../data/data/2/assets/018.png" width="68" height="22" alt="Apple Music badge">
+        </div>
+        <h1>Discover new music<br>every day.</h1>
+
+        <img class="note-graphic" src="../../../data/data/2/assets/013.webp" width="240" height="240" alt="music note">
+
+        <p>Get playlists and albums inspired by the artists and genres you’re listening to.</p>
+
+        <div class="cta-row">
+          <button class="btn btn-primary" id="getStarted">Get Started</button>
+          <a class="btn btn-link" id="studentPlan">See Student Plan ›</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- Fullscreen player overlay -->
+<div class="player" id="player">
+  <div class="top">
+    <div class="close btn" id="closePlayer">×</div>
+  </div>
+  <div class="content">
+    <img class="album" src="../../../data/data/2/assets/017.jpg" width="540" height="540" alt="Album Art">
+
+    <div class="track-meta">
+      <div class="title-main">Sacrifice</div>
+      <div class="subtitle">Mariah the Scientist — HEARTS SOLD SEPARATELY</div>
+    </div>
+
+    <div class="controls">
+      <div class="control btn" id="prev">
+        <img src="../../../data/data/2/assets/014.svg" width="18" height="18" alt="Prev" style="transform:rotate(180deg)">
+      </div>
+      <div class="control btn" id="playPause">
+        <img id="playPauseIcon" src="../../../data/data/2/assets/011.svg" width="18" height="18" alt="Play">
+      </div>
+      <div class="control btn" id="next">
+        <img src="../../../data/data/2/assets/014.svg" width="18" height="18" alt="Next">
+      </div>
+      <div class="control btn" title="Favorite">
+        <img src="../../../data/data/2/assets/015.svg" width="18" height="18" alt="Star">
+      </div>
+      <div class="control btn" title="Queue">
+        <img src="../../../data/data/2/assets/010.svg" width="18" height="18" alt="Queue">
+      </div>
+    </div>
+
+    <div class="progress">
+      <div class="bar"><div class="fill" id="barFill"></div></div>
+      <div class="time-row"><span id="elapsed">0:11</span><span id="remaining">-3:16</span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Mock "catalog"
+  const tracks = [
+    { title:"Sacrifice", artist:"Mariah the Scientist", album:"HEARTS SOLD SEPARATELY", length: 210, cover:"../../../data/data/2/assets/017.jpg" }
+  ];
+  let current = 0;
+  let isPlaying = false;
+  let position = 11; // seconds into the song (to resemble screenshot)
+  let timer = null;
+
+  const player = document.getElementById('player');
+  const playPause = document.getElementById('playPause');
+  const playPauseIcon = document.getElementById('playPauseIcon');
+  const elapsedEl = document.getElementById('elapsed');
+  const remainingEl = document.getElementById('remaining');
+  const barFill = document.getElementById('barFill');
+
+  function fmt(sec){
+    sec = Math.max(0, Math.floor(sec));
+    return Math.floor(sec/60)+':'+String(sec%60).padStart(2,'0');
+  }
+  function updateUI(){
+    const t = tracks[current];
+    const total = t.length;
+    const pct = Math.min(100, position/total*100);
+    barFill.style.width = pct + '%';
+    elapsedEl.textContent = fmt(position);
+    remainingEl.textContent = '-'+fmt(total-position);
+    playPauseIcon.src = isPlaying ? "../../../data/data/2/assets/008.svg" : "../../../data/data/2/assets/011.svg";
+    // header play icon sync
+    const hdrPlay = document.getElementById('hdr-play').querySelector('img');
+    hdrPlay.src = isPlaying ? "../../../data/data/2/assets/008.svg" : "../../../data/data/2/assets/011.svg";
+  }
+  function startTimer(){
+    if(timer) return;
+    timer = setInterval(()=>{
+      position += 0.5;
+      const total = tracks[current].length;
+      if(position >= total){ position = total; pause(); }
+      updateUI();
+    },500);
+  }
+  function pause(){ isPlaying=false; clearInterval(timer); timer=null; updateUI(); }
+  function play(){ isPlaying=true; startTimer(); updateUI(); }
+
+  // Buttons and interactions
+  document.getElementById('playPause').addEventListener('click', ()=>{ isPlaying ? pause() : play(); });
+  document.getElementById('prev').addEventListener('click', ()=>{ position = Math.max(0, position-10); updateUI(); });
+  document.getElementById('next').addEventListener('click', ()=>{ position = Math.min(tracks[current].length, position+10); updateUI(); });
+
+  // Open/close player
+  document.getElementById('getStarted').addEventListener('click', ()=>{ player.classList.add('show'); });
+  document.getElementById('studentPlan').addEventListener('click', ()=>{ player.classList.add('show'); });
+  document.getElementById('openPlayerFromMini').addEventListener('click', ()=>{ player.classList.add('show'); });
+  document.getElementById('closePlayer').addEventListener('click', ()=>{ player.classList.remove('show'); });
+
+  // Header play toggles
+  document.getElementById('hdr-play').addEventListener('click', ()=>{ isPlaying ? pause() : play(); });
+  document.getElementById('hdr-prev').addEventListener('click', ()=>{ position = Math.max(0, position-10); updateUI(); });
+  document.getElementById('hdr-next').addEventListener('click', ()=>{ position = Math.min(tracks[current].length, position+10); updateUI(); });
+
+  // Initial UI state to resemble screenshot
+  updateUI();
+</script>
+</body>
+</html>

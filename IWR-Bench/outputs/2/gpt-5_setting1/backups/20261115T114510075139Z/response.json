@@ -1,0 +1,131 @@
+{
+  "id": "chatcmpl-EkSw6BxaMgTsMREU5s0HMc2HYMArY",
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "logprobs": null,
+      "message": {
+        "content": "```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\" />\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\" />\n<title>Apple Music - Mock</title>\n<style>\n  :root{\n    --sidebar-w:280px;\n    --topbar-h:60px;\n    --bg:#f4f4f4;\n    --text:#111;\n    --muted:#6b6b6b;\n    --red:#d61532;\n    --red2:#e33f5c;\n    --pill:#ffffffcc;\n    --card:#ffffff;\n  }\n  *{box-sizing:border-box}\n  html,body{height:100%;margin:0;font-family:system-ui, -apple-system, Segoe UI, Arial, sans-serif;color:var(--text);background:#fff;overflow:hidden}\n  a{color:inherit;text-decoration:none}\n  .app{width:100vw;height:100vh;display:grid;grid-template-columns:var(--sidebar-w) 1fr;grid-template-rows:var(--topbar-h) 1fr;background:#fff}\n  /* Sidebar */\n  aside{\n    grid-row:1 / span 2;\n    background:#fafafa;\n    border-right:1px solid #e6e6e6;\n    display:flex;\n    flex-direction:column;\n    padding:16px 14px;\n  }\n  .brand{display:flex;align-items:center;gap:8px;margin-bottom:14px}\n  .brand img{display:block}\n  .search{\n    display:flex;align-items:center;border:1px solid #e2e2e2;border-radius:6px;background:#fff;\n    padding:10px 10px;margin:8px 0 14px 0\n  }\n  .search input{border:none;outline:none;font-size:14px;width:100%;background:transparent}\n  .nav{list-style:none;margin:6px 0;padding:0;display:flex;flex-direction:column;gap:6px}\n  .nav .item{\n    display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;color:#333;cursor:pointer;\n  }\n  .nav .item img{opacity:.9}\n  .nav .item.active{background:#ededed;font-weight:600}\n  .sidebar-footer{margin-top:auto;font-size:13px;color:#3a3a3a}\n  .sidebar-footer .link{display:flex;align-items:center;gap:8px;color:#3a3a3a;padding:8px 6px;border-radius:8px;cursor:pointer}\n  .sidebar-footer .link:hover{background:#efefef}\n  /* Topbar */\n  header{\n    grid-column:2/3;\n    background:linear-gradient(#fafafa,#f2f2f2);\n    border-bottom:1px solid #e6e6e6;\n    display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:var(--topbar-h)\n  }\n  .controls{display:flex;align-items:center;gap:14px}\n  .icon-btn{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer}\n  .icon-btn:hover{background:#eaeaea}\n  .icon{\n    width:18px;height:18px;object-fit:contain;display:block\n  }\n  .center-now{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.8);border:1px solid #e3e3e3;border-radius:14px;padding:3px 10px;box-shadow:0 1px 0 rgba(0,0,0,0.03)}\n  .thumb{width:34px;height:34px;border-radius:6px;overflow:hidden;background:#ddd}\n  .thumb img{width:34px;height:34px;display:block}\n  .track-meta{display:flex;align-items:center;gap:8px;font-size:13px;color:#333}\n  .preview{font-size:10px;background:#d93025;color:#fff;border-radius:4px;padding:2px 5px}\n  .progress-mini{position:relative;width:180px;height:6px;background:#e6e6e6;border-radius:999px;overflow:hidden}\n  .progress-mini .bar{position:absolute;left:0;top:0;bottom:0;background:#c94b5c;width:0%}\n  .right-ops{display:flex;align-items:center;gap:14px}\n  .vol{width:120px}\n  .avatar{width:28px;height:28px;border-radius:50%;background:#f4f4f4;border:1px solid #e1e1e1;display:flex;align-items:center;justify-content:center}\n  /* Main hero */\n  main{\n    grid-column:2/3;position:relative;overflow:auto;background:linear-gradient(135deg,#d81534,#eb3f68);height:calc(100vh - var(--topbar-h));\n  }\n  .hero-wrap{max-width:980px;margin:0 auto;padding:70px 20px 100px;color:#fff;text-align:center}\n  .hero-logo{opacity:.95;margin-top:12px;margin-bottom:12px}\n  h1{font-size:64px;line-height:1.1;margin:10px 0 16px;font-weight:800;letter-spacing:.2px}\n  .subtitle{max-width:640px;margin:12px auto 22px;color:#ffedf1}\n  .get-started{display:inline-block;background:#fff;color:#222;border-radius:8px;padding:12px 22px;font-weight:600;border:1px solid #e6e6e6;box-shadow:0 6px 20px rgba(0,0,0,0.12);cursor:pointer}\n  .student{margin-top:10px;display:inline-flex;align-items:center;gap:6px;color:#ffe6ea;font-size:14px;cursor:pointer}\n  .note-big{margin:30px auto 14px;width:360px;height:360px}\n  .note-big img{width:100%;height:100%;display:block;filter:drop-shadow(0 20px 30px rgba(0,0,0,0.18))}\n  /* Now Playing Overlay */\n  .overlay{\n    position:fixed;inset:0;background:radial-gradient(1200px 600px at 60% 0%, #b12e5f, #5b1342);\n    display:none;z-index:40;color:#fff\n  }\n  .overlay.show{display:block}\n  .np-container{height:100%;width:100%;display:flex;flex-direction:column;padding:18px 24px}\n  .np-close{font-size:26px;line-height:1;color:#fff;opacity:.9;cursor:pointer}\n  .np-main{flex:1;display:flex;align-items:center;justify-content:center}\n  .np-card{width:980px;max-width:80vw;display:grid;grid-template-columns:480px 1fr;gap:28px;align-items:end}\n  .cover{width:100%;aspect-ratio:1/1;border-radius:22px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.35)}\n  .cover img{width:100%;height:100%;object-fit:cover;display:block}\n  .np-info{align-self:stretch;display:flex;flex-direction:column;gap:14px}\n  .title{font-size:26px;font-weight:700}\n  .artist{color:#f0c8d4}\n  .np-row{display:flex;align-items:center;gap:10px}\n  .star{width:24px;height:24px;opacity:.95}\n  .ellipsis{font-weight:700;opacity:.8}\n  .bar-wrap{margin-top:10px}\n  .bar{height:8px;background:#ffffff35;border-radius:99px;position:relative;cursor:pointer}\n  .bar .fill{height:100%;background:#ffffff;opacity:.85;border-radius:99px;width:0%}\n  .time{display:flex;justify-content:space-between;color:#f3c9d8;margin-top:6px;font-size:13px}\n  .np-controls{margin-top:14px;display:flex;align-items:center;gap:16px}\n  .np-controls .circle{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#ffffff20;border:1px solid #ffffff3a;cursor:pointer}\n  .np-controls img{filter:invert(1)}\n  .bottom-wide{position:absolute;left:28px;right:28px;bottom:26px}\n  .bottom-wide .bar{height:6px}\n  /* Helpers */\n  .btn{cursor:pointer}\n  .hidden{display:none}\n</style>\n</head>\n<body>\n<div class=\"app\">\n  <!-- Sidebar -->\n  <aside>\n    <div class=\"brand\">\n      <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/001.svg\" width=\"108\" height=\"28\" alt=\"Apple Music\">\n      <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/002.svg\" width=\"60\" height=\"28\" alt=\"Beta\">\n    </div>\n    <div class=\"search\">\n      <input type=\"text\" placeholder=\"Search\" />\n    </div>\n    <ul class=\"nav\">\n      <li class=\"item btn active\"><img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/006.svg\" width=\"22\" height=\"22\" alt=\"\"><span>Home</span></li>\n      <li class=\"item btn\"><img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/005.svg\" width=\"22\" height=\"22\" alt=\"\"><span>New</span></li>\n      <li class=\"item btn\"><img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/007.svg\" width=\"22\" height=\"22\" alt=\"\"><span>Radio</span></li>\n    </ul>\n    <div class=\"sidebar-footer\">\n      <div class=\"link btn\">\n        <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/018.png\" width=\"30\" height=\"14\" alt=\"Music\">\n        <span>Open in Music ↗</span>\n      </div>\n      <div class=\"link btn\">Exit Beta ↗</div>\n    </div>\n  </aside>\n\n  <!-- Top bar -->\n  <header>\n    <div class=\"controls\">\n      <div class=\"icon-btn btn\" id=\"top-shuffle\" title=\"Shuffle\">\n        <img class=\"icon\" src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/010.svg\" width=\"18\" height=\"18\" alt=\"\">\n      </div>\n      <div class=\"icon-btn btn\" id=\"top-prev\" title=\"Previous\">\n        <img class=\"icon\" src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/014.svg\" width=\"18\" height=\"18\" alt=\"\" style=\"transform:rotate(180deg)\">\n      </div>\n      <div class=\"icon-btn btn\" id=\"top-play\" title=\"Play/Pause\">\n        <img class=\"icon\" id=\"top-play-icon\" src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/011.svg\" width=\"18\" height=\"18\" alt=\"\">\n      </div>\n      <div class=\"icon-btn btn\" id=\"top-next\" title=\"Next\">\n        <img class=\"icon\" src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/014.svg\" width=\"18\" height=\"18\" alt=\"\">\n      </div>\n    </div>\n\n    <div class=\"center-now btn\" id=\"openOverlay\" title=\"Open Now Playing\">\n      <div class=\"thumb\"><img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/017.jpg\" width=\"34\" height=\"34\" alt=\"Album\"></div>\n      <div class=\"track-meta\">\n        <div id=\"trackTitleMini\">Sacrifice</div>\n        <div class=\"preview\">PREVIEW</div>\n      </div>\n      <div class=\"progress-mini\"><div class=\"bar\" id=\"miniBar\"></div></div>\n    </div>\n\n    <div class=\"right-ops\">\n      <input type=\"range\" min=\"0\" max=\"100\" value=\"70\" class=\"vol btn\" title=\"Volume\">\n      <div class=\"icon-btn btn\" title=\"List\">\n        <img class=\"icon\" src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/010.svg\" width=\"18\" height=\"18\" alt=\"\">\n      </div>\n      <div class=\"avatar btn\" title=\"Account\">\n        <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/009.svg\" width=\"18\" height=\"18\" alt=\"\">\n      </div>\n    </div>\n  </header>\n\n  <!-- Main -->\n  <main>\n    <div class=\"hero-wrap\">\n      <img class=\"hero-logo\" src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/018.png\" width=\"64\" height=\"22\" alt=\"Music\">\n      <h1>Discover new music every day.</h1>\n      <div class=\"note-big\">\n        <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/013.webp\" width=\"360\" height=\"360\" alt=\"Note\">\n      </div>\n      <p class=\"subtitle\">Get playlists and albums inspired by the artists and genres you're listening to.</p>\n      <div class=\"get-started btn\" id=\"getStarted\">Get Started</div>\n      <div class=\"student btn\">See Student Plan <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/014.svg\" width=\"12\" height=\"12\" alt=\"\"></div>\n    </div>\n  </main>\n</div>\n\n<!-- Now Playing Overlay -->\n<div class=\"overlay\" id=\"overlay\">\n  <div class=\"np-container\">\n    <div class=\"np-close btn\" id=\"closeOverlay\">×</div>\n    <div class=\"np-main\">\n      <div class=\"np-card\">\n        <div class=\"cover\">\n          <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/017.jpg\" width=\"800\" height=\"800\" alt=\"Cover\">\n        </div>\n        <div class=\"np-info\">\n          <div>\n            <div class=\"title\" id=\"titleNp\">Sacrifice</div>\n            <div class=\"artist\" id=\"artistNp\">Mariah the Scientist — HEARTS SOLD SEPARATELY</div>\n          </div>\n          <div class=\"np-row\">\n            <img class=\"star btn\" src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/015.svg\" width=\"24\" height=\"24\" alt=\"Favorite\" title=\"Favorite\">\n            <span class=\"ellipsis btn\" title=\"More\">•••</span>\n          </div>\n\n          <div class=\"bar-wrap\">\n            <div class=\"bar btn\" id=\"seekBar\">\n              <div class=\"fill\" id=\"seekFill\"></div>\n            </div>\n            <div class=\"time\"><span id=\"curTime\">0:00</span><span id=\"durTime\">1:19</span></div>\n          </div>\n\n          <div class=\"np-controls\">\n            <div class=\"circle btn\" id=\"np-shuffle\"><img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/010.svg\" width=\"18\" height=\"18\" alt=\"\"></div>\n            <div class=\"circle btn\" id=\"np-prev\"><img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/014.svg\" width=\"18\" height=\"18\" style=\"transform:rotate(180deg)\" alt=\"\"></div>\n            <div class=\"circle btn\" id=\"np-play\"><img id=\"np-play-icon\" src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/008.svg\" width=\"18\" height=\"18\" alt=\"\"></div>\n            <div class=\"circle btn\" id=\"np-next\"><img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/014.svg\" width=\"18\" height=\"18\" alt=\"\"></div>\n            <div class=\"circle btn\" id=\"np-repeat\"><img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/012.svg\" width=\"16\" height=\"16\" alt=\"\"></div>\n          </div>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"bottom-wide\">\n      <div class=\"bar\"><div class=\"fill\" id=\"bottomFill\"></div></div>\n    </div>\n  </div>\n</div>\n\n<script>\n  // Mock track and player state\n  const track = {\n    title: \"Sacrifice\",\n    artist: \"Mariah the Scientist — HEARTS SOLD SEPARATELY\",\n    duration: 79 // seconds (1:19 in screenshots)\n  };\n\n  const state = {\n    playing: false,\n    t: 7 // start a few seconds in like screenshot\n  };\n\n  // DOM references\n  const miniBar = document.getElementById('miniBar');\n  const topPlay = document.getElementById('top-play');\n  const topPlayIcon = document.getElementById('top-play-icon');\n  const openOverlay = document.getElementById('openOverlay');\n  const overlay = document.getElementById('overlay');\n  const closeOverlay = document.getElementById('closeOverlay');\n  const seekBar = document.getElementById('seekBar');\n  const seekFill = document.getElementById('seekFill');\n  const bottomFill = document.getElementById('bottomFill');\n  const curTime = document.getElementById('curTime');\n  const durTime = document.getElementById('durTime');\n  const npPlay = document.getElementById('np-play');\n  const npPlayIcon = document.getElementById('np-play-icon');\n\n  // Initialize labels\n  document.getElementById('trackTitleMini').textContent = track.title;\n  document.getElementById('titleNp').textContent = track.title;\n  document.getElementById('artistNp').textContent = track.artist;\n  durTime.textContent = formatTime(track.duration);\n\n  function formatTime(s){\n    s = Math.max(0, Math.floor(s));\n    return Math.floor(s/60) + \":\" + String(s%60).padStart(2,'0');\n  }\n\n  function updateUI(){\n    const p = Math.min(100, (state.t/track.duration)*100);\n    miniBar.style.width = p + \"%\";\n    seekFill.style.width = p + \"%\";\n    bottomFill.style.width = p + \"%\";\n    curTime.textContent = formatTime(state.t);\n    // Switch icons\n    if(state.playing){\n      topPlayIcon.src = \"__PLACEHOLDER_ASSETS_BASE_DIR__/008.svg\"; // pause\n      npPlayIcon.src = \"__PLACEHOLDER_ASSETS_BASE_DIR__/008.svg\";\n    }else{\n      topPlayIcon.src = \"__PLACEHOLDER_ASSETS_BASE_DIR__/011.svg\"; // play\n      npPlayIcon.src = \"__PLACEHOLDER_ASSETS_BASE_DIR__/011.svg\";\n    }\n  }\n\n  let timer = null;\n  function play(){\n    if(timer) return;\n    state.playing = true;\n    timer = setInterval(()=>{\n      state.t += 0.25;\n      if(state.t >= track.duration){\n        state.t = 0;\n      }\n      updateUI();\n    },250);\n    updateUI();\n  }\n  function pause(){\n    state.playing = false;\n    clearInterval(timer); timer=null;\n    updateUI();\n  }\n  function togglePlay(){\n    state.playing ? pause() : play();\n  }\n\n  // Top bar controls\n  topPlay.addEventListener('click', togglePlay);\n  document.getElementById('np-prev').addEventListener('click', ()=>{\n    state.t = Math.max(0, state.t - 5);\n    updateUI();\n  });\n  document.getElementById('np-next').addEventListener('click', ()=>{\n    state.t = Math.min(track.duration, state.t + 5);\n    updateUI();\n  });\n  document.getElementById('top-prev').addEventListener('click', ()=>{\n    state.t = Math.max(0, state.t - 5); updateUI();\n  });\n  document.getElementById('top-next').addEventListener('click', ()=>{\n    state.t = Math.min(track.duration, state.t + 5); updateUI();\n  });\n\n  // Seek interactions (overlay)\n  function seekAt(clientX, elem, onApply){\n    const rect = elem.getBoundingClientRect();\n    const ratio = Math.min(1, Math.max(0, (clientX - rect.left)/rect.width));\n    const t = track.duration * ratio;\n    onApply(t);\n  }\n  seekBar.addEventListener('click', (e)=>seekAt(e.clientX, seekBar, (t)=>{ state.t = t; updateUI(); }));\n\n  // Overlay open / close\n  openOverlay.addEventListener('click', ()=>{ overlay.classList.add('show'); });\n  closeOverlay.addEventListener('click', ()=>{ overlay.classList.remove('show'); });\n\n  // Play control from overlay\n  npPlay.addEventListener('click', togglePlay);\n\n  // Buttons in hero\n  document.getElementById('getStarted').addEventListener('click', ()=>overlay.classList.add('show'));\n  document.querySelector('.student').addEventListener('click', ()=>alert('Student Plan: mock link'));\n\n  // Sidebar item active toggle\n  document.querySelectorAll('.nav .item').forEach(li=>{\n    li.addEventListener('click', ()=>{\n      document.querySelectorAll('.nav .item').forEach(x=>x.classList.remove('active'));\n      li.classList.add('active');\n    });\n  });\n\n  // Start paused but with position visible\n  updateUI();\n</script>\n</body>\n</html>\n```",
+        "refusal": null,
+        "role": "assistant",
+        "annotations": [],
+        "audio": null,
+        "function_call": null,
+        "tool_calls": null
+      },
+      "content_filter_results": {
+        "defender_for_ai": {
+          "detected": false,
+          "filtered": false,
+          "details": {
+            "evaluation": "unavailable",
+            "evaluationReason": "missing_or_unknown_provider_evaluation_status"
+          }
+        },
+        "hate": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "protected_material_code": {
+          "detected": true,
+          "filtered": false,
+          "citation": {
+            "URL": "https://github.com/amberz-wz82/info2300-serverside-web-project/tree/6f5330a52e111ea37c4a7ba865fb3554ecb8171e/pages%2Fmap.php",
+            "license": "NOASSERTION"
+          }
+        },
+        "protected_material_text": {
+          "detected": false,
+          "filtered": false
+        },
+        "self_harm": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "sexual": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "violence": {
+          "filtered": false,
+          "severity": "safe"
+        }
+      }
+    }
+  ],
+  "created": 1794743026,
+  "model": "gpt-5-2025-08-07",
+  "object": "chat.completion",
+  "metadata": null,
+  "moderation": null,
+  "service_tier": "default",
+  "system_fingerprint": null,
+  "usage": {
+    "completion_tokens": 6374,
+    "prompt_tokens": 4883,
+    "total_tokens": 11257,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": 0,
+      "audio_tokens": 0,
+      "reasoning_tokens": 1664,
+      "rejected_prediction_tokens": 0,
+      "text_tokens": null
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cache_write_tokens": null,
+      "cached_tokens": 2048,
+      "image_tokens": null,
+      "text_tokens": null
+    },
+    "latency_checkpoint": {
+      "engine_tbt_ms": 13,
+      "engine_ttft_ms": 1263,
+      "engine_ttlt_ms": 82228,
+      "pre_inference_ms": 1402,
+      "service_tbt_ms": 13,
+      "service_ttft_ms": 3180,
+      "service_ttlt_ms": 84139,
+      "user_visible_ttft_ms": 1778
+    }
+  },
+  "prompt_filter_results": [
+    {
+      "prompt_index": 0,
+      "content_filter_results": {
+        "defender_for_ai": {
+          "detected": false,
+          "filtered": false,
+          "details": {
+            "evaluation": "unavailable",
+            "evaluationReason": "missing_or_unknown_provider_evaluation_status"
+          }
+        },
+        "hate": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "jailbreak": {
+          "detected": false,
+          "filtered": false
+        },
+        "self_harm": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "sexual": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "violence": {
+          "filtered": false,
+          "severity": "safe"
+        }
+      }
+    }
+  ],
+  "routing": {
+    "serving_pipereplica": "d20261030130134-48da4c14-default-r0-dp0-default"
+  }
+}

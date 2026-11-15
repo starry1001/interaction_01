@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Apple Music — Mock</title>
+<style>
+  :root{
+    --sidebar-w:260px;
+    --bar-h:52px;
+    --bg:#f5f5f7;
+    --text:#111;
+    --muted:#6b6b6b;
+    --accent:#e0115f;
+    --accent2:#c70039;
+    --card:#ffffffcc;
+    --shadow:0 10px 30px rgba(0,0,0,.15);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,Helvetica,sans-serif;
+    color:var(--text);
+    background:#fff;
+    overflow:hidden;
+  }
+
+  /* Layout */
+  .sidebar{
+    position:fixed; left:0; top:0; bottom:0;
+    width:var(--sidebar-w);
+    background:#fafafa;
+    border-right:1px solid #e6e6e6;
+    display:flex; flex-direction:column;
+  }
+  .brand{
+    display:flex; align-items:center; gap:8px;
+    padding:14px 16px;
+  }
+  .brand img{display:block}
+  .search{
+    padding:6px 16px 10px;
+  }
+  .search input{
+    width:100%; height:34px;
+    border:1px solid #e1e1e1; border-radius:6px;
+    padding:0 10px;
+    outline:none;
+    background:#fff;
+  }
+  .nav{
+    padding:4px 6px;
+    font-size:15px;
+  }
+  .nav .item{
+    display:flex; align-items:center; gap:10px;
+    padding:8px 10px; margin:4px 8px;
+    color:#222; border-radius:8px;
+    cursor:pointer;
+  }
+  .nav .item.active{ background:#e9edf2; font-weight:600;}
+  .nav .item img{opacity:.9}
+  .sidebar .bottom{
+    margin-top:auto;
+    padding:14px 16px;
+    color:#333; font-size:14px;
+  }
+  .sidebar .bottom .row{
+    display:flex; align-items:center; gap:8px; margin-bottom:12px; cursor:pointer;
+  }
+  .sidebar .bottom a{color:#555; text-decoration:none}
+  .sidebar .bottom a:hover{ text-decoration:underline}
+
+  /* Top mini player bar */
+  .topbar{
+    position:fixed; left:var(--sidebar-w); right:0; top:0; height:var(--bar-h);
+    background:linear-gradient(#f6f6f6,#ececec);
+    border-bottom:1px solid #e4e4e4;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:0 14px;
+    z-index:5;
+  }
+  .controls, .right-side{
+    display:flex; align-items:center; gap:14px;
+  }
+  .ctrl-btn{
+    width:26px; height:26px; display:grid; place-items:center;
+    border-radius:6px; cursor:pointer;
+  }
+  .ctrl-btn:hover{ background:#e9e9e9}
+  .mini-center{
+    display:flex; align-items:center; gap:12px;
+    width:48%;
+    cursor:pointer;
+  }
+  .mini-center .art{
+    width:36px; height:36px; border-radius:4px; overflow:hidden; flex:0 0 auto;
+  }
+  .mini-center .art img{width:36px;height:36px; display:block}
+  .mini-track{
+    flex:1; overflow:hidden;
+  }
+  .mini-title{
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    font-size:14px; color:#222; font-weight:600;
+  }
+  .mini-sub{
+    font-size:12px; color:#666;
+  }
+  .mini-progress{
+    position:relative; height:4px; background:#e6e6e6; border-radius:2px; margin-top:4px;
+  }
+  .mini-progress .fill{
+    position:absolute; left:0; top:0; bottom:0; width:0%;
+    background:#c94a6a; border-radius:2px;
+  }
+  .right-side .volume{ width:120px}
+
+  /* Main hero */
+  .main{
+    position:absolute; left:var(--sidebar-w); right:0; top:var(--bar-h); bottom:0; overflow:auto;
+    background: radial-gradient(1200px 600px at 70% 20%, #ff4b77 0%, #d2143f 40%, #b10a3a 100%);
+  }
+  .hero{
+    position:relative;
+    height:100%;
+    display:flex; align-items:center; justify-content:center;
+    text-align:center; color:#fff;
+  }
+  .hero-inner{
+    max-width:980px; padding:40px 20px;
+  }
+  .hero .tag{
+    font-weight:700; letter-spacing:.3px; opacity:.9; margin-bottom:8px;
+  }
+  .hero h1{
+    font-size:58px; line-height:1.1; margin:8px 0 22px;
+  }
+  .hero p{ color:#ffe6ee; margin:14px 0 26px; font-size:16px}
+  .hero .cta{
+    display:inline-block; background:#fff; color:#111; padding:10px 18px;
+    border-radius:8px; font-weight:700; cursor:pointer; border:1px solid #fff;
+    transition:.2s transform;
+  }
+  .hero .cta:hover{ transform:translateY(-1px)}
+  .hero .sub-cta{ display:block; margin-top:10px; color:#f7d6e2; text-decoration:none; font-size:14px}
+  .hero .sub-cta:hover{ text-decoration:underline}
+  .note-img{ width:360px; height:360px; margin:28px auto 10px; filter:drop-shadow(0 14px 32px rgba(0,0,0,.28)); display:block}
+
+  /* Now Playing overlay */
+  .overlay{
+    position:fixed; inset:0; background:linear-gradient(130deg,#7a0f54,#b11e6c 40%,#7e0f54 100%);
+    display:none; z-index:20; color:#fff;
+  }
+  .overlay.show{ display:block}
+  .overlay .close{
+    position:absolute; top:18px; left:24px; font-size:26px; color:#fff; cursor:pointer; opacity:.8;
+  }
+  .np-wrap{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    padding:48px 68px 40px; gap:60px;
+  }
+  .np-card{
+    max-width:780px; width:780px;
+  }
+  .np-art{
+    width:460px; height:460px; border-radius:16px; overflow:hidden; box-shadow:var(--shadow);
+    margin:0 auto 18px;
+  }
+  .np-art img{ width:460px; height:460px; display:block}
+  .np-meta{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    color:#fff; opacity:.95; margin-bottom:10px;
+  }
+  .np-title{ font-weight:700 }
+  .np-sub{ color:#e7d7e2 }
+  .np-actions{ display:flex; align-items:center; gap:12px}
+  .np-actions .btn{ width:34px; height:34px; display:grid; place-items:center; border-radius:8px; background:rgba(255,255,255,.12)}
+  .np-actions .btn:hover{ background:rgba(255,255,255,.22)}
+  .np-progress{
+    margin:10px 0 18px;
+  }
+  .np-time{ display:flex; justify-content:space-between; font-size:12px; color:#f3e9ef; margin-bottom:6px}
+  .np-range{ width:100% }
+  input[type=range]{
+    -webkit-appearance:none; appearance:none; height:4px; background:rgba(255,255,255,.35); border-radius:99px; outline:none;
+  }
+  input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none; appearance:none; width:12px; height:12px; background:#fff; border-radius:50%;
+    border:2px solid #fff; margin-top:-4px;
+  }
+  .np-controls{
+    display:flex; align-items:center; justify-content:center; gap:22px; margin-top:8px;
+  }
+  .np-controls .btn{
+    width:42px; height:42px; display:grid; place-items:center; border-radius:50%;
+    background:rgba(255,255,255,.14); cursor:pointer;
+  }
+  .np-controls .btn:hover{ background:rgba(255,255,255,.22)}
+  .flip-x{ transform:scaleX(-1)}
+  .hidden{ display:none !important}
+  .pill{
+    display:inline-block; background:#d91c49; color:#fff; font-size:10px; font-weight:800; padding:3px 6px; border-radius:4px; margin-left:6px;
+  }
+
+  /* Buttons recognition class (already used where appropriate) */
+  .btn{ cursor:pointer }
+
+  /* Utility for icon sizing */
+  .ico{ width:18px; height:18px; display:block }
+  .ico24{ width:24px;height:24px; display:block }
+
+  /* Scrollbar subtle */
+  .main::-webkit-scrollbar{ width:10px}
+  .main::-webkit-scrollbar-thumb{ background:#d66; border-radius:99px}
+</style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<aside class="sidebar">
+  <div class="brand">
+    <img src="../../../data/data/2/assets/001.svg" alt="Apple Music" width="108" height="22">
+    <img src="../../../data/data/2/assets/002.svg" alt="Beta" width="48" height="22" style="border-radius:8px">
+  </div>
+  <div class="search">
+    <input type="text" placeholder="Search">
+  </div>
+
+  <div class="nav">
+    <div class="item btn active"><img class="ico" src="../../../data/data/2/assets/006.svg" width="18" height="18" alt="Home icon"> Home</div>
+    <div class="item btn"><img class="ico" src="../../../data/data/2/assets/005.svg" width="18" height="18" alt="New icon"> New</div>
+    <div class="item btn"><img class="ico" src="../../../data/data/2/assets/007.svg" width="18" height="18" alt="Radio icon"> Radio</div>
+  </div>
+
+  <div class="bottom">
+    <div class="row btn">
+      <img src="../../../data/data/2/assets/005.svg" width="18" height="18" alt="music"> <span>Open in Music ↗</span>
+    </div>
+    <a class="btn">Exit Beta ↗</a>
+  </div>
+</aside>
+
+<!-- Top bar mini player -->
+<div class="topbar">
+  <div class="controls">
+    <div class="ctrl-btn btn" id="btnPrev" title="Previous">
+      <img class="ico" src="../../../data/data/2/assets/014.svg" width="18" height="18" alt="prev" style="transform:rotate(180deg);">
+    </div>
+    <div class="ctrl-btn btn" id="btnPlayPause" title="Play/Pause">
+      <img class="ico" id="iconPlay" src="../../../data/data/2/assets/011.svg" width="18" height="18" alt="play">
+      <img class="ico hidden" id="iconPause" src="../../../data/data/2/assets/008.svg" width="18" height="18" alt="pause">
+    </div>
+    <div class="ctrl-btn btn" id="btnNext" title="Next">
+      <img class="ico" src="../../../data/data/2/assets/014.svg" width="18" height="18" alt="next">
+    </div>
+  </div>
+
+  <div class="mini-center btn" id="openOverlay" title="Expand">
+    <div class="art"><img src="../../../data/data/2/assets/017.jpg" width="36" height="36" alt="art"></div>
+    <div class="mini-track">
+      <div class="mini-title">Sacrifice <span class="pill">PREVIEW</span></div>
+      <div class="mini-sub">Mariah the Scientist — HEARTS SOLD SEPARATELY</div>
+      <div class="mini-progress"><div class="fill" id="miniFill"></div></div>
+    </div>
+  </div>
+
+  <div class="right-side">
+    <input class="volume" id="vol" type="range" min="0" max="1" step="0.01" value="0.7">
+    <img class="ico24 btn" src="../../../data/data/2/assets/010.svg" width="24" height="24" alt="menu">
+    <img class="ico24 btn" src="../../../data/data/2/assets/009.svg" width="24" height="24" alt="profile">
+  </div>
+</div>
+
+<!-- Main content -->
+<main class="main">
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="tag">Music</div>
+      <h1>Discover new music<br>every day.</h1>
+      <img class="note-img" src="../../../data/data/2/assets/013.webp" width="360" height="360" alt="music note">
+      <p>Get playlists and albums inspired by the artists and genres you’re listening to.</p>
+      <a class="cta btn">Get Started</a>
+      <a class="sub-cta btn">See Student Plan ›</a>
+    </div>
+  </section>
+</main>
+
+<!-- Now Playing Overlay -->
+<div class="overlay" id="overlay">
+  <div class="close btn" id="closeOverlay">✕</div>
+  <div class="np-wrap">
+    <div class="np-card">
+      <div class="np-art">
+        <img src="../../../data/data/2/assets/017.jpg" width="460" height="460" alt="album artwork">
+      </div>
+      <div class="np-meta">
+        <div>
+          <div class="np-title">Sacrifice</div>
+          <div class="np-sub">Mariah the Scientist — HEARTS SOLD SEPARATELY</div>
+        </div>
+        <div class="np-actions">
+          <div class="btn" id="btnFav" title="Favorite">
+            <img src="../../../data/data/2/assets/015.svg" width="20" height="20" alt="star" id="favIcon" style="filter:invert(1) brightness(2);">
+          </div>
+          <div class="btn" title="More">
+            <img src="../../../data/data/2/assets/010.svg" width="20" height="20" alt="more" style="filter:invert(1)">
+          </div>
+        </div>
+      </div>
+
+      <div class="np-progress">
+        <div class="np-time"><span id="curTime">0:00</span><span id="durTime">-1:55</span></div>
+        <input class="np-range" id="seek" type="range" min="0" max="115" value="0">
+      </div>
+
+      <div class="np-controls">
+        <div class="btn" id="npPrev"><img src="../../../data/data/2/assets/014.svg" width="18" height="18" alt="prev" class="flip-x"></div>
+        <div class="btn" id="npBack10"><img src="../../../data/data/2/assets/014.svg" width="18" height="18" alt="back" class="flip-x" style="opacity:.7"></div>
+        <div class="btn" id="npPlayPause">
+          <img id="npPlay" src="../../../data/data/2/assets/011.svg" width="20" height="20" alt="play">
+          <img id="npPause" class="hidden" src="../../../data/data/2/assets/008.svg" width="20" height="20" alt="pause">
+        </div>
+        <div class="btn" id="npFwd10"><img src="../../../data/data/2/assets/014.svg" width="18" height="18" alt="fwd" style="opacity:.7"></div>
+        <div class="btn" id="npNext"><img src="../../../data/data/2/assets/014.svg" width="18" height="18" alt="next"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* Mock track data and simple player state */
+const track = {
+  title: "Sacrifice",
+  artist: "Mariah the Scientist",
+  album: "HEARTS SOLD SEPARATELY",
+  duration: 115 // seconds (for preview)
+};
+
+let playing = false;
+let cur = 0; // seconds
+let timer = null;
+
+const fmt = s=>{
+  s = Math.max(0, Math.floor(s));
+  const m = Math.floor(s/60);
+  const ss = String(s%60).padStart(2,'0');
+  return `${m}:${ss}`;
+};
+const updateUI = ()=>{
+  // overlay
+  document.getElementById('curTime').textContent = fmt(cur);
+  document.getElementById('durTime').textContent = `-${fmt(track.duration - cur)}`;
+  document.getElementById('seek').value = cur;
+
+  // mini bar
+  const pct = (cur/track.duration)*100;
+  document.getElementById('miniFill').style.width = pct + '%';
+
+  // toggles
+  document.getElementById('iconPlay').classList.toggle('hidden', playing);
+  document.getElementById('iconPause').classList.toggle('hidden', !playing);
+  document.getElementById('npPlay').classList.toggle('hidden', playing);
+  document.getElementById('npPause').classList.toggle('hidden', !playing);
+};
+const stopTimer = ()=>{ if(timer){ clearInterval(timer); timer=null; } };
+const startTimer = ()=>{
+  stopTimer();
+  timer = setInterval(()=>{
+    if(!playing) return;
+    cur += 0.5;
+    if(cur>=track.duration){
+      cur = track.duration;
+      playing = false;
+      stopTimer();
+    }
+    updateUI();
+  }, 500);
+};
+
+document.getElementById('btnPlayPause').addEventListener('click', ()=>{
+  playing = !playing;
+  startTimer();
+  updateUI();
+});
+document.getElementById('npPlayPause').addEventListener('click', ()=>{
+  playing = !playing;
+  startTimer();
+  updateUI();
+});
+document.getElementById('btnPrev').addEventListener('click', ()=>{ cur=0; updateUI(); });
+document.getElementById('btnNext').addEventListener('click', ()=>{ cur=track.duration; updateUI(); });
+document.getElementById('npPrev').addEventListener('click', ()=>{ cur=0; updateUI(); });
+document.getElementById('npNext').addEventListener('click', ()=>{ cur=track.duration; updateUI(); });
+document.getElementById('npBack10').addEventListener('click', ()=>{ cur=Math.max(0,cur-10); updateUI(); });
+document.getElementById('npFwd10').addEventListener('click', ()=>{ cur=Math.min(track.duration,cur+10); updateUI(); });
+
+document.getElementById('seek').addEventListener('input', e=>{
+  cur = +e.target.value;
+  updateUI();
+});
+document.getElementById('openOverlay').addEventListener('click', ()=>{
+  document.getElementById('overlay').classList.add('show');
+});
+document.getElementById('closeOverlay').addEventListener('click', ()=>{
+  document.getElementById('overlay').classList.remove('show');
+});
+
+let fav=false;
+document.getElementById('btnFav').addEventListener('click', ()=>{
+  fav = !fav;
+  const ic = document.getElementById('favIcon');
+  ic.style.filter = fav ? 'invert(1) sepia(1) saturate(5) hue-rotate(320deg) brightness(1.3)' : 'invert(1) brightness(2)';
+});
+
+updateUI();
+</script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+{
+  "requested_model": "gpt-5",
+  "returned_model": "gpt-5-2025-08-07",
+  "input_tokens": 9425,
+  "output_tokens": 8041,
+  "total_tokens": 17466,
+  "usage": {
+    "completion_tokens": 8041,
+    "prompt_tokens": 9425,
+    "total_tokens": 17466,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": 0,
+      "audio_tokens": 0,
+      "reasoning_tokens": 2816,
+      "rejected_prediction_tokens": 0,
+      "text_tokens": null
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cache_write_tokens": null,
+      "cached_tokens": 0,
+      "image_tokens": null,
+      "text_tokens": null
+    },
+    "latency_checkpoint": {
+      "engine_tbt_ms": 11,
+      "engine_ttft_ms": 2190,
+      "engine_ttlt_ms": 89412,
+      "pre_inference_ms": 2184,
+      "service_tbt_ms": 11,
+      "service_ttft_ms": 5581,
+      "service_ttlt_ms": 92796,
+      "user_visible_ttft_ms": 3397
+    }
+  }
+}

@@ -1,0 +1,521 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pomofocus – Replica</title>
+<style>
+  :root{
+    --red:#d95550;
+    --red-dark:#b74c47;
+    --maroon:#7e4c53;
+    --teal:#38858a;
+    --panel:#cf4e4a;
+    --text:#fff;
+    --muted:#f3e7e7;
+    --card:#fefefe;
+    --border:#e3c6c6;
+  }
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color:#fff;
+    background:var(--red);
+  }
+  /* layout */
+  .app{
+    width:644px;
+    max-width:100%;
+    margin:0 auto;
+    min-height:1398px;
+    display:flex;
+    flex-direction:column;
+  }
+  header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:14px 14px 8px;
+  }
+  .brand{
+    display:flex;align-items:center;gap:10px;font-weight:700;font-size:20px;letter-spacing:.2px;
+  }
+  .brand img{filter:invert(1);opacity:.9}
+  .top-actions{display:flex;gap:8px;}
+  .circle-btn{
+    background:rgba(255,255,255,.15);
+    border:1px solid rgba(255,255,255,.25);
+    width:32px;height:32px;border-radius:8px;
+    display:grid;place-items:center;cursor:pointer;
+    transition:all .15s ease;
+  }
+  .circle-btn:hover{background:rgba(255,255,255,.22)}
+  .circle-btn img{filter:invert(1); width:18px;height:18px}
+  /* timer card */
+  .timer-card{
+    margin:8px 14px;
+    background:rgba(0,0,0,.06);
+    border-radius:10px;
+    border:1px solid rgba(0,0,0,.08);
+    padding:14px;
+  }
+  .modes{display:flex;gap:8px;margin-bottom:12px}
+  .mode.btn{
+    color:#fff;background:rgba(255,255,255,.1);
+    border:1px dashed rgba(255,255,255,.25);
+    padding:6px 10px;border-radius:18px; font-weight:600;font-size:13px;
+    cursor:pointer; user-select:none;
+  }
+  .mode.active{background:#fff;color:#333;border-style:solid}
+  .time{
+    font-size:84px; text-align:center; font-weight:800; letter-spacing:1px;
+    margin:8px 0 12px;
+    text-shadow:0 1px 0 rgba(0,0,0,.15);
+  }
+  .primary.btn{
+    display:block; margin:0 auto;
+    width:80%; max-width:420px;
+    background:#fff;color:#d95550;border:none;
+    border-radius:8px; font-weight:800; font-size:26px;
+    padding:12px 10px; cursor:pointer;
+    box-shadow:0 2px 0 rgba(0,0,0,.25);
+  }
+  .subline{
+    margin:12px 0 4px; display:flex;justify-content:center;gap:10px;align-items:center;color:#ffe8e8
+  }
+  .subline .dot{width:10px;height:10px;border-radius:50%;background:#fff;opacity:.5}
+  .minitext{ opacity:.9; font-size:14px; text-align:center;}
+  /* slider under timer */
+  .timeline{
+    margin:10px 30px 8px;
+  }
+  .timeline input[type=range]{
+    width:100%;
+    -webkit-appearance:none; appearance:none; height:6px;border-radius:4px;
+    background:rgba(255,255,255,.3); outline:none;
+  }
+  .timeline input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none; appearance:none; width:16px;height:16px;border-radius:50%;
+    background:#fff;border:2px solid rgba(0,0,0,.25);
+  }
+  /* tasks */
+  .tasks{
+    margin:6px 14px 0;
+    background:rgba(0,0,0,.06);
+    border-radius:10px; border:1px solid rgba(0,0,0,.08);
+  }
+  .tasks header{
+    padding:12px 14px;
+  }
+  .tasks-title{font-weight:700}
+  .tasks header .right{display:flex;gap:8px}
+  .tasks header .right .circle-btn{width:28px;height:28px}
+  .add-task.btn{
+    margin:12px 14px 16px;border:2px dashed rgba(255,255,255,.6);
+    padding:16px;border-radius:8px;color:#fff;text-align:center;
+    cursor:pointer; position:relative;
+  }
+  .add-task.btn img{filter:invert(1); position:relative; top:3px; margin-right:6px; width:16px;height:16px}
+  /* task item */
+  .task{
+    background:#fff;color:#222;margin:0 14px 10px;border-radius:8px;border:1px solid var(--border);
+    display:flex;align-items:center;gap:12px;padding:10px 12px;
+  }
+  .task .check.btn{
+    width:20px;height:20px;border-radius:50%; border:2px solid #bbb; display:inline-flex;align-items:center;justify-content:center; cursor:pointer;
+  }
+  .task.done{opacity:.7}
+  .task .title{flex:1}
+  .task .ratio{color:#777;font-size:12px}
+  /* editor */
+  .editor{
+    background:#fff;margin:0 14px 12px;border-radius:10px;border:1px solid var(--border);color:#222;display:none;
+  }
+  .editor.active{display:block}
+  .editor .row{padding:12px 14px}
+  .editor input[type=text]{
+    width:100%;font-size:18px;border:1px solid #e5e5e5;border-radius:8px;padding:10px 12px;outline:none;
+  }
+  .editor .est{
+    display:flex;gap:10px; align-items:center; margin-top:10px;
+  }
+  .spin.btn{
+    width:28px;height:28px;border-radius:6px;border:1px solid #ddd;background:#f4f4f4; display:flex;align-items:center;justify-content:center; cursor:pointer;
+  }
+  .editor .footer{
+    border-top:1px solid #eee; padding:12px 14px; display:flex;justify-content:space-between;align-items:center;
+  }
+  .cancel.btn{color:#888; background:none;border:none;font-weight:600; cursor:pointer}
+  .save.btn{
+    background:#2ecc71;color:#fff;border:none;border-radius:8px;padding:8px 14px;font-weight:700; cursor:pointer;
+  }
+  /* summary */
+  .summary{
+    margin:4px 14px 18px; color:#ffe8e8; font-size:14px;
+    display:flex; gap:16px; align-items:center;
+  }
+  .summary strong{color:#fff}
+  /* toast */
+  .toast{
+    position:fixed; left:50%; transform:translateX(-50%); bottom:-120px;
+    width:520px; max-width:90%;
+    background:#fff;color:#222;border-radius:12px; box-shadow:0 16px 30px rgba(0,0,0,.25);
+    padding:14px; display:flex; justify-content:space-between;align-items:center; gap:14px;
+    transition:bottom .35s ease;
+  }
+  .toast.show{bottom:20px}
+  .toast .clear.btn{background:#2ecc71;color:#fff;border:none;border-radius:8px;padding:8px 12px;font-weight:700; cursor:pointer}
+  .toast small{color:#666}
+  /* confetti */
+  .confetti{pointer-events:none; position:fixed; inset:0; overflow:hidden; display:none}
+  .confetti.active{display:block}
+  .confetti span{
+    position:absolute; width:10px;height:14px; transform:translateY(-120vh) rotate(0deg);
+    animation:fall 2.2s linear forwards;
+  }
+  @keyframes fall{
+    to{ transform:translateY(110vh) rotate(720deg); }
+  }
+  /* theme switching backgrounds */
+  .theme-pomodoro{ --panel:#cf4e4a; background:var(--red); }
+  .theme-short{ --panel:#70464c; background:var(--maroon); }
+  .theme-long{ --panel:#2f6f73; background:var(--teal); }
+  .timer-card, .tasks { background: color-mix(in hsl, var(--panel), #000 0%); border-color: rgba(0,0,0,.1) }
+  .primary.btn{ color:var(--red); }
+  .theme-short .primary.btn{ color:var(--maroon); }
+  .theme-long .primary.btn{ color:var(--teal); }
+  /* simple content section for realism */
+  .content{
+    margin:14px; background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.18); border-radius:10px; padding:18px;
+  }
+  .content h2{margin:0 0 12px; font-size:22px}
+  .content p{margin:0 0 10px; color:#ffe8e8}
+  /* utility */
+  .hidden{display:none}
+  .btn{user-select:none}
+</style>
+</head>
+<body class="theme-pomodoro">
+<div class="app">
+
+  <header>
+    <div class="brand">
+      <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/034.svg" width="18" height="18" alt="clock">
+      Pomofocus
+    </div>
+    <div class="top-actions">
+      <div class="circle-btn btn" title="Statistics">
+        <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/041.svg" width="18" height="18" alt="stats">
+      </div>
+      <div class="circle-btn btn" title="Settings">
+        <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/033.png" width="18" height="18" alt="gear">
+      </div>
+      <div class="circle-btn btn" title="About">
+        <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/009.png" width="18" height="18" alt="info">
+      </div>
+    </div>
+  </header>
+
+  <section class="timer-card">
+    <div class="modes">
+      <div class="mode btn active" data-mode="pomodoro">Pomodoro</div>
+      <div class="mode btn" data-mode="short">Short Break</div>
+      <div class="mode btn" data-mode="long">Long Break</div>
+    </div>
+    <div class="time" id="time">25:00</div>
+    <button class="primary btn" id="startBtn">START</button>
+
+    <div class="timeline">
+      <input type="range" min="0" max="100" value="0" id="timeline">
+    </div>
+    <div class="subline">
+      <div class="minitext">#<span id="currentIndex">1</span></div>
+      <div class="dot"></div>
+      <div class="minitext" id="focusText">Time to focus!</div>
+    </div>
+  </section>
+
+  <section class="tasks">
+    <header>
+      <div class="tasks-title">Tasks</div>
+      <div class="right">
+        <div class="circle-btn btn" title="More">
+          <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/003.png" width="16" height="16" alt="menu">
+        </div>
+      </div>
+    </header>
+
+    <div id="taskList"></div>
+
+    <div class="add-task btn" id="openEditor">
+      <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/028.png" width="16" height="16" alt="plus"> Add Task
+    </div>
+
+    <div class="editor" id="editor">
+      <div class="row">
+        <input id="taskTitle" type="text" placeholder="What are you working on?">
+        <div class="est">
+          <div style="color:#666">Est Pomodoros</div>
+          <div id="estVal" style="font-weight:700">1</div>
+          <div class="spin btn" id="down">–</div>
+          <div class="spin btn" id="up">+</div>
+        </div>
+        <div class="row" style="padding:8px 0 0; color:#888; font-size:13px">+ Add Note • + Add Project</div>
+      </div>
+      <div class="footer">
+        <button class="cancel btn" id="cancelEditor">Cancel</button>
+        <button class="save btn" id="saveTask">Save</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="summary" id="summary">
+    <span>Pomos: <strong id="doneCount">0</strong>/<span id="totalCount">0</span></span>
+    <span>Finish At: <strong id="finishAt">--:--</strong> <small id="hours">(0h)</small></span>
+  </div>
+
+  <section class="content">
+    <h2>An online Pomodoro Timer to boost your productivity</h2>
+    <p>Pomofocus is a customizable pomodoro timer that works on desktop and mobile browser. The aim of this app is to help you focus on any task you are working on, such as study, writing, or coding.</p>
+    <p>This replica implements the core look and feel shown in the screenshots.</p>
+  </section>
+</div>
+
+<!-- toast -->
+<div class="toast" id="toast">
+  <div>
+    <div style="font-weight:700;margin-bottom:2px">You've finished all your tasks for today 🎉</div>
+    <small>Great job! You can clear your list.</small>
+  </div>
+  <button class="clear btn" id="clearTasks">Clear Tasks</button>
+</div>
+
+<!-- confetti -->
+<div class="confetti" id="confetti"></div>
+
+<script>
+(function(){
+  const timeEl = document.getElementById('time');
+  const startBtn = document.getElementById('startBtn');
+  const timeline = document.getElementById('timeline');
+  const focusText = document.getElementById('focusText');
+  const currentIndexEl = document.getElementById('currentIndex');
+
+  const editor = document.getElementById('editor');
+  const openEditor = document.getElementById('openEditor');
+  const cancelEditor = document.getElementById('cancelEditor');
+  const saveTask = document.getElementById('saveTask');
+  const taskTitleInput = document.getElementById('taskTitle');
+  const up = document.getElementById('up');
+  const down = document.getElementById('down');
+  const estVal = document.getElementById('estVal');
+  const taskList = document.getElementById('taskList');
+
+  const toast = document.getElementById('toast');
+  const clearTasks = document.getElementById('clearTasks');
+
+  const doneCountEl = document.getElementById('doneCount');
+  const totalCountEl = document.getElementById('totalCount');
+  const finishAtEl = document.getElementById('finishAt');
+  const hoursEl = document.getElementById('hours');
+
+  const confettiBox = document.getElementById('confetti');
+
+  // State
+  const DURS = { pomodoro: 25*60, short: 5*60, long: 15*60 };
+  let mode = 'pomodoro';
+  let left = DURS[mode];
+  let timer = null;
+  let running = false;
+
+  let tasks = []; // {id, title, est, done, complete}
+  let activeTaskIndex = 0;
+
+  // Helpers
+  function fmt(s){
+    const m = Math.floor(s/60).toString().padStart(2,'0');
+    const ss = Math.floor(s%60).toString().padStart(2,'0');
+    return `${m}:${ss}`;
+  }
+  function setTheme(){
+    document.body.classList.remove('theme-pomodoro','theme-short','theme-long');
+    document.body.classList.add(mode==='pomodoro'?'theme-pomodoro':(mode==='short'?'theme-short':'theme-long'));
+    focusText.textContent = mode==='pomodoro' ? 'Time to focus!' : 'Time for a break!';
+  }
+  function renderTime(){
+    timeEl.textContent = fmt(left);
+    timeline.value = Math.min(100, 100 - (left/DURS[mode])*100);
+  }
+  function switchMode(target){
+    mode = target;
+    left = DURS[mode];
+    running = false;
+    clearInterval(timer);
+    startBtn.textContent = 'START';
+    document.querySelectorAll('.mode').forEach(m => m.classList.toggle('active', m.dataset.mode===mode));
+    setTheme();
+    renderTime();
+  }
+  function tick(){
+    if(left>0){ left--; renderTime(); }
+    else{
+      clearInterval(timer); running=false;
+      startBtn.textContent = 'START';
+      // If working session is over, increment pomodoro count for active task
+      if(mode==='pomodoro'){
+        const t = tasks[activeTaskIndex];
+        if(t){
+          t.done++; if(t.done>=t.est){ t.complete=true; }
+          refreshTasks();
+          checkAllDone();
+        }
+      }
+      // simple confetti splash
+      splashConfetti();
+    }
+  }
+  function startPause(){
+    if(running){ running=false; startBtn.textContent='START'; clearInterval(timer); }
+    else{
+      running=true; startBtn.textContent='PAUSE'; timer=setInterval(tick,1000);
+    }
+  }
+
+  // Tasks
+  function openTaskEditor(){
+    editor.classList.add('active');
+    taskTitleInput.value='';
+    estVal.textContent='1';
+    taskTitleInput.focus();
+  }
+  function closeTaskEditor(){ editor.classList.remove('active'); }
+
+  up.addEventListener('click', ()=>{ estVal.textContent = Math.min(20, (+estVal.textContent)+1); });
+  down.addEventListener('click', ()=>{ estVal.textContent = Math.max(1, (+estVal.textContent)-1); });
+
+  openEditor.addEventListener('click', openTaskEditor);
+  cancelEditor.addEventListener('click', closeTaskEditor);
+  saveTask.addEventListener('click', ()=>{
+    const title = taskTitleInput.value.trim()||'Untitled';
+    const est = +estVal.textContent;
+    tasks.push({id:Date.now(), title, est, done:0, complete:false});
+    activeTaskIndex = tasks.length-1;
+    closeTaskEditor();
+    refreshTasks();
+    scrollToTasks();
+  });
+
+  function taskItem(t,i){
+    const div = document.createElement('div');
+    div.className = 'task'+(t.complete?' done':'');
+    div.innerHTML = `
+      <div class="check btn" title="Toggle done">${ t.complete? '✔':'' }</div>
+      <div class="title">${escapeHtml(t.title)}</div>
+      <div class="ratio">${t.done}/${t.est}</div>
+    `;
+    const check = div.querySelector('.check');
+    check.addEventListener('click', ()=>{
+      if(!t.complete){
+        if(t.done<t.est){ t.done++; }
+        if(t.done>=t.est){ t.complete=true; }
+      }else{
+        t.complete=false; t.done=Math.max(0,t.est-1);
+      }
+      refreshTasks();
+      checkAllDone();
+    });
+    div.addEventListener('click', ()=>{ activeTaskIndex=i; updateSliderLabel(); });
+    return div;
+  }
+
+  function refreshTasks(){
+    taskList.innerHTML='';
+    tasks.forEach((t,i)=> taskList.appendChild(taskItem(t,i)));
+    updateSummary();
+    updateSliderLabel();
+  }
+  function updateSummary(){
+    const total = tasks.reduce((a,t)=>a+t.est,0);
+    const done = tasks.reduce((a,t)=>a+t.done,0);
+    totalCountEl.textContent = total;
+    doneCountEl.textContent = done;
+    const remainingPomos = Math.max(0,total-done);
+    const minutes = remainingPomos*25;
+    const now = new Date();
+    const doneMs = now.getTime() + minutes*60000;
+    const dt = new Date(doneMs);
+    const hh = dt.getHours().toString().padStart(2,'0');
+    const mm = dt.getMinutes().toString().padStart(2,'0');
+    finishAtEl.textContent = `${hh}:${mm}`;
+    hoursEl.textContent = `(${(minutes/60).toFixed(1)}h)`;
+  }
+  function updateSliderLabel(){
+    const idx = (activeTaskIndex>=0 && tasks[activeTaskIndex])?activeTaskIndex:0;
+    currentIndexEl.textContent = (idx+1)||1;
+  }
+  function scrollToTasks(){ document.querySelector('.tasks').scrollIntoView({behavior:'smooth',block:'start'}); }
+
+  function checkAllDone(){
+    if(tasks.length && tasks.every(t=>t.complete)){
+      // toast
+      toast.classList.add('show');
+      splashConfetti();
+    }
+  }
+
+  clearTasks.addEventListener('click', ()=>{
+    tasks = [];
+    refreshTasks();
+    toast.classList.remove('show');
+  });
+
+  // Modes click
+  document.querySelectorAll('.mode').forEach(m=>{
+    m.addEventListener('click', function(){
+      switchMode(this.dataset.mode);
+    });
+  });
+
+  startBtn.addEventListener('click', startPause);
+
+  // Confetti
+  function splashConfetti(){
+    confettiBox.classList.add('active');
+    confettiBox.innerHTML='';
+    const colors=['#ffd166','#06d6a0','#118ab2','#ef476f','#ffffff'];
+    for(let i=0;i<120;i++){
+      const s = document.createElement('span');
+      s.style.left = Math.random()*100+'%';
+      s.style.background = colors[Math.floor(Math.random()*colors.length)];
+      s.style.opacity = .9;
+      s.style.transform = `translateY(-120vh) rotate(${Math.random()*360}deg)`;
+      s.style.animationDelay = (Math.random()*0.2)+'s';
+      s.style.width = (6+Math.random()*8)+'px';
+      s.style.height = (8+Math.random()*10)+'px';
+      confettiBox.appendChild(s);
+    }
+    setTimeout(()=>{ confettiBox.classList.remove('active'); },2400);
+  }
+
+  // Util
+  function escapeHtml(str){ return str.replace(/[&<>"']/g, m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m])); }
+
+  // Initial render
+  setTheme();
+  renderTime();
+  refreshTasks();
+
+  // Demo seed to match screenshots: create one example task after load
+  setTimeout(()=>{
+    tasks.push({id:1,title:'123',est:1,done:0,complete:false});
+    refreshTasks();
+  }, 200);
+
+})();
+</script>
+</body>
+</html>
+```

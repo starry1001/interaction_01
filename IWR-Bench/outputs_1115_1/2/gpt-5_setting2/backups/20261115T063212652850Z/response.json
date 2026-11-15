@@ -1,0 +1,131 @@
+{
+  "id": "chatcmpl-EkO3TAyOWbmKL2k8ezv0kdVDtqkPn",
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "logprobs": null,
+      "message": {
+        "content": "```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>Apple Music – Replica</title>\n<style>\n  :root{\n    --sidebar:#f4f4f6;\n    --text:#111;\n    --muted:#6b6b6b;\n    --red1:#e11d48;\n    --red2:#ff315f;\n    --hero-start:#e11d48;\n    --hero-end:#ff3e70;\n    --btn:#111;\n    --radius:10px;\n  }\n  *{box-sizing:border-box}\n  html,body{height:100%}\n  body{\n    margin:0;\n    font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif;\n    color:var(--text);\n    overflow:hidden;\n    background:#fff;\n  }\n\n  /* Layout */\n  .app{\n    display:grid;\n    grid-template-columns: 280px 1fr;\n    grid-template-rows: 56px 1fr;\n    grid-template-areas:\n      \"sidebar topbar\"\n      \"sidebar main\";\n    height:100vh;\n  }\n\n  /* Sidebar */\n  .sidebar{\n    grid-area:sidebar;\n    background:var(--sidebar);\n    border-right:1px solid #e3e3e6;\n    display:flex;\n    flex-direction:column;\n    padding:14px 14px 12px;\n    gap:12px;\n  }\n  .brand{\n    display:flex;align-items:center;gap:8px;padding:2px 6px;\n    font-weight:600;color:#000;\n  }\n  .brand img.logo{\n    display:block;object-fit:contain;\n  }\n  .beta{\n    padding:3px 8px;background:#d9d9df;border-radius:16px;font-size:12px;color:#000;\n  }\n  .menu{\n    margin-top:6px;\n    background:#fff;border:1px solid #e8e8ea;border-radius:8px;\n    padding:8px 0;\n  }\n  .menu h4{\n    margin:6px 12px 8px;color:var(--muted);font-size:12px;letter-spacing:.04em;text-transform:uppercase;\n  }\n  .nav-item{\n    display:flex;align-items:center;gap:10px;padding:8px 12px;margin:2px 6px;border-radius:8px;cursor:pointer;\n    color:#222;text-decoration:none;\n  }\n  .nav-item img{opacity:.9}\n  .nav-item.active{background:#e9e9ee}\n  .nav-item:hover{background:#efeff4}\n  .nav-item .title{flex:1}\n\n  .sidebar-footer{\n    margin-top:auto;border-top:1px solid #e3e3e6;padding-top:12px;\n    color:var(--muted);font-size:13px;\n  }\n  .openmusic{\n    display:flex;align-items:center;gap:8px;margin-bottom:10px;color:#222;text-decoration:none;\n  }\n\n  /* Top bar (simple, decorative) */\n  .topbar{\n    grid-area:topbar;\n    display:flex;align-items:center;justify-content:center;\n    border-bottom:1px solid #eee;background:#fff;\n    gap:14px;\n    position:relative;\n  }\n  .top-controls{\n    position:absolute;left:16px;display:flex;align-items:center;gap:10px;\n    color:#444;\n  }\n  .dot{width:10px;height:10px;border-radius:50%}\n  .dot.r{background:#ff5f57}.dot.y{background:#fdbc2f}.dot.g{background:#28c840}\n  .mini-player{\n    display:flex;align-items:center;gap:10px;\n    font-size:13px;color:#444;\n  }\n  .mini-cover{\n    width:28px;height:28px;border-radius:4px;object-fit:cover;border:1px solid #ddd;\n  }\n\n  /* Main hero */\n  .main{\n    grid-area:main;overflow:auto;position:relative;background:#fff;\n  }\n  .hero{\n    height:calc(100% - 0px);\n    background:linear-gradient(135deg,var(--hero-start),var(--hero-end));\n    display:flex;align-items:center;justify-content:center;position:relative;\n  }\n  .hero-inner{\n    width:min(1160px,100%);display:grid;\n    grid-template-columns: 1fr 520px;align-items:center;gap:30px;\n    padding:40px 40px;\n  }\n  .hero .am-badge{\n    position:absolute;top:24px;left:50%;transform:translateX(-50%);\n    opacity:.9;\n  }\n  .hero h1{\n    color:#fff;font-size:56px;line-height:1.1;margin:0 0 18px;text-shadow:0 1px 0 rgba(0,0,0,.1);\n  }\n  .hero p{color:#ffe9ef;font-size:16px;margin:0 0 24px;max-width:520px}\n  .btn{\n    cursor:pointer;\n    user-select:none;\n  }\n  .btn.primary{\n    background:var(--btn);color:#fff;border:1px solid #000;\n    padding:12px 18px;border-radius:10px;font-weight:600;display:inline-block;\n  }\n  .btn.secondary{\n    background:transparent;color:#fff;border:1px solid rgba(255,255,255,.6);\n    padding:11px 16px;border-radius:10px;margin-left:10px;display:inline-block;\n  }\n  .note-visual{\n    display:flex;align-items:center;justify-content:center;\n  }\n  .note-visual img{\n    filter:drop-shadow(0 20px 30px rgba(0,0,0,.25));\n  }\n  .ghost{\n    position:absolute;inset:0;pointer-events:none;opacity:.12;background:\n      radial-gradient(220px 220px at 25% 15%, #fff, transparent 60%);\n  }\n\n  /* Player overlay */\n  .player{\n    position:fixed;inset:0;background:radial-gradient(circle at 20% 10%, #c043a5, transparent 40%), radial-gradient(circle at 80% 10%, #f04a7a, transparent 40%), linear-gradient(135deg, #7a1a8c, #991b6f 60%, #7d0e6b);\n    display:none;flex-direction:column;\n  }\n  .player.show{display:flex}\n  .player .close{\n    position:absolute;left:22px;top:12px;color:#f4cbe1;font-size:28px;line-height:1;border:none;background:none;\n  }\n  .player .stage{\n    flex:1;display:flex;align-items:center;justify-content:center;gap:90px;padding:80px 60px 0;\n  }\n  .art{\n    width:460px;height:460px;border-radius:16px;object-fit:cover;\n    box-shadow:0 30px 80px rgba(0,0,0,.45), 0 6px 18px rgba(0,0,0,.35);\n  }\n  .track-info{\n    color:#ffe7f4;max-width:420px;font-size:14px;\n  }\n  .track-title{font-size:22px;color:#fff;margin:6px 0 8px}\n  .controls{\n    width:100%;max-width:960px;margin:0 auto 24px;display:flex;flex-direction:column;gap:8px;\n    color:#e9cfe0;\n  }\n  .progress{\n    display:flex;align-items:center;gap:10px;font-size:12px;color:#f2cfe1\n  }\n  .bar{flex:1;height:6px;background:rgba(255,255,255,.25);border-radius:6px;position:relative;cursor:pointer}\n  .bar .fill{position:absolute;left:0;top:0;height:100%;background:#fff;border-radius:6px;width:0%}\n  .time{min-width:42px;text-align:center}\n  .play-row{\n    display:flex;align-items:center;gap:14px;justify-content:center;\n  }\n  .ctl-btn{\n    width:46px;height:46px;border-radius:50%;\n    background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);\n    display:flex;align-items:center;justify-content:center;\n  }\n  .ctl-btn img{width:20px;height:20px;filter:invert(1)}\n  .ctl-btn.play{width:56px;height:56px;background:#fff;border-color:#fff}\n  .ctl-btn.play img{filter:none}\n  .footline{\n    height:24px\n  }\n\n  /* Utilities */\n  .hidden{display:none}\n  a{text-decoration:none;color:inherit}\n</style>\n</head>\n<body>\n<div class=\"app\">\n  <!-- Sidebar -->\n  <aside class=\"sidebar\">\n    <div class=\"brand\">\n      <img class=\"logo\" src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/001.svg\" alt=\"Apple Music\" width=\"112\" height=\"28\">\n      <span class=\"beta\">Beta</span>\n    </div>\n\n    <div class=\"menu\">\n      <h4>Browse</h4>\n      <a class=\"nav-item btn active\" data-section=\"home\">\n        <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/006.svg\" alt=\"\" width=\"22\" height=\"22\">\n        <span class=\"title\">Home</span>\n      </a>\n      <a class=\"nav-item btn\" data-section=\"new\">\n        <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/010.svg\" alt=\"\" width=\"22\" height=\"22\">\n        <span class=\"title\">New</span>\n      </a>\n      <a class=\"nav-item btn\" data-section=\"radio\">\n        <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/007.svg\" alt=\"\" width=\"22\" height=\"22\">\n        <span class=\"title\">Radio</span>\n      </a>\n    </div>\n\n    <div class=\"sidebar-footer\">\n      <a class=\"openmusic btn open-player open-from-sidebar openmusic\">\n        <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/018.png\" alt=\"Open in Music\" width=\"74\" height=\"20\">\n        <span>Open in Music</span>\n      </a>\n      <div>Exit Beta ›</div>\n    </div>\n  </aside>\n\n  <!-- Topbar -->\n  <header class=\"topbar\">\n    <div class=\"top-controls\">\n      <div class=\"dot r\"></div>\n      <div class=\"dot y\"></div>\n      <div class=\"dot g\"></div>\n    </div>\n    <div class=\"mini-player\">\n      <img class=\"mini-cover\" src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/017.jpg\" width=\"28\" height=\"28\" alt=\"cover\">\n      <span>Mariah the Scientist — HEARTS SOLD SEPARATELY</span>\n    </div>\n  </header>\n\n  <!-- Main -->\n  <main class=\"main\">\n    <section class=\"hero\">\n      <img class=\"am-badge\" src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/018.png\" width=\"82\" height=\"20\" alt=\"Apple Music\">\n      <div class=\"hero-inner\">\n        <div class=\"copy\">\n          <h1 class=\"hero-title\">Discover new music every day.</h1>\n          <p class=\"hero-desc\">Get playlists and albums inspired by the artists and genres you’re listening to.</p>\n          <div>\n            <span class=\"btn primary open-player\">Get Started</span>\n            <span class=\"btn secondary\">See Student Plan</span>\n          </div>\n        </div>\n        <div class=\"note-visual\">\n          <img class=\"open-player btn\" src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/013.webp\" width=\"420\" height=\"420\" alt=\"Music note\">\n        </div>\n      </div>\n      <div class=\"ghost\"></div>\n    </section>\n  </main>\n</div>\n\n<!-- Player Overlay -->\n<div class=\"player\" id=\"player\">\n  <button class=\"close btn\" id=\"closePlayer\" aria-label=\"Close\">×</button>\n  <div class=\"stage\">\n    <img class=\"art\" src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/017.jpg\" width=\"460\" height=\"460\" alt=\"Album art\">\n    <div class=\"track-info\">\n      <div class=\"track-title\" id=\"trackTitle\">Sacrifice</div>\n      <div class=\"artist\">Mariah the Scientist — HEARTS SOLD SEPARATELY</div>\n      <div style=\"margin-top:12px;display:flex;gap:12px;align-items:center;\">\n        <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/015.svg\" width=\"22\" height=\"22\" alt=\"favorite\" class=\"btn\">\n        <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/014.svg\" width=\"22\" height=\"22\" alt=\"more\" class=\"btn\" style=\"transform:rotate(90deg)\">\n      </div>\n    </div>\n  </div>\n\n  <div class=\"controls\">\n    <div class=\"progress\">\n      <span class=\"time\" id=\"elapsed\">0:11</span>\n      <div class=\"bar btn\" id=\"progressBar\" aria-label=\"Progress\">\n        <div class=\"fill\" id=\"progressFill\" style=\"width:0%\"></div>\n      </div>\n      <span class=\"time\" id=\"duration\">-1:15</span>\n    </div>\n    <div class=\"play-row\">\n      <div class=\"ctl-btn btn\" id=\"prevBtn\" title=\"Previous\">\n        <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/014.svg\" width=\"20\" height=\"20\" alt=\"Prev\" style=\"transform:rotate(180deg)\">\n      </div>\n      <div class=\"ctl-btn play btn\" id=\"playPause\">\n        <img id=\"playPauseIcon\" src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/011.svg\" width=\"22\" height=\"22\" alt=\"Play\">\n      </div>\n      <div class=\"ctl-btn btn\" id=\"nextBtn\" title=\"Next\">\n        <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/014.svg\" width=\"20\" height=\"20\" alt=\"Next\">\n      </div>\n    </div>\n  </div>\n  <div class=\"footline\"></div>\n</div>\n\n<script>\n  // Fake content by section for hero\n  const heroData = {\n    home: {\n      title: \"Discover new music every day.\",\n      desc: \"Get playlists and albums inspired by the artists and genres you’re listening to.\",\n      start:\"#e11d48\", end:\"#ff3e70\"\n    },\n    new: {\n      title:\"New releases.\",\n      desc:\"Fresh tracks added daily—start listening now.\",\n      start:\"#f43f5e\", end:\"#fb7185\"\n    },\n    radio: {\n      title:\"Radio you’ll love.\",\n      desc:\"Stations and live shows crafted by music experts.\",\n      start:\"#c026d3\", end:\"#f43f5e\"\n    }\n  };\n\n  const heroTitle = document.querySelector('.hero-title');\n  const heroDesc  = document.querySelector('.hero-desc');\n  const hero = document.querySelector('.hero');\n  document.querySelectorAll('.nav-item').forEach(item=>{\n    item.addEventListener('click', ()=>{\n      document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));\n      item.classList.add('active');\n      const key = item.getAttribute('data-section');\n      const d = heroData[key];\n      heroTitle.textContent = d.title;\n      heroDesc.textContent = d.desc;\n      document.documentElement.style.setProperty('--hero-start', d.start);\n      document.documentElement.style.setProperty('--hero-end', d.end);\n    });\n  });\n\n  // Player overlay logic\n  const player = document.getElementById('player');\n  const openers = document.querySelectorAll('.open-player');\n  const closeBtn = document.getElementById('closePlayer');\n  openers.forEach(el=>el.addEventListener('click', ()=>player.classList.add('show')));\n  closeBtn.addEventListener('click', ()=>player.classList.remove('show'));\n\n  // Simulated playback\n  const playPause = document.getElementById('playPause');\n  const playPauseIcon = document.getElementById('playPauseIcon');\n  const progressFill = document.getElementById('progressFill');\n  const elapsedEl = document.getElementById('elapsed');\n  const durationEl = document.getElementById('duration');\n  const progressBar = document.getElementById('progressBar');\n\n  let isPlaying = false;\n  const total = 95; // fake seconds\n  let t = 0;\n  let raf;\n\n  function fmt(sec){\n    sec = Math.max(0, Math.round(sec));\n    const m = Math.floor(sec/60);\n    const s = sec%60;\n    return `${m}:${String(s).padStart(2,'0')}`;\n  }\n  function updateUI(){\n    const pct = (t/total)*100;\n    progressFill.style.width = pct + '%';\n    elapsedEl.textContent = fmt(t);\n    durationEl.textContent = '-' + fmt(total - t);\n  }\n  function step(){\n    if(!isPlaying) return;\n    t += 0.2;\n    if(t > total){ t = 0; }\n    updateUI();\n    raf = requestAnimationFrame(step);\n  }\n  function play(){\n    if(isPlaying) return;\n    isPlaying = true;\n    playPauseIcon.src = \"__PLACEHOLDER_ASSETS_BASE_DIR__/008.svg\"; // pause\n    playPauseIcon.alt = \"Pause\";\n    step();\n  }\n  function pause(){\n    isPlaying = false;\n    playPauseIcon.src = \"__PLACEHOLDER_ASSETS_BASE_DIR__/011.svg\"; // play\n    playPauseIcon.alt = \"Play\";\n    cancelAnimationFrame(raf);\n  }\n\n  playPause.addEventListener('click', ()=>{\n    if(isPlaying) pause(); else play();\n  });\n\n  progressBar.addEventListener('click', (e)=>{\n    const rect = progressBar.getBoundingClientRect();\n    const x = e.clientX - rect.left;\n    const pct = Math.min(1, Math.max(0, x/rect.width));\n    t = Math.round(total * pct);\n    updateUI();\n  });\n\n  // Prev/Next just jump around the track, for demo\n  document.getElementById('prevBtn').addEventListener('click', ()=>{\n    t = Math.max(0, t - 10); updateUI();\n  });\n  document.getElementById('nextBtn').addEventListener('click', ()=>{\n    t = Math.min(total, t + 10); updateUI();\n  });\n\n  // Initialize UI\n  updateUI();\n</script>\n</body>\n</html>\n```",
+        "refusal": null,
+        "role": "assistant",
+        "annotations": [],
+        "audio": null,
+        "function_call": null,
+        "tool_calls": null
+      },
+      "content_filter_results": {
+        "defender_for_ai": {
+          "detected": false,
+          "filtered": false,
+          "details": {
+            "evaluation": "unavailable",
+            "evaluationReason": "missing_or_unknown_provider_evaluation_status"
+          }
+        },
+        "hate": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "protected_material_code": {
+          "detected": true,
+          "filtered": false,
+          "citation": {
+            "URL": "https://github.com/khalidakhter91/https-github.com-freeCodeCamp-freeCodeCamp/tree/e9fc0068780d40be20d0c1fedd058d6ceced1ec3/guide%2Fenglish%2Fcss%2Fcss-frameworks%2Fcss-framework-semanticui%2Findex.md",
+            "license": "BSD_3_Clause"
+          }
+        },
+        "protected_material_text": {
+          "detected": false,
+          "filtered": false
+        },
+        "self_harm": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "sexual": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "violence": {
+          "filtered": false,
+          "severity": "safe"
+        }
+      }
+    }
+  ],
+  "created": 1794724263,
+  "model": "gpt-5-2025-08-07",
+  "object": "chat.completion",
+  "metadata": null,
+  "moderation": null,
+  "service_tier": "default",
+  "system_fingerprint": null,
+  "usage": {
+    "completion_tokens": 5895,
+    "prompt_tokens": 1873,
+    "total_tokens": 7768,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": 0,
+      "audio_tokens": 0,
+      "reasoning_tokens": 1728,
+      "rejected_prediction_tokens": 0,
+      "text_tokens": null
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cache_write_tokens": null,
+      "cached_tokens": 0,
+      "image_tokens": null,
+      "text_tokens": null
+    },
+    "latency_checkpoint": {
+      "engine_tbt_ms": 11,
+      "engine_ttft_ms": 502,
+      "engine_ttlt_ms": 67625,
+      "pre_inference_ms": 689,
+      "service_tbt_ms": 11,
+      "service_ttft_ms": 1484,
+      "service_ttlt_ms": 68613,
+      "user_visible_ttft_ms": 795
+    }
+  },
+  "prompt_filter_results": [
+    {
+      "prompt_index": 0,
+      "content_filter_results": {
+        "defender_for_ai": {
+          "detected": false,
+          "filtered": false,
+          "details": {
+            "evaluation": "unavailable",
+            "evaluationReason": "missing_or_unknown_provider_evaluation_status"
+          }
+        },
+        "hate": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "jailbreak": {
+          "detected": false,
+          "filtered": false
+        },
+        "self_harm": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "sexual": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "violence": {
+          "filtered": false,
+          "severity": "safe"
+        }
+      }
+    }
+  ],
+  "routing": {
+    "serving_pipereplica": "d20261030130134-48da4c14-default-r0-dp0-default"
+  }
+}

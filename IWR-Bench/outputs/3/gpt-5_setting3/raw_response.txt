@@ -1,0 +1,541 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Pomofocus - Mock</title>
+<style>
+  :root{
+    --bg:#b64f5b;            /* main theme */
+    --card:#b64f5b;
+    --accent:#ffffff;
+    --muted:#f2f2f2;
+    --softText:rgba(255,255,255,0.85);
+  }
+  html,body{
+    margin:0;
+    padding:0;
+    height:100%;
+    background:var(--bg);
+    color:#fff;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  }
+  .app{
+    width:100%;
+    max-width:600px;
+    margin:0 auto;
+    padding:14px 12px 80px;
+    box-sizing:border-box;
+  }
+  /* Header */
+  .topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:6px 4px 12px;
+  }
+  .brand{
+    display:flex; align-items:center; gap:8px;
+    font-weight:700; font-size:22px;
+  }
+  .brand img{ filter:invert(1) brightness(2); }
+  .top-actions{ display:flex; gap:8px; }
+  .icon-btn{
+    background:rgba(255,255,255,0.12);
+    border-radius:8px;
+    padding:8px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    border:1px solid rgba(255,255,255,0.15);
+    cursor:pointer;
+  }
+  .icon-btn img{filter:invert(1) brightness(2);}
+  .btn{ cursor:pointer; }
+
+  /* Timer card */
+  .card{
+    background:rgba(0,0,0,0.06);
+    border:1px solid rgba(255,255,255,0.12);
+    border-radius:12px;
+    padding:18px 16px 24px;
+    box-shadow:0 8px 18px rgba(0,0,0,0.15) inset, 0 2px 8px rgba(0,0,0,0.2);
+  }
+  .tabs{
+    display:flex; gap:14px; align-items:center; margin-bottom:8px; padding-left:0;
+    list-style:none;
+  }
+  .tab{ 
+    color:var(--softText); 
+    padding:6px 10px; border-radius:8px; 
+    font-weight:700; 
+  }
+  .tab.active{
+    background:rgba(0,0,0,0.18);
+    color:#fff;
+  }
+  .time{
+    font-size:86px; font-weight:800; text-align:center; letter-spacing:2px;
+    margin:8px 0 18px;
+  }
+  .big-btn{
+    background:#fff; color:#b54b56; 
+    border:none; border-radius:8px; 
+    font-weight:800; font-size:24px; 
+    padding:14px 26px; display:block; margin:0 auto 12px;
+    box-shadow:0 3px 0 rgba(0,0,0,0.15);
+  }
+  .timer-row{
+    display:flex; justify-content:center; align-items:center; gap:12px;
+  }
+  .circle{
+    width:16px; height:16px; border-radius:50%;
+    background:rgba(0,0,0,0.35); display:inline-block;
+  }
+  .ghost-play{
+    width:36px; height:36px; border-radius:50%; 
+    background:rgba(255,255,255,0.15); 
+    display:flex; align-items:center; justify-content:center;
+    border:1px solid rgba(255,255,255,0.2);
+  }
+  .ghost-play img{filter:invert(1) brightness(2);}
+
+  .under-time{
+    text-align:center; opacity:0.9; margin:6px 0 16px; font-weight:600;
+  }
+
+  /* Section header */
+  .section-title{
+    margin:6px 0 6px; font-size:20px; font-weight:800;
+  }
+  .divider{ height:1px; background:rgba(255,255,255,0.3); margin:6px 0 12px; }
+
+  /* Tasks */
+  .tasks-area{}
+  .task-row{
+    background:#fff; color:#333; 
+    border-radius:10px; margin:6px 0 10px; 
+    padding:12px 12px; 
+    display:flex; align-items:center; gap:12px; 
+    position:relative;
+    box-shadow:0 2px 0 rgba(0,0,0,0.12);
+  }
+  .task-row::before{
+    content:""; position:absolute; left:0; top:0; bottom:0; width:6px; border-radius:10px 0 0 10px; background:#222;
+  }
+  .task-left{
+    display:flex; align-items:center; gap:10px; flex:1;
+  }
+  .task-left img{ filter:grayscale(1) brightness(0.7); }
+  .task-right{
+    margin-left:auto; display:flex; gap:8px; align-items:center; color:#555; font-weight:700;
+  }
+  .kebab{
+    background:#eee; color:#666; border-radius:6px; padding:6px 8px; font-weight:800;
+  }
+
+  .add-card{
+    border:2px dashed rgba(255,255,255,0.45);
+    border-radius:10px; 
+    color:#fff; opacity:0.95;
+    padding:18px; text-align:center;
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    margin:10px 0 14px;
+    background:rgba(0,0,0,0.06);
+  }
+  .add-card img{filter:invert(1) brightness(2);}
+
+  /* New task form (inline card) */
+  .form-card{
+    background:#fff; color:#333; border-radius:12px;
+    box-shadow:0 10px 20px rgba(0,0,0,0.25);
+    overflow:hidden; display:none; margin-bottom:12px;
+  }
+  .form-body{ padding:16px 14px 8px; }
+  .in-title{
+    width:100%; box-sizing:border-box; 
+    border:1px solid #e3e3e3; border-radius:8px;
+    padding:10px 12px; font-size:18px; outline:none;
+  }
+  .label{ font-weight:700; margin:14px 0 6px; }
+  .est-row{ display:flex; gap:8px; align-items:center; }
+  .est-num{
+    width:64px; height:36px; background:#f3f3f3; border-radius:8px; 
+    display:flex; align-items:center; justify-content:center; font-weight:700;
+  }
+  .est-btn{
+    width:36px; height:36px; background:#fff; border:1px solid #e5e5e5;
+    border-radius:8px; display:flex; align-items:center; justify-content:center;
+  }
+  .link-row{ display:flex; gap:16px; color:#777; margin:10px 0 6px; }
+  .link-row span{ color:#888; text-decoration:underline; }
+  .form-footer{
+    display:flex; align-items:center; justify-content:space-between; background:#f4f4f4; 
+    padding:10px 12px;
+  }
+  .save-btn{
+    background:#3a3a3a; color:#fff; border:none; border-radius:12px; padding:10px 18px; font-weight:700;
+  }
+  .cancel{ color:#777; }
+
+  /* Summary footer bar */
+  .summary{
+    background:rgba(0,0,0,0.12);
+    border:1px solid rgba(255,255,255,0.2);
+    border-radius:10px;
+    padding:12px 14px; color:#fff; display:flex; justify-content:space-between; align-items:center; gap:8px;
+  }
+  .summary strong{ font-weight:800; }
+
+  /* Toast */
+  .toast{
+    position:fixed; left:16px; right:16px; bottom:16px;
+    background:#fff; color:#333; border-radius:12px; padding:12px; 
+    display:none; align-items:center; justify-content:space-between; gap:12px;
+    box-shadow:0 8px 22px rgba(0,0,0,0.3);
+  }
+  .toast .clear-btn{
+    background:#2e9e76; color:#fff; border:none; border-radius:8px; padding:10px 16px; font-weight:800;
+  }
+
+  /* Confetti */
+  .confetti{
+    pointer-events:none;
+    position:fixed; inset:0; overflow:hidden; display:none;
+  }
+  .confetti span{
+    position:absolute; width:10px; height:10px; border-radius:50%;
+    animation:fall 1200ms linear forwards;
+    opacity:0.9;
+  }
+  @keyframes fall{
+    from{ transform:translateY(-40px) rotate(0deg); }
+    to{ transform:translateY(120vh) rotate(720deg); }
+  }
+
+  /* Utility */
+  .muted{ opacity:0.85; }
+</style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/005.png" alt="check" width="22" height="22">
+        <span>Pomofocus</span>
+      </div>
+      <div class="top-actions">
+        <div class="icon-btn btn" title="Stats">
+          <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/040.svg" alt="stats" width="18" height="18">
+        </div>
+        <div class="icon-btn btn" title="Settings">
+          <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/033.png" alt="gear" width="18" height="18">
+        </div>
+        <div class="icon-btn btn" title="Account">
+          <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/012.png" alt="user" width="18" height="18">
+        </div>
+        <div class="icon-btn btn" title="More">
+          <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/003.png" alt="menu" width="18" height="18">
+        </div>
+      </div>
+    </header>
+
+    <section class="card" id="timerCard">
+      <ul class="tabs">
+        <li class="tab btn active" data-mode="pomodoro">Pomodoro</li>
+        <li class="tab btn" data-mode="short">Short Break</li>
+        <li class="tab btn" data-mode="long">Long Break</li>
+      </ul>
+      <div class="time" id="time">25:00</div>
+      <button id="startPause" class="big-btn btn">START</button>
+      <div class="timer-row">
+        <span class="circle"></span>
+        <div class="ghost-play btn" id="skipBtn" title="Skip">
+          <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/008.png" alt="play" width="16" height="16">
+        </div>
+      </div>
+    </section>
+
+    <div class="under-time" id="currentTaskTitle">
+      <div class="muted">#1</div>
+      <div id="subtitle">Time to focus!</div>
+    </div>
+
+    <div class="section-title">Tasks</div>
+    <div class="divider"></div>
+
+    <div id="tasksList"></div>
+
+    <div class="add-card btn" id="addTaskBtn">
+      <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/028.png" alt="plus" width="18" height="18">
+      <strong>Add Task</strong>
+    </div>
+
+    <div class="form-card" id="taskForm">
+      <div class="form-body">
+        <input id="taskInput" type="text" class="in-title" placeholder="What are you working on?">
+        <div class="label">Est Pomodoros</div>
+        <div class="est-row">
+          <div class="est-num" id="estNum">1</div>
+          <div class="est-btn btn" id="upBtn">▲</div>
+          <div class="est-btn btn" id="downBtn">▼</div>
+        </div>
+        <div class="link-row">
+          <span class="btn">+ Add Note</span>
+          <span class="btn">+ Add Project</span>
+          <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/004.png" alt="lock" width="14" height="14">
+        </div>
+      </div>
+      <div class="form-footer">
+        <div class="cancel btn" id="cancelForm"><span class="circle" style="margin-right:8px;background:#bbb;"></span>Cancel</div>
+        <button class="save-btn btn" id="saveTask">Save</button>
+      </div>
+    </div>
+
+    <div class="summary" id="summaryBar" style="display:none;">
+      <div> <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/034.svg" alt="clock" width="16" height="16" style="filter:invert(1) brightness(2);vertical-align:middle;margin-right:6px;"> 
+        Pomos: <strong id="pomosCount">0 / 0</strong>
+      </div>
+      <div>Finish At: <strong id="finishAt">--:--</strong> <span class="muted" id="finishHours">(0h)</span></div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="finishedToast">
+    <div>You've finished all your tasks for today 🎉</div>
+    <button class="clear-btn btn" id="clearTasksBtn">Clear Tasks</button>
+  </div>
+
+  <!-- Confetti layer -->
+  <div class="confetti" id="confettiLayer"></div>
+
+<script>
+(function(){
+  // Theme presets
+  const THEMES = {
+    pomodoro:{ bg:'#b64f5b', message:'Time to focus!', minutes:25 },
+    short:{ bg:'#84666b', message:'Time for a break!', minutes:5 },
+    long:{ bg:'#3e8889', message:'Time for a long break!', minutes:15 }
+  };
+
+  const tabs = document.querySelectorAll('.tab');
+  const timeEl = document.getElementById('time');
+  const startPauseBtn = document.getElementById('startPause');
+  const skipBtn = document.getElementById('skipBtn');
+  const subtitleEl = document.getElementById('subtitle');
+  const tasksList = document.getElementById('tasksList');
+  const addTaskBtn = document.getElementById('addTaskBtn');
+  const taskForm = document.getElementById('taskForm');
+  const taskInput = document.getElementById('taskInput');
+  const estNumEl = document.getElementById('estNum');
+  const upBtn = document.getElementById('upBtn');
+  const downBtn = document.getElementById('downBtn');
+  const cancelForm = document.getElementById('cancelForm');
+  const saveTask = document.getElementById('saveTask');
+  const summaryBar = document.getElementById('summaryBar');
+  const pomosCount = document.getElementById('pomosCount');
+  const finishAt = document.getElementById('finishAt');
+  const finishHours = document.getElementById('finishHours');
+  const finishedToast = document.getElementById('finishedToast');
+  const clearTasksBtn = document.getElementById('clearTasksBtn');
+  const confettiLayer = document.getElementById('confettiLayer');
+
+  // State
+  let mode = 'pomodoro';
+  let timer = null;
+  let remaining = THEMES[mode].minutes * 60;
+  let tasks = []; // each: {id, title, est, done}
+  let activeTaskId = null;
+
+  function setTheme(themeKey){
+    mode = themeKey;
+    const t = THEMES[mode];
+    document.documentElement.style.setProperty('--bg', t.bg);
+    remaining = t.minutes * 60;
+    updateTime();
+    tabs.forEach(tab=>tab.classList.toggle('active', tab.dataset.mode===mode));
+    subtitleEl.textContent = t.message;
+    startPauseBtn.textContent = 'START';
+    stopTimer();
+  }
+
+  function updateTime(){
+    const m = Math.floor(remaining/60).toString().padStart(2,'0');
+    const s = Math.floor(remaining%60).toString().padStart(2,'0');
+    timeEl.textContent = `${m}:${s}`;
+  }
+
+  function startTimer(){
+    if(timer) return;
+    timer = setInterval(()=>{
+      remaining--;
+      if(remaining<0){
+        stopTimer();
+        startPauseBtn.textContent='START';
+        // auto switch to short break for demo
+        setTheme(mode==='pomodoro'?'short':'pomodoro');
+        return;
+      }
+      updateTime();
+    }, 1000);
+  }
+  function stopTimer(){
+    if(timer){
+      clearInterval(timer);
+      timer=null;
+    }
+  }
+
+  tabs.forEach(tab=>{
+    tab.addEventListener('click', ()=> setTheme(tab.dataset.mode));
+  });
+
+  startPauseBtn.addEventListener('click', ()=>{
+    if(timer){
+      stopTimer();
+      startPauseBtn.textContent='START';
+    }else{
+      startTimer();
+      startPauseBtn.textContent='PAUSE';
+    }
+  });
+
+  skipBtn.addEventListener('click', ()=>{
+    // simple jump 3s for visual effect
+    remaining = Math.max(0, remaining-3);
+    updateTime();
+  });
+
+  // Tasks logic
+  function openForm(){
+    taskForm.style.display='block';
+    taskInput.focus();
+  }
+  function closeForm(){
+    taskForm.style.display='none';
+    taskInput.value='';
+    estNumEl.textContent='1';
+  }
+  addTaskBtn.addEventListener('click', openForm);
+  cancelForm.addEventListener('click', closeForm);
+  upBtn.addEventListener('click', ()=> estNumEl.textContent = String(Math.min(99, (+estNumEl.textContent)+1)));
+  downBtn.addEventListener('click', ()=> estNumEl.textContent = String(Math.max(1, (+estNumEl.textContent)-1)));
+
+  saveTask.addEventListener('click', ()=>{
+    const title = taskInput.value.trim() || 'Untitled';
+    const est = +estNumEl.textContent;
+    const id = Date.now();
+    tasks.unshift({id, title, est, done:0});
+    activeTaskId = id;
+    renderTasks();
+    closeForm();
+  });
+
+  function renderTasks(){
+    tasksList.innerHTML='';
+    tasks.forEach((t, idx)=>{
+      const row = document.createElement('div');
+      row.className='task-row';
+      row.innerHTML = `
+        <div class="task-left">
+          <span class="btn check" title="Toggle Complete">
+            <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/016.png" alt="check" width="18" height="18">
+          </span>
+          <div class="title">${escapeHtml(t.title)}</div>
+        </div>
+        <div class="task-right">
+          <div class="count">${t.done} / ${t.est}</div>
+          <div class="kebab btn">⋮</div>
+        </div>
+      `;
+      // set active information under the timer
+      if(idx===0 && activeTaskId===t.id){
+        document.getElementById('currentTaskTitle').querySelector('.muted').textContent='#1';
+        document.getElementById('currentTaskTitle').querySelector('#subtitle').textContent = THEMES[mode].message.replace('focus','focus!');
+      }
+      // toggle on check
+      row.querySelector('.check').addEventListener('click', ()=>{
+        t.done = (t.done < t.est) ? t.est : 0;
+        renderTasks();
+        checkAllDone();
+      });
+      // clicking the row selects it
+      row.addEventListener('click', ()=>{ activeTaskId=t.id; });
+      tasksList.appendChild(row);
+    });
+    updateSummary();
+  }
+
+  function updateSummary(){
+    const total = tasks.reduce((a,t)=>a+t.est,0);
+    const done = tasks.reduce((a,t)=>a+t.done,0);
+    if(total===0){
+      summaryBar.style.display='none';
+      pomosCount.textContent='0 / 0';
+      return;
+    }
+    summaryBar.style.display='';
+    pomosCount.textContent=`${done} / ${total}`;
+    // naive finish time estimate: remaining pomos * 25 minutes
+    const remain = Math.max(0, total-done);
+    const now = new Date();
+    const minutes = remain*25;
+    const finish = new Date(now.getTime()+minutes*60000);
+    finishAt.textContent = finish.toTimeString().slice(0,5);
+    finishHours.textContent = `(${(minutes/60).toFixed(1)}h)`;
+  }
+
+  function checkAllDone(){
+    const total = tasks.reduce((a,t)=>a+t.est,0);
+    const done = tasks.reduce((a,t)=>a+t.done,0);
+    if(total>0 && done===total){
+      finishedToast.style.display='flex';
+      dropConfetti();
+    }
+  }
+
+  clearTasksBtn.addEventListener('click', ()=>{
+    tasks = [];
+    activeTaskId=null;
+    renderTasks();
+    finishedToast.style.display='none';
+    confettiLayer.style.display='none';
+    confettiLayer.innerHTML='';
+  });
+
+  // Confetti animation
+  function dropConfetti(){
+    confettiLayer.style.display='block';
+    confettiLayer.innerHTML='';
+    const colors = ['#f94144','#f3722c','#f9c74f','#90be6d','#43aa8b','#577590','#ffd166','#e76f51','#06d6a0','#a29bfe'];
+    const count = 80;
+    for(let i=0;i<count;i++){
+      const s = document.createElement('span');
+      s.style.left = (Math.random()*100)+'%';
+      s.style.top = (-Math.random()*40)+'px';
+      s.style.background = colors[Math.floor(Math.random()*colors.length)];
+      s.style.width = s.style.height = (6 + Math.random()*8)+'px';
+      s.style.animationDuration = (900 + Math.random()*900)+'ms';
+      confettiLayer.appendChild(s);
+    }
+    // hide later
+    setTimeout(()=>{ confettiLayer.style.display='none'; confettiLayer.innerHTML=''; }, 2000);
+  }
+
+  // Utilities
+  function escapeHtml(str){
+    return str.replace(/[&<>"']/g, m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m]));
+  }
+
+  // Initialize
+  setTheme('pomodoro');
+  updateSummary();
+
+  // Mock: open task form on load to resemble screenshots
+  setTimeout(()=>openForm(), 400);
+})();
+</script>
+</body>
+</html>
+```

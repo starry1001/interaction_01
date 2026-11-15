@@ -1,0 +1,809 @@
+{
+  "algorithm": "experimental",
+  "options": {
+    "pixel_threshold": 18,
+    "min_component_pixels": 8,
+    "padding": 24,
+    "max_changed_fraction": 0.35,
+    "min_scene_ssim": 0.55,
+    "max_crop_fraction": 0.65,
+    "theme_min_ssim": 0.9,
+    "theme_min_edge_overlap": 0.88,
+    "theme_min_changed_fraction": 0.5,
+    "theme_component_pixels": 64
+  },
+  "tasks": [
+    {
+      "task": "1",
+      "screenshots": 5,
+      "full": 1,
+      "crop": 4,
+      "pixel_reduction": 0.701027839781746
+    },
+    {
+      "task": "2",
+      "screenshots": 4,
+      "full": 2,
+      "crop": 2,
+      "pixel_reduction": 0.3986055018538136
+    },
+    {
+      "task": "3",
+      "screenshots": 12,
+      "full": 7,
+      "crop": 5,
+      "pixel_reduction": 0.3293649868045744
+    },
+    {
+      "task": "4",
+      "screenshots": 6,
+      "full": 5,
+      "crop": 1,
+      "pixel_reduction": 0.15586958944136287
+    },
+    {
+      "task": "5",
+      "screenshots": 8,
+      "full": 2,
+      "crop": 6,
+      "pixel_reduction": 0.6696805245433357
+    },
+    {
+      "task": "6",
+      "screenshots": 14,
+      "full": 13,
+      "crop": 1,
+      "pixel_reduction": 0.05495020240617432
+    },
+    {
+      "task": "7",
+      "screenshots": 7,
+      "full": 6,
+      "crop": 1,
+      "pixel_reduction": 0.05475175865800863
+    },
+    {
+      "task": "8",
+      "screenshots": 7,
+      "full": 1,
+      "crop": 6,
+      "pixel_reduction": 0.7705484828995157
+    },
+    {
+      "task": "9",
+      "screenshots": 5,
+      "full": 5,
+      "crop": 0,
+      "pixel_reduction": 0.0
+    },
+    {
+      "task": "10",
+      "screenshots": 9,
+      "full": 1,
+      "crop": 8,
+      "pixel_reduction": 0.686496443901244
+    },
+    {
+      "task": "11",
+      "screenshots": 10,
+      "full": 10,
+      "crop": 0,
+      "pixel_reduction": 0.0
+    },
+    {
+      "task": "12",
+      "screenshots": 4,
+      "full": 1,
+      "crop": 3,
+      "pixel_reduction": 0.35274261287384967
+    },
+    {
+      "task": "13",
+      "screenshots": 12,
+      "full": 9,
+      "crop": 3,
+      "pixel_reduction": 0.13168192340067342
+    },
+    {
+      "task": "14",
+      "screenshots": 5,
+      "full": 5,
+      "crop": 0,
+      "pixel_reduction": 0.0
+    },
+    {
+      "task": "15",
+      "screenshots": 9,
+      "full": 1,
+      "crop": 8,
+      "pixel_reduction": 0.7248214846202135
+    },
+    {
+      "task": "16",
+      "screenshots": 3,
+      "full": 3,
+      "crop": 0,
+      "pixel_reduction": 0.0
+    },
+    {
+      "task": "17",
+      "screenshots": 9,
+      "full": 5,
+      "crop": 4,
+      "pixel_reduction": 0.2908109450991395
+    },
+    {
+      "task": "18",
+      "screenshots": 11,
+      "full": 8,
+      "crop": 3,
+      "pixel_reduction": 0.12829212671674572
+    },
+    {
+      "task": "19",
+      "screenshots": 10,
+      "full": 9,
+      "crop": 1,
+      "pixel_reduction": 0.09389468702070547
+    },
+    {
+      "task": "20",
+      "screenshots": 5,
+      "full": 2,
+      "crop": 3,
+      "pixel_reduction": 0.3726019315944882
+    },
+    {
+      "task": "21",
+      "screenshots": 4,
+      "full": 4,
+      "crop": 0,
+      "pixel_reduction": 0.0
+    },
+    {
+      "task": "22",
+      "screenshots": 8,
+      "full": 6,
+      "crop": 2,
+      "pixel_reduction": 0.12061002052436443
+    },
+    {
+      "task": "23",
+      "screenshots": 5,
+      "full": 5,
+      "crop": 0,
+      "pixel_reduction": 0.0
+    },
+    {
+      "task": "24",
+      "screenshots": 11,
+      "full": 9,
+      "crop": 2,
+      "pixel_reduction": 0.11393581375488004
+    },
+    {
+      "task": "25",
+      "screenshots": 15,
+      "full": 5,
+      "crop": 10,
+      "pixel_reduction": 0.3925886095667178
+    },
+    {
+      "task": "26",
+      "screenshots": 16,
+      "full": 5,
+      "crop": 11,
+      "pixel_reduction": 0.4551520056380455
+    },
+    {
+      "task": "27",
+      "screenshots": 18,
+      "full": 10,
+      "crop": 8,
+      "pixel_reduction": 0.33443480334224873
+    },
+    {
+      "task": "28",
+      "screenshots": 7,
+      "full": 7,
+      "crop": 0,
+      "pixel_reduction": 0.0
+    },
+    {
+      "task": "29",
+      "screenshots": 7,
+      "full": 1,
+      "crop": 6,
+      "pixel_reduction": 0.6003650877723972
+    },
+    {
+      "task": "30",
+      "screenshots": 10,
+      "full": 6,
+      "crop": 4,
+      "pixel_reduction": 0.33912876246165646
+    },
+    {
+      "task": "31",
+      "screenshots": 23,
+      "full": 4,
+      "crop": 19,
+      "pixel_reduction": 0.6763405430169753
+    },
+    {
+      "task": "32",
+      "screenshots": 12,
+      "full": 1,
+      "crop": 11,
+      "pixel_reduction": 0.878544482521728
+    },
+    {
+      "task": "33",
+      "screenshots": 21,
+      "full": 10,
+      "crop": 11,
+      "pixel_reduction": 0.4510794825613028
+    },
+    {
+      "task": "34",
+      "screenshots": 12,
+      "full": 10,
+      "crop": 2,
+      "pixel_reduction": 0.09403632852441202
+    },
+    {
+      "task": "35",
+      "screenshots": 6,
+      "full": 6,
+      "crop": 0,
+      "pixel_reduction": 0.0
+    },
+    {
+      "task": "36",
+      "screenshots": 8,
+      "full": 8,
+      "crop": 0,
+      "pixel_reduction": 0.0
+    },
+    {
+      "task": "37",
+      "screenshots": 20,
+      "full": 1,
+      "crop": 19,
+      "pixel_reduction": 0.7798714327221075
+    },
+    {
+      "task": "38",
+      "screenshots": 12,
+      "full": 4,
+      "crop": 8,
+      "pixel_reduction": 0.6158192640433282
+    },
+    {
+      "task": "39",
+      "screenshots": 17,
+      "full": 1,
+      "crop": 16,
+      "pixel_reduction": 0.884573114258165
+    },
+    {
+      "task": "40",
+      "screenshots": 12,
+      "full": 10,
+      "crop": 2,
+      "pixel_reduction": 0.10280038105308675
+    },
+    {
+      "task": "41",
+      "screenshots": 4,
+      "full": 4,
+      "crop": 0,
+      "pixel_reduction": 0.0
+    },
+    {
+      "task": "42",
+      "screenshots": 9,
+      "full": 2,
+      "crop": 7,
+      "pixel_reduction": 0.6926729187968643
+    },
+    {
+      "task": "43",
+      "screenshots": 8,
+      "full": 2,
+      "crop": 6,
+      "pixel_reduction": 0.6127363380106652
+    },
+    {
+      "task": "44",
+      "screenshots": 4,
+      "full": 2,
+      "crop": 2,
+      "pixel_reduction": 0.4634781351850077
+    },
+    {
+      "task": "45",
+      "screenshots": 12,
+      "full": 4,
+      "crop": 8,
+      "pixel_reduction": 0.4138076002124872
+    },
+    {
+      "task": "46",
+      "screenshots": 9,
+      "full": 1,
+      "crop": 8,
+      "pixel_reduction": 0.7191014239882929
+    },
+    {
+      "task": "47",
+      "screenshots": 5,
+      "full": 5,
+      "crop": 0,
+      "pixel_reduction": 0.0
+    },
+    {
+      "task": "48",
+      "screenshots": 4,
+      "full": 3,
+      "crop": 1,
+      "pixel_reduction": 0.22888168615797544
+    },
+    {
+      "task": "49",
+      "screenshots": 5,
+      "full": 5,
+      "crop": 0,
+      "pixel_reduction": 0.0
+    },
+    {
+      "task": "50",
+      "screenshots": 8,
+      "full": 8,
+      "crop": 0,
+      "pixel_reduction": 0.0
+    },
+    {
+      "task": "51",
+      "screenshots": 11,
+      "full": 1,
+      "crop": 10,
+      "pixel_reduction": 0.8777846736876046
+    },
+    {
+      "task": "52",
+      "screenshots": 5,
+      "full": 2,
+      "crop": 3,
+      "pixel_reduction": 0.3696256313131313
+    },
+    {
+      "task": "53",
+      "screenshots": 6,
+      "full": 3,
+      "crop": 3,
+      "pixel_reduction": 0.48362908599887766
+    },
+    {
+      "task": "54",
+      "screenshots": 7,
+      "full": 1,
+      "crop": 6,
+      "pixel_reduction": 0.7675565287025827
+    },
+    {
+      "task": "55",
+      "screenshots": 6,
+      "full": 5,
+      "crop": 1,
+      "pixel_reduction": 0.06056325089468306
+    },
+    {
+      "task": "56",
+      "screenshots": 6,
+      "full": 4,
+      "crop": 2,
+      "pixel_reduction": 0.21763826359463279
+    },
+    {
+      "task": "57",
+      "screenshots": 10,
+      "full": 8,
+      "crop": 2,
+      "pixel_reduction": 0.1636698887711865
+    },
+    {
+      "task": "58",
+      "screenshots": 10,
+      "full": 5,
+      "crop": 5,
+      "pixel_reduction": 0.3043704755892256
+    },
+    {
+      "task": "59",
+      "screenshots": 15,
+      "full": 5,
+      "crop": 10,
+      "pixel_reduction": 0.49436800317289276
+    },
+    {
+      "task": "60",
+      "screenshots": 16,
+      "full": 7,
+      "crop": 9,
+      "pixel_reduction": 0.3039026988636364
+    },
+    {
+      "task": "61",
+      "screenshots": 13,
+      "full": 5,
+      "crop": 8,
+      "pixel_reduction": 0.5322624404568783
+    },
+    {
+      "task": "62",
+      "screenshots": 15,
+      "full": 3,
+      "crop": 12,
+      "pixel_reduction": 0.38493631374616566
+    },
+    {
+      "task": "63",
+      "screenshots": 10,
+      "full": 9,
+      "crop": 1,
+      "pixel_reduction": 0.04075943396226411
+    },
+    {
+      "task": "64",
+      "screenshots": 9,
+      "full": 7,
+      "crop": 2,
+      "pixel_reduction": 0.1920598212764144
+    },
+    {
+      "task": "65",
+      "screenshots": 5,
+      "full": 4,
+      "crop": 1,
+      "pixel_reduction": 0.17478042321702458
+    },
+    {
+      "task": "66",
+      "screenshots": 4,
+      "full": 4,
+      "crop": 0,
+      "pixel_reduction": 0.0
+    },
+    {
+      "task": "67",
+      "screenshots": 9,
+      "full": 8,
+      "crop": 1,
+      "pixel_reduction": 0.041077441077441046
+    },
+    {
+      "task": "68",
+      "screenshots": 10,
+      "full": 6,
+      "crop": 4,
+      "pixel_reduction": 0.27245596590909094
+    },
+    {
+      "task": "69",
+      "screenshots": 9,
+      "full": 8,
+      "crop": 1,
+      "pixel_reduction": 0.04248093473074299
+    },
+    {
+      "task": "70",
+      "screenshots": 17,
+      "full": 2,
+      "crop": 15,
+      "pixel_reduction": 0.7010204062685681
+    },
+    {
+      "task": "71",
+      "screenshots": 9,
+      "full": 7,
+      "crop": 2,
+      "pixel_reduction": 0.1307174756827535
+    },
+    {
+      "task": "72",
+      "screenshots": 10,
+      "full": 6,
+      "crop": 4,
+      "pixel_reduction": 0.3784235585016835
+    },
+    {
+      "task": "73",
+      "screenshots": 12,
+      "full": 9,
+      "crop": 3,
+      "pixel_reduction": 0.2132900370654397
+    },
+    {
+      "task": "74",
+      "screenshots": 12,
+      "full": 4,
+      "crop": 8,
+      "pixel_reduction": 0.36929734430917693
+    },
+    {
+      "task": "75",
+      "screenshots": 7,
+      "full": 5,
+      "crop": 2,
+      "pixel_reduction": 0.11756495843345738
+    },
+    {
+      "task": "76",
+      "screenshots": 6,
+      "full": 5,
+      "crop": 1,
+      "pixel_reduction": 0.07439304461942253
+    },
+    {
+      "task": "77",
+      "screenshots": 18,
+      "full": 10,
+      "crop": 8,
+      "pixel_reduction": 0.369881721962243
+    },
+    {
+      "task": "78",
+      "screenshots": 6,
+      "full": 4,
+      "crop": 2,
+      "pixel_reduction": 0.23178885652071568
+    },
+    {
+      "task": "79",
+      "screenshots": 11,
+      "full": 9,
+      "crop": 2,
+      "pixel_reduction": 0.11706769398530759
+    },
+    {
+      "task": "80",
+      "screenshots": 21,
+      "full": 9,
+      "crop": 12,
+      "pixel_reduction": 0.5150932256290169
+    },
+    {
+      "task": "81",
+      "screenshots": 12,
+      "full": 12,
+      "crop": 0,
+      "pixel_reduction": 0.0
+    },
+    {
+      "task": "82",
+      "screenshots": 7,
+      "full": 6,
+      "crop": 1,
+      "pixel_reduction": 0.055762489044697605
+    },
+    {
+      "task": "83",
+      "screenshots": 8,
+      "full": 8,
+      "crop": 0,
+      "pixel_reduction": 0.0
+    },
+    {
+      "task": "84",
+      "screenshots": 11,
+      "full": 3,
+      "crop": 8,
+      "pixel_reduction": 0.6672638603248745
+    },
+    {
+      "task": "85",
+      "screenshots": 5,
+      "full": 5,
+      "crop": 0,
+      "pixel_reduction": 0.0
+    },
+    {
+      "task": "86",
+      "screenshots": 9,
+      "full": 4,
+      "crop": 5,
+      "pixel_reduction": 0.4502150594159765
+    },
+    {
+      "task": "87",
+      "screenshots": 20,
+      "full": 3,
+      "crop": 17,
+      "pixel_reduction": 0.7987495450795807
+    },
+    {
+      "task": "88",
+      "screenshots": 8,
+      "full": 2,
+      "crop": 6,
+      "pixel_reduction": 0.7029630146329365
+    },
+    {
+      "task": "89",
+      "screenshots": 5,
+      "full": 5,
+      "crop": 0,
+      "pixel_reduction": 0.0
+    },
+    {
+      "task": "90",
+      "screenshots": 7,
+      "full": 2,
+      "crop": 5,
+      "pixel_reduction": 0.3636999069651189
+    },
+    {
+      "task": "91",
+      "screenshots": 20,
+      "full": 1,
+      "crop": 19,
+      "pixel_reduction": 0.862609243476431
+    },
+    {
+      "task": "92",
+      "screenshots": 5,
+      "full": 5,
+      "crop": 0,
+      "pixel_reduction": 0.0
+    },
+    {
+      "task": "93",
+      "screenshots": 4,
+      "full": 4,
+      "crop": 0,
+      "pixel_reduction": 0.0
+    },
+    {
+      "task": "94",
+      "screenshots": 10,
+      "full": 6,
+      "crop": 4,
+      "pixel_reduction": 0.28227561131709045
+    },
+    {
+      "task": "95",
+      "screenshots": 28,
+      "full": 13,
+      "crop": 15,
+      "pixel_reduction": 0.4730605534511785
+    },
+    {
+      "task": "96",
+      "screenshots": 10,
+      "full": 9,
+      "crop": 1,
+      "pixel_reduction": 0.09158972951392352
+    },
+    {
+      "task": "97",
+      "screenshots": 11,
+      "full": 10,
+      "crop": 1,
+      "pixel_reduction": 0.0899059967879211
+    },
+    {
+      "task": "98",
+      "screenshots": 11,
+      "full": 10,
+      "crop": 1,
+      "pixel_reduction": 0.057029522694758694
+    },
+    {
+      "task": "99",
+      "screenshots": 13,
+      "full": 6,
+      "crop": 7,
+      "pixel_reduction": 0.4376816890074967
+    },
+    {
+      "task": "100",
+      "screenshots": 7,
+      "full": 2,
+      "crop": 5,
+      "pixel_reduction": 0.45580823599090714
+    },
+    {
+      "task": "101",
+      "screenshots": 20,
+      "full": 6,
+      "crop": 14,
+      "pixel_reduction": 0.6221606595092024
+    },
+    {
+      "task": "102",
+      "screenshots": 18,
+      "full": 1,
+      "crop": 17,
+      "pixel_reduction": 0.88866392004303
+    },
+    {
+      "task": "103",
+      "screenshots": 4,
+      "full": 2,
+      "crop": 2,
+      "pixel_reduction": 0.42121843497355027
+    },
+    {
+      "task": "104",
+      "screenshots": 2,
+      "full": 2,
+      "crop": 0,
+      "pixel_reduction": 0.0
+    },
+    {
+      "task": "105",
+      "screenshots": 3,
+      "full": 2,
+      "crop": 1,
+      "pixel_reduction": 0.19437088605572594
+    },
+    {
+      "task": "106",
+      "screenshots": 1,
+      "full": 1,
+      "crop": 0,
+      "pixel_reduction": 0.0
+    },
+    {
+      "task": "107",
+      "screenshots": 3,
+      "full": 2,
+      "crop": 1,
+      "pixel_reduction": 0.18562429854096518
+    },
+    {
+      "task": "108",
+      "screenshots": 6,
+      "full": 1,
+      "crop": 5,
+      "pixel_reduction": 0.6718859678725702
+    },
+    {
+      "task": "109",
+      "screenshots": 9,
+      "full": 4,
+      "crop": 5,
+      "pixel_reduction": 0.41236017583239803
+    },
+    {
+      "task": "110",
+      "screenshots": 12,
+      "full": 7,
+      "crop": 5,
+      "pixel_reduction": 0.3330198688271605
+    },
+    {
+      "task": "111",
+      "screenshots": 14,
+      "full": 5,
+      "crop": 9,
+      "pixel_reduction": 0.46740376023636065
+    },
+    {
+      "task": "112",
+      "screenshots": 25,
+      "full": 20,
+      "crop": 5,
+      "pixel_reduction": 0.1267783382860429
+    },
+    {
+      "task": "113",
+      "screenshots": 6,
+      "full": 6,
+      "crop": 0,
+      "pixel_reduction": 0.0
+    }
+  ],
+  "errors": []
+}

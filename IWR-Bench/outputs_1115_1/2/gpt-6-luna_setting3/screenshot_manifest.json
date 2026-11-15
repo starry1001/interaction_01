@@ -1,0 +1,128 @@
+{
+  "algorithm": "thresholded_color_difference_components_ssim_scene_gate_v1",
+  "options": {
+    "pixel_threshold": 18,
+    "min_component_pixels": 8,
+    "padding": 24,
+    "max_changed_fraction": 0.35,
+    "min_scene_ssim": 0.55,
+    "max_crop_fraction": 0.65
+  },
+  "screenshots": [
+    {
+      "index": 0,
+      "source": "./data/data/2/checkpoints/step_0.png",
+      "scene_id": 0,
+      "original_size": [
+        1920,
+        944
+      ],
+      "compared_to": null,
+      "scene_change": true,
+      "reason": "first_screenshot",
+      "box": [
+        0,
+        0,
+        1920,
+        944
+      ],
+      "metrics": {},
+      "mode": "full",
+      "output": "screenshot_0.png",
+      "output_size": [
+        1920,
+        944
+      ],
+      "retained_pixel_fraction": 1.0
+    },
+    {
+      "index": 1,
+      "source": "./data/data/2/checkpoints/step_1.png",
+      "scene_id": 0,
+      "original_size": [
+        1920,
+        944
+      ],
+      "compared_to": 0,
+      "scene_change": false,
+      "reason": "localized_change_scene_union",
+      "box": [
+        466,
+        0,
+        1257,
+        82
+      ],
+      "metrics": {
+        "changed_fraction": 0.0015095338983050848,
+        "ssim": 0.9969606995582581,
+        "candidate_crop_fraction": 0.03578632591807909
+      },
+      "mode": "crop",
+      "output": "screenshot_1.png",
+      "output_size": [
+        791,
+        82
+      ],
+      "retained_pixel_fraction": 0.03578632591807909
+    },
+    {
+      "index": 2,
+      "source": "./data/data/2/checkpoints/step_2.png",
+      "scene_id": 1,
+      "original_size": [
+        1920,
+        944
+      ],
+      "compared_to": 1,
+      "scene_change": true,
+      "reason": "large_visual_change",
+      "box": [
+        0,
+        0,
+        1920,
+        944
+      ],
+      "metrics": {
+        "changed_fraction": 0.9994052348163842,
+        "ssim": 0.6992827653884888
+      },
+      "mode": "full",
+      "output": "screenshot_2.png",
+      "output_size": [
+        1920,
+        944
+      ],
+      "retained_pixel_fraction": 1.0
+    },
+    {
+      "index": 3,
+      "source": "./data/data/2/checkpoints/step_3.png",
+      "scene_id": 1,
+      "original_size": [
+        1920,
+        944
+      ],
+      "compared_to": 2,
+      "scene_change": false,
+      "reason": "localized_change_scene_union",
+      "box": [
+        652,
+        0,
+        1362,
+        944
+      ],
+      "metrics": {
+        "changed_fraction": 0.041768736758474576,
+        "ssim": 0.9908347725868225,
+        "candidate_crop_fraction": 0.3697916666666667
+      },
+      "mode": "crop",
+      "output": "screenshot_3.png",
+      "output_size": [
+        710,
+        944
+      ],
+      "retained_pixel_fraction": 0.3697916666666667
+    }
+  ]
+}

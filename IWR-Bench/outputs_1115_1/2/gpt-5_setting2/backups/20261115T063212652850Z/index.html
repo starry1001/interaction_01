@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Apple Music – Replica</title>
+<style>
+  :root{
+    --sidebar:#f4f4f6;
+    --text:#111;
+    --muted:#6b6b6b;
+    --red1:#e11d48;
+    --red2:#ff315f;
+    --hero-start:#e11d48;
+    --hero-end:#ff3e70;
+    --btn:#111;
+    --radius:10px;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color:var(--text);
+    overflow:hidden;
+    background:#fff;
+  }
+
+  /* Layout */
+  .app{
+    display:grid;
+    grid-template-columns: 280px 1fr;
+    grid-template-rows: 56px 1fr;
+    grid-template-areas:
+      "sidebar topbar"
+      "sidebar main";
+    height:100vh;
+  }
+
+  /* Sidebar */
+  .sidebar{
+    grid-area:sidebar;
+    background:var(--sidebar);
+    border-right:1px solid #e3e3e6;
+    display:flex;
+    flex-direction:column;
+    padding:14px 14px 12px;
+    gap:12px;
+  }
+  .brand{
+    display:flex;align-items:center;gap:8px;padding:2px 6px;
+    font-weight:600;color:#000;
+  }
+  .brand img.logo{
+    display:block;object-fit:contain;
+  }
+  .beta{
+    padding:3px 8px;background:#d9d9df;border-radius:16px;font-size:12px;color:#000;
+  }
+  .menu{
+    margin-top:6px;
+    background:#fff;border:1px solid #e8e8ea;border-radius:8px;
+    padding:8px 0;
+  }
+  .menu h4{
+    margin:6px 12px 8px;color:var(--muted);font-size:12px;letter-spacing:.04em;text-transform:uppercase;
+  }
+  .nav-item{
+    display:flex;align-items:center;gap:10px;padding:8px 12px;margin:2px 6px;border-radius:8px;cursor:pointer;
+    color:#222;text-decoration:none;
+  }
+  .nav-item img{opacity:.9}
+  .nav-item.active{background:#e9e9ee}
+  .nav-item:hover{background:#efeff4}
+  .nav-item .title{flex:1}
+
+  .sidebar-footer{
+    margin-top:auto;border-top:1px solid #e3e3e6;padding-top:12px;
+    color:var(--muted);font-size:13px;
+  }
+  .openmusic{
+    display:flex;align-items:center;gap:8px;margin-bottom:10px;color:#222;text-decoration:none;
+  }
+
+  /* Top bar (simple, decorative) */
+  .topbar{
+    grid-area:topbar;
+    display:flex;align-items:center;justify-content:center;
+    border-bottom:1px solid #eee;background:#fff;
+    gap:14px;
+    position:relative;
+  }
+  .top-controls{
+    position:absolute;left:16px;display:flex;align-items:center;gap:10px;
+    color:#444;
+  }
+  .dot{width:10px;height:10px;border-radius:50%}
+  .dot.r{background:#ff5f57}.dot.y{background:#fdbc2f}.dot.g{background:#28c840}
+  .mini-player{
+    display:flex;align-items:center;gap:10px;
+    font-size:13px;color:#444;
+  }
+  .mini-cover{
+    width:28px;height:28px;border-radius:4px;object-fit:cover;border:1px solid #ddd;
+  }
+
+  /* Main hero */
+  .main{
+    grid-area:main;overflow:auto;position:relative;background:#fff;
+  }
+  .hero{
+    height:calc(100% - 0px);
+    background:linear-gradient(135deg,var(--hero-start),var(--hero-end));
+    display:flex;align-items:center;justify-content:center;position:relative;
+  }
+  .hero-inner{
+    width:min(1160px,100%);display:grid;
+    grid-template-columns: 1fr 520px;align-items:center;gap:30px;
+    padding:40px 40px;
+  }
+  .hero .am-badge{
+    position:absolute;top:24px;left:50%;transform:translateX(-50%);
+    opacity:.9;
+  }
+  .hero h1{
+    color:#fff;font-size:56px;line-height:1.1;margin:0 0 18px;text-shadow:0 1px 0 rgba(0,0,0,.1);
+  }
+  .hero p{color:#ffe9ef;font-size:16px;margin:0 0 24px;max-width:520px}
+  .btn{
+    cursor:pointer;
+    user-select:none;
+  }
+  .btn.primary{
+    background:var(--btn);color:#fff;border:1px solid #000;
+    padding:12px 18px;border-radius:10px;font-weight:600;display:inline-block;
+  }
+  .btn.secondary{
+    background:transparent;color:#fff;border:1px solid rgba(255,255,255,.6);
+    padding:11px 16px;border-radius:10px;margin-left:10px;display:inline-block;
+  }
+  .note-visual{
+    display:flex;align-items:center;justify-content:center;
+  }
+  .note-visual img{
+    filter:drop-shadow(0 20px 30px rgba(0,0,0,.25));
+  }
+  .ghost{
+    position:absolute;inset:0;pointer-events:none;opacity:.12;background:
+      radial-gradient(220px 220px at 25% 15%, #fff, transparent 60%);
+  }
+
+  /* Player overlay */
+  .player{
+    position:fixed;inset:0;background:radial-gradient(circle at 20% 10%, #c043a5, transparent 40%), radial-gradient(circle at 80% 10%, #f04a7a, transparent 40%), linear-gradient(135deg, #7a1a8c, #991b6f 60%, #7d0e6b);
+    display:none;flex-direction:column;
+  }
+  .player.show{display:flex}
+  .player .close{
+    position:absolute;left:22px;top:12px;color:#f4cbe1;font-size:28px;line-height:1;border:none;background:none;
+  }
+  .player .stage{
+    flex:1;display:flex;align-items:center;justify-content:center;gap:90px;padding:80px 60px 0;
+  }
+  .art{
+    width:460px;height:460px;border-radius:16px;object-fit:cover;
+    box-shadow:0 30px 80px rgba(0,0,0,.45), 0 6px 18px rgba(0,0,0,.35);
+  }
+  .track-info{
+    color:#ffe7f4;max-width:420px;font-size:14px;
+  }
+  .track-title{font-size:22px;color:#fff;margin:6px 0 8px}
+  .controls{
+    width:100%;max-width:960px;margin:0 auto 24px;display:flex;flex-direction:column;gap:8px;
+    color:#e9cfe0;
+  }
+  .progress{
+    display:flex;align-items:center;gap:10px;font-size:12px;color:#f2cfe1
+  }
+  .bar{flex:1;height:6px;background:rgba(255,255,255,.25);border-radius:6px;position:relative;cursor:pointer}
+  .bar .fill{position:absolute;left:0;top:0;height:100%;background:#fff;border-radius:6px;width:0%}
+  .time{min-width:42px;text-align:center}
+  .play-row{
+    display:flex;align-items:center;gap:14px;justify-content:center;
+  }
+  .ctl-btn{
+    width:46px;height:46px;border-radius:50%;
+    background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .ctl-btn img{width:20px;height:20px;filter:invert(1)}
+  .ctl-btn.play{width:56px;height:56px;background:#fff;border-color:#fff}
+  .ctl-btn.play img{filter:none}
+  .footline{
+    height:24px
+  }
+
+  /* Utilities */
+  .hidden{display:none}
+  a{text-decoration:none;color:inherit}
+</style>
+</head>
+<body>
+<div class="app">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="brand">
+      <img class="logo" src="../../../data/data/2/assets/001.svg" alt="Apple Music" width="112" height="28">
+      <span class="beta">Beta</span>
+    </div>
+
+    <div class="menu">
+      <h4>Browse</h4>
+      <a class="nav-item btn active" data-section="home">
+        <img src="../../../data/data/2/assets/006.svg" alt="" width="22" height="22">
+        <span class="title">Home</span>
+      </a>
+      <a class="nav-item btn" data-section="new">
+        <img src="../../../data/data/2/assets/010.svg" alt="" width="22" height="22">
+        <span class="title">New</span>
+      </a>
+      <a class="nav-item btn" data-section="radio">
+        <img src="../../../data/data/2/assets/007.svg" alt="" width="22" height="22">
+        <span class="title">Radio</span>
+      </a>
+    </div>
+
+    <div class="sidebar-footer">
+      <a class="openmusic btn open-player open-from-sidebar openmusic">
+        <img src="../../../data/data/2/assets/018.png" alt="Open in Music" width="74" height="20">
+        <span>Open in Music</span>
+      </a>
+      <div>Exit Beta ›</div>
+    </div>
+  </aside>
+
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="top-controls">
+      <div class="dot r"></div>
+      <div class="dot y"></div>
+      <div class="dot g"></div>
+    </div>
+    <div class="mini-player">
+      <img class="mini-cover" src="../../../data/data/2/assets/017.jpg" width="28" height="28" alt="cover">
+      <span>Mariah the Scientist — HEARTS SOLD SEPARATELY</span>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="main">
+    <section class="hero">
+      <img class="am-badge" src="../../../data/data/2/assets/018.png" width="82" height="20" alt="Apple Music">
+      <div class="hero-inner">
+        <div class="copy">
+          <h1 class="hero-title">Discover new music every day.</h1>
+          <p class="hero-desc">Get playlists and albums inspired by the artists and genres you’re listening to.</p>
+          <div>
+            <span class="btn primary open-player">Get Started</span>
+            <span class="btn secondary">See Student Plan</span>
+          </div>
+        </div>
+        <div class="note-visual">
+          <img class="open-player btn" src="../../../data/data/2/assets/013.webp" width="420" height="420" alt="Music note">
+        </div>
+      </div>
+      <div class="ghost"></div>
+    </section>
+  </main>
+</div>
+
+<!-- Player Overlay -->
+<div class="player" id="player">
+  <button class="close btn" id="closePlayer" aria-label="Close">×</button>
+  <div class="stage">
+    <img class="art" src="../../../data/data/2/assets/017.jpg" width="460" height="460" alt="Album art">
+    <div class="track-info">
+      <div class="track-title" id="trackTitle">Sacrifice</div>
+      <div class="artist">Mariah the Scientist — HEARTS SOLD SEPARATELY</div>
+      <div style="margin-top:12px;display:flex;gap:12px;align-items:center;">
+        <img src="../../../data/data/2/assets/015.svg" width="22" height="22" alt="favorite" class="btn">
+        <img src="../../../data/data/2/assets/014.svg" width="22" height="22" alt="more" class="btn" style="transform:rotate(90deg)">
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <div class="progress">
+      <span class="time" id="elapsed">0:11</span>
+      <div class="bar btn" id="progressBar" aria-label="Progress">
+        <div class="fill" id="progressFill" style="width:0%"></div>
+      </div>
+      <span class="time" id="duration">-1:15</span>
+    </div>
+    <div class="play-row">
+      <div class="ctl-btn btn" id="prevBtn" title="Previous">
+        <img src="../../../data/data/2/assets/014.svg" width="20" height="20" alt="Prev" style="transform:rotate(180deg)">
+      </div>
+      <div class="ctl-btn play btn" id="playPause">
+        <img id="playPauseIcon" src="../../../data/data/2/assets/011.svg" width="22" height="22" alt="Play">
+      </div>
+      <div class="ctl-btn btn" id="nextBtn" title="Next">
+        <img src="../../../data/data/2/assets/014.svg" width="20" height="20" alt="Next">
+      </div>
+    </div>
+  </div>
+  <div class="footline"></div>
+</div>
+
+<script>
+  // Fake content by section for hero
+  const heroData = {
+    home: {
+      title: "Discover new music every day.",
+      desc: "Get playlists and albums inspired by the artists and genres you’re listening to.",
+      start:"#e11d48", end:"#ff3e70"
+    },
+    new: {
+      title:"New releases.",
+      desc:"Fresh tracks added daily—start listening now.",
+      start:"#f43f5e", end:"#fb7185"
+    },
+    radio: {
+      title:"Radio you’ll love.",
+      desc:"Stations and live shows crafted by music experts.",
+      start:"#c026d3", end:"#f43f5e"
+    }
+  };
+
+  const heroTitle = document.querySelector('.hero-title');
+  const heroDesc  = document.querySelector('.hero-desc');
+  const hero = document.querySelector('.hero');
+  document.querySelectorAll('.nav-item').forEach(item=>{
+    item.addEventListener('click', ()=>{
+      document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));
+      item.classList.add('active');
+      const key = item.getAttribute('data-section');
+      const d = heroData[key];
+      heroTitle.textContent = d.title;
+      heroDesc.textContent = d.desc;
+      document.documentElement.style.setProperty('--hero-start', d.start);
+      document.documentElement.style.setProperty('--hero-end', d.end);
+    });
+  });
+
+  // Player overlay logic
+  const player = document.getElementById('player');
+  const openers = document.querySelectorAll('.open-player');
+  const closeBtn = document.getElementById('closePlayer');
+  openers.forEach(el=>el.addEventListener('click', ()=>player.classList.add('show')));
+  closeBtn.addEventListener('click', ()=>player.classList.remove('show'));
+
+  // Simulated playback
+  const playPause = document.getElementById('playPause');
+  const playPauseIcon = document.getElementById('playPauseIcon');
+  const progressFill = document.getElementById('progressFill');
+  const elapsedEl = document.getElementById('elapsed');
+  const durationEl = document.getElementById('duration');
+  const progressBar = document.getElementById('progressBar');
+
+  let isPlaying = false;
+  const total = 95; // fake seconds
+  let t = 0;
+  let raf;
+
+  function fmt(sec){
+    sec = Math.max(0, Math.round(sec));
+    const m = Math.floor(sec/60);
+    const s = sec%60;
+    return `${m}:${String(s).padStart(2,'0')}`;
+  }
+  function updateUI(){
+    const pct = (t/total)*100;
+    progressFill.style.width = pct + '%';
+    elapsedEl.textContent = fmt(t);
+    durationEl.textContent = '-' + fmt(total - t);
+  }
+  function step(){
+    if(!isPlaying) return;
+    t += 0.2;
+    if(t > total){ t = 0; }
+    updateUI();
+    raf = requestAnimationFrame(step);
+  }
+  function play(){
+    if(isPlaying) return;
+    isPlaying = true;
+    playPauseIcon.src = "../../../data/data/2/assets/008.svg"; // pause
+    playPauseIcon.alt = "Pause";
+    step();
+  }
+  function pause(){
+    isPlaying = false;
+    playPauseIcon.src = "../../../data/data/2/assets/011.svg"; // play
+    playPauseIcon.alt = "Play";
+    cancelAnimationFrame(raf);
+  }
+
+  playPause.addEventListener('click', ()=>{
+    if(isPlaying) pause(); else play();
+  });
+
+  progressBar.addEventListener('click', (e)=>{
+    const rect = progressBar.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const pct = Math.min(1, Math.max(0, x/rect.width));
+    t = Math.round(total * pct);
+    updateUI();
+  });
+
+  // Prev/Next just jump around the track, for demo
+  document.getElementById('prevBtn').addEventListener('click', ()=>{
+    t = Math.max(0, t - 10); updateUI();
+  });
+  document.getElementById('nextBtn').addEventListener('click', ()=>{
+    t = Math.min(total, t + 10); updateUI();
+  });
+
+  // Initialize UI
+  updateUI();
+</script>
+</body>
+</html>

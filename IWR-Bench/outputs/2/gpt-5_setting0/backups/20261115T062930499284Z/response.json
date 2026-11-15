@@ -1,0 +1,111 @@
+{
+  "id": "chatcmpl-EkO0scmgKxKdmNFZl6ZqPMqNr7WoR",
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "logprobs": null,
+      "message": {
+        "content": "```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"UTF-8\">\n<title>Apple Music (Replica)</title>\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<style>\n  :root{\n    --sidebar-w:260px;\n    --header-h:64px;\n    --bg-red:#d81f3d;\n    --bg-pink:#f05d7f;\n    --text:#111;\n    --muted:#6b6b6b;\n    --surface:#ffffff;\n    --surface-2:#f4f4f4;\n    --shadow:0 20px 60px rgba(0,0,0,.25);\n  }\n  *{box-sizing:border-box}\n  html,body{height:100%}\n  body{\n    margin:0;\n    font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif;\n    color:var(--text);\n    background:#fff;\n  }\n\n  /* Header */\n  .header{\n    position:fixed; left:0; right:0; top:0; height:var(--header-h);\n    background:linear-gradient(#fafafa,#f2f2f2);\n    border-bottom:1px solid #e6e6e6;\n    display:flex; align-items:center;\n    z-index:50;\n  }\n  .brand{\n    display:flex; align-items:center; gap:10px; padding-left:18px; width:var(--sidebar-w);\n  }\n  .header-controls{\n    flex:1; display:flex; align-items:center; gap:16px; justify-content:center;\n  }\n  .header-right{\n    display:flex; align-items:center; gap:18px; padding-right:18px;\n  }\n  .icon-btn{\n    width:28px; height:28px; border-radius:6px; display:grid; place-items:center;\n    cursor:pointer;\n  }\n  .icon-btn:hover{background:#eaeaea}\n  .icon-btn img{display:block; width:18px; height:18px}\n\n  /* Player preview bar in header */\n  .mini-now-playing.btn{\n    display:flex; align-items:center; gap:12px;\n    min-width:520px; max-width:560px;\n    background:#fff; border:1px solid #e7e7e7; border-radius:8px;\n    padding:6px 10px; box-shadow:0 2px 8px rgba(0,0,0,.04);\n    cursor:pointer;\n  }\n  .mini-now-playing img.cover{width:38px; height:38px; border-radius:4px; object-fit:cover}\n  .mini-meta{flex:1}\n  .mini-title{\n    font-weight:600; font-size:13px; line-height:1.2; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;\n  }\n  .mini-sub{\n    color:#666; font-size:12px; line-height:1.2; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;\n  }\n  .mini-progress{\n    height:4px; background:#eee; border-radius:3px; overflow:hidden; margin-top:6px;\n  }\n  .mini-progress > span{display:block; height:100%; background:#d23c50}\n\n  /* Layout body */\n  .app{\n    display:flex;\n    padding-top:var(--header-h);\n    height:100%;\n  }\n  .sidebar{\n    width:var(--sidebar-w);\n    background:#fafafa;\n    border-right:1px solid #e9e9e9;\n    display:flex; flex-direction:column;\n  }\n  .side-top{padding:16px}\n  .logo-row{display:flex; align-items:center; gap:8px; margin-bottom:10px}\n  .search{\n    background:#fff; border:1px solid #e5e5e5; border-radius:8px; padding:8px 10px; font-size:14px; width:100%;\n  }\n  .nav{\n    margin-top:10px;\n  }\n  .nav .item{\n    display:flex; align-items:center; gap:12px;\n    padding:10px 10px; margin:4px 0; border-radius:8px; cursor:pointer;\n    color:#333;\n  }\n  .nav .item img{width:20px; height:20px}\n  .nav .item.active{background:#eaeaea; font-weight:600}\n  .side-bottom{\n    margin-top:auto; padding:16px; color:#666; font-size:13px;\n  }\n  .side-bottom .link{display:block; margin:8px 0}\n\n  .content{\n    flex:1; position:relative; overflow:auto;\n    background:linear-gradient(135deg, var(--bg-red), var(--bg-pink));\n  }\n\n  /* Hero */\n  .hero{\n    min-height:calc(100vh - var(--header-h));\n    display:flex; align-items:center; justify-content:center; text-align:center; color:#fff;\n  }\n  .hero-inner{max-width:980px}\n  .hero .am-badge{\n    display:inline-block; margin-bottom:18px;\n  }\n  .hero h1{\n    font-size:62px; line-height:1.05; margin:0 0 14px; font-weight:800; text-shadow:0 2px 20px rgba(0,0,0,.18);\n  }\n  .hero-note{\n    width:320px; height:320px; margin:36px auto; filter: drop-shadow(0 25px 40px rgba(0,0,0,.25));\n  }\n  .hero p{color:#ffe8ee; font-size:16px}\n  .cta{\n    margin-top:16px;\n  }\n  .btn{\n    user-select:none;\n  }\n  .btn.primary{\n    background:#fff; color:#111; padding:10px 18px; border-radius:8px; font-weight:600; border:0; cursor:pointer;\n    box-shadow:0 8px 24px rgba(0,0,0,.18);\n  }\n  .btn.primary:hover{background:#f7f7f7}\n  .cta .link{display:block; margin-top:14px; color:#fff}\n\n  /* Fullscreen player overlay */\n  .overlay{\n    position:fixed; inset:0; background:radial-gradient(1200px 800px at 20% 10%, rgba(255,255,255,.07), rgba(255,255,255,0)) , linear-gradient(135deg,#9c245f,#74205f);\n    backdrop-filter: blur(2px);\n    display:none; z-index:100;\n  }\n  .overlay.show{display:block}\n  .player{\n    position:absolute; left:50%; top:50%; transform:translate(-50%,-46%);\n    width:820px;\n  }\n  .player .cover{\n    width:820px; height:600px; object-fit:cover; border-radius:18px; box-shadow:var(--shadow);\n    display:block; margin:0 auto;\n  }\n  .player .meta{\n    color:#fff; margin-top:18px; display:flex; align-items:center; gap:12px;\n  }\n  .player .meta .title{font-weight:700}\n  .player .meta .artist{opacity:.9}\n  .player .fave.btn img{width:22px; height:22px}\n  .top-progress{\n    display:flex; align-items:center; gap:10px; color:#fff; margin-top:10px;\n  }\n  .bar{height:6px; background:rgba(255,255,255,.3); border-radius:4px; flex:1; overflow:hidden}\n  .bar>span{display:block; height:100%; background:#fff}\n\n  .transport{\n    margin:18px auto 0; width:420px; display:flex; align-items:center; justify-content:space-between;\n    background:rgba(0,0,0,.25); border-radius:12px; padding:10px 16px;\n  }\n  .transport .tbtn.btn{\n    width:44px; height:44px; border-radius:10px; display:grid; place-items:center; cursor:pointer;\n  }\n  .transport .tbtn.btn:hover{background:rgba(255,255,255,.08)}\n  .transport img{width:22px; height:22px}\n\n  .bottom-progress{\n    position:absolute; left:50%; transform:translateX(-50%); bottom:36px; width:70%;\n    display:flex; align-items:center; gap:10px; color:#fff;\n  }\n  .close.btn{\n    position:absolute; left:18px; top:12px; color:#fff; font-size:28px; cursor:pointer;\n    opacity:.8\n  }\n  .close.btn:hover{opacity:1}\n\n  /* Utility */\n  a{text-decoration:none}\n  .muted{color:var(--muted)}\n</style>\n</head>\n<body>\n\n<!-- Header -->\n<header class=\"header\">\n  <div class=\"brand\">\n    <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/001.svg\" width=\"90\" height=\"24\" alt=\"Apple Music\">\n    <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/002.svg\" width=\"46\" height=\"22\" alt=\"Beta\">\n  </div>\n\n  <div class=\"header-controls\">\n    <div class=\"icon-btn btn\" id=\"prevBtn\">\n      <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/014.svg\" width=\"18\" height=\"18\" alt=\"Prev\" style=\"transform:rotate(180deg)\">\n    </div>\n    <div class=\"icon-btn btn\" id=\"playToggleHeader\">\n      <img id=\"headerPlayIcon\" src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/011.svg\" width=\"18\" height=\"18\" alt=\"Play\">\n    </div>\n    <div class=\"icon-btn btn\" id=\"nextBtn\">\n      <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/014.svg\" width=\"18\" height=\"18\" alt=\"Next\">\n    </div>\n\n    <!-- Mini player -->\n    <div class=\"mini-now-playing btn\" id=\"miniOpen\">\n      <img class=\"cover\" src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/017.jpg\" width=\"38\" height=\"38\" alt=\"Cover\">\n      <div class=\"mini-meta\">\n        <div class=\"mini-title\">Sacrifice</div>\n        <div class=\"mini-sub\">Mariah the Scientist — HEARTS SOLD SEPARATELY</div>\n        <div class=\"mini-progress\"><span id=\"miniProg\" style=\"width:0%\"></span></div>\n      </div>\n      <span class=\"muted\" style=\"font-size:12px; font-weight:600; border:1px solid #e4bebe; padding:2px 6px; border-radius:5px; color:#b74e5e\">PREVIEW</span>\n    </div>\n  </div>\n\n  <div class=\"header-right\">\n    <div style=\"display:flex; align-items:center; gap:10px\">\n      <input type=\"range\" min=\"0\" max=\"100\" value=\"60\" aria-label=\"volume\">\n    </div>\n    <div class=\"icon-btn btn\">\n      <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/010.svg\" width=\"18\" height=\"18\" alt=\"List\">\n    </div>\n    <div class=\"icon-btn btn\">\n      <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/009.svg\" width=\"18\" height=\"18\" alt=\"Profile\">\n    </div>\n  </div>\n</header>\n\n<!-- App Body -->\n<div class=\"app\">\n  <!-- Sidebar -->\n  <aside class=\"sidebar\">\n    <div class=\"side-top\">\n      <div class=\"logo-row\">\n        <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/001.svg\" width=\"90\" height=\"24\" alt=\"Apple Music\">\n        <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/002.svg\" width=\"46\" height=\"22\" alt=\"Beta\">\n      </div>\n      <input class=\"search\" placeholder=\"Search\">\n      <nav class=\"nav\">\n        <div class=\"item btn active\">\n          <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/006.svg\" width=\"20\" height=\"20\" alt=\"\">\n          <span>Home</span>\n        </div>\n        <div class=\"item btn\">\n          <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/010.svg\" width=\"20\" height=\"20\" alt=\"\">\n          <span>New</span>\n        </div>\n        <div class=\"item btn\">\n          <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/007.svg\" width=\"20\" height=\"20\" alt=\"\">\n          <span>Radio</span>\n        </div>\n      </nav>\n    </div>\n    <div class=\"side-bottom\">\n      <div class=\"link btn\">Open in Music ↗</div>\n      <div class=\"link btn\">Exit Beta ↗</div>\n    </div>\n  </aside>\n\n  <!-- Content -->\n  <main class=\"content\">\n    <section class=\"hero\">\n      <div class=\"hero-inner\">\n        <img class=\"am-badge\" src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/018.png\" width=\"72\" height=\"22\" alt=\"Apple Music\">\n        <h1>Discover new music<br>every day.</h1>\n        <img class=\"hero-note\" src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/013.webp\" width=\"320\" height=\"320\" alt=\"Note\">\n        <p>Get playlists and albums inspired by the artists and genres<br>you're listening to.</p>\n        <div class=\"cta\">\n          <button class=\"btn primary\" id=\"ctaStart\">Get Started</button>\n          <a class=\"link btn\" id=\"studentPlan\">See Student Plan ›</a>\n        </div>\n      </div>\n    </section>\n  </main>\n</div>\n\n<!-- Fullscreen Now Playing -->\n<div class=\"overlay\" id=\"overlay\">\n  <div class=\"close btn\" id=\"overlayClose\">×</div>\n  <div class=\"player\">\n    <img class=\"cover\" src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/017.jpg\" width=\"820\" height=\"600\" alt=\"Album\">\n    <div class=\"meta\">\n      <div style=\"flex:1\">\n        <div class=\"title\">Sacrifice</div>\n        <div class=\"artist\">Mariah the Scientist — HEARTS SOLD SEPARATELY</div>\n      </div>\n      <div class=\"fave btn\" title=\"Favorite\">\n        <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/015.svg\" width=\"22\" height=\"22\" alt=\"Favorite\">\n      </div>\n      <div class=\"menu btn\" title=\"More\">\n        <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/010.svg\" width=\"22\" height=\"22\" alt=\"More\">\n      </div>\n    </div>\n\n    <div class=\"top-progress\">\n      <span id=\"timeCurrent\">0:00</span>\n      <div class=\"bar\"><span id=\"topBar\" style=\"width:0%\"></span></div>\n      <span id=\"timeLeft\">-0:00</span>\n    </div>\n\n    <div class=\"transport\">\n      <div class=\"tbtn btn\" id=\"shuffleBtn\" title=\"Shuffle\">\n        <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/016.svg\" width=\"22\" height=\"22\" alt=\"Shuffle\" style=\"border-radius:50%; opacity:.0\">\n      </div>\n      <div class=\"tbtn btn\" id=\"prevBtn2\" title=\"Previous\">\n        <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/014.svg\" width=\"22\" height=\"22\" alt=\"Prev\" style=\"transform:rotate(180deg)\">\n      </div>\n      <div class=\"tbtn btn\" id=\"playToggle\">\n        <img id=\"playIcon\" src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/008.svg\" width=\"22\" height=\"22\" alt=\"Pause\">\n      </div>\n      <div class=\"tbtn btn\" id=\"nextBtn2\" title=\"Next\">\n        <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/014.svg\" width=\"22\" height=\"22\" alt=\"Next\">\n      </div>\n      <div class=\"tbtn btn\" id=\"repeatBtn\" title=\"Repeat\">\n        <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/012.svg\" width=\"22\" height=\"22\" alt=\"Repeat\" style=\"opacity:.0\">\n      </div>\n    </div>\n\n    <div class=\"bottom-progress\">\n      <span>0:00</span>\n      <div class=\"bar\"><span id=\"bottomBar\" style=\"width:0%\"></span></div>\n      <span id=\"durationLabel\">-1:19</span>\n    </div>\n  </div>\n</div>\n\n<script>\n(function(){\n  // Fake track data\n  const TRACK = {\n    title:\"Sacrifice\",\n    artist:\"Mariah the Scientist — HEARTS SOLD SEPARATELY\",\n    length: 79 // seconds\n  };\n\n  // Elements\n  const overlay = document.getElementById('overlay');\n  const miniOpen = document.getElementById('miniOpen');\n  const ctaStart = document.getElementById('ctaStart');\n  const overlayClose = document.getElementById('overlayClose');\n\n  const topBar = document.getElementById('topBar');\n  const bottomBar = document.getElementById('bottomBar');\n  const miniProg = document.getElementById('miniProg');\n\n  const timeCurrent = document.getElementById('timeCurrent');\n  const timeLeft = document.getElementById('timeLeft');\n  const durationLabel = document.getElementById('durationLabel');\n\n  const playIcon = document.getElementById('playIcon');\n  const headerPlayIcon = document.getElementById('headerPlayIcon');\n\n  const playToggle = document.getElementById('playToggle');\n  const playToggleHeader = document.getElementById('playToggleHeader');\n\n  // State\n  let playing = false;\n  let t = 0;\n  let timer = null;\n\n  function fmt(seconds){\n    const s = Math.max(0, Math.floor(seconds));\n    return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');\n  }\n\n  function updateUI(){\n    const pct = (t/TRACK.length)*100;\n    topBar.style.width = pct+'%';\n    bottomBar.style.width = pct+'%';\n    miniProg.style.width = pct+'%';\n\n    timeCurrent.textContent = fmt(t);\n    timeLeft.textContent = '-' + fmt(TRACK.length - t);\n    durationLabel.textContent = '-' + fmt(TRACK.length - t);\n\n    // Toggle icons\n    if(playing){\n      playIcon.src = \"__PLACEHOLDER_ASSETS_BASE_DIR__/008.svg\"; // pause\n      headerPlayIcon.src = \"__PLACEHOLDER_ASSETS_BASE_DIR__/008.svg\";\n    }else{\n      playIcon.src = \"__PLACEHOLDER_ASSETS_BASE_DIR__/011.svg\"; // play\n      headerPlayIcon.src = \"__PLACEHOLDER_ASSETS_BASE_DIR__/011.svg\";\n    }\n  }\n\n  function startTimer(){\n    if(timer) return;\n    playing = true;\n    timer = setInterval(()=>{\n      t += 0.5;\n      if(t >= TRACK.length){\n        t = TRACK.length;\n        stopTimer();\n      }\n      updateUI();\n    }, 500);\n    updateUI();\n  }\n  function stopTimer(){\n    playing = false;\n    clearInterval(timer);\n    timer = null;\n    updateUI();\n  }\n\n  // Open/Close overlay\n  function openOverlay(){\n    overlay.classList.add('show');\n  }\n  function closeOverlay(){\n    overlay.classList.remove('show');\n  }\n\n  // Event bindings\n  miniOpen.addEventListener('click', openOverlay);\n  ctaStart.addEventListener('click', openOverlay);\n  overlayClose.addEventListener('click', closeOverlay);\n\n  playToggle.addEventListener('click', ()=>{\n    playing ? stopTimer() : startTimer();\n  });\n  playToggleHeader.addEventListener('click', ()=>{\n    playing ? stopTimer() : startTimer();\n  });\n\n  // Prev / Next simulate jump\n  function prev(){\n    t = Math.max(0, t-10);\n    updateUI();\n  }\n  function next(){\n    t = Math.min(TRACK.length, t+10);\n    updateUI();\n  }\n  document.getElementById('prevBtn').addEventListener('click', prev);\n  document.getElementById('prevBtn2').addEventListener('click', prev);\n  document.getElementById('nextBtn').addEventListener('click', next);\n  document.getElementById('nextBtn2').addEventListener('click', next);\n\n  // Start in paused preview state but with tiny progress for realism\n  t = 7;\n  updateUI();\n})();\n</script>\n</body>\n</html>\n```",
+        "refusal": null,
+        "role": "assistant",
+        "annotations": [],
+        "audio": null,
+        "function_call": null,
+        "tool_calls": null
+      },
+      "content_filter_results": {
+        "hate": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "protected_material_code": {
+          "detected": false,
+          "filtered": false
+        },
+        "protected_material_text": {
+          "detected": false,
+          "filtered": false
+        },
+        "self_harm": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "sexual": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "violence": {
+          "filtered": false,
+          "severity": "safe"
+        }
+      }
+    }
+  ],
+  "created": 1794724102,
+  "model": "gpt-5-2025-08-07",
+  "object": "chat.completion",
+  "metadata": null,
+  "moderation": null,
+  "service_tier": "default",
+  "system_fingerprint": null,
+  "usage": {
+    "completion_tokens": 6064,
+    "prompt_tokens": 5723,
+    "total_tokens": 11787,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": 0,
+      "audio_tokens": 0,
+      "reasoning_tokens": 1472,
+      "rejected_prediction_tokens": 0,
+      "text_tokens": null
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cache_write_tokens": null,
+      "cached_tokens": 0,
+      "image_tokens": null,
+      "text_tokens": null
+    },
+    "latency_checkpoint": {
+      "engine_tbt_ms": 11,
+      "engine_ttft_ms": 1114,
+      "engine_ttlt_ms": 66197,
+      "pre_inference_ms": 1585,
+      "service_tbt_ms": 11,
+      "service_ttft_ms": 3380,
+      "service_ttlt_ms": 68455,
+      "user_visible_ttft_ms": 1795
+    }
+  },
+  "prompt_filter_results": [
+    {
+      "prompt_index": 0,
+      "content_filter_results": {
+        "hate": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "jailbreak": {
+          "detected": false,
+          "filtered": false
+        },
+        "self_harm": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "sexual": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "violence": {
+          "filtered": false,
+          "severity": "safe"
+        }
+      }
+    }
+  ],
+  "routing": {
+    "serving_pipereplica": "d20261007214821-4e998b38-default-r0-dp0-default"
+  }
+}
