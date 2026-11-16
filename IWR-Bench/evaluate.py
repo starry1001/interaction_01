@@ -2,6 +2,7 @@ import asyncio
 import os
 import argparse
 import json
+import re
 from pathlib import Path
 from utils import core as utils
 from utils import metrics as metrics_utils
@@ -12,6 +13,20 @@ from utils.visual_scorer import VisualScorer
 from utils.assertion_scorer import AssertionScorer
 
 visual_scorer = VisualScorer()
+
+def parse_task_ids(value: str) -> set[str]:
+    """Parse comma-separated numeric IDs and inclusive ranges."""
+    selected = set()
+    for part in value.split(','):
+        match = re.fullmatch(r'(\d+)(?:\s*-\s*(\d+))?', part.strip())
+        if not match:
+            raise argparse.ArgumentTypeError(f"Invalid task IDs: {value!r}; use 1-3 or 1,3,5")
+        start = int(match.group(1))
+        end = int(match.group(2)) if match.group(2) is not None else start
+        if start > end:
+            raise argparse.ArgumentTypeError(f"Invalid task range: {part!r}; start must not exceed end")
+        selected.update(str(task_id) for task_id in range(start, end + 1))
+    return selected
 
 async def excute_action(iwr: IWR, action_type: str, params: dict) -> bool:
     action_map = {
@@ -156,7 +171,8 @@ async def main():
     parser.add_argument('--data', required=True, help='Path to dataset jsonl file (e.g. example.jsonl)')
     parser.add_argument('--result', required=True, help='Result path')
     parser.add_argument('--model', default='gpt-4o', help='Model name')
-    parser.add_argument('--task', help='Specific task filter')
+    parser.add_argument('--task', '--ids', nargs='+', type=parse_task_ids,
+                        help='Only evaluate these task IDs, e.g. --ids 1-3 or --ids 1,3,5 or --ids 1 3 5')
     parser.add_argument('--coverage', action='store_true', help='Re-evaluate existing results')
     args = parser.parse_args()
         
@@ -169,9 +185,17 @@ async def main():
     model_name = args.model
     
     tasks = utils.load_examples(jsonl_path)
+    if args.task:
+        selected = set().union(*args.task)
+        missing = selected - {str(task.get('id')) for task in tasks}
+        if missing:
+            parser.error(f"Task IDs not found in --data: {', '.join(sorted(missing, key=int))}")
+        tasks = [task for task in tasks if str(task.get('id')) in selected]
     if not tasks:
         print('No tasks found')
         return
+
+    print(f"IWRBenchEval: Selected {len(tasks)} tasks: {', '.join(str(task.get('id')) for task in tasks)}")
 
     result_dir = args.result
     

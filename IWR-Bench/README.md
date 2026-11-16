@@ -112,6 +112,15 @@ cp .env.example  .env
 ```
 
 ### Run Evaluation
+
+Configure the evaluation models independently in `.env`:
+
+- `OPENAI_MODEL_NAME`: browser action executor.
+- `MODEL_FOR_EVAL`: high-level visual similarity judge (e.g. `gemini-2.5-pro`).
+- `MODEL_FOR_ASSERTION_EVAL`: logical assertion judge (e.g. `gpt-6-luna`); falls back to `MODEL_FOR_EVAL` when unset or empty.
+
+OCR and DINO scoring use local models and are independent of these judge settings.
+
 ``` bash
 # Running the Evaluation
 export model_name="gpt-5-2025-08-07"
@@ -128,6 +137,11 @@ python3 ./evaluate.py \
     --model $model_name
 
 ```
+
+Evaluation runs all tasks in `--data` by default. Add `--ids 1-3` for an inclusive
+range, `--ids 1,3,5` for individual IDs, or `--ids 1-3,5` for a mix.
+Space-separated IDs (`--ids 1 3 5`) and the alias `--task` are also supported.
+Tasks run in dataset order; IDs missing from `--data` produce an error before execution.
 
 
 

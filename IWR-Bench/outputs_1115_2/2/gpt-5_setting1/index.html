@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Apple Music - Mock</title>
+<style>
+  :root{
+    --sidebar-w:280px;
+    --topbar-h:60px;
+    --bg:#f4f4f4;
+    --text:#111;
+    --muted:#6b6b6b;
+    --red:#d61532;
+    --red2:#e33f5c;
+    --pill:#ffffffcc;
+    --card:#ffffff;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;font-family:system-ui, -apple-system, Segoe UI, Arial, sans-serif;color:var(--text);background:#fff;overflow:hidden}
+  a{color:inherit;text-decoration:none}
+  .app{width:100vw;height:100vh;display:grid;grid-template-columns:var(--sidebar-w) 1fr;grid-template-rows:var(--topbar-h) 1fr;background:#fff}
+  /* Sidebar */
+  aside{
+    grid-row:1 / span 2;
+    background:#fafafa;
+    border-right:1px solid #e6e6e6;
+    display:flex;
+    flex-direction:column;
+    padding:16px 14px;
+  }
+  .brand{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+  .brand img{display:block}
+  .search{
+    display:flex;align-items:center;border:1px solid #e2e2e2;border-radius:6px;background:#fff;
+    padding:10px 10px;margin:8px 0 14px 0
+  }
+  .search input{border:none;outline:none;font-size:14px;width:100%;background:transparent}
+  .nav{list-style:none;margin:6px 0;padding:0;display:flex;flex-direction:column;gap:6px}
+  .nav .item{
+    display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;color:#333;cursor:pointer;
+  }
+  .nav .item img{opacity:.9}
+  .nav .item.active{background:#ededed;font-weight:600}
+  .sidebar-footer{margin-top:auto;font-size:13px;color:#3a3a3a}
+  .sidebar-footer .link{display:flex;align-items:center;gap:8px;color:#3a3a3a;padding:8px 6px;border-radius:8px;cursor:pointer}
+  .sidebar-footer .link:hover{background:#efefef}
+  /* Topbar */
+  header{
+    grid-column:2/3;
+    background:linear-gradient(#fafafa,#f2f2f2);
+    border-bottom:1px solid #e6e6e6;
+    display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:var(--topbar-h)
+  }
+  .controls{display:flex;align-items:center;gap:14px}
+  .icon-btn{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer}
+  .icon-btn:hover{background:#eaeaea}
+  .icon{
+    width:18px;height:18px;object-fit:contain;display:block
+  }
+  .center-now{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.8);border:1px solid #e3e3e3;border-radius:14px;padding:3px 10px;box-shadow:0 1px 0 rgba(0,0,0,0.03)}
+  .thumb{width:34px;height:34px;border-radius:6px;overflow:hidden;background:#ddd}
+  .thumb img{width:34px;height:34px;display:block}
+  .track-meta{display:flex;align-items:center;gap:8px;font-size:13px;color:#333}
+  .preview{font-size:10px;background:#d93025;color:#fff;border-radius:4px;padding:2px 5px}
+  .progress-mini{position:relative;width:180px;height:6px;background:#e6e6e6;border-radius:999px;overflow:hidden}
+  .progress-mini .bar{position:absolute;left:0;top:0;bottom:0;background:#c94b5c;width:0%}
+  .right-ops{display:flex;align-items:center;gap:14px}
+  .vol{width:120px}
+  .avatar{width:28px;height:28px;border-radius:50%;background:#f4f4f4;border:1px solid #e1e1e1;display:flex;align-items:center;justify-content:center}
+  /* Main hero */
+  main{
+    grid-column:2/3;position:relative;overflow:auto;background:linear-gradient(135deg,#d81534,#eb3f68);height:calc(100vh - var(--topbar-h));
+  }
+  .hero-wrap{max-width:980px;margin:0 auto;padding:70px 20px 100px;color:#fff;text-align:center}
+  .hero-logo{opacity:.95;margin-top:12px;margin-bottom:12px}
+  h1{font-size:64px;line-height:1.1;margin:10px 0 16px;font-weight:800;letter-spacing:.2px}
+  .subtitle{max-width:640px;margin:12px auto 22px;color:#ffedf1}
+  .get-started{display:inline-block;background:#fff;color:#222;border-radius:8px;padding:12px 22px;font-weight:600;border:1px solid #e6e6e6;box-shadow:0 6px 20px rgba(0,0,0,0.12);cursor:pointer}
+  .student{margin-top:10px;display:inline-flex;align-items:center;gap:6px;color:#ffe6ea;font-size:14px;cursor:pointer}
+  .note-big{margin:30px auto 14px;width:360px;height:360px}
+  .note-big img{width:100%;height:100%;display:block;filter:drop-shadow(0 20px 30px rgba(0,0,0,0.18))}
+  /* Now Playing Overlay */
+  .overlay{
+    position:fixed;inset:0;background:radial-gradient(1200px 600px at 60% 0%, #b12e5f, #5b1342);
+    display:none;z-index:40;color:#fff
+  }
+  .overlay.show{display:block}
+  .np-container{height:100%;width:100%;display:flex;flex-direction:column;padding:18px 24px}
+  .np-close{font-size:26px;line-height:1;color:#fff;opacity:.9;cursor:pointer}
+  .np-main{flex:1;display:flex;align-items:center;justify-content:center}
+  .np-card{width:980px;max-width:80vw;display:grid;grid-template-columns:480px 1fr;gap:28px;align-items:end}
+  .cover{width:100%;aspect-ratio:1/1;border-radius:22px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+  .cover img{width:100%;height:100%;object-fit:cover;display:block}
+  .np-info{align-self:stretch;display:flex;flex-direction:column;gap:14px}
+  .title{font-size:26px;font-weight:700}
+  .artist{color:#f0c8d4}
+  .np-row{display:flex;align-items:center;gap:10px}
+  .star{width:24px;height:24px;opacity:.95}
+  .ellipsis{font-weight:700;opacity:.8}
+  .bar-wrap{margin-top:10px}
+  .bar{height:8px;background:#ffffff35;border-radius:99px;position:relative;cursor:pointer}
+  .bar .fill{height:100%;background:#ffffff;opacity:.85;border-radius:99px;width:0%}
+  .time{display:flex;justify-content:space-between;color:#f3c9d8;margin-top:6px;font-size:13px}
+  .np-controls{margin-top:14px;display:flex;align-items:center;gap:16px}
+  .np-controls .circle{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#ffffff20;border:1px solid #ffffff3a;cursor:pointer}
+  .np-controls img{filter:invert(1)}
+  .bottom-wide{position:absolute;left:28px;right:28px;bottom:26px}
+  .bottom-wide .bar{height:6px}
+  /* Helpers */
+  .btn{cursor:pointer}
+  .hidden{display:none}
+</style>
+</head>
+<body>
+<div class="app">
+  <!-- Sidebar -->
+  <aside>
+    <div class="brand">
+      <img src="../../../data/data/2/assets/001.svg" width="108" height="28" alt="Apple Music">
+      <img src="../../../data/data/2/assets/002.svg" width="60" height="28" alt="Beta">
+    </div>
+    <div class="search">
+      <input type="text" placeholder="Search" />
+    </div>
+    <ul class="nav">
+      <li class="item btn active"><img src="../../../data/data/2/assets/006.svg" width="22" height="22" alt=""><span>Home</span></li>
+      <li class="item btn"><img src="../../../data/data/2/assets/005.svg" width="22" height="22" alt=""><span>New</span></li>
+      <li class="item btn"><img src="../../../data/data/2/assets/007.svg" width="22" height="22" alt=""><span>Radio</span></li>
+    </ul>
+    <div class="sidebar-footer">
+      <div class="link btn">
+        <img src="../../../data/data/2/assets/018.png" width="30" height="14" alt="Music">
+        <span>Open in Music ↗</span>
+      </div>
+      <div class="link btn">Exit Beta ↗</div>
+    </div>
+  </aside>
+
+  <!-- Top bar -->
+  <header>
+    <div class="controls">
+      <div class="icon-btn btn" id="top-shuffle" title="Shuffle">
+        <img class="icon" src="../../../data/data/2/assets/010.svg" width="18" height="18" alt="">
+      </div>
+      <div class="icon-btn btn" id="top-prev" title="Previous">
+        <img class="icon" src="../../../data/data/2/assets/014.svg" width="18" height="18" alt="" style="transform:rotate(180deg)">
+      </div>
+      <div class="icon-btn btn" id="top-play" title="Play/Pause">
+        <img class="icon" id="top-play-icon" src="../../../data/data/2/assets/011.svg" width="18" height="18" alt="">
+      </div>
+      <div class="icon-btn btn" id="top-next" title="Next">
+        <img class="icon" src="../../../data/data/2/assets/014.svg" width="18" height="18" alt="">
+      </div>
+    </div>
+
+    <div class="center-now btn" id="openOverlay" title="Open Now Playing">
+      <div class="thumb"><img src="../../../data/data/2/assets/017.jpg" width="34" height="34" alt="Album"></div>
+      <div class="track-meta">
+        <div id="trackTitleMini">Sacrifice</div>
+        <div class="preview">PREVIEW</div>
+      </div>
+      <div class="progress-mini"><div class="bar" id="miniBar"></div></div>
+    </div>
+
+    <div class="right-ops">
+      <input type="range" min="0" max="100" value="70" class="vol btn" title="Volume">
+      <div class="icon-btn btn" title="List">
+        <img class="icon" src="../../../data/data/2/assets/010.svg" width="18" height="18" alt="">
+      </div>
+      <div class="avatar btn" title="Account">
+        <img src="../../../data/data/2/assets/009.svg" width="18" height="18" alt="">
+      </div>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main>
+    <div class="hero-wrap">
+      <img class="hero-logo" src="../../../data/data/2/assets/018.png" width="64" height="22" alt="Music">
+      <h1>Discover new music every day.</h1>
+      <div class="note-big">
+        <img src="../../../data/data/2/assets/013.webp" width="360" height="360" alt="Note">
+      </div>
+      <p class="subtitle">Get playlists and albums inspired by the artists and genres you're listening to.</p>
+      <div class="get-started btn" id="getStarted">Get Started</div>
+      <div class="student btn">See Student Plan <img src="../../../data/data/2/assets/014.svg" width="12" height="12" alt=""></div>
+    </div>
+  </main>
+</div>
+
+<!-- Now Playing Overlay -->
+<div class="overlay" id="overlay">
+  <div class="np-container">
+    <div class="np-close btn" id="closeOverlay">×</div>
+    <div class="np-main">
+      <div class="np-card">
+        <div class="cover">
+          <img src="../../../data/data/2/assets/017.jpg" width="800" height="800" alt="Cover">
+        </div>
+        <div class="np-info">
+          <div>
+            <div class="title" id="titleNp">Sacrifice</div>
+            <div class="artist" id="artistNp">Mariah the Scientist — HEARTS SOLD SEPARATELY</div>
+          </div>
+          <div class="np-row">
+            <img class="star btn" src="../../../data/data/2/assets/015.svg" width="24" height="24" alt="Favorite" title="Favorite">
+            <span class="ellipsis btn" title="More">•••</span>
+          </div>
+
+          <div class="bar-wrap">
+            <div class="bar btn" id="seekBar">
+              <div class="fill" id="seekFill"></div>
+            </div>
+            <div class="time"><span id="curTime">0:00</span><span id="durTime">1:19</span></div>
+          </div>
+
+          <div class="np-controls">
+            <div class="circle btn" id="np-shuffle"><img src="../../../data/data/2/assets/010.svg" width="18" height="18" alt=""></div>
+            <div class="circle btn" id="np-prev"><img src="../../../data/data/2/assets/014.svg" width="18" height="18" style="transform:rotate(180deg)" alt=""></div>
+            <div class="circle btn" id="np-play"><img id="np-play-icon" src="../../../data/data/2/assets/008.svg" width="18" height="18" alt=""></div>
+            <div class="circle btn" id="np-next"><img src="../../../data/data/2/assets/014.svg" width="18" height="18" alt=""></div>
+            <div class="circle btn" id="np-repeat"><img src="../../../data/data/2/assets/012.svg" width="16" height="16" alt=""></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-wide">
+      <div class="bar"><div class="fill" id="bottomFill"></div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Mock track and player state
+  const track = {
+    title: "Sacrifice",
+    artist: "Mariah the Scientist — HEARTS SOLD SEPARATELY",
+    duration: 79 // seconds (1:19 in screenshots)
+  };
+
+  const state = {
+    playing: false,
+    t: 7 // start a few seconds in like screenshot
+  };
+
+  // DOM references
+  const miniBar = document.getElementById('miniBar');
+  const topPlay = document.getElementById('top-play');
+  const topPlayIcon = document.getElementById('top-play-icon');
+  const openOverlay = document.getElementById('openOverlay');
+  const overlay = document.getElementById('overlay');
+  const closeOverlay = document.getElementById('closeOverlay');
+  const seekBar = document.getElementById('seekBar');
+  const seekFill = document.getElementById('seekFill');
+  const bottomFill = document.getElementById('bottomFill');
+  const curTime = document.getElementById('curTime');
+  const durTime = document.getElementById('durTime');
+  const npPlay = document.getElementById('np-play');
+  const npPlayIcon = document.getElementById('np-play-icon');
+
+  // Initialize labels
+  document.getElementById('trackTitleMini').textContent = track.title;
+  document.getElementById('titleNp').textContent = track.title;
+  document.getElementById('artistNp').textContent = track.artist;
+  durTime.textContent = formatTime(track.duration);
+
+  function formatTime(s){
+    s = Math.max(0, Math.floor(s));
+    return Math.floor(s/60) + ":" + String(s%60).padStart(2,'0');
+  }
+
+  function updateUI(){
+    const p = Math.min(100, (state.t/track.duration)*100);
+    miniBar.style.width = p + "%";
+    seekFill.style.width = p + "%";
+    bottomFill.style.width = p + "%";
+    curTime.textContent = formatTime(state.t);
+    // Switch icons
+    if(state.playing){
+      topPlayIcon.src = "../../../data/data/2/assets/008.svg"; // pause
+      npPlayIcon.src = "../../../data/data/2/assets/008.svg";
+    }else{
+      topPlayIcon.src = "../../../data/data/2/assets/011.svg"; // play
+      npPlayIcon.src = "../../../data/data/2/assets/011.svg";
+    }
+  }
+
+  let timer = null;
+  function play(){
+    if(timer) return;
+    state.playing = true;
+    timer = setInterval(()=>{
+      state.t += 0.25;
+      if(state.t >= track.duration){
+        state.t = 0;
+      }
+      updateUI();
+    },250);
+    updateUI();
+  }
+  function pause(){
+    state.playing = false;
+    clearInterval(timer); timer=null;
+    updateUI();
+  }
+  function togglePlay(){
+    state.playing ? pause() : play();
+  }
+
+  // Top bar controls
+  topPlay.addEventListener('click', togglePlay);
+  document.getElementById('np-prev').addEventListener('click', ()=>{
+    state.t = Math.max(0, state.t - 5);
+    updateUI();
+  });
+  document.getElementById('np-next').addEventListener('click', ()=>{
+    state.t = Math.min(track.duration, state.t + 5);
+    updateUI();
+  });
+  document.getElementById('top-prev').addEventListener('click', ()=>{
+    state.t = Math.max(0, state.t - 5); updateUI();
+  });
+  document.getElementById('top-next').addEventListener('click', ()=>{
+    state.t = Math.min(track.duration, state.t + 5); updateUI();
+  });
+
+  // Seek interactions (overlay)
+  function seekAt(clientX, elem, onApply){
+    const rect = elem.getBoundingClientRect();
+    const ratio = Math.min(1, Math.max(0, (clientX - rect.left)/rect.width));
+    const t = track.duration * ratio;
+    onApply(t);
+  }
+  seekBar.addEventListener('click', (e)=>seekAt(e.clientX, seekBar, (t)=>{ state.t = t; updateUI(); }));
+
+  // Overlay open / close
+  openOverlay.addEventListener('click', ()=>{ overlay.classList.add('show'); });
+  closeOverlay.addEventListener('click', ()=>{ overlay.classList.remove('show'); });
+
+  // Play control from overlay
+  npPlay.addEventListener('click', togglePlay);
+
+  // Buttons in hero
+  document.getElementById('getStarted').addEventListener('click', ()=>overlay.classList.add('show'));
+  document.querySelector('.student').addEventListener('click', ()=>alert('Student Plan: mock link'));
+
+  // Sidebar item active toggle
+  document.querySelectorAll('.nav .item').forEach(li=>{
+    li.addEventListener('click', ()=>{
+      document.querySelectorAll('.nav .item').forEach(x=>x.classList.remove('active'));
+      li.classList.add('active');
+    });
+  });
+
+  // Start paused but with position visible
+  updateUI();
+</script>
+</body>
+</html>

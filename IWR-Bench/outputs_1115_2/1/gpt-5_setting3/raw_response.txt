@@ -1,0 +1,589 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2048 Game - Pixel Replica</title>
+<style>
+  :root{
+    --page-bg:#f8f6ea;
+    --accent:#f0b84a;
+    --accent-dark:#d79c2b;
+    --text:#2b2a2a;
+    --muted:#bba99b;
+    --scorebox:#9d846e;
+    --board-size: 540px;
+    --gap: 16px;
+  }
+  html,body{
+    margin:0;
+    height:100%;
+    background:var(--page-bg);
+    color:var(--text);
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  }
+  .wrap{
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 20px 60px;
+    text-align:center;
+  }
+  /* Top controls */
+  .mode-tabs{
+    display:inline-flex;
+    gap:16px;
+    align-items:center;
+    margin-top:4px;
+  }
+  .tab{
+    border:0;
+    padding:10px 16px;
+    border-radius:12px;
+    background:#f2e9d9;
+    cursor:pointer;
+    color:#3b2a1a;
+    font-weight:700;
+  }
+  .tab.active{
+    background:var(--accent);
+    box-shadow: inset 0 -2px 0 rgba(0,0,0,.06);
+  }
+  h1{
+    font-size:48px;
+    margin:10px 0 10px;
+    font-weight:900;
+    letter-spacing:.5px;
+  }
+  .topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    max-width: 780px;
+    margin: 0 auto 14px;
+  }
+  .scores{
+    display:flex;
+    gap:10px;
+    align-items:center;
+  }
+  .scorebox{
+    background:var(--scorebox);
+    color:#fff;
+    padding:8px 14px;
+    border-radius:6px;
+    min-width:86px;
+    text-align:center;
+  }
+  .scorebox .label{
+    font-size:12px;
+    opacity:.9;
+    letter-spacing:1px;
+  }
+  .scorebox .value{
+    font-size:20px;
+    font-weight:800;
+    margin-top:4px;
+  }
+  .new-btn{
+    background:#a8876d;
+    color:#fff;
+    padding:10px 16px;
+    border-radius:8px;
+    border:0;
+    cursor:pointer;
+    font-weight:700;
+  }
+  .new-btn:hover{ filter:brightness(.95); }
+
+  /* Board */
+  .board-wrap{
+    width: var(--board-size);
+    margin: 6px auto 14px;
+  }
+  .board{
+    position:relative;
+    width:var(--board-size);
+    height:var(--board-size);
+    border-radius:10px;
+    background:#bbada0;
+    box-shadow: inset 0 6px 0 rgba(255,255,255,.1);
+    margin: 0 auto;
+    user-select:none;
+    touch-action: none; /* for swipe */
+  }
+  .cell, .tile{
+    position:absolute;
+    width: calc((var(--board-size) - (var(--gap)*5)) / 4);
+    height: calc((var(--board-size) - (var(--gap)*5)) / 4);
+    border-radius:8px;
+  }
+  .cell{
+    background:#cdc1b4;
+    opacity:.9;
+  }
+  .tile{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
+    font-size:38px;
+    transition: transform .12s ease;
+  }
+  .tile.new{ animation: pop .14s ease; }
+  @keyframes pop{
+    0%{ transform: scale(.5); opacity:.7; }
+    100%{ transform: scale(1); opacity:1; }
+  }
+
+  /* Tile colors */
+  .v2   { background:#eee4da; color:#776e65; }
+  .v4   { background:#ede0c8; color:#776e65; }
+  .v8   { background:#f2b179; color:#f9f6f2; }
+  .v16  { background:#f59563; color:#f9f6f2; }
+  .v32  { background:#f67c5f; color:#f9f6f2; }
+  .v64  { background:#f65e3b; color:#f9f6f2; }
+  .v128 { background:#edcf72; color:#f9f6f2; font-size:34px; }
+  .v256 { background:#edcc61; color:#f9f6f2; font-size:34px; }
+  .v512 { background:#edc850; color:#f9f6f2; font-size:34px; }
+  .v1024{ background:#edc53f; color:#f9f6f2; font-size:28px; }
+  .v2048{ background:#edc22e; color:#f9f6f2; font-size:28px; }
+
+  /* Score bump */
+  .bump{
+    position:absolute;
+    top:-14px;
+    left:6px;
+    font-weight:800;
+    color:#7a604d;
+    pointer-events:none;
+    opacity:0;
+    transform: translateY(-8px);
+    transition: all .35s ease;
+  }
+  .bump.show{
+    opacity:1;
+    transform: translateY(-22px);
+  }
+
+  /* Ad and info */
+  .ad{
+    display:block;
+    margin: 18px auto 10px;
+    border-radius:6px;
+    box-shadow:0 2px 6px rgba(0,0,0,.08);
+  }
+  .info{
+    background:#f3d7b1;
+    padding:18px 24px;
+    border-radius:10px;
+    color:#6b553f;
+    max-width: 940px;
+    margin: 16px auto 10px;
+    line-height:1.5;
+    font-size:15px;
+  }
+
+  /* Other games */
+  .other{
+    margin-top: 30px;
+    padding-top: 6px;
+  }
+  .other h2{
+    font-size:28px;
+    margin: 10px 0 18px;
+    font-weight:900;
+  }
+  .games{
+    display:grid;
+    grid-template-columns: repeat(4, minmax(160px, 1fr));
+    gap:18px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .card{
+    background:#ffffff;
+    border-radius:12px;
+    padding:12px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);
+    cursor:pointer;
+    transition: transform .08s ease, box-shadow .12s ease;
+    text-align:center;
+  }
+  .card:hover{ transform: translateY(-2px); box-shadow:0 6px 16px rgba(0,0,0,.1); }
+  .card img{
+    width:100%;
+    height:140px;
+    object-fit:cover;
+    border-radius:10px;
+    background:#eee;
+  }
+  .card .t{
+    margin-top:8px;
+    font-weight:700;
+  }
+
+  /* Cupcakes theme (fun toggle) */
+  body.cupcakes .tile{
+    background:#ffd4e5 !important;
+    color:#7a3a4a !important;
+    font-size:34px;
+  }
+  body.cupcakes .v8, body.cupcakes .v16, body.cupcakes .v32, body.cupcakes .v64{
+    background:#ffc3dd !important;
+  }
+
+  /* Utility */
+  .btn{ outline: none; }
+  .visually-hidden{ position:absolute; left:-9999px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="mode-tabs">
+      <button id="tabClassic" class="btn tab active" aria-pressed="true">Classic</button>
+      <button id="tabCupcakes" class="btn tab" aria-pressed="false">Cupcakes</button>
+    </div>
+    <h1>2048 Game</h1>
+
+    <div class="topbar">
+      <div class="scores" aria-live="polite">
+        <div class="scorebox">
+          <div class="label">SCORE</div>
+          <div class="value" id="score">0</div>
+          <div id="scoreBump" class="bump">+0</div>
+        </div>
+        <div class="scorebox">
+          <div class="label">BEST</div>
+          <div class="value" id="best">0</div>
+        </div>
+      </div>
+      <button id="newGame" class="btn new-btn">New game</button>
+    </div>
+
+    <div class="board-wrap">
+      <div id="board" class="board" role="application" aria-label="2048 board" tabindex="0"></div>
+    </div>
+
+    <img class="ad" src="__PLACEHOLDER_ASSETS_BASE_DIR__/015.png" width="420" height="270" alt="Ad placeholder">
+
+    <div class="info">
+      Use your arrow keys (also W, A, S, and D keys) or swipe with your fingers to move the tiles.
+      When two tiles with the same number touch, they merge into one and add to your score.
+      Try to create the 2048 tile!
+    </div>
+
+    <section class="other">
+      <h2>Play Other Games</h2>
+      <div class="games">
+        <div class="card btn">
+          <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/004.png" width="260" height="140" alt="Tetris">
+          <div class="t">Tetris</div>
+        </div>
+        <div class="card btn">
+          <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/007.png" width="260" height="140" alt="Sudoku">
+          <div class="t">Sudoku</div>
+        </div>
+        <div class="card btn">
+          <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/011.png" width="260" height="140" alt="Snake">
+          <div class="t">Snake</div>
+        </div>
+        <div class="card btn">
+          <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/012.png" width="260" height="140" alt="Dino">
+          <div class="t">Dino</div>
+        </div>
+        <div class="card btn">
+          <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/009.png" width="260" height="140" alt="Cards">
+          <div class="t">Cards</div>
+        </div>
+        <div class="card btn">
+          <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/006.png" width="260" height="140" alt="2048 Icon">
+          <div class="t">2048 Icon</div>
+        </div>
+        <div class="card btn">
+          <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/010.png" width="260" height="140" alt="Empty Board">
+          <div class="t">Board</div>
+        </div>
+        <div class="card btn">
+          <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/013.png" width="260" height="140" alt="Flappy">
+          <div class="t">Flappy</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+<script>
+/* 2048 minimal implementation */
+(function(){
+  const size = 4;
+  const boardEl = document.getElementById('board');
+  const scoreEl = document.getElementById('score');
+  const bestEl = document.getElementById('best');
+  const bumpEl = document.getElementById('scoreBump');
+  const newGameBtn = document.getElementById('newGame');
+  const tabClassic = document.getElementById('tabClassic');
+  const tabCupcakes = document.getElementById('tabCupcakes');
+
+  let grid = [];
+  let score = 0;
+  let best = +localStorage.getItem('best-2048-replica') || 0;
+
+  bestEl.textContent = best;
+
+  // Layout helpers
+  function px(n){ return n + 'px'; }
+  function metrics(){
+    const b = boardEl.getBoundingClientRect();
+    const gap = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--gap')) || 16;
+    const tile = (b.width - gap*5) / 4;
+    return {gap, tile};
+  }
+
+  function positionFor(r,c){
+    const {gap,tile} = metrics();
+    const top = gap + r * (tile + gap);
+    const left = gap + c * (tile + gap);
+    return {top,left,size:tile};
+  }
+
+  // Build background cells once
+  function buildBackground(){
+    boardEl.innerHTML = '';
+    for(let r=0;r<size;r++){
+      for(let c=0;c<size;c++){
+        const cell = document.createElement('div');
+        cell.className = 'cell';
+        const {top,left} = positionFor(r,c);
+        cell.style.top = px(top);
+        cell.style.left = px(left);
+        boardEl.appendChild(cell);
+      }
+    }
+  }
+
+  function randomEmptyCell(){
+    const empties = [];
+    for(let r=0;r<size;r++){
+      for(let c=0;c<size;c++){
+        if(grid[r][c]===0) empties.push({r,c});
+      }
+    }
+    if(!empties.length) return null;
+    return empties[Math.floor(Math.random()*empties.length)];
+  }
+
+  function spawn(count=1){
+    for(let i=0;i<count;i++){
+      const spot = randomEmptyCell();
+      if(!spot) return;
+      grid[spot.r][spot.c] = Math.random()<0.9 ? 2 : 4;
+    }
+  }
+
+  function setScore(s, bump=0){
+    score = s;
+    scoreEl.textContent = s;
+    if(bump){
+      bumpEl.textContent = '+'+bump;
+      bumpEl.classList.add('show');
+      setTimeout(()=>bumpEl.classList.remove('show'), 350);
+    }
+    if(score>best){
+      best=score;
+      bestEl.textContent = best;
+      localStorage.setItem('best-2048-replica', best);
+    }
+  }
+
+  function drawTiles(){
+    // remove old tiles
+    const olds = boardEl.querySelectorAll('.tile');
+    olds.forEach(n=>n.remove());
+    // draw new
+    for(let r=0;r<size;r++){
+      for(let c=0;c<size;c++){
+        const v = grid[r][c];
+        if(!v) continue;
+        const tile = document.createElement('div');
+        tile.className = 'tile v'+v;
+        const {top,left} = positionFor(r,c);
+        tile.style.top = px(top);
+        tile.style.left = px(left);
+        tile.setAttribute('data-pos', r+'-'+c);
+        tile.textContent = document.body.classList.contains('cupcakes') ? '🧁' : v;
+        boardEl.appendChild(tile);
+      }
+    }
+  }
+
+  function init(){
+    buildBackground();
+    grid = Array.from({length:size}, ()=>Array(size).fill(0));
+    setScore(0);
+    spawn(2);
+    drawTiles();
+    boardEl.focus();
+  }
+
+  function canMove(){
+    for(let r=0;r<size;r++){
+      for(let c=0;c<size;c++){
+        if(grid[r][c]===0) return true;
+        if(c<size-1 && grid[r][c]===grid[r][c+1]) return true;
+        if(r<size-1 && grid[r][c]===grid[r+1][c]) return true;
+      }
+    }
+    return false;
+  }
+
+  function operate(line){
+    // squeeze zeros
+    const arr = line.filter(x=>x!==0);
+    let scoreGain = 0;
+    for(let i=0;i<arr.length-1;i++){
+      if(arr[i]===arr[i+1]){
+        arr[i]*=2;
+        scoreGain += arr[i];
+        arr.splice(i+1,1);
+      }
+    }
+    while(arr.length<size) arr.push(0);
+    return {arr, scoreGain};
+  }
+
+  function slideLeft(){
+    let moved = false, gained = 0;
+    for(let r=0;r<size;r++){
+      const line = grid[r].slice();
+      const {arr, scoreGain} = operate(line);
+      if(arr.some((v, i) => v !== grid[r][i])) moved = true;
+      grid[r] = arr;
+      gained += scoreGain;
+    }
+    return {moved, gained};
+  }
+
+  function slideRight(){
+    let moved=false, gained=0;
+    for(let r=0;r<size;r++){
+      const line = grid[r].slice().reverse();
+      const {arr, scoreGain} = operate(line);
+      const newLine = arr.reverse();
+      if(newLine.some((v, i) => v !== grid[r][i])) moved = true;
+      grid[r] = newLine;
+      gained += scoreGain;
+    }
+    return {moved, gained};
+  }
+
+  function slideUp(){
+    let moved=false, gained=0;
+    for(let c=0;c<size;c++){
+      const col = [];
+      for(let r=0;r<size;r++) col.push(grid[r][c]);
+      const {arr, scoreGain} = operate(col);
+      for(let r=0;r<size;r++){
+        if(grid[r][c]!==arr[r]) moved=true;
+        grid[r][c]=arr[r];
+      }
+      gained += scoreGain;
+    }
+    return {moved, gained};
+  }
+
+  function slideDown(){
+    let moved=false, gained=0;
+    for(let c=0;c<size;c++){
+      const col = [];
+      for(let r=0;r<size;r++) col.push(grid[r][c]);
+      const {arr, scoreGain} = operate(col.reverse());
+      const out = arr.reverse();
+      for(let r=0;r<size;r++){
+        if(grid[r][c]!==out[r]) moved=true;
+        grid[r][c]=out[r];
+      }
+      gained += scoreGain;
+    }
+    return {moved, gained};
+  }
+
+  function move(dir){
+    let res;
+    if(dir==='left') res = slideLeft();
+    if(dir==='right') res = slideRight();
+    if(dir==='up') res = slideUp();
+    if(dir==='down') res = slideDown();
+    if(!res) return;
+    if(res.moved){
+      spawn(1);
+      setScore(score+res.gained, res.gained);
+      drawTiles();
+      if(!canMove()){
+        setTimeout(()=>alert('Game over!'), 10);
+      }
+    }
+  }
+
+  // Keyboard
+  document.addEventListener('keydown', (e)=>{
+    const k = e.key;
+    if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','a','A','d','D','w','W','s','S'].includes(k)){
+      e.preventDefault();
+      if(k==='ArrowLeft'||k==='a'||k==='A') move('left');
+      if(k==='ArrowRight'||k==='d'||k==='D') move('right');
+      if(k==='ArrowUp'||k==='w'||k==='W') move('up');
+      if(k==='ArrowDown'||k==='s'||k==='S') move('down');
+    }
+  });
+
+  // Swipe (pointer)
+  let startX=0, startY=0, isPointer=false;
+  boardEl.addEventListener('pointerdown', (e)=>{ isPointer=true; startX=e.clientX; startY=e.clientY; });
+  boardEl.addEventListener('pointerup', (e)=>{
+    if(!isPointer) return;
+    isPointer=false;
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+    const ax = Math.abs(dx), ay=Math.abs(dy);
+    const thr = 24;
+    if(Math.max(ax,ay)<thr) return;
+    if(ax>ay) move(dx>0?'right':'left');
+    else move(dy>0?'down':'up');
+  });
+
+  // New game
+  newGameBtn.addEventListener('click', init);
+
+  // Tabs
+  tabClassic.addEventListener('click', ()=>{
+    document.body.classList.remove('cupcakes');
+    tabClassic.classList.add('active');
+    tabCupcakes.classList.remove('active');
+    tabClassic.setAttribute('aria-pressed', 'true');
+    tabCupcakes.setAttribute('aria-pressed', 'false');
+    drawTiles();
+  });
+  tabCupcakes.addEventListener('click', ()=>{
+    document.body.classList.add('cupcakes');
+    tabCupcakes.classList.add('active');
+    tabClassic.classList.remove('active');
+    tabClassic.setAttribute('aria-pressed', 'false');
+    tabCupcakes.setAttribute('aria-pressed', 'true');
+    drawTiles();
+  });
+
+  // Clickable game cards -> simple mock action
+  document.querySelectorAll('.card.btn').forEach(card=>{
+    card.addEventListener('click', ()=>{
+      alert('This is a mock link for demo purposes.');
+    });
+  });
+
+  // Initialize
+  window.addEventListener('resize', ()=>{ buildBackground(); drawTiles(); });
+  init();
+})();
+</script>
+</body>
+</html>
+```

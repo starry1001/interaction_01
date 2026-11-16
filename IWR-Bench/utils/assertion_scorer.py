@@ -29,7 +29,7 @@ class AssertionScorer:
             http_client = httpx.Client(proxies=proxy, transport=httpx.HTTPTransport(local_address='0.0.0.0'))
 
         self.client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'), base_url=os.getenv('OPENAI_BASE_URL'), timeout=240, http_client=http_client)
-        self.model = os.getenv('MODEL_FOR_EVAL')
+        self.model = os.getenv('MODEL_FOR_ASSERTION_EVAL') or os.getenv('MODEL_FOR_EVAL')
 
     def evaluate_assertion(self, prev_img_path: str, curr_img_path: str, assertion: str) -> Dict[str, Any]:
         prev_img_b64 = self._load_image_as_base64(prev_img_path)

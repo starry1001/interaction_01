@@ -7,3 +7,6 @@ __pycache__/
 
 # Common local files
 .DS_Store
+
+UI2App/
+UI2App-dataset/
