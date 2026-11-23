@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nasdaq 100 Sep 25 (NQ=F) - Yahoo Finance</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;background:#fff;color:#232a31;font-family:Arial,Helvetica,sans-serif;font-size:14px}
+  body{min-width:1200px}
+  button,input{font:inherit}
+  .btn{cursor:pointer}
+  .topbar{height:66px;border-bottom:1px solid #eceef0;background:#fff}
+  .top-inner{width:1536px;height:66px;margin:auto;display:flex;align-items:center;gap:20px}
+  .logo{font-size:21px;font-weight:800;letter-spacing:-1.1px;white-space:nowrap;color:#171a1d}
+  .logo .yahoo{color:#6001d2}
+  .search{height:42px;width:680px;border-radius:24px;background:#f0f1f4;display:flex;align-items:center;overflow:hidden;margin-left:2px}
+  .search input{border:0;outline:0;background:transparent;padding:0 23px;width:calc(100% - 72px);font-size:15px;color:#3c4147}
+  .search-go{border:0;background:#07866e;color:#fff;width:72px;height:42px;border-radius:24px;display:grid;place-items:center}
+  .search-go svg{width:18px;height:18px}
+  .primary-links{display:flex;align-items:center;gap:42px;margin-left:41px;white-space:nowrap;font-weight:600;font-size:14px}
+  .primary-links a,.secondary a{color:#3c4147;text-decoration:none}
+  .primary-links .active{color:#00866a}
+  .head-right{display:flex;align-items:center;gap:17px;margin-left:auto;white-space:nowrap}
+  .icon-bell{font-size:20px;color:#252a31}
+  .mail,.signin{height:42px;border-radius:23px;background:#fff;padding:0 17px;border:1px solid #8aa6d2;color:#2163a9;font-weight:bold}
+  .signin{border-color:#e0e2e5;color:#222;padding:0 18px}
+  .secondary-bar{height:59px;background:#f4f5f7;border-bottom:3px solid #07866e}
+  .secondary{width:1536px;height:56px;margin:auto;display:flex;align-items:center;gap:35px;font-size:14px;font-weight:600}
+  .secondary a{color:#20262d}
+  .upgrade{margin-left:auto;background:#20262d;border:0;color:#fff;border-radius:20px;padding:8px 20px;font-size:13px;font-weight:bold}
+  .page{width:1536px;margin:0 auto;display:grid;grid-template-columns:130px 1025px 345px;column-gap:18px;align-items:start}
+  .left-rail{padding-top:18px;min-height:1400px;color:#18212a;font-size:14px}
+  .rail-nav{display:flex;flex-direction:column;gap:12px}
+  .rail-nav a{color:#18212a;text-decoration:none;font-weight:600}
+  .rail-nav a:first-child{color:#2671c8;background:#f2f7ff;padding:5px 7px;width:max-content;border-radius:4px;margin-left:-7px}
+  .mini-quote{display:none;padding:4px 0 13px;border-bottom:1px solid #e5e7e9;margin-bottom:14px}
+  .mini-quote strong{display:block;font-size:17px}
+  .mini-quote small{display:block;color:#6b7279;margin:4px 0}
+  .mini-price{font-weight:bold;font-size:13px}
+  .main-column{min-width:0}
+  .quote-area{height:802px;padding-top:25px;border-bottom:1px solid #d9dadd}
+  .quote-title{height:51px;border-bottom:1px solid #d6d9dc;display:flex;align-items:flex-start;justify-content:space-between}
+  .exchange{font-size:13px;color:#565d63;margin-bottom:7px}
+  h1{font-size:24px;line-height:27px;margin:0;font-weight:700;letter-spacing:-.25px}
+  .title-actions{display:flex;gap:9px;align-items:center;margin-top:28px}
+  .small-pill{border:1px solid #555;border-radius:17px;padding:5px 12px;background:white;color:#32383d;font-size:13px}
+  .price-line{display:flex;align-items:baseline;gap:10px;margin-top:11px}
+  .price{font-size:33px;font-weight:700;letter-spacing:-.6px}
+  .gain{font-size:20px;color:#00875a;font-weight:700}
+  .market-time{font-size:12px;color:#60676e;margin-top:2px}
+  .chart-tools{height:46px;display:flex;align-items:center;gap:24px;font-size:13px;font-weight:600}
+  .periods{display:flex;gap:22px;margin-right:auto}
+  .periods button,.tool-button{border:0;background:transparent;padding:4px 0;color:#292f35;font-weight:600}
+  .periods button.selected{color:#2974c5;background:#f1f7ff;padding:5px 10px;border-radius:3px;margin-left:-10px}
+  .switch{width:29px;height:16px;border-radius:12px;background:#2675ce;display:inline-block;vertical-align:middle;margin-right:6px;position:relative}
+  .switch:after{content:"";position:absolute;width:12px;height:12px;right:2px;top:2px;border-radius:50%;background:white}
+  .chart-wrap{height:286px;position:relative}
+  .chart-svg{width:100%;height:100%;display:block}
+  .chart-label{position:absolute;right:2px;padding:4px 7px;background:#bf2034;color:#fff;border-radius:2px;font-size:12px;font-weight:bold;top:44px}
+  .chart-label.low{top:174px;background:#343b40}
+  .chart-times{display:flex;justify-content:space-around;color:#5a6065;font-size:13px;margin-top:-2px}
+  .stats{display:grid;grid-template-columns:1fr 1fr;column-gap:28px;margin-top:35px;font-size:13px}
+  .stats-col{display:flex;flex-direction:column}
+  .stat{height:37px;border-bottom:1px dotted #d8dadd;display:flex;justify-content:space-between;align-items:center}
+  .stat span{color:#444b51}
+  .stat strong{font-size:13px}
+  .right-rail{padding-top:24px;background:#f6f7f8;min-height:1800px;border-left:1px solid #eceef0;border-right:1px solid #eceef0;padding-left:12px;padding-right:12px}
+  .panel{background:#fff;border:1px solid #d9dcdf;border-radius:6px;margin-bottom:14px;box-shadow:0 1px 2px #00000012}
+  .lookup{height:43px;border-radius:25px;border:1px solid #d9dce0;background:#fff;color:#737980;display:flex;align-items:center;padding:0 14px;font-size:16px;margin-bottom:10px}
+  .lookup span{font-size:20px;margin-right:7px}
+  .market-panel{padding:0 11px 8px}
+  .closed{height:27px;background:#f3f4f6;margin:0 -11px 8px;text-align:center;font-weight:bold;font-size:12px;padding:7px}
+  .tabs{display:flex;justify-content:space-between;border-bottom:1px solid #e6e7e8;padding:2px 0 8px;color:#4b5158;font-size:12px;font-weight:bold}
+  .market-grid{display:grid;grid-template-columns:repeat(3,1fr);column-gap:9px;row-gap:8px;padding-top:10px}
+  .market-item{height:82px;border-bottom:1px solid #eee;overflow:hidden}
+  .market-item b{display:block;color:#2168b1;font-size:12px}
+  .market-item strong{display:block;font-size:12px;margin:3px 0}
+  .market-item em{display:block;color:#00885d;font-size:11px;font-style:normal;font-weight:bold}
+  .spark{height:17px;margin:2px 0;background:linear-gradient(165deg,transparent 0 28%,#7cc7a4 30% 37%,transparent 39% 46%,#7cc7a4 48% 53%,transparent 55%),linear-gradient(to top,#dff2e8,white)}
+  .arrow-pager{text-align:center;color:#565d63;padding-top:5px}
+  .right-card{padding:12px}
+  .right-card h3{font-size:16px;margin:0 0 13px}
+  .portfolio{height:143px;text-align:center}
+  .portfolio p{font-size:14px;font-weight:bold;margin:18px 0}
+  .outline-btn{border:1px solid #454b50;background:white;border-radius:18px;padding:8px 19px}
+  .stock-list{padding:11px 12px}
+  .stock-list h3{margin:0 0 8px;font-size:16px}
+  .stock{height:45px;border-bottom:1px solid #eceef0;display:grid;grid-template-columns:1fr 67px 69px;align-items:center;gap:5px}
+  .stock b{font-size:12px;color:#1b68b2;display:block}
+  .stock small{font-size:12px;color:#4a5056;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .stock .spark{height:16px;margin:0}
+  .stock .change{text-align:right;color:#00875d;font-size:11px;font-weight:bold}
+  .stock.negative .change{color:#cc233e}
+  .news-section{padding-top:20px}
+  .news-heading{height:44px;border-top:1px solid #d8dade;display:flex;align-items:center;justify-content:space-between}
+  .news-heading h2{font-size:22px;margin:0}
+  .news-heading a{color:#31373d;text-decoration:none;font-weight:bold}
+  .news-grid{display:grid;grid-template-columns:1fr 1fr;column-gap:25px}
+  .news-card{height:116px;border-bottom:1px solid #dedfe1;display:grid;grid-template-columns:1fr 85px;gap:12px;align-items:center;padding:9px 0}
+  .news-card .headline{font-size:16px;line-height:20px;font-weight:700;color:#242a30}
+  .news-card .meta{font-size:12px;color:#6e747a;margin-top:7px}
+  .news-card img{width:85px;height:68px;object-fit:cover;border-radius:4px}
+  .footer{margin-top:26px;background:#f3f4f7;padding:45px 25px 35px;display:grid;grid-template-columns:290px repeat(4,1fr);gap:18px;min-height:260px}
+  .footer-brand .logo{font-size:24px}
+  .footer-brand p{font-size:13px;line-height:19px}
+  .social{display:flex;gap:15px;margin-top:28px}
+  .social span{border-radius:50%;background:#242a30;color:white;width:24px;height:24px;text-align:center;padding-top:4px;font-weight:bold}
+  .footer-col b{display:block;font-size:13px;margin-bottom:8px}
+  .footer-col span{display:block;font-size:13px;line-height:20px;color:#383e44}
+  .sticky .mini-quote{display:block}
+  .sticky .rail-nav{gap:12px}
+  @media(max-width:1550px){.top-inner,.secondary,.page{width:95%}.page{grid-template-columns:120px minmax(700px,1fr) 320px}.search{width:35vw}}
+</style>
+</head>
+<body>
+<header>
+  <div class="topbar">
+    <div class="top-inner">
+      <div class="logo"><span class="yahoo">yahoo!</span>finance</div>
+      <form class="search"><input aria-label="Search" placeholder="Search for news, tickers or companies"><button class="search-go btn" type="submit" aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="10.8" cy="10.8" r="6.6"></circle><path d="m16 16 5 5"></path></svg></button></form>
+      <nav class="primary-links"><a class="btn">News</a><a class="active btn">Finance</a><a class="btn">Sports</a><a class="btn">More⌄</a></nav>
+      <div class="head-right"><span class="icon-bell btn">♧</span><button class="mail btn">✉ Mail</button><button class="signin btn">Sign in</button></div>
+    </div>
+  </div>
+  <div class="secondary-bar"><nav class="secondary">
+    <a class="btn">My Portfolio</a><a class="btn">News</a><a class="btn">Markets</a><a class="btn">Research</a><a class="btn">Personal Finance</a><a class="btn">Videos</a><a class="btn">Watch Now</a>
+    <button class="upgrade btn">Upgrade to Premium ▣</button>
+  </nav></div>
+</header>
+
+<div class="page">
+  <aside class="left-rail" id="leftRail">
+    <div class="mini-quote"><strong>NQ=F</strong><small>Nasdaq 100 Sep ...</small><svg width="110" height="36" viewBox="0 0 110 36"><path d="M0 27 L12 25 20 28 28 20 38 22 46 14 54 17 65 16 73 5 81 8 91 10 100 6 110 7" fill="none" stroke="#36a77d" stroke-width="2"/></svg><div class="mini-price">23,569.75 <span style="color:#07885e">+1.51%</span></div></div>
+    <nav class="rail-nav"><a class="btn">Summary</a><a class="btn">News</a><a class="btn">Chart</a><a class="btn">Historical Data</a><a class="btn">Futures</a></nav>
+  </aside>
+
+  <main class="main-column">
+    <section class="quote-area">
+      <div class="quote-title">
+        <div><div class="exchange">CME - Delayed Quote · USD</div><h1>Nasdaq 100 Sep 25 (NQ=F)</h1></div>
+        <div class="title-actions"><button class="small-pill btn">☆ Follow</button><button class="small-pill btn">＋ Add holdings</button></div>
+      </div>
+      <div class="price-line"><span class="price">23,569.75</span><span class="gain">+350.00&nbsp; (+1.51%)</span></div>
+      <div class="market-time">At close: 4:59:59 PM EDT</div>
+      <div class="chart-tools">
+        <div class="periods"><button class="selected btn">1D</button><button class="btn">5D</button><button class="btn">1M</button><button class="btn">6M</button><button class="btn">YTD</button><button class="btn">1Y</button><button class="btn">5Y</button><button class="btn">All</button></div>
+        <button class="tool-button btn"><span class="switch"></span>Key Events</button>
+        <button class="tool-button btn">◆ Mountain⌄</button>
+        <button class="tool-button btn">↗ Advanced Chart</button>
+        <button class="tool-button btn">⚙</button>
+      </div>
+      <div class="chart-wrap">
+        <svg class="chart-svg" viewBox="0 0 1025 286" preserveAspectRatio="none" aria-label="Nasdaq 100 price chart">
+          <defs><linearGradient id="fill" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#55b695" stop-opacity=".28"/><stop offset="1" stop-color="#55b695" stop-opacity=".02"/></linearGradient></defs>
+          <line x1="0" y1="62" x2="1025" y2="62" stroke="#e0e2e4"/><line x1="0" y1="143" x2="1025" y2="143" stroke="#e0e2e4"/><line x1="0" y1="225" x2="1025" y2="225" stroke="#e0e2e4"/>
+          <line x1="0" y1="78" x2="1025" y2="78" stroke="#c83d51" stroke-dasharray="5 5"/><line x1="0" y1="205" x2="1025" y2="205" stroke="#5b6267" stroke-dasharray="5 5"/>
+          <path d="M0 210 L20 207 34 212 52 205 66 214 81 208 94 219 105 222 116 233 125 268 132 239 139 222 153 219 168 202 181 198 195 202 208 190 222 193 237 188 253 187 270 183 286 178 302 185 318 174 333 179 346 174 362 178 378 172 393 177 408 169 420 177 434 164 448 170 463 165 477 173 489 164 502 167 514 169 520 82 527 56 535 69 544 58 554 65 563 50 575 61 586 58 598 69 608 63 619 80 629 92 640 88 650 83 662 92 675 82 690 79 705 67 717 73 729 62 743 68 756 62 770 72 783 61 797 68 811 75 824 67 837 72 850 61 864 68 877 74 890 70 902 77 916 72 928 67 942 74 956 69 970 72 984 64 999 69 1010 66 1025 70 L1025 250 L0 250 Z" fill="url(#fill)"/>
+          <path d="M0 210 L20 207 34 212 52 205 66 214 81 208 94 219 105 222 116 233 125 268 132 239 139 222 153 219 168 202 181 198 195 202 208 190 222 193 237 188 253 187 270 183 286 178 302 185 318 174 333 179 346 174 362 178 378 172 393 177 408 169 420 177 434 164 448 170 463 165 477 173 489 164 502 167 514 169 520 82 527 56 535 69 544 58 554 65 563 50 575 61 586 58 598 69 608 63 619 80 629 92 640 88 650 83 662 92 675 82 690 79 705 67 717 73 729 62 743 68 756 62 770 72 783 61 797 68 811 75 824 67 837 72 850 61 864 68 877 74 890 70 902 77 916 72 928 67 942 74 956 69 970 72 984 64 999 69 1010 66 1025 70" fill="none" stroke="#42a985" stroke-width="2"/>
+          <text x="960" y="64" fill="#555" font-size="13">23,500.00</text>
+        </svg>
+        <div class="chart-label">23,569.75</div><div class="chart-label low">23,219.75</div>
+      </div>
+      <div class="chart-times"><span>2:00 AM</span><span>4:00 AM</span><span>6:00 AM</span><span>8:00 AM</span><span>10:00 AM</span><span>12:00 PM</span><span>2:00 PM</span><span>4:00 PM</span><span>6:00 PM</span><span>8:00 PM</span><span>10:00 PM</span></div>
+      <div class="stats">
+        <div class="stats-col">
+          <div class="stat"><span>Pre. Settlement</span><strong>--</strong></div>
+          <div class="stat"><span>Settlement Date</span><strong>2025-09-19</strong></div>
+          <div class="stat"><span>Open</span><strong>23,225.20</strong></div>
+          <div class="stat"><span>Bid</span><strong>23,581.00</strong></div>
+        </div>
+        <div class="stats-col">
+          <div class="stat"><span>Last Price</span><strong>23,219.75</strong></div>
+          <div class="stat"><span>Day's Range</span><strong>23,076.80 - 23,650.00</strong></div>
+          <div class="stat"><span>Volume</span><strong>480.74k</strong></div>
+          <div class="stat"><span>Ask</span><strong>23,587.50</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="news-section">
+      <div class="news-heading"><h2>Recent News: NQ=F</h2><a href="#" class="btn">View More →</a></div>
+      <div class="news-grid">
+        <article class="news-card btn"><div><div class="headline">Stocks steady, Target CEO, US gov't & chipmakers: 3 Things</div><div class="meta">Yahoo Finance Video · 2 days ago</div></div><img src="../../../data/data/16/assets/037.webp" width="85" height="68" alt=""></article>
+        <article class="news-card btn"><div><div class="headline">FTSE 100 dips and US higher as Trump and Putin prepare for talks amid Ukraine ceasefire hopes</div><div class="meta">Yahoo Finance UK · 15 days ago</div></div><img src="../../../data/data/16/assets/001.webp" width="85" height="68" alt=""></article>
+        <article class="news-card btn"><div><div class="headline">Stock market today: Nasdaq drops over 1% as Palantir, AMD drag down tech</div><div class="meta">Yahoo Finance · 3 days ago</div></div><img src="../../../data/data/16/assets/046.webp" width="85" height="68" alt=""></article>
+        <article class="news-card btn"><div><div class="headline">FTSE 100 and US stocks sink amid shaky US job market data and tariffs</div><div class="meta">Yahoo Finance UK · 21 days ago</div></div><img src="../../../data/data/16/assets/002.webp" width="85" height="68" alt=""></article>
+        <article class="news-card btn"><div><div class="headline">FTSE 100 up and US stocks mixed as Zelensky-Putin meeting takes shape</div><div class="meta">Yahoo Finance UK · 3 days ago</div></div><img src="../../../data/data/16/assets/054.webp" width="85" height="68" alt=""></article>
+        <article class="news-card btn"><div><div class="headline">FTSE 100 lower and US markets mixed as attention turns to earnings and Fed meeting</div><div class="meta">Yahoo Finance UK · 25 days ago</div></div><img src="../../../data/data/16/assets/003.webp" width="85" height="68" alt=""></article>
+        <article class="news-card btn"><div><div class="headline">FTSE 100 dips and US stocks mixed ahead of Trump-Putin summit in Alaska</div><div class="meta">Yahoo Finance UK · 8 days ago</div></div><img src="../../../data/data/16/assets/063.webp" width="85" height="68" alt=""></article>
+        <article class="news-card btn"><div><div class="headline">FTSE 100 takes breather and US markets higher following record setting-week</div><div class="meta">Yahoo Finance UK · 28 days ago</div></div><img src="../../../data/data/16/assets/004.webp" width="85" height="68" alt=""></article>
+        <article class="news-card btn"><div><div class="headline">FTSE 100 stocks falter as US PPI sends inflation alarm bells ringing</div><div class="meta">Yahoo Finance UK · 8 days ago</div></div><img src="../../../data/data/16/assets/073.webp" width="85" height="68" alt=""></article>
+        <article class="news-card btn"><div><div class="headline">FTSE 100 flat and US stocks mixed with eyes on tech earnings</div><div class="meta">Yahoo Finance UK · last month</div></div><img src="../../../data/data/16/assets/005.webp" width="85" height="68" alt=""></article>
+        <article class="news-card btn"><div><div class="headline">Stocks rise, gold spikes, Trump's Fed board pick: 3 Things</div><div class="meta">Yahoo Finance Video · 14 days ago</div></div><img src="../../../data/data/16/assets/074.webp" width="85" height="68" alt=""></article>
+      </div>
+      <footer class="footer">
+        <div class="footer-brand"><div class="logo"><span class="yahoo">yahoo!</span>finance</div><p>Copyright © 2025 Yahoo.<br>All rights reserved.</p><div class="social"><span class="btn">𝕏</span><span class="btn">f</span><span class="btn">in</span></div></div>
+        <div class="footer-col"><b>What's trending</b><span>Dow Jones</span><span>S&amp;P 500</span><span>DAX Index</span><span>Nvidia</span><span>Tesla</span><span>DJT</span><span>Tariffs</span></div>
+        <div class="footer-col"><b>Explore more</b><span>Mortgages</span><span>Credit Cards</span><span>Sectors</span><span>Crypto Heatmap</span><span>Financial News</span></div>
+        <div class="footer-col"><b>About</b><span>Data Disclaimer</span><span>Help</span><span>Feedback</span><span>Sitemap</span><span>Licensing</span><span>What's New</span><span>About Our Ads</span></div>
+        <div class="footer-col"><b>&nbsp;</b><span>Premium Plans</span><span>Terms and Privacy Policy</span><span>Privacy Dashboard</span></div>
+      </footer>
+    </section>
+  </main>
+
+  <aside class="right-rail">
+    <div class="lookup btn"><span>⌕</span>Quote Lookup</div>
+    <section class="panel market-panel">
+      <div class="closed">◉ U.S. markets closed</div>
+      <div class="tabs"><span>US</span><span>Europe</span><span>Asia</span><span>Cryptocurrencies</span><span>Rates</span></div>
+      <div class="market-grid">
+        <div class="market-item"><b>S&amp;P 500</b><strong>6,466.91</strong><div class="spark"></div><em>+96.74 (+1.52%)</em></div>
+        <div class="market-item"><b>Dow 30</b><strong>45,631.74</strong><div class="spark"></div><em>+846.24 (+1.89%)</em></div>
+        <div class="market-item"><b>Nasdaq</b><strong>21,496.54</strong><div class="spark"></div><em>+396.22 (+1.88%)</em></div>
+        <div class="market-item"><b>Russell 20...</b><strong>2,361.96</strong><div class="spark"></div><em>+87.85 (+3.86%)</em></div>
+        <div class="market-item"><b>VIX</b><strong>14.22</strong><div class="spark" style="background:linear-gradient(160deg,transparent 30%,#d87f91 32% 42%,transparent 44%),linear-gradient(to top,#f8e4e8,white)"></div><em style="color:#c22b47">-2.38 (-14.34%)</em></div>
+        <div class="market-item"><b>Gold</b><strong>3,418.50</strong><div class="spark"></div><em>+36.90 (+1.09%)</em></div>
+      </div><div class="arrow-pager">‹ &nbsp; ›</div>
+    </section>
+    <section class="panel right-card portfolio"><h3>Portfolio</h3><p>Sign in to access your portfolio</p><button class="outline-btn btn">Sign in</button></section>
+    <section class="panel stock-list"><h3>Top gainers</h3>
+      <div class="stock"><div><b>OPEN</b><small>Opendoor Techn...</small></div><div class="spark"></div><div class="change">5.01<br>+1.41 (+39.17%)</div></div>
+      <div class="stock"><div><b>UI</b><small>Ubiquiti Inc.</small></div><div class="spark"></div><div class="change">510.23<br>+119.66 (+30.64%)</div></div>
+      <div class="stock"><div><b>MNSO</b><small>MINISO Group H...</small></div><div class="spark"></div><div class="change">26.63<br>+4.46 (+20.12%)</div></div>
+      <div class="stock"><div><b>RXO</b><small>RXO, Inc.</small></div><div class="spark"></div><div class="change">16.97<br>+2.27 (+15.44%)</div></div>
+      <div class="stock"><div><b>NIO</b><small>NIO Inc.</small></div><div class="spark"></div><div class="change">6.34<br>+0.80 (+14.44%)</div></div>
+    </section>
+    <section class="panel stock-list"><h3>Top losers</h3>
+      <div class="stock negative"><div><b>NEGG</b><small>Newegg Commer...</small></div><div class="spark"></div><div class="change">100.75<br>-15.03 (-12.98%)</div></div>
+      <div class="stock negative"><div><b>BJ</b><small>BJ's Wholesale C...</small></div><div class="spark"></div><div class="change">97.11<br>-9.05 (-8.52%)</div></div>
+      <div class="stock negative"><div><b>INTU</b><small>Intuit Inc.</small></div><div class="spark"></div><div class="change">622.66<br>-35.10 (-5.03%)</div></div>
+      <div class="stock negative"><div><b>DUOL</b><small>Duolingo, Inc.</small></div><div class="spark"></div><div class="change">331.87<br>-13.65 (-3.95%)</div></div>
+      <div class="stock negative"><div><b>CSX</b><small>CSX Corporation</small></div><div class="spark"></div><div class="change">34.58<br>-1.29 (-3.60%)</div></div>
+    </section>
+    <section class="panel stock-list"><h3>Most active</h3>
+      <div class="stock"><div><b>OPEN</b><small>Opendoor Techn...</small></div><div class="spark"></div><div class="change">5.01<br>+1.41 (+39.17%)</div></div>
+      <div class="stock"><div><b>NIO</b><small>NIO Inc.</small></div><div class="spark"></div><div class="change">6.34<br>+0.80 (+14.44%)</div></div>
+      <div class="stock"><div><b>INTC</b><small>Intel Corporation</small></div><div class="spark"></div><div class="change">24.80<br>+1.30 (+5.53%)</div></div>
+      <div class="stock"><div><b>NVDA</b><small>NVIDIA Corporation</small></div><div class="spark"></div><div class="change">177.99<br>+3.01 (+1.72%)</div></div>
+      <div class="stock"><div><b>LCID</b><small>Lucid Group, Inc.</small></div><div class="spark"></div><div class="change">2.03<br>-0.06 (-2.87%)</div></div>
+    </section>
+    <section class="panel stock-list"><h3>Earnings events</h3><p>Upcoming⌄</p><div class="stock"><div><b>AUG 26　 PDD</b><small>PDD Holdings Inc.</small></div><div></div><div>▣</div></div><div class="stock"><div><b>AUG 28　 NVDA</b><small>NVIDIA Corporation</small></div><div></div><div>▣</div></div><div class="stock"><div><b>AUG 29　 MRVL</b><small>Marvell Technology, Inc.</small></div><div></div><div>▣</div></div></section>
+  </aside>
+</div>
+<script>
+  document.querySelector('.search').addEventListener('submit',function(e){e.preventDefault()});
+  window.addEventListener('scroll',function(){document.getElementById('leftRail').classList.toggle('sticky',window.scrollY>510)});
+  document.querySelectorAll('.periods button').forEach(function(button){button.addEventListener('click',function(){document.querySelectorAll('.periods button').forEach(function(b){b.classList.remove('selected')});button.classList.add('selected')})});
+</script>
+</body>
+</html>

@@ -1,80 +1,123 @@
-"""Match screenshot pixel areas across generation settings (not API token counts)."""
+"""Per-image token budgets using the user-selected GPT-5.6 Luna original profile.
+
+Applying this profile to GPT-6 Luna is an explicit experiment assumption, not a
+claim that OpenAI has documented identical preprocessing for GPT-6 Luna.
+"""
 
 import json
 import math
-import tempfile
 from pathlib import Path
 
 from PIL import Image
 
-from .screenshot_delta_adaptive import prepare_delta_screenshots
-from .image_tiles import tile_count, snap_to_tile_boundary
+
+PATCH_SIZE = 32
+MAX_DIMENSION = 65535
+MAX_PATCHES = 30000
+RETAIN_NUMERATOR = 3
+RETAIN_DENOMINATOR = 5
 
 
-def reference_budget(paths, output_dir, tile_snap_margin=100):
-    with tempfile.TemporaryDirectory(prefix='delta_reference_', dir=output_dir) as folder:
-        prepare_delta_screenshots(paths, folder, tile_snap_margin=tile_snap_margin)
-        manifest = json.loads((Path(folder) / 'screenshot_manifest.json').read_text(encoding='utf-8'))
-    original = sum(r['original_size'][0] * r['original_size'][1] for r in manifest['screenshots'])
-    retained = sum(r['output_size'][0] * r['output_size'][1] for r in manifest['screenshots'])
-    return {'unit': 'pixels (width * height)', 'source_screenshot_pixels': original,
-            'setting3_target_pixels': retained, 'saved_pixels': original - retained,
-            'setting3_reference': manifest}
+def patch_count(width, height):
+    if width < 1 or height < 1:
+        raise ValueError('Image dimensions must be positive')
+    return ((width + PATCH_SIZE - 1) // PATCH_SIZE) * ((height + PATCH_SIZE - 1) // PATCH_SIZE)
 
 
-def allocate_targets(areas, saving, weights=None):
-    """Share savings by weight, redistributing at the one-pixel-per-image floor."""
-    weights = weights or [1] * len(areas)
-    targets = [float(area) for area in areas]
-    remaining = float(saving)
-    active = set(range(len(areas)))
-    while remaining > 1e-6 and active:
-        weight = sum(weights[i] for i in active)
-        capped = [i for i in active if remaining * weights[i] / weight >= targets[i] - 1]
-        if not capped:
-            for i in active:
-                targets[i] -= remaining * weights[i] / weight
-            remaining = 0
-        else:
-            for i in capped:
-                remaining -= targets[i] - 1
-                targets[i] = 1.0
-                active.remove(i)
-    if remaining > 1e-5:
-        raise ValueError('Cannot fit pixel budget while retaining at least one pixel per output image')
-    return targets
+def estimate_image_tokens(width, height):
+    # ceil(patches * 1.2), using exact integer arithmetic.
+    return (patch_count(width, height) * 6 + 4) // 5
 
 
-def resize_to_area(path, target_pixels):
+def original_detail_for_model(model):
+    families = ('gpt-6-luna', 'gpt-5.6-luna', 'gpt-5.6-sol', 'gpt-5.6-terra')
+    return any(model == family or model.startswith(family + '-') for family in families)
+
+
+def validate_original_size(width, height):
+    if max(width, height) > MAX_DIMENSION:
+        raise ValueError(f'Image {width}x{height} exceeds the assumed original-detail dimension limit {MAX_DIMENSION}')
+    if patch_count(width, height) > MAX_PATCHES:
+        raise ValueError(f'Image {width}x{height} exceeds the assumed original-detail limit of {MAX_PATCHES} patches')
+
+
+def token_budget_size(width, height, reference_tokens=None):
+    """Largest proportional floor-rounded size at or below 60% estimated tokens.
+
+    Token counts are discrete. A one-patch image cannot be reduced below two
+    estimated tokens; that exception and original-detail caps are recorded.
+    """
+    reference = estimate_image_tokens(width, height) if reference_tokens is None else reference_tokens
+    if not isinstance(reference, int) or reference < 1:
+        raise ValueError('Reference token count must be a positive integer')
+    target = reference * RETAIN_NUMERATOR // RETAIN_DENOMINATOR
+    effective = min((MAX_PATCHES * 6 + 4) // 5, max(2, target))
+
+    def size_at(scale):
+        return max(1, math.floor(width * scale)), max(1, math.floor(height * scale))
+
+    def fits(size):
+        w, h = size
+        return (max(w, h) <= MAX_DIMENSION and patch_count(w, h) <= MAX_PATCHES
+                and estimate_image_tokens(w, h) <= effective)
+
+    lo, hi = 0.0, 1.0
+    if fits((width, height)):
+        lo = 1.0
+    else:
+        for _ in range(80):
+            mid = (lo + hi) / 2
+            if fits(size_at(mid)):
+                lo = mid
+            else:
+                hi = mid
+    size = size_at(lo)
+    assert fits(size)
+    return size, target, effective
+
+
+def resize_to_token_budget(path, reference_tokens=None):
     with Image.open(path) as image:
         width, height = image.size
-        target = max(1, min(width * height, math.floor(target_pixels + 1e-6)))
-        if target == width * height:
-            return [width, height]
-        scale = math.sqrt(target / (width * height))
-        new_width = max(1, math.floor(width * scale))
-        new_height = max(1, math.floor(height * scale))
-        if new_width * new_height > target:
-            if new_width >= new_height:
-                new_width = max(1, target // new_height)
-            else:
-                new_height = max(1, target // new_width)
-        image.resize((new_width, new_height), Image.Resampling.LANCZOS).save(path)
-    return [new_width, new_height]
+        size, target, effective = token_budget_size(width, height, reference_tokens)
+        if size != image.size:
+            image.resize(size, Image.Resampling.LANCZOS).save(path, compress_level=1)
+    source_tokens = estimate_image_tokens(width, height)
+    reference = source_tokens if reference_tokens is None else reference_tokens
+    output_tokens = estimate_image_tokens(*size)
+    return {'source_size': [width, height], 'source_pixels': width * height,
+            'source_patches': patch_count(width, height), 'source_estimated_tokens': source_tokens,
+            'reference_estimated_tokens': reference,
+            'target_estimated_tokens': target, 'effective_target_estimated_tokens': effective,
+            'minimum_patch_limited': target < 2,
+            'profile_cap_limited': target > effective or max(size) == MAX_DIMENSION,
+            'output_size': list(size), 'output_pixels': size[0] * size[1],
+            'output_patches': patch_count(*size), 'output_estimated_tokens': output_tokens,
+            'retained_token_fraction': output_tokens / reference,
+            'retained_vs_unscaled_image_fraction': output_tokens / source_tokens,
+            'rounding_shortfall_tokens': effective - output_tokens,
+            'output': Path(path).name}
 
 
-def finish_budget(budget, paths, allocations, output_dir, setting):
-    achieved = 0
-    for path, record in zip(paths, allocations):
-        with Image.open(path) as image:
-            record['output_size'] = list(image.size)
-            record['actual_pixels'] = image.width * image.height
-        record['output'] = Path(path).name
-        achieved += record['actual_pixels']
-    snap_saving = sum(r.get('tile_snap', {}).get('extra_saved_pixels', 0) for r in allocations)
-    budget.update(setting=setting, allocations=allocations, actual_screenshot_pixels=achieved,
-                  tile_snap_extra_saved_pixels=snap_saving,
-                  rounding_shortfall_pixels=budget['setting3_target_pixels'] - achieved - snap_saving,
-                  total_shortfall_pixels=budget['setting3_target_pixels'] - achieved)
-    (Path(output_dir) / 'compression_budget.json').write_text(json.dumps(budget, indent=2, ensure_ascii=False), encoding='utf-8')
-    print(f"Screenshot pixel budget: setting3={budget['setting3_target_pixels']}, actual={achieved}, rounding={budget['rounding_shortfall_pixels']}, extra tile snapping={snap_saving}")
+def write_budget(allocations, output_dir, setting):
+    source_tokens = sum(r['source_estimated_tokens'] for r in allocations)
+    reference_tokens = sum(r['reference_estimated_tokens'] for r in allocations)
+    output_tokens = sum(r['output_estimated_tokens'] for r in allocations)
+    budget = {'setting': setting, 'unit': 'estimated image input tokens',
+              'profile': {'reference_model': 'gpt-5.6-luna', 'assumed_for': 'gpt-6-luna',
+                          'assumption_not_officially_verified': True, 'detail': 'original',
+                          'patch_size': PATCH_SIZE, 'token_multiplier': 1.2,
+                          'max_dimension': MAX_DIMENSION, 'max_patches': MAX_PATCHES},
+              'target_retained_fraction': 0.6,
+              'baseline': 'each original screenshot' if setting == 1 else 'sum of original screenshot token estimates in each group, excluding added labels and padding',
+              'reference_estimated_tokens': reference_tokens,
+              'source_estimated_tokens': source_tokens, 'output_estimated_tokens': output_tokens,
+              'retained_token_fraction': output_tokens / reference_tokens if reference_tokens else 0,
+              'retained_vs_unscaled_image_fraction': output_tokens / source_tokens if source_tokens else 0,
+              'source_pixels': sum(r['source_pixels'] for r in allocations),
+              'output_pixels': sum(r['output_pixels'] for r in allocations),
+              'allocations': allocations}
+    (Path(output_dir) / 'compression_budget.json').write_text(
+        json.dumps(budget, ensure_ascii=False, indent=2), encoding='utf-8')
+    print(f'Screenshot token estimate: reference={reference_tokens}, unscaled input={source_tokens}, output={output_tokens}, retained={budget["retained_token_fraction"]:.2%}')
+    return budget

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YouTube Shorts</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;font-family:Arial,Helvetica,sans-serif;color:#0f0f0f;background:#fff;overflow:hidden}
+button{font:inherit;border:0;background:none;cursor:pointer}
+.btn{cursor:pointer}
+.header{height:64px;width:100%;display:flex;align-items:center;position:fixed;top:0;left:0;background:#fff;z-index:20;padding:0 22px}
+.menu{font-size:25px;width:34px;color:#444}
+.logo{display:flex;align-items:center;margin-left:12px;font-size:23px;font-weight:bold;letter-spacing:-1.5px}
+.logo-mark{width:29px;height:20px;background:#ff0033;border-radius:6px;margin-right:5px;position:relative}
+.logo-mark:after{content:"";position:absolute;left:11px;top:5px;border-left:8px solid white;border-top:5px solid transparent;border-bottom:5px solid transparent}
+.country{font-size:9px;color:#666;margin:0 0 14px 4px}
+.search{position:absolute;left:50%;transform:translateX(-50%);width:500px;height:42px;display:flex;border:1px solid #ccc;border-radius:23px;overflow:hidden}
+.search input{border:0;outline:0;padding:0 18px;font-size:16px;flex:1;color:#555}
+.search button{width:59px;border-left:1px solid #ddd;font-size:22px}
+.mic{margin-left:15px;width:42px;height:42px;border-radius:50%;background:#f7f7f7;font-size:21px}
+.header-right{margin-left:auto;display:flex;align-items:center;gap:24px}
+.create{border-radius:20px;background:#f7f7f7;padding:10px 17px;font-size:14px}
+.user{background:#bd0d69;color:white;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:14px}
+
+.sidebar{position:fixed;left:0;top:64px;bottom:0;width:225px;padding:12px 12px 20px 12px;overflow:hidden;border-right:1px solid #fafafa;background:#fff;z-index:10}
+.side-section{padding:0 0 13px;margin-bottom:14px;border-bottom:1px solid #eee}
+.side-row{height:43px;display:flex;align-items:center;border-radius:9px;padding:0 12px;font-size:14px;gap:17px}
+.side-row.active{background:#f0f0f0;font-weight:bold}
+.side-icon{width:20px;text-align:center;font-size:21px}
+.side-title{font-size:14px;margin:5px 10px 10px;color:#333}
+.side-small{font-size:13px;color:#555;margin-top:12px;padding-left:12px;line-height:1.45}
+
+.feed{position:absolute;top:65px;left:calc(50% - 252px);width:700px;height:calc(100vh - 65px);overflow-y:auto;scroll-snap-type:y mandatory;scrollbar-width:none;padding-bottom:20px}
+.feed::-webkit-scrollbar{display:none}
+.short{height:calc(100vh - 74px);min-height:900px;width:700px;display:flex;align-items:flex-start;scroll-snap-align:start;margin-bottom:10px}
+.video-wrap{width:620px;height:calc(100vh - 74px);max-height:1110px;min-height:850px;border-radius:12px;overflow:hidden;background:#111;position:relative}
+.video-wrap video{width:100%;height:100%;object-fit:cover;display:block}
+.video-top{position:absolute;left:0;right:0;top:0;height:75px;padding:17px 20px;display:flex;gap:14px;color:white;background:linear-gradient(#0008,transparent);z-index:2}
+.control{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#2228;font-size:18px}
+.video-menu{margin-left:auto}
+.video-caption{position:absolute;top:90px;left:135px;color:white;background:#111d;font-size:20px;font-weight:bold;padding:4px 7px;line-height:1.1}
+.video-meta{position:absolute;bottom:18px;left:18px;color:white;font-size:13px;line-height:1.65;text-shadow:0 1px 3px #000;z-index:2}
+.author{display:flex;align-items:center;gap:7px;font-weight:bold}
+.author-avatar{width:28px;height:28px;border-radius:50%;object-fit:cover}
+.subscribe{background:#fff;color:#222;border-radius:14px;padding:3px 9px;font-size:12px;margin-left:8px;text-shadow:none}
+.actions{width:80px;margin-left:14px;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding-bottom:32px;gap:19px}
+.action{display:flex;flex-direction:column;align-items:center;gap:5px;color:#222;font-size:12px}
+.action-circle{width:48px;height:48px;border-radius:50%;background:#f4f4f4;display:flex;align-items:center;justify-content:center;font-size:23px}
+.action span:last-child{font-size:12px}
+.nav-arrows{position:fixed;right:22px;top:50%;display:flex;flex-direction:column;gap:16px;z-index:5}
+.nav-arrow{width:50px;height:50px;border-radius:50%;background:#f5f5f5;font-size:25px}
+
+.comments{position:fixed;right:20px;top:65px;width:470px;height:calc(100vh - 85px);border:1px solid #ddd;border-radius:13px;background:white;z-index:30;display:none;overflow:hidden}
+.comments.open{display:block}
+.comments-head{height:62px;border-bottom:1px solid #ddd;padding:20px;font-weight:bold;font-size:18px;display:flex;justify-content:space-between}
+.comment-list{height:calc(100% - 125px);overflow:hidden;padding:15px 18px}
+.comment{display:grid;grid-template-columns:38px 1fr 20px;gap:10px;margin-bottom:23px;font-size:13px;line-height:1.4}
+.c-avatar{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold;background:#139c82}
+.comment:nth-child(2) .c-avatar{background:#111}
+.comment:nth-child(3) .c-avatar{background:#a22bc0}
+.comment:nth-child(4) .c-avatar{background:#17639d}
+.comment:nth-child(5) .c-avatar{background:#455a64}
+.comment-name{font-size:12px;font-weight:bold;margin-bottom:4px}
+.comment-tools{color:#666;font-size:12px;margin-top:7px}
+.comment-input{height:63px;border-top:1px solid #ddd;padding:12px 16px;display:flex;align-items:center;gap:10px;color:#999;font-size:13px}
+.comment-input .user{width:34px;height:34px}
+
+@media(max-width:1100px){
+.sidebar{width:180px}.feed{left:calc(50% - 280px)}.video-wrap{width:580px}.short{width:660px}.search{width:390px}
+}
+</style>
+</head>
+<body>
+<header class="header">
+  <button class="menu btn">☰</button>
+  <div class="logo"><span class="logo-mark"></span>YouTube<span class="country">SG</span></div>
+  <div class="search"><input placeholder="搜索"><button class="btn">⌕</button></div>
+  <button class="mic btn">♩</button>
+  <div class="header-right">
+    <button class="create btn">＋ 创建</button>
+    <button class="btn" style="font-size:21px">♧</button>
+    <div class="user">Pp</div>
+  </div>
+</header>
+
+<aside class="sidebar">
+  <div class="side-section">
+    <div class="side-row"><span class="side-icon">⌂</span>首页</div>
+    <div class="side-row active"><span class="side-icon">◉</span>Shorts</div>
+    <div class="side-row"><span class="side-icon">▣</span>订阅</div>
+  </div>
+  <div class="side-section">
+    <div class="side-title">我　›</div>
+    <div class="side-row"><span class="side-icon">◴</span>历史记录</div>
+    <div class="side-row"><span class="side-icon">☷</span>播放列表</div>
+    <div class="side-row"><span class="side-icon">◷</span>稍后观看</div>
+    <div class="side-row"><span class="side-icon">♧</span>赞过的视频</div>
+  </div>
+  <div class="side-section">
+    <div class="side-title">探索</div>
+    <div class="side-row"><span class="side-icon">♫</span>音乐</div>
+    <div class="side-row"><span class="side-icon">▣</span>电影</div>
+    <div class="side-row"><span class="side-icon">◈</span>游戏</div>
+    <div class="side-row"><span class="side-icon">▤</span>新闻</div>
+    <div class="side-row"><span class="side-icon">♜</span>体育</div>
+    <div class="side-row"><span class="side-icon">♟</span>时尚美女</div>
+    <div class="side-row"><span class="side-icon">◉</span>播客</div>
+  </div>
+  <div class="side-section">
+    <div class="side-title">更多 YouTube 产品与功能</div>
+    <div class="side-row"><span style="color:#f03">▶</span>YouTube Premium</div>
+    <div class="side-row"><span style="color:#f03">◉</span>YouTube Music</div>
+    <div class="side-row"><span style="color:#f03">▰</span>YouTube Kids</div>
+  </div>
+  <div class="side-section">
+    <div class="side-row"><span class="side-icon">⚙</span>设置</div>
+    <div class="side-row"><span class="side-icon">⚑</span>举报记录</div>
+    <div class="side-row"><span class="side-icon">?</span>帮助</div>
+    <div class="side-row"><span class="side-icon">▢</span>发送反馈</div>
+  </div>
+  <div class="side-small">关于　新闻　版权　联系我们<br>创作者　广告　开发者<br><br>条款　隐私权　政策与安全<br>YouTube 的运作方式</div>
+</aside>
+
+<main class="feed" id="feed">
+  <section class="short">
+    <div class="video-wrap">
+      <video autoplay muted loop playsinline poster="../../../data/data/20/assets/025.jpg">
+        <source src="../../../data/data/20/assets/089.mp4" type="video/mp4">
+      </video>
+      <div class="video-top"><button class="control btn">Ⅱ</button><button class="control btn">◖</button><button class="control btn video-menu">⛶</button><button class="control btn">⋮</button></div>
+      <div class="video-meta">
+        <div class="author"><img class="author-avatar" src="../../../data/data/20/assets/025.jpg" width="28" height="28"> @ariannitalagringa <span class="subscribe btn">订阅</span></div>
+        <div>▶ Advanced English Conversation Lesson</div>
+        <div>Subscribe for more 🟦 🟨 #ariannitalagringa #easyenglishiseveryday<br>#englishlanguage #learnenglish</div>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="action btn"><span class="action-circle">👍</span><span>1.1万</span></button>
+      <button class="action btn"><span class="action-circle">👎</span><span>不喜欢</span></button>
+      <button class="action btn comment-button"><span class="action-circle">▣</span><span>157</span></button>
+      <button class="action btn"><span class="action-circle">➜</span><span>分享</span></button>
+      <button class="action btn"><span class="action-circle">↯</span><span>2</span></button>
+      <img src="../../../data/data/20/assets/025.jpg" width="42" height="42" style="border-radius:8px">
+    </div>
+  </section>
+
+  <section class="short">
+    <div class="video-wrap">
+      <video autoplay muted loop playsinline poster="../../../data/data/20/assets/087.jpg">
+        <source src="../../../data/data/20/assets/091.mp4" type="video/mp4">
+      </video>
+      <div class="video-top"><button class="control btn">Ⅱ</button><button class="control btn">◖</button><button class="control btn video-menu">⛶</button><button class="control btn">⋮</button></div>
+      <div class="video-meta">
+        <div class="author"><img class="author-avatar" src="../../../data/data/20/assets/087.jpg" width="28" height="28"> @ariannitalagringa <span class="subscribe btn">订阅</span></div>
+        <div>▶ 和你的英语老师一起去买东西</div>
+        <div>Phrasal verbs in English #gringa #english #ariannitalagringa #american</div>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="action btn"><span class="action-circle">👍</span><span>32万</span></button>
+      <button class="action btn"><span class="action-circle">👎</span><span>不喜欢</span></button>
+      <button class="action btn comment-button"><span class="action-circle">▣</span><span>2,169</span></button>
+      <button class="action btn"><span class="action-circle">➜</span><span>分享</span></button>
+      <button class="action btn"><span class="action-circle">↯</span><span>19</span></button>
+      <img src="../../../data/data/20/assets/087.jpg" width="42" height="42" style="border-radius:8px">
+    </div>
+  </section>
+
+  <section class="short">
+    <div class="video-wrap">
+      <video autoplay muted loop playsinline poster="../../../data/data/20/assets/007.jpg">
+        <source src="../../../data/data/20/assets/093.mp4" type="video/mp4">
+      </video>
+      <div class="video-top"><button class="control btn">Ⅱ</button><button class="control btn">◖</button><button class="control btn video-menu">⛶</button><button class="control btn">⋮</button></div>
+      <div class="video-meta">
+        <div class="author"><img class="author-avatar" src="../../../data/data/20/assets/007.jpg" width="28" height="28"> @badmintonun <span class="subscribe btn">订阅</span></div>
+        <div>Can you do it? #badminton #badmintonlovers</div>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="action btn"><span class="action-circle">👍</span><span>55万</span></button>
+      <button class="action btn"><span class="action-circle">👎</span><span>不喜欢</span></button>
+      <button class="action btn comment-button"><span class="action-circle">▣</span><span>4,434</span></button>
+      <button class="action btn"><span class="action-circle">➜</span><span>分享</span></button>
+      <button class="action btn"><span class="action-circle">↯</span><span>6</span></button>
+      <img src="../../../data/data/20/assets/007.jpg" width="42" height="42" style="border-radius:8px">
+    </div>
+  </section>
+</main>
+
+<div class="nav-arrows">
+  <button class="nav-arrow btn" id="up">↑</button>
+  <button class="nav-arrow btn" id="down">↓</button>
+</div>
+
+<section class="comments" id="comments">
+  <div class="comments-head"><span>评论 <small style="color:#777">2169</small></span><span><button class="btn">☷</button>　<button class="btn" id="closeComments">×</button></span></div>
+  <div class="comment-list">
+    <div class="comment"><div class="c-avatar">b</div><div><div class="comment-name">@bormioi 8个月前</div>문장이 아닌 동작으로 직접 보여주니 이해가 잘되네요. 감사합니다<br><span class="comment-tools">♡ 685　 回复　⌄ 16 条回复</span></div><b>⋮</b></div>
+    <div class="comment"><div class="c-avatar">◉</div><div><div class="comment-name">@diyalorose 8个月前</div>Magnifique démonstration pour mieux comprendre 🎉 félicitations je vous remercie 🥰🌹<br><span class="comment-tools">♡ 27　 回复</span></div><b>⋮</b></div>
+    <div class="comment"><div class="c-avatar">s</div><div><div class="comment-name">@shincymohan 7个月前</div>Excellent method of teaching phrasal verbs 👌👌👌 ❤️<br><span class="comment-tools">♡ 320　 回复　⌄ 4 条回复</span></div><b>⋮</b></div>
+    <div class="comment"><div class="c-avatar">t</div><div><div class="comment-name">@toufikelyemni6472 4个月前</div>❤️❤️ wonderful teaching methods with beautiful lady<br><span class="comment-tools">♡ 52　 回复　⌄ 10 条回复</span></div><b>⋮</b></div>
+    <div class="comment"><div class="c-avatar">N</div><div><div class="comment-name">@nasirmaqbool5936 2个月前</div>Superb teaching<br><span class="comment-tools">♡ 17　 回复　⌄ 2 条回复</span></div><b>⋮</b></div>
+    <div class="comment"><div class="c-avatar">学</div><div><div class="comment-name">@数学-9dt 7个月前</div>分かりやすい、ありがとう。好き。<br><span class="comment-tools">♡ 84　 回复　⌄ 4 条回复</span></div><b>⋮</b></div>
+  </div>
+  <div class="comment-input"><div class="user">Pp</div>添加评论...</div>
+</section>
+
+<script>
+const feed=document.getElementById('feed');
+document.getElementById('up').onclick=()=>feed.scrollBy({top:-innerHeight,behavior:'smooth'});
+document.getElementById('down').onclick=()=>feed.scrollBy({top:innerHeight,behavior:'smooth'});
+const comments=document.getElementById('comments');
+document.querySelectorAll('.comment-button').forEach(b=>b.onclick=()=>comments.classList.add('open'));
+document.getElementById('closeComments').onclick=()=>comments.classList.remove('open');
+document.querySelectorAll('video').forEach(v=>{
+  v.addEventListener('mouseenter',()=>v.controls=false);
+  v.play().catch(()=>{});
+});
+</script>
+</body>
+</html>

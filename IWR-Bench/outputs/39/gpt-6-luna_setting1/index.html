@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desmos Calculator</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#fff;font-family:Arial,Helvetica,sans-serif;color:#444}
+  .topbar{
+    height:40px;background:#f1f2f3;border-bottom:1px solid #d8d9da;
+    position:relative;color:#555;font-size:12px
+  }
+  .logo{position:absolute;left:12px;top:5px;font-size:24px;letter-spacing:-1.6px;color:#777;font-weight:400}
+  .nav{position:absolute;left:50%;transform:translateX(-50%);top:0;height:39px;display:flex;align-items:center;gap:27px}
+  .nav span{white-space:nowrap}
+  .nav span:after{content:"";display:inline-block;margin-left:5px;border-left:4px solid transparent;border-right:4px solid transparent;border-top:5px solid #777;vertical-align:middle}
+  .account{position:absolute;right:12px;top:4px;height:31px;display:flex;align-items:center;gap:7px}
+  .account button{font:12px Arial;height:31px;border:1px solid #c9cdd0;background:#fafafa;color:#555;padding:0 10px}
+  .account .signup{background:#3779cf;color:#fff;border-color:#3779cf}
+  .globe,.print{font-size:14px;color:#666;margin-left:7px}
+  .workspace{position:absolute;top:40px;bottom:0;left:0;right:0}
+  .calculator{
+    position:absolute;top:239px;left:50%;transform:translateX(-50%);
+    width:458px;height:436px;border:1px solid #d9d9d9;background:#fff;
+    display:flex;flex-direction:column
+  }
+  .graph{flex:1;min-height:36px;border-bottom:1px solid #ddd;position:relative}
+  .hint{display:none;position:absolute;right:10px;bottom:8px;text-align:right;font-size:13px;line-height:15px;color:#555}
+  .hint:after{content:"↘";font-size:26px;color:#aaa;position:absolute;right:-9px;bottom:-17px;transform:rotate(-20deg)}
+  .expr-list{width:100%}
+  .row{
+    height:44px;border-bottom:1px solid #ddd;display:flex;align-items:center;
+    padding:0 10px 0 14px;font-family:Georgia,"Times New Roman",serif;font-size:16px
+  }
+  .row .math{flex:1;white-space:nowrap}
+  .row .answer{font-family:Georgia,"Times New Roman",serif;font-size:16px}
+  .input{
+    height:44px;border:2px solid #4685d8;display:flex;align-items:center;
+    padding:0 12px;font-family:Georgia,"Times New Roman",serif;font-size:17px;
+    position:relative;background:#fff
+  }
+  .input .math{flex:1;min-width:0}
+  .input .answer{font-size:16px;color:#444}
+  .caret{display:inline-block;width:1px;height:19px;background:#555;vertical-align:middle;margin-left:2px;animation:blink 1s infinite}
+  @keyframes blink{50%{opacity:0}}
+  .error{color:#d46a3b;font-family:Arial;font-size:22px;margin-left:auto}
+  .fraction{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;line-height:16px;min-width:17px;margin:0 2px}
+  .fraction .num{border-bottom:1px solid #444;padding:0 2px}
+  .fraction .den{padding:0 2px}
+  sup{font-size:11px;position:relative;top:-.28em}
+  .toolbar{
+    height:31px;background:#f2f2f2;display:flex;align-items:center;padding:0 6px;
+    font-size:12px;color:#555
+  }
+  .tabs{display:flex;height:100%;align-items:center}
+  .tab{height:100%;padding:8px 12px 0;position:relative}
+  .tab.active:after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:#3b7ed1}
+  .mode{display:flex;margin-left:8px;border:1px solid #c4c4c4;height:21px;align-items:center}
+  .mode span{padding:3px 5px}
+  .mode .selected{background:#dce9fa;color:#3573bd}
+  .tools{margin-left:auto;display:flex;gap:23px;align-items:center;color:#777}
+  .tools .disabled{color:#ccc}
+  .keypad{height:134px;background:#f2f2f2;display:grid;grid-template-columns:140px 142px 1fr;gap:10px;padding:5px}
+  .keygroup{display:grid;gap:4px}
+  .scientific{grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(4,1fr)}
+  .numbers{grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(4,1fr)}
+  .control{grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(4,1fr)}
+  .key{
+    border:1px solid #ddd;background:#fff;color:#333;font:14px Georgia,"Times New Roman",serif;
+    display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:2px
+  }
+  .key:hover{filter:brightness(.96)}
+  .numbers .key{background:#d0d0d0}
+  .numbers .key:nth-child(4n){background:#fafafa}
+  .control .key{background:#fafafa}
+  .control .enter{grid-column:1/3;background:#367bd2;color:#fff;font-size:23px}
+  .control .backspace{font-size:19px}
+  .footer{position:absolute;bottom:7px;left:50%;transform:translateX(-50%);font-size:12px;color:#888;white-space:nowrap}
+  .footer span{margin:0 7px;color:#bbb}
+  .btn{cursor:pointer}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="logo">desmos</div>
+  <nav class="nav"><span class="btn">Math Tools</span><span class="btn">Resources</span><span class="btn">Partnerships</span></nav>
+  <div class="account">
+    <button class="btn">Log In</button><button class="btn signup">Sign Up</button>
+    <span class="globe btn">◉</span><span class="print btn">♧</span>
+  </div>
+</header>
+
+<main class="workspace">
+  <section class="calculator">
+    <div class="graph"><div class="hint">Your answers show<br>up on this side.</div></div>
+    <div class="expr-list" id="exprList"></div>
+    <div class="input" id="inputBox">
+      <div class="math" id="current"></div><span class="answer" id="currentAnswer"></span><span class="error" id="error"></span>
+    </div>
+    <div class="toolbar">
+      <div class="tabs"><div class="tab active btn">main</div><div class="tab btn">abc</div><div class="tab btn">func</div></div>
+      <div class="mode"><span>RAD</span><span class="selected">DEG</span></div>
+      <div class="tools"><span class="btn">↶</span><span class="disabled">↷</span><span class="btn" id="clearBtn">clear all</span><span class="btn">⚒</span></div>
+    </div>
+    <div class="keypad">
+      <div class="keygroup scientific">
+        <button class="key btn" data-action="square">a<sup>2</sup></button>
+        <button class="key btn" data-action="power">a<sup>b</sup></button>
+        <button class="key btn" data-action="abs">|a|</button>
+        <button class="key btn" data-action="sqrt">√</button>
+        <button class="key btn" data-action="root">ⁿ√</button>
+        <button class="key btn">π</button>
+        <button class="key btn" data-action="sin">sin</button>
+        <button class="key btn" data-action="cos">cos</button>
+        <button class="key btn" data-action="tan">tan</button>
+        <button class="key btn" data-action="left">(</button>
+        <button class="key btn" data-action="right">)</button>
+        <button class="key btn">,</button>
+      </div>
+      <div class="keygroup numbers">
+        <button class="key btn" data-value="7">7</button><button class="key btn" data-value="8">8</button><button class="key btn" data-value="9">9</button><button class="key btn" data-value="/">÷</button>
+        <button class="key btn" data-value="4">4</button><button class="key btn" data-value="5">5</button><button class="key btn" data-value="6">6</button><button class="key btn" data-value="*">×</button>
+        <button class="key btn" data-value="1">1</button><button class="key btn" data-value="2">2</button><button class="key btn" data-value="3">3</button><button class="key btn" data-value="-">−</button>
+        <button class="key btn" data-value="0">0</button><button class="key btn" data-value=".">.</button><button class="key btn" data-value="ans">ans</button><button class="key btn" data-value="+">+</button>
+      </div>
+      <div class="keygroup control">
+        <button class="key btn" data-value="%">%</button><button class="key btn" data-action="frac">a<br>―<br>b</button>
+        <button class="key btn" data-action="left">←</button><button class="key btn" data-action="right">→</button>
+        <button class="key btn backspace" data-action="back">⌫</button><button class="key btn" data-action="back"></button>
+        <button class="key btn enter" data-action="enter">↵</button>
+      </div>
+    </div>
+  </section>
+  <div class="footer">Terms of Service <span>|</span> Privacy Policy <span>|</span> Help</div>
+</main>
+
+<script>
+(function(){
+  const list=document.getElementById('exprList'), current=document.getElementById('current');
+  const currentAnswer=document.getElementById('currentAnswer'), error=document.getElementById('error');
+  const calc=document.querySelector('.calculator'), graph=document.querySelector('.graph');
+  let expr='', rows=[], lastAns=0, special=null;
+
+  function pretty(s, editing=false){
+    if(!s) return editing?'<span class="caret"></span>':'';
+    let out=s;
+    out=out.replace(/sqrt\(([^()]*)\)/g,'<span style="font-size:22px">√</span><span style="border-top:1px solid #444;padding-top:1px">$1</span>');
+    out=out.replace(/abs\(([^()]*)\)/g,'|$1|');
+    out=out.replace(/(\d+)\^(\d+)/g,'$1<sup>$2</sup>');
+    out=out.replace(/(\d+)\^/g,'$1<sup><span class="caret"></span></sup>');
+    out=out.replace(/\(([^()/]+)\/([^()/]*)\)/g,'<span class="fraction"><span class="num">$1</span><span class="den">$2</span></span>');
+    out=out.replace(/(\d+)\/(\d+)/g,'<span class="fraction"><span class="num">$1</span><span class="den">$2</span></span>');
+    out=out.replace(/\*/g,'×').replace(/\//g,'÷').replace(/-/g,'−');
+    return out+(editing?'<span class="caret"></span>':'');
+  }
+  function value(s){
+    if(!s)return '';
+    try{
+      let t=s.replace(/ans/g,String(lastAns)).replace(/sqrt/g,'Math.sqrt').replace(/abs/g,'Math.abs');
+      t=t.replace(/\^/g,'**');
+      let v=Function('return '+t)();
+      if(typeof v==='number' && isFinite(v)) return Math.round(v*1e10)/1e10;
+    }catch(e){}
+    return '';
+  }
+  function render(){
+    list.innerHTML=rows.map(r=>`<div class="row"><div class="math">${pretty(r.e)}</div><div class="answer">= ${r.a}</div></div>`).join('');
+    current.innerHTML=pretty(expr,true);
+    let a=value(expr); currentAnswer.textContent=(expr&&a!==''?'= '+a:'');
+    error.textContent=(expr && !a && /[+\-*/^]$/.test(expr)?'':'');
+    if(expr && expr==='-' ) error.textContent='⚠';
+    document.querySelector('.hint').style.display=rows.length?'block':'none';
+  }
+  function add(v){expr+=v;render()}
+  function action(a){
+    if(a==='square'){ if(expr) expr+='^2'; else expr='^'; }
+    else if(a==='power'){expr+='^'}
+    else if(a==='sqrt'){expr+='sqrt('}
+    else if(a==='abs'){expr+='abs('}
+    else if(a==='frac'){expr+='('}
+    else if(a==='left'){expr+='('}
+    else if(a==='right'){expr+=')'}
+    else if(a==='back'){expr=expr.slice(0,-1)}
+    else if(a==='enter'){
+      if(expr){
+        let v=value(expr);
+        if(v!==''){rows.push({e:expr,a:v});lastAns=v;expr=''}
+      }
+    }
+    render();
+  }
+  document.querySelectorAll('[data-value]').forEach(b=>b.addEventListener('click',()=>add(b.dataset.value)));
+  document.querySelectorAll('[data-action]').forEach(b=>b.addEventListener('click',()=>action(b.dataset.action)));
+  document.getElementById('clearBtn').addEventListener('click',()=>{rows=[];expr='';lastAns=0;render()});
+  document.addEventListener('keydown',e=>{
+    if(/[0-9.+\-*/()]/.test(e.key))add(e.key);
+    else if(e.key==='Enter')action('enter');
+    else if(e.key==='Backspace')action('back');
+  });
+  render();
+})();
+</script>
+</body>
+</html>

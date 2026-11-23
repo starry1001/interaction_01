@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Middle Ages — The Pudding</title>
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: #1b071a;
+    color: #f6eaf4;
+    font-family: Georgia, "Times New Roman", serif;
+  }
+  .scene {
+    height: 100vh;
+    min-height: 650px;
+    position: relative;
+    overflow: hidden;
+    scroll-snap-align: start;
+    border-bottom: 3px solid #f7f5f5;
+  }
+  .story { scroll-snap-type: y proximity; }
+  img { display: block; }
+  .brand {
+    position: absolute;
+    top: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 210px;
+    height: 56px;
+    object-fit: contain;
+  }
+  .intro-title {
+    position: absolute;
+    top: 30%;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .byline {
+    position: absolute;
+    top: calc(30% + 30px);
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    color: #c889d6;
+  }
+  .byline a { color: inherit; }
+  .face-wrap {
+    position: absolute;
+    left: 50%;
+    top: 43%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 165px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .face-wrap img {
+    width: 300px;
+    height: 165px;
+    object-fit: contain;
+  }
+  .face-wrap.warm { background: #ffdc72; }
+  .cta {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 500px;
+    padding: 14px 20px;
+    background: #080609;
+    color: #eee;
+    border: 0;
+    font: 14px Georgia, serif;
+  }
+  .cta span { color: #ed34c4; }
+  .btn {
+    cursor: pointer;
+    transition: filter .15s ease, transform .15s ease;
+  }
+  .btn:hover { filter: brightness(1.12); }
+  .btn:active { transform: scale(.98); }
+  .bubble {
+    position: absolute;
+    left: 20px;
+    top: 53%;
+    max-width: 330px;
+    min-width: 300px;
+    padding: 13px 16px;
+    background: #fff;
+    color: #20151e;
+    border: 0;
+    border-radius: 9px;
+    text-align: left;
+    font: 14px/1.25 Georgia, serif;
+    box-shadow: 0 2px 4px #090309;
+  }
+  .bubble:before {
+    content: "";
+    position: absolute;
+    left: -9px;
+    top: 16px;
+    border-top: 9px solid transparent;
+    border-bottom: 9px solid transparent;
+    border-right: 11px solid #fff;
+  }
+  .bubble.center {
+    left: 50%;
+    top: calc(43% + 105px);
+    transform: translateX(-50%);
+    min-width: 300px;
+  }
+  .bubble.center:before {
+    left: 20px;
+    top: -9px;
+    border: 0;
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    border-bottom: 11px solid #fff;
+  }
+  .bubble mark {
+    background: #ffe070;
+    color: #171017;
+    padding: 0 2px;
+  }
+  .grid-wrap {
+    position: absolute;
+    left: 50%;
+    top: 48%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  .grid-wrap img {
+    width: 820px;
+    height: 1087px;
+    object-fit: contain;
+  }
+  .grade-label {
+    margin-top: 7px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  .grade-label small {
+    display: block;
+    margin-top: 2px;
+    font-size: 12px;
+    font-weight: normal;
+  }
+  .result {
+    position: absolute;
+    top: 7%;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    line-height: 1.3;
+    font-size: 17px;
+  }
+  .result strong { color: #ffdc70; font-size: 23px; }
+  .bubble.rightish {
+    left: auto;
+    right: 20px;
+  }
+  @media (max-width: 900px) {
+    .scene { min-height: 540px; }
+    .grid-wrap { top: 47%; width: 100%; }
+    .grid-wrap img { width: min(78vw, 580px); height: auto; }
+    .bubble { left: 12px; min-width: 0; max-width: 250px; font-size: 12px; }
+    .bubble.rightish { left: auto; right: 12px; }
+    .face-wrap, .face-wrap img { width: 250px; height: 138px; }
+    .cta { min-width: 0; width: 85%; }
+  }
+</style>
+</head>
+<body>
+<main class="story">
+  <section class="scene" id="scene-0">
+    <img class="brand" src="../../../data/data/34/assets/059.svg" width="210" height="56" alt="The Pudding">
+    <div class="intro-title">the middle ages</div>
+    <div class="byline">by <a href="#" class="btn">lila shrews</a></div>
+    <div class="face-wrap">
+      <img src="../../../data/data/34/assets/065.png" width="300" height="165" alt="A student peeking over a desk">
+    </div>
+    <button class="cta btn" onclick="goTo(1)">Don't like scrolling? <span>Click here to interact</span></button>
+  </section>
+
+  <section class="scene" id="scene-1">
+    <div class="face-wrap"><img src="../../../data/data/34/assets/065.png" width="300" height="165" alt="A student peeking over a desk"></div>
+    <button class="bubble btn" onclick="goTo(2)">Hey, what grade are you in?</button>
+  </section>
+
+  <section class="scene" id="scene-2">
+    <div class="face-wrap"><img src="../../../data/data/34/assets/065.png" width="300" height="165" alt="A student peeking over a desk"></div>
+    <button class="bubble center btn" onclick="goTo(3)">Fourth grade!</button>
+  </section>
+
+  <section class="scene" id="scene-3">
+    <div class="face-wrap"><img src="../../../data/data/34/assets/065.png" width="300" height="165" alt="A student peeking over a desk"></div>
+    <button class="bubble center btn" onclick="goTo(4)">Fourth grade!</button>
+  </section>
+
+  <section class="scene" id="scene-4">
+    <div class="face-wrap warm"><img src="../../../data/data/34/assets/065.png" width="300" height="165" alt="A student peeking over a desk"></div>
+    <button class="bubble center btn" onclick="goTo(5)"><mark>Wow!</mark> Wanna meet my classmates?</button>
+  </section>
+
+  <section class="scene" id="scene-5">
+    <div class="face-wrap warm"><img src="../../../data/data/34/assets/065.png" width="300" height="165" alt="A student peeking over a desk"></div>
+    <button class="bubble btn" onclick="goTo(6)">I mean, I guess...</button>
+  </section>
+
+  <section class="scene" id="scene-6">
+    <div class="grid-wrap">
+      <img src="../../../data/data/34/assets/066.png" width="820" height="1087" alt="A grid of elementary school students">
+      <div class="grade-label">4th<small>Elementary</small></div>
+    </div>
+    <button class="bubble btn" onclick="goTo(7)">I mean, I guess...</button>
+  </section>
+
+  <section class="scene" id="scene-7">
+    <div class="grid-wrap">
+      <img src="../../../data/data/34/assets/066.png" width="820" height="1087" alt="A grid of elementary school students">
+      <div class="grade-label">4th<small>Elementary</small></div>
+    </div>
+    <button class="bubble btn" onclick="goTo(8)">Wow. Thanks, kid! Mind if I ask your class a question?</button>
+  </section>
+
+  <section class="scene" id="scene-8">
+    <div class="grid-wrap">
+      <img src="../../../data/data/34/assets/066.png" width="820" height="1087" alt="A grid of elementary school students">
+      <div class="grade-label">4th<small>Elementary</small></div>
+    </div>
+    <button class="bubble btn" onclick="goTo(9)">Sure! But hurry up. Recess starts soon.</button>
+  </section>
+
+  <section class="scene" id="scene-9">
+    <div class="grid-wrap">
+      <img src="../../../data/data/34/assets/066.png" width="820" height="1087" alt="A grid of elementary school students">
+      <div class="grade-label">4th<small>Elementary</small></div>
+    </div>
+    <button class="bubble btn" onclick="goTo(10)">Who feels like they <mark>belong</mark> at the school?<br>So, like, feeling respected by other students and supported by adults?</button>
+  </section>
+
+  <section class="scene" id="scene-10">
+    <div class="result">Belonging<br><strong>9%</strong></div>
+    <div class="grid-wrap">
+      <img src="../../../data/data/34/assets/067.png" width="820" height="1087" alt="Students who feel they belong at school are highlighted">
+      <div class="grade-label">4th<small>Elementary</small></div>
+    </div>
+    <button class="bubble btn" onclick="goTo(11)">Those of us in <mark>yellow</mark> feel like we belong. Why do you ask?</button>
+  </section>
+
+  <section class="scene" id="scene-11">
+    <div class="result">Belonging<br><strong>73%</strong></div>
+    <div class="grid-wrap">
+      <img src="../../../data/data/34/assets/067.png" width="820" height="1087" alt="Students who feel they belong at school are highlighted">
+      <div class="grade-label">4th<small>Elementary</small></div>
+    </div>
+    <button class="bubble btn" onclick="goTo(0)">Well, feeling like you belong is <mark>really important.</mark></button>
+  </section>
+</main>
+<script>
+  function goTo(number) {
+    var target = document.getElementById("scene-" + number);
+    if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+</script>
+</body>
+</html>

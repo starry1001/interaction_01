@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pomofocus</title>
+<style>
+  :root {
+    --primary: #b13b4d;
+    --primary-panel: rgba(255,255,255,.10);
+    --text: #fff;
+    --line: rgba(255,255,255,.55);
+    --muted: rgba(255,255,255,.66);
+    --button-dark: #45464a;
+  }
+  * { box-sizing: border-box; }
+  html { min-height: 100%; background: var(--primary); }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--primary);
+    color: var(--text);
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  button, input, textarea { font: inherit; }
+  button { cursor: pointer; }
+  .app { min-height: 100vh; background: var(--primary); transition: background .25s; }
+  .topbar {
+    height: 91px;
+    padding: 0 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(80,0,12,.12);
+  }
+  .brand {
+    color: white;
+    font-size: 29px;
+    font-weight: 700;
+    letter-spacing: -.8px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    white-space: nowrap;
+  }
+  .brand-mark {
+    width: 25px; height: 25px; border-radius: 50%;
+    background: white; display: inline-flex; align-items:center; justify-content:center;
+    color: var(--primary); font-size: 19px; font-weight: 900; line-height: 1;
+  }
+  .tools { display:flex; align-items:center; gap: 12px; }
+  .tool {
+    border: 0; color: white; background: rgba(255,255,255,.18);
+    width: 51px; height: 51px; border-radius: 7px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .tool svg { width:27px; height:27px; fill:none; stroke:currentColor; stroke-width:2.8; stroke-linecap:round; stroke-linejoin:round; }
+  .tool .dots { font-size:30px; font-weight:700; line-height:20px; transform:translateY(-3px); }
+  .timer-wrap { margin: 59px 18px 0; }
+  .timer-card {
+    height: 434px;
+    border-radius: 8px;
+    background: var(--primary-panel);
+    padding: 29px 30px 33px;
+    text-align: center;
+  }
+  .modes { display:flex; justify-content:center; align-items:center; gap: 7px; }
+  .mode {
+    border: 0; color: white; background: transparent;
+    padding: 8px 17px; border-radius: 5px; font-size: 20px;
+    white-space:nowrap;
+  }
+  .mode.active { background: rgba(100,0,15,.25); font-weight:700; }
+  .clock {
+    font-size: 140px;
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -4px;
+    margin: 29px 0 25px;
+    font-variant-numeric: tabular-nums;
+  }
+  .timer-actions { display:flex; justify-content:center; align-items:center; gap: 30px; }
+  .main-action {
+    border:0; width: 300px; height: 91px; border-radius:5px;
+    background:#fff; color:var(--primary); font-size:25px; font-weight:700;
+    box-shadow: 0 7px 0 rgba(255,255,255,.77);
+  }
+  .skip {
+    border:0; background:transparent; color:#fff; font-size:35px; padding:10px;
+    display:none;
+  }
+  .skip.show { display:block; }
+  .session {
+    text-align:center; margin-top: 29px; min-height: 69px;
+    color:rgba(255,255,255,.77); font-size:20px; line-height:1.4;
+  }
+  .session strong { display:block; font-size:20px; }
+  .task-area { margin: 5px 18px 0; }
+  .section-heading {
+    display:flex; align-items:center; justify-content:space-between;
+    height: 60px; border-bottom: 2px solid var(--line);
+    font-size:21px; font-weight:700;
+  }
+  .more {
+    border:0; width:51px; height:51px; border-radius:7px;
+    color:#fff; background:rgba(255,255,255,.18);
+    font-weight:bold; font-size:29px; line-height:1;
+  }
+  .task-menu {
+    display:none; position:absolute; right:18px; z-index:3; margin-top:4px;
+    width:255px; padding:7px 0; background:#fff; color:#333;
+    box-shadow:0 4px 14px rgba(0,0,0,.25); border-radius:5px;
+  }
+  .task-menu.open { display:block; }
+  .menu-item { width:100%; padding:13px 16px; border:0; text-align:left; background:white; color:#333; }
+  .menu-item:hover { background:#f2f2f2; }
+  .add-task {
+    width:100%; height:96px; margin-top:28px;
+    border:2px dashed rgba(255,255,255,.38); border-radius:7px;
+    color:rgba(255,255,255,.68); background:transparent;
+    font-size:21px; font-weight:700;
+  }
+  .add-task:hover { background:rgba(255,255,255,.07); }
+  .plus-circle {
+    display:inline-flex; width:22px; height:22px; align-items:center; justify-content:center;
+    border-radius:50%; background:currentColor; color:var(--primary); margin-right:7px;
+    font-size:18px; line-height:1; vertical-align:middle;
+  }
+  .task-list { display:flex; flex-direction:column; gap:13px; margin-top:26px; }
+  .task-row {
+    min-height:74px; border-radius:7px; background:#fff; color:#555;
+    display:flex; align-items:center; padding:12px 15px;
+    border-left:7px solid #333;
+    box-shadow:0 2px 4px rgba(0,0,0,.08);
+    gap:12px;
+  }
+  .complete {
+    width:31px; height:31px; border-radius:50%; border:0;
+    background:#e2e4e5; color:white; font-size:20px; font-weight:bold; flex:none;
+  }
+  .task-title { flex:1; font-size:20px; font-weight:600; overflow-wrap:anywhere; }
+  .task-row.done .complete { background:#d28a94; }
+  .task-row.done .task-title { text-decoration:line-through; color:#999; }
+  .task-count { color:#aaa; font-size:19px; white-space:nowrap; }
+  .task-options {
+    border:1px solid #ddd; background:#fff; color:#999; border-radius:5px;
+    width:40px; height:40px; font-size:23px; font-weight:bold;
+  }
+  .editor {
+    display:none; margin-top:27px; background:#fff; color:#555;
+    border-radius:8px; overflow:hidden; box-shadow:0 3px 8px rgba(0,0,0,.12);
+  }
+  .editor.open { display:block; }
+  .editor-main { padding:25px 28px 22px; }
+  .task-input {
+    display:block; width:100%; border:1px solid #e7e9ef; border-radius:5px;
+    height:69px; padding:0 13px; font-size:24px; color:#555; outline:none;
+  }
+  .task-input::placeholder { color:#d1d2d3; font-style:italic; font-weight:700; }
+  .est-label { margin:22px 0 10px; font-size:18px; font-weight:700; }
+  .est-controls { display:flex; align-items:center; gap:8px; }
+  .estimate {
+    width:115px; height:57px; border:0; border-radius:8px;
+    background:#eee; color:#555; padding:0 14px; font-size:20px;
+  }
+  .step {
+    width:57px; height:57px; border:1px solid #ddd; border-radius:12px;
+    background:#fff; color:#777; font-size:19px; box-shadow:0 2px 3px #ddd;
+  }
+  .editor-links { display:flex; gap:17px; margin-top:25px; color:#aaa; font-size:17px; font-weight:700; }
+  .editor-links button { border:0; background:none; padding:0; text-decoration:underline; color:#aaa; }
+  .editor-footer {
+    background:#f5f5f5; border-top:1px solid #e6e6e6; height:78px;
+    display:flex; align-items:center; justify-content:flex-end; gap:22px; padding:0 28px;
+  }
+  .cancel { border:0; background:transparent; color:#999; font-size:17px; font-weight:600; }
+  .save {
+    border:0; width:111px; height:56px; background:var(--button-dark);
+    color:#fff; border-radius:13px; font-size:17px; font-weight:700;
+    box-shadow:0 2px 3px rgba(0,0,0,.2);
+  }
+  .summary {
+    margin-top:39px; height:90px; background:rgba(255,255,255,.12);
+    display:flex; justify-content:center; align-items:center; gap:24px;
+    color:rgba(255,255,255,.75); font-size:19px;
+  }
+  .summary b { color:#fff; font-size:27px; }
+  .article {
+    margin-top:72px; background:#fff; color:#4c2328; padding:45px 20px 70px;
+    line-height:1.8; font-size:18px;
+  }
+  .article h1 { font-size:28px; line-height:1.45; margin:0 0 42px; }
+  .article h2 { font-size:23px; margin:32px 0 12px; }
+  .article p { color:#806f70; }
+  .article a { color:#c24956; font-weight:bold; }
+  .toast {
+    display:none; position:fixed; z-index:5; left:50%; bottom:25px; transform:translateX(-50%);
+    background:white; color:#222; padding:18px 20px; border-radius:8px;
+    box-shadow:0 3px 14px #3335; min-width:320px; display:none;
+    align-items:center; justify-content:space-between; gap:15px;
+  }
+  .toast.show { display:flex; }
+  .toast button { border:0; color:white; background:#53aa91; padding:12px 16px; border-radius:5px; }
+  @media (max-width:560px) {
+    .topbar { height:72px; padding:0 11px; }
+    .brand { font-size:21px; gap:5px; }
+    .brand-mark { width:21px;height:21px;font-size:16px; }
+    .tools { gap:6px; }
+    .tool { width:38px;height:38px; }
+    .tool svg { width:21px;height:21px; }
+    .timer-wrap { margin:36px 12px 0; }
+    .timer-card { height:340px; padding:20px 8px 22px; }
+    .mode { font-size:14px; padding:7px 9px; }
+    .clock { font-size:clamp(75px, 21vw, 112px); margin:28px 0 22px; letter-spacing:-3px; }
+    .main-action { width:58%; height:66px; font-size:20px; }
+    .session { margin-top:21px; font-size:16px; min-height:58px; }
+    .session strong { font-size:16px; }
+    .task-area { margin:0 12px; }
+    .section-heading { height:48px; font-size:18px; }
+    .more { width:39px;height:39px;font-size:24px; }
+    .add-task { height:75px; margin-top:19px; font-size:17px; }
+    .task-row { min-height:62px; padding:9px; gap:8px; }
+    .task-title { font-size:16px; }
+    .task-count { font-size:14px; }
+    .editor-main { padding:18px 16px; }
+    .task-input { height:54px; font-size:19px; }
+    .est-label { font-size:16px; margin-top:17px; }
+    .estimate,.step { height:45px; }
+    .estimate { width:85px; }
+    .step { width:45px; }
+    .editor-footer { height:65px; padding:0 16px; }
+    .summary { font-size:14px; gap:10px; height:68px; }
+    .summary b { font-size:19px; }
+  }
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">✓</span>Pomofocus</div>
+    <nav class="tools" aria-label="Tools">
+      <button class="tool btn" title="Report" aria-label="Report">
+        <svg viewBox="0 0 24 24"><path d="M3 4h18v16H3z"/><path d="M7 16v-4h3v4M14 16V8h3v8M6 8h2"/></svg>
+      </button>
+      <button class="tool btn" title="Settings" aria-label="Settings">
+        <svg viewBox="0 0 24 24"><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4"/><circle cx="12" cy="12" r="5"/></svg>
+      </button>
+      <button class="tool btn" title="Profile" aria-label="Profile">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="9" r="3"/><path d="M6.5 19c.5-3 2.4-4.5 5.5-4.5s5 1.5 5.5 4.5"/></svg>
+      </button>
+      <button class="tool btn" title="More" aria-label="More"><span class="dots">⋮</span></button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="timer-wrap">
+      <div class="timer-card">
+        <div class="modes">
+          <button class="mode active btn" data-mode="pomodoro">Pomodoro</button>
+          <button class="mode btn" data-mode="short">Short Break</button>
+          <button class="mode btn" data-mode="long">Long Break</button>
+        </div>
+        <div class="clock" id="clock">25:00</div>
+        <div class="timer-actions">
+          <button class="main-action btn" id="timerButton">START</button>
+          <button class="skip btn" id="skipButton" aria-label="Skip">▶|</button>
+        </div>
+      </div>
+      <div class="session"><strong>#1</strong><span id="sessionText">Time to focus!</span></div>
+    </section>
+
+    <section class="task-area">
+      <div class="section-heading">
+        <span>Tasks</span>
+        <button class="more btn" id="moreButton" aria-label="Task options">⋮</button>
+      </div>
+      <div class="task-menu" id="taskMenu">
+        <button class="menu-item btn" id="clearDone">▧ &nbsp; Clear finished tasks</button>
+        <button class="menu-item btn" id="clearAll">▧ &nbsp; Clear all tasks</button>
+        <button class="menu-item btn" id="addRoutine">＋ &nbsp; Add from routines</button>
+      </div>
+      <div class="task-list" id="taskList"></div>
+      <button class="add-task btn" id="addTaskButton"><span class="plus-circle">+</span>Add Task</button>
+      <div class="editor" id="editor">
+        <div class="editor-main">
+          <input class="task-input" id="taskInput" placeholder="What are you working on?" autocomplete="off">
+          <div class="est-label">Est Pomodoros</div>
+          <div class="est-controls">
+            <input class="estimate" id="estimate" type="number" min="1" value="1">
+            <button class="step btn" id="estUp" aria-label="Increase estimate">▲</button>
+            <button class="step btn" id="estDown" aria-label="Decrease estimate">▼</button>
+          </div>
+          <div class="editor-links">
+            <button class="btn" type="button">+ Add Note</button>
+            <button class="btn" type="button">+ Add Project&nbsp; 🔒</button>
+          </div>
+        </div>
+        <div class="editor-footer">
+          <button class="cancel btn" id="cancelEdit">Cancel</button>
+          <button class="save btn" id="saveTask">Save</button>
+        </div>
+      </div>
+      <div class="summary">
+        <span>Pom os: <b id="pomCount">0 / 0</b></span>
+        <span>Finish At: <b id="finishAt">14:57</b> (0h)</span>
+      </div>
+    </section>
+
+    <article class="article">
+      <h1>An online Pomodoro Timer to boost your productivity</h1>
+      <h2>What is Pomofocus?</h2>
+      <p>Pomofocus is a customizable pomodoro timer that works on desktop &amp; mobile browser. The aim of this app is to help you focus on any task you are working on, such as study, writing, or coding. This app is inspired by <a href="#" class="btn">Pomodoro Technique</a> which is a time management method developed by Francesco Cirillo.</p>
+      <h2>What is the Pomodoro Technique?</h2>
+      <p>The Pomodoro Technique is a time management method that uses a timer to break work into focused intervals.</p>
+    </article>
+  </main>
+  <div class="toast" id="toast"><span>You've finished all your tasks for today 🎉</span><button class="btn" id="clearToast">Clear Tasks</button></div>
+</div>
+<script>
+(() => {
+  const app = document.getElementById('app');
+  const clock = document.getElementById('clock');
+  const timerButton = document.getElementById('timerButton');
+  const skipButton = document.getElementById('skipButton');
+  const sessionText = document.getElementById('sessionText');
+  const editor = document.getElementById('editor');
+  const taskInput = document.getElementById('taskInput');
+  const estimate = document.getElementById('estimate');
+  const taskList = document.getElementById('taskList');
+  const modes = [...document.querySelectorAll('.mode')];
+  const lengths = { pomodoro: 25, short: 5, long: 15 };
+  let mode = 'pomodoro', seconds = 25 * 60, running = false, ticker = null;
+  let tasks = [], editIndex = -1, pomodoros = 0, session = 1;
+
+  function setColor(selected) {
+    const colors = { pomodoro:'#b13b4d', short:'#856064', long:'#408b8d' };
+    app.style.setProperty('--primary', colors[selected]);
+    document.documentElement.style.background = colors[selected];
+    document.body.style.background = colors[selected];
+  }
+  function renderClock() {
+    clock.textContent = String(Math.floor(seconds / 60)).padStart(2,'0') + ':' + String(seconds % 60).padStart(2,'0');
+  }
+  function chooseMode(next) {
+    if (running) stopTimer();
+    mode = next;
+    seconds = lengths[mode] * 60;
+    modes.forEach(button => button.classList.toggle('active', button.dataset.mode === mode));
+    setColor(mode);
+    sessionText.textContent = mode === 'pomodoro' ? 'Time to focus!' : 'Time for a break!';
+    renderClock();
+  }
+  function stopTimer() {
+    running = false;
+    clearInterval(ticker);
+    timerButton.textContent = 'START';
+    skipButton.classList.remove('show');
+  }
+  function completeTimer() {
+    stopTimer();
+    if (mode === 'pomodoro') {
+      pomodoros++;
+      session++;
+      sessionText.textContent = 'Time for a break!';
+      chooseMode(pomodoros % 4 === 0 ? 'long' : 'short');
+    } else {
+      sessionText.textContent = 'Time to focus!';
+      chooseMode('pomodoro');
+    }
+    document.querySelector('.session strong').textContent = '#' + session;
+  }
+  modes.forEach(button => button.addEventListener('click', () => chooseMode(button.dataset.mode)));
+  timerButton.addEventListener('click', () => {
+    if (!running) {
+      running = true;
+      timerButton.textContent = 'PAUSE';
+      skipButton.classList.add('show');
+      ticker = setInterval(() => {
+        if (seconds > 0) { seconds--; renderClock(); }
+        else completeTimer();
+      }, 1000);
+    } else stopTimer();
+  });
+  skipButton.addEventListener('click', completeTimer);
+
+  function openEditor(index = -1) {
+    editIndex = index;
+    editor.classList.add('open');
+    if (index >= 0) {
+      taskInput.value = tasks[index].title;
+      estimate.value = tasks[index].estimate;
+    } else {
+      taskInput.value = '';
+      estimate.value = 1;
+    }
+    document.getElementById('addTaskButton').style.display = 'none';
+    taskInput.focus();
+  }
+  function closeEditor() {
+    editor.classList.remove('open');
+    document.getElementById('addTaskButton').style.display = '';
+    editIndex = -1;
+  }
+  document.getElementById('addTaskButton').addEventListener('click', () => openEditor());
+  document.getElementById('cancelEdit').addEventListener('click', closeEditor);
+  document.getElementById('saveTask').addEventListener('click', () => {
+    const title = taskInput.value.trim();
+    if (!title) { taskInput.focus(); return; }
+    const item = { title, estimate: Math.max(1, parseInt(estimate.value,10) || 1), done:false };
+    if (editIndex >= 0) tasks[editIndex] = item;
+    else tasks.push(item);
+    closeEditor();
+    renderTasks();
+  });
+  document.getElementById('estUp').addEventListener('click', () => estimate.value = (+estimate.value || 1) + 1);
+  document.getElementById('estDown').addEventListener('click', () => estimate.value = Math.max(1, (+estimate.value || 1) - 1));
+  taskInput.addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('saveTask').click(); });
+
+  function renderTasks() {
+    taskList.innerHTML = '';
+    tasks.forEach((task, index) => {
+      const row = document.createElement('div');
+      row.className = 'task-row' + (task.done ? ' done' : '');
+      const check = document.createElement('button');
+      check.className = 'complete btn';
+      check.textContent = task.done ? '✓' : '✓';
+      check.setAttribute('aria-label','Complete task');
+      check.addEventListener('click', () => { task.done = !task.done; renderTasks(); });
+      const title = document.createElement('span');
+      title.className = 'task-title';
+      title.textContent = task.title;
+      title.addEventListener('click', () => openEditor(index));
+      const count = document.createElement('span');
+      count.className = 'task-count';
+      count.textContent = '0 / ' + task.estimate;
+      const options = document.createElement('button');
+      options.className = 'task-options btn';
+      options.textContent = '⋮';
+      options.setAttribute('aria-label','Edit task');
+      options.addEventListener('click', () => openEditor(index));
+      row.append(check, title, count, options);
+      taskList.appendChild(row);
+    });
+    const total = tasks.reduce((sum,t) => sum + t.estimate, 0);
+    document.getElementById('pomCount').textContent = pomodoros + ' / ' + total;
+    document.getElementById('toast').classList.toggle('show', tasks.length > 0 && tasks.every(t => t.done));
+  }
+  document.getElementById('moreButton').addEventListener('click', () => document.getElementById('taskMenu').classList.toggle('open'));
+  document.getElementById('clearDone').addEventListener('click', () => {
+    tasks = tasks.filter(task => !task.done);
+    renderTasks();
+    document.getElementById('taskMenu').classList.remove('open');
+  });
+  document.getElementById('clearAll').addEventListener('click', () => {
+    tasks = []; renderTasks(); document.getElementById('taskMenu').classList.remove('open');
+  });
+  document.getElementById('addRoutine').addEventListener('click', () => {
+    tasks.push({title:'My routine task', estimate:1, done:false});
+    renderTasks(); document.getElementById('taskMenu').classList.remove('open');
+  });
+  document.getElementById('clearToast').addEventListener('click', () => { tasks=[]; renderTasks(); });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+{
+  "total_step": 4,
+  "success_step": 1,
+  "screenshot_paths_to_eval": [
+    "outputs/49/gpt-6-luna_setting3/evalpoints/0.png",
+    "outputs/49/gpt-6-luna_setting3/evalpoints/0.png"
+  ],
+  "all_mllm_scores": [
+    0.82,
+    0.53
+  ],
+  "all_dino_scores": [
+    0.94677734375,
+    0.8916015625
+  ],
+  "all_ocr_scores": [
+    0.7297101449275363,
+    0.2630023640661938
+  ],
+  "all_avg_scores": [
+    0.8321624962258453,
+    0.5615346421887313
+  ],
+  "mllm_score": 0.675,
+  "dino_score": 0.919189453125,
+  "ocr_score": 0.49635625449686505,
+  "avg_score": 0.6968485692072883,
+  "all_mllm_res": [
+    "---\nComments:\n-Layout (6/10): The page width, header, and main text column align closely. However, the infographic is positioned beside the introductory copy in the reference and much lower, beside the article section, in the generated page.\n-Elements (12/15): The title, navigation, author line, buttons, article metadata, and infographic are all present. Their relative placement differs, especially for the infographic and article heading.\n-Content and Text (37/40): The visible copy is very similar, including the introduction, section heading, and article paragraphs. Minor differences in line wrapping and vertical spacing are present.\n-Style (13/15): Both pages use a similar restrained serif typography, off-white background, fine rules, and outlined buttons. The generated page’s text and infographic appear slightly different in scale and rendering.\n-Overall (14/20): The generated page captures the reference’s overall appearance and content well, but the infographic’s substantially different position is a prominent mismatch.\n\nScore: 82/100\n---",
+    "---\nComments:\n-Layout (10 points): Both pages use a narrow article column alongside an infographic, but the visible sections and page positions differ substantially. The first image is scrolled down to late 2025 and includes a fixed timeline on the left; the second shows the page header, introduction, and start of the mid-2025 section. **4/10**\n-Elements (15 points): The article text and matching agent infographic are shared. However, the first view lacks the header, navigation links, intro buttons, and publication details visible in the second; it adds a timeline sidebar instead. **8/15**\n-Content and Text (40 points): The text about AI agents and the infographic clearly correspond to the same article, with some matching passage content. But the screenshots show different points in the article: the first focuses on later paragraphs and the “Late 2025” section, while the second shows the introduction and “Mid 2025” section. **21/40**\n-Style (15 points): Both use a light background, serif typography, restrained colors, and a minimalist editorial style. The first image’s layout and timeline treatment differ from the second’s centered page header and more open introductory layout. **11/15**\n-Overall (20 points): There is a recognizable match in the article, typography, and infographic, but the different scroll positions and visible page structure make the screenshots only a partial visual match. **9/20**\n\nScore: **53/100**\n---"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "AI 2027 Summary Research About Daniel Kokotajlo, Scott Alexander; Thomas Larsen Eli Lifland, Romeo Dean We predict that the impact of superhuman Al over the next decade will be 2025 Unreliable #Gent cnormous exceeding that of the Industrial Revolution. We wrote a scenario that represents Our best guess about what that might look like. Eho It'$ informed by trend extrapolations, wargames, expert fcedback, experience at OpenAI, and previous forecasting successes. Hacking b1040apons coding Robotict What is this? How did we Write it? Why is it valuable? Who are we? Politici Fof#casting 080 Unreliable ARent copies Ehiakina JE Bx hutun speed Plbaasned aro 2075 PDt E) Lestem Matcn #prore] Rrutuur Maltllen LE4u LAt Dlamlmta Mid 2025: Stumbling Agents 257 S8B/yr 54138 53088/yr 2042 Cucrently Exists Erefring Science Ficeion OOcoooo 90be0 BOdddo8ddo The world sccs its first glimpse of Al agents Advertisements for computer-using agents the term 'personal assistant\" you can prompt them with tasks like \"order me a burrito on DoorDash O1 my budget spreadsheet and sum this month $ expenses: will check in with you as needed: for example; to ask you to confirm purchases' Though mOFC advanced than previous iterations like Qperator; struggle to get widespread usage. Meanwhile, out of focus, more specialized coding and research agents are Hay Fri] emphasize ~open They they public",
+      "screenshot_text": "AI 2027 Summary Research About Daniel Kokotajlo, Scott Alexander; Thomas Larsen; Eli Lifland, Romeo Dean We predict that the impact of superhuman AI over the next decade will be enormous, exceeding that of the Industrial Revolution We wrote a scenario that represents our best guess about what that might look like: It's informed by trend extrapolations, wargames, expert feedback; experience at OpenAI, and previous forecasting successes.2 What is this? How did we write it? Why is it valuable? Who are we? Published April 3rd 2025 PDF Listen Hatch Mid 2025: Stumbling Agents 7025 ellable The world sees its first glimpse of Al agents. Advertisements for computer-using agents emphasize the term \"\"personal assistant\" : YOU can prompt them with tasks like \"order me a burrito on DoorDash\" a [ E my budget spreadsheet and sum this month 's expenses will check in with you as needed; for example; to ask YOU to confirm purchases 8 Though more advanced than previous iterations like Qperator; they struggle to get widespread usage. E Meanwhile, out of public focus, more specialized coding and research agents are beginning to transform their professions. \"open They $dbnt",
+      "similarity": 0.7297101449275363
+    },
+    {
+      "checkpoint_text": "widespread usage. Mid 2025 Sep 2025 Late 2025 Meanwhile, out of focus mOfc 'specialized coding and research agents are Unreliable Agent beginning to transform their professions Dec 2024 2026 The Als of 2024 could follow instructions: 'could tumn bullet into emails, and simple requests into code. In 2025, Als function more like Hacking Bioweapons Mid 2026 employees: AIs incrcasingly look like autonomous agents rather than mcrc Coding Rodotics Late 2026 assistants: instructions via Slack o Teams and making substantial code Politics Forecasting Jan 2027 changes on their own , sometimes hours O even Research agents 5,000 Unreliable Aeent (Dpies {hinking j 10x hutan half an hour scouring the Internet to answer YOUr question. Feb Aproval Revcnur Valualiu Inat tar Dlatele ! Mnc] The agents are impressive in (and in ~picked examples) , but in 257 S12B/yr S6108 $3518/yr 2041 Mar practice unreliable: Al twitter is full of stories about tasks bungled in some Currently [xists EMereing Icch sience Fiction particularly hilarious way: The better agents are also expensive; You get what YOu Oocooooo Ood8 JOo00O0 April Pay for; and thc best performance costs hundreds of dollars a month \" Still, many companics find ways to fit Al agents into their workflows \" May June Late 2025: The World $ Most Expensive AI OpenBrain is building the biggest datacenters the world has cver scen: (To avoid singling out any one existing company; We' re going to describe a fictional utificial gcncrlintclligcncc company; which we'Il call OpenBrain We Sep imagine the others to be 3-9 months behind OpenBrain ) Oct public 'specific they points working Coding taking days: spend saving #Dard thcory cherry Aug",
+      "screenshot_text": "AI 2027 Summary Research About Daniel Kokotajlo, Scott Alexander; Thomas Larsen; Eli Lifland, Romeo Dean We predict that the impact of superhuman AI over the next decade will be enormous, exceeding that of the Industrial Revolution We wrote a scenario that represents our best guess about what that might look like: It's informed by trend extrapolations, wargames, expert feedback; experience at OpenAI, and previous forecasting successes.2 What is this? How did we write it? Why is it valuable? Who are we? Published April 3rd 2025 PDF Listen Hatch Mid 2025: Stumbling Agents 7025 ellable The world sees its first glimpse of Al agents. Advertisements for computer-using agents emphasize the term \"\"personal assistant\" : YOU can prompt them with tasks like \"order me a burrito on DoorDash\" a [ E my budget spreadsheet and sum this month 's expenses will check in with you as needed; for example; to ask YOU to confirm purchases 8 Though more advanced than previous iterations like Qperator; they struggle to get widespread usage. E Meanwhile, out of public focus, more specialized coding and research agents are beginning to transform their professions. \"open They $dbnt",
+      "similarity": 0.2630023640661938
+    }
+  ],
+  "assertion_results": [
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/49/gpt-6-luna_setting3/evalpoints/0.png",
+      "curr_img_path": "outputs/49/gpt-6-luna_setting3/evalpoints/1.png",
+      "response": "{\"think\":\"The current screenshot shows a vertical line with dated markers and labels along the far left, while the previous screenshot did not. This is a timeline.\",\"result\":\"Yes\"}",
+      "assertion": "A timeline appears on the left.",
+      "thinking": "The current screenshot shows a vertical line with dated markers and labels along the far left, while the previous screenshot did not. This is a timeline."
+    },
+    {
+      "result": "No",
+      "prev_img_path": "outputs/49/gpt-6-luna_setting3/evalpoints/1.png",
+      "curr_img_path": "outputs/49/gpt-6-luna_setting3/evalpoints/2.png",
+      "response": "{\"think\":\"The right-side chart appears to be the same in both screenshots and its label reads “May 2025,” not “May 2026.”\",\"result\":\"No\"}",
+      "assertion": "The right side shows the data chart for 'May 2026'",
+      "thinking": "The right-side chart appears to be the same in both screenshots and its label reads “May 2025,” not “May 2026.”"
+    },
+    {
+      "result": "No",
+      "prev_img_path": "outputs/49/gpt-6-luna_setting3/evalpoints/2.png",
+      "curr_img_path": "outputs/49/gpt-6-luna_setting3/evalpoints/3.png",
+      "response": "{\"think\":\"The right-side chart appears unchanged and is labeled with dates such as May 2025 and Dec 2024, not Feb 2027.\",\"result\":\"No\"}",
+      "assertion": "The right side shows the data chart for 'Feb 2027'",
+      "thinking": "The right-side chart appears unchanged and is labeled with dates such as May 2025 and Dec 2024, not Feb 2027."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/49/gpt-6-luna_setting3/evalpoints/3.png",
+      "curr_img_path": "outputs/49/gpt-6-luna_setting3/evalpoints/4.png",
+      "response": "{\"think\":\"The current screenshot’s right-side chart is labeled “Oct 2027,” matching the assertion.\",\"result\":\"Yes\"}",
+      "assertion": "The right side shows the data chart for 'Oct 2027'",
+      "thinking": "The current screenshot’s right-side chart is labeled “Oct 2027,” matching the assertion."
+    }
+  ]
+}

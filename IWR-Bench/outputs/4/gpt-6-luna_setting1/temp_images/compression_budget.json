@@ -1,0 +1,167 @@
+{
+  "setting": 1,
+  "unit": "estimated image input tokens",
+  "profile": {
+    "reference_model": "gpt-5.6-luna",
+    "assumed_for": "gpt-6-luna",
+    "assumption_not_officially_verified": true,
+    "detail": "original",
+    "patch_size": 32,
+    "token_multiplier": 1.2,
+    "max_dimension": 65535,
+    "max_patches": 30000
+  },
+  "target_retained_fraction": 0.6,
+  "baseline": "each original screenshot",
+  "source_estimated_tokens": 23040,
+  "output_estimated_tokens": 13620,
+  "retained_token_fraction": 0.5911458333333334,
+  "source_pixels": 19384320,
+  "output_pixels": 11266944,
+  "allocations": [
+    {
+      "source_size": [
+        2560,
+        1262
+      ],
+      "source_pixels": 3230720,
+      "source_patches": 3200,
+      "source_estimated_tokens": 3840,
+      "target_estimated_tokens": 2304,
+      "effective_target_estimated_tokens": 2304,
+      "minimum_patch_limited": false,
+      "profile_cap_limited": false,
+      "output_size": [
+        1952,
+        962
+      ],
+      "output_pixels": 1877824,
+      "output_patches": 1891,
+      "output_estimated_tokens": 2270,
+      "retained_token_fraction": 0.5911458333333334,
+      "rounding_shortfall_tokens": 34,
+      "output": "screenshot_0.png",
+      "index": 0
+    },
+    {
+      "source_size": [
+        2560,
+        1262
+      ],
+      "source_pixels": 3230720,
+      "source_patches": 3200,
+      "source_estimated_tokens": 3840,
+      "target_estimated_tokens": 2304,
+      "effective_target_estimated_tokens": 2304,
+      "minimum_patch_limited": false,
+      "profile_cap_limited": false,
+      "output_size": [
+        1952,
+        962
+      ],
+      "output_pixels": 1877824,
+      "output_patches": 1891,
+      "output_estimated_tokens": 2270,
+      "retained_token_fraction": 0.5911458333333334,
+      "rounding_shortfall_tokens": 34,
+      "output": "screenshot_1.png",
+      "index": 1
+    },
+    {
+      "source_size": [
+        2560,
+        1262
+      ],
+      "source_pixels": 3230720,
+      "source_patches": 3200,
+      "source_estimated_tokens": 3840,
+      "target_estimated_tokens": 2304,
+      "effective_target_estimated_tokens": 2304,
+      "minimum_patch_limited": false,
+      "profile_cap_limited": false,
+      "output_size": [
+        1952,
+        962
+      ],
+      "output_pixels": 1877824,
+      "output_patches": 1891,
+      "output_estimated_tokens": 2270,
+      "retained_token_fraction": 0.5911458333333334,
+      "rounding_shortfall_tokens": 34,
+      "output": "screenshot_2.png",
+      "index": 2
+    },
+    {
+      "source_size": [
+        2560,
+        1262
+      ],
+      "source_pixels": 3230720,
+      "source_patches": 3200,
+      "source_estimated_tokens": 3840,
+      "target_estimated_tokens": 2304,
+      "effective_target_estimated_tokens": 2304,
+      "minimum_patch_limited": false,
+      "profile_cap_limited": false,
+      "output_size": [
+        1952,
+        962
+      ],
+      "output_pixels": 1877824,
+      "output_patches": 1891,
+      "output_estimated_tokens": 2270,
+      "retained_token_fraction": 0.5911458333333334,
+      "rounding_shortfall_tokens": 34,
+      "output": "screenshot_3.png",
+      "index": 3
+    },
+    {
+      "source_size": [
+        2560,
+        1262
+      ],
+      "source_pixels": 3230720,
+      "source_patches": 3200,
+      "source_estimated_tokens": 3840,
+      "target_estimated_tokens": 2304,
+      "effective_target_estimated_tokens": 2304,
+      "minimum_patch_limited": false,
+      "profile_cap_limited": false,
+      "output_size": [
+        1952,
+        962
+      ],
+      "output_pixels": 1877824,
+      "output_patches": 1891,
+      "output_estimated_tokens": 2270,
+      "retained_token_fraction": 0.5911458333333334,
+      "rounding_shortfall_tokens": 34,
+      "output": "screenshot_4.png",
+      "index": 4
+    },
+    {
+      "source_size": [
+        2560,
+        1262
+      ],
+      "source_pixels": 3230720,
+      "source_patches": 3200,
+      "source_estimated_tokens": 3840,
+      "target_estimated_tokens": 2304,
+      "effective_target_estimated_tokens": 2304,
+      "minimum_patch_limited": false,
+      "profile_cap_limited": false,
+      "output_size": [
+        1952,
+        962
+      ],
+      "output_pixels": 1877824,
+      "output_patches": 1891,
+      "output_estimated_tokens": 2270,
+      "retained_token_fraction": 0.5911458333333334,
+      "rounding_shortfall_tokens": 34,
+      "output": "screenshot_5.png",
+      "index": 5
+    }
+  ]
+}

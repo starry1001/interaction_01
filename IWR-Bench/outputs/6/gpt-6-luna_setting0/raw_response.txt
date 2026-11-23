@@ -1,0 +1,202 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Walt Disney World</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;font-family:Arial,Helvetica,sans-serif;color:#243b59;background:#fff}
+  body{font-size:16px}
+  button,a{font:inherit}
+  .btn{cursor:pointer}
+  .topbar{height:75px;background:#21488b;color:#fff;position:relative;z-index:5}
+  .top-inner{width:960px;height:75px;margin:auto;position:relative}
+  .micro{font-size:12px;position:absolute;top:11px;left:0;opacity:.9}
+  .logo{position:absolute;left:0;bottom:10px;color:#fff;font-size:22px;font-style:italic;font-weight:bold;letter-spacing:-1px}
+  .nav{position:absolute;left:190px;bottom:17px;display:flex;gap:31px;font-size:15px;white-space:nowrap}
+  .nav .btn{color:#fff;text-decoration:none}
+  .account{position:absolute;right:0;top:10px;font-size:12px}
+  .search{margin-left:14px;width:185px;border-radius:20px;border:0;padding:7px 12px;font-size:11px}
+  .page{min-height:100vh}
+  .help{position:fixed;right:0;top:45%;width:78px;height:90px;background:linear-gradient(90deg,#e2eaff,#f8bfe4);border:4px solid #fff;border-radius:17px 0 0 17px;box-shadow:0 2px 12px #9998;z-index:20;color:#17375d;font-weight:bold;text-align:center;padding-top:14px}
+  .help-icon{font-size:24px;display:block;line-height:24px}
+  .home-hero{height:710px;position:relative;background:linear-gradient(#567ea999,#507d9b99),url("__PLACEHOLDER_ASSETS_BASE_DIR__/100.jpg") center/cover no-repeat;overflow:hidden}
+  .home-hero:after{content:"";position:absolute;inset:0;background:rgba(31,74,123,.22)}
+  .booking{height:90px;background:#fff;position:absolute;top:0;left:50%;transform:translateX(-50%);width:1300px;border-radius:0 0 24px 24px;z-index:2;display:flex;align-items:center;padding:18px 25px;gap:28px;box-shadow:0 3px 7px #5554}
+  .booking strong{font-size:16px;white-space:nowrap}
+  .booking-group{font-size:12px;color:#777;line-height:22px}
+  .booking-group b{font-size:16px;color:#344052;font-weight:normal}
+  .booking .counter{display:flex;gap:10px;align-items:center;font-size:18px;color:#26364e}
+  .circle{width:28px;height:28px;border:1px solid #294d87;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:22px;color:#294d87}
+  .rate-btn{margin-left:auto;background:#0bad29;color:#fff;border:0;border-radius:30px;padding:16px 43px;font-weight:bold}
+  .home-copy{position:absolute;z-index:2;top:270px;width:100%;text-align:center;color:#fff}
+  .home-copy h1{font-size:40px;margin:35px 0 48px}
+  .home-copy h2{font-size:30px;margin:0}
+  .pill{border:2px solid #fff;border-radius:30px;background:#148eb8dd;color:#fff;padding:18px 34px;margin:0 7px;font-weight:bold;min-width:280px}
+  .home-bottom{height:260px;border-radius:55px 55px 0 0;background:#fff;margin-top:-1px;position:relative;z-index:3;text-align:center;padding:60px}
+  .home-bottom h2{font-size:32px;margin:0}
+  .ticket-hero{height:502px;background:url("__PLACEHOLDER_ASSETS_BASE_DIR__/066.png") center/cover no-repeat;position:relative;color:#fff;text-align:center;padding-top:58px}
+  .ticket-hero:after{content:"";position:absolute;inset:0;background:rgba(8,55,125,.13)}
+  .ticket-hero>*{position:relative;z-index:1}
+  .crumb{font-size:14px;font-weight:bold}
+  .ticket-hero h1{font-size:42px;margin:8px 0}
+  .ticket-content{width:740px;margin:0 auto;padding:0 0 100px;color:#36404c;line-height:1.5}
+  .resident{text-align:center;height:120px;padding:58px 0 0;border-bottom:1px solid #ddd}
+  .intro{padding-top:50px}
+  .intro p{margin:0 0 30px}
+  .section-title{font-size:21px;font-weight:normal;margin:45px 0 27px}
+  .offer-card{height:385px;border:1px solid #ddd;border-radius:4px;box-shadow:0 2px 5px #aaa4;position:relative;display:flex;margin-bottom:26px;overflow:hidden}
+  .offer-card:before{content:"SPECIAL OFFER";width:34px;background:#58a91b;color:#fff;writing-mode:vertical-rl;transform:rotate(180deg);font-size:11px;font-weight:bold;display:flex;align-items:center;justify-content:center}
+  .offer-main{padding:55px 25px 20px;flex:1}
+  .offer-main h2{font-size:28px;margin:0 0 8px}
+  .offer-main ul{padding-left:22px;font-size:14px}
+  .offer-main li{margin-bottom:11px}
+  .offer-price{width:280px;padding:108px 20px;text-align:center;border-left:1px solid #eee}
+  .offer-price small{display:block}
+  .price{font-size:28px;font-weight:bold;margin:14px}
+  .blue-btn{background:#22a1d2;color:#fff;border:0;border-radius:28px;padding:14px 60px;font-weight:bold}
+  .link{color:#197ba8;text-decoration:none}
+  .modal-back{position:fixed;inset:0;background:#fffdfccf;z-index:30;display:flex;align-items:center;justify-content:center}
+  .modal{width:700px;height:670px;background:#fff;border:2px solid #b9bec4;position:relative;padding:30px;box-shadow:0 3px 12px #9995}
+  .modal h2{margin:0 0 38px;font-size:28px}
+  .modal-close{position:absolute;right:25px;top:27px;border:0;background:none;color:#1693ca;font-size:38px;line-height:25px}
+  .modal-scroll{height:570px;overflow-y:auto;padding-right:26px;color:#394654;font-size:17px;line-height:1.45}
+  .modal-scroll p{margin:0 0 25px}
+  .purchase{background:#fff}
+  .purchase .ticket-content{width:1000px}
+  .purchase-hero{height:270px;background:url("__PLACEHOLDER_ASSETS_BASE_DIR__/066.png") center/cover no-repeat}
+  .purchase-intro{text-align:center;padding:60px 0 40px}
+  .purchase-intro h1{font-size:34px;font-weight:normal}
+  .purchase-intro p{max-width:730px;margin:10px auto}
+  .purchase-section{border-top:1px solid #eee;padding:68px 0;text-align:center}
+  .purchase-section h2{font-size:30px;font-weight:normal}
+  .days{display:flex;justify-content:center;margin-top:55px}
+  .day{width:88px;height:125px;border:2px solid #1698d0;padding:4px;color:#173858}
+  .day circle,.day-num{width:70px;height:70px;background:#2b405c;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:40px;margin:auto}
+  .calendar-wrap{padding:40px 0 90px}
+  .calendar-head{text-align:center;margin-bottom:30px}
+  .calendar-head h2{font-size:31px;font-weight:normal}
+  .month-nav{display:flex;justify-content:center;gap:110px;font-weight:bold;margin:35px}
+  .calendar{display:grid;grid-template-columns:repeat(7,1fr);border-left:1px solid #b9bec7;border-top:1px solid #b9bec7}
+  .weekday{text-align:center;padding:10px;color:#38424e}
+  .cell{height:90px;border-right:1px solid #b9bec7;border-bottom:1px solid #b9bec7;position:relative;padding:8px;text-align:right;color:#a7abb0}
+  .cell.active{color:#4e5965}
+  .cell .cost{position:absolute;bottom:8px;left:0;right:0;text-align:center;color:#177ca0}
+  .cell.selected{background:#d4e9fb;border:2px solid #294765;color:#243b59}
+  .selection-info{background:#263f60;color:#fff;padding:16px 23px;display:flex;justify-content:space-between;line-height:1.6}
+  .ticket-count{padding:55px 0;text-align:center}
+  .ticket-count h2{font-size:30px;font-weight:normal}
+  .count-row{display:flex;justify-content:space-around;align-items:center;margin:70px 0}
+  .count-item{display:flex;align-items:center;gap:30px;font-size:38px}
+  .count-label{font-size:22px;font-weight:bold;text-align:left}
+  .count-label small{display:block;font-size:15px;font-weight:normal}
+  .count-control{border:2px solid #39a5d2;border-radius:50%;width:52px;height:52px;display:inline-flex;justify-content:center;align-items:center;color:#1692ca}
+  .details{border-top:1px solid #ddd;padding:65px 0;font-size:14px;text-align:left}
+  .details h3{margin:0 0 18px}
+  .current{background:#eef8ff;padding:65px 0}
+  .current-inner{width:740px;margin:auto}
+  .current h2{font-size:30px;margin-top:0}
+  .summary-line{display:flex;justify-content:space-between;border-bottom:1px solid #afb8bf;padding:17px 35px}
+  .subtotal{text-align:right;font-size:25px;font-weight:bold;padding-top:18px}
+  .green-btn{background:#59a719;color:#fff;border:0;border-radius:27px;padding:15px 90px;font-weight:bold}
+  .continue-area{text-align:right;margin-top:25px}
+  .cart-page{background:linear-gradient(#4bb5da,#1e9acd);min-height:100vh;padding-bottom:80px}
+  .cart-panel{width:940px;margin:0 auto;background:#fff;min-height:840px;padding:38px 10px 50px;border-radius:0 0 8px 8px}
+  .cart-panel h1{font-size:30px;font-weight:normal;margin:0 30px 75px}
+  .cart-banner{width:920px;height:110px;object-fit:cover;display:block;margin:0 auto 28px;border-radius:7px}
+  .cart-table-head{height:32px;background:#eaf7fc;text-align:right;padding:9px 70px;color:#7e8990;font-size:12px}
+  .cart-items{padding:15px 35px;border-bottom:1px solid #ddd}
+  .cart-title{font-size:17px;font-weight:bold;margin-bottom:18px}
+  .cart-item{display:grid;grid-template-columns:1fr 100px 70px 100px 25px;gap:12px;margin:20px 0;font-size:14px;align-items:start}
+  .cart-item strong{display:block}
+  .cart-item .detail{color:#555;line-height:1.5}
+  .cart-bottom{display:flex;justify-content:space-between;padding:25px 35px}
+  .compare{color:#2484ad}
+  .cart-total{text-align:right;min-width:260px}
+  .cart-total div{margin:10px}
+  .cart-total strong{font-size:28px}
+  .cart-actions{margin-top:25px}
+  .save{border:1px solid #ccd4d9;background:#f7fafb;border-radius:22px;padding:12px 30px;margin-right:10px;color:#71808a}
+  .cart-continue{border:0;background:#087b42;color:#fff;border-radius:25px;padding:14px 42px;font-weight:bold}
+  .hidden{display:none!important}
+  @media(max-width:900px){
+    .top-inner,.ticket-content,.purchase .ticket-content,.current-inner{width:92%}
+    .nav{left:150px;gap:10px;font-size:11px}
+    .booking{width:96%;gap:10px}
+    .cart-panel{width:96%}.cart-banner{width:100%}
+  }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div class="help btn" onclick="alert('How can we help?')"><span class="help-icon">☷</span>Help</div>
+
+<script>
+const A='__PLACEHOLDER_ASSETS_BASE_DIR__/';
+const app=document.getElementById('app');
+let selectedDate=false;
+
+function header(){
+ return `<header class="topbar"><div class="top-inner">
+  <span class="micro">Visit Disney.com</span><div class="logo">Walt Disney World</div>
+  <nav class="nav">
+   <a class="btn" onclick="showHome()">Tickets & Parks</a><a class="btn">Places to Stay</a><a class="btn">Things to Do</a><a class="btn">Shop</a><a class="btn">Help & Rules</a><a class="btn">🛒 Cart</a><a class="btn">◉ My Disney Experience</a>
+  </nav><span class="account">United States (English)　<input class="search" placeholder="Search or ask a question"></span>
+ </div></header>`;
+}
+function showHome(){
+ app.innerHTML=`${header()}<main class="page">
+ <section class="home-hero">
+  <div class="booking"><strong>Build Your Vacation</strong><div class="booking-group">Dates<br><b>Check In　 -　 Check Out　 ▣</b></div><div class="booking-group">Adults (18+)<div class="counter"><span class="circle">−</span>2<span class="circle">+</span></div></div><div class="booking-group">Children<div class="counter"><span class="circle">−</span>0<span class="circle">+</span></div></div><div class="booking-group">All Resort Hotels<br><b>All Resort Hotels　⌄</b></div><div>□ Accessible Rooms</div><button class="rate-btn btn">View Rates</button></div>
+  <div class="home-copy"><h2>Welcome to</h2><h1>The Most Magical Place On Earth</h1><button class="pill btn" onclick="showTickets()">▦　Explore Resort Hotels</button><button class="pill btn" onclick="showTickets()">▣　Get Tickets</button></div>
+ </section><section class="home-bottom"><h2>Save with Special Offers</h2></section></main>`;
+}
+function showTickets(){
+ app.innerHTML=`${header()}<main class="page tickets">
+ <section class="ticket-hero"><div class="crumb">⌂ Home › Admission</div><h1>Walt Disney World Theme Park Tickets</h1></section>
+ <div class="resident">Special tickets and prices may be available for Florida Residents. <a class="link btn">Log in</a></div>
+ <div class="ticket-content"><section class="intro"><p>Discover 4 amazing theme parks and 2 water parks near Orlando, Florida—providing plenty of fun for a multi-day stay. Walt Disney World ticket prices below are for a one-day ticket (unless otherwise noted) before tax, for ages 10+.</p><p>To view or make changes to tickets you've already purchased, visit <a class="link btn">My Plans</a>.</p></section>
+ <h2 class="section-title">Special Offers</h2>
+ <div class="offer-card"><div class="offer-main"><h2>3-Day, 3-Park Ticket</h2><ul><li>Admission to <b>Disney’s Hollywood Studios, EPCOT and Disney’s Animal Kingdom theme park only.</b> One admission per theme park. One theme park per day.</li><li><b>Does not include Magic Kingdom park.</b></li><li>Valid for start dates from April 6 through September 22, 2025. Ticket must be used within 5 days of selected start date.</li></ul><a class="link btn" onclick="openDetails()">View Details</a></div><div class="offer-price"><small>3-day ticket (Ages 10+) from:</small><div class="price">$89.00 / Day</div><small>($267.00 per ticket)</small><button class="blue-btn btn" onclick="showPurchase()">Continue</button></div></div>
+ <div class="offer-card"></div></div></main>`;
+}
+function openDetails(){
+ const m=document.createElement('div');m.className='modal-back';m.id='modal';
+ m.innerHTML=`<div class="modal"><button class="modal-close btn" onclick="closeDetails()">×</button><h2>3-Day, 3-Park Ticket</h2><div class="modal-scroll">
+ <p>Guests can purchase a 3-Day, 3-Park Ticket to <b>Disney’s Hollywood Studios, EPCOT and Disney’s Animal Kingdom theme park only</b> starting at $89 per day, plus tax (total price starting at $267, plus tax). This is a date-based ticket with start dates from April 6 through September 22, 2025. Ticket must be used within 5 days of selected start date.</p>
+ <p>Limit one admission per theme park and one theme park per day—for a total of 3 admissions, on 3 separate days. Tickets may not be used to enter the same theme park more than once. <b>Not valid for admission to Magic Kingdom park.</b></p>
+ <p>This ticket <b>does not require theme park reservations</b> to enter the parks.</p>
+ <p>All tickets and options are nontransferable and nonrefundable, and exclude activities/events separately priced.</p>
+ <p>Admission is subject to capacity closures and other restrictions.</p>
+ <p>Parks, attractions and other offerings are subject to availability, closures and change or cancellation without notice or liability.</p>
+ <p><u><b>Available Options</b></u></p><p><b>Water Park and Sports option:</b> Visit one theme park per day, plus enjoy 3 visits to a water park or other Walt Disney World fun.</p>
+ <ul><li>A Walt Disney World water park</li><li>ESPN Wide World of Sports Complex</li><li>Disney’s Oak Trail Golf Course</li><li>FootGolf at Disney's Oak Trail</li></ul>
+ </div></div>`;
+ document.body.appendChild(m);
+}
+function closeDetails(){document.getElementById('modal')?.remove()}
+function showPurchase(){
+ app.innerHTML=`${header()}<main class="purchase"><div class="purchase-hero"></div><div class="ticket-content">
+ <section class="purchase-intro"><h1>3-Day, 3-Park Ticket</h1><p>Enjoy admission to <b>Disney’s Hollywood Studios, EPCOT and Disney’s Animal Kingdom theme park only.</b> Limit of one admission per theme park and one theme park per day. <b>Not valid for admission to Magic Kingdom park.</b></p><p>Ticket valid for start dates from April 6 through September 22, 2025. Ticket must be used within 5 days of the selected start date.</p><a class="link btn" onclick="openDetails()">View Details</a></section>
+ <section class="purchase-section"><h2>Select the Number of Days</h2><p>Price (USD) is per day, per ticket (Age 10+) before tax.</p><div class="days"><div class="day"><div class="day-num">3</div><small>From</small><br><b>$89</b><br><small>per day</small></div></div></section>
+ <section class="calendar-wrap"><div class="calendar-head"><h2>Choose the Start Date of Your 3-Day Ticket</h2><p>Calendar shows the price per day for 3-day ticket (Ages 10+).</p><a class="link btn">▣ See which month(s) offer the lowest price and check park hours and events</a></div><div class="month-nav"><span class="btn">‹</span><b>August <span style="font-weight:normal">2025</span></b><span class="btn">›</span></div><div class="calendar" id="calendar">${['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map(x=>`<div class="weekday">${x}</div>`).join('')}${calendarCells()}</div><div id="selection"></div></section>
+ <section class="ticket-count"><h2>Select the Number of Tickets</h2><p>Please note that children younger than age 3 don’t need a ticket.</p><div class="count-row"><div class="count-item"><div class="count-label">Ages 10+<small>$267.00/ticket</small></div><span class="count-control btn">−</span><span>1</span><span class="count-control btn">+</span></div><div class="count-item"><div class="count-label">Ages 3-9<small>$267.00/ticket</small></div><span class="count-control btn">−</span><span>0</span><span class="count-control btn">+</span></div></div><div class="details"><h3>Important Ticket Details</h3><p>▣　<b>Valid Ticket Dates</b><br>　　Your tickets are valid for admission to one theme park each day on any 3 days from Aug 28, 2025 through Sep 1, 2025. Tickets are nonrefundable.</p><p>♟　<b>3-Day, 3-Park Ticket Information</b><br>　　<b>Not valid for admission to Magic Kingdom park.</b> The 3-Day, 3-Park Ticket is valid for admission to Disney’s Hollywood Studios, EPCOT and Disney’s Animal Kingdom theme park only.</p></div></section></div>
+ <section class="current"><div class="current-inner"><h2>Current Selections</h2><b>Walt Disney World 3-Day 3-Park Ticket</b><br>Valid any 3 days from Thu, Aug 28, 2025 – Mon, Sep 1, 2025.<div class="summary-line"><span>1 × Ages 10+　($267.00/ticket)</span><span>$267.00</span></div><div class="subtotal">Subtotal $284.36 <small>USD</small></div><div class="continue-area"><button class="green-btn btn" onclick="showCart()">Continue</button></div></div></section></main>`;
+}
+function calendarCells(){
+ let s=''; for(let i=1;i<=31;i++){let cls=i>=25?'active':'';s+=`<div class="cell ${cls} btn" onclick="selectDate(this,${i})"><span>${i}</span>${i>=25?'<span class="cost">$89+</span>':''}</div>`}return s;
+}
+function selectDate(el,d){
+ document.querySelectorAll('.cell').forEach(x=>x.classList.remove('selected'));el.classList.add('selected');selectedDate=true;
+ document.getElementById('selection').innerHTML=`<div class="selection-info"><div><small>Tickets can be used on non-consecutive days!</small><br>Use any 3 days from Aug ${d}, 2025 – Sep 1, 2025.</div><div>From $89.00 /day × 3 days<br>From $267.00 /ticket (Ages 10+)</div></div>`;
+}
+function showCart(){
+ app.innerHTML=`${header()}<main class="cart-page"><div class="cart-panel"><h1>Your Cart <a class="link btn" style="float:right;font-size:14px">Retrieve a Different Cart</a></h1><img class="cart-banner" src="${A}041.png" width="920" height="110"><div class="cart-table-head">Unit Price　　 Quantity　　 Price</div><div class="cart-items"><div class="cart-title">🏷　 Theme Park Tickets</div><div class="cart-item"><div class="detail"><strong>Walt Disney World 3-Day 3-Park Ticket (Ages 10+)</strong>Valid any 3 days from Thu, Aug 28, 2025 through Mon, Sep 1, 2025.<br><a class="link btn">View Important Details</a></div><span>$ 267.00</span><span>1</span><span>$ 267.00</span><span class="btn">⊗</span></div><div class="cart-item"><div class="detail"><strong>Walt Disney World 3-Day 3-Park Ticket (Ages 10+)</strong>Valid any 3 days from Wed, Aug 27, 2025 through Sun, Aug 31, 2025.<br><a class="link btn">View Important Details</a></div><span>$ 267.00</span><span>2</span><span>$ 534.00</span><span class="btn">⊗</span></div></div><div class="cart-bottom"><div class="compare btn">▧ Compare Vacation Offers</div><div class="cart-total"><div>Tax　　　　　 $52.08</div><div><b>Subtotal　<strong>$853.08</strong> USD</b></div><div class="cart-actions"><button class="save btn">Save Cart</button><button class="cart-continue btn">Continue</button></div><small>🟢 See Important Details above.</small><br><br><small>Vacation Questions? Call 407-934-7639</small></div></div></div></main>`;
+}
+showHome();
+</script>
+</body>
+</html>
+```

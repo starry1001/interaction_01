@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome file — StackEdit</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; overflow: hidden; }
+  body { font-family: Arial, Helvetica, sans-serif; color: #333; background: #fff; }
+  .topbar {
+    height: 45px; position: absolute; inset: 0 0 auto 0; z-index: 5;
+    background: #292929; color: #ddd; display: flex; align-items: center;
+    padding: 0 8px; box-shadow: 0 1px 2px #777;
+  }
+  .tools { display: flex; height: 100%; align-items: center; gap: 2px; }
+  .btn {
+    border: 0; border-radius: 2px; height: 34px; min-width: 31px;
+    padding: 0 6px; display: inline-flex; align-items: center; justify-content: center;
+    background: transparent; color: #d5d5d5; font: 600 16px Arial, sans-serif;
+    cursor: pointer; user-select: none; text-decoration: none;
+  }
+  .btn:hover, .btn.active { color: #fff; background: #454545; }
+  .btn.folder { font-size: 23px; color: #bbb; }
+  .btn.slim { min-width: 25px; font-size: 15px; }
+  .toolbar-sep { width: 8px; }
+  .right-tools { margin-left: auto; display: flex; align-items: center; height: 100%; gap: 7px; }
+  .filename { font-size: 18px; color: #c6c6c6; padding: 0 12px; cursor: pointer; }
+  .filename:hover { color: white; }
+  .quiet { color: #888; font-size: 18px; }
+  .badge {
+    background: #eff5ba; color: #555; width: 29px; height: 32px; border-radius: 6px;
+    border: 2px solid #dfc139; font-size: 17px; font-weight: bold;
+  }
+  .workspace {
+    position: absolute; inset: 45px 0 35px 0; display: grid;
+    grid-template-columns: minmax(0, 1fr) 8px minmax(0, 1fr);
+  }
+  .editor-pane { background: #fff; overflow: hidden; position: relative; }
+  #editor {
+    position: absolute; inset: 0; width: 100%; height: 100%; resize: none; border: 0;
+    outline: none; overflow: auto; padding: 9px 100px 45px 138px;
+    color: #333; background: transparent; font: 18px/1.55 Arial, Helvetica, sans-serif;
+    white-space: pre-wrap; overflow-wrap: break-word; tab-size: 2;
+  }
+  .splitter {
+    background: #bcbcbc; position: relative; cursor: col-resize; z-index: 2;
+    box-shadow: 1px 0 2px #aaa, -1px 0 2px #ddd;
+  }
+  .split-tools {
+    position: absolute; top: 8px; left: 1px; display: flex; flex-direction: column;
+    gap: 6px; color: #999; font-size: 16px; align-items: center;
+  }
+  .split-tools button {
+    cursor: pointer; color: #999; border: 0; background: transparent; padding: 0;
+    font-size: 16px; line-height: 20px;
+  }
+  .preview-pane { background: #f4f4f4; overflow: auto; }
+  #preview {
+    max-width: 100%; padding: 9px 145px 60px 163px; color: #454545;
+    font-size: 18px; line-height: 1.58;
+  }
+  #preview h1, #preview h2, #preview h3, #preview h4 {
+    color: #3e3e3e; font-weight: 700; line-height: 1.25;
+    border-bottom: 1px solid #d2d2d2; padding-bottom: 18px;
+  }
+  #preview h1 { font-size: 36px; margin: 0 0 50px; }
+  #preview h2 { font-size: 30px; margin: 68px 0 50px; }
+  #preview h3 { font-size: 24px; margin: 52px 0 38px; }
+  #preview h4 { font-size: 20px; margin: 42px 0 28px; }
+  #preview p { margin: 0 0 38px; }
+  #preview ul, #preview ol { padding-left: 32px; }
+  #preview hr { border: 0; border-top: 1px solid #ccc; margin: 38px 0; }
+  #preview blockquote { margin-left: 0; padding-left: 18px; border-left: 4px solid #ccc; }
+  #preview code { background: #e6e6e6; padding: 2px 5px; }
+  .status {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 35px; z-index: 4;
+    background: #0788c6; color: white; font: 12px Arial, sans-serif;
+    display: flex; align-items: center; justify-content: space-between; padding: 0 9px;
+  }
+  .status strong { font-weight: 600; }
+  .toast {
+    position: absolute; z-index: 10; bottom: 42px; right: 16px; color: #fff;
+    background: #101010; border-radius: 3px; font: 12px Arial; padding: 10px 14px;
+    box-shadow: 0 1px 5px #555; display: none;
+  }
+  .file-menu {
+    position: absolute; display: none; z-index: 8; top: 45px; left: 0; width: 310px;
+    bottom: 35px; background: #333; color: #eee; box-shadow: 2px 0 8px #888;
+    padding: 18px; font-size: 16px;
+  }
+  .file-menu.open { display: block; }
+  .file-menu h3 { font-size: 19px; font-weight: 400; border-bottom: 1px solid #666; padding-bottom: 12px; }
+  .file-menu .item { padding: 10px 8px; cursor: pointer; }
+  .file-menu .item:hover { background: #4b4b4b; }
+  @media (max-width: 1000px) {
+    #editor { padding-left: 7vw; padding-right: 5vw; font-size: 15px; }
+    #preview { padding-left: 7vw; padding-right: 6vw; font-size: 15px; }
+    .filename { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="tools">
+    <button class="btn folder" id="explorerBtn" title="File explorer">▰</button>
+    <button class="btn slim" title="Undo" data-action="undo">↶</button>
+    <button class="btn slim" title="Redo" data-action="redo">↷</button>
+    <button class="btn" title="Bold" data-action="bold"><b>B</b></button>
+    <button class="btn" title="Italic" data-action="italic"><i>I</i></button>
+    <button class="btn" title="Heading" data-action="heading">tT</button>
+    <button class="btn" title="Strikethrough" data-action="strike"><span style="text-decoration:line-through">S</span></button>
+    <span class="toolbar-sep"></span>
+    <button class="btn" title="Bulleted list" data-action="ul">☷</button>
+    <button class="btn" title="Numbered list" data-action="ol">☷</button>
+    <button class="btn" title="Checklist" data-action="check">☑</button>
+    <button class="btn" title="Quote" data-action="quote">❞</button>
+    <button class="btn" title="Code" data-action="code">‹›</button>
+    <button class="btn" title="Table" data-action="table">▦</button>
+    <button class="btn" title="Link" data-action="link">♧</button>
+    <button class="btn" title="Image" data-action="image">▧</button>
+  </div>
+  <div class="right-tools">
+    <span class="filename btn" id="renameBtn">Welcome file</span>
+    <button class="btn quiet" title="Synchronize">↻</button>
+    <button class="btn quiet" title="Export">⬆</button>
+    <button class="btn badge" title="Achievements">♜</button>
+  </div>
+</header>
+
+<div class="file-menu" id="fileMenu">
+  <h3>File explorer</h3>
+  <div class="item">📄 &nbsp;Welcome file</div>
+  <div class="item">＋ &nbsp;New file</div>
+  <div class="item">▰ &nbsp;New folder</div>
+  <div class="item">✎ &nbsp;Rename</div>
+  <div class="item">▤ &nbsp;Remove</div>
+</div>
+
+<main class="workspace" id="workspace">
+  <section class="editor-pane">
+    <textarea id="editor" spellcheck="false" aria-label="Markdown editor"></textarea>
+  </section>
+  <div class="splitter" id="splitter">
+    <div class="split-tools">
+      <button class="btn" title="Toggle preview">▱</button>
+      <button class="btn" title="Split view">◫</button>
+      <button class="btn" title="Preview">◉</button>
+    </div>
+  </div>
+  <section class="preview-pane"><article id="preview"></article></section>
+</main>
+
+<footer class="status">
+  <span id="leftStatus">Markdown &nbsp; 0 bytes &nbsp; 0 words &nbsp; 0 lines &nbsp; Ln 1, Col 1</span>
+  <span id="rightStatus">HTML &nbsp; 0 characters &nbsp; 0 words &nbsp; 0 paragraphs</span>
+</footer>
+<div class="toast" id="toast">● &nbsp; You've earned a badge: “Formatter”.</div>
+
+<script>
+const starter = `# Welcome to StackEdit!
+
+Hi! I'm your first Markdown file in **StackEdit**. If you want to learn to use StackEdit, you can read me. If you want to play with Markdown, you can edit me. Once you have finished with me, you can create new files by opening the **file explorer** on the left corner of the navigation bar.
+
+## Files
+
+StackEdit stores your files in your browser, which means all your files are automatically saved locally and are accessible **offline!**
+
+## Create files and folders
+
+The file explorer is accessible using the button in left corner of the navigation bar. You can create a new file by clicking the **New file** button in the file explorer. You can also create folders by clicking the **New folder** button.
+
+## Switch to another file
+
+All your files and folders are presented as a tree in the file explorer. You can switch from one to another by clicking a file in the tree.
+
+## Rename a file
+
+You can rename the current file by clicking the file name in the navigation bar or by clicking the **Rename** button in the file explorer.
+
+## Delete a file
+
+You can delete the current file by clicking the **Remove** button in the file explorer. The file will be moved into the **Trash** folder and automatically deleted after 7 days of inactivity.
+
+## Export a file
+
+You can export the current file by clicking **Export to disk** in the menu. You can choose to export the file as plain Markdown, as HTML using a Handlebars template or as a PDF.`;
+
+const editor = document.getElementById('editor');
+const preview = document.getElementById('preview');
+const leftStatus = document.getElementById('leftStatus');
+const rightStatus = document.getElementById('rightStatus');
+const toast = document.getElementById('toast');
+editor.value = starter;
+
+function inlineMd(s) {
+  return s
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img alt="$1" src="$2">')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    .replace(/~~(.+?)~~/g, '<del>$1</del>');
+}
+function renderMarkdown(src) {
+  const lines = src.split('\n'), out = [];
+  let list = '';
+  const endList = () => { if (list) { out.push(`</${list}>`); list = ''; } };
+  for (const line of lines) {
+    const h = line.match(/^(#{1,6})\s+(.*)$/);
+    const li = line.match(/^\s*(?:[-*+]|\d+\.)\s+(.*)$/);
+    if (li) {
+      const typ = /^\s*\d+\./.test(line) ? 'ol' : 'ul';
+      if (list !== typ) { endList(); list = typ; out.push(`<${typ}>`); }
+      out.push(`<li>${inlineMd(li[1])}</li>`); continue;
+    }
+    endList();
+    if (!line.trim()) continue;
+    if (/^\s*([-*_])\s*\1\s*\1\s*$/.test(line)) { out.push('<hr>'); continue; }
+    if (h) { const n = h[1].length; out.push(`<h${n}>${inlineMd(h[2])}</h${n}>`); continue; }
+    if (/^>\s?/.test(line)) { out.push(`<blockquote><p>${inlineMd(line.replace(/^>\s?/, ''))}</p></blockquote>`); continue; }
+    out.push(`<p>${inlineMd(line)}</p>`);
+  }
+  endList();
+  return out.join('');
+}
+function update() {
+  preview.innerHTML = renderMarkdown(editor.value);
+  const value = editor.value;
+  const pos = editor.selectionStart;
+  const before = value.slice(0, pos).split('\n');
+  const line = before.length, col = before[before.length - 1].length + 1;
+  const words = (value.match(/\b[\w'-]+\b/g) || []).length;
+  const bytes = new TextEncoder().encode(value).length;
+  leftStatus.innerHTML = `Markdown &nbsp; ${bytes} bytes &nbsp; ${words} words &nbsp; ${value.split('\n').length} lines &nbsp; Ln ${line}, Col ${col}`;
+  const plain = preview.innerText || '';
+  rightStatus.innerHTML = `HTML &nbsp; ${plain.length} characters &nbsp; ${(plain.match(/\b[\w'-]+\b/g)||[]).length} words &nbsp; ${preview.children.length} paragraphs`;
+}
+editor.addEventListener('input', update);
+editor.addEventListener('click', update);
+editor.addEventListener('keyup', update);
+update();
+
+function wrapSelection(before, after = before, placeholder = '') {
+  const start = editor.selectionStart, end = editor.selectionEnd;
+  const text = editor.value.slice(start, end);
+  const selected = text || placeholder;
+  editor.setRangeText(before + selected + after, start, end, 'select');
+  if (!text) editor.setSelectionRange(start + before.length, start + before.length + selected.length);
+  editor.focus(); update();
+}
+function prefixLines(prefix) {
+  const start = editor.selectionStart, end = editor.selectionEnd;
+  const value = editor.value;
+  const lineStart = value.lastIndexOf('\n', start - 1) + 1;
+  let lineEnd = value.indexOf('\n', end);
+  if (lineEnd < 0) lineEnd = value.length;
+  const block = value.slice(lineStart, lineEnd);
+  const lines = block.split('\n');
+  const transformed = lines.map(l => prefix + l).join('\n');
+  editor.setRangeText(transformed, lineStart, lineEnd, 'select');
+  editor.focus(); update();
+}
+function headingSelection() {
+  const start = editor.selectionStart, value = editor.value;
+  const lineStart = value.lastIndexOf('\n', start - 1) + 1;
+  let end = value.indexOf('\n', start); if (end < 0) end = value.length;
+  const line = value.slice(lineStart, end);
+  const changed = line.match(/^#{1,6}\s/) ? line.replace(/^#{1,6}\s/, '') : '### ' + line;
+  editor.setRangeText(changed, lineStart, end, 'select');
+  editor.focus(); update();
+}
+document.querySelectorAll('[data-action]').forEach(btn => {
+  btn.addEventListener('mousedown', e => e.preventDefault());
+  btn.addEventListener('click', () => {
+    const action = btn.dataset.action;
+    if (action === 'bold') wrapSelection('**', '**', 'bold text');
+    else if (action === 'italic') wrapSelection('*', '*', 'italic text');
+    else if (action === 'strike') wrapSelection('~~', '~~', 'strikethrough');
+    else if (action === 'code') wrapSelection('`', '`', 'code');
+    else if (action === 'link') wrapSelection('[', '](url)', 'link text');
+    else if (action === 'image') wrapSelection('![', '](image-url)', 'alt text');
+    else if (action === 'quote') prefixLines('> ');
+    else if (action === 'ul') prefixLines('- ');
+    else if (action === 'ol') prefixLines('1. ');
+    else if (action === 'check') prefixLines('- [ ] ');
+    else if (action === 'heading') headingSelection();
+    else if (action === 'table') wrapSelection('| Column 1 | Column 2 |\\n| --- | --- |\\n| Cell | Cell |', '', '');
+    else if (action === 'undo') document.execCommand('undo');
+    else if (action === 'redo') document.execCommand('redo');
+  });
+});
+document.getElementById('explorerBtn').addEventListener('click', () => {
+  document.getElementById('fileMenu').classList.toggle('open');
+});
+document.getElementById('renameBtn').addEventListener('click', () => {
+  const name = prompt('Rename file', 'Welcome file');
+  if (name) document.getElementById('renameBtn').textContent = name;
+});
+document.querySelectorAll('.file-menu .item').forEach(item => item.addEventListener('click', () => {
+  if (item.textContent.includes('New file')) {
+    editor.value = '# New file\\n\\n'; update(); editor.focus();
+  }
+}));
+document.querySelector('.badge').addEventListener('click', () => {
+  toast.style.display = 'block'; setTimeout(() => toast.style.display = 'none', 2400);
+});
+let dragging = false;
+const splitter = document.getElementById('splitter');
+splitter.addEventListener('mousedown', () => dragging = true);
+window.addEventListener('mouseup', () => dragging = false);
+window.addEventListener('mousemove', e => {
+  if (!dragging) return;
+  const workspace = document.getElementById('workspace');
+  const r = workspace.getBoundingClientRect();
+  const x = Math.max(250, Math.min(r.width - 250, e.clientX - r.left));
+  workspace.style.gridTemplateColumns = `${x}px 8px 1fr`;
+});
+</script>
+</body>
+</html>

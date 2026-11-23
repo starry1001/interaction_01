@@ -1,0 +1,603 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Desmos | Four Function Calculator</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 100%; height: 100%; }
+  body {
+    overflow: hidden;
+    background: #fff;
+    color: #333;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  button, a { -webkit-tap-highlight-color: transparent; }
+  .topbar {
+    height: 52px;
+    width: 100%;
+    position: absolute;
+    inset: 0 0 auto;
+    background: #f0f1f3;
+    border-bottom: 1px solid #dedfe2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+    color: #555;
+    z-index: 2;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    width: 150px;
+    height: 100%;
+  }
+  .brand img {
+    display: block;
+    width: 122px;
+    height: 29px;
+    object-fit: contain;
+  }
+  .navlinks {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    white-space: nowrap;
+  }
+  .navlinks a {
+    color: #555;
+    text-decoration: none;
+    font-size: 16px;
+    line-height: 32px;
+  }
+  .caret {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 4px;
+    vertical-align: middle;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid #777;
+  }
+  .account {
+    margin-left: auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .account button {
+    height: 40px;
+    padding: 0 13px;
+    font: 16px Arial, sans-serif;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  .login {
+    color: #555;
+    background: linear-gradient(#fff,#f4f4f4);
+    border: 1px solid #c9c9c9;
+    box-shadow: 0 1px 1px #ddd;
+  }
+  .signup {
+    color: white;
+    background: #3478d4;
+    border: 1px solid #2e6fca;
+    box-shadow: 0 1px 2px #bbb;
+  }
+  .icon-button {
+    width: 31px;
+    height: 36px;
+    border: 0;
+    background: transparent;
+    color: #777;
+    font-size: 19px;
+    padding: 0;
+    cursor: pointer;
+  }
+  .calculator {
+    position: absolute;
+    left: 50%;
+    top: 28.07vh;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 573px;
+    border: 1px solid #d8d8d8;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+  }
+  .workarea {
+    height: 356px;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+  }
+  .graph {
+    flex: 1 1 auto;
+    min-height: 0;
+    border-bottom: 1px solid #ddd;
+  }
+  .expressions {
+    flex: 0 0 auto;
+  }
+  .expression-row {
+    height: 58px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 0 12px 0 17px;
+    border-bottom: 1px solid #ddd;
+    font: 18px Georgia, "Times New Roman", serif;
+    color: #222;
+    background: #fff;
+  }
+  .expression-row .math-expression {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    white-space: nowrap;
+  }
+  .expression-row .result {
+    margin-left: auto;
+    padding-left: 12px;
+    color: #333;
+    white-space: nowrap;
+    font: 18px Georgia, "Times New Roman", serif;
+  }
+  .expression-row.active {
+    z-index: 1;
+    border: 2px solid #4e80d0;
+    padding-left: 15px;
+    height: 58px;
+  }
+  .expression-row.active input {
+    width: 100%;
+    min-width: 0;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: #222;
+    font: 17px Arial, Helvetica, sans-serif;
+    caret-color: #333;
+  }
+  .expression-row.active .result {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #555;
+  }
+  .frac {
+    display: inline-flex;
+    vertical-align: middle;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.03;
+    margin: 0 2px;
+    font-size: 16px;
+  }
+  .frac .den {
+    border-top: 1px solid #333;
+    min-width: 100%;
+    text-align: center;
+    padding: 1px 2px 0;
+  }
+  .root { font-size: 22px; }
+  .abs { display: inline-flex; align-items: center; }
+  .keypad {
+    flex: 0 0 216px;
+    height: 216px;
+    border-top: 1px solid #dedede;
+    background: #f2f2f2;
+    padding: 4px 5px 5px;
+    user-select: none;
+  }
+  .tools-row {
+    height: 39px;
+    display: flex;
+    align-items: stretch;
+    position: relative;
+    margin-bottom: 3px;
+    color: #555;
+    font-size: 14px;
+  }
+  .tool-tab {
+    min-width: 72px;
+    height: 36px;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 0;
+    background: transparent;
+    color: #666;
+    font: 14px Arial, sans-serif;
+  }
+  .tool-tab.selected {
+    color: #333;
+    border-bottom: 4px solid #3978d5;
+    font-weight: 600;
+  }
+  .angle-switch {
+    margin-left: 6px;
+    align-self: center;
+    height: 27px;
+    display: flex;
+    border: 1px solid #bbb;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .angle-switch button {
+    border: 0;
+    min-width: 43px;
+    padding: 0 5px;
+    font: 14px Arial, sans-serif;
+    color: #444;
+    background: #f8f8f8;
+    cursor: pointer;
+  }
+  .angle-switch button.on {
+    background: #dce8fa;
+    color: #286bc3;
+    box-shadow: inset 0 0 0 1px #6e9de3;
+  }
+  .tool-spacer { flex: 1; }
+  .tool-action {
+    border: 0;
+    background: transparent;
+    color: #999;
+    font-size: 21px;
+    width: 52px;
+    cursor: pointer;
+  }
+  .clear-button {
+    border: 0;
+    background: transparent;
+    min-width: 105px;
+    color: #999;
+    font: 14px Arial, sans-serif;
+    cursor: pointer;
+  }
+  .wrench { width: 36px; font-size: 19px; color: #555; }
+  .keys {
+    display: flex;
+    justify-content: space-between;
+    height: 162px;
+  }
+  .key-group {
+    display: grid;
+    gap: 4px;
+    height: 162px;
+  }
+  .functions { width: 178px; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(4, 1fr); }
+  .numbers { width: 238px; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(4, 1fr); }
+  .rightkeys { width: 118px; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(4, 1fr); }
+  .key {
+    border: 1px solid #dedede;
+    border-radius: 2px;
+    background: linear-gradient(#fff,#fafafa);
+    color: #222;
+    padding: 0;
+    font: 17px Georgia, "Times New Roman", serif;
+    cursor: pointer;
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+  }
+  .key:hover { background: #f8f8f8; }
+  .key.number {
+    background: #c9c9c9;
+    border-color: #c4c4c4;
+    font: 16px Arial, sans-serif;
+  }
+  .key.number:hover { background: #bdbdbd; }
+  .key.operator { font-size: 19px; }
+  .key.wide { grid-column: span 2; }
+  .key.enter {
+    grid-column: span 2;
+    background: #3478d7;
+    border-color: #3072ce;
+    color: #fff;
+    font: 25px Arial, sans-serif;
+  }
+  .key.enter:hover { background: #2c6fc9; }
+  .key.small-symbol { font-size: 16px; }
+  .footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 10px;
+    text-align: center;
+    color: #888;
+    font: 14px Arial, Helvetica, sans-serif;
+  }
+  .footer a {
+    color: #888;
+    text-decoration: none;
+    margin: 0 8px;
+  }
+  .footer .sep { color: #ccc; }
+  .btn { cursor: pointer; }
+  @media (max-width: 700px) {
+    .calculator { width: min(600px, 96vw); }
+    .functions { width: 30%; }
+    .numbers { width: 40%; }
+    .rightkeys { width: 20%; }
+    .navlinks { display: none; }
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand btn" href="#" aria-label="Desmos home">
+    <img src="../../../data/data/39/assets/001.webp" width="122" height="29" alt="desmos">
+  </a>
+  <nav class="navlinks">
+    <a href="#" class="btn">Math Tools<span class="caret"></span></a>
+    <a href="#" class="btn">Resources<span class="caret"></span></a>
+    <a href="#" class="btn">Partnerships<span class="caret"></span></a>
+  </nav>
+  <div class="account">
+    <button class="login btn" type="button">Log In</button>
+    <button class="signup btn" type="button">Sign Up</button>
+    <button class="icon-button btn" aria-label="Language" type="button">◎</button>
+    <button class="icon-button btn" aria-label="Print" type="button">▤</button>
+  </div>
+</header>
+
+<main class="calculator" aria-label="Four function calculator">
+  <section class="workarea">
+    <div class="graph"></div>
+    <div class="expressions" id="expressions">
+      <div class="expression-row active" id="activeRow">
+        <input id="entry" type="text" autocomplete="off" spellcheck="false" aria-label="Calculator expression" autofocus>
+        <span class="result" id="liveResult"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="keypad" aria-label="Calculator keypad">
+    <div class="tools-row">
+      <button class="tool-tab selected btn" type="button">main</button>
+      <button class="tool-tab btn" type="button">abc</button>
+      <button class="tool-tab btn" type="button">func</button>
+      <div class="angle-switch">
+        <button type="button" class="btn">RAD</button>
+        <button type="button" class="on btn">DEG</button>
+      </div>
+      <button class="tool-action btn" type="button" aria-label="Undo">↶</button>
+      <button class="tool-action btn" type="button" aria-label="Redo">↷</button>
+      <button class="clear-button btn" id="clearButton" type="button">clear all</button>
+      <button class="tool-action wrench btn" type="button" aria-label="Settings">🔧</button>
+    </div>
+    <div class="keys">
+      <div class="key-group functions">
+        <button class="key btn" data-insert="^2">a²</button>
+        <button class="key btn" data-insert="^">a<sup>b</sup></button>
+        <button class="key btn" data-insert="|">|a|</button>
+        <button class="key btn" data-insert="√">√</button>
+        <button class="key btn" data-insert="∛">ⁿ√</button>
+        <button class="key btn" data-insert="π">π</button>
+        <button class="key btn" data-insert="sin(">sin</button>
+        <button class="key btn" data-insert="cos(">cos</button>
+        <button class="key btn" data-insert="tan(">tan</button>
+        <button class="key btn" data-insert="("> ( </button>
+        <button class="key btn" data-insert=")"> ) </button>
+        <button class="key btn" data-insert=",">,</button>
+      </div>
+      <div class="key-group numbers">
+        <button class="key number btn" data-insert="7">7</button>
+        <button class="key number btn" data-insert="8">8</button>
+        <button class="key number btn" data-insert="9">9</button>
+        <button class="key operator btn" data-insert="/">÷</button>
+        <button class="key number btn" data-insert="4">4</button>
+        <button class="key number btn" data-insert="5">5</button>
+        <button class="key number btn" data-insert="6">6</button>
+        <button class="key operator btn" data-insert="*">×</button>
+        <button class="key number btn" data-insert="1">1</button>
+        <button class="key number btn" data-insert="2">2</button>
+        <button class="key number btn" data-insert="3">3</button>
+        <button class="key operator btn" data-insert="-">−</button>
+        <button class="key number btn" data-insert="0">0</button>
+        <button class="key number btn" data-insert=".">.</button>
+        <button class="key btn small-symbol" data-insert="ans">ans</button>
+        <button class="key operator btn" data-insert="+">+</button>
+      </div>
+      <div class="key-group rightkeys">
+        <button class="key btn" data-insert="%">%</button>
+        <button class="key btn" data-insert="/">ᵃ⁄ᵦ</button>
+        <button class="key number btn" data-action="left">←</button>
+        <button class="key number btn" data-action="right">→</button>
+        <button class="key number wide btn" data-action="backspace" aria-label="Delete">⌫</button>
+        <button class="key enter btn" data-action="enter" aria-label="Enter">↵</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <a href="#" class="btn">Terms of Service</a><span class="sep">|</span>
+  <a href="#" class="btn">Privacy Policy</a><span class="sep">|</span>
+  <a href="#" class="btn">Help</a>
+</footer>
+
+<script>
+(function () {
+  const entry = document.getElementById('entry');
+  const expressions = document.getElementById('expressions');
+  const liveResult = document.getElementById('liveResult');
+  const clearButton = document.getElementById('clearButton');
+  let rows = [];
+  let previousAnswer = '';
+
+  function evaluateExpression(raw) {
+    if (!raw.trim()) return null;
+    let s = raw.replace(/×/g, '*').replace(/÷/g, '/').replace(/−/g, '-');
+    s = s.replace(/√\s*([0-9.]+)/g, 'Math.sqrt($1)');
+    s = s.replace(/∛\s*([0-9.]+)/g, 'Math.cbrt($1)');
+    s = s.replace(/\|([^|]*)\|/g, 'Math.abs($1)');
+    s = s.replace(/\bans\b/g, previousAnswer || '0');
+    s = s.replace(/\^/g, '**').replace(/(\d+(?:\.\d+)?)%/g, '($1/100)');
+    s = s.replace(/\b(sin|cos|tan)\(/g, 'Math.$1(');
+    if (!/^[0-9+\-*/().,\sA-Za-z]*$/.test(s)) return null;
+    try {
+      const value = Function('"use strict"; return (' + s + ')')();
+      if (typeof value !== 'number' || !Number.isFinite(value)) return null;
+      return Number.isInteger(value) ? String(value) : String(Number(value.toPrecision(10)));
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function formatExpression(raw) {
+    let s = raw.trim();
+    if (!s) return '';
+    const fraction = s.match(/^(.+?)\/(.+)$/);
+    if (fraction && !fraction[1].includes('/')) {
+      return '<span class="frac"><span>' + formatExpression(fraction[1]) +
+        '</span><span class="den">' + formatExpression(fraction[2]) + '</span></span>';
+    }
+    s = s.replace(/√\s*([0-9.]+)/g, '<span class="root">√</span><span>$1</span>');
+    s = s.replace(/∛\s*([0-9.]+)/g, '<span class="root">∛</span><span>$1</span>');
+    s = s.replace(/\|([^|]*)\|/g, '<span class="abs">|$1|</span>');
+    s = s.replace(/\^([0-9]+)/g, '<sup>$1</sup>');
+    s = s.replace(/\*/g, ' × ').replace(/\//g, ' ÷ ').replace(/-/g, '−');
+    return s;
+  }
+
+  function updateLive() {
+    const result = evaluateExpression(entry.value);
+    liveResult.textContent = result === null ? '' : '= ' + result;
+    clearButton.textContent = rows.length ? (entry.value ? 'clear' : 'clear all') : 'clear all';
+  }
+
+  function focusEntry() {
+    entry.focus();
+    const end = entry.value.length;
+    entry.setSelectionRange(end, end);
+  }
+
+  function insertText(text) {
+    const start = entry.selectionStart == null ? entry.value.length : entry.selectionStart;
+    const end = entry.selectionEnd == null ? entry.value.length : entry.selectionEnd;
+    entry.value = entry.value.slice(0, start) + text + entry.value.slice(end);
+    const pos = start + text.length;
+    entry.focus();
+    entry.setSelectionRange(pos, pos);
+    updateLive();
+  }
+
+  function submit() {
+    const raw = entry.value.trim();
+    const value = evaluateExpression(raw);
+    if (!raw || value === null) return;
+    rows.push({ expression: raw, result: value });
+    previousAnswer = value;
+    entry.value = '';
+    renderRows();
+    focusEntry();
+  }
+
+  function renderRows() {
+    expressions.innerHTML = '';
+    rows.forEach(function (row) {
+      const el = document.createElement('div');
+      el.className = 'expression-row';
+      el.innerHTML = '<span class="math-expression">' + formatExpression(row.expression) +
+        '</span><span class="result">= ' + row.result + '</span>';
+      expressions.appendChild(el);
+    });
+    const active = document.createElement('div');
+    active.className = 'expression-row active';
+    active.innerHTML = '<input id="entry" type="text" autocomplete="off" spellcheck="false" aria-label="Calculator expression"><span class="result" id="liveResult"></span>';
+    expressions.appendChild(active);
+    const oldValue = entry.value;
+    entry = document.getElementById('entry');
+    entry.value = oldValue;
+    liveResult = document.getElementById('liveResult');
+    entry.addEventListener('input', updateLive);
+    entry.addEventListener('keydown', onKeyDown);
+    updateLive();
+  }
+
+  function onKeyDown(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      submit();
+    } else if (event.key === 'Escape') {
+      entry.value = '';
+      updateLive();
+    }
+  }
+
+  entry.addEventListener('input', updateLive);
+  entry.addEventListener('keydown', onKeyDown);
+
+  document.querySelectorAll('[data-insert]').forEach(function (button) {
+    button.addEventListener('click', function () {
+      insertText(button.getAttribute('data-insert'));
+    });
+  });
+  document.querySelectorAll('[data-action]').forEach(function (button) {
+    button.addEventListener('click', function () {
+      const action = button.getAttribute('data-action');
+      if (action === 'enter') submit();
+      if (action === 'backspace') {
+        const start = entry.selectionStart, end = entry.selectionEnd;
+        if (start === end && start > 0) {
+          entry.value = entry.value.slice(0, start - 1) + entry.value.slice(end);
+          entry.setSelectionRange(start - 1, start - 1);
+        } else {
+          entry.value = entry.value.slice(0, start) + entry.value.slice(end);
+          entry.setSelectionRange(start, start);
+        }
+        updateLive();
+        focusEntry();
+      }
+      if (action === 'left' || action === 'right') {
+        const pos = entry.selectionStart || 0;
+        const next = action === 'left' ? Math.max(0, pos - 1) : Math.min(entry.value.length, pos + 1);
+        entry.setSelectionRange(next, next);
+        focusEntry();
+      }
+    });
+  });
+  clearButton.addEventListener('click', function () {
+    if (entry.value) {
+      entry.value = '';
+    } else {
+      rows = [];
+      previousAnswer = '';
+      renderRows();
+    }
+    updateLive();
+    focusEntry();
+  });
+  document.querySelectorAll('.tool-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('.tool-tab').forEach(function (t) { t.classList.remove('selected'); });
+      tab.classList.add('selected');
+    });
+  });
+  document.querySelectorAll('.angle-switch button').forEach(function (button) {
+    button.addEventListener('click', function () {
+      document.querySelectorAll('.angle-switch button').forEach(function (b) { b.classList.remove('on'); });
+      button.classList.add('on');
+    });
+  });
+  updateLive();
+})();
+</script>
+</body>
+</html>

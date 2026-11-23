@@ -1,0 +1,207 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pomofocus</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;color:#fff}
+body{background:#b63b4e}
+button,input{font:inherit}
+.btn{cursor:pointer}
+#app{background:#b63b4e;min-height:1085px;padding:0 14px 60px}
+header{height:71px;border-bottom:1px solid rgba(70,20,30,.25);display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:24px;font-weight:bold;white-space:nowrap}
+.logo span{font-size:23px}
+.header-actions{display:flex;gap:11px}
+.icon-btn{width:40px;height:40px;border:0;border-radius:5px;background:rgba(255,255,255,.16);color:#fff;font-size:23px;font-weight:bold;display:flex;align-items:center;justify-content:center}
+.more{font-size:27px;line-height:18px;padding-bottom:7px}
+.timer-card{height:337px;margin-top:47px;border-radius:7px;background:rgba(255,255,255,.14);padding-top:24px;text-align:center}
+.modes{display:flex;justify-content:center;gap:14px;font-size:19px;align-items:center}
+.mode{padding:7px 13px;border-radius:4px;white-space:nowrap}
+.mode.active{font-weight:bold;background:rgba(100,25,40,.32)}
+.time{font-size:118px;font-weight:bold;line-height:1;margin-top:34px;letter-spacing:1px}
+.start{display:block;margin:31px auto 0;width:233px;height:70px;border:0;border-radius:5px;background:#fff;color:#a53649;font-size:25px;font-weight:bold;box-shadow:0 4px 0 rgba(0,0,0,.08)}
+.running-row{display:flex;justify-content:center;align-items:center;gap:37px}
+.skip{font-size:33px;color:#fff}
+.session{text-align:center;margin-top:25px;height:73px}
+.session-number{font-size:18px;color:rgba(255,255,255,.78)}
+.session-name{font-size:21px;margin-top:5px}
+.tasks-head{height:78px;margin-top:20px;border-bottom:2px solid rgba(255,255,255,.72);display:flex;align-items:center;justify-content:space-between}
+.tasks-head h2{font-size:21px;margin:0}
+.tasks-head .icon-btn{width:40px;height:40px}
+.add-task{height:75px;margin-top:21px;border:2px dashed rgba(255,255,255,.45);border-radius:7px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.7);font-size:20px;font-weight:bold}
+.add-task span{font-size:22px;margin-right:8px}
+.task-row{height:73px;margin-top:23px;background:#fff;color:#4d4e53;border-left:7px solid #29272e;border-radius:7px;display:flex;align-items:center;padding:0 15px 0 16px;font-size:18px;font-weight:bold}
+.check{width:30px;height:30px;border-radius:50%;background:#e4e5e6;color:#fff;display:flex;align-items:center;justify-content:center;font-size:21px;margin-right:13px}
+.task-row.done .check{background:#d48994}
+.task-row.done .task-title{text-decoration:line-through;color:#999}
+.task-counter{margin-left:auto;color:#aaa}
+.task-menu{margin-left:20px;width:35px;height:35px;border:1px solid #ddd;border-radius:5px;background:white;color:#999;font-size:23px}
+.task-editor{background:#fff;color:#555;border-radius:8px;margin-top:13px;overflow:hidden;box-shadow:0 2px 2px rgba(0,0,0,.12)}
+.editor-body{padding:29px 23px 24px}
+.task-input{display:block;width:100%;height:55px;border:1px solid #e5e9ed;border-radius:5px;padding:4px 3px;color:#555;font-size:25px;outline:none}
+.task-input::placeholder{font-weight:bold;font-style:italic;color:#dfe0e2}
+.editor-label{font-size:19px;font-weight:bold;margin-top:18px}
+.est-row{display:flex;align-items:center;gap:11px;margin-top:11px}
+.est-number{width:88px;height:45px;background:#eee;border-radius:6px;padding:11px;font-size:18px}
+.arrow{width:45px;height:45px;background:white;border:1px solid #ddd;border-radius:10px;color:#777;font-size:16px;box-shadow:0 1px 2px #ddd}
+.editor-links{margin-top:20px;color:#999;font-size:16px;font-weight:bold;text-decoration:underline}
+.lock{font-size:17px;margin-left:5px;text-decoration:none;display:inline-block}
+.editor-actions{height:77px;background:#f6f6f6;display:flex;align-items:center;justify-content:flex-end;gap:36px;padding:0 23px;color:#999}
+.cancel{font-weight:bold}
+.save{background:#464850;color:white;border:0;border-radius:12px;padding:13px 25px;font-weight:bold}
+.summary{height:86px;margin-top:33px;border-top:1px solid rgba(255,255,255,.5);border-bottom:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;gap:12px;font-size:18px;color:rgba(255,255,255,.85)}
+.summary strong{font-size:27px;color:#fff}
+.finish-toast{position:fixed;bottom:25px;left:16px;right:16px;background:white;color:#171717;border-radius:9px;padding:18px 22px;display:flex;align-items:center;justify-content:space-between;font-size:18px;box-shadow:0 2px 7px #822b3d}
+.clear{background:#4ead91;color:#fff;border:0;border-radius:5px;padding:11px 17px}
+.info{background:#fff;color:#4e2028;padding:38px 14px 50px;min-height:460px}
+.info h1{font-size:27px;line-height:1.45;margin:0 0 39px}
+.info h2{font-size:24px;margin:0 0 20px}
+.underline{width:27px;height:5px;background:#ec8994;margin-bottom:26px}
+.info p{font-size:18px;line-height:1.67;color:#71696c;margin:0}
+.info b{color:#c84251}
+.menu-pop{position:absolute;right:14px;top:545px;background:#fff;color:#555;border-radius:5px;padding:8px 0;box-shadow:0 3px 10px #722234;display:none;z-index:5}
+.menu-pop div{padding:10px 18px;white-space:nowrap}
+@media(max-width:500px){
+ .logo{font-size:23px}.header-actions{gap:9px}.icon-btn{width:39px}
+ .time{font-size:116px}.modes{gap:2px}.mode{padding:7px 10px}
+}
+</style>
+</head>
+<body>
+<div id="app">
+<header>
+  <div class="logo">● <span>Pomofocus</span></div>
+  <div class="header-actions">
+    <button class="btn icon-btn" title="Reports">▥</button>
+    <button class="btn icon-btn" title="Settings">⚙</button>
+    <button class="btn icon-btn" title="Profile">●</button>
+    <button class="btn icon-btn more" id="headerMore">⋮</button>
+  </div>
+</header>
+
+<section class="timer-card">
+  <div class="modes">
+    <button class="btn mode active" data-mode="pomodoro">Pomodoro</button>
+    <button class="btn mode" data-mode="short">Short Break</button>
+    <button class="btn mode" data-mode="long">Long Break</button>
+  </div>
+  <div class="time" id="time">25:00</div>
+  <div class="running-row">
+    <button class="btn start" id="startBtn">START</button>
+    <button class="btn skip" id="skipBtn" style="display:none">▶|</button>
+  </div>
+</section>
+
+<div class="session">
+  <div class="session-number">#1</div>
+  <div class="session-name" id="sessionName">Time to focus!</div>
+</div>
+
+<section class="tasks">
+  <div class="tasks-head">
+    <h2>Tasks</h2>
+    <button class="btn icon-btn" id="taskMore">⋮</button>
+  </div>
+  <div id="taskList"></div>
+  <button class="btn add-task" id="addTask"><span>⊕</span> Add Task</button>
+  <div id="summary" class="summary" style="display:none">
+    <span>Pomos: <strong id="pomos">0 / 1</strong></span>
+    <span>Finish At: <strong id="finish">14:57</strong> <small>(0.4h)</small></span>
+  </div>
+</section>
+<div class="menu-pop" id="menuPop">
+  <div class="btn">Clear finished tasks</div>
+  <div class="btn">Clear act pomodoros</div>
+  <div class="btn">Save as routine</div>
+  <div class="btn">Add from routines</div>
+</div>
+</div>
+
+<section class="info">
+  <h1>An online Pomodoro Timer to boost<br>your productivity</h1>
+  <h2>What is Pomofocus?</h2>
+  <div class="underline"></div>
+  <p>Pomofocus is a customizable pomodoro timer that works on desktop &amp; mobile browser. The aim of this app is to help you focus on any task you are working on, such as study, writing, or coding. This app is inspired by <b>Pomodoro Technique</b> which is a time management method developed by Francesco Cirillo.</p>
+</section>
+
+<script>
+const modes={
+ pomodoro:{time:1500,name:'Time to focus!'},
+ short:{time:300,name:'Time for a break!'},
+ long:{time:900,name:'Time for a break!'}
+};
+let current='pomodoro', remaining=1500, timer=null, running=false, tasks=[];
+const app=document.getElementById('app'), timeEl=document.getElementById('time');
+const startBtn=document.getElementById('startBtn'), skipBtn=document.getElementById('skipBtn');
+const sessionName=document.getElementById('sessionName'), taskList=document.getElementById('taskList');
+const summary=document.getElementById('summary');
+
+function format(t){return String(Math.floor(t/60)).padStart(2,'0')+':'+String(t%60).padStart(2,'0')}
+function renderTime(){timeEl.textContent=format(remaining)}
+function selectMode(mode){
+ current=mode; remaining=modes[mode].time; running=false; clearInterval(timer);
+ document.querySelectorAll('.mode').forEach(x=>x.classList.toggle('active',x.dataset.mode===mode));
+ sessionName.textContent=modes[mode].name; startBtn.textContent='START'; skipBtn.style.display='none'; renderTime();
+}
+document.querySelectorAll('.mode').forEach(b=>b.onclick=()=>selectMode(b.dataset.mode));
+startBtn.onclick=()=>{
+ running=!running;
+ if(running){
+   startBtn.textContent='PAUSE'; skipBtn.style.display='block';
+   timer=setInterval(()=>{if(remaining>0){remaining--;renderTime()}else{running=false;clearInterval(timer);startBtn.textContent='START'}},1000);
+ }else{clearInterval(timer);startBtn.textContent='START';skipBtn.style.display='none'}
+};
+skipBtn.onclick=()=>{remaining=0;renderTime();startBtn.click()};
+function editor(){
+ const wrap=document.createElement('div'); wrap.className='task-editor';
+ wrap.innerHTML=`<div class="editor-body">
+  <input class="task-input" placeholder="What are you working on?" maxlength="80">
+  <div class="editor-label">Est Pomodoros</div>
+  <div class="est-row"><div class="est-number">1</div><button class="btn arrow">▲</button><button class="btn arrow">▼</button></div>
+  <div class="editor-links"><span class="btn">+ Add Note</span>&nbsp;&nbsp; <span class="btn">+ Add Project</span> <span class="lock">▣</span></div>
+ </div>
+ <div class="editor-actions"><span class="btn cancel">Cancel</span><button class="btn save">Save</button></div>`;
+ wrap.querySelector('.cancel').onclick=()=>wrap.remove();
+ wrap.querySelector('.save').onclick=()=>{
+   const val=wrap.querySelector('.task-input').value.trim();
+   if(!val)return;
+   tasks.push({title:val,done:false}); renderTasks();
+   wrap.remove(); addEditor(false);
+ };
+ return wrap;
+}
+function addEditor(scroll=true){
+ const ed=editor(); taskList.appendChild(ed);
+ if(scroll)setTimeout(()=>window.scrollTo({top:450,behavior:'instant'}),30);
+ ed.querySelector('.task-input').focus();
+}
+function renderTasks(){
+ taskList.innerHTML='';
+ tasks.forEach((t,i)=>{
+   const row=document.createElement('div'); row.className='task-row '+(t.done?'done':'');
+   row.innerHTML=`<button class="btn check">${t.done?'✓':''}</button><span class="task-title">${t.title}</span><span class="task-counter">0 / 1</span><button class="btn task-menu">⋮</button>`;
+   row.querySelector('.check').onclick=()=>{t.done=!t.done;renderTasks(); if(t.done&&tasks.every(x=>x.done)) showToast()};
+   taskList.appendChild(row);
+ });
+ if(tasks.length){document.getElementById('addTask').style.display='flex';summary.style.display='flex'}
+ else summary.style.display='none';
+}
+document.getElementById('addTask').onclick=()=>addEditor(true);
+document.getElementById('taskMore').onclick=()=>{const m=document.getElementById('menuPop');m.style.display=m.style.display==='block'?'none':'block'};
+document.getElementById('headerMore').onclick=()=>{window.scrollTo({top:0,behavior:'instant'});document.getElementById('menuPop').style.display='none'};
+function showToast(){
+ const old=document.querySelector('.finish-toast');if(old)old.remove();
+ const t=document.createElement('div');t.className='finish-toast';
+ t.innerHTML=`<span>You've finished all your tasks for<br>today 🎉</span><button class="btn clear">Clear Tasks</button>`;
+ t.querySelector('.clear').onclick=()=>{tasks=[];renderTasks();t.remove()};
+ document.body.appendChild(t);
+}
+renderTime();
+</script>
+</body>
+</html>
+```

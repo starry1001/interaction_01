@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Booking.com Activities Checkout</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;background:#fff;color:#1f1f1f;font-family:Arial,Helvetica,sans-serif;font-size:14px}
+  .btn{cursor:pointer}
+  .header{
+    height:100px;
+    background:#003b95;
+    color:#fff;
+  }
+  .header-inner{
+    width:830px;
+    height:100%;
+    margin:0 auto;
+    position:relative;
+  }
+  .topbar{
+    height:51px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .brand{
+    color:#fff;
+    font-size:20px;
+    font-weight:700;
+    letter-spacing:-.7px;
+  }
+  .account{
+    display:flex;
+    align-items:center;
+    gap:13px;
+    font-size:12px;
+  }
+  .currency{font-weight:bold}
+  .flag-small{
+    width:20px;height:16px;object-fit:cover;border-radius:50%;
+  }
+  .help{
+    width:18px;height:18px;border:1px solid #fff;border-radius:50%;
+    display:inline-flex;align-items:center;justify-content:center;font-size:12px;
+  }
+  .account button{
+    height:29px;padding:0 10px;border:1px solid #b7cbea;
+    background:#fff;color:#006ce4;font-size:12px;
+  }
+  .nav{
+    height:49px;display:flex;align-items:center;gap:25px;
+    white-space:nowrap;
+  }
+  .nav-item{
+    color:#fff;text-decoration:none;font-size:12px;
+    display:flex;align-items:center;gap:7px;height:36px;
+  }
+  .nav-icon{font-size:17px;line-height:1}
+  .nav-item.active{
+    border:1px solid #c9ddfb;border-radius:20px;padding:0 14px;
+    margin-left:-9px;margin-right:-9px;
+  }
+
+  .main{
+    width:830px;
+    min-height:644px;
+    margin:0 auto;
+    position:relative;
+    padding-top:25px;
+  }
+  .back{
+    color:#6b6b6b;
+    font-size:12px;
+    display:flex;align-items:center;gap:10px;
+    margin-bottom:26px;
+    text-decoration:none;
+  }
+  .back-arrow{font-size:24px;line-height:12px;color:#454545}
+  .step{font-size:12px;margin-bottom:17px;color:#444}
+  h1{
+    font-size:20px;line-height:25px;margin:0 0 18px;
+    color:#171717;font-weight:700;
+  }
+  .warning{
+    color:#cc4560;font-size:12px;margin-bottom:20px;
+    display:flex;align-items:center;gap:6px;
+  }
+  .warning-icon{
+    width:15px;height:15px;border:1.5px solid #df6680;border-radius:50%;
+    display:inline-flex;align-items:center;justify-content:center;font-weight:bold;font-size:10px;
+  }
+  .hosted{font-size:13px;margin-bottom:17px}
+  .hosted a,.signin,.legal a{color:#0071c2;text-decoration:none}
+  h2{font-size:16px;margin:0 0 15px}
+  .signin{
+    font-size:12px;margin-bottom:18px;display:flex;align-items:center;gap:7px;
+  }
+  .user-symbol{
+    width:20px;height:20px;border:2px solid #5a9de0;border-radius:50%;
+    display:inline-flex;align-items:center;justify-content:center;
+    color:#5a9de0;font-size:14px;
+  }
+  .form{width:525px}
+  .row{display:flex;gap:14px}
+  .field{margin-bottom:11px;position:relative}
+  .field.half{width:calc(50% - 7px)}
+  .field.full{width:100%}
+  label{
+    display:block;font-size:12px;font-weight:bold;margin-bottom:5px;
+  }
+  label .required{color:#c82345}
+  input,select{
+    width:100%;height:38px;border:1px solid #777;border-radius:3px;
+    background:#fff;padding:0 10px;font-size:14px;color:#222;
+    outline:none;
+  }
+  input:focus,select:focus{
+    border:2px solid #2685d8;
+    box-shadow:0 0 0 1px #b8dafa;
+  }
+  .valid input{padding-right:32px}
+  .valid:after{
+    content:"✓";position:absolute;right:8px;bottom:8px;
+    width:17px;height:17px;border:2px solid #65bd8c;border-radius:50%;
+    color:#49a875;font-size:12px;line-height:13px;text-align:center;font-weight:bold;
+  }
+  .invalid input{border:2px solid #d65b76}
+  .invalid:after{
+    content:"!";position:absolute;right:8px;bottom:8px;
+    width:17px;height:17px;border:2px solid #d65b76;border-radius:50%;
+    color:#d65b76;font-size:12px;line-height:14px;text-align:center;font-weight:bold;
+  }
+  .helper,.error{
+    font-size:11px;margin-top:5px;
+  }
+  .helper{color:#777}
+  .error{color:#d33f5c}
+  .phone-row{display:flex;gap:6px}
+  .country{
+    width:57px;display:flex;align-items:center;justify-content:space-between;
+    padding:0 7px 0 6px;
+  }
+  .country img{width:23px;height:16px;object-fit:cover}
+  .phone-input{flex:1}
+  .reservation{font-size:16px;font-weight:bold;margin-top:13px;margin-bottom:10px}
+  .loader{
+    width:19px;height:19px;border:2px solid #dceafa;border-top-color:#0875cf;
+    border-right-color:#0875cf;border-radius:50%;margin-bottom:22px;
+  }
+  .legal{
+    width:525px;border-top:1px solid #e2e2e2;padding-top:17px;
+    font-size:12px;line-height:18px;
+  }
+  .legal p{margin:0 0 8px}
+  .skeletons{
+    position:absolute;left:550px;top:122px;width:270px;
+  }
+  .skeleton{
+    height:40px;background:#f5f5f5;margin-bottom:14px;
+  }
+  @media(max-width:900px){
+    .header-inner,.main{width:calc(100% - 40px)}
+    .skeletons{display:none}
+  }
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="header-inner">
+    <div class="topbar">
+      <div class="brand btn">Booking.com</div>
+      <div class="account">
+        <span class="currency">USD</span>
+        <img class="flag-small btn" src="../../../data/data/15/assets/011.png" width="20" height="16" alt="United States">
+        <span class="help btn">?</span>
+        <button class="btn">Register</button>
+        <button class="btn">Sign in</button>
+      </div>
+    </div>
+    <nav class="nav">
+      <a class="nav-item btn" href="#"><span class="nav-icon">▱</span>Stays</a>
+      <a class="nav-item btn" href="#"><span class="nav-icon">✈</span>Flights</a>
+      <a class="nav-item btn" href="#"><span class="nav-icon">♧</span>Flight + Hotel</a>
+      <a class="nav-item btn" href="#"><span class="nav-icon">▰</span>Car rental</a>
+      <a class="nav-item btn" href="#"><span class="nav-icon">♜</span>Cruises</a>
+      <a class="nav-item active btn" href="#"><span class="nav-icon">♧</span>Activities</a>
+      <a class="nav-item btn" href="#"><span class="nav-icon">▥</span>Airport taxis</a>
+    </nav>
+  </div>
+</header>
+
+<main class="main">
+  <a class="back btn" href="#"><span class="back-arrow">‹</span><span>Ticket options</span></a>
+  <div class="step">Step 1 of 2</div>
+  <h1>General Admission to Universal Studios Hollywood</h1>
+  <div class="warning"><span class="warning-icon">!</span>Your selected date is unavailable – choose another</div>
+  <div class="hosted">This experience is hosted by a <a class="btn" href="#">business</a></div>
+
+  <h2>Your details</h2>
+  <a href="#" class="signin btn"><span class="user-symbol">♙</span>Sign in to use your saved details</a>
+
+  <form class="form" id="bookingForm">
+    <div class="row">
+      <div class="field half" id="firstField">
+        <label for="first">First Name <span class="required">*</span></label>
+        <input class="btn" id="first" type="text" autocomplete="off">
+      </div>
+      <div class="field half" id="lastField">
+        <label for="last">Last name <span class="required">*</span></label>
+        <input class="btn" id="last" type="text" autocomplete="off">
+      </div>
+    </div>
+
+    <div class="field full" id="emailField">
+      <label for="email">Email Address <span class="required">*</span></label>
+      <input class="btn" id="email" type="text" autocomplete="off">
+      <div id="emailMessage"></div>
+    </div>
+
+    <div class="field full">
+      <label for="phone">Phone (mobile number preferred) <span class="required">*</span></label>
+      <div class="phone-row">
+        <select class="country btn" aria-label="Country">
+          <option>🇺🇸</option>
+        </select>
+        <input class="phone-input btn" id="phone" type="text" placeholder="+1" autocomplete="off">
+      </div>
+    </div>
+
+    <div class="reservation">Reservation details</div>
+    <div class="loader"></div>
+
+    <div class="legal">
+      <p>By clicking "Next: Payment details" and completing a booking, you agree with the <a class="btn" href="#">terms and conditions</a> of Booking.com and the privacy policy of Musement.</p>
+      <p>Please see our Privacy Statement to understand how we use and protect your personal information.<br><a class="btn" href="#">Privacy Statement</a></p>
+    </div>
+  </form>
+
+  <aside class="skeletons">
+    <div class="skeleton"></div>
+    <div class="skeleton"></div>
+  </aside>
+</main>
+
+<script>
+  const first = document.getElementById('first');
+  const last = document.getElementById('last');
+  const email = document.getElementById('email');
+  const phone = document.getElementById('phone');
+  const firstField = document.getElementById('firstField');
+  const lastField = document.getElementById('lastField');
+  const emailField = document.getElementById('emailField');
+  const emailMessage = document.getElementById('emailMessage');
+
+  function updateName(field, wrapper){
+    wrapper.classList.toggle('valid', field.value.trim().length > 0);
+  }
+  first.addEventListener('input',()=>updateName(first,firstField));
+  last.addEventListener('input',()=>updateName(last,lastField));
+
+  email.addEventListener('input',()=>{
+    emailField.classList.remove('invalid');
+    emailMessage.className='helper';
+    emailMessage.textContent = email.value ? "We'll send your confirmation details to " + email.value : "";
+  });
+  email.addEventListener('blur',()=>{
+    if(email.value.trim() && !email.value.includes('@')){
+      emailField.classList.add('invalid');
+      emailMessage.className='error';
+      emailMessage.textContent='Enter a valid email address';
+    }
+  });
+</script>
+</body>
+</html>

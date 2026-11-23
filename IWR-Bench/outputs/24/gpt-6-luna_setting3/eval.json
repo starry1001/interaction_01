@@ -1,0 +1,63 @@
+{
+  "total_step": 10,
+  "success_step": 2,
+  "screenshot_paths_to_eval": [
+    "outputs/24/gpt-6-luna_setting3/evalpoints/0.png",
+    "outputs/24/gpt-6-luna_setting3/evalpoints/0.png"
+  ],
+  "all_mllm_scores": [
+    0.85,
+    0.44
+  ],
+  "all_dino_scores": [
+    0.94677734375,
+    0.89501953125
+  ],
+  "all_ocr_scores": [
+    0.5805929919137467,
+    0.24626865671641796
+  ],
+  "all_avg_scores": [
+    0.7924567785545822,
+    0.5270960626554726
+  ],
+  "mllm_score": 0.645,
+  "dino_score": 0.9208984375,
+  "ocr_score": 0.4134308243150823,
+  "avg_score": 0.6597764206050274,
+  "all_mllm_res": [
+    "Comments:\n- **Layout (8/10):** The overall page structure is highly consistent: top navigation, email confirmation banner, dataset metadata section, tab navigation, main dataset viewer, right-hand statistics/sidebar, and documentation content all appear in the correct order. However, the generated version has slightly different horizontal proportions and a taller/larger dataset viewer, causing lower-page content to appear further down.\n- **Elements (13/15):** Nearly all major interface elements are present, including the Hugging Face header, search bar, navigation links, metadata badges, dataset tabs, viewer controls, table, download statistics, trained-model list, and collection section. Some icons, button styling, pagination, and table details differ slightly.\n- **Content and Text (35/40):** The dataset name, author, metadata, viewer column names, sample math problems, answers, download counts, model names, collection name, license text, and paper title are largely matched. Minor differences include truncated or reformatted text, different visible table rows, and some omitted/extra content in the lower documentation area.\n- **Style (12/15):** Typography, spacing, borders, light background colors, pill-shaped metadata labels, and overall Hugging Face visual language are well reproduced. The generated version appears somewhat blurrier/lower contrast, with slight differences in font sizing, icon appearance, button dimensions, and color intensity.\n- **Overall (17/20):** This is a strong reproduction with the same page identity, hierarchy, content organization, and visual composition. The main discrepancies are scaling, table height/visibility, text wrapping, and rendering sharpness rather than fundamental design differences.\n\n**Score: 85/100**",
+    "Comments:\n- **Layout (10 points): 2/10** – The generated page uses a full-width Data Studio layout with a large three-column table and a persistent SQL sidebar. The reference is a centered dataset-card page with a narrower dataset viewer, metadata header, navigation tabs, right-side dataset information, and documentation content below. The overall structure and proportions differ substantially.\n- **Elements (15 points): 6/15** – Shared elements include the Hugging Face branding, email confirmation banner, dataset title, dataset viewer, split selector, search field, and the images/problem/answer columns. However, the generated page is missing the main site header, dataset metadata chips, Dataset Card tab, API/Embed controls, download statistics, model/collection links, and documentation sections. It adds SQL-console and query-related elements not present in the reference.\n- **Content and Text (40 points): 21/40** – The dataset name, split information, column names, sample problems, answers, and confirmation message are largely consistent. However, the generated page shows a much larger set of rows and Data Studio instructional text, while the reference includes metadata such as modalities, formats, size, downloads, associated models, collection information, and paper/documentation text that is absent.\n- **Style (15 points): 8/15** – The typography, light color palette, borders, table styling, and Hugging Face visual language are reasonably similar. Nevertheless, the generated page is much denser and more utilitarian, with smaller content proportions and a prominent gray SQL sidebar. The reference has more whitespace, softer card presentation, and a clearer hierarchy.\n- **Overall (20 points): 7/20** – The generated page appears to be a related Hugging Face view for the same dataset, and several core dataset elements match, but it represents a different page/state—Data Studio rather than the reference Dataset Card. The visual and structural similarity is therefore limited.\n\n**Score: 44/100**"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "Hugging Face Search models datasets users; = Models Datasets Spaces Community Docs 0 Enterprise Pricing Please check your email address for a confirmation link Resend confirmation email Datasets: Yuting6 Geo3k-augmentation like Modalities Image Text Formats: parquet Size: IK - IOK Arxiv: arxiv 2506.09736 Libraries; Datasets pandas Croissant Dataset card Data Studio Files and versions xet Community Downloads last month Dataset Viewer Alro-convarted t0 Parquuet API Embed Data Studio Split (2) train 42k rowS Use this dataset Search (nis dataset images problen answer Size 0l downlonded dutaset Iles: inages list enatha string Jensths string 01asses 224 MB Sie 0l tha puto convertrd Parquet fles Mumborof rotr 668 valuds 224 MB 5,803 <image Find Round [0 the nearest tenth, if necessary Choices: 8 Models trained or fine-tuned on Yuting6 /Geo3k- _ cimage>In the figure the vertices of quadrilateral ABCD 5: 9 intersect square Efgh and divide its into serments with= Yuting6/Vision-Matters-78 Updated Jun 13 124 <image Find the value 0f Sfs in the parallelogran Choices: 14 18 mradermacher /Vision-Matters-7B-GGUF Updated 24 days a80 105 0 [ <image Find value 0f the variable Sys in the figure 44 Choices 56 115 125 135 126 Yuting6/Vision-Matters-Evaluation Upcated Jun 43 Prav [ous Next Collection including Yuting6 Geo3k-augmentati_ Vision-Matters Collection 419 items Updated Jun 13 0 2 license: mit datasets: - Yuting6lgeoqa-rlv-augmentation - Yutinge/math-8k-augmentation - Yuting6/m3cot augmentation - Yuting6/TQA-augmentation - Yuting6/Geo3k-augmentation - Yutinge/geoqa-rlv-noise - Yutinge/geoqa- rlv-crop - Yutinge/geoqa-rlv-blur - Yutinge/geoqa-rlv-8k-rotated - Yuting6/geoqa-rlv-8k-mixup base_model:- Qwen/Qwen2.5-VL-7B-Instruct Vision Matters: Simple Visual Perturbations Can Boost Multimodal Math Reasoning Paper Title and Link sides 9 1 Ine",
+      "screenshot_text": "Hugging Face Search models, datasets; users. Models Datasets Spaces Community Docs Enterprise Pricing Please check email address for confirmation link Resend confirmation email E Datasets: Yuting6 Geo3k-augmentation like Modalities: Image Text Formats: parquet Size: 1K 10K ArXiv: arxiv 2506.09736 Libraries: Datasets pandas Croissant Dataset card Data Studio Files and versions Community Dataset Viewer Auto-converted t0 Parquet API Embed Data Studio Downloads last month Split (2) train 4.2k rowS Use this dataset Search this dataset Size downloaded dataset files: images problem answer 224 MB images list_ lengths stnng Mengths stnng ciasses Size of the auto-converted Parquet files: 224 MB Number of rows: 5,803 Models trained or fine-tuned on YutingblGeo3k _ Find Round the nearest tenth, if necessary. Choices: 8 9 10 Yuting6NVision-Matters-7B the the vertices of quadrilateral ABCD intersect square EFGH mradermacherMVision-Matters-7B-GGUF and divide its sides into with measures that have ratio of 1:2- Find the ratio between gegmentr areas of ABCD and EFGH _ Choices: 1.4 5:9 Yuting6Nision-Matters-Evaluation 1:2 5:9 1:v2 XLA 0 Find the value of sfs in the parallelogram Choices: 14 18 36 Collection including Yuting6/Geo3k-augmentati__. Vision-Matters Find the value the variable Sys the figure_ Choices: 55 115 125 125 135 license: mit datasets: Yutingblgeoqa-rlv-augmentation Yuting6lmath-8k-augmentation Yuting6lmacot-augmentation Yuting6ITQA-augmentation Yuting6/Geo3k-augmentation Yutingblgeoqa-rlv-noise Vision Matters: Simple Visual Perturbations Can Boost Multimodal Math Reasoning Paper Title and Link The model was presented in the paper Vision Matters: Simple Visual Perturbations Can Boost Multimodal Math Reasoning: your figure,",
+      "similarity": 0.5805929919137467
+    },
+    {
+      "checkpoint_text": "Please checkyour email address for a confirmation link Resend confirmation email Datasets: Yuting6 Geo3k-augmentation like Dataset card Data Studio Files and versions (XCl Community Split (2) train 4.2k rows Ask Al to help write your query_. Ctrltk Search this dataset The SQL console is powereo by  DuckDB WASM and runs entirel Get started by typing query selecting viewv from the images problem answer SELECT FROM [rain LIMIT 10; images list 'lengths string lengths string classes 291 6.68 values <inage Find X= Round the nearest tenth, necessary Choices: <image In the figure the vertices 0f quadrilateral ABCD intersect square EFGH and divide its sides into segments with measures that have Tatio 0f 132. Find the ratio petieen the areas of ABCD and EfGh Choices: 1:4 1:2 5:9 sqit Subsets and Splits 0 <inage Find the value of Sfs in the parallelogram Choices: 14 18 36 Run Query (image Find the value of the variable Sys in the figure Choices: 55 115 125 135 125 (inage Find Smlangle Ss Choices: 68 80 123 125 123 MA <inage Find Sxs that Iparallel S. Choices: 10 11 12 13 <inage Find ZRSU 50 Ehat $ Iparallel Choices: 114 116 120 124 124 <inage Find Sxs Choices: <image Find the perimeter 0f the Sltriangle C,$ if Sltriangle Isim |triangle D=5$ SC 0=12 $ and SB C=31.25 Choices: 32.5 72 78 187.2 <inage sloverline_ABlS is diameter, SAC-8s inches, and SBC-155 inches. Find the diameter of the circle _ Choices: 8.5 15 17 <inage Find Slangle 103 Choices: 80 100 160 Saved Queries Top Community Queries <inage Find the  measure of Slangle 75 if Sloverlinef4 B} Iperp |overlinefB C}s Choices: 110 120 130 140 140 <inage Find Sm Iwidehat {CF}S. Choices: No saved queries Save your SQL queries to embed, download, acccss tnem <inage Sloverline:BC; I loverline-OF}S . SAC=1S 830=3x-28, SCF=3x-28 and SAB-125 Find SxS Choices: later Queries will appear here once saved. yet and =",
+      "screenshot_text": "Hugging Face Search models, datasets; users. Models Datasets Spaces Community Docs Enterprise Pricing Please check email address for confirmation link Resend confirmation email E Datasets: Yuting6 Geo3k-augmentation like Modalities: Image Text Formats: parquet Size: 1K 10K ArXiv: arxiv 2506.09736 Libraries: Datasets pandas Croissant Dataset card Data Studio Files and versions Community Dataset Viewer Auto-converted t0 Parquet API Embed Data Studio Downloads last month Split (2) train 4.2k rowS Use this dataset Search this dataset Size downloaded dataset files: images problem answer 224 MB images list_ lengths stnng Mengths stnng ciasses Size of the auto-converted Parquet files: 224 MB Number of rows: 5,803 Models trained or fine-tuned on YutingblGeo3k _ Find Round the nearest tenth, if necessary. Choices: 8 9 10 Yuting6NVision-Matters-7B the the vertices of quadrilateral ABCD intersect square EFGH mradermacherMVision-Matters-7B-GGUF and divide its sides into with measures that have ratio of 1:2- Find the ratio between gegmentr areas of ABCD and EFGH _ Choices: 1.4 5:9 Yuting6Nision-Matters-Evaluation 1:2 5:9 1:v2 XLA 0 Find the value of sfs in the parallelogram Choices: 14 18 36 Collection including Yuting6/Geo3k-augmentati__. Vision-Matters Find the value the variable Sys the figure_ Choices: 55 115 125 125 135 license: mit datasets: Yutingblgeoqa-rlv-augmentation Yuting6lmath-8k-augmentation Yuting6lmacot-augmentation Yuting6ITQA-augmentation Yuting6/Geo3k-augmentation Yutingblgeoqa-rlv-noise Vision Matters: Simple Visual Perturbations Can Boost Multimodal Math Reasoning Paper Title and Link The model was presented in the paper Vision Matters: Simple Visual Perturbations Can Boost Multimodal Math Reasoning: your figure,",
+      "similarity": 0.24626865671641796
+    }
+  ],
+  "assertion_results": [
+    null,
+    null,
+    {
+      "result": "No",
+      "prev_img_path": "outputs/24/gpt-6-luna_setting3/evalpoints/2.png",
+      "curr_img_path": "outputs/24/gpt-6-luna_setting3/evalpoints/3.png",
+      "response": "{\n  \"think\": \"Both screenshots show the selected split as \\\"train · 4.2k rows\\\" under \\\"Split (2)\\\". It does not change to \\\"test\\\".\",\n  \"result\": \"No\"\n}",
+      "assertion": "'train' under 'Split (2)' becomes 'test'",
+      "thinking": "Both screenshots show the selected split as \"train · 4.2k rows\" under \"Split (2)\". It does not change to \"test\"."
+    },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "total_step": 11,
+  "success_step": 5,
+  "screenshot_paths_to_eval": [
+    "outputs/45/gpt-6-luna_setting2/evalpoints/0.png",
+    "outputs/45/gpt-6-luna_setting2/evalpoints/2.png",
+    "outputs/45/gpt-6-luna_setting2/evalpoints/3.png",
+    "outputs/45/gpt-6-luna_setting2/evalpoints/4.png"
+  ],
+  "all_mllm_scores": [
+    0.71,
+    0.59,
+    0.5,
+    0.47
+  ],
+  "all_dino_scores": [
+    0.80029296875,
+    0.80859375,
+    0.8095703125,
+    0.85205078125
+  ],
+  "all_ocr_scores": [
+    0.4106230847803881,
+    0.4142561983471075,
+    0.3718647764449291,
+    0.2360308285163777
+  ],
+  "all_avg_scores": [
+    0.6403053511767961,
+    0.6042833161157025,
+    0.5604783629816431,
+    0.5193605365887926
+  ],
+  "mllm_score": 0.5675,
+  "dino_score": 0.817626953125,
+  "ocr_score": 0.35819372202220057,
+  "avg_score": 0.5811068917157336,
+  "all_mllm_res": [
+    "Comments:\n- **Layout (8/10):** Both pages share the same overall structure: slim top navigation, large green promotional banner, centered Wolfram|Alpha branding and search area, a primary results column, and a right-hand advertising column. The generated page is slightly shifted horizontally and has somewhat different vertical spacing and content proportions.\n- **Elements (12/15):** Major elements are present and in comparable positions, including the navigation links, Pro banner, logo, search controls, action links, result cards, and sidebar ads. However, the result components differ substantially: the reference contains graph-based mathematical output, while the generated page contains tabular interpretation and unit-conversion sections.\n- **Content and Text (22/40):** Branding, navigation labels, and general Wolfram|Alpha interface text are closely matched. The primary query and resulting content are different: the reference shows a rational-function calculation with plots, whereas the generated page shows caffeine content for coffee and soda, producing different headings, values, tables, and explanatory text.\n- **Style (13/15):** Colors, typography, borders, card styling, spacing, and the green promotional banner are highly similar. Differences mainly come from the distinct ad artwork and the differing result visualization styles.\n- **Overall (16/20):** This is clearly the same website and a strong structural reproduction, but the central page content and some sidebar advertising do not match the reference, preventing a near-perfect score.\n\n**Score: 71/100**",
+    "Comments:\n- **Layout (8/10):** The generated page preserves the overall Wolfram|Alpha structure: slim top navigation, large green promotional banner, centered logo/search area, main results column, and right-hand advertising rail. However, the content column is positioned somewhat farther right and the vertical spacing differs from the reference.\n- **Elements (11/15):** Most major UI elements are present, including the navigation links, promotional banner, logo, search box, input controls, result cards, and sidebar ads. Some reference elements are missing or replaced, such as the specific result-section structure and matching sidebar advertisements.\n- **Content and Text (15/40):** Branding and general interface labels are similar, but the core page content differs substantially. The reference shows a caffeine-related interpretation and tabular results, while the generated page shows a partial-fraction expression with graphs. The search field also contains different text/placeholder content, and many result labels and values do not match.\n- **Style (12/15):** Colors, typography, borders, rounded panels, orange accents, green banner, and general Wolfram|Alpha visual language are closely reproduced. Minor differences appear in sizing, ad artwork, text scale, and panel styling.\n- **Overall (13/20):** The generated page is recognizably the same website and follows the reference’s overall composition, but the primary result content and several detailed visual elements are not faithful matches.\n\n**Score: 59/100**",
+    "Comments:\n- **Layout (10 points): 7/10** — Both pages use the same overall Wolfram|Alpha structure: top navigation, wide green promotional banner, centered logo/search area, a main results column, and a right-side advertisement column. However, the content grouping is horizontally shifted, and the vertical spacing and result-section arrangement differ noticeably.\n- **Elements (15 points): 10/15** — Major shared elements are present, including the navigation links, promotional banner, logo, search bar, input controls, result cards, and sidebar advertisements. Several result components differ, though: the first page contains graph panels and an interpretation notice, while the second contains tables, unit conversion sections, and additional informational cards.\n- **Content and Text (40 points): 10/40** — The textual content is substantially different. The first page shows a partial-fraction query, Chinese-language support messaging, mathematical plots, and alternate-form output. The second page shows an empty search field, coffee/carbonated beverage interpretation, a 481 mg result, unit conversions, and physical properties. Aside from shared branding and navigation text, the page content does not match.\n- **Style (15 points): 12/15** — Typography, color palette, borders, card styling, green banner, orange Wolfram|Alpha branding, and advertisement treatment are highly consistent. Some ad creatives, card layouts, and spacing differ.\n- **Overall (20 points): 11/20** — The screenshots clearly represent the same website and a very similar page template, but the primary results content and several secondary components are different, limiting the visual and semantic similarity.\n\n**Score: 50/100**",
+    "Comments:\n- **Layout (10 points): 7/10** — Both screenshots use a centered Wolfram|Alpha-style results layout with a large main content column, a narrow right advertising column, generous white space, and a persistent top/navigation area. However, the visible page sections and vertical positioning differ substantially.\n- **Elements (15 points): 9/15** — Shared elements include stacked result cards, section headers, bordered panels, right-side advertisements, buttons, tables, and related-query areas. The specific widgets differ: the first view emphasizes mathematical plots and equations, while the second contains unit conversion, physical properties, and nutrition facts.\n- **Content and Text (40 points): 12/40** — The branding and general Wolfram|Alpha terminology are consistent, but the primary content does not match. One page presents partial-fraction decomposition for \\(1/(x^2+4x+3)\\); the other presents beverage mass, volume, density, and nutrition information. Most text, results, labels, and data are different.\n- **Style (15 points): 11/15** — The visual language is closely matched: light gray result headers, white cards, thin borders, muted blue-gray text, orange/red accents, serif mathematical/table content, and colorful vertical ads. Some differences appear in ad artwork, card dimensions, and content-specific formatting.\n- **Overall (20 points): 8/20** — The screenshots clearly appear to share the same website or template, but they represent different queries and result structures. Structural and stylistic similarity is moderate, while semantic/content similarity is low.\n\n**Score: 47/100**"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "UPGRADE TO PRO APPS TOUR Sign in Use WolframgAlpha Pro for reality-checked results Go Now FROm THE MAKERS OFWOLFRAM LANGUAGE AND MATHEMATICA WolframAlpha Enter what you want t0 calculate or know about NATURAL LANGUAGE MATH INPUT EXTENDED KEYDOARD EXAMPLES UPLOAD 7RANDOM WolframlAlpha does not yet support Chinese: WolframiAlpha 7 #tAT DISCOVER WHAT'S Interpreting as: 1/(x\"2 + 4x + 3) POSSIBLE WolframlAlpha Inpul Take the Tour 1 +4x+3 Plot from -%,1 t0 - 0,91 Enlarge Data Customize (x from -7,J to 3.31 SVSTEM MODELER VIRTUAL LABS HIGH SCHOOL PHYSICS Alterate torm Step-by-step solution Free notebooks Complete labs & (x + 3)(x+ 1) experiments Download Pro [ with '",
+      "screenshot_text": "Upgrade to Pro Apps ~ Tour Sign in Use WolframgAlpha Pro for reality-checked results Go Pro Now FROM THE MAKERS OF WOLFRAM LANGUAGE AND MATHEMATICA WolframAlpha Caffeine content in 24 ounces of coffee and 24 ounces of soda NATURAL LANGUAGE MATH INPUT EXTENDED KEYBOARD EXAMPLES UPLOAD XRANDOM Input interpretation coffee amount 24 0z (ounces) caffeine DISCOVER carbonated beverage amount 24 0z (ounces) caffeine WHAT'S POSSIBLE Result Show details with WolframlAlpha 481 mg (milligrams) Take the Tour Unit conversion 2 Step-by-step solution 0.4815 grams 4.815 10 kg (kilograms) Answet; Ju 7.431 Physical properties SIP? mass coffee 680 grams carbonated beverage 680 grams total 1.4kg (kilograms) serving volume coffee 671 mL (milliliters) Powering carbonated beverage 649 mL (milliliters) Innovation in total 1320 mL (milliliters) Optimization unendadeo[e) serving density coffee g/cm? (gram per cubic centimeter) carbonated beverage L.1 g/cm\" (grams per cubic centimeter) grains",
+      "similarity": 0.4106230847803881
+    },
+    {
+      "checkpoint_text": "UPGRADE TO PRO APPS TOUR Sign in Use WolframgAlpha Pro for reality-checked results Go Now FROm THE MAKERS OFWOLFRAM LANGUAGE AND MATHEMATICA WolframAlpha Enter what you want to @ late or know about NATURAL LANGUAGE MATH INPUT EXTENDED KEYBOARD EXAMPLES UPLOAD 3RANDOM WolframlAlpha does rot yet support Chinese: WolframlAlpha T Zk+R. DISCOVER WHAT'S Interpreting as: 1/(x\"2 + 4x + 3) POSSIBLE WolframlAlpha Inpul Take the Tour 1 +4x+3 Plot ~25 from -%,1 t0 - 0,91 Kx from 7,Jto 1.31 SVSTEM MODELER VIRTUAL LABS HIGH SCHOOL PHYSICS Alterate tomm Step-by-step solution Free notebooks Complete labs & (x + 3)(x+ 1) experiments Download Pro ( with '",
+      "screenshot_text": "Upgrade to Pro Apps ~ Tour Sign in Use WolframgAlpha Pro for reality-checked results Go Pro Now FROM THE MAKERS OF WOLFRAM LANGUAGE AND MATHEMATICA WolframAlpha Partial fraction decomposition of Ll(x 2 + 4x + 3) NATURAL LANGUAGE MATH INPUT EXTENDED KEYBOARD EXAMPLES UPLOAD XRANDOM Input interpretation coffee amount 24 0z (ounces) caffeine DISCOVER carbonated beverage amount 24 0z (ounces) caffeine WHAT'S POSSIBLE Result Show details with WolframlAlpha 481 mg (milligrams) Take the Tour Unit conversion 2 Step-by-step solution 0.4815 grams 4.815 10 kg (kilograms) Answet; Ju 7.431 Physical properties SIP? mass coffee 680 grams carbonated beverage 680 grams total 1.4kg (kilograms) serving volume coffee 671 mL (milliliters) Powering carbonated beverage 649 mL (milliliters) Innovation in total 1320 mL (milliliters) Optimization unendadeo[e) serving density coffee g/cm? (gram per cubic centimeter) carbonated beverage L.1 g/cm\" (grams per cubic centimeter) grains",
+      "similarity": 0.4142561983471075
+    },
+    {
+      "checkpoint_text": "UPGRADE TO PRO APPS TOUR Sign in Use WolframgAlpha Pro for reality-checked results Go Now FROM THE MAKERS OF WOLFRAM LANGUAGE AND MATHEMATICA WolframAlpha Partial fraction decompps pn of 1/(x\"2 + 4x + 31 NATURAL LANGUAGE MATH INPUT EXTENDED KEYBOARD EXAMPLES UPLOAD 3RANDOM WolframlAlpha does rot yet support Chinese: WolframlAlpha T Zk+R. DISCOVER WHAT'S Interpreting as: 1/(x\"2 + 4x + 3) POSSIBLE WolframlAlpha Inpul Take the Tour 1 +4x+3 Plot ~25 from -%,1 t0 - 0,91 Kx from 7,Jto 1.31 SVSTEM MODELER VIRTUAL LABS HIGH SCHOOL PHYSICS Alterate tomm Step-by-step solution Free notebooks Complete labs & (x + 3)(x+ 1) experiments Download Pro ( with '",
+      "screenshot_text": "Upgrade to Pro Apps ~ Tour Sign in Use WolframgAlpha Pro for reality-checked results Go Pro Now FROM THE MAKERS OF WOLFRAM LANGUAGE AND MATHEMATICA WolframAlpha NATURAL LANGUAGE MATH INPUT EXTENDED KEYBOARD EXAMPLES UPLOAD XRANDOM Input interpretation coffee amount 24 0z (ounces) caffeine DISCOVER carbonated beverage amount 24 0z (ounces) caffeine WHAT'S POSSIBLE Result Show details with WolframlAlpha 481 mg (milligrams) Take the Tour Unit conversion 2 Step-by-step solution 0.4815 grams 4.815 10 kg (kilograms) Answet; Ju 7.431 Physical properties SIP? mass coffee 680 grams carbonated beverage 680 grams total 1.4kg (kilograms) serving volume coffee 671 mL (milliliters) Powering carbonated beverage 649 mL (milliliters) Innovation in total 1320 mL (milliliters) Optimization unendadeo[e) serving density coffee g/cm? (gram per cubic centimeter) carbonated beverage L.1 g/cm\" (grams per cubic centimeter) grains",
+      "similarity": 0.3718647764449291
+    },
+    {
+      "checkpoint_text": "UPGRADE TO PRO APPS TOUR Sign in Use WolframgAlpha Pro for reality-checked results Go FROM THE MAKERS OFWOLFRAM LANGUAGE AND MATHEMATICA WolframAlpha Partial fraction decomposition of 1/(x\"2 + 4x + 3) NATURAL LANGUAGE MATH INPUT EXTENDED KEYBOARD EXAMPLES UPLOAD 3RANDOM Input fractions 12 +4x+3 DISCOVER WHAT'S Result Step by-step solution POSSIBLE 1+41 +3 2( + H) 2(1 + 31 with WolframlAlpha Plot Take the Tour Ee M (X Irom 3,1 t0 -0,9) WolframgAlpha Pro: Accurate Step-by-Step Math Answers KX from 7.J t0 J.J1 G0 Pro Now Alternate form Answer;: J) 1+4r+3 STEP 2 Dide (x + 1)(x +3) Download Page POWERED BY THE WOLFRAM LANGUAGE Pro [ Now partial Dur",
+      "screenshot_text": "Result Show details with WolframlAlpha 481 mg (milligrams) Take the Tour Unit conversion 2 Step-by-step solution 0.4815 grams 4.815 10 kg (kilograms) Answet; Ju 7.431 Physical properties SIP? Ee mass coffee 680 grams carbonated beverage 680 grams total 1.4kg (kilograms) serving volume coffee 671 mL (milliliters) Powering carbonated beverage 649 mL (milliliters) Innovation in total 1320 mL (milliliters) Optimization unenadero[e serving density coffee 1g/cm? (gram per cubic centimeter) carbonated beverage L.1 g/cm\" (grams per cubic centimeter) Nutrition facts Nutrition facts Learn More Serving size: 24 02 Calores 188 Total fat Saturated fat Cholesterol Sodium 144 mg Total carbohydrates 47 g Dietary iiber Sugars 43 g Protein Vitamin 106 Calcium 496 Iron 590 Thiamin 296 Related Queries: how much blood sugar is normal vitamin deficiency fruit mix optimal storage temperature sort food by dietary fiber VB vegetable juice E Have question about using Wolfram[Alpha? Give US your feedback * Contact Pro Premium Expert Support % grains",
+      "similarity": 0.2360308285163777
+    }
+  ],
+  "assertion_results": [
+    null,
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/45/gpt-6-luna_setting2/evalpoints/1.png",
+      "curr_img_path": "outputs/45/gpt-6-luna_setting2/evalpoints/2.png",
+      "response": "{\n  \"think\": \"The current screenshot's input field contains the text 'Partial fraction decomposition of 1/(x^2 + 4x + 3)', matching the assertion.\",\n  \"result\": \"Yes\"\n}",
+      "assertion": "The 'Partial fraction decomposition of 1/(x^2 + 4x + 3)' is typed into the input field.",
+      "thinking": "The current screenshot's input field contains the text 'Partial fraction decomposition of 1/(x^2 + 4x + 3)', matching the assertion."
+    },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ]
+}

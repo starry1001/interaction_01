@@ -1,0 +1,234 @@
+```html
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JSTOR</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;background:#fff;color:#111;font-family:Arial,Helvetica,sans-serif;font-size:16px}
+body{min-width:320px}
+button,input,select{font:inherit}
+button,a{color:inherit}
+button{cursor:pointer}
+.btn{cursor:pointer}
+.library{height:73px;border-bottom:1px solid #d4d4d4;display:flex;align-items:center;gap:10px;padding:0 59px;font-size:24px;white-space:nowrap}
+.library .libicon{font-size:28px;font-weight:bold}
+.library a{font-style:italic}
+.nav{height:147px;border-bottom:1px solid #d4d4d4;position:relative;padding:12px 36px}
+.brand{position:absolute;left:36px;top:12px;width:91px;height:127px;object-fit:contain}
+.nav-actions{position:absolute;right:36px;top:12px;display:flex;gap:24px}
+.outline,.red{border:1px solid #d4d4d4;background:#fff;border-radius:3px;padding:10px 19px;font-weight:700;font-size:22px;min-height:50px}
+.red{background:#900000;color:white;border-color:#900000}
+.menu-btn{position:absolute;left:161px;top:62px;border:0;background:none;font-size:31px;padding:0;line-height:1}
+.workspace{position:absolute;right:36px;bottom:20px;font-size:23px;font-weight:bold}
+.header-search{height:98px;padding:22px 36px 12px;border-bottom:1px solid #ddd}
+.search-box{height:63px;width:100%;border:1px solid #999;border-radius:3px;display:flex;align-items:center;background:#fff}
+.search-box:focus-within{border:3px solid #20a8b5}
+.search-box input{border:0;outline:0;flex:1;min-width:0;padding:0 18px;font-size:23px;height:100%;background:transparent}
+.search-box input::placeholder{color:#777;opacity:1}
+.search-icon{width:58px;height:100%;border:0;background:none;position:relative}
+.search-icon:before{content:"";position:absolute;width:20px;height:20px;border:3px solid #111;border-radius:50%;left:13px;top:17px}
+.search-icon:after{content:"";position:absolute;width:15px;height:3px;background:#111;transform:rotate(48deg);left:32px;top:40px}
+.home-nav .header-search{display:none}
+.home-hero{position:relative;padding:48px 36px 0}
+h1{font-family:Georgia,"Times New Roman",serif;font-size:82px;line-height:.99;font-weight:400;letter-spacing:-2.5px;margin:0 0 48px;max-width:570px}
+.search-tabs{height:62px;display:flex;align-items:stretch;position:relative;z-index:2}
+.search-tabs button{border:1px solid #999;background:#fff;padding:0 22px;font-size:23px;min-width:165px}
+.search-tabs button:first-child{font-weight:bold;border-right:1px solid #111}
+.search-tabs button:nth-child(2){color:#777}
+.search-tabs .advanced-link{border:0;text-decoration:underline;margin-left:auto;padding:0;min-width:auto;font-size:22px;font-weight:bold}
+.home-search-wrap{position:relative;z-index:5}
+.home-search-wrap .search-box{height:86px}
+.home-search-wrap input{font-size:23px}
+.suggestions{position:absolute;top:86px;left:0;right:0;background:#fff;box-shadow:0 5px 9px #0003;z-index:8;font-size:22px}
+.suggestion-query{height:68px;padding:19px 24px;color:#24436c;font-weight:bold;border-bottom:1px solid #ddd;display:flex;justify-content:space-between;align-items:center}
+.suggestion-row{height:72px;padding:20px 24px;border-bottom:1px solid #eee}
+.suggestion-row:first-of-type{background:#f4f2ef}
+.suggestion-row strong{font-weight:bold}
+.suggestion-row .enter{float:right;color:#777}
+.hero-image{display:block;width:100%;height:183px;object-fit:cover;object-position:center;margin-top:-25px;position:relative;z-index:0}
+.hero-caption{display:flex;padding:25px 36px 0;gap:20px;min-height:170px;font-size:20px;line-height:1.48}
+.caption-text{width:63%}
+.caption-controls{flex:1;display:flex;align-items:flex-start;gap:17px;font-size:22px;font-weight:bold}
+.caption-controls span{line-height:1.5}
+.chev{font-size:42px;line-height:1!important;font-weight:normal}
+.home-gallery{height:380px;position:relative;margin-top:30px}
+.home-gallery img{position:absolute;object-fit:cover}
+.home-gallery img:first-child{width:244px;height:160px;left:96px;top:145px}
+.home-gallery img:last-child{width:256px;height:180px;left:352px;top:68px}
+main.results{padding:48px 12px 70px}
+.filter-button{display:block;width:100%;height:50px;background:#970000;color:#fff;border:0;border-radius:3px;text-align:left;padding:0 18px;font-size:22px;font-weight:bold;margin-bottom:72px}
+.results-heading{display:flex;justify-content:space-between;align-items:center;margin-bottom:29px}
+.results-heading h2{font:48px Georgia,"Times New Roman",serif;margin:0}
+.results-heading a{font-size:22px;text-decoration:underline}
+.selection-tools{margin-top:-20px;margin-bottom:32px}
+.selection-title{font:48px Georgia,serif;display:flex;justify-content:space-between}
+.selection-title a{font:22px Arial;align-self:center}
+.tool-buttons{display:flex;gap:18px;margin:6px 0 32px}
+.tool-buttons button{height:50px}
+.sort{height:50px;min-width:278px;border:1px solid #d4d4d4;background:#fff;border-radius:3px;text-align:left;padding:0 18px;font-size:22px;font-weight:bold;margin-bottom:52px}
+.sort span{float:right;font-size:25px}
+.notice{border:1px solid #dda941;background:#fffaf2;padding:25px 26px;margin:-15px 0 12px;font-size:22px;line-height:1.6}
+.result{position:relative;padding:0 12px 54px 90px;margin-bottom:38px}
+.result.selected{background:#f4f2ef;padding-top:22px;padding-bottom:28px}
+.result-controls{position:absolute;left:4px;top:0;display:flex;align-items:center;gap:10px}
+.result.selected .result-controls{top:22px}
+.remove{font-size:25px;color:#888;border:2px solid #999;border-radius:50%;width:27px;height:27px;line-height:20px;text-align:center}
+.check{appearance:none;width:26px;height:26px;border:2px solid #aaa;border-radius:4px;background:#fff;margin:0;position:relative}
+.check:checked{background:#111;border-color:#20a8b5;box-shadow:0 0 0 3px #20a8b5}
+.check:checked:after{content:"✓";position:absolute;color:#fff;font-weight:bold;left:4px;top:1px}
+.kind{font-size:20px;color:#777;margin-bottom:6px}
+.result h3{font:36px/1.16 Georgia,"Times New Roman",serif;margin:0 0 37px}
+.author{font-size:22px;text-decoration:underline;margin-bottom:12px;display:inline-block}
+.journal{font-size:23px;line-height:1.55;color:#777;margin-bottom:27px}
+.abstract{font-size:21px;line-height:1.43;margin:0 0 20px}
+.actions{display:flex;align-items:flex-start;gap:7px;margin-left:-36px}
+.actions button{height:auto;min-height:50px;font-size:23px;font-weight:bold;padding:10px 18px;display:flex;align-items:center;gap:10px}
+.actions .read{width:146px;justify-content:center;line-height:1.45}
+.actions .plain{border:1px solid #d4d4d4;background:#fff;border-radius:3px;min-width:132px;justify-content:center}
+.result-title{cursor:pointer}
+.detail{padding:73px 36px 60px}
+.detail .back{font-size:22px;text-decoration:underline;margin:0 0 36px 36px;display:inline-block}
+.detail .kind{font-size:20px;margin-bottom:18px}
+.detail h1{font-size:52px;line-height:1.03;letter-spacing:-1.5px;margin:0 0 30px;max-width:none}
+.detail .author{font-size:23px;text-decoration:none;font-weight:bold;margin-bottom:32px}
+.detail p{font-size:20px;line-height:1.8;margin:0 0 3px}
+.detail .cover{display:block;width:149px;height:225px;object-fit:cover;margin:0 0 34px}
+.detail .url{margin-top:30px}
+.detail .cite-link{text-decoration:underline;margin:22px 0;display:block}
+.detail .read-download{width:435px;max-width:100%;height:105px;text-align:left;padding:16px 30px;font-size:23px;line-height:1.55}
+.drawer-shade{position:fixed;inset:0;background:#0006;z-index:20}
+.drawer{position:fixed;z-index:21;left:0;top:0;bottom:0;width:63%;background:#000;color:#fff;padding:72px 48px}
+.drawer .close{position:absolute;right:18px;top:8px;background:none;border:0;color:#fff;font-size:38px}
+.drawer img{width:91px;height:127px;object-fit:contain;filter:grayscale(1) brightness(0) invert(1)}
+.drawer-actions{display:flex;gap:22px;margin:28px 0 45px}
+.drawer-actions button{font-size:21px;white-space:nowrap}
+.drawer nav div{font-size:23px;margin:0 0 21px}
+.drawer nav .divider{border-top:1px solid #777;padding-top:45px;margin-top:44px}
+.advanced{padding:60px 6px 60px}
+.advanced-title{display:flex;align-items:center;gap:25px;margin:0 0 45px}
+.advanced-title h1{font-size:48px;letter-spacing:-1px;white-space:nowrap;margin:0}
+.advanced-title a{font-size:22px;text-decoration:underline}
+.adv-tabs{height:55px;border-bottom:1px solid #ccc;display:flex;margin-bottom:42px}
+.adv-tabs button{width:169px;border:0;background:#fff;font-size:22px}
+.adv-tabs button:first-child{font-weight:bold;border-bottom:3px solid #111}
+.advanced h2{font:36px Georgia,serif;margin:0 0 59px}
+.row-labels{display:grid;grid-template-columns:1.4fr .9fr;gap:12px;margin-bottom:8px;font-weight:bold;font-size:20px}
+.query-row{display:grid;grid-template-columns:1.4fr .9fr;gap:12px;margin-bottom:26px}
+.query-row input,.query-row select,.access-select{height:62px;width:100%;border:1px solid #999;border-radius:3px;background:#fff;padding:0 18px;font-size:23px}
+.query-row input:focus,.query-row select:focus{outline:3px solid #20a8b5;border-color:#20a8b5}
+.second-labels{display:grid;grid-template-columns:130px 1.4fr 1.6fr 62px;gap:12px;margin-bottom:8px;font-weight:bold;font-size:20px}
+.second-row{display:grid;grid-template-columns:130px 1.4fr 1.6fr 62px;gap:12px;margin-bottom:22px}
+.second-row input,.second-row select{height:62px;border:1px solid #999;border-radius:3px;background:#fff;padding:0 17px;font-size:23px;min-width:0}
+.second-row input:focus,.second-row select:focus{outline:3px solid #20a8b5}
+.add-row{height:50px;border:1px solid #d4d4d4;background:#fff;border-radius:3px;padding:0 20px;font-weight:bold;font-size:22px;margin-bottom:68px}
+.add-row b{font-size:32px;vertical-align:-3px;margin-right:8px}
+.access-label{font-size:20px;font-weight:bold;margin-bottom:9px}
+.access-select{margin-bottom:47px}
+.submit-advanced{height:50px;padding:0 20px;font-size:22px;font-weight:bold}
+.narrow{margin-top:72px}
+.narrow h2{font:36px Georgia,serif;margin:0 0 20px;padding-bottom:19px;border-bottom:1px solid #ccc}
+.narrow strong{font-size:20px}
+.narrow-grid{display:grid;grid-template-columns:1fr 1fr;font-size:22px;gap:10px;margin-top:8px}
+.narrow-grid label{display:flex;align-items:center;gap:12px}
+.narrow-grid input{width:26px;height:26px}
+@media(max-width:650px){
+ .library{padding-left:36px;font-size:23px}
+ .nav-actions{gap:24px}
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const A="__PLACEHOLDER_ASSETS_BASE_DIR__/";
+let page="home", query="", suggestions=false, selected=false, advancedRows=1, menuOpen=false, advancedQuery=false;
+const app=document.getElementById("app");
+function header(home=false){
+ return `<div class="library"><span class="libicon">▥</span><span><i>Have library access?</i> <a href="#" class="btn">Log in through your library.</a></span></div>
+ <header class="nav ${home?'home-nav':''}">
+ <img class="brand" src="${A}039.svg" width="91" height="127" alt="JSTOR">
+ <div class="nav-actions"><button class="outline btn">Register</button><button class="red btn">☉ &nbsp;Log in</button></div>
+ <button class="menu-btn btn" id="menuButton" aria-label="Menu">☰</button>
+ <div class="workspace btn">▮ Workspace</div>
+ <div class="header-search"><div class="search-box"><input class="global-search" placeholder="Search journals, books, images, and primary sources" value="${escapeHtml(query)}"><button class="search-icon btn" aria-label="Search"></button></div></div>
+ </header>`;
+}
+function escapeHtml(s){return s.replaceAll("&","&amp;").replaceAll('"',"&quot;").replaceAll("<","&lt;")}
+function home(){
+ app.innerHTML=header(true)+`<section class="home-hero">
+ <h1>Explore the<br>world’s<br>knowledge,<br>cultures, and<br>ideas</h1>
+ <div class="search-tabs"><button class="btn">All Content</button><button class="btn">Images</button><button class="advanced-link btn" id="advancedLink">Advanced Search</button></div>
+ <div class="home-search-wrap"><div class="search-box"><input id="homeSearch" placeholder="Search journals, books, images, and primary sources" value="${escapeHtml(query)}"><button class="search-icon btn" id="homeSearchButton" aria-label="Search"></button></div>
+ ${suggestions&&query?`<div class="suggestions"><div class="suggestion-query btn" id="suggestQuery">ti:("${escapeHtml(query)}") <span id="closeSuggestions">×</span></div><div class="suggestion-row btn" id="justSearch">Just search for: <strong>&nbsp;${escapeHtml(query)}</strong><span class="enter">enter ↵</span></div><div class="suggestion-row btn">Author or creator: &nbsp;<strong>${escapeHtml(query)}</strong></div><div class="suggestion-row btn">Title: &nbsp;<strong>${escapeHtml(query)}</strong></div><div class="suggestion-row btn">Publication name: &nbsp;<strong>${escapeHtml(query)}</strong></div></div>`:""}</div></section>
+ <img class="hero-image" src="${A}033.webp" width="644" height="183" alt="Georgia O’Keeffe Ghost Ranch landscape">
+ <div class="hero-caption"><div class="caption-text">Georgia O’Keeffe, Ghost Ranch<br>Landscape (detail), c. 1936. Part of<br><u>Georgia O'Keeffe Museum.</u></div><div class="caption-controls"><span>Image<br>1 of 5</span><span class="chev btn">‹</span><span class="chev btn">›</span></div></div>
+ <div class="home-gallery"><img src="${A}011.jpg" width="244" height="160" alt="Historic manuscript"><img src="${A}012.jpg" width="256" height="180" alt="Historical artwork"></div>`;
+ bindHeader();bindHome();
+}
+function bindHeader(){
+ const m=document.getElementById("menuButton");if(m)m.onclick=()=>{menuOpen=true;drawMenu()};
+ document.querySelectorAll(".global-search").forEach(i=>{i.addEventListener("input",e=>{query=e.target.value});i.addEventListener("keydown",e=>{if(e.key==="Enter"){query=e.target.value;submitSearch()}})});
+ document.querySelectorAll(".header-search .search-icon").forEach(b=>b.onclick=()=>submitSearch());
+}
+function bindHome(){
+ const input=document.getElementById("homeSearch");
+ input.oninput=e=>{query=e.target.value;suggestions=!!query;home();const i=document.getElementById("homeSearch");i.focus();i.setSelectionRange(query.length,query.length)};
+ input.onfocus=()=>{if(query&&!suggestions){suggestions=true;home();document.getElementById("homeSearch").focus()}};
+ input.onkeydown=e=>{if(e.key==="Enter"){query=input.value;submitSearch()}};
+ document.getElementById("homeSearchButton").onclick=()=>submitSearch();
+ document.getElementById("advancedLink").onclick=()=>{page="advanced";suggestions=false;advancedRows=1;advancedQuery=false;advanced()};
+ const suggest=document.getElementById("suggestQuery");if(suggest)suggest.onclick=e=>{if(e.target.id==="closeSuggestions"){suggestions=false;home();return}query=`ti:("${query}")`;suggestions=false;home()};
+ const just=document.getElementById("justSearch");if(just)just.onclick=()=>submitSearch();
+}
+function submitSearch(){suggestions=false;selected=false;advancedQuery=query.includes("ab:");page="results";results();window.scrollTo(0,0)}
+const records=[
+ {type:"JOURNAL ARTICLE",title:'"Together They Might Make Trouble": Cross-Cultural Interactions in Tang Dynasty Guangzhou, 618-907 C.E.',author:"ADAM C. FONG",journal:"Journal of World History, Vol. 25, No. 4, SPECIAL ISSUE IN HONOR OF JERRY H. BENTLEY (December 2014), pp. 475-492",abstract:'..."Together They Might Make Trouble": Cross-Cultural Interactions in Tang Dynasty Guangzhou, 618-907 c.E. ADAM C. FONG University of Northern Colorado Guangzhou, the Tropic of better Cancer known and has in English a subtropical as Canton, climate. lies...'},
+ {type:"JOURNAL ARTICLE",title:"Vocabularies of Pleasure: Categorizing Female Entertainers in the Late Tang Dynasty",author:"BEVERLY BOSSLER",journal:"Harvard Journal of Asiatic Studies, Vol. 72, No. 1",abstract:"This article explores the language and culture of entertainment in the late Tang dynasty."}
+];
+function results(){
+ let second=advancedQuery;
+ app.innerHTML=header()+`<main class="results"><button class="filter-button btn">Show Search Filters</button>
+ ${selected?`<div class="selection-tools"><div class="selection-title">1 selected <a href="#" class="btn" id="clearSelection">Clear selections</a></div><div class="tool-buttons"><button class="red btn">▣ &nbsp;Cite &nbsp;⌄</button><button class="red btn">▯ &nbsp;Save</button></div></div>`:`<div class="results-heading"><h2>${second?"2":"5,121"} results</h2><a href="#" class="btn">Search help</a></div>`}
+ ${second?`<div class="notice">Note: Approximately 10% of articles on JSTOR have abstracts. To widen your search remove the abstract filter to search article full-text.</div>`:""}
+ <button class="sort btn">Sort by: Relevance <span>⌄</span></button>
+ ${second?`<article class="result"><div class="result-controls"><input class="check btn" type="checkbox"></div><div class="kind">BOOK CHAPTER</div><h3 class="result-title">Groups on the Grid: Weiqi Cultures in Song-Yuan-Ming China</h3><a class="author btn">ZACH BERGE-BECKER</a><div class="journal">From: <u>Games and Play in Chinese and Sinophone Cultures, University of Washington Press</u> (2024)<br><span style="color:#5b8b4e;border:1px solid #8ab27e;font-size:18px">OPEN ACCESS</span></div></article>
+ <article class="result"><div class="result-controls"><input class="check btn" type="checkbox"></div><div class="kind">BOOK CHAPTER</div><h3 class="result-title">Through the Bronze Mirror, Mind-Monkey Joins the</h3></article>`:records.map((r,i)=>`<article class="result ${selected&&i===0?"selected":""}"><div class="result-controls"><span class="remove btn">×</span><input class="check btn" type="checkbox" ${selected&&i===0?"checked":""} data-index="${i}"></div><div class="kind">${r.type}</div><h3 class="result-title" data-detail="${i}">${r.title}</h3><a class="author btn">${r.author}</a><div class="journal"><i>${r.journal.split(",")[0]}</i>${r.journal.substring(r.journal.indexOf(","))}</div><p class="abstract">${r.abstract}</p><div class="actions"><button class="red read btn" data-detail="${i}">▤ &nbsp;Read<br>online</button><button class="plain btn">♧ &nbsp;Save</button><button class="plain btn">▣ &nbsp;Cite</button></div></article>`).join("")}</main>`;
+ bindHeader();
+ document.querySelectorAll(".check").forEach(c=>c.onchange=()=>{selected=c.checked;results();window.scrollTo(0,0)});
+ const clear=document.getElementById("clearSelection");if(clear)clear.onclick=e=>{e.preventDefault();selected=false;results()};
+ document.querySelectorAll("[data-detail]").forEach(el=>el.onclick=()=>{page="detail";detail();window.scrollTo(0,0)});
+}
+function detail(){
+ app.innerHTML=header()+`<section class="detail"><a class="back btn" id="backResults">Back to results</a><div class="kind">JOURNAL ARTICLE</div><h1>${records[0].title}</h1><a class="author btn">ADAM C. FONG</a><p>Journal of World History</p><p><u>Vol. 25, No. 4, SPECIAL ISSUE IN HONOR OF JERRY H. BENTLEY</u> (December 2014), pp. 475-492 (18 pages)</p><p>Published By: University of Hawai'i Press</p><img class="cover" src="${A}041.jpg" width="149" height="225" alt="Journal of World History cover"><p class="url">https://www.jstor.org/stable/43818461</p><a class="cite-link btn">Cite</a><button class="red read-download btn">Read and download<br>Log in through your school or library</button></section>`;
+ bindHeader();document.getElementById("backResults").onclick=()=>{page="results";results();window.scrollTo(0,0)};
+}
+function advanced(){
+ let rows="";
+ for(let i=1;i<advancedRows;i++)rows+=`<div class="second-labels"><span>BOOLEAN</span><span>TERM(S)</span><span>FIELD</span><span></span></div><div class="second-row"><select><option>AND</option><option>OR</option><option>NOT</option></select><input class="adv-term" aria-label="Term"><select><option>All fields</option><option>Abstract</option><option>Title</option><option>Author</option></select><button class="outline btn remove-row">▤</button></div>`;
+ app.innerHTML=header()+`<section class="advanced"><div class="advanced-title"><h1>Advanced Search</h1><a class="btn">Search Help</a></div><div class="adv-tabs"><button class="btn">All Content</button><button class="btn">Images</button></div><h2>Construct your search query</h2>
+ <div class="row-labels"><span>TERM(S)</span><span>FIELD</span></div><div class="query-row"><input id="term1" aria-label="Term"><select id="field1"><option>All fields</option><option>Abstract</option><option>Title</option><option>Author</option><option>Item title</option></select></div>
+ ${rows}<button class="add-row btn" id="addRow"><b>＋</b>Add row</button>
+ <div class="access-label">SELECT AN ACCESS TYPE</div><select class="access-select"><option>Content I can access</option><option>All content</option></select><br><button class="red submit-advanced btn" id="submitAdvanced">Submit Advanced Search</button>
+ <div class="narrow"><h2>Narrow Results</h2><strong>ITEM TYPE</strong><div class="narrow-grid">${["Articles","Research Reports","Reviews","Miscellaneous","Books","Book Chapters"].map(x=>`<label><input type="checkbox"> ${x}</label>`).join("")}</div></div></section>`;
+ bindHeader();
+ document.getElementById("addRow").onclick=()=>{advancedRows++;advanced()};
+ document.querySelectorAll(".remove-row").forEach(b=>b.onclick=()=>{advancedRows=Math.max(1,advancedRows-1);advanced()});
+ document.getElementById("submitAdvanced").onclick=()=>{let t=document.getElementById("term1").value||"tang";let second=document.querySelector(".adv-term")?.value||"qin";query=`((ab:"${t}") AND (ab:"${second}"))`;advancedQuery=true;page="results";results();window.scrollTo(0,0)};
+}
+function drawMenu(){
+ let shade=document.createElement("div");shade.className="drawer-shade";shade.id="shade";
+ shade.onclick=()=>{menuOpen=false;shade.remove();document.querySelector(".drawer")?.remove()};
+ let drawer=document.createElement("aside");drawer.className="drawer";
+ drawer.innerHTML=`<button class="close btn" id="closeMenu">‹</button><img src="${A}040.svg" width="91" height="127" alt="JSTOR"><div class="drawer-actions"><button class="red btn">☉ Log in</button><button class="outline btn">Register</button></div><nav><div>Workspace</div><div class="btn" id="drawerAdvanced">Advanced Search</div><div>Browse <span style="float:right">⌄</span></div><div class="divider">Support <span style="float:right">⌄</span></div></nav>`;
+ document.body.append(shade,drawer);
+ document.getElementById("closeMenu").onclick=()=>{menuOpen=false;shade.remove();drawer.remove()};
+ document.getElementById("drawerAdvanced").onclick=()=>{shade.remove();drawer.remove();page="advanced";advancedRows=1;advancedQuery=false;advanced();window.scrollTo(0,0)};
+}
+home();
+</script>
+</body>
+</html>
+```

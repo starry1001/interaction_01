@@ -1,0 +1,287 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GitHub Replica</title>
+<style>
+  *{box-sizing:border-box}
+  :root{
+    --border:#d0d7de;
+    --muted:#656d76;
+    --text:#1f2328;
+    --blue:#0969da;
+    --green:#1f883d;
+    --bg:#fff;
+    --top:#f6f8fa;
+  }
+  html,body{margin:0;width:100%;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:var(--text);font-size:14px;background:#fff}
+  button,input,textarea{font:inherit}
+  .btn{cursor:pointer}
+  .topbar{
+    height:66px;background:#f6f8fa;border-bottom:1px solid var(--border);
+    display:flex;align-items:center;padding:0 16px;gap:14px;position:relative;z-index:20
+  }
+  .hamb{width:32px;height:32px;border:1px solid var(--border);border-radius:6px;background:#fff;font-size:20px;color:#59636e;line-height:25px}
+  .github-mark{width:31px;height:31px;border-radius:50%;background:#24292f;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:19px}
+  .brand{font-size:14px;font-weight:600;white-space:nowrap}
+  .top-spacer{flex:1}
+  .search{width:260px;height:34px;border:1px solid var(--border);border-radius:6px;background:#fff;display:flex;align-items:center;padding:0 10px;color:#656d76;font-size:13px}
+  .search span:first-child{font-size:19px;margin-right:8px}
+  .toolbar{display:flex;gap:7px;align-items:center}
+  .tool{
+    height:34px;min-width:34px;border:1px solid var(--border);background:#fff;border-radius:6px;color:#57606a;
+    display:flex;align-items:center;justify-content:center;font-size:18px
+  }
+  .avatar{width:34px;height:34px;border-radius:50%;object-fit:cover;border:1px solid #d8dee4}
+  .side{
+    position:absolute;left:0;top:66px;width:335px;bottom:0;border-right:1px solid var(--border);padding:25px 24px;background:#fff
+  }
+  .side-title{font-weight:600;margin:8px 0 13px}
+  .new-btn{float:right;margin-top:-30px;background:#1f883d;color:#fff;border:0;border-radius:6px;padding:7px 13px;font-weight:600}
+  .repo-search{height:34px;width:100%;border:1px solid var(--border);border-radius:6px;padding:0 12px;color:#656d76;margin-bottom:17px}
+  .repo-item{display:flex;align-items:center;gap:8px;color:#424a53}
+  .small-avatar{width:18px;height:18px;border-radius:50%;object-fit:cover}
+  .dashboard-main{margin-left:335px;padding-top:40px}
+  .dashboard-grid{width:980px;margin:0 auto;display:grid;grid-template-columns:1fr 310px;gap:40px}
+  h1{font-size:26px;margin:8px 0}
+  .copilot{height:48px;border:1px solid var(--border);border-radius:12px;display:flex;align-items:center;padding:0 16px;color:#656d76;margin:9px 0 16px;box-shadow:0 1px 2px #0000000a}
+  .send{margin-left:auto;font-size:21px}
+  .chips{display:flex;gap:9px;margin-bottom:34px}
+  .chip{border:1px solid var(--border);background:#fff;border-radius:22px;padding:10px 15px;color:#24292f;box-shadow:0 1px 2px #0000000a}
+  .chip b{color:#8250df;margin-right:8px}
+  .feed-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-weight:600}
+  .filter{border:1px solid var(--border);background:#fff;border-radius:6px;padding:8px 13px}
+  .feed-card{border:1px solid var(--border);border-radius:6px;overflow:hidden}
+  .trend{padding:20px 17px 10px;color:#656d76}
+  .trend a{color:#0969da;margin-left:10px}
+  .feed-row{padding:17px;border-top:1px solid var(--border);min-height:135px;position:relative}
+  .feed-row strong{display:block;margin:0 0 12px}
+  .feed-row p{margin:0 70px 13px 0;line-height:1.55}
+  .star{position:absolute;right:15px;top:17px;border:1px solid var(--border);background:#fff;border-radius:6px;padding:7px 15px}
+  .lang{color:#656d76;font-size:13px}.dot{display:inline-block;width:12px;height:12px;border-radius:50%;background:#57d364;margin-right:7px;vertical-align:-1px}
+  .latest{border:1px solid var(--border);border-radius:6px;padding:22px 16px;height:389px}
+  .latest h3{font-size:14px;margin:0 0 18px}
+  .latest-item{border-left:2px solid #d8dee4;padding:0 0 22px 21px;position:relative;line-height:1.5}
+  .latest-item:before{content:"";position:absolute;left:-6px;top:3px;width:7px;height:7px;border-radius:50%;background:#d8dee4}
+  .latest-item small{display:block;color:#656d76;margin-bottom:4px}
+  .footer{margin:75px auto 0;width:820px;border-bottom:1px solid var(--border);padding-bottom:42px;text-align:center;color:#656d76;font-size:12px}
+  .footer span{margin:0 8px}
+  .dropdown{
+    position:absolute;right:50px;top:53px;width:193px;background:#fff;border:1px solid var(--border);border-radius:10px;box-shadow:0 8px 24px #1f232833;overflow:hidden;z-index:30
+  }
+  .drop-row{padding:12px 16px;border-bottom:1px solid #eaeef2;display:flex;gap:12px;align-items:center;color:#424a53}
+  .drop-row:last-child{border:0}.drop-row:hover{background:#f6f8fa}
+  .form-page{width:820px;margin:30px auto 80px}
+  .form-title{font-size:21px;font-weight:600;margin-bottom:3px}
+  .form-sub{color:#656d76;margin-bottom:4px}.preview{color:#1f883d;border:1px solid #1f883d;border-radius:12px;padding:2px 7px;font-size:12px;margin-left:8px}
+  .classic{color:#0969da;margin-left:15px}.required-note{font-style:italic;color:#656d76;margin:4px 0 27px}
+  .step{position:relative;border-left:2px solid #e5e7eb;padding-left:23px;margin-left:-23px;padding-bottom:10px}
+  .step-num{position:absolute;left:-17px;top:0;width:30px;height:30px;border-radius:50%;background:#f6f8fa;color:#656d76;display:flex;align-items:center;justify-content:center}
+  .step h2{font-size:16px;margin:0 0 18px}
+  .fields{display:grid;grid-template-columns:170px 1fr;gap:12px 18px;align-items:start}
+  label{font-weight:600;display:block;margin-bottom:7px}
+  .input,.textarea{height:35px;width:100%;border:1px solid var(--border);border-radius:6px;padding:7px 11px;background:#fff;outline:none}
+  .input:focus,.textarea:focus{border-color:#0969da;box-shadow:0 0 0 2px #54aeff66}
+  .owner{height:35px;border:1px solid var(--border);border-radius:6px;padding:0 11px;display:flex;align-items:center;gap:7px;font-weight:600;background:#f6f8fa}
+  .slash{font-size:24px;color:#656d76;text-align:center;margin-top:22px}
+  .name-wrap{display:grid;grid-template-columns:1fr;position:relative}
+  .available{color:#1f883d;font-size:12px;margin-top:5px;font-weight:600}
+  .suggestion{grid-column:1/-1;color:#656d76;margin:4px 0 9px}
+  .suggestion b{color:#1f883d}
+  .desc-field{grid-column:1/-1}
+  .counter{color:#656d76;font-size:12px;margin-top:5px}
+  .config{margin-top:24px}.config h2{margin-bottom:17px}
+  .panel{border:1px solid var(--border);border-radius:7px;padding:0 12px;margin-bottom:15px}
+  .config-row{min-height:67px;border-bottom:1px solid #eaeef2;display:flex;align-items:center;padding:10px 0}
+  .config-row:last-child{border-bottom:0}
+  .config-label{flex:1}.config-label strong{display:block;margin-bottom:4px}.config-label small{color:#656d76}
+  .select-btn{height:35px;border:1px solid var(--border);background:#f6f8fa;border-radius:6px;padding:0 12px;font-weight:600;white-space:nowrap}
+  .toggle{width:49px;height:25px;border-radius:20px;background:#eaeef2;border:1px solid var(--border);padding:2px;display:flex;justify-content:flex-start}
+  .toggle i{width:19px;height:19px;background:#fff;border-radius:50%;display:block;box-shadow:0 1px 2px #0003}
+  .toggle.on{background:#0969da;justify-content:flex-end}
+  .toggle.on i{background:#fff}
+  .create{float:right;margin-top:15px;background:#1f883d;color:#fff;border:0;border-radius:6px;font-weight:600;padding:9px 14px}
+  .mini-menu{position:absolute;background:#fff;border:1px solid var(--border);border-radius:10px;box-shadow:0 8px 24px #1f232833;z-index:50}
+  .visibility-menu{right:0;top:43px;width:320px;padding:10px 0}
+  .vis-option{padding:9px 18px;display:flex;gap:11px}.vis-option:hover{background:#f6f8fa}
+  .vis-option small{display:block;color:#656d76;margin-top:3px}
+  .license-menu{right:0;top:42px;width:320px;padding:8px;max-height:450px}
+  .license-search{height:35px;border:2px solid #0969da;border-radius:6px;width:100%;padding:5px 9px;margin-bottom:8px}
+  .license-list{max-height:350px;overflow:auto}
+  .license-item{padding:8px 12px}.license-item:hover{background:#f6f8fa}
+  .repo-page{width:1220px;margin:0 auto;padding-top:18px}
+  .repo-nav{height:58px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:25px}
+  .repo-nav a{font-weight:600;color:#424a53;padding:20px 7px 16px}.repo-nav a.active{border-bottom:2px solid #f78166}
+  .repo-head{display:flex;align-items:center;gap:8px;font-size:20px;margin:20px 0 18px}
+  .private{font-size:12px;border:1px solid var(--border);border-radius:12px;padding:3px 8px;color:#656d76}
+  .repo-layout{display:grid;grid-template-columns:900px 300px;gap:25px}
+  .repo-actions{display:flex;gap:8px;margin-bottom:16px}
+  .branch{border:1px solid var(--border);background:#f6f8fa;border-radius:6px;padding:9px 15px;font-weight:600}
+  .action{border:1px solid var(--border);background:#fff;border-radius:6px;padding:8px 13px}
+  .code-btn{background:#1f883d;color:#fff;border:0;border-radius:6px;padding:9px 18px;font-weight:600;margin-left:auto}
+  .files{border:1px solid var(--border);border-radius:6px;overflow:hidden}
+  .commit{background:#f6f8fa;padding:16px;border-bottom:1px solid var(--border);color:#656d76}
+  .file{height:43px;padding:12px 17px;border-bottom:1px solid #eaeef2;display:grid;grid-template-columns:1fr 1fr 50px}
+  .readme{border:1px solid var(--border);border-radius:6px;margin-top:16px;overflow:hidden}
+  .readme-tab{padding:15px;border-bottom:1px solid var(--border);font-weight:600}
+  .readme-body{padding:38px 33px;height:160px}.readme-body h1{font-size:28px;border-bottom:1px solid #eaeef2;padding-bottom:12px}
+  .about h3{font-size:15px}.about p{line-height:1.6}.about hr{border:0;border-top:1px solid var(--border);margin:17px 0}
+  .hidden{display:none!important}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <button class="hamb btn">☰</button>
+  <div class="github-mark">●</div>
+  <div class="brand" id="topTitle">Dashboard</div>
+  <div class="top-spacer"></div>
+  <div class="search"><span>⌕</span><span>Type / to search</span></div>
+  <div class="toolbar">
+    <button class="tool btn">◉⌄</button>
+    <button class="tool btn" id="plusBtn">＋⌄</button>
+    <button class="tool btn">◉</button>
+    <button class="tool btn">♧</button>
+    <button class="tool btn">▱</button>
+    <img class="avatar btn" src="__PLACEHOLDER_ASSETS_BASE_DIR__/001.png" width="350" height="350" alt="avatar">
+  </div>
+  <div class="dropdown" id="globalMenu">
+    <div class="drop-row btn">◉ <span>New issue</span></div>
+    <div class="drop-row btn" id="newRepoBtn">▣ <span>New repository</span></div>
+    <div class="drop-row btn">⇥ <span>Import repository</span></div>
+    <div class="drop-row btn">▤ <span>New codespace</span></div>
+    <div class="drop-row btn">◇ <span>New gist</span></div>
+    <div class="drop-row btn">▥ <span>New organization</span></div>
+    <div class="drop-row btn">▣ <span>New project</span></div>
+  </div>
+</header>
+
+<section id="dashboard">
+  <aside class="side">
+    <div class="side-title">Top repositories</div>
+    <button class="new-btn btn" id="sideNew">▣ New</button>
+    <input class="repo-search" placeholder="Find a repository...">
+    <div class="repo-item"><img class="small-avatar" src="__PLACEHOLDER_ASSETS_BASE_DIR__/001.png" width="350" height="350">Jimmy6668889/jack</div>
+  </aside>
+  <main class="dashboard-main">
+    <div class="dashboard-grid">
+      <div>
+        <h1>Home</h1>
+        <div class="copilot">Ask Copilot <span class="send">▷</span></div>
+        <div class="chips">
+          <button class="chip btn"><b>◉</b>Interpret an architecture diagram</button>
+          <button class="chip btn"><b style="color:#18864b">♧</b>Summarize a pull request</button>
+          <button class="chip btn"><b style="color:#18864b">⊙</b>Suggest next steps for an issue</button>
+        </div>
+        <div class="feed-head"><span>Feed</span><button class="filter btn">☷ &nbsp;Filter</button></div>
+        <div class="feed-card">
+          <div class="trend">⌁ &nbsp;Trending repositories · <a href="#" class="btn">See more</a></div>
+          <div class="feed-row">
+            <strong>🌍 &nbsp;winapps-org/winapps</strong>
+            <button class="star btn">☆ &nbsp;Star &nbsp;⌄</button>
+            <p>Run Windows apps such as Microsoft Office/Adobe in Linux (Ubuntu/Fedora) and GNOME/KDE as if they were a part of the native OS, including Nautilus integration. Hard fork of https://github.com/Fmst...</p>
+            <span class="lang"><i class="dot"></i>Shell &nbsp; ☆ 6.3k</span>
+          </div>
+          <div class="feed-row">
+            <strong>🌈 &nbsp;moeru-ai/airi</strong>
+            <button class="star btn">☆ &nbsp;Star &nbsp;⌄</button>
+            <p>💖 🐧 Self hosted, you owned Grok Companion, a container of souls of waifu, cyber livings to bring them into our worlds, wishing to achieve Neuro-sama's altitude. Capable of realtime voice chat, Minec...</p>
+            <span class="lang"><i class="dot"></i>Vue &nbsp; ☆ 9.5k</span>
+          </div>
+        </div>
+        <div class="footer">◉　© 2025 GitHub, Inc. <span>Terms</span><span>Privacy</span><span>Security</span><span>Status</span><span>Docs</span><span>Contact</span><span>Manage cookies</span><span>Do not share my personal information</span></div>
+      </div>
+      <div class="latest">
+        <h3>Latest changes</h3>
+        <div class="latest-item"><small>3 days ago</small>Premium request overage policy is generally available for Copilot Busines...</div>
+        <div class="latest-item"><small>3 days ago</small>GraphQL Explorer removal from API documentation on November 1, 2025</div>
+        <div class="latest-item"><small>3 days ago</small>Enterprises can create organization roles for use across their enterprise, and...</div>
+        <div class="latest-item"><small>3 days ago</small>Pull request “Files changed” public preview experience – August 21 updates</div>
+        <small>View changelog →</small>
+      </div>
+    </div>
+  </main>
+</section>
+
+<section id="formPage" class="hidden">
+  <main class="form-page">
+    <div class="form-title">Create a new repository <span class="preview">Preview</span><a class="classic btn">Switch back to classic experience</a></div>
+    <div class="form-sub">Repositories contain a project's files and version history. Have a project elsewhere? <u>Import a repository</u>.</div>
+    <div class="required-note">Required fields are marked with an asterisk (*).</div>
+    <div class="step">
+      <div class="step-num">1</div><h2>General</h2>
+      <div class="fields">
+        <div><label>Owner *</label><div class="owner"><img class="small-avatar" src="__PLACEHOLDER_ASSETS_BASE_DIR__/001.png" width="350" height="350">Jimmy6668889　⌄</div></div>
+        <div class="name-wrap"><label>Repository name *</label><input id="repoName" class="input" autocomplete="off"><div id="available" class="available hidden">● jackccc is available.</div></div>
+        <div class="slash">/</div><div></div>
+        <div class="suggestion">Great repository names are short and memorable. How about <b>sturdy-waffle</b>?</div>
+        <div class="desc-field"><label>Description</label><input id="description" class="input"><div class="counter" id="counter">0 / 350 characters</div></div>
+      </div>
+    </div>
+    <div class="step config">
+      <div class="step-num">2</div><h2>Configuration</h2>
+      <div class="panel">
+        <div class="config-row" style="position:relative">
+          <div class="config-label"><strong>Choose visibility *</strong><small>Choose who can see and commit to this repository</small></div>
+          <button id="visibilityBtn" class="select-btn btn">▣ &nbsp; <span>Public</span>　⌄</button>
+          <div id="visibilityMenu" class="mini-menu visibility-menu hidden">
+            <div class="vis-option btn" data-value="Public">✓　▣ <div><b>Public</b><small>Anyone on the internet can see this repository. You choose who can commit.</small></div></div>
+            <div class="vis-option btn" data-value="Private">🔒 <div><b>Private</b><small>You choose who can see and commit to this repository.</small></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="config-row"><div class="config-label"><strong>Add README</strong><small>READMEs can be used as longer descriptions. <u>About READMEs</u></small></div><span style="margin-right:9px;color:#656d76" id="toggleText">Off</span><button id="readmeToggle" class="toggle btn"><i></i></button></div>
+        <div class="config-row" style="position:relative"><div class="config-label"><strong>Add .gitignore</strong><small>.gitignore tells git which files not to track. <u>About ignoring files</u></small></div><button class="select-btn btn">No .gitignore　⌄</button></div>
+        <div class="config-row" style="position:relative"><div class="config-label"><strong>Add license</strong><small>Licenses explain how others can use your code. <u>About licenses</u></small></div><button id="licenseBtn" class="select-btn btn">No license　⌄</button>
+          <div id="licenseMenu" class="mini-menu license-menu hidden"><div style="font-weight:600;padding:3px 8px 8px">Choose a license</div><input class="license-search" placeholder="⌕  Search licenses"><div class="license-list">
+            <div class="license-item btn">✓　No license</div><div class="license-item btn">Apache License 2.0</div><div class="license-item btn">GNU General Public License v3.0</div><div class="license-item btn">MIT License</div><div class="license-item btn">BSD 2-Clause "Simplified" License</div><div class="license-item btn">BSD 3-Clause "New" or "Revised" License</div><div class="license-item btn">Boost Software License 1.0</div><div class="license-item btn">Creative Commons Zero v1.0 Universal</div><div class="license-item btn">Eclipse Public License 2.0</div><div class="license-item btn">GNU Affero General Public License v3.0</div>
+          </div></div>
+        </div>
+      </div>
+      <button id="createBtn" class="create btn">Create repository</button>
+    </div>
+  </main>
+</section>
+
+<section id="repoPage" class="hidden">
+  <main class="repo-page">
+    <nav class="repo-nav"><a class="active btn">〈〉 Code</a><a class="btn">◉ Issues</a><a class="btn">♧ Pull requests</a><a class="btn">▷ Actions</a><a class="btn">▦ Projects</a><a class="btn">⬡ Security</a><a class="btn">⌁ Insights</a><a class="btn">⚙ Settings</a></nav>
+    <div class="repo-head"><img class="small-avatar" src="__PLACEHOLDER_ASSETS_BASE_DIR__/001.png" width="350" height="350"><b>jackccc</b><span class="private">Private</span></div>
+    <div class="repo-layout">
+      <div>
+        <div class="repo-actions"><button class="branch btn">♧ &nbsp;main　⌄</button><span style="padding:10px">♧ 1 Branch　 ◇ 0 Tags</span><button class="action btn">⌕ &nbsp;Go to file</button><button class="action btn">Add file　⌄</button><button class="code-btn btn">&lt;/&gt; Code　⌄</button></div>
+        <div class="files"><div class="commit">🌐　<b>Jimmy6668889</b>　Initial commit <span style="float:right">31b2bf4 · now　 ◷ 1 Commit</span></div><div class="file">▱　LICENSE <span>Initial commit</span><span>now</span></div><div class="file">▱　README.md <span>Initial commit</span><span>now</span></div></div>
+        <div class="readme"><div class="readme-tab">▣ README　 ⚖ Apache-2.0 license</div><div class="readme-body"><h1>jackccc</h1><p>an interesting boy</p></div></div>
+      </div>
+      <aside class="about"><h3>About</h3><p>an interesting boy</p><p>▣　Readme</p><p>⌁　Activity</p><p>☆　0 stars</p><p>◉　0 watching</p><p>♧　0 forks</p><hr><h3>Releases</h3><p>No releases published<br><a> Create a new release</a></p><hr><h3>Packages</h3><p>No packages published<br><a>Publish your first package</a></p></aside>
+    </div>
+    <div class="footer">◉　© 2025 GitHub, Inc. <span>Terms</span><span>Privacy</span><span>Security</span><span>Status</span><span>Docs</span><span>Contact</span><span>Manage cookies</span></div>
+  </main>
+</section>
+
+<script>
+  const $=s=>document.querySelector(s);
+  const dashboard=$('#dashboard'), form=$('#formPage'), repo=$('#repoPage');
+  function show(view){dashboard.classList.add('hidden');form.classList.add('hidden');repo.classList.add('hidden');view.classList.remove('hidden');}
+  function openForm(){show(form);$('#globalMenu').classList.add('hidden');$('#topTitle').textContent='New repository';}
+  $('#newRepoBtn').onclick=openForm; $('#sideNew').onclick=openForm;
+  $('#plusBtn').onclick=()=>$('#globalMenu').classList.toggle('hidden');
+  $('#repoName').addEventListener('input',e=>{$('#available').classList.toggle('hidden',!e.target.value);});
+  $('#description').addEventListener('input',e=>$('#counter').textContent=e.target.value.length+' / 350 characters');
+  $('#visibilityBtn').onclick=()=>{$('#visibilityMenu').classList.toggle('hidden');$('#licenseMenu').classList.add('hidden')};
+  document.querySelectorAll('.vis-option').forEach(x=>x.onclick=()=>{ $('#visibilityBtn').querySelector('span').textContent=x.dataset.value; $('#visibilityMenu').classList.add('hidden');});
+  $('#readmeToggle').onclick=()=>{$('#readmeToggle').classList.toggle('on');$('#toggleText').textContent=$('#readmeToggle').classList.contains('on')?'On':'Off'};
+  $('#licenseBtn').onclick=()=>{$('#licenseMenu').classList.toggle('hidden');$('#visibilityMenu').classList.add('hidden')};
+  document.querySelectorAll('.license-item').forEach(x=>x.onclick=()=>{if(x.textContent.trim()!=='✓　No license'){$('#licenseBtn').textContent=x.textContent.trim()+'　⌄'}$('#licenseMenu').classList.add('hidden')});
+  $('#createBtn').onclick=()=>{show(repo);$('#topTitle').textContent='Jimmy6668889　/　jackccc　🔒'};
+  document.addEventListener('click',e=>{
+    if(!e.target.closest('#plusBtn')&&!e.target.closest('#globalMenu'))$('#globalMenu').classList.add('hidden');
+    if(!e.target.closest('#visibilityBtn')&&!e.target.closest('#visibilityMenu'))$('#visibilityMenu').classList.add('hidden');
+    if(!e.target.closest('#licenseBtn')&&!e.target.closest('#licenseMenu'))$('#licenseMenu').classList.add('hidden');
+  });
+</script>
+</body>
+</html>
+```

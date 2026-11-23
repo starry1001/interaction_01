@@ -1,0 +1,56 @@
+{
+  "total_step": 7,
+  "success_step": 2,
+  "screenshot_paths_to_eval": [
+    "outputs/5/gpt-6-luna_setting2/evalpoints/0.png"
+  ],
+  "all_mllm_scores": [
+    0.76
+  ],
+  "all_dino_scores": [
+    0.85498046875
+  ],
+  "all_ocr_scores": [
+    0.8205882352941176
+  ],
+  "all_avg_scores": [
+    0.8118562346813726
+  ],
+  "mllm_score": 0.76,
+  "dino_score": 0.85498046875,
+  "ocr_score": 0.8205882352941176,
+  "avg_score": 0.8118562346813726,
+  "all_mllm_res": [
+    "Comments:\n- **Layout (6/10):** The overall section order and structure are very similar: blue header, navigation, hero banner, search bar, checkbox options, and offers section. However, the generated page uses a narrower centered container with large white side margins, while the reference spans most of the viewport. Several elements are horizontally shifted and scaled differently.\n- **Elements (11/15):** Most major elements are present, including the Booking.com header, navigation tabs, hero promotion, credit-card graphic, search controls, checkboxes, and offer cards. The credit-card artwork is noticeably malformed or simplified in the generated version, and some icons differ from the reference.\n- **Content and Text (34/40):** The main promotional headline, supporting copy, navigation labels, search-field text, and offer text closely match the reference. Minor differences include line wrapping, missing/altered button text in the offers area, and some changes in spacing and capitalization.\n- **Style (11/15):** The blue Booking.com branding, white typography, hero imagery, yellow search border, blue buttons, and card-based offer styling are well replicated. Differences are visible in typography sizing, image treatment, contrast, shadows, and the appearance of the promotional card.\n- **Overall (14/20):** This is a strong structural and content match, but the narrower page width, altered hero composition, and inaccurate promotional card reduce visual similarity. The generated page captures the general Booking.com appearance but does not closely reproduce the exact viewport layout.\n\n**Score: 76/100**"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "Bookingcom USD List your property Register Sign in Stays Flights Flight Hotel Car rental Cruises Attractions Airport taxis Meet the card that Genlus Rewards travels with you Booking ) Earn 5% in Travel Credits on Booking com with the Jale zom Genius Rewards Visae. Terms apply: Kuc A VISA Slanaturt Learn more Where are you going? Check-in date Check-out date 2 adults 0 children Troom Search Im looking for an entire home or apartment Km looking for flights Offers Promotions, deals, and special offers for you Vacation rentals Quick escape, quality time Live the dream in a vacation home Save Up to 2078 with Getaway Deal Choose from houses; villas cabins and more Save on stays",
+      "screenshot_text": "Booking com USD List your property Register Sign in Stays Flights Flight Hotel Car rental Cruises Attractions Airport taxis Meet the card that Booking c AMus Rowards travels with you om Je Earn 5% in Travel Credits on Booking com with the aai Genius Rewards Visa@ . Terms apply: VISA Signature Learn more Where Check-in date Check-out 2 adults 0 children Search are you going? date room boking Tor an enilre nome quarem boking ior flghis Offers Promotions; deals; and special offers for you Vacation rentals Quick escape, quality time Live the dream in a vacation home Save up t0 209 with Getaway Deal Choose from houses villas cabins; and more Book nOw Save on stays",
+      "similarity": 0.8205882352941176
+    }
+  ],
+  "assertion_results": [
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/5/gpt-6-luna_setting2/evalpoints/0.png",
+      "curr_img_path": "outputs/5/gpt-6-luna_setting2/evalpoints/1.png",
+      "response": "{\n  \"think\": \"In Image 2, a dropdown menu appears below the destination search box. It lists place names including Los Angeles, Las Vegas, San Francisco, and San Diego, which was not visible in Image 1.\",\n  \"result\": \"Yes\"\n}",
+      "assertion": "A drop-down box pops up showing the place name",
+      "thinking": "In Image 2, a dropdown menu appears below the destination search box. It lists place names including Los Angeles, Las Vegas, San Francisco, and San Diego, which was not visible in Image 1."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/5/gpt-6-luna_setting2/evalpoints/1.png",
+      "curr_img_path": "outputs/5/gpt-6-luna_setting2/evalpoints/2.png",
+      "response": "{\n  \"think\": \"In Image 2, the destination field displays “Los Angeles, United States,” indicating that Los Angeles has been selected.\",\n  \"result\": \"Yes\"\n}",
+      "assertion": "The 'Los Angeles' destination is selected.",
+      "thinking": "In Image 2, the destination field displays “Los Angeles, United States,” indicating that Los Angeles has been selected."
+    },
+    null,
+    null,
+    null,
+    null,
+    null
+  ]
+}

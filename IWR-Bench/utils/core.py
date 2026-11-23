@@ -1,16 +1,16 @@
 import os
-import cv2
 import base64
 import shutil
 import json
 import re
+import math
 from typing import List, Tuple
-from config import API_CONFIG, PROMPT_TEMPLATE
+from config import API_TIMEOUT, PROMPT_TEMPLATE
 from openai import OpenAI
 import httpx
 from PIL import Image, ImageDraw, ImageFont
-from .screenshot_delta_adaptive import prepare_delta_screenshots
-from .pixel_budget import reference_budget, allocate_targets, resize_to_area, finish_budget, snap_to_tile_boundary
+from setting3 import prepare_delta_screenshots
+from .pixel_budget import estimate_image_tokens, resize_to_token_budget, write_budget, original_detail_for_model, validate_original_size
 
 
 def load_examples(jsonl_path: str):
@@ -26,14 +26,6 @@ def load_examples(jsonl_path: str):
 				continue
 	return entries
 
-def get_config(model_name: str):
-    # Return best-matching config if present, else default
-    for key in API_CONFIG:
-        if key in model_name.lower():
-            return API_CONFIG[key]
-    return API_CONFIG["default"]
-
-
 def encode_file(file_path: str) -> str:
     with open(file_path, "rb") as f:
         return base64.b64encode(f.read()).decode('utf-8')
@@ -48,64 +40,6 @@ def get_media_type(file_path: str) -> str:
     types = {'.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png',
              '.mp4': 'video/mp4', '.mov': 'video/quicktime', '.webp': 'image/webp', '.svg': 'image/svg+xml'}
     return types.get(ext, 'application/octet-stream')
-
-
-def resize_image(img_path: str, max_size: int):
-    img = cv2.imread(img_path)
-    if img is None:
-        print(f"Warning: cannot read image {img_path}")
-        return
-
-    h, w = img.shape[:2]
-    if w > h:
-        ratio = max_size / w
-        new_w = max_size
-        new_h = int(h * ratio)
-    else:
-        ratio = max_size / h
-        new_h = max_size
-        new_w = int(w * ratio)
-
-    if ratio < 1.0:
-        resized = cv2.resize(img, (new_w, new_h), interpolation=cv2.INTER_AREA)
-        cv2.imwrite(img_path, resized)
-
-
-def extract_frames(video_path: str, output_folder: str, config_dict: dict) -> List[str]:
-    os.makedirs(output_folder, exist_ok=True)
-    cap = cv2.VideoCapture(video_path)
-    fps = cap.get(cv2.CAP_PROP_FPS)
-    total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
-
-    if fps <= 0 or total_frames <= 0:
-        cap.release()
-        return []
-
-    video_duration = total_frames / fps
-    video_fps = config_dict.get('video_fps', 1)
-    max_video_frames = config_dict.get('max_video_frames', 64)
-
-    if video_duration > max_video_frames:
-        frame_interval = total_frames / max_video_frames
-        target_frame_count = max_video_frames
-    else:
-        frame_interval = fps / video_fps
-        target_frame_count = int(video_duration * video_fps)
-
-    frame_paths = []
-    for i in range(target_frame_count):
-        frame_index = int(i * frame_interval)
-        if frame_index >= total_frames:
-            break
-        cap.set(cv2.CAP_PROP_POS_FRAMES, frame_index)
-        success, frame = cap.read()
-        if success:
-            frame_path = os.path.join(output_folder, f"frame_{i}.jpg")
-            cv2.imwrite(frame_path, frame)
-            frame_paths.append(frame_path)
-
-    cap.release()
-    return frame_paths
 
 
 def find_files(project_path: str) -> Tuple[List[str], List[str]]:
@@ -149,120 +83,94 @@ def screenshot_group_sizes(count: int) -> List[int]:
     return sizes
 
 
-def merge_screenshots(checkpoint_paths: List[str], temp_folder: str, budget: dict | None = None, tile_snap_margin: int = 100) -> List[str]:
-    """Split ordered screenshots into balanced groups of at most six and label every tile."""
+def merge_screenshots(checkpoint_paths: List[str], temp_folder: str) -> List[str]:
+    """Keep existing groups; stack landscape images down and portrait images across."""
     os.makedirs(temp_folder, exist_ok=True)
-    count = len(checkpoint_paths)
-    if not count:
-        return []
-    group_sizes = screenshot_group_sizes(count)
     font = ImageFont.load_default(size=20)
-    label_height = 32
-    sheet_paths = []
+    sheet_paths, allocations = [], []
     start = 0
-    for group_index, size in enumerate(group_sizes):
-        columns = 1 if size == 1 else 2 if size in (2, 4) else 3
-        rows = (size + columns - 1) // columns
-        divisor = 1 if budget is not None else (2 if size in (1, 2, 4) else 3)
-        tiles = []
-        for index in range(start, start + size):
-            with Image.open(checkpoint_paths[index]) as source:
-                width, height = source.size
-                tile = source.convert('RGB').resize(
-                    (max(1, width // divisor), max(1, height // divisor)), Image.Resampling.LANCZOS
-                )
-            tiles.append((index, tile))
-        cell_width = max(max(tile.width for _, tile in tiles), int(font.getlength(f'screenshot_{start + size - 1}')) + 16)
-        image_height = max(tile.height for _, tile in tiles)
-        cell_height = image_height + label_height
-        sheet = Image.new('RGB', (columns * cell_width, rows * cell_height), 'white')
+    for group_index, count in enumerate(screenshot_group_sizes(len(checkpoint_paths))):
+        entries = []
+        for index in range(start, start + count):
+            with Image.open(checkpoint_paths[index]) as image:
+                width, height = image.size
+            label = f'screenshot_{index}'
+            entries.append({'index': index, 'size': [width, height], 'label': label,
+                            'cell_width': max(width, math.ceil(font.getlength(label)) + 16),
+                            'cell_height': height + 32})
+        # Mixed orientations: majority wins; ties follow the first frame. No rotation.
+        wide = sum(e['size'][0] >= e['size'][1] for e in entries)
+        vertical = wide * 2 > count or (wide * 2 == count and entries[0]['size'][0] >= entries[0]['size'][1])
+        if vertical:
+            canvas_size = (max(e['cell_width'] for e in entries), sum(e['cell_height'] for e in entries))
+        else:
+            canvas_size = (sum(e['cell_width'] for e in entries), max(e['cell_height'] for e in entries))
+        sheet = Image.new('RGB', canvas_size, 'white')
         draw = ImageDraw.Draw(sheet)
-        for position, (index, tile) in enumerate(tiles):
-            x = (position % columns) * cell_width
-            y = (position // columns) * cell_height
-            sheet.paste(tile, (x + (cell_width - tile.width) // 2, y))
-            draw.text(
-                (x + cell_width / 2, y + tile.height + 5),
-                f'screenshot_{index}', fill='black', font=font, anchor='mt'
-            )
+        x = y = 0
+        regions = []
+        for entry in entries:
+            index = entry['index']
+            width, height = entry['size']
+            cell_width = canvas_size[0] if vertical else entry['cell_width']
+            image_x = x + (cell_width - width) // 2
+            with Image.open(checkpoint_paths[index]) as source:
+                sheet.paste(source.convert('RGB'), (image_x, y))
+            draw.text((x + cell_width / 2, y + height + 5), entry['label'], fill='black', font=font, anchor='mt')
+            regions.append({'index': index, 'source_size': entry['size'],
+                            'source_sheet_box': [image_x, y, image_x + width, y + height]})
+            if vertical:
+                y += entry['cell_height']
+            else:
+                x += entry['cell_width']
         path = os.path.join(temp_folder, f'screenshot_sheet_{group_index}.png')
-        sheet.save(path)
+        sheet.save(path, compress_level=1)
+        sheet.close()
+        reference_tokens = sum(estimate_image_tokens(*entry['size']) for entry in entries)
+        record = resize_to_token_budget(path, reference_tokens=reference_tokens)
+        record.update(screenshot_count=count, source_indices=list(range(start, start + count)),
+                      layout='vertical' if vertical else 'horizontal', source_regions=regions,
+                      original_screenshot_pixels=sum(e['size'][0] * e['size'][1] for e in entries))
+        sx, sy = record['output_size'][0] / canvas_size[0], record['output_size'][1] / canvas_size[1]
+        for region in regions:
+            a, b, c, d = region['source_sheet_box']
+            region['output_sheet_box'] = [math.floor(a*sx), math.floor(b*sy), math.ceil(c*sx), math.ceil(d*sy)]
+        allocations.append(record)
         sheet_paths.append(path)
-        print(f'Screenshot sheet {group_index}: screenshots {start}–{start + size - 1}, {rows} rows × {columns} columns, scale 1/{divisor}, size {sheet.width}×{sheet.height}')
-        start += size
-    if budget is not None:
-        records = budget['setting3_reference']['screenshots']
-        areas = []
-        offset = 0
-        for size in group_sizes:
-            areas.append(sum(r['original_size'][0] * r['original_size'][1] for r in records[offset:offset + size]))
-            offset += size
-        targets = allocate_targets(areas, budget['saved_pixels'], group_sizes)
-        allocations = []
-        for path, size, source_area, target in zip(sheet_paths, group_sizes, areas, targets):
-            with Image.open(path) as image:
-                raw_size = list(image.size)
-            resize_to_area(path, target)
-            tile_snap = snap_to_tile_boundary(path, tile_snap_margin)
-            allocations.append({'screenshot_count': size, 'source_pixels': source_area,
-                                'raw_sheet_size': raw_size,
-                                'label_and_padding_pixels': raw_size[0] * raw_size[1] - source_area,
-                                'target_pixels': target, 'assigned_saved_pixels': source_area - target,
-                                'tile_snap': tile_snap})
-        finish_budget(budget, sheet_paths, allocations, temp_folder, setting=2)
+        print(f'Screenshot sheet {group_index}: screenshots {start}–{start + count - 1}, {record["layout"]}, {canvas_size} -> {record["output_size"]}')
+        start += count
+    write_budget(allocations, temp_folder, setting=2)
     return sheet_paths
 
 
-def prepare_images_in_temp_folder(image_paths: List[str], checkpoint_paths: List[str], temp_folder: str, config_dict: dict, setting: int = 0, tile_snap_margin: int = 100) -> List[str]:
-    if tile_snap_margin < 0:
-        raise ValueError('tile_snap_margin must be nonnegative')
+def prepare_images_in_temp_folder(image_paths: List[str], checkpoint_paths: List[str], temp_folder: str, setting: int = 0) -> List[str]:
     if setting not in (0, 1, 2, 3):
         raise ValueError(f'Unsupported setting: {setting}')
     if not checkpoint_paths:
         raise ValueError('No screenshots found: expected checkpoints/step_<number>.png')
-    screenshot_count = len(screenshot_group_sizes(len(checkpoint_paths))) if setting == 2 else len(checkpoint_paths)
-    image_count = len(image_paths) + screenshot_count
-    max_images = config_dict.get('max_images', 70)
-    if image_count > max_images:
-        raise ValueError(f'Input has {image_count} images ({len(image_paths)} assets + {screenshot_count} screenshot images), exceeding max_images={max_images}')
     os.makedirs(temp_folder, exist_ok=True)
     all_image_paths = []
-    for i, img_path in enumerate(image_paths):
-        filename = f"asset_{i}_{os.path.basename(img_path)}"
-        temp_img_path = os.path.join(temp_folder, filename)
+    for index, img_path in enumerate(image_paths):
+        temp_img_path = os.path.join(temp_folder, f'asset_{index}_{os.path.basename(img_path)}')
         shutil.copy2(img_path, temp_img_path)
         all_image_paths.append(temp_img_path)
 
-    budget = reference_budget(checkpoint_paths, temp_folder, tile_snap_margin=tile_snap_margin) if setting in (1, 2) else None
     if setting == 2:
-        all_image_paths.extend(merge_screenshots(checkpoint_paths, temp_folder, budget=budget, tile_snap_margin=tile_snap_margin))
+        all_image_paths.extend(merge_screenshots(checkpoint_paths, temp_folder))
     elif setting == 3:
-        all_image_paths.extend(prepare_delta_screenshots(checkpoint_paths, temp_folder, tile_snap_margin=tile_snap_margin))
-
-    for i, img_path in enumerate(checkpoint_paths if setting in (0, 1) else []):
-        temp_img_path = os.path.join(temp_folder, f'screenshot_{i}.png')
-        shutil.copy2(img_path, temp_img_path)
-        all_image_paths.append(temp_img_path)
-
-    if setting == 1:
-        records = budget['setting3_reference']['screenshots']
-        areas = [r['original_size'][0] * r['original_size'][1] for r in records]
-        targets = [float(areas[0])] + allocate_targets(areas[1:], budget['saved_pixels'])
-        screenshot_paths = all_image_paths[len(image_paths):]
+        all_image_paths.extend(prepare_delta_screenshots(checkpoint_paths, temp_folder))
+    else:
         allocations = []
-        for index, (path, area, target) in enumerate(zip(screenshot_paths, areas, targets)):
-            if index:
-                resize_to_area(path, target)
-            tile_snap = snap_to_tile_boundary(path, tile_snap_margin if index else 0)
-            allocations.append({'index': index, 'source_pixels': area, 'target_pixels': target,
-                                'assigned_saved_pixels': area - target, 'tile_snap': tile_snap})
-        finish_budget(budget, screenshot_paths, allocations, temp_folder, setting=1)
-
-    if 'max_single_image_size' in config_dict:
-        # Settings 1/2/3 use exact screenshot sizes; retain the existing size cap only for assets.
-        for p in (all_image_paths if setting == 0 else all_image_paths[:len(image_paths)]):
-            resize_image(p, config_dict['max_single_image_size'])
-
+        for index, source in enumerate(checkpoint_paths):
+            destination = os.path.join(temp_folder, f'screenshot_{index}.png')
+            shutil.copy2(source, destination)
+            all_image_paths.append(destination)
+            if setting == 1:
+                record = resize_to_token_budget(destination)
+                record['index'] = index
+                allocations.append(record)
+        if setting == 1:
+            write_budget(allocations, temp_folder, setting=1)
     return all_image_paths
 
 
@@ -304,7 +212,7 @@ def mock_model_call(prompt: str, image_paths: List[str], resolution: str) -> str
     return html
 
 
-def call_mllm(model_name: str, content_list: List[dict], timeout: int = 300, extra_params: dict | None = None, http_client=None, response_dir: str | None = None) -> str:
+def call_mllm(model_name: str, content_list: List[dict], timeout: int = API_TIMEOUT, extra_params: dict | None = None, http_client=None, response_dir: str | None = None) -> str:
     api_key = os.getenv('OPENAI_API_KEY')
     base_url = os.getenv('OPENAI_BASE_URL', None)
     if not api_key:
@@ -356,58 +264,25 @@ def call_mllm(model_name: str, content_list: List[dict], timeout: int = 300, ext
         raise
 
 
-def call_mllm_html(model_name: str, image_paths: List[str], checkpoint_paths: List[str], temp_folder: str, resolution: str, prompt: str = None, setting: int = 0, response_dir: str | None = None, tile_snap_margin: int = 100) -> str:
-    config_dict = get_config(model_name)
-    temp_image_paths = prepare_images_in_temp_folder(image_paths, checkpoint_paths, temp_folder, config_dict, setting=setting, tile_snap_margin=tile_snap_margin)
+def call_mllm_html(model_name: str, image_paths: List[str], checkpoint_paths: List[str], temp_folder: str, resolution: str, prompt: str = None, setting: int = 0, response_dir: str | None = None) -> str:
+    temp_image_paths = prepare_images_in_temp_folder(image_paths, checkpoint_paths, temp_folder, setting=setting)
     # allow callers to override the default prompt template
     if prompt is None:
         prompt = PROMPT_TEMPLATE.format(resolution=resolution)
 
     content_list = [{"type": "text", "text": prompt}]
-    delta_records = {}
-    if setting == 3:
-        with open(os.path.join(temp_folder, 'screenshot_manifest.json'), encoding='utf-8') as f:
-            manifest = json.load(f)
-        delta_records = {record['output']: record for record in manifest['screenshots']}
     for img_path in temp_image_paths:
-        record = delta_records.get(os.path.basename(img_path))
-        if record is not None:
-            width, height = record['original_size']
-            description = f"screenshot_{record['index']}: "
-            if record['mode'] == 'full':
-                description += f"Full webpage screenshot, original size {width}x{height}."
-            else:
-                x1, y1, x2, y2 = record['box']
-                description += (
-                    f"Crop of the current webpage state, original page size {width}x{height}; "
-                    f"crop bounds (left, top, right, bottom) = ({x1}, {y1}, {x2}, {y2}), "
-                    f"origin at the page's top-left, right/bottom exclusive. "
-                    f"Changes were detected relative to screenshot_{record['compared_to']}; "
-                    "the surrounding layout is omitted because it is visually similar within detection tolerance. "
-                    "Use earlier full screenshots for the surrounding page. This is a region of the same webpage, not a separate page."
-                )
-            sent_width, sent_height = record['output_size']
-            if record.get('tile_snap', {}).get('extra_saved_pixels', 0):
-                description += (f" The supplied image has been proportionally resized to {sent_width}x{sent_height}; "
-                                "all crop bounds and page dimensions above refer to the original page coordinates.")
-            if record.get('theme_changes'):
-                palette = '; '.join(f"{c['before']} -> {c['after']} (about {c['coverage_fraction']:.1%} of sampled pixels)"
-                                    for c in record['theme_changes'])
-                description += (
-                    f" Broad palette changes also occurred outside the crop: {palette}. "
-                    "These are coarse color correspondences, not exact element assignments; "
-                    "use the previous full-page layout and current crop to infer the theme change."
-                )
-            content_list.append({'type': 'text', 'text': description})
-        content_list.append({
-            "type": "image_url",
-            "image_url": {"url": f"data:{get_media_type(img_path)};base64,{encode_file(img_path)}"}
-        })
+        image_url = {"url": f"data:{get_media_type(img_path)};base64,{encode_file(img_path)}"}
+        if original_detail_for_model(model_name):
+            with Image.open(img_path) as image:
+                validate_original_size(*image.size)
+            image_url['detail'] = 'original'
+        content_list.append({"type": "image_url", "image_url": image_url})
 
-    return call_mllm(model_name, content_list, timeout=config_dict.get('timeout', 300), extra_params=config_dict.get('extra_params', None), response_dir=response_dir)
+    return call_mllm(model_name, content_list, response_dir=response_dir)
 
 
 __all__ = [
-    'get_config', 'encode_file', 'get_media_type', 'resize_image', 'extract_frames',
+    'encode_file', 'get_media_type',
     'find_files', 'get_resolution', 'prepare_images_in_temp_folder', 'post_process', 'mock_model_call', 'call_mllm', 'call_mllm_html'
 ]

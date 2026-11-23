@@ -1,0 +1,50 @@
+{
+  "total_step": 4,
+  "success_step": 4,
+  "screenshot_paths_to_eval": [
+    "outputs/14/gpt-6-luna_setting2/evalpoints/0.png",
+    "outputs/14/gpt-6-luna_setting2/evalpoints/0.png"
+  ],
+  "all_mllm_scores": [
+    0.89,
+    0.52
+  ],
+  "all_dino_scores": [
+    0.939453125,
+    0.427001953125
+  ],
+  "all_ocr_scores": [
+    0.9014084507042254,
+    0.22240943555181125
+  ],
+  "all_avg_scores": [
+    0.9102871919014085,
+    0.3898037962256038
+  ],
+  "mllm_score": 0.7050000000000001,
+  "dino_score": 0.6832275390625,
+  "ocr_score": 0.5619089431280183,
+  "avg_score": 0.6500454940635061,
+  "all_mllm_res": [
+    "Comments:\n-Layout (8/10): The main content is centered at nearly the same width, and the gallery and booking column are arranged similarly. The generated page’s header is shorter, shifting the title and gallery upward; some lower content is also slightly repositioned.\n-Elements (13/15): Most key elements are present, including the Airbnb header, photo gallery, location details, guest-favourite card, and booking panel. The main mismatch is the “Show all photos” button, which appears at the bottom-right of the viewport instead of over the gallery image.\n-Content and Text (37/40): The listing title, location, room details, review information, booking dates, and price closely match. Minor differences in iconography and small labels keep this from being exact.\n-Style (13/15): The clean Airbnb-inspired styling, colors, image treatment, and card design are very similar. Typography, header spacing, and a few icon details differ slightly.\n-Overall (18/20): This is a strong match with the same overall page structure and nearly identical listing content. The misplaced photo button and small vertical spacing differences are the most noticeable discrepancies.\n\nScore: 89/100---",
+    "Comments:\n-Layout (10 points): The centered two-column listing layout and sidebar placement are similar, but the screenshots show very different scroll positions. The reference is scrolled down to the listing details; the generated page shows the header and full photo gallery. **5/10**\n-Elements (15 points): Several elements match, including the listing details, review badge, and reservation card. However, the reference shows the host and feature sections, while the generated view shows the navigation and gallery instead. **10/15**\n-Content and Text (40 points): The page appears to be for the same listing, and visible details such as the location, guest rating, price, and dates are consistent. Most text visible in the reference—host information, amenities, and the description—is not visible in the generated screenshot. **16/40**\n-Style (15 points): The Airbnb-like typography, white background, card styling, and pink accents are generally well matched. **12/15**\n-Overall (20 points): The underlying page and design are recognizable, but the large scroll-position mismatch makes the visible content substantially different. **9/20**\n\nScore: 52/100"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "airbnb Anywhere Any week Add guests Become host Sunset Hollywood Private Room Share Save HOLLYWIOOD SIGH HOLLYWOOD BEACHWOOD HILLS CanYON OHollywood Bowl The Magic Castle HOLLYWOOD Paramount Show all photos Room in Burbank; California; United States Rare find! This place is usually booked 1double bed . Private attached bathroom Guest One of the most loved homes on 4.98 41 S284SGD for 2 nights favourite Airbnb, according to guests 00t Reviews CHECK-IN CHECKOUT 21/11/2025 23/11/2025 EtPY Aacd",
+      "screenshot_text": "airbnb Anywhere Any week Add guests Become host Sunset Hollywood Private Room Share Save HOLLYWOOD SIGN HOLLYWOOD BEACHWOOD HILLS CANYON DHollywood Bowl The Magic Castle HOLLYWOOD Paramount Room in Burbank; California; United States Rare findl This place is usually booked 1 double bed Private attached bathroom Guest One of the most loved homes on 4.98 41 S284 SGD for 2 nights favourite Airbnb, according to guests #Tttt Reviews CHECK-IN CHECKOUT 21/11/2025 23/11/2025 Show all photos LarrX Aacv",
+      "similarity": 0.9014084507042254
+    },
+    {
+      "checkpoint_text": "Show all photos Room in Burbank; California; United States double bed . Private attached bathroom Rare findl This place is usually booked Guest One of the most loved homes on 4.98 41 favourite Airbnb, according to guests #tttt Reviews S284SGD for 2 nights CHECK-IN CHECKOUT Stay with Aubrey 21/11/2025 23/11/2025 Superhost . 5 years hosting GUESTS guest Self check-in Check yourself in with the smartlock: Reserve Room ina townhouse You be charged yet Your own room in a home; plus access t0 shared spaces: Free cancellation before 16 Nov Report this listing Get a full refund if you change your mind: Some info has been automatically translated: Showoriginal About this place NOTE: is 4 miles from the\" pinl We are located in HOLLYWOOD The cross streets are Sunset Boulevard and Highland Avenue. Within walking distance to the Hollywood Walk of Fame;the Chinese Theatre, and many other popular tourist destinations. Universal Studios, Griffith Park; & Hollywood Bowl all minutes awayl This is a room in a newly constructed multi-room Townhome with attached private full bathroom: Totally safe, secure; quiet and clean! Flexible hostl It's fun to live like a local The space wontt This \"",
+      "screenshot_text": "airbnb Anywhere Any week Add guests Become host Sunset Hollywood Private Room Share Save HOLLYWOOD SIGN HOLLYWOOD BEACHWOOD HILLS CANYON DHollywood Bowl The Magic Castle HOLLYWOOD Paramount Room in Burbank; California; United States Rare findl This place is usually booked 1 double bed Private attached bathroom Guest One of the most loved homes on 4.98 41 S284 SGD for 2 nights favourite Airbnb, according to guests #Tttt Reviews CHECK-IN CHECKOUT 21/11/2025 23/11/2025 Show all photos LarrX Aacv",
+      "similarity": 0.22240943555181125
+    }
+  ],
+  "assertion_results": [
+    null,
+    null,
+    null,
+    null
+  ]
+}

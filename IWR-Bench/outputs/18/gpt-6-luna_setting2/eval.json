@@ -1,0 +1,56 @@
+{
+  "total_step": 10,
+  "success_step": 0,
+  "screenshot_paths_to_eval": [
+    "outputs/18/gpt-6-luna_setting2/evalpoints/0.png",
+    "outputs/18/gpt-6-luna_setting2/evalpoints/0.png"
+  ],
+  "all_mllm_scores": [
+    0.17,
+    0.12
+  ],
+  "all_dino_scores": [
+    0.64501953125,
+    0.64306640625
+  ],
+  "all_ocr_scores": [
+    0.2501904036557502,
+    0.2486871717929482
+  ],
+  "all_avg_scores": [
+    0.3550699783019167,
+    0.33725119268098275
+  ],
+  "mllm_score": 0.14500000000000002,
+  "dino_score": 0.64404296875,
+  "ocr_score": 0.2494387877243492,
+  "avg_score": 0.34616058549144973,
+  "all_mllm_res": [
+    "Comments:\n-Layout (10 points): Both pages have an Internet Archive header, but the main layouts are very different. The reference shows a search-results page with filters on the left and a grid of item cards; the generated page has a narrow text-results sidebar and a large document viewer. (2/10)\n-Elements (15 points): The branding and search query are shared, but the reference’s result count, filter controls, sorting bar, and item cards are missing. The generated page instead includes document pages and text snippets. (3/15)\n-Content and Text (40 points): Both include the query “artificial intelligence,” but the reference lists many archive search results and metadata, while the generated page shows a specific document and three text-search excerpts. Most visible content does not match. (5/40)\n-Style (15 points): The dark archive header is similar, but the reference has a light gray search area and bright, compact result cards. The generated page is predominantly black with a dark sidebar and a large white document spread. (4/15)\n-Overall (20 points): Some branding and query details align, but the generated page appears to represent a different Archive view rather than the reference search-results page. (3/20)\n\nScore: 17/100",
+    "---\nComments:\n- **Layout (10 points):** The Internet Archive header is similar, but the reference has a search panel above a results-and-filters layout. The generated page instead shows a document viewer with a narrow search-results sidebar. **2/10**\n- **Elements (15 points):** Some header navigation and the query text are shared. The reference’s search options, filters, sorting controls, and item cards are missing; the generated page adds a document spread and text snippets. **3/15**\n- **Content and Text (40 points):** Both pages include “artificial intelligence,” but the reference shows a broad archive search with 322,333 results and item listings. The generated page shows three in-document matches and article text, so the main content does not match. **2/40**\n- **Style (15 points):** The dark Internet Archive header is broadly consistent, but the reference uses a light gray search area and white results grid, while the generated page is mostly a black document-viewing canvas. **3/15**\n- **Overall (20 points):** The branding and query provide limited similarity, but the pages represent different views and have substantially different layouts and content. **2/20**\n\n**Score: 12/100**\n---"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "INTERNET WEB TEXTS VIDEO AUDIO SOF TWARE IMAGES SIGN UP [ LOG IN UPLOAD Search ARCHIVE ABOUT BLOG PROJECTS HELP DONATE CONTACT JOBS VOLUNTEER PEOPLE Search artificial intelligence GO Share Favorite Search metadata Advanced Search Search text contents Search TV news captions Search radio transcripts Search archived web sites 326,798 Results Son by: Relevance Weekly views Title Date published Creator Year Published VOnet Gomputens That RrlNSTSA INFOLINGUA THNK ? Fi\"Ch€ 3020 Media Type aaaaret Kil iexts 322,333 Natural language The Role Of Artificial Growlng The Artificial Computers that think? Artificial intelligence TheLeakingTruth Poes movies 2,010 interfaces interfaces t0 Intelligence Intelligence Industry In the search for artificial and Turbo Pascal pot.com Posts in audio 953 databases; t0 Expert:_ Education A Systematl:_. The UK intelligence by Chabris, Christopher by Keenan Storbeck data 619 by Sabourin; Conrad; by Jurnal Iqra' : Kajian Growing Ihe Arlllicial by Hyde, Margaret 0. soilware 554 1943 - Ilmu Pendidikan Intelllgence Industry In Ihe (Margaret Oldroyd), ~IDELETED> 1917-2013 Artificial Intelligence and ~DELETED> (3) Artificial UK SECTION ONE 329 word problems (= issues 0l Arilicial Turbo Pascal Artificia Intelligence =The term image Artificial intelllgence Intelligence In Educatlon humans: Artificial Intelligence and Turbo; memorandum 45)- (Hwang et a1.2020) intelligence Year Computers. 2 , Artificial, @ 2024 7,142 1990 6,779 1989 6,578 Online Coumte 1988 6,336 Joiihui,u Tabiat # ELM Aonciu Ie-iijiyy Qulo Lial ja3l 1991 6,325 eh Ine\"G 7mmI Anauea Wublir 2000 6,030 bdedireat WIURI 4n4*( IA IFOL IOI Subject DTIC Archive 22,887 microfilm 9,983 Al Governance in the Applications of artificial New Trends in the Use S-leYI Jxi ICT 9/aVazine, 298de NATURE & SCIENCE ERIC Archive 7,573 Financial Industry intelligence X machine of Artificial Intelligence L4 1991: 1-12 Index by Azerbaijan Science vision and robotics for the Industry 4.0 Center NASA Technica 5,855 the actions of artificial types of artificial 45-55, Amificia Reponts Server intelligence tne financial for Optical Engineering an artificial intelligence intelligence Review some Intelligence Manne innovation of artificial (NTRS) space. Artificial intelligenc , Applicaiions of Artificial point of view'; In: practical applications 0f _. Design; 11(1): Spring; 19. Intelligence technology, the Intelligence Machine Visio. International Conference manuals 4,717 promotion oi artificia book 4,474 Collection Artilicial Intelllgence f Nanutactumnd Artificial Robot Catalog Internet Archive 120,998 Intelligence POSzAR Books andi",
+      "screenshot_text": "ICNERNET WEB E TEXTS VIDEO AUDIO SOFTWARE IMAGES SIGN UP LOG IN UPLOAD Search CHIVE ABOUT BLOG PROJECTS HELP DONATE CONTACT JOBS VOLUNTEER PEOPLE Search inside (3 results) artificial intelligence What exactly _ artificial intelligence (Al)? [6] Page n2 The next feature of popular science texts is the use of IAnt IGagut nouns in the common case as prepositive attributes. IJDIAS Aerlad Eann IJDIAS perd eht Thanks t0 the use of multicomponent phrase, the authors of scientific works can convey more information Met Me][n Llceaa MeBlt TeLn Lcd with a small number of grammatical means. In addition; the above constructions have term-forming function. For example excessive daytime sleepiness\" Ctacnitd Cfc-Re Data excessive daytime sleepiness [9]; \"artificial intelligence\" P What exactly is artificial intelligence (Al)? [PneKTpOHHblM pecypc] New Scientist 2020. PexHM AocTyna: https JlWnewscientist comldefinitionlartificial- intelligencel (Hara obpaueHMa: 15.09.2021). Page Page Cade Getly",
+      "similarity": 0.2501904036557502
+    },
+    {
+      "checkpoint_text": "INTERNET WEB TEXTS VIDEO AUDIO SOFTWARE IMAGES SIGN UP [LOG IN UPLOAD Search ARCHIVE ABOUT BLOG PROJECTS HELP DONATE CONTACT JOBS VOLUNTEER PEOPLE Search artificial intelligence GO Share Favorite Search metadata Advanced Search Search text contents Search TV news captions Search radio transcripts Search archived web sites 322,333 Results Sont by: Relevance Weekly views Title Date published Creator Clear all fillters Gomputeas Year Published Qhontr] 8i That Run48984 INFOLINGUA Think ? e ( t i= . 3020 aaaaaret Kie Media Type lexts 322,333 Natural language The Role Of Artificial Growing The Artificial Computers that think? Artificial intelligence TheLeakingTruth Pbes interfaces interfaces t0 Intelligence In Intelligence Industry In the search for artificial and Turbo Pascal potcom Posts in movies 2,010 databases; t0 Expert:. Education A Systematl:_. The UK intelligence by Chabris, Christopher by Keenan Storbeck audio 953 by Sabourin; Conrad, by Jurnal Iqra Kajian Growing Ihe Artilicial by Hyde, Margaret 0. data 619 1943- Ilmu Pendidikan Intelllgence Industry In the (Margaret Oldroyd), ~IDELETED? 1917-2013 Artificial Intelligence and ~DELETED> (3) Artificial UK SECTION ONE: ; somware 554 word problems (= Issues 0f Arlificial Turbo Pascal Artificial Intelligence ~The term Artificial intelllgence Intelligence In Education humans Artificial Intelligence and Turbo; Image 329 memorandum 45)2: (Hwang et a1, 2020) Intelligence Compulers. 2. Arlificial, Year 2024 6,944 1990 6,809 Onllna SE Couna 1989 6,610 rluuelaaue TaBiat # ELM uculfuemaeueleateteue Qulo Liial ia3l 1988 6,329 Ie\", 7mmN 1991 6,302 noleadt lublra bdecnrtad MURI 4n4~( Iai Aanee 1987 6,093 MPFOLA MVAI Subject @ DTIC Archive 22,887 Al Governance in the Applications of artificial New Trends in the Use s-Y\" jbx ICT 9/a9azine, 29nde NATURE & SCIENCE microfilm 9,983 Financial Industry intelligence X machine of Artificial Intelligence 44 1991: 1-12 Index by Azerbaijan Science vision and robotics for the Industry 4.0 Center ERIC Archive 7,573 the actions of artificial types of artificial 45-55. Anificia NASA Technica 5,855 intelligence tne financial for Optical Engineering an artificial intelligence intelligence Review some Intelligence Marine innovation of artificial space. Artificial intelligenc Applicaiions of Artificial point of view: In: practical applications 0f,. Design; 11(1): Spring; 19. Intelligence technology, the Reponts Server Intelligence Macnine Visio. International Conference (NTRS) promotion oi artificia manuals 4,709 book 4,278 Aruiiicial Intelllgence Collection n Nanutactunna Artificial Robot Catalog Intelligence POSzAR Inieret Archie 120.998 Muceel andi",
+      "screenshot_text": "ICNERNET WEB E TEXTS VIDEO AUDIO SOFTWARE IMAGES SIGN UP LOG IN UPLOAD Search CHIVE ABOUT BLOG PROJECTS HELP DONATE CONTACT JOBS VOLUNTEER PEOPLE Search inside (3 results) artificial intelligence What exactly _ artificial intelligence (Al)? [6] Page n2 The next feature of popular science texts is the use of IAnt IGagut nouns in the common case as prepositive attributes. IJDIAS Aerlad Eann IJDIAS perd eht Thanks t0 the use of multicomponent phrase, the authors of scientific works can convey more information Met Me][n Llceaa MeBlt TeLn Lcd with a small number of grammatical means. In addition; the above constructions have term-forming function. For example excessive daytime sleepiness\" Ctacnitd Cfc-Re Data excessive daytime sleepiness [9]; \"artificial intelligence\" P What exactly is artificial intelligence (Al)? [PneKTpOHHblM pecypc] New Scientist 2020. PexHM AocTyna: https JlWnewscientist comldefinitionlartificial- intelligencel (Hara obpaueHMa: 15.09.2021). Page Page Cade Getly",
+      "similarity": 0.2486871717929482
+    }
+  ],
+  "assertion_results": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ]
+}

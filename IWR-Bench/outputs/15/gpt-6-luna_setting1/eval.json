@@ -1,0 +1,99 @@
+{
+  "total_step": 8,
+  "success_step": 8,
+  "screenshot_paths_to_eval": [
+    "outputs/15/gpt-6-luna_setting1/evalpoints/0.png"
+  ],
+  "all_mllm_scores": [
+    0.81
+  ],
+  "all_dino_scores": [
+    0.978515625
+  ],
+  "all_ocr_scores": [
+    0.9332344213649851
+  ],
+  "all_avg_scores": [
+    0.9072500154549951
+  ],
+  "mllm_score": 0.81,
+  "dino_score": 0.978515625,
+  "ocr_score": 0.9332344213649851,
+  "avg_score": 0.9072500154549951,
+  "all_mllm_res": [
+    "Comments:\n-Layout (10 points): The overall structure is very similar, including the two-row blue header, centered content area, form column, and right-side loading placeholders. However, the generated version is significantly more compact, with a shorter header and content positioned much farther left. **6/10**\n-Elements (15 points): Nearly all major elements are present: Booking.com branding, navigation, account controls, ticket options link, form fields, reservation section, loading indicator, and legal text. Some icons and control proportions differ from the reference. **13/15**\n-Content and Text (40 points): The textual content is highly accurate, including the title, unavailable-date warning, hosted-by message, form labels, reservation details, and terms/privacy copy. Minor differences in line wrapping and phone-field presentation are visible. **37/40**\n-Style (15 points): The blue-and-white Booking.com visual style, typography hierarchy, link colors, borders, and form styling are closely matched. Differences in font sizing, spacing, iconography, and overall scale reduce fidelity. **11/15**\n-Overall (20 points): This is clearly the same webpage and has strong content and component similarity, but the layout scale, horizontal positioning, and header proportions differ noticeably from the reference. **14/20**\n\nScore: **81/100**"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "Bookingcom USD Register Sign Stays Flights Flight Hotel Car rental Cruises 838 Activities TAWI   Airport taxis Ticket options Step of 2 General Admission to Universal Studios Hollywood Your selected date Is unavailable choose another This experience is hosted by business Your details Sign in to use your saved details First Name name Email Address Phone (mobile number preferred) Reservation details By clicking \"Next: Payment details\" and completing a booking; you agree with the terms and conditions of Booking: com and the privacy policy of Musement: Please see our Privacy Statement to understand how we use and protect your personal information: Privacy Statement Last",
+      "screenshot_text": "Booking com USD Register Sign in Stays Flights Flight - Hotel Car rental Cruises Activities Airport taxis Ticket options Step 1 of 2 General Admission to Universal Studios Hollywood Your selected date unavailable choose another This experience hosted by pusiness Your details Sign in t0 use your saved details First Name Last name Email Address Phone (mobile number preferred) Reservation details By clicking 'Next: Payment details' and completing booking; You agree with the Iems and conditions of Booking com and the privacy policy of Musement Please see our Privacy Statement tO understand how we use and protect your personal information: Privacy Statement",
+      "similarity": 0.9332344213649851
+    }
+  ],
+  "assertion_results": [
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/15/gpt-6-luna_setting1/evalpoints/0.png",
+      "curr_img_path": "outputs/15/gpt-6-luna_setting1/evalpoints/1.png",
+      "response": "{\"think\":\"The First Name input field has a blue outline in Image 2, indicating it is focused or clicked, unlike Image 1.\",\"result\":\"Yes\"}",
+      "assertion": "The \"First Name\" input field is clicked",
+      "thinking": "The First Name input field has a blue outline in Image 2, indicating it is focused or clicked, unlike Image 1."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/15/gpt-6-luna_setting1/evalpoints/1.png",
+      "curr_img_path": "outputs/15/gpt-6-luna_setting1/evalpoints/2.png",
+      "response": "{\n  \"think\": \"The current screenshot shows the text \\\"su\\\" entered in the First Name field.\",\n  \"result\": \"Yes\"\n}",
+      "assertion": "'su' appears in the 'First Name' field",
+      "thinking": "The current screenshot shows the text \"su\" entered in the First Name field."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/15/gpt-6-luna_setting1/evalpoints/2.png",
+      "curr_img_path": "outputs/15/gpt-6-luna_setting1/evalpoints/3.png",
+      "response": "{\n  \"think\": \"The current screenshot shows the Last name input field with a blue focus outline, indicating it has been clicked or selected.\",\n  \"result\": \"Yes\"\n}",
+      "assertion": "The \"Last name\" input field is clicked",
+      "thinking": "The current screenshot shows the Last name input field with a blue focus outline, indicating it has been clicked or selected."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/15/gpt-6-luna_setting1/evalpoints/3.png",
+      "curr_img_path": "outputs/15/gpt-6-luna_setting1/evalpoints/4.png",
+      "response": "{\n  \"think\": \"In Image 2, the Last name field visibly contains the text \\\"su\\\".\",\n  \"result\": \"Yes\"\n}",
+      "assertion": "'su' appears in the 'Last name' field",
+      "thinking": "In Image 2, the Last name field visibly contains the text \"su\"."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/15/gpt-6-luna_setting1/evalpoints/4.png",
+      "curr_img_path": "outputs/15/gpt-6-luna_setting1/evalpoints/5.png",
+      "response": "{\n  \"think\": \"In the current screenshot, the Email Address input field has a blue outline indicating it is focused or clicked. The previous screenshot shows focus on the Last name field instead.\",\n  \"result\": \"Yes\"\n}",
+      "assertion": "The \"Email Address\" input field is clicked",
+      "thinking": "In the current screenshot, the Email Address input field has a blue outline indicating it is focused or clicked. The previous screenshot shows focus on the Last name field instead."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/15/gpt-6-luna_setting1/evalpoints/5.png",
+      "curr_img_path": "outputs/15/gpt-6-luna_setting1/evalpoints/6.png",
+      "response": "{\n  \"think\": \"In Image 2, the Email Address field visibly contains the text 'china'.\",\n  \"result\": \"Yes\"\n}",
+      "assertion": "'china' appears in the 'Email Address' field",
+      "thinking": "In Image 2, the Email Address field visibly contains the text 'china'."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/15/gpt-6-luna_setting1/evalpoints/6.png",
+      "curr_img_path": "outputs/15/gpt-6-luna_setting1/evalpoints/7.png",
+      "response": "{\n  \"think\": \"In Image 2, the Phone (mobile number preferred) input has a blue highlighted border, indicating it is focused or clicked. In Image 1, the email field is focused instead.\",\n  \"result\": \"Yes\"\n}",
+      "assertion": "The 'Phone (mobile number preferred)' input field is clicked",
+      "thinking": "In Image 2, the Phone (mobile number preferred) input has a blue highlighted border, indicating it is focused or clicked. In Image 1, the email field is focused instead."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/15/gpt-6-luna_setting1/evalpoints/7.png",
+      "curr_img_path": "outputs/15/gpt-6-luna_setting1/evalpoints/8.png",
+      "response": "{\"think\":\"Image 2 shows the Phone (mobile number preferred) field containing the value 123456789, while Image 1 shows the field empty.\",\"result\":\"Yes\"}",
+      "assertion": "'123456789' appears in the 'Phone (mobile number preferred)' field",
+      "thinking": "Image 2 shows the Phone (mobile number preferred) field containing the value 123456789, while Image 1 shows the field empty."
+    }
+  ]
+}

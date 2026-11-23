@@ -1,133 +1,183 @@
+import base64
 import json
 import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-import numpy as np
 from PIL import Image
 
-from utils import core
-from utils.pixel_budget import allocate_targets, resize_to_area, snap_to_tile_boundary, tile_count
 from generate import process_task
+from utils import core
+from utils.pixel_budget import (estimate_image_tokens, patch_count, resize_to_token_budget,
+                                token_budget_size, validate_original_size)
 
 
-class PixelBudgetTests(unittest.TestCase):
+class TokenBudgetTests(unittest.TestCase):
     def setUp(self):
         self.folder = tempfile.TemporaryDirectory()
         self.addCleanup(self.folder.cleanup)
         self.root = Path(self.folder.name)
 
-    def frames(self, count=5):
+    def frames(self, count=5, size=(600, 300)):
         paths = []
-        frame = np.full((300, 600, 3), 240, np.uint8)
         for i in range(count):
-            frame = frame.copy()
-            frame[70:110, 160 + i * 20:190 + i * 20] = i * 20
             path = self.root / f'step_{i}.png'
-            Image.fromarray(frame).save(path)
+            Image.new('RGB', size, (30 + i*25, 60, 100)).save(path)
             paths.append(str(path))
         return paths
 
-    def test_equal_savings_and_saturation(self):
-        self.assertEqual(allocate_targets([1000, 1000, 1000, 1000], 2000), [500] * 4)
-        self.assertEqual(allocate_targets([3000, 2000], 2000, [3, 2]), [1800, 1200])
-        result = allocate_targets([10, 1000], 800)
-        self.assertEqual(result, [1, 209])
+    def test_patch_formula_and_proportional_token_target(self):
+        self.assertEqual(patch_count(1920, 1080), 2040)
+        self.assertEqual(estimate_image_tokens(1920, 1080), 2448)
+        for width, height in ((1920, 1080), (1080, 1920), (641, 333), (1, 10000), (10000, 1), (3840, 13152)):
+            size, target, effective = token_budget_size(width, height)
+            self.assertEqual(target, estimate_image_tokens(width, height)*3//5)
+            self.assertLessEqual(estimate_image_tokens(*size), effective)
+            self.assertLessEqual(abs(size[0]/width-size[1]/height), max(1/width, 1/height))
+            self.assertLessEqual(size[0], width)
+            self.assertLessEqual(size[1], height)
+            validate_original_size(*size)
 
-    def test_both_settings_match_actual_setting3_area(self):
+    def test_small_image_budget_is_largest_feasible_proportional_size(self):
+        width, height = 321, 219
+        size, target, _ = token_budget_size(width, height)
+        candidates = []
+        for numerator, denominator in ([(x, width) for x in range(1, width+1)]
+                                       + [(y, height) for y in range(1, height+1)]):
+            w, h = max(1, width*numerator//denominator), max(1, height*numerator//denominator)
+            if estimate_image_tokens(w, h) <= target:
+                candidates.append(w*h)
+        self.assertEqual(size[0]*size[1], max(candidates))
+
+    def test_minimum_patch_and_original_limits(self):
+        path = self.root/'tiny.png'
+        Image.new('RGB', (1, 1)).save(path)
+        r = resize_to_token_budget(path)
+        self.assertEqual(r['target_estimated_tokens'], 1)
+        self.assertEqual(r['output_estimated_tokens'], 2)
+        self.assertTrue(r['minimum_patch_limited'])
+        with self.assertRaises(ValueError):
+            validate_original_size(65536, 1)
+        with self.assertRaises(ValueError):
+            validate_original_size(6400, 6400)
+        size, _, _ = token_budget_size(16000, 16000)
+        validate_original_size(*size)
+
+    def test_setting1_scales_every_frame_including_first_without_setting3_reference(self):
         paths = self.frames()
         original = [Path(p).read_bytes() for p in paths]
-        reference = core.prepare_images_in_temp_folder([], paths, str(self.root / 's3'), {}, 3)
-        target = 0
-        for path in reference:
-            with Image.open(path) as image:
-                target += image.width * image.height
-        for setting in (1, 2):
-            out = self.root / f's{setting}'
-            result = core.prepare_images_in_temp_folder([], paths, str(out), {}, setting)
-            budget = json.loads((out / 'compression_budget.json').read_text())
-            self.assertEqual(budget['setting3_target_pixels'], target)
-            self.assertLessEqual(budget['actual_screenshot_pixels'], target)
-            self.assertLess(budget['rounding_shortfall_pixels'], target * 0.02)
-            self.assertAlmostEqual(sum(r['target_pixels'] for r in budget['allocations']), target)
-            if setting == 1:
-                self.assertEqual(Path(result[0]).read_bytes(), original[0])
-                savings = [r['assigned_saved_pixels'] for r in budget['allocations'][1:]]
-                self.assertTrue(all(abs(s - savings[0]) < 1e-6 for s in savings))
-            else:
-                self.assertEqual(len(result), 2)
-                first, second = budget['allocations']
-                self.assertEqual((first['screenshot_count'], second['screenshot_count']), (3, 2))
-                self.assertAlmostEqual(first['assigned_saved_pixels'] / second['assigned_saved_pixels'], 1.5)
-                self.assertEqual(first['raw_sheet_size'], [1800, 332])
-                self.assertEqual(second['raw_sheet_size'], [1200, 332])
-            for record in budget['allocations']:
-                w, h = record['output_size']
-                original_w, original_h = record.get('raw_sheet_size', [600, 300])
-                self.assertLess(abs(w / original_w - h / original_h), 0.01)
+        out = self.root/'setting1'
+        with patch.object(core, 'prepare_delta_screenshots', side_effect=AssertionError('unexpected Setting 3 reference')):
+            result = core.prepare_images_in_temp_folder([], paths, str(out), setting=1)
+        budget = json.loads((out/'compression_budget.json').read_text())
+        self.assertEqual(len(result), 5)
+        self.assertEqual(budget['profile']['detail'], 'original')
+        self.assertTrue(budget['profile']['assumption_not_officially_verified'])
+        for index, record in enumerate(budget['allocations']):
+            self.assertEqual(record['index'], index)
+            self.assertLessEqual(record['retained_token_fraction'], .6)
+            self.assertNotEqual(record['output_size'], [600, 300])
+        self.assertNotEqual(Path(result[0]).read_bytes(), original[0])
         self.assertEqual([Path(p).read_bytes() for p in paths], original)
 
-    def test_one_frame_and_zero_savings(self):
+    def test_setting2_stacks_landscape_vertically_and_portrait_horizontally(self):
+        for size, layout, expected in (((600, 300), 'vertical', [[600, 996], [600, 664]]),
+                                        ((300, 600), 'horizontal', [[900, 632], [600, 632]])):
+            paths = self.frames(size=size)
+            originals = [Path(p).read_bytes() for p in paths]
+            out = self.root/layout
+            outputs = core.prepare_images_in_temp_folder([], paths, str(out), setting=2)
+            budget = json.loads((out/'compression_budget.json').read_text())
+            self.assertEqual(len(outputs), 2)
+            records = budget['allocations']
+            self.assertEqual([r['screenshot_count'] for r in records], [3, 2])
+            self.assertEqual([r['source_size'] for r in records], expected)
+            self.assertEqual([i for r in records for i in r['source_indices']], list(range(5)))
+            for record, output in zip(records, outputs):
+                self.assertEqual(record['layout'], layout)
+                reference = estimate_image_tokens(*size) * record['screenshot_count']
+                self.assertEqual(record['reference_estimated_tokens'], reference)
+                self.assertEqual(record['target_estimated_tokens'], reference*3//5)
+                self.assertLessEqual(record['output_estimated_tokens'], reference*3//5)
+                self.assertLessEqual(record['retained_token_fraction'], .6)
+                with Image.open(output) as image:
+                    for region in record['source_regions']:
+                        x1, y1, x2, y2 = region['output_sheet_box']
+                        self.assertEqual(image.getpixel(((x1+x2)//2, (y1+y2)//2)),
+                                         (30+region['index']*25, 60, 100))
+            self.assertEqual([Path(p).read_bytes() for p in paths], originals)
+
+    def test_setting2_added_labels_and_padding_do_not_increase_budget(self):
+        paths = self.frames(3, size=(32, 64))
+        out = self.root/'large_padding'
+        core.prepare_images_in_temp_folder([], paths, str(out), setting=2)
+        budget = json.loads((out/'compression_budget.json').read_text())
+        record = budget['allocations'][0]
+        reference = sum(estimate_image_tokens(32, 64) for _ in paths)
+        self.assertGreater(record['source_pixels'], record['original_screenshot_pixels'])
+        self.assertGreater(record['source_estimated_tokens'], reference)
+        self.assertEqual(record['reference_estimated_tokens'], reference)
+        self.assertEqual(record['target_estimated_tokens'], reference*3//5)
+        self.assertLessEqual(record['output_estimated_tokens'], reference*3//5)
+        self.assertEqual(budget['reference_estimated_tokens'], reference)
+        self.assertEqual(budget['retained_token_fraction'], record['output_estimated_tokens']/reference)
+
+    def test_groups_and_mixed_orientation_keep_all_frames_in_order(self):
+        self.assertEqual(core.screenshot_group_sizes(5), [3, 2])
+        self.assertEqual(core.screenshot_group_sizes(7), [4, 3])
+        paths = self.frames(7)
+        Image.new('RGB', (300, 600)).save(paths[1])
+        out = self.root/'mixed'
+        core.prepare_images_in_temp_folder([], paths, str(out), setting=2)
+        records = json.loads((out/'compression_budget.json').read_text())['allocations']
+        self.assertEqual([i for r in records for i in r['source_indices']], list(range(7)))
+        self.assertEqual(records[0]['layout'], 'vertical')
+
+    def test_payload_sets_original_for_luna_without_adding_text_or_changing_assets(self):
+        paths = self.frames(2)
+        asset = self.root/'asset.png'
+        Image.new('RGB', (100, 80)).save(asset)
+        for model in ('gpt-6-luna', 'gpt-5.6-luna', 'gpt-5'):
+            for setting in (0, 1, 2, 3):
+                with patch.object(core, 'call_mllm', return_value='<html></html>') as call:
+                    core.call_mllm_html(model, [str(asset)], paths,
+                                        str(self.root/f'{model}_{setting}'), '600x300', setting=setting)
+                payload = call.call_args.args[1]
+                self.assertEqual(sum(p['type']=='text' for p in payload), 1)
+                self.assertEqual(base64.b64decode(payload[1]['image_url']['url'].split(',')[1]), asset.read_bytes())
+                for part in payload[1:]:
+                    self.assertEqual(part['type'], 'image_url')
+                    if model == 'gpt-5':
+                        self.assertNotIn('detail', part['image_url'])
+                    else:
+                        self.assertEqual(part['image_url']['detail'], 'original')
+
+    def test_direct_setting_preserves_source_size_and_assets_untouched(self):
         paths = self.frames(1)
-        for setting in (1, 2):
-            out = self.root / f'one{setting}'
-            core.prepare_images_in_temp_folder([], paths, str(out), {}, setting)
-            budget = json.loads((out / 'compression_budget.json').read_text())
-            self.assertEqual(budget['saved_pixels'], 0)
-            self.assertLessEqual(budget['actual_screenshot_pixels'], 180000)
-        duplicate = self.root / 'duplicate.png'
-        duplicate.write_bytes(Path(paths[0]).read_bytes())
-        out = self.root / 'zero'
-        result = core.prepare_images_in_temp_folder([], [paths[0], str(duplicate)], str(out), {}, 1)
-        with Image.open(result[1]) as image:
-            self.assertEqual(image.size, (512, 256))
-        self.assertEqual(duplicate.read_bytes(), Path(paths[0]).read_bytes())
+        asset = self.root/'asset.png'
+        Image.new('RGB', (1200, 1200)).save(asset)
+        for setting in (0, 1, 2, 3):
+            result = core.prepare_images_in_temp_folder([str(asset)], paths,
+                                                       str(self.root/f'assets{setting}'), setting=setting)
+            self.assertEqual(Path(result[0]).read_bytes(), asset.read_bytes())
+            if setting == 0:
+                self.assertEqual(Path(result[1]).read_bytes(), Path(paths[0]).read_bytes())
 
-    def test_tile_snap_sample_sizes_and_disabled_mode(self):
-        for size, margin, expected in (((900, 443), 100, (900, 443)),
-                                       ((1314, 646), 100, (1314, 646)),
-                                       ((515, 1119), 100, (471, 1024)),
-                                       ((1314, 646), 150, (1024, 503)),
-                                       ((515, 1119), 0, (515, 1119)),
-                                       ((512, 1024), 100, (512, 1024))):
-            path = self.root / 'snap.png'
-            Image.new('RGB', size).save(path)
-            info = snap_to_tile_boundary(path, margin)
-            with Image.open(path) as image:
-                self.assertEqual(image.size, expected)
-            if expected != size:
-                self.assertLess(info['estimated_tiles_after'], info['estimated_tiles_before'])
-            self.assertEqual(info['extra_saved_pixels'], size[0] * size[1] - expected[0] * expected[1])
-        self.assertEqual(tile_count(515, 1119), 6)
-        self.assertEqual(tile_count(471, 1024), 2)
-
-    def test_tiny_aspect_ratio_and_image_caps(self):
-        path = self.root / 'thin.png'
-        Image.new('RGB', (1, 1000)).save(path)
-        width, height = resize_to_area(path, 10)
-        self.assertLessEqual(width * height, 10)
-        paths = self.frames()
-        asset = self.root / 'asset.png'
-        Image.new('RGB', (1000, 1000)).save(asset)
-        result = core.prepare_images_in_temp_folder([str(asset)], paths, str(self.root / 'cap'),
-                                                   {'max_single_image_size': 40}, 1)
-        with Image.open(result[0]) as image:
-            self.assertEqual(image.size, (40, 40))
-        with Image.open(result[1]) as image:
-            self.assertEqual(image.size, (600, 300))
-
-    def test_generation_backs_up_budget(self):
+    def test_generation_saves_token_budget_without_backup(self):
         source = self.frames(2)
-        checkpoint_dir = self.root / 'data' / '1' / 'checkpoints'
-        checkpoint_dir.mkdir(parents=True)
+        checkpoints = self.root/'data/1/checkpoints'
+        checkpoints.mkdir(parents=True)
         for i, path in enumerate(source):
-            (checkpoint_dir / f'step_{i}.png').write_bytes(Path(path).read_bytes())
+            (checkpoints/f'step_{i}.png').write_bytes(Path(path).read_bytes())
         for setting in (1, 2):
-            process_task({'id': 1}, str(self.root / 'data'), str(self.root / 'outputs'), 'mock', setting=setting)
-            out = self.root / 'outputs' / '1' / f'mock_setting{setting}'
-            self.assertTrue((out / 'compression_budget.json').exists())
-            self.assertEqual(len(list((out / 'backups').glob('*/compression_budget.json'))), 1)
+            process_task({'id': 1}, str(self.root/'data'), str(self.root/'out'), 'mock', setting=setting)
+            out = self.root/f'out/1/mock_setting{setting}'
+            budget = json.loads((out/'compression_budget.json').read_text())
+            self.assertEqual(budget['unit'], 'estimated image input tokens')
+            self.assertTrue((out/'index.html').exists())
+            self.assertTrue((out/'raw_response.txt').exists())
+            self.assertFalse((out/'backups').exists())
 
 
 if __name__ == '__main__':

@@ -1,0 +1,83 @@
+{
+  "total_step": 4,
+  "success_step": 4,
+  "screenshot_paths_to_eval": [
+    "outputs/23/gpt-6-luna_setting3/evalpoints/0.png",
+    "outputs/23/gpt-6-luna_setting3/evalpoints/0.png",
+    "outputs/23/gpt-6-luna_setting3/evalpoints/1.png",
+    "outputs/23/gpt-6-luna_setting3/evalpoints/2.png",
+    "outputs/23/gpt-6-luna_setting3/evalpoints/3.png"
+  ],
+  "all_mllm_scores": [
+    0.8,
+    0.5,
+    0.56,
+    0.24,
+    0.26
+  ],
+  "all_dino_scores": [
+    0.8681640625,
+    0.76611328125,
+    0.697265625,
+    0.54443359375,
+    0.59326171875
+  ],
+  "all_ocr_scores": [
+    0.47926267281105994,
+    0.24086870681145112,
+    0.23293768545994065,
+    0.25399129172714074,
+    0.25689404934687954
+  ],
+  "all_avg_scores": [
+    0.7158089117703533,
+    0.502327329353817,
+    0.4967344368199802,
+    0.3461416284923802,
+    0.37005192269895987
+  ],
+  "mllm_score": 0.4720000000000001,
+  "dino_score": 0.69384765625,
+  "ocr_score": 0.2927908812312944,
+  "avg_score": 0.4862128458270981,
+  "all_mllm_res": [
+    "Comments:\n-Layout (8/10): The overall centered, three-column news layout and header are closely matched. The generated page places the main feature and sidebar slightly differently and shows less of the “PLUS THIS” section at the same viewport.\n-Elements (10/15): Logo, navigation, lead story, secondary stories, and latest-news list are present. Some thumbnail images differ from the reference, and the lower story-card section is only partially visible.\n-Content and Text (34/40): Most visible headlines, labels, timestamps, and bylines closely match the reference. Some story text and imagery do not correspond exactly, especially in the secondary column.\n-Style (12/15): The white background, magenta accents, bold underlined headlines, and compact editorial typography are similar. Spacing and image treatments vary, and the reference’s lead feature appears slightly larger.\n-Overall (16/20): A strong structural and textual match, with noticeable differences in story thumbnails, column sizing, and how much of the lower content is shown.\n\nScore: 80/100",
+    "Comments:\n-Layout (10 points): The generated page includes the same general multi-column news layout and lower content sections, but the primary hero area and header are missing or displaced. The viewport appears vertically misaligned, with “Plus This” appearing at the top instead of below the main feature. **4/10**\n-Elements (15 points): Several matching article cards, thumbnails, sidebar headlines, section headings, and “See More” content are present. However, the Polygon logo, navigation, main featured story, and much of the reference’s top-level structure are absent. **8/15**\n-Content and Text (40 points): A substantial amount of article text matches the reference, particularly the “Plus This,” “Gamescom 2025,” and latest-news items. Still, the prominent main headline and several top-page articles are missing from view. **23/40**\n-Style (15 points): Typography, magenta accents, card borders, image treatments, and general editorial styling are reasonably similar. The bright green header bar, incorrect header appearance, spacing, and positioning significantly reduce visual fidelity. **7/15**\n-Overall (20 points): The generated page is recognizably based on the same Polygon-style page and reproduces many lower-page components, but it does not match the reference viewport composition because the main hero/header region is omitted or incorrectly scrolled. **8/20**\n\nScore: **50/100**",
+    "Comments:\n- **Layout (6/10):** Both pages use a centered, narrow editorial layout with a bright green fixed header and three-column article sections. However, the visible vertical positioning differs substantially: the first view begins with the “GAMESCOM 2025” section and a green feature panel, while the second prominently shows “PLUS THIS” and a different portion of the page.\n- **Elements (10/15):** Shared elements include the green navigation bar, sign-in control, hamburger menu, section headings, three article cards, bordered thumbnails, metadata, and “SEE MORE” links. The article arrangements and supporting panels differ, and some elements visible in one screenshot are absent from the other.\n- **Content and Text (17/40):** There is partial textual overlap, particularly the “GAMESCOM 2025” heading and the general editorial-card structure. Most visible headlines, categories, authors, and article subjects are different, with the first screenshot emphasizing Gamescom and Grounded 2 content while the second emphasizes “PLUS THIS” articles.\n- **Style (13/15):** Strong stylistic similarity: neon green branding, magenta accents and image borders, bold underlined headlines, compact uppercase metadata, white background, and a similar publication aesthetic. Minor differences appear in logo rendering, spacing, and exact typography.\n- **Overall (10/20):** The screenshots appear to belong to the same website or design system, but they do not show closely matching page states or content. The structural and visual language is similar, while the visible section order, article content, and vertical composition differ considerably.\n\n**Score: 56/100**",
+    "---\nComments:\n-Layout (10 points): Both pages use a centered content column, but the sections appear at different vertical positions and the reference has a large blank interval before its main section. (4/10)\n-Elements (15 points): The green header, article cards, images, and “See more” links are broadly similar. However, the reference’s visible Gamescom cards and clipped article text are not present in the generated page. (5/15)\n-Content and Text (40 points): The headlines, section titles, and article subjects do not match the reference. (2/40)\n-Style (15 points): The bright green header, white background, dark underlined headlines, and pink-accented image cards capture some of the same visual language, but differ in header height and section treatments. (8/15)\n-Overall (20 points): There is a recognizable resemblance in the general news-site structure and palette, but the page content and scroll-position composition differ substantially. (5/20)\n\nScore: 24/100\n---",
+    "---\nComments:\n- **Layout (3/10):** The bright green header and centered content area are similar, but the sections are in a different order and at very different vertical positions. The reference shows “What We’re Playing” near the top and “Latest” below; the generated page instead has a clipped article row, a large blank area, and a prominent green panel.\n- **Elements (5/15):** Both pages include a header, article cards, images, category labels, and “See more” links. However, the generated page adds a large “Little guys, big secrets” panel that is absent from the reference, and the visible article imagery differs.\n- **Content and Text (5/40):** Most visible headlines and article content do not match the reference. The generated page features Grounded 2 guides and different game stories, while the reference shows specific “What We’re Playing” and “Latest” articles.\n- **Style (8/15):** The green header, magenta accents, dark underlined headlines, and general editorial style are reasonably similar. The large green block and its visual emphasis are inconsistent with the reference.\n- **Overall (5/20):** There is some similarity in branding and article-card styling, but the content, section order, and page composition differ substantially.\n\nScore: 26/100\n---"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "Polygon Guides Gaming Entertainment THE LATEST HOuRS Aco Bone Lake_worksas3 seX pun but iL s also scary erotic horror GRAND THEFT AUTO 12 HouRS Aco Too manygames are Another gume nas been about to cannibalize delayed because Of each other trying to fil Hollow Knight: Silksong CIA 6's vacuum By 4USTIN MANCIIESTER 12 HOURS ACo Alan Wake; one of the pest houorthller gmes ofalltime_Is barely OveK2 dollar nOW GAMEScOM HouRs Aco One of 2026'5 most KPop Demon Hunters\" sing-along versionis alteack on Netilix interesting cozy games STAR TREK combines hotel renovation Star Trek: Strange New HOURs Aco Worlds asks if Starfleet Fontnite adds vitua band are colonizers Corillaz IOr season I0 ghosts,and ska Ry SAMANTIIA NELSON By MARLOES VaLCNTiNA STELLA 20 Hours Aco KPop Demon Hunters gives Netiliits frst [neatrica Win PLUS THIS DaY Aco Pokemon Mystery Dungeon isa criminally unaerrated roquelike DAYS Aco Avengers Doomsday already doomed? ANiMATION STORY OF SEASONS: GRAND BAZAAR CULTURE DAYS ACo BoJack Horseman's farmingsim that Spike_ Lee's_new movie 30 ycars a90 Nintendo: Dgg0S1 Vasdecace: creator returns with @ admits You can't save isa scathingattack on ahead oititimg dark new animated the_world alone social media but he comedy 'for By AIMEE HART says Instagram has everybody' one great use ~op",
+      "screenshot_text": "Guides Gaming Entertainment Polygon THE LATEST 11 HOURS AGO Bone_Lake works asa sexpun:_but it's alsq scary_erotic horror GRAND THEFT AUTO 12 HOURS AGO Too many_games are Angthergame_has been about to cannibalize delayed because of Hollow Knight:_Silkksong each other tryingto fill GTA6's vacuum 12 HOURS AGO BY AUSTIN MANCHESTER Alan Wake one of the best horror _thrillergames of all time is barely_over a dollar now 13 HOURS AGO GAMESCOM KPop_Demon Hunters' One of 2026's most interesting singzaloogvesion On cozy_gamescombineshotel 14 HOURS AGO STAR TREK Eortnite adds virtual band renovation,_ghosts,and ska Star Irek: StrangeNew Gorillaz for season 10 Worlds asks if Starfleet 20 HOURS AGO BY MARLOES VALENTINA STELLA are colonizers KPop_Demon Hunters gives Netflix its first BY SAMANTHA NELSON theatrical Wn 1DAY AGO Pokemon Mystery Dungeon is a criminally underrated roguelike DAYS AGO Is Avengers:Doomsday already doomed? 2 DAYS AGO 30years ag.Nintendos biggest Was decades ahead ofits time PLUS THIS flop",
+      "similarity": 0.47926267281105994
+    },
+    {
+      "checkpoint_text": "Sigh I rord 4eWELALI PLUS THIS [heatrica Wn Day Aco Pokemon Mystery Dungeon is ciminly unaerrated roquelke DAYS Aco Is Avengers: Doomsday already doomed? ANiMATION STORY OF SEASONS; GRAND BAZAAR CULTURE DAYS ACo BoJack Horseman's farming sim that Spike Lee's new movie 3Q years a90 Nintendos piggest flop_was decades creator returns with a admits YoU can't save is a scathing attack on ahead oits time dark new animated the world alone social media but he comedy 'for By AIMEC HART says Instagram has everybody' one great use Dy SAMANTHA NELSON Bv TASHA RODINSON GAMESCOM 2025 SEE MORE GAMESCOM PRAGMATA John Carpenter's newest Pragmata's combat-puzzle horror _is actuallya game mechanics live_UP to the PREVIEWS and playedit hype Somehowthe sequel to Planet of By SAMANTHA NELSON Lana feels bigger_prettier_ and By MICHAEL MCWHERTOR deeper in every way",
+      "screenshot_text": "Guides Gaming Entertainment Polygon THE LATEST 11 HOURS AGO Bone_Lake works asa sexpun:_but it's alsq scary_erotic horror GRAND THEFT AUTO 12 HOURS AGO Too many_games are Angthergame_has been about to cannibalize delayed because of Hollow Knight:_Silkksong each other tryingto fill GTA6's vacuum 12 HOURS AGO BY AUSTIN MANCHESTER Alan Wake one of the best horror _thrillergames of all time is barely_over a dollar now 13 HOURS AGO GAMESCOM KPop_Demon Hunters' One of 2026's most interesting singzaloogvesion On cozy_gamescombineshotel 14 HOURS AGO STAR TREK Eortnite adds virtual band renovation,_ghosts,and ska Star Irek: StrangeNew Gorillaz for season 10 Worlds asks if Starfleet 20 HOURS AGO BY MARLOES VALENTINA STELLA are colonizers KPop_Demon Hunters gives Netflix its first BY SAMANTHA NELSON theatrical Wn 1DAY AGO Pokemon Mystery Dungeon is a criminally underrated roguelike DAYS AGO Is Avengers:Doomsday already doomed? 2 DAYS AGO 30years ag.Nintendos biggest Was decades ahead ofits time PLUS THIS flop",
+      "similarity": 0.24086870681145112
+    },
+    {
+      "checkpoint_text": "In Now 0 GAMESCOM 2025 SEE MORE GAMESCOM PRAGMATA John Carpenter's newest Pragmata's combat-puzzle horror is actuallya game mechanics live_UP to the PREVIEWS and played it hype Somehow;the sequel to Planet of By SAMANTHA NELSON Lana feels prettier, and By MICHAEL MCWHERTOR deeper in every way By MARLOE5 VALENTINA STELLA 0 SEE MORE Little guys, big secrets Where to find sturdy Whereto find brittle Where to find crow feather quantzite in Grounded 2 quartzite for brittle_ Piecesin Creunded2 whetstone in Grounded2 Where to find Wolf Spiders Allranger station locations Two studios one backyard: Grounded2 Grounded2 How Obsidianand Eidos gambled on Grounded? Sign L bigger;",
+      "screenshot_text": "Sign In Now 1DAY AGO Pokemon Mystery Dungeon iS criminally underrated roguelike DAYS AGO Is Avengers: Doomsday already doomed 2 DAYS AGO 30years agQ,_Nintendos biggest flop_was decades ahead of its time PLUS THIS ANIMATION STORY OF SEASONS: GRAND BAZAAR CULTURE BoJack Horseman's creator returns farming_sim that admits YOUcantt Spike Lee's new movie is a scathing witha dark new animated comedy_'for save_the_world alone attack on social media -_ but he says everybody' BY AIMEE HART Instagramhas one_great use BY SAMANTHA NELSON BY TASHA ROBINSON GAMESCOM 2025 SEE MORE ,",
+      "similarity": 0.23293768545994065
+    },
+    {
+      "checkpoint_text": "Sign In Now 0 = SEE MORE Little guys, big secrets Where to find sturdy Where t0 fnd brittle Where to find crow feather quantzite in Grounded 2 quantzite for brittle\" - pieces in Crounded 2 whetstone In Grounded 2 Where to find Wolt Spiders AlI ranger station locationg Two studios one backyard: in Grounded 2 in Crounded 2 How Obsidianand Eidos__ gambled on Grounded2 WHAT WE'RE PLAYING SEE MORE IMPRESSIONS GAMESCOM This indie_gem could be Blood of the Dawnwalker the_summer's best NINTENDO SWITCH 2 lets You choose your own roguelike The_Switch 2's latest CameCube vampire adventure By A USTIN MANCHESTER gameis a truly delightful hidden By SAMANTAA NELSON 0 gem By GIOVANNI COLANTONIO 0",
+      "screenshot_text": "Sign In Now witha dark new animated comedy save_the_worldalone attack on social media but he says everybody' BY AIMEE HART Instagram has onegreat use BY SAMANTHA NELSON BY TASHA ROBINSON GAMESCOM 2025 SEE MORE , GAMESCOM PRAGMATA John Carpenter's newest horror Pragmata's combat-puzzle is actuallya game and played mechanics live_ Upto the_hype PREVIEWS BY MICHAEL MCWHERTOR Somehow;the sequel to Planet of_Lana feels BY SAMANTHA NELSON bigger_prettier,_and deeper_in every_way BY MARLOES VALENTINA STELLA 'for",
+      "similarity": 0.25399129172714074
+    },
+    {
+      "checkpoint_text": "Sign In Now = WHAT WE'RE PLAYING SEE MORE IMPRESSIONS GAMESCOM This indie gem could be Blood of the Dawnwalker the summer's best NINTENDO Switch lets you choose your own roguelike The Switch 2's latest CameCube vampire adventure By A USTIN MANCHESTER game is a truly delightful hidden By SAMANTHA NELSON D gem By GIOVANNI COLANTONIO 0 LATEST HORROR Bone_Lake_works as 2 seXPun;but it's also scary_erotic horror Dy ISAAC ROUSE Iihours ag0 D TRENDING Now NEWS Zach Cregger is still",
+      "screenshot_text": "Sign In Now GAMESCOM PRAGMATA John Carpenter's newest _horror Pragmata's combat-puzzle isactuallya game and played mechanics live_Upto_the_bype PREVIEWS it BY MICHAEL MCWHERTOR Somehow;_the sequelto Planet of Lana feels BY SAMANTHA NELSON bigger,_prettier;_and deeper in every_way BY MARLOES VALENTINA STELLA Little guys, big secrets SEE MORE , Where_to find sturdy_quartzitein Where_to find brittle quartzite Where_to find crow feather pieces Grounded 2 brittle_ Whetstone in Grounded 2 in Grounded 2 Io studios one_backyard: How Where_to find Wolf Spiders in AlLranger station locations in Obsidian and Eidos__gambled on Grounded 2 Grounded 2 Grounded 2 WHAT WE'RE PLAYING SEE MORE , for",
+      "similarity": 0.25689404934687954
+    }
+  ],
+  "assertion_results": [
+    null,
+    null,
+    null,
+    null
+  ]
+}

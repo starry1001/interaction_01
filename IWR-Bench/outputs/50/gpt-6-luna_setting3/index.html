@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Pudding</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;background:#fff;color:#171717;font-family:Arial,Helvetica,sans-serif}
+  body{overflow-x:hidden}
+  button,input{font:inherit}
+  .site-header{height:250px;max-width:1280px;margin:0 auto;position:relative;padding:38px 0 0}
+  .tagline{position:absolute;left:0;top:42px;width:270px;font-family:Georgia,serif;font-size:16px;line-height:1.15}
+  .tagline b{font-family:Arial,sans-serif;font-size:16px}
+  .brand{position:absolute;left:50%;top:31px;transform:translateX(-50%);width:215px;height:70px;object-fit:contain}
+  .top-links{position:absolute;right:0;top:44px;display:flex;align-items:center;gap:26px}
+  .top-links img{height:38px;width:auto;object-fit:contain}
+  .search{position:absolute;left:0;bottom:58px;display:flex;align-items:center;gap:12px}
+  .search img{width:42px;height:42px;object-fit:contain}
+  .search input{width:170px;height:38px;border:2px solid #bbb;border-radius:5px;padding:5px 9px;color:#777;font-size:16px}
+  .nav{height:62px;position:absolute;bottom:0;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:29px;white-space:nowrap;background:#fff;z-index:20}
+  .nav-item{border:0;background:none;padding:0;display:flex;align-items:center;gap:7px;font-family:Georgia,serif;font-weight:bold;font-size:15px;cursor:pointer}
+  .nav-item img{width:34px;height:34px;object-fit:contain}
+  .nav-item span{font-size:15px}
+  .grid{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);column-gap:30px;row-gap:68px;padding-bottom:100px}
+  .card{min-width:0;position:relative}
+  .meta{height:38px;display:flex;align-items:center;justify-content:space-between;font-family:Georgia,serif;font-weight:bold;font-size:15px}
+  .number{border:1.5px solid #777;border-radius:18px;padding:5px 10px;line-height:1}
+  .date{letter-spacing:.5px}
+  .visual{height:410px;width:100%;display:flex;justify-content:center;align-items:center;overflow:hidden}
+  .visual img{width:78%;height:90%;object-fit:contain}
+  .card h2{font-size:31px;line-height:1.05;margin:12px 0 5px;font-weight:800;letter-spacing:-1.2px}
+  .card p{font-size:18px;line-height:1.25;color:#777;margin:0;max-width:98%}
+  .play:after{content:"▶";position:absolute;left:50%;top:245px;transform:translate(-50%,-50%);width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center;font-size:28px;padding-left:5px;color:#222}
+  .newsletter{height:515px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px}
+  .newsletter img{width:125px;height:125px;object-fit:contain;margin-bottom:18px}
+  .newsletter h3{font-size:27px;line-height:1.08;font-weight:400;margin:0 0 18px}
+  .newsletter label{font-size:18px;margin:0 0 7px}
+  .newsletter input{height:42px;border:2px solid #bbb;border-radius:6px;width:176px;padding:7px 9px;color:#888;margin-bottom:10px}
+  .captcha{display:flex;gap:9px;align-items:center}
+  .captcha input{width:177px;margin:0}
+  .subscribe{height:42px;border:0;border-radius:3px;background:#222;color:#fff;font-family:Georgia,serif;font-weight:bold;padding:0 11px;cursor:pointer}
+  .hidden{display:none}
+  @media(max-width:900px){
+    .site-header{height:155px;padding:0 18px}
+    .tagline,.brand,.top-links{display:none}
+    .search{left:18px;bottom:100px}
+    .nav{left:18px;transform:none;bottom:0;width:calc(100% - 36px);overflow-x:auto;gap:18px}
+    .nav-item span{font-size:12px}
+    .nav-item img{width:28px;height:28px}
+    .grid{padding:0 18px 70px;grid-template-columns:repeat(2,1fr);gap:38px 18px}
+    .visual{height:300px}
+    .card h2{font-size:24px}
+    .card p{font-size:15px}
+  }
+  @media(max-width:580px){
+    .grid{grid-template-columns:1fr}
+    .visual{height:360px}
+  }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="tagline">A digital publication that...<br><b>brings you longform data journalism</b></div>
+  <img class="brand" src="../../../data/data/50/assets/057.svg" width="215" height="70" alt="The Pudding">
+  <div class="top-links">
+    <button class="btn" style="border:0;background:none;padding:0"><img src="../../../data/data/50/assets/011.png" width="120" height="65" alt="About"></button>
+    <button class="btn" style="border:0;background:none;padding:0"><img src="../../../data/data/50/assets/055.png" width="135" height="65" alt="Subscribe"></button>
+    <button class="btn" style="border:0;background:none;padding:0"><img src="../../../data/data/50/assets/047.png" width="105" height="60" alt="More"></button>
+  </div>
+  <div class="search">
+    <img src="../../../data/data/50/assets/009.png" width="42" height="42" alt="Search">
+    <input id="searchInput" type="search" placeholder="Find a story...">
+  </div>
+  <nav class="nav">
+    <button class="nav-item btn" data-filter="faves"><img src="../../../data/data/50/assets/010.png" width="34" height="34"><span>OUR FAVES</span></button>
+    <button class="nav-item btn" data-filter="popular"><img src="../../../data/data/50/assets/012.png" width="34" height="34"><span>POPULAR</span></button>
+    <button class="nav-item btn" data-filter="updating"><img src="../../../data/data/50/assets/013.png" width="34" height="34"><span>UPDATING</span></button>
+    <button class="nav-item btn" data-filter="input"><img src="../../../data/data/50/assets/014.png" width="34" height="34"><span>YOUR INPUT</span></button>
+    <button class="nav-item btn" data-filter="video"><img src="../../../data/data/50/assets/015.png" width="34" height="34"><span>VIDEO</span></button>
+    <button class="nav-item btn" data-filter="audio"><img src="../../../data/data/50/assets/016.png" width="34" height="34"><span>AUDIO</span></button>
+  </nav>
+</header>
+
+<main class="grid" id="storyGrid">
+
+  <article class="card" data-title="dicing onions" data-tags="popular">
+    <div class="meta"><span class="number">#210</span><span class="date">AUG 2025</span></div>
+    <div class="visual" style="background:#f8ca16"><img src="../../../data/data/50/assets/018.jpg" width="395" height="410" alt="Dicing onions"></div>
+    <h2>dicing onions</h2><p>What is the best way to dice an onion to get the most uniform piece sizes?</p>
+  </article>
+
+  <article class="card" data-title="nyc street view" data-tags="updating">
+    <div class="meta"><span class="number">#209</span><span class="date">JUL 2025</span></div>
+    <div class="visual" style="background:#25b8dc"><img src="../../../data/data/50/assets/019.jpg" width="395" height="410" alt="NYC street view"></div>
+    <h2>nyc street view</h2><p>What if you could search every visible word on New York City’s streets?</p>
+  </article>
+
+  <article class="card" data-title="kids book animals" data-tags="faves popular">
+    <div class="meta"><span class="number">#208</span><span class="date">JUL 2025</span></div>
+    <div class="visual" style="background:#f5dc56"><img src="../../../data/data/50/assets/022.jpg" width="395" height="410" alt="Kids book animals"></div>
+    <h2>kids book animals</h2><p>How and why do we gender animals in stories?</p>
+  </article>
+
+  <article class="card" data-title="strangers talking" data-tags="video">
+    <div class="meta"><span class="number">#207</span><span class="date">JUN 2025</span></div>
+    <div class="visual" style="background:#ae7bc4"><img src="../../../data/data/50/assets/023.jpg" width="395" height="410" alt="Strangers talking"></div>
+    <h2>strangers talking</h2><p>Watch hundreds of strangers talk for 30 minutes, and track how their moods change.</p>
+  </article>
+
+  <article class="card" data-title="loneliness video" data-tags="video popular">
+    <div class="meta"><span class="number">#206</span><span class="date">JUN 2025</span></div>
+    <div class="visual play" style="background:#7c39b1"><img src="../../../data/data/50/assets/026.jpg" width="395" height="410" alt="Loneliness video"></div>
+    <h2>loneliness video</h2><p>A six-minute video about the loneliness epidemic, in data.</p>
+  </article>
+
+  <article class="card" data-title="asian representation" data-tags="popular">
+    <div class="meta"><span class="number">#205</span><span class="date">MAY 2025</span></div>
+    <div class="visual" style="background:#c96d73"><img src="../../../data/data/50/assets/021.jpg" width="395" height="410" alt="Asian representation"></div>
+    <h2>asian representation</h2><p>How accurately are Asian Americans cast in Hollywood?</p>
+  </article>
+
+  <article class="card" data-title="birthday effect" data-tags="faves">
+    <div class="meta"><span class="number">#204</span><span class="date">MAY 2025</span></div>
+    <div class="visual" style="background:#b9414b"><img src="../../../data/data/50/assets/031.jpg" width="395" height="410" alt="Birthday effect"></div>
+    <h2>birthday effect</h2><p>Are you more likely to die on your birthday? Yes.</p>
+  </article>
+
+  <section class="newsletter">
+    <img src="../../../data/data/50/assets/032.png" width="125" height="125" alt="Newsletter">
+    <h3>Get The Pudding<br>in your inbox:</h3>
+    <input type="email" placeholder="you@example.com">
+    <label>Prove you’re human:</label>
+    <div class="captcha"><input type="text" placeholder="What is 1+1?"><button class="subscribe btn">SUBSCRIBE</button></div>
+  </section>
+
+  <article class="card" data-title="wine animals" data-tags="popular">
+    <div class="meta"><span class="number">#203</span><span class="date">APR 2025</span></div>
+    <div class="visual" style="background:#b94040"><img src="../../../data/data/50/assets/034.jpg" width="395" height="410" alt="Wine animals"></div>
+    <h2>wine animals</h2><p>We try to predict the price and quality of a bottle of wine based on the animal on the label.</p>
+  </article>
+
+  <article class="card" data-title="music dna legacies" data-tags="audio faves">
+    <div class="meta"><span class="number">#202</span><span class="date">APR 2025</span></div>
+    <div class="visual" style="background:#d7e819"><img src="../../../data/data/50/assets/036.jpg" width="395" height="410" alt="Music DNA legacies"></div>
+    <h2>music dna legacies</h2><p>We trace musical DNA from the classical "Hall of the Mountain King" to 2pac's "Hit Em Up."</p>
+  </article>
+
+  <article class="card" data-title="rhoslc apologies" data-tags="video">
+    <div class="meta"><span class="number">#201</span><span class="date">MAR 2025</span></div>
+    <div class="visual" style="background:#e7c5f2"><img src="../../../data/data/50/assets/038.jpg" width="395" height="410" alt="Rhoslc apologies"></div>
+    <h2>rhoslc apologies</h2><p>What we can learn from watching reality stars apologize.</p>
+  </article>
+
+  <article class="card" data-title="animal sounds" data-tags="audio">
+    <div class="meta"><span class="number">#200</span><span class="date">MAR 2025</span></div>
+    <div class="visual" style="background:#f4ef08"><img src="../../../data/data/50/assets/040.jpg" width="395" height="410" alt="Animal sounds"></div>
+    <h2>animal sounds</h2><p>Analyzing animal onomatopoeia across languages can demystify how we shape sound into meaning.</p>
+  </article>
+
+  <article class="card" data-title="middle school sucks" data-tags="faves">
+    <div class="meta"><span class="number">#199</span><span class="date">MAR 2025</span></div>
+    <div class="visual" style="background:#bc22bc"><img src="../../../data/data/50/assets/042.jpg" width="395" height="410" alt="Middle school sucks"></div>
+    <h2>middle school sucks</h2><p>Follow hundreds of kids as they navigate their treacherous middle school years.</p>
+  </article>
+
+  <article class="card" data-title="sitters vs standers" data-tags="popular">
+    <div class="meta"><span class="number">#198</span><span class="date">NOV 2024</span></div>
+    <div class="visual" style="background:#a72ab6"><img src="../../../data/data/50/assets/043.jpg" width="395" height="410" alt="Sitters versus standers"></div>
+    <h2>sitters vs standers</h2><p>The American worker divide: Those who sit, and those who stand.</p>
+  </article>
+
+  <article class="card" data-title="love songs" data-tags="audio popular">
+    <div class="meta"><span class="number">#197</span><span class="date">NOV 2024</span></div>
+    <div class="visual" style="background:#f05a0b"><img src="../../../data/data/50/assets/045.jpg" width="395" height="410" alt="Love songs"></div>
+    <h2>love songs</h2><p>Is love dead in pop music? We checked all 5,141 Top 10 hits since 1958.</p>
+  </article>
+
+  <article class="card" data-title="queueing theory" data-tags="video">
+    <div class="meta"><span class="number">#196</span><span class="date">OCT 2024</span></div>
+    <div class="visual play" style="background:#e4fa3e"><img src="../../../data/data/50/assets/050.jpg" width="395" height="410" alt="Queueing theory"></div>
+    <h2>queueing theory</h2><p>Queues are everywhere we go—discover the hidden mechanics that keep them moving smoothly.</p>
+  </article>
+
+  <article class="card" data-title="nba jersey colors" data-tags="popular">
+    <div class="meta"><span class="number">#195</span><span class="date">OCT 2024</span></div>
+    <div class="visual" style="background:#cf985e"><img src="../../../data/data/50/assets/052.jpg" width="395" height="410" alt="NBA jersey colors"></div>
+    <h2>nba jersey colors</h2><p>We took a look at the data behind the increasingly vibrant landscape of NBA jerseys.</p>
+  </article>
+
+  <article class="card" data-title="abortion mazes" data-tags="input">
+    <div class="meta"><span class="number">#194</span><span class="date">OCT 2024</span></div>
+    <div class="visual" style="background:#f05b16"><img src="../../../data/data/50/assets/054.jpg" width="395" height="410" alt="Abortion mazes"></div>
+    <h2>abortion mazes</h2><p>A maze for each state where the difficulty is calculated by the state’s abortion policies.</p>
+  </article>
+
+  <article class="card" data-title="all about crokinole" data-tags="popular">
+    <div class="meta"><span class="number">#193</span><span class="date">OCT 2024</span></div>
+    <div class="visual" style="background:#eb00e5"><img src="../../../data/data/50/assets/056.jpg" width="395" height="410" alt="All about Crokinole"></div>
+    <h2>all about crokinole</h2><p>Welcome to Crokinole, the greatest game you’ve never heard of.</p>
+  </article>
+
+  <article class="card" data-title="k-pop generations" data-tags="popular">
+    <div class="meta"><span class="number">#192</span><span class="date">OCT 2024</span></div>
+    <div class="visual" style="background:#df646b"><img src="../../../data/data/50/assets/017.jpg" width="395" height="410" alt="K-pop generations"></div>
+    <h2>k-pop generations</h2><p>Organize these K-pop groups by generation, and we'll make an article using the results.</p>
+  </article>
+
+  <article class="card" data-title="fanfic ships" data-tags="popular">
+    <div class="meta"><span class="number">#191</span><span class="date">OCT 2024</span></div>
+    <div class="visual" style="background:#3034c9"><img src="../../../data/data/50/assets/059.jpg" width="395" height="410" alt="Fanfic ships"></div>
+    <h2>fanfic ships</h2><p>We looked at a decade of fanfic couples. See who gets shipped and why.</p>
+  </article>
+
+  <article class="card" data-title="baseball lineups" data-tags="popular">
+    <div class="meta"><span class="number">#190</span><span class="date">SEP 2024</span></div>
+    <div class="visual" style="background:#c9362e"><img src="../../../data/data/50/assets/061.jpg" width="395" height="410" alt="Baseball lineups"></div>
+    <h2>baseball lineups</h2><p>See how modern stats are reshaping baseball’s batting lineups.</p>
+  </article>
+
+  <article class="card" data-title="bball courts mapped" data-tags="popular">
+    <div class="meta"><span class="number">#189</span><span class="date">SEP 2024</span></div>
+    <div class="visual" style="background:#50c49a"><img src="../../../data/data/50/assets/063.jpg" width="395" height="410" alt="Basketball courts mapped"></div>
+    <h2>bball courts mapped</h2><p>There are 59,507 outdoor basketball courts in the U.S.A. Explore satellite imagery of all of them.</p>
+  </article>
+
+  <article class="card" data-title="flipbook" data-tags="video">
+    <div class="meta"><span class="number">#188</span><span class="date">JUL 2024</span></div>
+    <div class="visual" style="background:#ca8176"><img src="../../../data/data/50/assets/020.jpg" width="395" height="410" alt="Flipbook"></div>
+    <h2>flipbook</h2><p>The results from making a crowd-sourced flipbook animation.</p>
+  </article>
+
+  <article class="card" data-title="emotion wheel" data-tags="popular">
+    <div class="meta"><span class="number">#187</span><span class="date">JUL 2024</span></div>
+    <div class="visual" style="background:#dd9b40"><img src="../../../data/data/50/assets/021.jpg" width="395" height="410" alt="Emotion wheel"></div>
+    <h2>emotion wheel</h2><p>A journey of emotional awareness, where we uncover the power of naming and visualizing your feelings.</p>
+  </article>
+
+  <article class="card" data-title="words vs strangers" data-tags="input">
+    <div class="meta"><span class="number">#159</span><span class="date">SEP 2022</span></div>
+    <div class="visual" style="background:#d24c45"><img src="../../../data/data/50/assets/024.jpg" width="395" height="410" alt="Words versus strangers"></div>
+    <h2>words vs. strangers</h2><p>One random person a day gets the chance to play against the internet in a game of words.</p>
+  </article>
+
+  <article class="card" data-title="studying randomness" data-tags="popular">
+    <div class="meta"><span class="number">#151</span><span class="date">APR 2022</span></div>
+    <div class="visual" style="background:#c9348e"><img src="../../../data/data/50/assets/025.jpg" width="395" height="410" alt="Studying randomness"></div>
+    <h2>studying randomness</h2><p>We found this cool study about age and randomness, but we think it is flawed.</p>
+  </article>
+
+  <article class="card" data-title="music roast bot" data-tags="audio">
+    <div class="meta"><span class="number">#127</span><span class="date">DEC 2020</span></div>
+    <div class="visual" style="background:#a83984"><img src="../../../data/data/50/assets/028.jpg" width="395" height="410" alt="Music roast bot"></div>
+    <h2>music roast bot</h2><p>How bad is your Spotify or Apple music? Our sophisticated A.I. judges your awful taste.</p>
+  </article>
+</main>
+
+<script>
+  const input = document.getElementById('searchInput');
+  const cards = [...document.querySelectorAll('.card')];
+  const filters = [...document.querySelectorAll('.nav-item')];
+
+  input.addEventListener('input', () => {
+    const q = input.value.trim().toLowerCase();
+    cards.forEach(card => {
+      card.classList.toggle('hidden', q && !card.dataset.title.includes(q));
+    });
+  });
+
+  filters.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter;
+      if(filter === 'faves' || filter === 'popular' || filter === 'updating' || filter === 'input' || filter === 'video' || filter === 'audio'){
+        cards.forEach(card => {
+          const tags = card.dataset.tags || '';
+          card.classList.toggle('hidden', !tags.includes(filter));
+        });
+      }
+    });
+  });
+</script>
+</body>
+</html>

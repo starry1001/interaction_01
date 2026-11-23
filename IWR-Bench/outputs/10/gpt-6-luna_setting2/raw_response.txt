@@ -1,0 +1,266 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minesweeper.Online</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;color:#687078;background:#fafafa;font-size:14px}
+  body{overflow-y:scroll}
+  button,input,select{font-family:inherit}
+  .btn{cursor:pointer}
+  .topbar{height:61px;background:#f1f2f4;border-bottom:1px solid #d9dadd}
+  .header-inner{width:1100px;height:61px;margin:auto;display:flex;align-items:center;justify-content:space-between}
+  .brand{display:flex;align-items:center;gap:10px;color:#596167;font-family:Georgia,serif;font-size:27px;font-weight:bold}
+  .brand img{width:44px;height:44px;object-fit:contain}
+  .header-actions{display:flex;align-items:center;gap:10px}
+  .header-actions button{border:1px solid #c5cbd0;background:white;height:39px;padding:0 14px;color:#66717a;font-size:14px}
+  .header-actions .signup{background:#5bc268;color:white;border-color:#50b45c}
+  .header-actions .login{background:#58bfd3;color:white;border-color:#4db2c5}
+  .header-actions .gear{font-size:18px;width:39px;padding:0}
+  .language{padding:0 11px!important}
+  .page{width:1100px;margin:16px auto 0}
+  .panel{background:#fff;border:1px solid #dfe1e3;min-height:680px;padding:18px 18px 24px;display:flex;position:relative}
+  .sidebar{width:206px;border-right:1px solid #e4e6e7;padding:2px 18px 0 4px;flex:none}
+  .side-item{height:26px;line-height:26px;color:#737b80;white-space:nowrap}
+  .side-item:before{content:"»";font-weight:bold;color:#8cb4c8;margin-right:8px}
+  .side-item.bold{font-weight:bold;color:#586168}
+  .side-item.group-green:before{color:#78a36f}
+  .side-item.group-red:before{color:#bd8585}
+  .side-gap{height:11px}
+  .content{padding-left:22px;flex:1;min-width:0}
+  .tabs-tools{height:34px;display:flex;align-items:flex-start;justify-content:space-between}
+  .tabs{display:flex;gap:26px;align-items:center}
+  .tab{border:0;background:none;color:#5685a4;padding:4px 0;font-size:14px}
+  .tab.active{color:#30383d;font-weight:bold}
+  .tools{display:flex;gap:10px}
+  .tools button{background:#fff;border:1px solid #c8cdd1;height:34px;color:#59666e}
+  .zoom{width:71px}
+  .settings{width:35px;font-size:17px}
+  .custom-form{height:52px;display:none;align-items:center;gap:18px;color:#30383d;font-weight:bold}
+  .custom-form.visible{display:flex}
+  .custom-form label{display:flex;align-items:center;gap:8px}
+  .custom-form input{width:51px;height:29px;border:1px solid #c7cdd0;padding:4px 8px;color:#687078}
+  .update{height:33px;padding:0 12px;border:1px solid #c4c8ca;background:#fff;color:#687078;font-size:14px}
+  .info{color:#9aa1a5;border-radius:50%;font-weight:bold}
+  .game-wrap{display:flex;flex-direction:column;align-items:center}
+  .mine-frame{background:#bcbcbc;border:7px solid #8d8d8d;border-top-color:#d8d8d8;border-left-color:#d8d8d8;box-shadow:2px 2px 0 #686868,-2px -2px 0 #f6f6f6;padding:7px;width:max-content}
+  .counterbar{height:49px;border:4px solid #777;background:#bdbdbd;display:flex;align-items:center;justify-content:space-between;padding:4px 7px;margin-bottom:8px}
+  .counter{height:32px;min-width:59px;background:#070707;color:#ef1010;border:2px inset #555;font-family:"Courier New",monospace;font-size:27px;font-weight:bold;line-height:28px;letter-spacing:-4px;padding-left:3px}
+  .face{width:34px;height:34px;background:#ddd;border:2px outset #eee;display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1}
+  .board{display:grid;gap:1px;background:#989898;border:2px solid #777;padding:1px}
+  .cell{width:24px;height:24px;padding:0;border:2px outset #eee;background:#c6c6c6;color:#122bca;font-weight:bold;font-size:17px;line-height:19px;text-align:center}
+  .cell.open{border:1px solid #aaa;background:#c9c9c9}
+  .cell.n1{color:#111fc8}.cell.n2{color:#168529}.cell.n3{color:#d10c0c}
+  .cell.mine{font-size:15px;color:#111;background:#bbb}
+  .cell.exploded{background:#f00;border-color:#900}
+  .under-controls{height:43px;display:flex;align-items:flex-end;justify-content:center;gap:8px}
+  .control{width:35px;height:32px;border:1px solid #bfc4c7;background:#f5f5f5;color:#454d51;font-size:17px}
+  .hint{font-size:18px}
+  .game-info{position:absolute;display:none;right:-138px;bottom:92px;width:156px;background:#fff;border:1px solid #b7b7b7;box-shadow:0 1px 4px #bbb;padding:13px;color:#666;line-height:23px}
+  .game-info.visible{display:block}
+  .footer{width:1100px;margin:12px auto;color:#b2b5b7;text-align:right;font-size:14px}
+  .footer span{margin-left:12px}
+  .footer span+span{border-left:1px solid #ddd;padding-left:12px}
+  .content.custom-mode .game-wrap{align-items:flex-start}
+  .content.custom-mode .mine-frame{margin-top:3px}
+  .content.custom-mode .game-info{display:none}
+  @media(max-width:1150px){
+    .header-inner,.page,.footer{width:calc(100% - 30px)}
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="header-inner">
+    <div class="brand">
+      <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/011.svg" width="44" height="44" alt="logo">
+      <span>Minesweeper.Online</span>
+    </div>
+    <div class="header-actions">
+      <button class="btn signup">Sign up</button>
+      <button class="btn login">Log in</button>
+      <button class="btn gear">⚙</button>
+      <button class="btn language">🇺🇸 English⌄</button>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+  <section class="panel">
+    <aside class="sidebar">
+      <div class="side-item bold">Standard mode</div>
+      <div class="side-item">No guessing mode</div>
+      <div class="side-item">Multiplayer</div>
+      <div class="side-item">Ranking</div>
+      <div class="side-item">My games</div>
+      <div class="side-gap"></div>
+      <div class="side-item group-green">Best players</div>
+      <div class="side-item group-green">Season leaders</div>
+      <div class="side-gap"></div>
+      <div class="side-item group-red">Quests (0)</div>
+      <div class="side-item group-red">Arena</div>
+      <div class="side-item group-red">Equipment</div>
+      <div class="side-item group-red">Marketplace</div>
+      <div class="side-item group-red">Events</div>
+      <div class="side-item group-red">Event quests (0)</div>
+      <div class="side-item group-red">Championship</div>
+      <div class="side-gap"></div>
+      <div class="side-item">Players online (891)</div>
+      <div class="side-item">News</div>
+      <div class="side-item">Statistics</div>
+      <div class="side-item">My profile</div>
+      <div class="side-gap"></div>
+      <div class="side-item">Chat (1)</div>
+      <div class="side-item">Help</div>
+      <div class="side-item">Premium account</div>
+      <div class="side-item">Shop</div>
+      <div class="side-item">MSWCH 2025</div>
+    </aside>
+
+    <div class="content" id="content">
+      <div class="tabs-tools">
+        <nav class="tabs">
+          <button class="btn tab active" data-mode="beginner">Beginner</button>
+          <button class="btn tab" data-mode="intermediate">Intermediate</button>
+          <button class="btn tab" data-mode="expert">Expert</button>
+          <button class="btn tab" data-mode="custom">Custom</button>
+        </nav>
+        <div class="tools">
+          <button class="btn zoom">🔍 24⌄</button>
+          <button class="btn settings">⚙</button>
+        </div>
+      </div>
+
+      <div class="custom-form" id="customForm">
+        <label>Width: <input id="widthInput" type="text" value="30"></label>
+        <label>Height: <input id="heightInput" type="text" value="30"></label>
+        <label>Mines: <input id="minesInput" type="text" value="150"></label>
+        <button class="btn update" id="updateBtn">Update</button>
+        <span class="info">●</span>
+      </div>
+
+      <div class="game-wrap" id="gameWrap">
+        <div class="mine-frame" id="mineFrame">
+          <div class="counterbar">
+            <div class="counter" id="mineCount">099</div>
+            <button class="btn face" id="face">🙂</button>
+            <div class="counter" id="timer">000</div>
+          </div>
+          <div class="board" id="board"></div>
+        </div>
+        <div class="under-controls">
+          <button class="btn control">⌯</button>
+          <button class="btn control hint">♧</button>
+          <button class="btn control">✎</button>
+          <button class="btn control">▣</button>
+          <button class="btn control">▣</button>
+        </div>
+        <div class="game-info" id="gameInfo">
+          Time: 2.243 sec<br>
+          3BV: 0 / 140<br>
+          Clicks: 2<hr>
+          Experience: 0
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="footer"><span>▣ Download application</span><span>Privacy Policy</span></div>
+</main>
+
+<script>
+(function(){
+  const board = document.getElementById('board');
+  const frame = document.getElementById('mineFrame');
+  const content = document.getElementById('content');
+  const form = document.getElementById('customForm');
+  const widthInput = document.getElementById('widthInput');
+  const heightInput = document.getElementById('heightInput');
+  const minesInput = document.getElementById('minesInput');
+  const mineCount = document.getElementById('mineCount');
+  const face = document.getElementById('face');
+  const gameInfo = document.getElementById('gameInfo');
+  let mode='beginner', width=9, height=9, mines=10, clicks=0;
+
+  const presets={
+    beginner:{w:9,h:9,m:10},
+    intermediate:{w:16,h:16,m:40},
+    expert:{w:30,h:16,m:99}
+  };
+
+  function buildBoard(revealed=false){
+    board.innerHTML='';
+    board.style.gridTemplateColumns=`repeat(${width},24px)`;
+    board.style.gridTemplateRows=`repeat(${height},24px)`;
+    board.style.width=(width*25+2)+'px';
+    board.style.height=(height*25+2)+'px';
+    frame.style.width=(width*25+30)+'px';
+    clicks=0; gameInfo.classList.remove('visible'); face.textContent='🙂';
+    mineCount.textContent=String(mines).padStart(3,'0');
+    document.getElementById('timer').textContent='000';
+    for(let r=0;r<height;r++){
+      for(let c=0;c<width;c++){
+        const cell=document.createElement('button');
+        cell.className='btn cell';
+        cell.dataset.r=r; cell.dataset.c=c;
+        if(revealed && mode==='beginner'){
+          const key=r+','+c;
+          const vals={'0,0':'1','4,0':'2','4,1':'2','4,2':'2','4,3':'','4,4':'2','4,5':'1','4,6':'1','4,7':'1','4,8':'1','5,2':'1','5,3':'1','6,2':'1','6,3':'1','6,5':'1','6,6':'1','6,7':'1','7,5':'1'};
+          if(vals[key]!==undefined){cell.classList.add('open',vals[key]?'n'+vals[key]:'');cell.textContent=vals[key]}
+        }
+        cell.addEventListener('click',()=>cellClick(cell));
+        cell.addEventListener('contextmenu',e=>{e.preventDefault();cell.textContent=cell.textContent==='⚑'?'':'⚑';});
+        board.appendChild(cell);
+      }
+    }
+  }
+  function cellClick(cell){
+    if(cell.classList.contains('open')) return;
+    clicks++;
+    cell.classList.add('open');
+    if(clicks===1){
+      cell.classList.add('n2'); cell.textContent='2';
+    }else if(clicks>1 && mode==='custom'){
+      face.textContent='😵';
+      document.querySelectorAll('.cell').forEach((x,i)=>{
+        if(i%11===0 || i%17===0){x.textContent='✹';x.classList.add('mine')}
+      });
+      cell.classList.add('exploded'); cell.textContent='✹';
+      gameInfo.classList.add('visible');
+    }
+  }
+  function setMode(newMode){
+    mode=newMode;
+    document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.mode===mode));
+    if(mode==='custom'){
+      content.classList.add('custom-mode');
+      form.classList.add('visible');
+      width=parseInt(widthInput.value)||30;
+      height=parseInt(heightInput.value)||30;
+      mines=parseInt(minesInput.value)||150;
+      buildBoard(false);
+    }else{
+      content.classList.remove('custom-mode');
+      form.classList.remove('visible');
+      width=presets[mode].w;height=presets[mode].h;mines=presets[mode].m;
+      buildBoard(false);
+    }
+  }
+  document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>setMode(t.dataset.mode)));
+  document.getElementById('updateBtn').addEventListener('click',()=>{
+    width=Math.max(5,Math.min(40,parseInt(widthInput.value)||30));
+    height=Math.max(5,Math.min(35,parseInt(heightInput.value)||20));
+    mines=Math.max(1,parseInt(minesInput.value)||100);
+    widthInput.value=width;heightInput.value=height;minesInput.value=mines;
+    buildBoard(false);
+  });
+  face.addEventListener('click',()=>buildBoard(false));
+  // Initial screenshot-like beginner board.
+  buildBoard(true);
+})();
+</script>
+</body>
+</html>
+```

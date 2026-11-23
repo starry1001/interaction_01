@@ -1,0 +1,85 @@
+{
+  "total_step": 11,
+  "success_step": 2,
+  "screenshot_paths_to_eval": [
+    "outputs/40/gpt-6-luna_setting2/evalpoints/0.png",
+    "outputs/40/gpt-6-luna_setting2/evalpoints/1.png"
+  ],
+  "all_mllm_scores": [
+    0.74,
+    0.49
+  ],
+  "all_dino_scores": [
+    0.62548828125,
+    0.7646484375
+  ],
+  "all_ocr_scores": [
+    0.7453416149068324,
+    0.4341736694677871
+  ],
+  "all_avg_scores": [
+    0.7036099653856107,
+    0.5629407023225957
+  ],
+  "mllm_score": 0.615,
+  "dino_score": 0.695068359375,
+  "ocr_score": 0.5897576421873097,
+  "avg_score": 0.6332753338541033,
+  "all_mllm_res": [
+    "Comments:\n-Layout (10 points): The overall structure is present, including the black hero section, centered introduction, literature section, and two-column book grid. However, the generated page compresses the hero section substantially, shifting the literature content much higher than in the reference. Card positioning and section spacing also differ noticeably. **5/10**\n-Elements (15 points): Most major elements are included: logo, hamburger menu, hero text, search bar, literature heading, book cards, and book metadata. The generated version adds a header search icon that is not present in the reference and omits the bottom-right AI homework help widget. **11/15**\n-Content and Text (40 points): The main wording is highly accurate, including the CliffsNotes branding, hero headline, subtitle, search placeholder, literature heading, and visible book titles/authors. The book artwork and metadata are also largely correct. Some content is positioned differently because of the compressed layout. **35/40**\n-Style (15 points): The black, white, and yellow brand palette is well matched, and the book card colors and general visual treatment are similar. Typography, especially the hero and “Literature Notes” heading, is noticeably smaller in the generated version, and some spacing and icon styling differ. **11/15**\n-Overall (20 points): The generated page clearly reproduces the same webpage concept and most of its visible content, but the vertical proportions are significantly off. The reference has a much taller hero area, larger headings, a wider search bar, and an AI help overlay that is missing from the generated result. **12/20**\n\nScore: 74/100",
+    "Comments:\n- **Layout (4/10):** The generated page preserves the general hero-section-then-literature-notes structure, but the open left navigation drawer significantly changes the composition. The reference uses a compact dropdown in the upper-right, while the generated version covers nearly half the page and shifts/obscures the underlying content. Hero and section heights also differ substantially.\n- **Elements (8/15):** Many key elements are present, including the CliffsNotes logo, search icon, hamburger icon, navigation links, sign-up button, hero search bar, Literature Notes heading, and book cards. However, the menu presentation, card visibility, header controls, and floating help widget do not closely match the reference.\n- **Content and Text (22/40):** Navigation labels and several book titles/authors match the reference, including *Absalom, Absalom!* and *Adam Bede*. The main hero heading and supporting text are partially hidden or cropped, and some reference content such as the prominently visible *1984* card is obscured or missing from view.\n- **Style (7/15):** The black/yellow CliffsNotes color scheme and dark hero area are retained. However, the generated page applies a gray dimming overlay, uses a different menu design, changes typography and spacing, and makes the book cards appear muted compared with the bright reference.\n- **Overall (8/20):** The generated page appears to represent the same website and includes several matching components, but the active side drawer, altered responsive layout, obscured content, and visual treatment create a significant mismatch with the reference.\n\n**Score: 49/100**"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "430px 932px CliffsNotes Explore, Study, Review The original (and the most widely imitated) study guide Search CliffsNotes Literature Notes 1984 Absalom George Orwell Absalom! William Faulkner 1984 Absalom, Absalom! George Orwell William Faulkner Q+A Alhomework help Explanations instantly The Absolutelj Feaen Lece",
+      "screenshot_text": "CliffsNotes = Explore, Study; Review The original (and the most widely imitated) study guide Search CliffsNotes Literature Notes 1984 Absalom, George Orwell Absalom! William Faulkner 1984 Absalom; Absalom! George Orwell William Faulkner The Absolutely Adam Bede True Diary of a George Eliot Part-Time Indian Sherman Alexie",
+      "similarity": 0.7453416149068324
+    },
+    {
+      "checkpoint_text": "CliffsNotes Literature Notes Study Guides Documents Explore, Stud Homework Questions Chat PDF The original (and the most In study Sign Up Search CliffsNotes Literature Notes 1984 Absalom George Orwell Absalom! William Faulkner 1984 Absalom, Absalom! George Orwell William Faulkner Q+A Alhomework help Explanations instantly The Absolutel} Feaend Be Log guia",
+      "screenshot_text": "CliffsNotes Literature Notes Study; Review Study Guides he most widely imitated) Idy guide Documents Homework Questions Chat PDF ture Notes Sign Up Absalom, Absalom! William Faulkner Absalom; Absaloml William Faulkner Adam Bede George Eliot Log",
+      "similarity": 0.4341736694677871
+    }
+  ],
+  "assertion_results": [
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/40/gpt-6-luna_setting2/evalpoints/0.png",
+      "curr_img_path": "outputs/40/gpt-6-luna_setting2/evalpoints/1.png",
+      "response": "{\n  \"think\": \"The current screenshot shows the expanded menu with six listed entries: Literature Notes, Study Guides, Documents, Homework Questions, Chat PDF, and Log In.\",\n  \"result\": \"Yes\"\n}",
+      "assertion": "The menu is expanded to 6 submenus.",
+      "thinking": "The current screenshot shows the expanded menu with six listed entries: Literature Notes, Study Guides, Documents, Homework Questions, Chat PDF, and Log In."
+    },
+    null,
+    {
+      "result": "No",
+      "prev_img_path": "outputs/40/gpt-6-luna_setting2/evalpoints/2.png",
+      "curr_img_path": "outputs/40/gpt-6-luna_setting2/evalpoints/3.png",
+      "response": "{\n  \"think\": \"In the current screenshot, the letter A is highlighted in yellow, indicating it is selected. The letter D appears unhighlighted.\",\n  \"result\": \"No\"\n}",
+      "assertion": "The 'D' option is selected.",
+      "thinking": "In the current screenshot, the letter A is highlighted in yellow, indicating it is selected. The letter D appears unhighlighted."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/40/gpt-6-luna_setting2/evalpoints/3.png",
+      "curr_img_path": "outputs/40/gpt-6-luna_setting2/evalpoints/4.png",
+      "response": "{\n  \"think\": \"In the current screenshot, the letter F is highlighted with a yellow background, indicating it is selected.\",\n  \"result\": \"Yes\"\n}",
+      "assertion": "The 'F' option is selected.",
+      "thinking": "In the current screenshot, the letter F is highlighted with a yellow background, indicating it is selected."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/40/gpt-6-luna_setting2/evalpoints/4.png",
+      "curr_img_path": "outputs/40/gpt-6-luna_setting2/evalpoints/5.png",
+      "response": "{\n  \"think\": \"In the current screenshot, the 'Author' option is highlighted in yellow while 'Title' is black, indicating that 'Author' is selected.\",\n  \"result\": \"Yes\"\n}",
+      "assertion": "The 'Author' option is selected.",
+      "thinking": "In the current screenshot, the 'Author' option is highlighted in yellow while 'Title' is black, indicating that 'Author' is selected."
+    },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ]
+}

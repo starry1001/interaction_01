@@ -1,0 +1,381 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OpenReview</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;color:#343b41;background:#fdfbf8}
+  body{font-size:14px}
+  a{color:#527e8d;text-decoration:none;cursor:pointer}
+  a:hover{text-decoration:underline}
+  .btn{cursor:pointer}
+  .topbar{height:55px;background:#850f16;color:white;border:1px solid #690b10;border-radius:0 0 5px 5px}
+  .top-inner{height:100%;max-width:1160px;margin:auto;display:flex;align-items:center;gap:30px;padding:0 12px}
+  .brand{font-size:23px;font-weight:bold;color:#fff;white-space:nowrap}
+  .brand span{font-weight:normal;color:#d8bfc0;font-size:20px}
+  .search-wrap{position:relative}
+  .search{height:32px;width:380px;border:1px solid #aaa;background:#eee;padding:5px 32px 5px 12px;font-size:14px}
+  .search-icon{position:absolute;right:10px;top:5px;color:#666;font-size:20px}
+  .login{margin-left:auto;color:#fff;font-size:15px}
+  .subbar{height:40px;background:#dedede;border-bottom:1px solid #c9c9c9}
+  .sub-inner{max-width:1160px;margin:auto;padding:11px 12px;color:#777}
+  .sub-inner a{font-weight:bold}
+  .page{max-width:1186px;margin:0 auto;min-height:calc(100vh - 95px);padding:0 20px}
+  .home-page{padding-top:32px}
+  .home-columns{display:grid;grid-template-columns:1fr 1fr;gap:65px}
+  h2{font-size:29px;color:#303b46;margin:0 0 17px;font-weight:700}
+  .home-columns h2{font-size:29px;margin-bottom:17px}
+  .section-rule{border-bottom:1px solid #e2dfdc;padding-bottom:9px;margin-bottom:12px}
+  .venue-list a{display:block;font-size:24px;line-height:49px;color:#72888b;white-space:nowrap}
+  .submission-list a{display:block;font-size:24px;line-height:35px;color:#72888b}
+  .submission-list small{display:block;font-size:14px;color:#444;line-height:20px;margin-bottom:10px}
+  .muted-small{font-size:14px;color:#7d8588}
+  .all-venues{margin-top:52px}
+  .all-venues h2{font-size:29px;border-bottom:1px solid #e1dedb;padding-bottom:8px;margin-bottom:12px}
+  .venue-cloud{display:flex;flex-wrap:wrap;column-gap:27px;row-gap:0;align-items:baseline}
+  .venue-cloud a{font-size:20px;line-height:40px;color:#72878c;white-space:nowrap}
+  .venue-cloud a.featured:first-letter{color:#851019;font-weight:bold}
+  .more-space{height:22px}
+  .content-page{padding-top:28px}
+  .backline{height:40px;background:#dedede;border-bottom:1px solid #c9c9c9}
+  .backline-inner{max-width:1160px;margin:auto;padding:11px 12px;color:#68818b}
+  .year-title{border-bottom:1px solid #e4e0dc;padding-bottom:23px;margin:29px 0 25px}
+  .year-links a{display:block;font-size:18px;font-weight:bold;line-height:31px;color:#52798a}
+  .year-links a:hover{background:#fafafa}
+  .venue-years{max-width:1186px}
+  .track-title{font-size:37px;line-height:1.12;color:#303b46;margin:28px 0 9px;max-width:1140px}
+  .track-subtitle{font-size:25px;margin:12px 0;color:#343b41}
+  .meta-line{font-size:19px;color:#72818a;margin:10px 0 18px}
+  .track-intro{font-size:14px;line-height:22px;color:#858585;margin-bottom:26px}
+  .tabs{display:flex;align-items:stretch;border-bottom:1px solid #ddd;margin-top:20px}
+  .tab{padding:13px 17px;background:#f0ede8;border:1px solid #e3dfda;border-bottom:0;margin-right:4px;color:#52798a;font-weight:bold;font-size:15px}
+  .tab.active{background:#fff;color:#4c555b}
+  .paper-list{padding:16px 15px}
+  .paper-row{margin-bottom:20px}
+  .paper-name{font-size:19px;font-weight:bold;line-height:25px;color:#527e8d}
+  .paper-name img{vertical-align:middle;margin-left:8px}
+  .authors{font-size:15px;font-style:italic;line-height:21px;color:#454545}
+  .paper-meta{font-size:13px;color:#777;line-height:22px}
+  .details-link{font-size:15px}
+  .paper-page{padding-top:28px}
+  .paper-title{font-size:36px;line-height:1.13;color:#303b46;margin:28px 0 10px;max-width:1060px}
+  .paper-authors{font-size:20px;font-style:italic;line-height:25px;margin-bottom:12px}
+  .paper-info{font-size:13px;color:#777;line-height:22px}
+  .paper-abstract{margin-top:14px;font-size:14px;line-height:20px;border-bottom:1px solid #e2dfdc;padding-bottom:4px}
+  .paper-abstract b,.comment b{color:#861820}
+  .submission{margin-top:8px;font-size:14px;line-height:20px}
+  .discussion-title{display:inline-block;background:#f2efec;padding:12px 17px 8px;margin-top:26px;font-size:16px;font-weight:bold}
+  .filters{background:#f3f1ef;padding:8px 10px 10px;border-bottom:1px solid #ddd;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .filters input,.filters select{height:34px;border:2px solid #7d9da5;background:#fff;padding:5px 9px;font-size:14px;color:#555}
+  .filters input{width:230px}.filters select{width:218px}
+  .filters .sort{width:160px}
+  .tool-btn{height:34px;border:2px solid #7d9da5;background:#fff;color:#4d6c75;padding:4px 12px;font-weight:bold}
+  .tool-btn.selected{background:#557f8c;color:#fff}
+  .filter-bottom{background:#f3f1ef;padding:8px 12px;color:#777;display:flex;justify-content:space-between}
+  .tag{border:2px solid #8aa5ad;background:#fff;color:#536f78;padding:4px 9px}
+  .add-comment{display:flex;justify-content:flex-end;align-items:center;gap:8px;margin:17px 0}
+  .action{background:#507e8c;border:1px solid #315d69;color:#fff;border-radius:3px;font-weight:bold;padding:7px 13px}
+  .comment{position:relative;background:#f5f3f1;border:1px solid #f0eeec;padding:13px 15px 16px;margin:18px 0 17px 0;font-size:14px;line-height:20px}
+  .comment h3{font-size:18px;margin:0 0 4px;color:#303b46}
+  .comment-meta{font-size:13px;color:#777;margin-bottom:8px}
+  .comment p{margin:7px 0}
+  .comment .add-comment{margin:10px 0 0}
+  .comment.nested{margin-left:50px;background:#faf9f7}
+  .side-icon{position:absolute;left:-24px;top:0;width:18px;height:45px;border:1px solid #9aaeb0;background:linear-gradient(#fff 0 30%,#dbe7e5 30% 60%,#5b8790 60%);border-radius:2px}
+  .footer{margin-top:70px;background:#f0ece4;text-align:center;padding:18px 0 15px;color:#3c454a;line-height:25px}
+  .footer-columns{max-width:750px;margin:auto;display:grid;grid-template-columns:1fr 1fr 1fr}
+  .copyright{background:#293746;color:#87909a;text-align:center;padding:18px 8px;font-size:13px;line-height:20px}
+  .footer a{color:#3d484d}
+  .hidden{display:none!important}
+  @media(max-width:800px){
+    .top-inner{gap:12px}.search{width:190px}.page{padding-left:15px;padding-right:15px}
+    .home-columns{grid-template-columns:1fr;gap:30px}.venue-list a,.submission-list a{font-size:19px;line-height:35px}
+    .paper-title,.track-title{font-size:28px}.filters input{width:160px}
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="top-inner">
+    <a class="brand btn" data-route="home">OpenReview<span>.net</span></a>
+    <div class="search-wrap"><input class="search" placeholder="Search OpenReview..."><span class="search-icon">⌕</span></div>
+    <a class="login btn" data-route="login">Login</a>
+  </div>
+</header>
+<div id="backbar" class="backline hidden"><div class="backline-inner"><a class="btn" id="backlink">← &nbsp;Back</a></div></div>
+<div id="homebar" class="subbar"><div class="sub-inner">Open Peer Review. Open Publishing. Open Access. Open Discussion. Open Recommendations. Open Directory. Open API. Open Source</div></div>
+
+<main id="home" class="page home-page">
+  <div class="home-columns">
+    <section>
+      <h2 class="section-rule">Active Venues</h2>
+      <div class="venue-list">
+        <a class="btn">TMLR</a><a class="btn">Computo</a><a class="btn">DMLR</a>
+        <a class="btn">YouthLACIGF 2024 Edition</a><a class="btn">ISAPh 2024 Symposium</a>
+        <a class="btn">MSLD 2024 Meeting</a><a class="btn">ICAPS 2024 Demo Track</a>
+        <a class="btn">RAILS 2025 Conference</a><a class="btn">AIR 2024 Newsletter Round 1</a>
+        <a class="btn">ACM SIGIR 2024 Workshop Gen-IR</a><a class="btn">HKUST 2024 AIAA5027</a>
+        <a class="btn">MELBA</a><a class="btn">AIML 2025 Conference</a>
+        <a class="btn">University of Trento IECS Qual Ex 24-25</a>
+      </div>
+      <a class="muted-small btn" id="showActive">Show all 678 venues</a>
+    </section>
+    <section>
+      <h2 class="section-rule">Open for Submissions</h2>
+      <div class="submission-list">
+        <a class="btn">NeurIPS 2025 Workshop AI4Mat</a><small>◷ Due 24 Aug 2025, 20:00 China Standard Time</small>
+        <a class="btn">SIGARAB ArabicNLP 2025 IslamEval Shared Task</a><small>◷ Due 24 Aug 2025, 20:59 China Standard Time</small>
+        <a class="btn">EMNLP 2025 Workshop MRL</a><small>◷ Due 24 Aug 2025, 21:00 China Standard Time</small>
+        <a class="btn">ICOMP 2025 Conference</a><small>◷ Due 25 Aug 2025, 07:59 China Standard Time</small>
+        <a class="btn">JDSE 2025 Conference</a><small>◷ Due 25 Aug 2025, 07:59 China Standard Time</small>
+        <a class="btn">SADASC 2026 Conference</a><small>◷ Due 25 Aug 2025, 08:00 China Standard Time</small>
+        <a class="btn">JWOC 2025 Conference</a><small>◷ Due 25 Aug 2025, 08:00 China Standard Time</small>
+        <a class="btn">EMNLP 2025 Workshop MathNLP</a><small>◷ Due 25 Aug 2025, 08:00 China Standard Time</small>
+        <a class="btn">DGfS 2026 Workshop Mismatches</a><small>◷ Due 25 Aug 2025, 08:00 China Standard Time</small>
+      </div>
+      <a class="muted-small btn">Show all 236 venues</a>
+    </section>
+  </div>
+
+  <section class="all-venues" id="allVenues">
+    <h2>All Venues</h2>
+    <div class="venue-cloud" id="venueCloud"></div>
+  </section>
+</main>
+
+<main id="years" class="page content-page venue-years hidden">
+  <h2 class="year-title">NeurIPS</h2>
+  <div class="year-links">
+    <a class="btn" data-route="year">NeurIPS 2025</a>
+    <a class="btn" data-route="year">NeurIPS 2024</a>
+    <a class="btn" data-route="year">NeurIPS 2023</a>
+    <a class="btn" data-route="year">NeurIPS 2022</a>
+    <a class="btn" data-route="year">NeurIPS 2021</a>
+    <a class="btn" data-route="year">NeurIPS 2019</a>
+  </div>
+</main>
+
+<main id="year" class="page content-page venue-years hidden">
+  <h2 class="year-title">NeurIPS 2024</h2>
+  <div class="year-links">
+    <a class="btn">NeurIPS 2024 Competition</a>
+    <a class="btn">NeurIPS 2024 Competition Track</a>
+    <a class="btn">NeurIPS 2024 Conference</a>
+    <a class="btn">NeurIPS 2024 Creative AI Track</a>
+    <a class="btn" data-route="track">NeurIPS 2024 Datasets and Benchmarks Track</a>
+    <a class="btn">NeurIPS 2024 High School Projects Track</a>
+    <a class="btn">NeurIPS 2024 Workshop</a>
+    <a class="btn">NeurIPS 2024 Workshop Proposals</a>
+  </div>
+</main>
+
+<main id="track" class="page content-page hidden">
+  <h1 class="track-title">The Thirty-eight Conference on Neural Information Processing Systems Datasets and Benchmarks Track</h1>
+  <div class="track-subtitle">NeurIPS 2024 Track Datasets and Benchmarks</div>
+  <div class="meta-line">▦ &nbsp;Dec 09 2024 &nbsp;&nbsp; ↗ https://neurips.cc &nbsp;&nbsp; ✉ datasetsbenchmarks@neurips.cc</div>
+  <div class="track-intro">Please see the venue website for more information.<br>Submission Start: Apr 01 2024 12:00AM UTC-0, Abstract Registration: Jun 06 2024 12:00PM UTC-0, Submission Deadline: Jun 06 2024 12:00PM UTC-0</div>
+  <div class="tabs">
+    <a class="tab active btn">Accept (Oral)</a><a class="tab btn">Accept (Spotlight)</a><a class="tab btn">Accept (Poster)</a><a class="tab btn">Reject</a><a class="tab btn">Recent Activity</a>
+  </div>
+  <div class="paper-list" id="paperList"></div>
+</main>
+
+<main id="paper" class="page paper-page hidden">
+  <h1 class="paper-title">LINGOLY: A Benchmark of Olympiad-Level Linguistic Reasoning Puzzles in Low Resource and Extinct Languages</h1>
+  <div class="paper-authors">Andrew Michael Bean, Simeon Hellsten, Harry Mayne, Jabez Magomere, Ethan A Chi, Ryan Andrew Chi, Scott A. Hale, Hannah Rose Kirk</div>
+  <div class="paper-info">▦ &nbsp;Published: 26 Sept 2024, Last Modified: 13 Nov 2024 &nbsp;&nbsp; ▰ NeurIPS 2024 Track Datasets and Benchmarks Oral &nbsp;&nbsp; ◉ Everyone &nbsp;&nbsp; ▣ Revisions &nbsp;&nbsp; ▮ BibTeX &nbsp;&nbsp; ◉ CC BY-NC 4.0</div>
+  <div class="paper-abstract">
+    <b>Keywords:</b> reasoning, language models, benchmark, linguistics<br>
+    <b>TL;DR:</b> We introduce a difficult reasoning benchmark for language models based on linguistic olympiad problems.<br>
+    <b>Abstract:</b><br>
+    In this paper, we present the LingOly benchmark, a novel benchmark for advanced reasoning abilities in large language models. Using challenging Linguistic Olympiad puzzles, we evaluate (i) capabilities for in-context identification and generalisation of linguistic patterns in very low-resource or extinct languages, and (ii) abilities to follow complex task instructions. The LingOly benchmark covers more than 90 mostly low-resource languages, minimising issues of data contamination, and contains 1,133 problems across 6 formats and 5 levels of human difficulty. We assess performance with both direct accuracy and comparison to a no-context baseline to penalise memorisation. Scores from 11 state-of-the-art LLMs demonstrate the benchmark to be challenging, and models perform poorly on the higher difficulty problems. On harder problems, even the top model only achieved 38.7% accuracy, a 24.7% improvement over the no-context baseline. Large closed models typically outperform open models, and in general, the higher resource the language, the better the scores. These results indicate, in absence of memorisation, true multi-step out-of-domain reasoning remains a challenge for current language models.
+  </div>
+  <div class="submission"><b>Supplementary Material:</b> &nbsp;⬇ <a class="btn">pdf</a><br><b>Submission Number:</b> &nbsp;2457</div>
+  <div class="discussion-title">Discussion</div>
+  <div class="filters">
+    <select><option>Filter by reply type...</option><option>Official Review</option></select>
+    <select><option>Filter by author...</option></select>
+    <input placeholder="Search keywords...">
+    <select class="sort"><option>Sort: Newest First</option><option>Oldest First</option></select>
+    <button class="tool-btn btn">☷</button><button class="tool-btn btn">☷</button><button class="tool-btn selected btn">☷</button>
+    <button class="tool-btn btn">−</button><button class="tool-btn btn">＝</button><button class="tool-btn selected btn">≡</button><button class="tool-btn btn">↗</button>
+  </div>
+  <div class="filter-bottom"><span>◉ &nbsp;<span class="tag">Everyone &nbsp; ×</span></span><span>22 / 22 replies shown</span></div>
+  <div class="add-comment">Add: <button class="action btn">Public Comment</button></div>
+  <div class="comment">
+    <span class="side-icon"></span><h3>Paper Decision</h3>
+    <div class="comment-meta"><span style="color:#477f88;background:#d8f0ea;padding:3px">Decision</span> by Program Chairs &nbsp; ▦ 26 Sept 2024, 18:17 (modified: 13 Nov 2024, 20:31) &nbsp; ◉ Everyone &nbsp; ▣ Revisions</div>
+    <b>Decision:</b> &nbsp;Accept (Oral)<br><b>Comment:</b>
+    <p>This paper contributes the LINGOLY benchmark for evaluating reasoning in LLMs. The benchmark is composed of puzzles from the United Kingdom Linguistics Olympiad (UKLO), which are designed to be solvable with no prior knowledge of the language(s) being tested and are often low-resource languages. Because of this, LINGOLY is from data contamination and memorization to a high degree.</p>
+    <p>All reviewers agree this benchmark is executed exceptionally well in terms of addressing data contamination issues as well as offering a diverse set of problems for evaluating reasoning in LLMs. The paper is well executed too, with detailed description of data being clearly presented, including how the data was filtered. The experimental design is solid, covering a representative set of LLMs and interesting analysis is carried out (eg. in terms of the no-context baselines.</p>
+    <p>The main concerns are that the benchmark performance is evaluated in terms of exact string matching, and that the benchmark results are not compared to existing benchmarks (eg. in terms of a correlation analysis). Another concern is that some of the weaker LLMs might struggle with the multi-lingual format, especially in terms of tokenization. The author's responses addresses these concerns adequately, and several reviewers have increased their scores in response.</p>
+    <p>Aside from the above, because of the work that went into creating this benchmark and making it publicly available, and because of the general utility it provides for evaluating reasoning in LLMs, I recommend that this paper receives an oral presentation to raise further awareness.</p>
+    <div class="add-comment">Add: <button class="action btn">Public Comment</button></div>
+  </div>
+  <div class="comment">
+    <span class="side-icon"></span><h3>Rebuttal by Authors</h3>
+    <div class="comment-meta"><span style="color:#a13e75;background:#f8d8e9;padding:3px">Rebuttal</span> by Authors &nbsp; ▦ 16 Aug 2024, 17:34 (modified: 13 Nov 2024, 20:33) &nbsp; ◉ Everyone &nbsp; ▣ Revisions</div>
+    <b>Rebuttal:</b><br><strong style="font-size:18px">LingOly is now available on Eleuther's LM Harness!</strong>
+    <p>We mentioned in a few of the rebuttals that we had nearly finished integration with the LM harness to facilitate wider use of this benchmark. As of yesterday, the benchmark is now available as a task that can run both headline metrics in a single command for any model that the harness supports: <code>lm-eval --model xx --model_args yy --tasks lingoly</code></p>
+    <p>Thank you to everyone for the positive reviews, and we hope you'll try out the benchmark yourself!</p>
+    <div class="add-comment">Add: <button class="action btn">Public Comment</button></div>
+  </div>
+  <div class="comment">
+    <span class="side-icon"></span><h3>Well-written paper and interesting dataset</h3>
+    <div class="comment-meta"><span style="background:#f1d6d8;padding:3px">Official Review</span> by Reviewer 3gU2 &nbsp; ▦ 24 Jul 2024, 23:31 (modified: 13 Nov 2024, 20:27) &nbsp; ◉ Everyone &nbsp; ▣ Revisions</div>
+    <b>Summary And Contributions:</b>
+    <p>The authors contribute a linguistic reasoning dataset in low-resource and extinct languages, drawn from the UK linguistics olympiad. They apply 11 advanced large language models to the dataset and analyze their performance, and so that closed models tend to outperform open models, especially on rather simple problems.</p>
+    <b>Review:</b>
+    <p>This was an exemplary paper. The authors explain the rational for choosing the domain linguistic reasoning over low-resource and extinct languages, and for including and excluding specific examples. They test a solid set of baseline models on the dataset---which includes testing for data contamination by removing context---and their analysis is quantitative and qualitative. Overall, this is a strong paper.</p>
+    <b>Strengths:</b><p>The writing of the paper and the results are both well-explained and solid.</p>
+    <b>Rating:</b> &nbsp;9: Top 15% of accepted papers, strong accept<br>
+    <b>Opportunities For Improvement:</b>
+    <p>My biggest concern with the paper is, though I understand the rationale for choosing this domain, from the perspective of reducing the possible data contamination. I'm not convinced that solving language problems posed to people who don't know the language is an informative domain for testing how LLMs might perform in the field.</p>
+    <b>Confidence:</b> &nbsp;4: The reviewer is confident but not absolutely certain that the evaluation is correct<br>
+    <b>Limitations:</b><p>Yes.</p><b>Correctness:</b><p>Yes.</p><b>Clarity:</b><p>Yes.</p><b>Relation To Prior Work:</b><p>Yes.</p><b>Documentation:</b><p>Yes.</p><b>Ethics:</b><p>No.</p>
+    <div class="add-comment">Add: <button class="action btn">Public Comment</button></div>
+  </div>
+  <div class="comment nested">
+    <span class="side-icon"></span><h3>[urgent] AC requesting reviewer to comment</h3>
+    <div class="comment-meta"><span style="background:#e2ddfa;padding:3px">Official Comment</span> by Area Chair jyp3 &nbsp; ▦ 28 Aug 2024, 08:00 (modified: 13 Nov 2024, 20:40) &nbsp; ◉ Everyone &nbsp; ▣ Revisions</div>
+    <b>Comment:</b><p>Dear Reviewer,</p><p>The author-reviewer discussion period is ending imminently. Please respond to the authors’ rebuttal ASAP and confirm that you have read their response.</p><p>Thank you, AC</p>
+    <div class="add-comment">Add: <button class="action btn">Public Comment</button></div>
+  </div>
+  <div class="comment">
+    <span class="side-icon"></span><h3>Rebuttal by Authors</h3>
+    <div class="comment-meta"><span style="color:#a13e75;background:#f8d8e9;padding:3px">Rebuttal</span> by Authors &nbsp; ▦ 13 Aug 2024, 22:30 &nbsp; ◉ Everyone &nbsp; ▣ Revisions</div>
+    <b>Rebuttal:</b><p>Thank you very much for your feedback! We appreciate your strong rating and confidence in the quality of our results.</p>
+    <p>We definitely understand your concern about the generalisability of linguistic problem solving as a task. As you note, we chose linguistic problems for partly practical reasons regarding contamination, but we do think that skills being tested would transfer to a wide range of contexts.</p>
+  </div>
+</main>
+
+<footer id="footer" class="hidden">
+  <div class="footer">
+    <div class="footer-columns">
+      <div><a class="btn">About OpenReview</a><br><a class="btn">Hosting a Venue</a><br><a class="btn" data-route="home">All Venues</a></div>
+      <div><a class="btn">Contact</a><br><a class="btn">Sponsors</a></div>
+      <div><a class="btn">Frequently Asked Questions</a><br><a class="btn">Terms of Use</a><br><a class="btn">Privacy Policy</a></div>
+    </div>
+  </div>
+  <div class="copyright"><u>OpenReview</u> is a long-term project to advance science through improved peer review with legal nonprofit status. We gratefully acknowledge the support of the<br><u>OpenReview Sponsors</u>. © 2025 OpenReview</div>
+</footer>
+
+<script>
+const directory = `2021|2024|3DV|AAAI|AABI|AACL-IJCNLP|AAMAS|AAMAS|ACCV|ACL|ACM|ACML|ACMMM|ACS
+ACVSS|ADELAIDE|AFFECTS|AFIA-ATALA|AfriLang AI|Agents4Science|AGILE|AI-LC|AI-ZAMAN
+AI4ClimateCoop|AI4Science|AI4X|AIA|AICONF|AIDEA|AIGT|AIL|AIMC|AIML|AImotion|AIMS|AIO
+AIR|AIRomania|AIS-J|AIST|AISTATS|AJCAI|AKBC|ALIFE|ALPCHI|ALT|ALTA|AMAM|AMIA
+Amirkabir University of Technology|AMLaP|Analytical-Connectionism|ANT|ANU|APBC
+AppliedCategoryTheory|Arizona State University|ASABE|ATMCS|AutoML|AVIIES|BCL|BIGSSS-CSS|BioC
+BMVC|BMVC|BNAIC-BeNeLearn|BOKU|BOSS|Brain-Score|Brown University|CAMLIS|CAMP|CAp
+CARLA|CAV|CCC|CCCMMp|CCIR|CCKS|CCL|CCL|CCMT|CCN|CCS|CHI|CHIL|CHR|CITI|CLAI
+CLASP|CLeAR|CLIC|Clinical NLP|CMU|COLING|CoLLAs|COLM|COLT|COMPLENET|Computing
+Computo|CoRL|Cornell University|COSIT|COSPAR|CP|CPAIOR|CPAL|CRV|CS2Italy|CSAE|CSands
+CU|CUDAN|CUHK|CUNI|CUNY|CVPR|CVPR|CYI|DAI|Dalhousie University|DAO|Dartmouth College
+Dataminr|DEEPK|DeepLearningIndaba|DeepMath|DESAI|DGfS|DGPs|DH|DHASA|Dhaxalreeb|DHBJ
+DigitalHeritage|Diké|DisCoTec|DLI|DMLR|DMR|Dolby|DSA|EACL|EAMT|ECAI|ECCV|ECMLPKDD
+ECMLPKDD|ECSQARU|EDSC|EfficientML|ELLIS|ELM|ELOER|ELTGoGetter|EMNLP|ENAPP|ENEOLI
+ESPC|ESREA|ESSA|ESSLLI|ESTG|ESWC|ETHz|ETSII|ETT|EUMAS|EurIPS|EuroBioC|EVIC|EVOLANG
+EWAF|EWRL|EXPhi|F3HL|FARM|FAST|FCRAR|FDSL|FEAR|FEVER|FJSS|FLINS-ISKE|FNC|GAAP
+GameSec|GBCC|GdR-IASIS|GenBench|GeoMediA|Georgia Institute of Technology|GIGS|GIScience
+GLOW|Graphics Interface|Greeks in AI|GSCL|GSK|GT-FRBA|GTML|GURT|HAI|HAID
+Hamlyn Symposium|HCC|Highlights|HKUST|HOMeWork|HRAIM|HRI|HSE|HSE University|HUGOD
+Human Computer Intelligence|I-CiTies|IACS|IAS|IATA|IC2S2|ICAIS|ICAPS|ICASSP|ICCOPT|ICCP
+ICCV|ICCV|ICEM|ICFHR|ICI2ST|ICIAP|ICIM|ICL|ICLC|ICLR|ICML|ICMR|ICOMP|ICONIP|ICRA
+ICSH|ICSSI|ICWSM|IDRiM|IDS|IEEE|IFIP|IISERB|IJCAI|IJCAI-ECAI|IJCAI-PRICAI|IJTCS-FAW|IKSEA
+ILIAD|IMAGINE AI|iMECHCON|IMLIP|IMOL|IMS|INAIGEM|INAIGMEN|InCoB
+Indian Institute of Science|IndiREAD|INFORMATIK|Informatik Rostock|INLG|INRIA|INTERSECT
+Interspeech|InvestinOpen|IPLAB|IRIS-AI|IROS|ISAIM|ISAPh|ISCA|ISCA-Speech|ISCOL|ISFN|ISGTA
+ISMIR|ISNN|ISWC|IVACS|IVAL-MBZUAI|IWAI|IWCIA|IWCLUL|IWCS|IWEG|IWES|IWPSS|IWSD
+JCoLE|JDSE|JELIA|JENom|JFPC|JITA|JLXAIR|JMIS-web|Jornadas dos Dicionários|JSYS|JWOC|KAIST
+KAIST|KDD|KGCW|KMUTT|KONVENS|Korea University|Kornai95|KR|KRAAI|KRAMCV|KU|KU Leuven
+L4DC|LATIN-R|LCR|LDK|Leibniz-Centre General Linguistics|LEVIA|LexiKonf|LFA|LFG|LILG|LION
+LOG|LPNMR|LREC-Coling|MAEB|MAEM|MASC-SLL|MASC-SLL|MathAI|Mathplus|MBZUAI
+McGill University|MELBA|MIC|MICCAI|Microbiome-VIF|MIDL|Mimesis|MisD|MISDOOM|MIT|MIUE
+ML Reproducibility Challenge|ML4H|MLHC|MLinPL|MLSys|MLSys|MMSYM|MobiCom|MPM|MRS
+MSLD|MSMARCO|MSR|MSTAS|MSZNY|NAACL|NASSLLI|National Taipei University of Technology
+National University of Singapore|NCDHWS|NCSR Demokritos|NERC|NeSy|NetSci|NetSciX|NeurIPS
+Neuroinformatics|NeuroNovember|NLDL|NLP4DH|NLP4DH-IWCLUL|NLPCC|NOCroDeP|NoDaLiDa
+NYCU|NYRL|NYU Shanghai|OAB|OASIS|ÖAW|OCP|ODCD|ODYSSEY|OIST|Open Life Science
+OpenReview|OPTSOLAR|PAKDD|Palacký University Olomouc|PARC|PEER|PFIA|PGM|PKU|PLDI
+Politecnico di Milano|POSTECH|PReMI|PRICAI|PRIP|PRL|ProbNum|Protolang|PSCP
+PsychometricSociety|Purdue University|QAUA|QNLPAI|QualITA|QueerInAI|RAILS|RBCDSAI|RC-HL|RCC
+RDay|ReLDI|ReSyLAB|RhinoTest|RIIAA|RISEx|RISS|RLC|RLDM|RoboCup|RoboMaster North America
+RSAA|RSS|RuSCDays|SADASC|SAFE|SAGT|SAIL|SAIV|SALT|SampTA|Sandia National Laboratories
+SCCAI|SCiL|SCONLI|SDM|SEMANTiCS|SemDial|SEPLN|SER|SIC|SIGARAB|SIGDIAL|SIGSEM|SIMBig
+SinFonIJA|SINICA|SLowDNN|SMASH|SMF|SN|SNOWAI|SNU|SoCalNLP|SOFC|Sogang University
+SolidProject|SouthernCT|SouthNLP|SPAN|Sparsity in Neural Networks|SPELLL|SPP|SQAI|SSPP
+Stanford University|StarSEM|STLC|SuB|Sunstella|SupaeroSDD|SURE-MED|SWRS|SYCO|SyNCC
+SyntaxFest|TAAI|TAASP|TC3|TCAI|TFAI|THU|TIME|TimeMachine|TimingForum|tinyML|TMLR|TQC
+TransformED|TT|TTIC|TU|TYPES|UAI|UC Berkeley|UCA|UCCTS|UCM|UFRJ|UIT|UIUC|UKRRIN
+Ulster University|UMI-PRISMA|Uni-Hamburg|UniDive|University Of Oslo|Universidad Indoamérica
+Universidad Nacional de Colombia|Universidade da Madeira|Universitat Autònoma de Barcelona
+Université de Montréal|Université de Technologie de Compiègne|Universiti Kebangsaan Malaysia
+University of Amsterdam|University of Canterbury|University of Eastern Finland|University of Edinburgh
+University of Manchester|University of Massachusetts|University of Michigan|University of Milan
+University of Notre Dame|University of Sydney|University of Texas|University of Toronto|University of Toronto
+University of Trento|UPENN|USC|USF|UTHealth|UU|UVA|UVA|UW|UWaterloo|ValiSTAD|VAR4LCR
+Virginia Tech|VIVO|VLDB|VU Amsterdam|WACV|WAFR|WBIR|WCCFL|Wiki Workshop
+Wikidata and Research|Wikimedia|WINE|WMF|WOA|WOSET-Workshop
+Wrocław University of Science and Technology|XJTU|XP|XPhi|XPrag|XPRAGit|Yonsei University
+YouthLACIGF`;
+const cloud=document.getElementById('venueCloud');
+directory.split('\\n').forEach(line=>line.split('|').forEach((name,i)=>{
+  const a=document.createElement('a');a.href='#';a.className='btn'+(i===0?' featured':'');a.textContent=name;
+  if(name==='NeurIPS'){a.dataset.route='years';}
+  cloud.appendChild(a);
+}));
+const paperTitles=[
+"LINGOLY: A Benchmark of Olympiad-Level Linguistic Reasoning Puzzles in Low Resource and Extinct Languages",
+"CVQA: Culturally-diverse Multilingual Visual Question Answering Benchmark",
+"DevBench: A multimodal developmental benchmark for language learning",
+"MedCalc-Bench: Evaluating Large Language Models for Medical Calculations",
+"The PRISM Alignment Dataset: What Participatory, Representative and Individualised Human Feedback Reveals About the Subjective and Multicultural Alignment of Large Language Models",
+"Brain Treebank: Large-scale intracranial recordings from naturalistic language stimuli",
+"A Taxonomy of Challenges to Curating Fair Datasets",
+"ChaosBench: A Multi-Channel, Physics-Based Benchmark for Subseasonal-to-Seasonal Climate Prediction",
+"Evaluating Large Language Models on Scientific Reasoning Tasks"
+];
+const authors=[
+"Andrew Michael Bean, Simeon Hellsten, Harry Mayne, Jabez Magomere, Ethan A Chi, Ryan Andrew Chi, Scott A. Hale, Hannah Rose Kirk",
+"David Orlando Romero Morogojev, Chenyang Lu, Haryo Akbarwati Wibowo, Santiago Góngora, Aishik Mankad, Sukannya Purkayastha, Jesus-German Ortiz-Barajas, Emilio Villa Cueva, Jinhon Baek, Soyeong Jeong, Injy Hamed, Zheng Xin Yong, Zheng Wei Lim, Paula Mónica Silva, Jocelyn Dunstan, Mélanie Jouitteau, David LE MEUR, Joan Nwatu, Ganzorig Batnasan, Munkh-Erdene Otgonbold et al. (56 additional authors not shown)",
+"Alvin Wei Ming Tan, Chunhua Yu, Bria Lorelle Long, Wanjing Anya Ma, Tonya Murray, Rebecca D. Silverman, Jason D Yeatman, Michael Frank",
+"Nikhil Khandekar, Qiao Jin, Guangzhi Xiong, Soren Dunn, Serena S Applebaum, Zain Anwar, Maame Sarfo-Gyamfi, Conrad W Safranek, Abid Anwar, Andrew Jiaxing Zhang, Aidan Gilson, Maxwell B Singer, Amisha D Dave, R. Andrew Taylor, Aidong Zhang, Qingyu Chen, Zhiyong Lu"
+];
+const list=document.getElementById('paperList');
+paperTitles.forEach((title,i)=>{
+ const row=document.createElement('article');row.className='paper-row';
+ row.innerHTML='<a class="paper-name btn '+(i===0?'paper-link':'')+'" '+(i===0?'data-route="paper"':'')+'>'+title+'</a> <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/002.svg" width="20" height="24" alt="PDF"><div class="authors">'+(authors[i%authors.length])+'</div><div class="paper-meta">Published: 26 Sept 2024, Last Modified: 13 Nov 2024 &nbsp;&nbsp; NeurIPS 2024 Track Datasets and Benchmarks Oral &nbsp;&nbsp; Readers: ◉ Everyone &nbsp; '+(i===0?'22':(22-i))+' Replies</div><a class="details-link btn">Show details</a>';
+ list.appendChild(row);
+});
+let current='home';
+function show(route){
+ current=route;
+ ['home','years','year','track','paper'].forEach(id=>document.getElementById(id).classList.toggle('hidden',id!==route));
+ document.getElementById('footer').classList.toggle('hidden',route==='home'||route==='track'||route==='paper');
+ document.getElementById('homebar').classList.toggle('hidden',route!=='home');
+ const back=document.getElementById('backbar');
+ back.classList.toggle('hidden',route==='home');
+ const labels={years:'Back to Homepage',year:'Go to NeurIPS homepage',track:'Go to NeurIPS 2024 homepage',paper:'Go to NeurIPS 2024 Datasets and Benchmarks Track homepage'};
+ document.getElementById('backlink').textContent='←  '+(labels[route]||'Back');
+ if(route==='home')document.getElementById('footer').classList.add('hidden');
+ window.scrollTo(0,0);
+}
+document.addEventListener('click',e=>{
+ const el=e.target.closest('[data-route]');
+ if(el){e.preventDefault();show(el.dataset.route);return}
+ if(e.target.closest('#backlink')){e.preventDefault();show(current==='paper'?'track':current==='track'?'year':current==='year'?'years':'home');return}
+ const venue=e.target.closest('#venueCloud a');
+ if(venue&&venue.textContent==='NeurIPS'){e.preventDefault();show('years');return}
+ const title=e.target.closest('.paper-link');
+ if(title){e.preventDefault();show('paper');return}
+});
+document.querySelectorAll('.year-links a').forEach(a=>{if(a.textContent.includes('NeurIPS 2024')&&!a.dataset.route)a.dataset.route='year'});
+document.getElementById('showActive').addEventListener('click',()=>document.getElementById('allVenues').scrollIntoView({behavior:'smooth'}));
+</script>
+</body>
+</html>
+```

@@ -1,0 +1,310 @@
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YouTube Shorts</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; }
+  body { background: #fff; color: #0f0f0f; font-family: Arial, "Noto Sans SC", sans-serif; font-size: 14px; }
+  button { color: inherit; font: inherit; border: 0; cursor: pointer; }
+  .btn { -webkit-tap-highlight-color: transparent; }
+  .topbar {
+    height: 64px; position: fixed; inset: 0 0 auto 0; z-index: 20;
+    display: flex; align-items: center; background: #fff; padding: 0 30px 0 24px;
+  }
+  .hamburger { width: 24px; height: 28px; display: grid; align-content: center; gap: 5px; margin-right: 22px; padding: 3px; background: none; }
+  .hamburger i { display: block; height: 1.5px; width: 18px; background: #222; }
+  .brand { display: flex; align-items: center; gap: 5px; width: 120px; font-size: 20px; font-weight: 700; letter-spacing: -1px; }
+  .yt-mark { width: 29px; height: 20px; background: #f03; border-radius: 6px; position: relative; display: inline-block; }
+  .yt-mark:after { content: ""; position: absolute; left: 12px; top: 5px; border-left: 8px solid white; border-top: 5px solid transparent; border-bottom: 5px solid transparent; }
+  .brand small { font-size: 9px; font-weight: 400; align-self: flex-start; letter-spacing: 0; color: #555; margin: 1px 0 0 -3px; }
+  .search-wrap { position: absolute; left: 50%; transform: translateX(-50%); width: 655px; height: 44px; display: flex; align-items: center; }
+  .search-box { height: 42px; border: 1px solid #c6c6c6; border-radius: 24px; display: flex; flex: 1; overflow: hidden; box-shadow: inset 0 1px 2px #eee; }
+  .search-box input { border: 0; outline: 0; padding: 0 18px; flex: 1; font-size: 16px; background: transparent; }
+  .search-action { width: 64px; border-left: 1px solid #ddd; background: #f8f8f8; display: grid; place-items: center; }
+  .search-action svg { width: 21px; height: 21px; }
+  .mic { margin-left: 16px; width: 42px; height: 42px; border-radius: 50%; background: #f8f8f8; display: grid; place-items: center; }
+  .mic svg { width: 20px; height: 20px; }
+  .top-right { margin-left: auto; display: flex; gap: 20px; align-items: center; }
+  .create { background: #f5f5f5; border-radius: 25px; padding: 9px 16px; display: flex; align-items: center; gap: 7px; }
+  .create b { font-size: 20px; font-weight: 400; line-height: 15px; }
+  .plain-icon { background: transparent; width: 30px; height: 34px; display: grid; place-items: center; }
+  .plain-icon svg { width: 22px; height: 22px; }
+  .profile { width: 32px; height: 32px; border-radius: 50%; background: #b90058; color: #fff; display: grid; place-items: center; font-weight: 600; font-size: 14px; }
+
+  .sidebar {
+    position: fixed; z-index: 10; top: 64px; left: 0; bottom: 0; width: 230px;
+    overflow-y: auto; padding: 8px 12px 20px 12px; background: #fff;
+  }
+  .nav-item { height: 42px; border-radius: 9px; display: flex; align-items: center; gap: 25px; padding: 0 12px; font-size: 14px; width: 100%; background: transparent; text-align: left; white-space: nowrap; }
+  .nav-item.active { background: #f1f1f1; font-weight: 600; }
+  .nav-icon { width: 21px; height: 21px; display: inline-grid; place-items: center; font-size: 18px; font-weight: 500; flex: 0 0 21px; }
+  .nav-sep { border-top: 1px solid #e5e5e5; margin: 14px 0; }
+  .nav-heading { padding: 1px 12px 7px; font-size: 15px; }
+  .nav-item.product { height: 41px; gap: 25px; }
+  .product-icon { color: #f03; font-size: 17px; width: 21px; text-align: center; }
+  .footer-copy { color: #606060; font-size: 12px; line-height: 1.6; padding: 3px 12px; }
+
+  .main { position: fixed; inset: 64px 0 0 230px; }
+  .short-wrap {
+    position: absolute; top: 3px; left: calc(50% - 565px);
+    width: 630px; height: calc(100vh - 88px); min-height: 700px;
+  }
+  .video-frame { width: 630px; height: 100%; overflow: hidden; position: relative; border-radius: 14px; background: #333; }
+  .video-frame video { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .video-shade { position: absolute; inset: 0; pointer-events: none; }
+  .video-top-controls { position: absolute; top: 18px; left: 18px; right: 18px; display: flex; align-items: center; gap: 14px; }
+  .video-control { border-radius: 50%; width: 48px; height: 48px; color: white; display: grid; place-items: center; background: rgba(0,0,0,.4); font-size: 19px; }
+  .video-control.right { margin-left: auto; }
+  .video-control svg { width: 19px; height: 19px; fill: white; }
+  .speech { position: absolute; top: 82px; left: 132px; background: rgba(0,0,0,.72); color: #fff; font-size: 18px; line-height: 23px; padding: 1px 5px; font-weight: 600; }
+  .big-caption { position: absolute; top: 39%; left: 0; right: 0; text-align: center; color: #fff; font-weight: 800; font-size: 54px; text-shadow: 0 2px 5px #222; }
+  .creator-info { position: absolute; bottom: 26px; left: 18px; right: 14px; color: #fff; text-shadow: 0 1px 3px #222; font-size: 14px; line-height: 1.5; }
+  .creator-row { display: flex; align-items: center; gap: 9px; margin-bottom: 13px; font-weight: 600; }
+  .tiny-face { width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg,#f4d3a6,#4f777e 52%,#252525); border: 1px solid rgba(255,255,255,.7); }
+  .subscribe { background: #fff; color: #111; border-radius: 20px; padding: 5px 12px; font-size: 13px; }
+  .creator-desc { margin-top: 7px; }
+  .video-actions { position: absolute; left: 648px; bottom: 25px; width: 62px; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .action-btn { background: transparent; width: 62px; padding: 0; display: flex; flex-direction: column; align-items: center; gap: 7px; font-size: 14px; }
+  .action-round { width: 50px; height: 50px; border-radius: 50%; background: #f2f2f2; display: grid; place-items: center; }
+  .action-round svg { width: 24px; height: 24px; fill: #111; }
+  .action-label { min-height: 18px; }
+  .action-avatar { width: 43px; height: 43px; border-radius: 11px; border: 2px solid white; background: linear-gradient(140deg,#f4d7bd,#294d4b 50%,#dbb19c); }
+
+  .scroll-controls { position: fixed; right: 25px; top: 46%; display: flex; flex-direction: column; gap: 16px; z-index: 5; }
+  .scroll-controls button { width: 58px; height: 58px; border-radius: 50%; background: #f5f5f5; font-size: 29px; line-height: 1; }
+
+  .comments {
+    position: fixed; z-index: 12; right: 80px; top: 64px; bottom: 16px; width: 480px;
+    border: 1px solid #e5e5e5; border-radius: 15px; background: #fff; display: flex; flex-direction: column;
+    box-shadow: 0 1px 3px rgba(0,0,0,.04);
+  }
+  .comments-header { height: 62px; flex: 0 0 62px; display: flex; align-items: center; padding: 0 20px; border-bottom: 1px solid #eee; }
+  .comments-header strong { font-size: 20px; }
+  .comments-header span { color: #666; margin-left: 8px; font-size: 16px; }
+  .comment-tools { margin-left: auto; display: flex; gap: 17px; align-items: center; }
+  .comment-tools button { background: transparent; font-size: 22px; width: 28px; height: 30px; }
+  .comment-list { overflow: hidden; padding: 10px 16px 4px; flex: 1; }
+  .comment { display: flex; gap: 14px; padding: 8px 0 14px; min-height: 135px; }
+  .comment-avatar { width: 39px; height: 39px; flex: 0 0 39px; border-radius: 50%; display: grid; place-items: center; color: white; font-weight: 600; font-size: 18px; }
+  .a-teal { background: #159b81; } .a-photo { background: radial-gradient(circle at 40% 30%,#f6d5bb,#18254d 50%,#ddd); }
+  .a-purple { background: #a32db3; } .a-blue { background: #0874aa; } .a-slate { background: #53656c; }
+  .comment-content { flex: 1; min-width: 0; font-size: 14px; line-height: 1.45; }
+  .comment-meta { color: #555; font-size: 12px; margin: 1px 0 5px; }
+  .comment-meta b { color: #222; font-weight: 600; }
+  .comment-text { font-size: 14px; line-height: 1.5; }
+  .translate { display: block; margin-top: 7px; color: #666; font-size: 12px; }
+  .comment-reactions { display: flex; align-items: center; gap: 17px; margin-top: 11px; color: #555; font-size: 13px; }
+  .comment-reactions span { display: flex; align-items: center; gap: 5px; }
+  .reply-link { color: #1675d1; margin-top: 10px; display: block; font-size: 13px; }
+  .comment-more { float: right; background: transparent; font-size: 18px; }
+  .comment-input { flex: 0 0 74px; border-top: 1px solid #eee; display: flex; align-items: center; gap: 13px; padding: 0 17px; }
+  .comment-input .profile { width: 40px; height: 40px; }
+  .comment-input input { border: 0; border-bottom: 1px solid #ddd; outline: 0; flex: 1; height: 38px; font-size: 14px; }
+
+  @media (max-width: 1700px) {
+    .sidebar { width: 205px; }
+    .main { left: 205px; }
+    .short-wrap { left: calc(50% - 520px); transform: scale(.86); transform-origin: top left; }
+    .comments { right: 30px; width: 420px; }
+    .search-wrap { width: 520px; }
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <button class="hamburger btn" aria-label="菜单"><i></i><i></i><i></i></button>
+  <div class="brand"><span class="yt-mark"></span><span>YouTube</span><small>SG</small></div>
+  <div class="search-wrap">
+    <div class="search-box"><input aria-label="搜索" placeholder="搜索"><button class="search-action btn" aria-label="搜索"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="10.8" cy="10.8" r="7.2"/><path d="m16.2 16.2 5 5"/></svg></button></div>
+    <button class="mic btn" aria-label="语音搜索"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 14a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v5a3 3 0 0 0 3 3Zm5-3a1 1 0 0 0-2 0 3 3 0 0 1-6 0 1 1 0 0 0-2 0 5 5 0 0 0 4 4.9V19h-2v2h6v-2h-2v-3.1a5 5 0 0 0 4-4.9Z"/></svg></button>
+  </div>
+  <div class="top-right">
+    <button class="create btn"><b>＋</b>创建</button>
+    <button class="plain-icon btn" aria-label="通知"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg></button>
+    <button class="profile btn">Pp</button>
+  </div>
+</header>
+
+<aside class="sidebar">
+  <button class="nav-item btn"><span class="nav-icon">⌂</span>首页</button>
+  <button class="nav-item active btn"><span class="nav-icon">▶</span>Shorts</button>
+  <button class="nav-item btn"><span class="nav-icon">▣</span>订阅</button>
+  <div class="nav-sep"></div>
+  <div class="nav-heading">我&nbsp; ›</div>
+  <button class="nav-item btn"><span class="nav-icon">◴</span>历史记录</button>
+  <button class="nav-item btn"><span class="nav-icon">☷</span>播放列表</button>
+  <button class="nav-item btn"><span class="nav-icon">◷</span>稍后观看</button>
+  <button class="nav-item btn"><span class="nav-icon">♧</span>赞过的视频</button>
+  <div class="nav-sep"></div>
+  <div class="nav-heading">探索</div>
+  <button class="nav-item btn"><span class="nav-icon">♫</span>音乐</button>
+  <button class="nav-item btn"><span class="nav-icon">▤</span>电影</button>
+  <button class="nav-item btn"><span class="nav-icon">⬡</span>游戏</button>
+  <button class="nav-item btn"><span class="nav-icon">▣</span>新闻</button>
+  <button class="nav-item btn"><span class="nav-icon">♜</span>体育</button>
+  <button class="nav-item btn"><span class="nav-icon">♙</span>时尚美妆</button>
+  <button class="nav-item btn"><span class="nav-icon">◉</span>播客</button>
+  <div class="nav-sep"></div>
+  <div class="nav-heading">更多 YouTube 产品与功能</div>
+  <button class="nav-item product btn"><span class="product-icon">▶</span>YouTube Premium</button>
+  <button class="nav-item product btn"><span class="product-icon">⦿</span>YouTube Music</button>
+  <button class="nav-item product btn"><span class="product-icon">▣</span>YouTube Kids</button>
+  <div class="nav-sep"></div>
+  <button class="nav-item btn"><span class="nav-icon">⚙</span>设置</button>
+  <button class="nav-item btn"><span class="nav-icon">⚑</span>举报记录</button>
+  <button class="nav-item btn"><span class="nav-icon">ⓘ</span>帮助</button>
+  <button class="nav-item btn"><span class="nav-icon">▣</span>发送反馈</button>
+  <div class="nav-sep"></div>
+  <div class="footer-copy">关于&nbsp; 新闻&nbsp; 版权&nbsp; 联系我们<br>创作者&nbsp; 广告&nbsp; 开发者<br><br>条款&nbsp; 隐私权&nbsp; 政策与安全<br>YouTube 的运作方式</div>
+</aside>
+
+<main class="main">
+  <div class="short-wrap">
+    <div class="video-frame">
+      <video id="shortVideo" muted playsinline preload="auto" poster="__PLACEHOLDER_ASSETS_BASE_DIR__/087.jpg">
+        <source src="__PLACEHOLDER_ASSETS_BASE_DIR__/091.mp4" type="video/mp4">
+      </video>
+      <div class="video-shade">
+        <div class="video-top-controls">
+          <button class="video-control btn" id="pauseBtn" aria-label="暂停">Ⅱ</button>
+          <button class="video-control btn" aria-label="音量"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 4V5L7 9H3zm12.5 3a3.5 3.5 0 0 0-2-3.16v6.32a3.5 3.5 0 0 0 2-3.16zm-2-8v2.06a6 6 0 0 1 0 11.88V20a8 8 0 0 0 0-16z"/></svg></button>
+          <button class="video-control right btn" aria-label="全屏">⛶</button>
+        </div>
+        <div class="speech">down pick<br>up</div>
+        <div class="big-caption" id="bigCaption">Pick up</div>
+        <div class="creator-info">
+          <div class="creator-row"><span class="tiny-face"></span><span>@ariannitalagringa</span><button class="subscribe btn">订阅</button></div>
+          <div>▶ 和你的英语老师一起去买东西</div>
+          <div class="creator-desc">Phrasal verbs in English #gringa #english #ariannitalagringa #american</div>
+        </div>
+      </div>
+    </div>
+    <div class="video-actions">
+      <button class="action-btn btn"><span class="action-round"><svg viewBox="0 0 24 24"><path d="M1 21h4V9H1v12zM23 10c0-1.1-.9-2-2-2h-6.3l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/></svg></span><span>32万</span></button>
+      <button class="action-btn btn"><span class="action-round"><svg viewBox="0 0 24 24"><path d="M15 3H6c-.83 0-1.54.5-1.84 1.22L1.14 11.27c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.3l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.58-6.59c.37-.36.59-.86.59-1.41V5c0-1.1-.9-2-2-2zM19 3v12h4V3h-4z"/></svg></span><span>不喜欢</span></button>
+      <button class="action-btn btn" id="openComments"><span class="action-round"><svg viewBox="0 0 24 24"><path d="M4 3h16a2 2 0 0 1 2 2v17l-4-4H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm3 5v2h10V8H7zm0 4v2h7v-2H7z"/></svg></span><span>2,169</span></button>
+      <button class="action-btn btn"><span class="action-round"><svg viewBox="0 0 24 24"><path d="M14 9V4l8 8-8 8v-5c-5.5 0-9 1.7-12 5 1-6 4-11 12-11z"/></svg></span><span>分享</span></button>
+      <button class="action-btn btn"><span class="action-round"><svg viewBox="0 0 24 24"><path d="M12 2 8 9h3l-1 5 6-8h-4l2-4zm-7 13a7 7 0 0 0 13 3l2 1-1-6-5 4 2 1a5 5 0 0 1-9-3H5zm14-6a7 7 0 0 0-13-3L4 5l1 6 5-4-2-1a5 5 0 0 1 9 3h2z"/></svg></span><span>19</span></button>
+      <button class="action-avatar btn" aria-label="频道"></button>
+    </div>
+  </div>
+</main>
+
+<div class="scroll-controls">
+  <button class="btn" id="upVideo" aria-label="上一个">↑</button>
+  <button class="btn" id="downVideo" aria-label="下一个">↓</button>
+</div>
+
+<section class="comments" id="commentsPanel">
+  <div class="comments-header">
+    <strong>评论</strong><span>2169</span>
+    <div class="comment-tools">
+      <button class="btn" aria-label="排序">☰</button>
+      <button class="btn" id="closeComments" aria-label="关闭">×</button>
+    </div>
+  </div>
+  <div class="comment-list">
+    <article class="comment">
+      <div class="comment-avatar a-teal">b</div>
+      <div class="comment-content">
+        <button class="comment-more btn">⋮</button>
+        <div class="comment-meta"><b>@borimioi</b> 8个月前</div>
+        <div class="comment-text">문장이 아닌 동작으로 직접 보여주니 이해가 잘되네요.<br>감사합니다</div>
+        <span class="translate">翻译成英语</span>
+        <div class="comment-reactions"><span>♧ &nbsp;685</span><span>♧</span><span>回复</span></div>
+        <span class="reply-link">⌄&nbsp; 16 条回复</span>
+      </div>
+    </article>
+    <article class="comment">
+      <div class="comment-avatar a-photo"></div>
+      <div class="comment-content">
+        <button class="comment-more btn">⋮</button>
+        <div class="comment-meta"><b>@divalarose</b> 8个月前</div>
+        <div class="comment-text">Magnifique démonstration pour mieux comprendre 🎉 félicitations je vous remercie 🥰💖🌹</div>
+        <span class="translate">翻译成英语</span>
+        <div class="comment-reactions"><span>♧ &nbsp;27</span><span>♧</span><span>回复</span></div>
+      </div>
+    </article>
+    <article class="comment">
+      <div class="comment-avatar a-purple">S</div>
+      <div class="comment-content">
+        <button class="comment-more btn">⋮</button>
+        <div class="comment-meta"><b>@shincymohan</b> 7个月前</div>
+        <div class="comment-text">Excellent method of teaching phrasal verbs 👌👌👌 ❤️</div>
+        <div class="comment-reactions"><span>♧ &nbsp;320</span><span>♧</span><span>回复</span></div>
+        <span class="reply-link">⌄&nbsp; 4 条回复</span>
+      </div>
+    </article>
+    <article class="comment">
+      <div class="comment-avatar a-blue">t</div>
+      <div class="comment-content">
+        <button class="comment-more btn">⋮</button>
+        <div class="comment-meta"><b>@toufikel...</b> 4个月前</div>
+        <div class="comment-text">❤️❤️ wonderful teaching methods with beautiful lady</div>
+        <div class="comment-reactions"><span>♧ &nbsp;52</span><span>♧</span><span>回复</span></div>
+        <span class="reply-link">⌄&nbsp; 10 条回复</span>
+      </div>
+    </article>
+    <article class="comment">
+      <div class="comment-avatar a-slate">N</div>
+      <div class="comment-content">
+        <button class="comment-more btn">⋮</button>
+        <div class="comment-meta"><b>@nasirmaqbool5936</b> 2个月前</div>
+        <div class="comment-text">Superb teaching</div>
+        <div class="comment-reactions"><span>♧ &nbsp;17</span><span>♧</span><span>回复</span></div>
+        <span class="reply-link">⌄&nbsp; 2 条回复</span>
+      </div>
+    </article>
+    <article class="comment">
+      <div class="comment-avatar a-purple">学</div>
+      <div class="comment-content">
+        <button class="comment-more btn">⋮</button>
+        <div class="comment-meta"><b>@数学-d9t</b> 7个月前</div>
+        <div class="comment-text">分かりやすい。ありがとう。好き。</div>
+        <span class="translate">翻译成英语</span>
+        <div class="comment-reactions"><span>♧ &nbsp;84</span><span>♧</span><span>回复</span></div>
+      </div>
+    </article>
+    <article class="comment">
+      <div class="comment-avatar a-slate">N</div>
+      <div class="comment-content">
+        <button class="comment-more btn">⋮</button>
+        <div class="comment-meta"><b>@NaeimehBerdinajad</b> 7个月前</div>
+        <div class="comment-text">Hello dear teacher. The best way teaching. Learning English with ears and eyes is strong. Thanks a lot. 🙏 🌹❤️</div>
+        <div class="comment-reactions"><span>♧ &nbsp;19</span><span>♧</span><span>回复</span></div>
+      </div>
+    </article>
+  </div>
+  <div class="comment-input"><div class="profile">Pp</div><input placeholder="添加评论..."></div>
+</section>
+
+<script>
+  const video = document.getElementById('shortVideo');
+  const pauseBtn = document.getElementById('pauseBtn');
+  const panel = document.getElementById('commentsPanel');
+  let paused = true;
+  video.addEventListener('loadedmetadata', () => {
+    try { video.currentTime = Math.min(7.5, Math.max(0, video.duration * .55)); } catch(e) {}
+  });
+  video.addEventListener('seeked', () => { video.pause(); });
+  pauseBtn.addEventListener('click', () => {
+    if (paused) { video.play().catch(()=>{}); pauseBtn.textContent = 'Ⅱ'; }
+    else { video.pause(); pauseBtn.textContent = '▶'; }
+    paused = !paused;
+  });
+  document.getElementById('closeComments').addEventListener('click', () => panel.style.display = 'none');
+  document.getElementById('openComments').addEventListener('click', () => panel.style.display = 'flex');
+  document.getElementById('downVideo').addEventListener('click', () => {
+    if (video.duration) video.currentTime = Math.min(video.duration - .2, video.currentTime + 3);
+  });
+  document.getElementById('upVideo').addEventListener('click', () => {
+    if (video.duration) video.currentTime = Math.max(0, video.currentTime - 3);
+  });
+</script>
+</body>
+</html>
+```

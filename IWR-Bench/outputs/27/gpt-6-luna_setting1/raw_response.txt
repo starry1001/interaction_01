@@ -1,0 +1,191 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JSTOR</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;color:#111;background:#fff}
+  button,input,select{font:inherit}
+  button{cursor:pointer}
+  a{color:inherit}
+  .btn{cursor:pointer}
+  .library-bar{height:72px;border-bottom:1px solid #d5d5d5;display:flex;align-items:center;justify-content:center;font-size:20px}
+  .library-bar span{display:flex;align-items:center;gap:12px}
+  .library-icon{font-size:25px;font-style:normal}
+  .site-header{height:148px;border-bottom:1px solid #d6d6d6;position:relative;display:flex;align-items:flex-start;padding:12px 36px}
+  .logo{width:92px;height:126px;object-fit:contain;object-position:top left}
+  .hamburger{position:absolute;left:162px;top:67px;width:32px;height:32px;border:0;background:none;padding:5px}
+  .hamburger i,.hamburger:before,.hamburger:after{content:"";display:block;height:3px;background:#111;margin:5px 0;width:24px}
+  .account-actions{margin-left:auto;display:flex;gap:24px}
+  .plain-button,.red-button{height:50px;border-radius:3px;padding:0 20px;font-weight:bold;font-size:20px}
+  .plain-button{background:#fff;border:1px solid #ccc}
+  .red-button{background:#920000;color:#fff;border:1px solid #920000}
+  .workspace{position:absolute;right:37px;bottom:20px;font-size:20px;font-weight:bold}
+  .workspace b{font-size:24px}
+  .compact-search{height:76px;border-bottom:1px solid #ddd;padding:22px 36px 12px}
+  .search-wrap{height:64px;border:1px solid #999;border-radius:3px;display:flex;align-items:center;padding:0 16px;position:relative;background:white}
+  .search-wrap input{border:0;outline:0;flex:1;min-width:0;font-size:22px}
+  .magnify{width:25px;height:25px;border:3px solid #111;border-radius:50%;position:relative;flex:none;margin-right:12px}
+  .magnify:after{content:"";position:absolute;width:13px;height:3px;background:#111;right:-10px;bottom:-5px;transform:rotate(48deg);border-radius:2px}
+  .home-hero{padding:46px 36px 0;position:relative}
+  .home-hero h1{font:normal 82px/1.01 Georgia,"Times New Roman",serif;letter-spacing:-3px;margin:0 0 48px;max-width:530px}
+  .search-tabs{display:flex;align-items:stretch;height:62px;position:relative;z-index:4}
+  .tab{min-width:164px;border:1px solid #888;padding:0 20px;background:#fff;font-size:22px}
+  .tab.active{font-weight:bold;border-color:#555}
+  .advanced-link{margin-left:auto;align-self:center;font-size:20px;font-weight:bold}
+  .home-search{height:86px;border:2px solid #999;display:flex;align-items:center;padding:0 22px;position:relative;z-index:4;background:#fff}
+  .home-search.focused{border:2px solid #00a9b5}
+  .home-search input{border:0;outline:0;flex:1;min-width:0;font-size:22px}
+  .suggestions{position:absolute;z-index:6;top:100%;left:0;right:0;background:#fff;box-shadow:0 5px 12px #0002;font-size:20px}
+  .suggestion-top{height:80px;display:flex;align-items:center;padding:0 22px;color:#17365d;font-weight:bold}
+  .suggestion-top button{margin-left:auto;background:none;border:0;font-size:32px}
+  .suggestion{padding:17px 22px;border-top:1px solid #ddd}
+  .suggestion:first-of-type{background:#f2f0ec}
+  .home-art{height:180px;position:relative;margin-top:-25px;z-index:1}
+  .home-art img{width:100%;height:180px;object-fit:cover}
+  .caption{padding:26px 36px;display:flex;gap:30px;font-size:20px;line-height:1.48}
+  .caption p{margin:0;max-width:365px}
+  .image-count{font-weight:bold;white-space:nowrap}
+  .arrows{font-size:34px;white-space:nowrap}
+  .preview-strip{height:280px;overflow:hidden;position:relative;margin-top:60px}
+  .preview-strip img{position:absolute;object-fit:cover}
+  .preview-strip img:first-child{width:245px;height:126px;left:96px;top:76px}
+  .preview-strip img:nth-child(2){width:255px;height:165px;left:352px;top:0}
+  .result-page{padding:0 12px 50px}
+  .filter-button{height:50px;background:#920000;color:#fff;border:0;border-radius:3px;font-weight:bold;font-size:20px;width:100%;text-align:left;padding:0 18px;margin:48px 0 70px}
+  .result-heading{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
+  .result-heading h2{font:normal 48px Georgia,serif;margin:0;letter-spacing:-1px}
+  .result-heading a{font-size:20px}
+  .result-toolbar{margin-bottom:36px}
+  .sort{height:50px;border:1px solid #ccc;border-radius:3px;background:#fff;font-weight:bold;padding:0 18px;font-size:20px}
+  .result-card{position:relative;display:flex;padding:12px 4px 48px;margin-bottom:24px;min-height:460px}
+  .result-card.selected{background:#f3f1ed;padding:28px 18px 36px}
+  .select-area{width:84px;flex:none;display:flex;gap:10px;align-items:flex-start;padding-top:5px}
+  .remove{font-size:22px;color:#888;border:0;background:none;padding:0;line-height:24px}
+  .checkbox{width:25px;height:25px;border:2px solid #aaa;border-radius:4px;appearance:none;background:#fff;cursor:pointer;position:relative}
+  .checkbox:checked{background:#00a9b5;border-color:#111}
+  .checkbox:checked:after{content:"✓";color:#fff;position:absolute;left:3px;top:-3px;font-weight:bold;font-size:20px}
+  .article-content{flex:1;min-width:0}
+  .kind{font-size:18px;color:#777;font-weight:bold;margin:5px 0 8px}
+  .article-content h3{font:normal 36px/1.13 Georgia,serif;margin:0 0 38px}
+  .author{font-size:20px;text-decoration:underline;margin:0 0 14px;display:inline-block}
+  .journal{color:#777;font-size:22px;line-height:1.5;margin:0 0 26px}
+  .abstract{font-size:20px;line-height:1.47;margin:0 0 18px}
+  .actions{display:flex;gap:6px;align-items:flex-start}
+  .action-button{min-height:50px;padding:8px 16px;border:1px solid #ccc;border-radius:3px;background:#fff;font-size:20px;font-weight:bold}
+  .action-button.read{background:#920000;color:#fff;border-color:#920000;min-height:88px;width:146px;line-height:1.35}
+  .action-button .ico{font-size:23px;margin-right:8px}
+  .selected-actions{display:flex;gap:16px;margin:-54px 0 34px}
+  .selected-actions button{background:#920000;border:0;color:#fff;padding:12px 22px;font-size:20px;font-weight:bold;border-radius:3px}
+  .selected-actions a{margin-left:auto;align-self:center;font-size:20px}
+  .note{border:1px solid #dbb65e;background:#fffaf2;padding:24px 30px;font-size:22px;line-height:1.55;margin:-4px 0 12px}
+  .detail{padding:70px 36px 50px}
+  .back{font-size:20px;display:inline-block;margin:0 0 36px}
+  .detail .kind{font-weight:normal;margin-bottom:20px}
+  .detail h1{font:normal 48px/1.16 Georgia,serif;margin:0 0 28px}
+  .detail .author{font-weight:bold;text-decoration:none;margin-bottom:32px}
+  .detail-meta{font-size:20px;line-height:1.8}
+  .cover{width:148px;height:224px;object-fit:cover;display:block;margin:0 0 36px}
+  .detail-cta{background:#920000;color:#fff;border:0;font-size:22px;font-weight:bold;padding:20px 32px;text-align:left;line-height:1.5;border-radius:3px;margin-top:28px}
+  .menu-shade{position:fixed;inset:0;background:#0006;z-index:20}
+  .menu-panel{position:fixed;inset:0 auto 0 0;width:408px;background:#050505;color:white;z-index:21;padding:72px 48px}
+  .menu-close{position:absolute;right:18px;top:8px;background:none;color:white;border:0;font-size:40px}
+  .menu-panel img{width:90px;height:128px;object-fit:contain;filter:grayscale(1) brightness(0) invert(1);display:block;margin-bottom:24px}
+  .menu-panel .menu-buttons{display:flex;gap:22px;margin-bottom:44px}
+  .menu-panel button:not(.menu-close){font-size:20px}
+  .menu-panel .red-button{padding:0 20px}
+  .menu-item{font-size:22px;margin:0 0 22px;display:block;text-decoration:none}
+  .menu-divider{border:0;border-top:1px solid #666;margin:40px 0}
+  .advanced{padding:60px 6px 70px}
+  .advanced-title{display:flex;align-items:center;gap:26px;margin-bottom:35px}
+  .advanced-title h1{font:normal 48px Georgia,serif;margin:0}
+  .advanced-title a{font-size:20px}
+  .advanced-tabs{height:60px;border-bottom:1px solid #ccc;display:flex;margin-bottom:42px}
+  .advanced-tabs button{border:0;background:#fff;min-width:168px;font-size:20px}
+  .advanced-tabs .active{border-bottom:3px solid #111;font-weight:bold}
+  .advanced h2{font:normal 36px Georgia,serif;margin:0 0 62px}
+  .row-label{font-size:18px;font-weight:bold;margin:0 0 8px}
+  .query-row{display:grid;grid-template-columns: 1fr 238px;gap:12px;margin-bottom:28px}
+  .query-row input,.query-row select,.access-select{height:62px;border:1px solid #999;border-radius:3px;background:white;padding:0 18px;font-size:22px;width:100%}
+  .query-row input:focus{outline:2px solid #00a9b5}
+  .row-secondary{display:grid;grid-template-columns:132px 1fr 174px 62px;gap:12px;margin-top:30px;align-items:end}
+  .field-label{font-size:18px;font-weight:bold;margin-bottom:8px}
+  .row-secondary input,.row-secondary select{height:62px;width:100%;border:1px solid #999;border-radius:3px;background:#fff;padding:0 18px;font-size:22px}
+  .row-secondary select{appearance:auto}
+  .delete-row{height:62px;border:1px solid #ccc;background:#fff;border-radius:3px;font-size:28px}
+  .add-row{height:50px;padding:0 20px;border:1px solid #ccc;background:#fff;border-radius:3px;font-size:20px;margin-top:24px}
+  .access-block{margin-top:66px}
+  .access-select{margin-top:8px}
+  .submit-advanced{margin-top:48px;background:#920000;color:white;border:0;border-radius:3px;height:50px;padding:0 18px;font-weight:bold;font-size:20px}
+  .narrow{margin-top:72px}
+  .narrow h2{font:normal 36px Georgia,serif;margin:0 0 28px;border-bottom:1px solid #ccc;padding-bottom:20px}
+  .narrow strong{display:block;margin-bottom:10px;font-size:18px}
+  .check-grid{display:grid;grid-template-columns:1fr 1fr;font-size:20px;gap:12px}
+  .check-grid label{display:flex;align-items:center;gap:10px}
+  .check-grid input{width:24px;height:24px}
+  .hidden{display:none!important}
+  @media(max-width:600px){
+    .library-bar{height:72px;font-size:18px}
+    .site-header{height:148px;padding-left:36px;padding-right:36px}
+    .account-actions{gap:22px}
+    .plain-button,.red-button{font-size:20px;padding:0 16px}
+    .workspace{right:36px}
+    .home-hero{padding-top:48px}
+    .home-hero h1{font-size:82px}
+    .result-card{min-height:460px}
+  }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const A="__PLACEHOLDER_ASSETS_BASE_DIR__/";
+const app=document.getElementById("app");
+let page="home", menuOpen=false, selected=false, typed="", suggestionOpen=false, advancedRows=1, advancedValues=["",""], finalSearch=false;
+const resultsMain=[
+ {kind:"JOURNAL ARTICLE",title:'"Together They Might Make Trouble": Cross-Cultural Interactions in Tang Dynasty Guangzhou, 618-907 C.E.',author:"ADAM C. FONG",journal:"Journal of World History, Vol. 25, No. 4, SPECIAL ISSUE IN HONOR OF JERRY H. BENTLEY (December 2014), pp. 475-492",abstract:'..."Together They Might Make Trouble": Cross-Cultural Interactions in Tang Dynasty Guangzhou, 618-907 c.E. ADAM C. FONG University of Northern Colorado Guangzhou, the Tropic of better Cancer known and has in English a subtropical as Canton, climate. lies...'},
+ {kind:"JOURNAL ARTICLE",title:"Vocabularies of Pleasure: Categorizing Female Entertainers in the Late Tang Dynasty",author:"BEVERLY BOSSLER",journal:"Harvard Journal of Asiatic Studies, Vol. 72, No. 1"}
+];
+function header(compact=false){return `<div class="library-bar"><span><i class="library-icon">▣</i><em>Have library access?</em> <a href="#" class="btn" onclick="return false">Log in through your library</a></span></div>
+<header class="site-header"><img class="logo" src="${A}039.svg" width="92" height="126" alt="JSTOR">
+<button class="hamburger btn" aria-label="Open menu" onclick="toggleMenu()"><i></i></button>
+<div class="account-actions"><button class="plain-button btn">Register</button><button class="red-button btn">◎ Log in</button></div>
+<div class="workspace"><b>▮</b> Workspace</div></header>
+${compact?`<div class="compact-search"><div class="search-wrap"><input aria-label="Search" placeholder="Search journals, books, images, and primary sources" value="${finalSearch?'((ab:&quot;tang&quot;) AND (ab:&quot;qin&quot;))':''}"><span class="magnify"></span></div></div>`:""}`;}
+function home(){page="home";app.innerHTML=header()+`<main><section class="home-hero"><h1>Explore the<br>world’s<br>knowledge,<br>cultures, and<br>ideas</h1>
+<div class="search-tabs"><button class="tab active btn">All Content</button><button class="tab btn">Images</button><a class="advanced-link btn" href="#" onclick="showAdvanced();return false">Advanced Search</a></div>
+<div class="home-search ${suggestionOpen?'focused':''}"><input id="homeInput" placeholder="Search journals, books, images, and primary sources" value="${typed}" oninput="onType(this.value)" onkeydown="if(event.key==='Enter')submitSearch()"><span class="magnify btn" onclick="submitSearch()"></span>
+${suggestionOpen?`<div class="suggestions"><div class="suggestion-top" onclick="chooseSuggestion()">ti:("${typed}")<button class="btn" onclick="event.stopPropagation();clearSuggest()">×</button></div>${typed?`<div class="suggestion" onclick="submitSearch()">Just search for: &nbsp;<b>${typed}</b><span style="float:right;color:#777">enter ↵</span></div><div class="suggestion" onclick="chooseSuggestion()">Author or creator: &nbsp;<b>${typed}</b></div><div class="suggestion" onclick="chooseSuggestion()">Title: &nbsp;<b>${typed}</b></div><div class="suggestion" onclick="chooseSuggestion()">Publication name: &nbsp;<b>${typed}</b></div>`:""}</div>`:""}</div></section>
+<div class="home-art"><img src="${A}033.webp" width="1200" height="180" alt="Ghost Ranch landscape"></div>
+<div class="caption"><p>Georgia O’Keeffe, Ghost Ranch Landscape (detail), c. 1936. Part of <u>Georgia O’Keeffe Museum</u>.</p><span class="image-count">Image<br>1 of 5</span><span class="arrows">‹ &nbsp;›</span></div>
+<div class="preview-strip"><img src="${A}011.jpg" width="255" height="126" alt=""><img src="${A}013.jpg" width="255" height="165" alt=""></div></main>`;}
+function onType(v){typed=v;suggestionOpen=true;const pos=document.querySelector(".home-search");pos.classList.add("focused");homeKeepFocus();}
+function homeKeepFocus(){let inp=document.getElementById("homeInput");if(inp){inp.focus();inp.setSelectionRange(inp.value.length,inp.value.length)}}
+function chooseSuggestion(){typed='ti:("'+typed+'")';suggestionOpen=false;home()}
+function clearSuggest(){typed="";suggestionOpen=false;home()}
+function submitSearch(){if(typed.trim()){page="results";selected=false;finalSearch=false;results()}}
+function results(){page="results";app.innerHTML=header(true)+`<main class="result-page"><button class="filter-button btn">Show Search Filters</button>
+${finalSearch?`<div class="result-heading"><h2>2 results</h2><span><a href="#" class="btn" onclick="showAdvanced();return false">Modify search</a> &nbsp; <a href="#" class="btn">Search help</a></span></div><div class="note">Note: Approximately 10% of articles on JSTOR have abstracts. To widen your search remove the abstract filter to search article full-text.</div>`:`${selected?`<div class="selected-actions"><b style="font:normal 48px Georgia,serif">1 selected</b><a class="btn" onclick="selected=false;results()">Clear selections</a><button class="btn">▣ &nbsp;Cite⌄</button><button class="btn">♧ &nbsp;Save</button></div>`:`<div class="result-heading"><h2>5,121 results</h2><a href="#" class="btn">Search help</a></div>`}`}
+<div class="result-toolbar"><button class="sort btn">Sort by: Relevance &nbsp;⌄</button></div>
+${(finalSearch?[{kind:"BOOK CHAPTER",title:"Groups on the Grid: Weiqi Cultures in Song-Yuan-Ming China",author:"ZACH BERGE-BECKER",journal:"From: Games and Play in Chinese and Sinophone Cultures, University of Washington Press (2024)",abstract:"OPEN ACCESS"},{kind:"BOOK CHAPTER",title:"Through the Bronze Mirror, Mind-Monkey Joins the",author:"",journal:""}]:resultsMain).map((r,i)=>card(r,i)).join("")}</main>`;}
+function card(r,i){return `<article class="result-card ${selected&&i===0?'selected':''}"><div class="select-area"><button class="remove btn" onclick="selected=false;results()">⊗</button><input class="checkbox btn" type="checkbox" ${selected&&i===0?'checked':''} onclick="if(${i}===0){selected=this.checked;results()}"></div><div class="article-content"><div class="kind">${r.kind}</div><h3>${r.title}</h3>${r.author?`<a class="author btn">${r.author}</a>`:""}<p class="journal">${r.journal}</p>${r.abstract?`<p class="abstract">${r.abstract}</p>`:""}${finalSearch?`<span style="color:#5c8d45;border:1px solid;padding:4px">OPEN ACCESS</span>`:`<div class="actions"><button class="action-button read btn" onclick="showDetail()">▤ &nbsp;Read<br> online</button><button class="action-button btn" onclick="selected=true;results()">♧ &nbsp;Save</button><button class="action-button btn">▣ &nbsp;Cite</button></div>`}</div></article>`}
+function showDetail(){page="detail";app.innerHTML=header(true)+`<main class="detail"><a class="back btn" href="#" onclick="results();return false">Back to results</a><div class="kind">JOURNAL ARTICLE</div><h1>"Together They Might Make Trouble": Cross-Cultural Interactions in Tang Dynasty Guangzhou, 618-907 C.E.</h1><a class="author btn">ADAM C. FONG</a><div class="detail-meta">Journal of World History<br><u>Vol. 25, No. 4, SPECIAL ISSUE IN HONOR OF JERRY H. BENTLEY</u> (December 2014), pp. 475-492 (18 pages)<br>Published By: University of Hawai'i Press</div><img class="cover" src="${A}041.jpg" width="148" height="224" alt="Journal of World History cover"><p class="detail-meta">https://www.jstor.org/stable/43818461</p><a class="btn">Cite</a><br><button class="detail-cta btn">Read and download<br>Log in through your school or library</button></main>`}
+function showAdvanced(){page="advanced";menuOpen=false;advancedPage()}
+function advancedPage(){app.innerHTML=header()+`<main class="advanced"><div class="advanced-title"><h1>Advanced Search</h1><a class="btn">Search Help</a></div><div class="advanced-tabs"><button class="active btn">All Content</button><button class="btn">Images</button></div><h2>Construct your search query</h2>
+<div class="query-row"><div><div class="row-label">TERM(S)</div><input id="term0" value="${advancedValues[0]||''}" oninput="advancedValues[0]=this.value"></div><div><div class="row-label">FIELD</div><select><option>All fields</option><option>Abstract</option><option>Title</option><option>Author</option></select></div></div>
+${advancedRows>1?`<div class="row-secondary"><div><div class="field-label">BOOLEAN</div><select><option>AND</option><option>OR</option><option>NOT</option></select></div><div><div class="field-label">TERM(S)</div><input id="term1" value="${advancedValues[1]||''}" oninput="advancedValues[1]=this.value"></div><div><div class="field-label">FIELD</div><select><option>All fields</option><option>Abstract</option><option>Title</option><option>Author</option></select></div><button class="delete-row btn" onclick="advancedRows=1;advancedPage()">▤</button></div>`:`<div class="row-secondary"><div><div class="field-label">BOOLEAN</div><select><option>AND</option><option>OR</option><option>NOT</option></select></div><div><div class="field-label">TERM(S)</div><input id="term1" value="${advancedValues[1]||''}" oninput="advancedValues[1]=this.value"></div><div><div class="field-label">FIELD</div><select><option>All fields</option><option>Abstract</option><option>Title</option><option>Author</option></select></div><button class="delete-row btn" onclick="advancedValues[1]=''">▤</button></div>`}
+<button class="add-row btn" onclick="advancedRows++;advancedPage()">＋ Add row</button>
+<div class="access-block"><div class="row-label">SELECT AN ACCESS TYPE</div><select class="access-select"><option>Content I can access</option><option>All content</option></select></div>
+<button class="submit-advanced btn" onclick="advancedSubmit()">Submit Advanced Search</button>
+<section class="narrow"><h2>Narrow Results</h2><strong>ITEM TYPE</strong><div class="check-grid"><label><input type="checkbox">Articles</label><label><input type="checkbox">Research Reports</label><label><input type="checkbox">Reviews</label><label><input type="checkbox">Miscellaneous</label></div></section></main>`}
+function advancedSubmit(){finalSearch=true;page="results";results()}
+function toggleMenu(){menuOpen=!menuOpen;drawMenu()}
+function drawMenu(){let old=document.querySelector(".menu-shade");if(old)old.remove();old=document.querySelector(".menu-panel");if(old)old.remove();if(menuOpen){document.body.insertAdjacentHTML("beforeend",`<div class="menu-shade" onclick="toggleMenu()"></div><nav class="menu-panel"><button class="menu-close btn" onclick="toggleMenu()">‹</button><img src="${A}039.svg" width="90" height="128" alt="JSTOR"><div class="menu-buttons"><button class="red-button btn">◎ Log in</button><button class="plain-button btn">Register</button></div><a class="menu-item btn" href="#" onclick="return false">Workspace</a><a class="menu-item btn" href="#" onclick="showAdvanced();return false">Advanced Search</a><a class="menu-item btn">Browse　⌄</a><hr class="menu-divider"><a class="menu-item btn">Support　⌄</a></nav>`)}}
+home();
+</script>
+</body>
+</html>
+```

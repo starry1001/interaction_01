@@ -1,0 +1,725 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2048 Game Replica</title>
+    <style>
+        :root {
+            --bg-color: #faf8ef;
+            --grid-bg: #bbada0;
+            --empty-cell: #cdc1b4;
+            --text-dark: #776e65;
+            --text-light: #f9f6f2;
+            
+            /* Tile Colors */
+            --tile-2: #eee4da;
+            --tile-4: #ede0c8;
+            --tile-8: #f2b179;
+            --tile-16: #f59563;
+            --tile-32: #f67c5f;
+            --tile-64: #f65e3b;
+            --tile-128: #edcf72;
+            --tile-256: #edcc61;
+            --tile-512: #edc850;
+            --tile-1024: #edc53f;
+            --tile-2048: #edc22e;
+
+            --font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            font-family: var(--font-family);
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header Section */
+        header {
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .theme-switcher {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .theme-btn {
+            padding: 5px 15px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .theme-btn.active {
+            background-color: #edc22e;
+            color: white;
+        }
+
+        .theme-btn:not(.active) {
+            background-color: transparent;
+            color: var(--text-dark);
+        }
+
+        h1 {
+            font-size: 60px;
+            font-weight: 700;
+            margin: 0;
+            line-height: 1;
+        }
+
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 20px;
+        }
+
+        .scores-container {
+            display: flex;
+            gap: 5px;
+        }
+
+        .score-box {
+            background-color: #bbada0;
+            padding: 5px 15px;
+            border-radius: 3px;
+            text-align: center;
+            min-width: 70px;
+            position: relative;
+        }
+
+        .score-label {
+            color: #eee4da;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+            display: block;
+        }
+
+        .score-value {
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .new-game-btn {
+            background-color: #8f7a66;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .new-game-btn:hover {
+            background-color: #7f6a56;
+        }
+
+        /* Game Board */
+        .game-container {
+            position: relative;
+            background-color: var(--grid-bg);
+            width: 500px;
+            height: 500px;
+            border-radius: 6px;
+            padding: 15px;
+            touch-action: none; /* Prevent scrolling while swiping */
+        }
+
+        .grid-background {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            gap: 15px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .grid-cell {
+            background-color: var(--empty-cell);
+            border-radius: 3px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .tile-container {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            z-index: 10;
+        }
+
+        .tile {
+            position: absolute;
+            width: calc((100% - (3 * 15px)) / 4);
+            height: calc((100% - (3 * 15px)) / 4);
+            border-radius: 3px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            transition: transform 0.15s ease-in-out, background-color 0.15s;
+            animation: appear 0.2s ease-in-out;
+        }
+
+        @keyframes appear {
+            0% { opacity: 0; transform: scale(0); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes pop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .tile.merged {
+            animation: pop 0.2s ease-in-out;
+        }
+
+        /* Tile Styles based on value */
+        .tile[data-val="2"] { background-color: var(--tile-2); color: var(--text-dark); font-size: 55px; }
+        .tile[data-val="4"] { background-color: var(--tile-4); color: var(--text-dark); font-size: 55px; }
+        .tile[data-val="8"] { background-color: var(--tile-8); color: var(--text-light); font-size: 50px; }
+        .tile[data-val="16"] { background-color: var(--tile-16); color: var(--text-light); font-size: 45px; }
+        .tile[data-val="32"] { background-color: var(--tile-32); color: var(--text-light); font-size: 45px; }
+        .tile[data-val="64"] { background-color: var(--tile-64); color: var(--text-light); font-size: 45px; }
+        .tile[data-val="128"] { background-color: var(--tile-128); color: var(--text-light); font-size: 40px; box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.2381), inset 0 0 0 1px rgba(255, 255, 255, 0.14286); }
+        .tile[data-val="256"] { background-color: var(--tile-256); color: var(--text-light); font-size: 40px; box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.31746), inset 0 0 0 1px rgba(255, 255, 255, 0.14286); }
+        .tile[data-val="512"] { background-color: var(--tile-512); color: var(--text-light); font-size: 40px; box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.39683), inset 0 0 0 1px rgba(255, 255, 255, 0.14286); }
+        .tile[data-val="1024"] { background-color: var(--tile-1024); color: var(--text-light); font-size: 35px; box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.47619), inset 0 0 0 1px rgba(255, 255, 255, 0.14286); }
+        .tile[data-val="2048"] { background-color: var(--tile-2048); color: var(--text-light); font-size: 35px; box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.55556), inset 0 0 0 1px rgba(255, 255, 255, 0.14286); }
+
+        /* Score Popup Animation */
+        .score-popup {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(238, 228, 218, 0.8);
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-weight: bold;
+            color: #776e65;
+            z-index: 100;
+            animation: floatUp 0.8s ease-out forwards;
+            pointer-events: none;
+        }
+
+        @keyframes floatUp {
+            0% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-30px); }
+        }
+
+        /* Ad Banner */
+        .ad-banner {
+            margin-top: 40px;
+            width: 300px;
+            height: auto;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .ad-banner img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+
+        /* Instructions */
+        .instructions {
+            background-color: #f9ebd6;
+            width: 100%;
+            padding: 30px 0;
+            text-align: center;
+            font-size: 16px;
+            line-height: 1.5;
+            margin-top: 40px;
+        }
+
+        /* Footer Games */
+        .other-games {
+            margin-top: 20px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .other-games h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .games-grid {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .game-card {
+            width: 150px;
+            height: 100px;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .game-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .game-container {
+                width: 300px;
+                height: 300px;
+                padding: 10px;
+            }
+            
+            .grid-background {
+                gap: 10px;
+            }
+            
+            .tile {
+                width: calc((100% - (3 * 10px)) / 4);
+                height: calc((100% - (3 * 10px)) / 4);
+                font-size: 30px;
+            }
+            
+            .tile[data-val="2"], .tile[data-val="4"] { font-size: 35px; }
+            .tile[data-val="8"], .tile[data-val="16"], .tile[data-val="32"], .tile[data-val="64"] { font-size: 30px; }
+            .tile[data-val="128"], .tile[data-val="256"], .tile[data-val="512"] { font-size: 25px; }
+            .tile[data-val="1024"], .tile[data-val="2048"] { font-size: 20px; }
+            
+            h1 { font-size: 40px; }
+            
+            .game-header { max-width: 300px; }
+            
+            .ad-banner { width: 250px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="theme-switcher">
+            <button class="theme-btn active btn" id="classic-theme">Classic</button>
+            <button class="theme-btn btn" id="cupcakes-theme">Cupcakes</button>
+        </div>
+        <h1>2048 Game</h1>
+    </header>
+
+    <div class="game-header">
+        <div class="scores-container">
+            <div class="score-box">
+                <span class="score-label">Score</span>
+                <span class="score-value" id="current-score">0</span>
+            </div>
+            <div class="score-box">
+                <span class="score-label">Best</span>
+                <span class="score-value" id="best-score">0</span>
+            </div>
+        </div>
+        <button class="new-game-btn btn" id="new-game-btn">New game</button>
+    </div>
+
+    <div class="game-container" id="game-container">
+        <div class="grid-background">
+            <!-- 16 grid cells -->
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+            <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+        </div>
+        <div class="tile-container" id="tile-container">
+            <!-- Tiles will be added here by JavaScript -->
+        </div>
+    </div>
+
+    <div class="ad-banner">
+        <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/015.png" alt="Advertisement banner" width="300" height="200">
+    </div>
+
+    <div class="instructions">
+        <p>Use your arrow keys (also W, A, S, and D keys alternatively) or swipe with your fingers to move the tiles. For example, if you joined 2 tiles with the number 2, they will become 4, 2 tiles with 4 will become 8, and so on. The point of the game is to get the 2048 tile!</p>
+    </div>
+
+    <div class="other-games">
+        <h2>Play Other Games</h2>
+        <div class="games-grid">
+            <div class="game-card btn">
+                <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/004.png" alt="Tetris-like game" width="150" height="100">
+            </div>
+            <div class="game-card btn">
+                <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/007.png" alt="Number puzzle game" width="150" height="100">
+            </div>
+            <div class="game-card btn">
+                <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/008.png" alt="Math game" width="150" height="100">
+            </div>
+            <div class="game-card btn">
+                <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/009.png" alt="Card game" width="150" height="100">
+            </div>
+            <div class="game-card btn">
+                <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/010.png" alt="Watermelon game" width="150" height="100">
+            </div>
+            <div class="game-card btn">
+                <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/011.png" alt="Snake game" width="150" height="100">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Game State
+        const gridSize = 4;
+        let board = [];
+        let score = 0;
+        let bestScore = localStorage.getItem('2048-best') || 0;
+        let gameOver = false;
+
+        // DOM Elements
+        const tileContainer = document.getElementById('tile-container');
+        const currentScoreEl = document.getElementById('current-score');
+        const bestScoreEl = document.getElementById('best-score');
+        const newGameBtn = document.getElementById('new-game-btn');
+        const classicThemeBtn = document.getElementById('classic-theme');
+        const cupcakesThemeBtn = document.getElementById('cupcakes-theme');
+        const gameContainer = document.getElementById('game-container');
+
+        // Initialize Game
+        function initGame() {
+            board = Array(gridSize).fill(null).map(() => Array(gridSize).fill(0));
+            score = 0;
+            gameOver = false;
+            updateScoreDisplay();
+            renderBoard();
+            
+            // Add two initial tiles
+            addRandomTile();
+            addRandomTile();
+        }
+
+        // Add a random tile (2 or 4) to an empty cell
+        function addRandomTile() {
+            const emptyCells = [];
+            for (let r = 0; r < gridSize; r++) {
+                for (let c = 0; c < gridSize; c++) {
+                    if (board[r][c] === 0) {
+                        emptyCells.push({r, c});
+                    }
+                }
+            }
+            
+            if (emptyCells.length > 0) {
+                const randomCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+                board[randomCell.r][randomCell.c] = Math.random() < 0.9 ? 2 : 4;
+                renderBoard();
+            }
+        }
+
+        // Render the board
+        function renderBoard() {
+            tileContainer.innerHTML = '';
+            
+            for (let r = 0; r < gridSize; r++) {
+                for (let c = 0; c < gridSize; c++) {
+                    if (board[r][c] !== 0) {
+                        const tile = document.createElement('div');
+                        tile.className = 'tile';
+                        tile.textContent = board[r][c];
+                        tile.setAttribute('data-val', board[r][c]);
+                        
+                        // Calculate position
+                        const gap = 15; // Gap between cells in px
+                        const containerWidth = gameContainer.offsetWidth - 30; // Total width minus padding
+                        const cellSize = (containerWidth - (3 * gap)) / 4;
+                        
+                        tile.style.width = `${cellSize}px`;
+                        tile.style.height = `${cellSize}px`;
+                        tile.style.transform = `translate(${c * (cellSize + gap)}px, ${r * (cellSize + gap)}px)`;
+                        
+                        tileContainer.appendChild(tile);
+                    }
+                }
+            }
+        }
+
+        // Update score display
+        function updateScoreDisplay() {
+            currentScoreEl.textContent = score;
+            if (score > bestScore) {
+                bestScore = score;
+                localStorage.setItem('2048-best', bestScore);
+            }
+            bestScoreEl.textContent = bestScore;
+        }
+
+        // Show score popup
+        function showScorePopup(points) {
+            const popup = document.createElement('div');
+            popup.className = 'score-popup';
+            popup.textContent = `+${points}`;
+            gameContainer.appendChild(popup);
+            
+            setTimeout(() => {
+                popup.remove();
+            }, 800);
+        }
+
+        // Move tiles in a specific direction
+        function move(direction) {
+            if (gameOver) return;
+            
+            let moved = false;
+            let pointsGained = 0;
+            
+            // Create a copy of the board
+            const newBoard = board.map(row => [...row]);
+            
+            if (direction === 'left' || direction === 'right') {
+                for (let r = 0; r < gridSize; r++) {
+                    const row = newBoard[r].filter(val => val !== 0);
+                    
+                    if (direction === 'left') {
+                        for (let i = 0; i < row.length - 1; i++) {
+                            if (row[i] === row[i + 1]) {
+                                row[i] *= 2;
+                                pointsGained += row[i];
+                                row.splice(i + 1, 1);
+                            }
+                        }
+                    } else {
+                        for (let i = row.length - 1; i > 0; i--) {
+                            if (row[i] === row[i - 1]) {
+                                row[i] *= 2;
+                                pointsGained += row[i];
+                                row.splice(i - 1, 1);
+                            }
+                        }
+                    }
+                    
+                    // Pad with zeros
+                    while (row.length < gridSize) {
+                        if (direction === 'left') row.push(0);
+                        else row.unshift(0);
+                    }
+                    
+                    newBoard[r] = row;
+                }
+            } else {
+                for (let c = 0; c < gridSize; c++) {
+                    const col = [];
+                    for (let r = 0; r < gridSize; r++) {
+                        if (newBoard[r][c] !== 0) col.push(newBoard[r][c]);
+                    }
+                    
+                    if (direction === 'up') {
+                        for (let i = 0; i < col.length - 1; i++) {
+                            if (col[i] === col[i + 1]) {
+                                col[i] *= 2;
+                                pointsGained += col[i];
+                                col.splice(i + 1, 1);
+                            }
+                        }
+                    } else {
+                        for (let i = col.length - 1; i > 0; i--) {
+                            if (col[i] === col[i - 1]) {
+                                col[i] *= 2;
+                                pointsGained += col[i];
+                                col.splice(i - 1, 1);
+                            }
+                        }
+                    }
+                    
+                    // Pad with zeros
+                    while (col.length < gridSize) {
+                        if (direction === 'up') col.push(0);
+                        else col.unshift(0);
+                    }
+                    
+                    for (let r = 0; r < gridSize; r++) {
+                        newBoard[r][c] = col[r];
+                    }
+                }
+            }
+            
+            // Check if board changed
+            for (let r = 0; r < gridSize; r++) {
+                for (let c = 0; c < gridSize; c++) {
+                    if (board[r][c] !== newBoard[r][c]) {
+                        moved = true;
+                        break;
+                    }
+                }
+            }
+            
+            if (moved) {
+                board = newBoard;
+                score += pointsGained;
+                updateScoreDisplay();
+                
+                if (pointsGained > 0) {
+                    showScorePopup(pointsGained);
+                }
+                
+                renderBoard();
+                addRandomTile();
+                checkGameOver();
+            }
+        }
+
+        // Check if game is over
+        function checkGameOver() {
+            // Check for empty cells
+            for (let r = 0; r < gridSize; r++) {
+                for (let c = 0; c < gridSize; c++) {
+                    if (board[r][c] === 0) return;
+                }
+            }
+            
+            // Check for possible merges
+            for (let r = 0; r < gridSize; r++) {
+                for (let c = 0; c < gridSize; c++) {
+                    if (c < gridSize - 1 && board[r][c] === board[r][c + 1]) return;
+                    if (r < gridSize - 1 && board[r][c] === board[r + 1][c]) return;
+                }
+            }
+            
+            gameOver = true;
+            setTimeout(() => alert('Game Over!'), 100);
+        }
+
+        // Event Listeners
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'ArrowUp':
+                case 'w':
+                case 'W':
+                    e.preventDefault();
+                    move('up');
+                    break;
+                case 'ArrowDown':
+                case 's':
+                case 'S':
+                    e.preventDefault();
+                    move('down');
+                    break;
+                case 'ArrowLeft':
+                case 'a':
+                case 'A':
+                    e.preventDefault();
+                    move('left');
+                    break;
+                case 'ArrowRight':
+                case 'd':
+                case 'D':
+                    e.preventDefault();
+                    move('right');
+                    break;
+            }
+        });
+
+        newGameBtn.addEventListener('click', initGame);
+
+        // Touch/Swipe support
+        let touchStartX = 0;
+        let touchStartY = 0;
+        
+        gameContainer.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        }, {passive: false});
+
+        gameContainer.addEventListener('touchend', (e) => {
+            if (!touchStartX || !touchStartY) return;
+            
+            const touchEndX = e.changedTouches[0].clientX;
+            const touchEndY = e.changedTouches[0].clientY;
+            
+            const diffX = touchEndX - touchStartX;
+            const diffY = touchEndY - touchStartY;
+            
+            if (Math.abs(diffX) > Math.abs(diffY)) {
+                if (Math.abs(diffX) > 30) {
+                    if (diffX > 0) move('right');
+                    else move('left');
+                }
+            } else {
+                if (Math.abs(diffY) > 30) {
+                    if (diffY > 0) move('down');
+                    else move('up');
+                }
+            }
+            
+            touchStartX = 0;
+            touchStartY = 0;
+        }, {passive: false});
+
+        // Theme switching (mock functionality)
+        classicThemeBtn.addEventListener('click', () => {
+            classicThemeBtn.classList.add('active');
+            cupcakesThemeBtn.classList.remove('active');
+            // In a real implementation, this would change CSS variables
+        });
+
+        cupcakesThemeBtn.addEventListener('click', () => {
+            cupcakesThemeBtn.classList.add('active');
+            classicThemeBtn.classList.remove('active');
+            // In a real implementation, this would change CSS variables
+        });
+
+        // Other games cards click handlers
+        document.querySelectorAll('.game-card').forEach(card => {
+            card.addEventListener('click', () => {
+                alert('This feature would redirect to another game.');
+            });
+        });
+
+        // Initialize the game on load
+        window.addEventListener('load', () => {
+            bestScoreEl.textContent = bestScore;
+            initGame();
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            renderBoard();
+        });
+    </script>
+</body>
+</html>
+```

@@ -1,0 +1,84 @@
+{
+  "total_step": 6,
+  "success_step": 5,
+  "screenshot_paths_to_eval": [
+    "outputs/29/gpt-6-luna_setting1/evalpoints/0.png",
+    "outputs/29/gpt-6-luna_setting1/evalpoints/2.png",
+    "outputs/29/gpt-6-luna_setting1/evalpoints/4.png"
+  ],
+  "all_mllm_scores": [
+    0.93,
+    0.84,
+    0.87
+  ],
+  "all_dino_scores": [
+    0.9423828125,
+    0.94677734375,
+    0.9541015625
+  ],
+  "all_ocr_scores": [
+    0.7951388888888888,
+    0.7146401985111663,
+    0.7657213316892725
+  ],
+  "all_avg_scores": [
+    0.889173900462963,
+    0.8338058474203888,
+    0.8632742980630909
+  ],
+  "mllm_score": 0.88,
+  "dino_score": 0.94775390625,
+  "ocr_score": 0.7585001396964426,
+  "avg_score": 0.8620846819821475,
+  "all_mllm_res": [
+    "Comments:\n- **Layout (8/10):** The overall structure closely matches the reference: promotional banner, navigation, headline, plan controls, and four-column pricing cards are all correctly arranged. However, the generated page is shifted downward by roughly 55–65 pixels from the headline onward, causing less of the pricing-card content to be visible.\n- **Elements (14/15):** Nearly all major elements are present and accurately positioned, including the announcement bar, close icon, logo, navigation links, sign-in button, toggle controls, billing selectors, pricing cards, buttons, and feature lists. Minor spacing and sizing differences are visible.\n- **Content and Text (39/40):** Text content is essentially identical, including the headline, navigation labels, plan names, descriptions, pricing, billing language, and CTA buttons. The visible feature lists are partially cut off in the generated screenshot due to the vertical offset rather than missing content.\n- **Style (14/15):** Typography, navy/blue color palette, borders, rounded corners, buttons, radio controls, and overall visual treatment closely match the reference. There are slight differences in logo rendering, font sizing/weight, and spacing.\n- **Overall (18/20):** This is a highly accurate reproduction with strong visual and textual similarity. The primary discrepancy is the vertical positioning, which makes the generated viewport show less of the lower card content.\n\n**Score: 93/100**",
+    "Comments:\n- **Layout (9/10 points):** The overall structure closely matches: promotional banner, navigation header, large two-line hero heading, plan-type toggle, billing controls, currency selector, and four pricing cards are all positioned similarly. Minor differences in vertical spacing and the visible amount of card content are present.\n- **Elements (14/15 points):** Nearly all key elements are reproduced, including the 1Password logo/navigation, sign-in button, tabs, radio buttons, currency dropdown, info icon, pricing cards, and CTA buttons. The generated version appears to have slightly different control states and some small icon/details variations.\n- **Content and Text (30/40 points):** Headline, navigation labels, plan names, descriptions, and CTA text are highly accurate. However, the billing selection differs: the generated page shows **Annually** selected while the reference shows **Monthly** selected. Consequently, all displayed prices and billing descriptions differ, and the lower feature-list content is less visible in the generated screenshot.\n- **Style (14/15 points):** Typography, dark navy color palette, blue accents, card borders, rounded controls, spacing, and clean white layout are very close to the reference. Some sizing and alignment details vary slightly.\n- **Overall (17/20 points):** This is a strong visual match with the same page identity and layout. The primary discrepancy is the billing mode and resulting pricing/content differences, along with modest viewport/spacing variation.\n\n**Score: 84/100**",
+    "Comments:\n- **Layout (10 points): 8/10** — The overall structure, alignment, and four-column pricing layout closely match. The generated page is shifted downward by roughly 55–65 pixels, causing less of the pricing cards to be visible.\n- **Elements (15 points): 14/15** — Navigation, promotional banner, plan selector, billing controls, currency dropdown, pricing cards, and buttons are all present and positioned similarly. Minor differences include the currency flag/value and slightly different logo rendering.\n- **Content and Text (40 points): 34/40** — Headings, navigation labels, plan names, descriptions, prices, and CTA text are highly consistent. The main discrepancy is that the generated version uses USD pricing while the reference uses CAD pricing. Lower card feature lists are also mostly cut off due to the vertical offset.\n- **Style (15 points): 14/15** — Typography, colors, borders, spacing, button styling, and overall visual treatment are very similar. There are subtle differences in font weight, logo appearance, and vertical spacing.\n- **Overall (20 points): 17/20** — This is a strong visual match with the same page identity and nearly identical components. The main issues are the vertical positioning and currency/content differences.\n\n**Score: 87/100**"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "Ready for a new password manager? We'Il credit You for the time left on your current bill: Let's talk IPassword Why IPassword Products Resources Pricing Sign in Choose your IPassword Password Manager Plan Extended Access Management Password Manager Annually Monthly USD Individual Families Teams Starter Pack Business Take control of your online Peace of mind for your entire Secure your small team: Security that adapts t0 your security: family: business S2.99 USD S4.99 USD S19.95 USD S7.99 USD Per month: Paid annually: Per month: Paid annually: Up to I0 users/month: Paid annually: Per user, per month: Paid annually: Try FREE for 14 days Try FREE for 14 days Try FREE for 14 days Try FREE for 14 days",
+      "screenshot_text": "Ready for new password manager? We'Il credit you for the time left on your current bill: Let's talk 1Password Why 1Password Products Resources Pricing Sign in Choose your 1Password Password Manager Plan Extended Access Management Password Manager Annually Monthly USD Individual Families Teams Starter Pack Business Take control of your online Peace of mind for your entire Secure your small team: Security that adapts t0 your security: family: business $2.99 USD $4.99 USD S19.95_ USD $7.99usD Per month. Paid annually: Per month. Paid annually: Up to 10 userslmonth. Paid annually: Per user; per month: Paid annually: Try FREE for 14 days Try FREE for 14 days Try FREE for 14 days Try FREE for 14 days Unlimited passwords Up to 5 family members Business-class security Advanced protection Secure sharing Share securely with family Admin controls Priority support",
+      "similarity": 0.7951388888888888
+    },
+    {
+      "checkpoint_text": "Ready for a new password manager? We'Il credit You for the time left on your current bill: Let's talk IPassword Why IPassword Products Resources Pricing Sign in Choose your IPassword Password Manager Plan Extended Access Management Password Manager Annually Monthly USD Individual Families Teams Starter Pack Business Take control of your online Peace of mind for your entire Secure your small team: Security that adapts t0 your security: family: business S2.99 USD S4.99 USD S19.95 USD S7.99 USD Per month: Paid annually: Per month: Paid annually: Up to I0 users/month: Paid annually: Per user, per month: Paid annually: Try FREE for 14 days Try FREE for 14 days Try FREE for 14 days Try FREE for 14 days",
+      "screenshot_text": "Ready for new password manager? We'Il credit you for the time left on your current bill: Let's talk 1Password Why 1Password Products Resources Pricing Sign in Choose your 1Password Password Manager Plan Extended Access Management Password Manager Annually Monthly USD Individual Families Teams Starter Pack Business Take control of your online Peace of mind for your entire Secure your small team Security that adapts t0 your security: family: business $3.99usD $6.95 USD S24.95. USD $9.99usD Per month: Per month: Up to 10 users per month: Per user; per month: Try FREE for 14 days Try FREE for 14 days Try FREE for 14 days Try FREE for 14 days Unlimited passwords Up to 5 family members Business-class security Advanced protection Secure sharing Share securely with family Admin controls Priority support",
+      "similarity": 0.7146401985111663
+    },
+    {
+      "checkpoint_text": "Ready for a new password manager? We\"Il credit you for the time left on your current bill: Let's talk IPassword Why IPassword Products Resources Pricing Sign in Choose your IPassword Password Manager Plan Extended Access Management Password Manager Annually Monthly USD Individual Families Teams Starter Pack Business Take control of your online Peace of mind for your entire Secure your small team: Security that adapts t0 your security: family: business S3.99 USD S6.95 USD S24.95_ USD S9.99 USD Per month: Per month: Up to I0 users per month: Per user, per month: Try FREE for 14 days Try FREE for 14 days Try FREE for 14 days Try FREE for 14 days",
+      "screenshot_text": "Ready for new password manager? We'Il credit you for the time left on your current bill: Let's talk 1Password Why 1Password Products Resources Pricing Sign in Choose your 1Password Password Manager Plan Extended Access Management Password Manager Annually Monthly CAD Individual Families Teams Starter Pack Business Take control of your online Peace of mind for your entire Secure your small team Security that adapts t0 your security: family: business $4.99_ CAD $7.95_ CAD $29.95_ CAD S11.99 CAD Per month: Per month: Up to 10 users per month: Per user; per month: Try FREE for 14 days Try FREE for 14 days Try FREE for 14 days Try FREE for 14 days Unlimited passwords Up to 5 family members Business-class security Advanced protection Secure sharing Share securely with family Admin controls Priority support",
+      "similarity": 0.7657213316892725
+    }
+  ],
+  "assertion_results": [
+    null,
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/29/gpt-6-luna_setting1/evalpoints/1.png",
+      "curr_img_path": "outputs/29/gpt-6-luna_setting1/evalpoints/2.png",
+      "response": "{\n  \"think\": \"Image 2 shows the current page with Monthly selected. The displayed prices are $3.99 for Individual, $6.95 for Families, $24.95 for Teams Starter Pack, and $9.99 for Business, matching the assertion exactly.\",\n  \"result\": \"Yes\"\n}",
+      "assertion": "The price of the current page becomes: $3.99、$6.95、$24.95、$9.99.",
+      "thinking": "Image 2 shows the current page with Monthly selected. The displayed prices are $3.99 for Individual, $6.95 for Families, $24.95 for Teams Starter Pack, and $9.99 for Business, matching the assertion exactly."
+    },
+    null,
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/29/gpt-6-luna_setting1/evalpoints/3.png",
+      "curr_img_path": "outputs/29/gpt-6-luna_setting1/evalpoints/4.png",
+      "response": "{\n  \"think\": \"Image 2 shows the currency set to CAD and the four plan prices are $4.99 CAD, $7.95 CAD, $29.95 CAD, and $11.99 CAD, matching the assertion exactly.\",\n  \"result\": \"Yes\"\n}",
+      "assertion": "The price of the current page becomes: $4.99CAD、$7.95CAD、$29.95CAD、$11.99CAD.",
+      "thinking": "Image 2 shows the currency set to CAD and the four plan prices are $4.99 CAD, $7.95 CAD, $29.95 CAD, and $11.99 CAD, matching the assertion exactly."
+    },
+    null,
+    {
+      "result": "No",
+      "prev_img_path": "outputs/29/gpt-6-luna_setting1/evalpoints/5.png",
+      "curr_img_path": "outputs/29/gpt-6-luna_setting1/evalpoints/6.png",
+      "response": "{\n  \"think\": \"The current screenshot still shows CAD selected, with prices of $4.99, $7.95, $29.95, and $11.99. The currency has not changed to EUR, so the asserted prices are not displayed.\",\n  \"result\": \"No\"\n}",
+      "assertion": "The price of the current page becomes: €3.39、€5.95、€20.95、€8.99.",
+      "thinking": "The current screenshot still shows CAD selected, with prices of $4.99, $7.95, $29.95, and $11.99. The currency has not changed to EUR, so the asserted prices are not displayed."
+    }
+  ]
+}

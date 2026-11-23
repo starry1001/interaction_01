@@ -1,0 +1,295 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>StackEdit</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{width:100%;height:100%;margin:0;overflow:hidden}
+  body{font-family:Arial,Helvetica,sans-serif;color:#333;background:#fff}
+  button{font:inherit}
+  .toolbar{height:46px;background:#292929;color:#d8d8d8;display:flex;align-items:center;padding:0 9px;position:absolute;top:0;left:0;right:0;z-index:10}
+  .toolgroup{display:flex;align-items:center;height:100%;gap:2px}
+  .btn{border:0;background:transparent;color:inherit;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+  .tool{width:32px;height:36px;border-radius:3px;color:#d5d5d5;font-size:17px;font-weight:bold}
+  .tool:hover,.tool.active{background:#444}
+  .tool img{width:17px;height:17px;object-fit:contain;filter:invert(1);opacity:.72}
+  .tool.folder img{width:25px;height:23px}
+  .separator{height:20px;width:1px;background:#3d3d3d;margin:0 3px}
+  .top-right{margin-left:auto;height:100%;display:flex;align-items:center;gap:14px}
+  .filename{font-size:20px;color:#c7c7c7;background:transparent;border:0;outline:0;width:143px;text-align:center;cursor:pointer}
+  .small-tool{width:30px;height:34px;color:#aaa;font-size:19px}
+  .badge{width:29px;height:32px;background:#eee;color:#555;border:2px solid #c2b54a;border-radius:7px;font-weight:bold;font-size:16px}
+  .workspace{position:absolute;top:46px;bottom:21px;left:0;right:0;display:flex}
+  .pane{height:100%;overflow-y:auto;position:relative;scrollbar-color:#bcbcbc transparent;scrollbar-width:thin}
+  .editor-pane{width:49.5%;background:#fff}
+  .preview-pane{width:50.5%;background:#f5f5f5}
+  .divider{height:100%;width:7px;background:#dedede;cursor:col-resize;z-index:3;flex:none;position:relative}
+  .divider:after{content:"";position:absolute;top:0;bottom:0;left:2px;width:3px;background:#bdbdbd;border-radius:3px}
+  .editor-content{padding:8px 10.9% 40px 10.9%;font-size:18px;line-height:31px;min-height:100%;outline:none;white-space:normal;overflow-wrap:anywhere}
+  .line{min-height:31px;position:relative;white-space:pre-wrap;word-break:normal}
+  .line.blank{height:47px;min-height:47px}
+  .line.h1,.line.h2{font-size:36px;line-height:47px;font-weight:700;min-height:47px;white-space:normal}
+  .line.h1:first-child{margin-bottom:27px}
+  .line.h1:not(:first-child){margin-top:48px;margin-bottom:27px}
+  .line.h2{font-size:28px;line-height:39px;min-height:39px;margin-top:27px;margin-bottom:26px}
+  .line.h1 .hash,.line.h2 .hash,.syntax{color:#aaa;font-weight:400}
+  .line.h1 .heading-text,.line.h2 .heading-text{font-weight:700}
+  .line p{margin:0}
+  .line.paragraph{margin-bottom:0}
+  .line.para-gap{margin-bottom:0}
+  .preview-content{max-width:980px;margin:8px auto 60px;padding:0 0 30px;font-size:18px;line-height:31px;color:#3d3d3d}
+  .preview-content h1{font-size:36px;line-height:44px;margin:0 0 48px;padding:0 0 18px;border-bottom:1px solid #d4d4d4;color:#383838}
+  .preview-content h2{font-size:28px;line-height:36px;margin:48px 0 34px;padding:0 0 8px;border-bottom:1px solid #d4d4d4;color:#383838}
+  .preview-content p{margin:0 0 67px}
+  .preview-content h1+p{margin-top:0}
+  .preview-content h1:not(:first-child){margin-top:0}
+  .preview-content h3{font-size:24px;line-height:32px;margin:35px 0 28px}
+  .preview-content strong{font-weight:700}
+  .preview-content em{font-style:italic}
+  .preview-content del{text-decoration:line-through}
+  .preview-content ul,.preview-content ol{padding-left:40px}
+  .preview-content hr{border:0;border-top:1px solid #ccc;margin:28px 0}
+  .pane-controls{position:fixed;left:calc(49.5% - 1px);top:calc(100% - 105px);width:18px;z-index:5;display:flex;flex-direction:column;gap:0;color:#999}
+  .pane-controls button{width:18px;height:22px;color:#999;font-size:17px;padding:0}
+  .status{height:21px;position:absolute;bottom:0;left:0;right:0;background:#1689c4;color:#fff;font-size:12px;display:flex;align-items:center;padding:0 9px;z-index:10;white-space:nowrap}
+  .status-left{overflow:hidden}
+  .status-right{margin-left:auto}
+  .toast{position:absolute;right:12px;bottom:26px;background:#111;color:#fff;padding:11px 16px;border-radius:4px;font-size:14px;display:none;z-index:20}
+  @media(max-width:900px){
+    .editor-content{padding-left:5%;padding-right:5%}
+    .preview-content{padding-left:25px;padding-right:25px}
+    .filename{width:105px}
+    .tool{width:27px}
+  }
+</style>
+</head>
+<body>
+<header class="toolbar">
+  <div class="toolgroup">
+    <button class="btn tool folder" title="File explorer" aria-label="File explorer"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/022.svg" width="25" height="23" alt=""></button>
+    <button class="btn tool" title="Undo" aria-label="Undo">↶</button>
+    <button class="btn tool" title="Redo" aria-label="Redo">↷</button>
+    <span class="separator"></span>
+    <button class="btn tool" data-action="bold" title="Bold"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/002.svg" width="17" height="17" alt=""></button>
+    <button class="btn tool" data-action="italic" title="Italic"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/003.svg" width="17" height="17" alt=""></button>
+    <button class="btn tool" data-action="heading" title="Heading"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/004.svg" width="17" height="17" alt=""></button>
+    <button class="btn tool" data-action="strike" title="Strikethrough"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/005.svg" width="17" height="17" alt=""></button>
+    <span class="separator"></span>
+    <button class="btn tool" data-action="ul" title="Bulleted list"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/006.svg" width="17" height="17" alt=""></button>
+    <button class="btn tool" data-action="ol" title="Numbered list"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/007.svg" width="17" height="17" alt=""></button>
+    <button class="btn tool" data-action="check" title="Checklist"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/008.svg" width="17" height="17" alt=""></button>
+    <span class="separator"></span>
+    <button class="btn tool" data-action="quote" title="Quote"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/009.svg" width="17" height="17" alt=""></button>
+    <button class="btn tool" data-action="code" title="Code"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/010.svg" width="17" height="17" alt=""></button>
+    <button class="btn tool" data-action="table" title="Table"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/012.svg" width="17" height="17" alt=""></button>
+    <button class="btn tool" data-action="link" title="Link"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/013.svg" width="17" height="17" alt=""></button>
+    <button class="btn tool" data-action="image" title="Image"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/014.svg" width="17" height="17" alt=""></button>
+  </div>
+  <div class="top-right">
+    <button class="btn filename" title="Rename file">Welcome file</button>
+    <button class="btn small-tool" title="Synchronize">⟳</button>
+    <button class="btn small-tool" title="Export">↥</button>
+    <button class="btn badge" title="Badges">#</button>
+  </div>
+</header>
+<main class="workspace">
+  <section class="pane editor-pane" id="editorPane">
+    <div class="editor-content" id="editor" contenteditable="true" spellcheck="false"></div>
+  </section>
+  <div class="divider" id="divider" title="Resize panes"></div>
+  <section class="pane preview-pane" id="previewPane">
+    <article class="preview-content" id="preview"></article>
+  </section>
+</main>
+<div class="pane-controls">
+  <button class="btn" title="Synchronized scrolling">⊙</button>
+  <button class="btn" title="Swap panes">↕</button>
+  <button class="btn" title="Toggle preview">▣</button>
+</div>
+<footer class="status">
+  <span class="status-left" id="statusLeft">Markdown&nbsp;&nbsp; 7173 bytes&nbsp;&nbsp; 1086 words&nbsp;&nbsp; 143 lines&nbsp;&nbsp; Ln 1, Col 0</span>
+  <span class="status-right" id="statusRight">HTML&nbsp;&nbsp; 10192 characters&nbsp;&nbsp; 1112 words&nbsp;&nbsp; 71 paragraphs</span>
+</footer>
+<div class="toast" id="toast">● &nbsp; You've earned 1 badge: "Formatter".</div>
+<script>
+const initial = `# Welcome to StackEdit!
+
+Hi! I'm your first Markdown file in **StackEdit**. If you want to learn about StackEdit, you can read me. If you want to play with Markdown, you can edit me. Once you have finished with me, you can create new files by opening the **file explorer** on the left corner of the navigation bar.
+
+# Files
+
+StackEdit stores your files in your browser, which means all your files are automatically saved locally and are accessible **offline!**
+
+## Create files and folders
+
+The file explorer is accessible using the button in left corner of the navigation bar. You can create a new file by clicking the **New file** button in the file explorer. You can also create folders by clicking the **New folder** button.
+
+## Switch to another file
+
+All your files and folders are presented as a tree in the file explorer. You can switch from one to another by clicking a file in the tree.
+
+## Rename a file
+
+You can rename the current file by clicking the file name in the navigation bar or by clicking the **Rename** button in the file explorer.
+
+## Delete a file
+
+You can delete the current file by clicking the **Remove** button in the file explorer. The file will be moved into the **Trash** folder and automatically deleted after 7 days of inactivity.
+
+## Export a file
+
+You can export the current file by clicking **Export to disk** in the menu. You can choose to export the file as plain Markdown, as HTML using a Handlebars template or as a PDF.
+
+## Markdown
+Markdown is a lightweight markup language that you can use to add formatting to plain text documents.
+
+### Lists
+- Create lists with a hyphen
+- Or use numbers for ordered lists
+
+### Links
+You can create links and add images to your documents.
+
+### Tables
+| Name | Description |
+| --- | --- |
+| Markdown | Plain text formatting |
+`;
+let source = initial;
+const editor = document.getElementById('editor');
+const preview = document.getElementById('preview');
+
+function esc(s){return s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function inline(s){
+  let x=esc(s);
+  x=x.replace(/\\*\\*(.+?)\\*\\*/g,'<strong>$1</strong>');
+  x=x.replace(/\\*(.+?)\\*/g,'<em>$1</em>');
+  x=x.replace(/~~(.+?)~~/g,'<del>$1</del>');
+  x=x.replace(/`(.+?)`/g,'<code>$1</code>');
+  x=x.replace(/\\[(.+?)\\]\\((.+?)\\)/g,'<a href="$2">$1</a>');
+  return x;
+}
+function renderPreview(){
+  const lines=source.split('\\n'); let out='', para=[];
+  const flush=()=>{if(para.length){out+='<p>'+inline(para.join(' '))+'</p>';para=[]}};
+  for(let i=0;i<lines.length;i++){
+    const l=lines[i];
+    if(!l.trim()){flush();continue}
+    if(/^#{1,6}\\s/.test(l)){
+      flush();const n=(l.match(/^#+/)[0].length), text=l.replace(/^#+\\s*/,'');
+      out+=`<h${Math.min(n,3)}>${inline(text)}</h${Math.min(n,3)}>`;continue;
+    }
+    if(/^[-*]\\s/.test(l)){flush();out+='<ul><li>'+inline(l.slice(2))+'</li></ul>';continue}
+    if(/^\\d+\\.\\s/.test(l)){flush();out+='<ol><li>'+inline(l.replace(/^\\d+\\.\\s/,''))+'</li></ol>';continue}
+    if(/^\\|/.test(l)){flush();out+='<p>'+inline(l)+'</p>';continue}
+    para.push(l);
+  }
+  flush();preview.innerHTML=out;
+}
+function sourceLine(line,index){
+  if(!line)return '<div class="line blank" data-index="'+index+'"><br></div>';
+  const heading=line.match(/^(#{1,6})(\\s+)(.*)$/);
+  if(heading){
+    const cls=heading[1].length===1?'h1':'h2';
+    return `<div class="line ${cls}" data-index="${index}"><span class="hash">${heading[1]}</span>${heading[2]}<span class="heading-text">${inlineSource(heading[3])}</span></div>`;
+  }
+  return `<div class="line paragraph" data-index="${index}">${inlineSource(line)}</div>`;
+}
+function inlineSource(s){
+  let x=esc(s);
+  x=x.replace(/(\\*\\*|~~|`)(.*?)(\\*\\*|~~|`)/g,(all,a,mid,b)=>{
+    if(a==='**'&&b==='**')return `<span class="syntax">**</span><strong>${mid}</strong><span class="syntax">**</span>`;
+    if(a==='~~'&&b==='~~')return `<span class="syntax">~~</span><del>${mid}</del><span class="syntax">~~</span>`;
+    if(a==='`'&&b==='`')return `<span class="syntax">\`</span><code>${mid}</code><span class="syntax">\`</span>`;
+    return all;
+  });
+  x=x.replace(/(^|[^*])\\*([^*]+)\\*([^*]|$)/g,'$1<span class="syntax">*</span><em>$2</em><span class="syntax">*</span>$3');
+  return x;
+}
+function renderEditor(){
+  editor.innerHTML=source.split('\\n').map(sourceLine).join('');
+}
+function render(){renderEditor();renderPreview()}
+render();
+
+document.querySelectorAll('[data-action]').forEach(button=>{
+  button.addEventListener('mousedown',e=>e.preventDefault());
+  button.addEventListener('click',()=>{
+    const action=button.dataset.action;
+    const sel=window.getSelection();
+    if(!sel||!sel.rangeCount||sel.isCollapsed)return;
+    const range=sel.getRangeAt(0);
+    let line=range.startContainer.nodeType===1?range.startContainer.closest('.line'):range.startContainer.parentElement.closest('.line');
+    if(!line)return;
+    const lineIndex=Number(line.dataset.index);
+    const startRange=document.createRange();startRange.selectNodeContents(line);startRange.setEnd(range.startContainer,range.startOffset);
+    const start=startRange.toString().length, selected=range.toString();
+    let lines=source.split('\\n'), text=lines[lineIndex], before=text.slice(0,start), after=text.slice(start+selected.length);
+    let left=selected,right='';
+    if(action==='bold'){left='**'+selected;right='**'}
+    else if(action==='italic'){left='*'+selected;right='*'}
+    else if(action==='strike'){left='~~'+selected;right='~~'}
+    else if(action==='heading'){left='## '+selected;right=''}
+    else if(action==='ul'){left='- '+selected;right=''}
+    else if(action==='ol'){left='1. '+selected;right=''}
+    else if(action==='check'){left='- [ ] '+selected;right=''}
+    else if(action==='quote'){left='> '+selected;right=''}
+    else if(action==='code'){left='`'+selected;right='`'}
+    else if(action==='link'){left='['+selected+'](url)';right=''}
+    else if(action==='image'){left='!['+selected+'](image-url)';right=''}
+    else if(action==='table'){left='| '+selected+' | Column |';right=''}
+    lines[lineIndex]=before+left+right+after;source=lines.join('\\n');
+    render();
+    const target=editor.querySelector(`[data-index="${lineIndex}"]`);
+    if(target){
+      const walker=document.createTreeWalker(target,NodeFilter.SHOW_TEXT);let node,acc=0,from=before.length+(left.length-selected.length),to=from+selected.length;
+      const r=document.createRange();let setA=false;
+      while(node=walker.nextNode()){
+        const end=acc+node.textContent.length;
+        if(!setA&&from<=end){r.setStart(node,Math.max(0,from-acc));setA=true}
+        if(to<=end){r.setEnd(node,Math.max(0,to-acc));break}
+        acc=end;
+      }
+      sel.removeAllRanges();sel.addRange(r);
+    }
+    if(action==='bold'||action==='italic'||action==='strike'){
+      const toast=document.getElementById('toast');toast.style.display='block';setTimeout(()=>toast.style.display='none',3000);
+    }
+    updateStatus();
+  });
+});
+editor.addEventListener('input',()=>{
+  source=Array.from(editor.children).map(el=>el.innerText.replace(/\\n$/,'')).join('\\n');
+  renderPreview();updateStatus();
+});
+function updateStatus(){
+  const text=source;const words=(text.match(/\\S+/g)||[]).length;
+  document.getElementById('statusLeft').textContent=`Markdown   ${text.length} bytes   ${words} words   ${text.split('\\n').length} lines   Ln 1, Col 0`;
+}
+document.querySelector('.filename').addEventListener('click',()=>{
+  const name=prompt('Rename file', 'Welcome file');if(name)document.querySelector('.filename').textContent=name;
+});
+document.querySelectorAll('.small-tool').forEach((b,i)=>b.addEventListener('click',()=>{
+  if(i===1){const blob=new Blob([source],{type:'text/markdown'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Welcome.md';a.click();URL.revokeObjectURL(a.href)}
+}));
+document.querySelector('.folder').addEventListener('click',()=>alert('File explorer\\n\\nWelcome file\\nNew file   New folder'));
+document.querySelectorAll('.pane-controls button').forEach((b,i)=>b.addEventListener('click',()=>{
+  if(i===2){document.getElementById('previewPane').style.display=document.getElementById('previewPane').style.display==='none'?'block':'none'}
+}));
+let dragging=false;const divider=document.getElementById('divider');
+divider.addEventListener('mousedown',()=>dragging=true);
+window.addEventListener('mouseup',()=>dragging=false);
+window.addEventListener('mousemove',e=>{
+  if(!dragging)return;
+  const pct=Math.max(25,Math.min(75,e.clientX/window.innerWidth*100));
+  document.querySelector('.editor-pane').style.width=pct+'%';
+  document.querySelector('.preview-pane').style.width=(100-pct)+'%';
+  divider.style.marginLeft='0';
+});
+</script>
+</body>
+</html>
+```

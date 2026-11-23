@@ -1,0 +1,111 @@
+{
+  "id": "chatcmpl-EmMUFXW128yHdVwtAHiqYOVQ9fjkl",
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "logprobs": null,
+      "message": {
+        "content": "```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<title>Choose your 1Password Password Manager Plan</title>\n<style>\n  * { box-sizing: border-box; }\n  html, body { margin: 0; min-height: 100%; }\n  body {\n    color: #171d2d;\n    background: #fff;\n    font-family: Arial, Helvetica, sans-serif;\n    -webkit-font-smoothing: antialiased;\n  }\n  button, a { font: inherit; }\n  .btn { cursor: pointer; }\n  .announcement {\n    height: 64px;\n    background: #faf5ef;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    position: relative;\n    color: #101321;\n    font-size: 14px;\n    font-weight: 700;\n  }\n  .announcement a {\n    color: #1268c9;\n    text-decoration: none;\n    margin-left: 14px;\n  }\n  .close-announcement {\n    position: absolute;\n    right: 35px;\n    top: 50%;\n    transform: translateY(-50%);\n    padding: 8px;\n    border: 0;\n    background: transparent;\n    color: #222;\n    font-size: 20px;\n    font-weight: 300;\n    line-height: 1;\n  }\n  .nav {\n    height: 90px;\n    max-width: 1240px;\n    margin: auto;\n    display: flex;\n    align-items: center;\n  }\n  .brand {\n    display: flex;\n    align-items: center;\n    text-decoration: none;\n    flex: 0 0 auto;\n  }\n  .brand img {\n    display: block;\n    width: 140px;\n    height: 32px;\n    object-fit: contain;\n    object-position: left center;\n  }\n  .nav-links {\n    display: flex;\n    gap: 30px;\n    align-items: center;\n    margin-left: 20px;\n  }\n  .nav-links a {\n    color: #29304e;\n    font-size: 14px;\n    text-decoration: none;\n    white-space: nowrap;\n  }\n  .nav-links a span { padding-left: 7px; font-size: 12px; }\n  .sign-in {\n    margin-left: auto;\n    width: 200px;\n    height: 48px;\n    border: 1.5px solid #29304e;\n    border-radius: 28px;\n    background: #fff;\n    color: #232943;\n    font-size: 15px;\n  }\n  main {\n    max-width: 1240px;\n    margin: 0 auto;\n    padding-top: 104px;\n  }\n  h1 {\n    color: #1b244d;\n    font-weight: 400;\n    letter-spacing: -1.9px;\n    font-size: 62px;\n    line-height: 1.13;\n    margin: 0;\n  }\n  .toolbar {\n    margin-top: 112px;\n    height: 100px;\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n  }\n  .plan-tabs {\n    height: 80px;\n    width: 500px;\n    border-radius: 17px;\n    background: #d9d9dd;\n    display: flex;\n    align-items: center;\n    padding: 8px;\n  }\n  .plan-tab {\n    height: 64px;\n    border: 0;\n    border-radius: 12px;\n    background: transparent;\n    padding: 0 22px;\n    color: #111722;\n    font-size: 16px;\n    font-weight: 700;\n    white-space: nowrap;\n  }\n  .plan-tab.active {\n    background: #fff;\n    box-shadow: 0 1px 4px rgba(0,0,0,.08);\n  }\n  .billing-options {\n    display: flex;\n    align-items: center;\n    gap: 26px;\n    height: 80px;\n  }\n  .radio-option {\n    display: inline-flex;\n    align-items: center;\n    gap: 9px;\n    color: #333944;\n    font-size: 22px;\n    white-space: nowrap;\n    cursor: pointer;\n  }\n  .radio-option input {\n    appearance: none;\n    width: 23px;\n    height: 23px;\n    margin: 0;\n    border: 2px solid #c9cbd0;\n    border-radius: 50%;\n    background: #fff;\n    position: relative;\n    cursor: pointer;\n  }\n  .radio-option input:checked { border-color: #1680df; }\n  .radio-option input:checked::after {\n    content: \"\";\n    position: absolute;\n    width: 11px;\n    height: 11px;\n    border-radius: 50%;\n    top: 4px;\n    left: 4px;\n    background: #1680df;\n  }\n  .currency-wrap { position: relative; }\n  .currency-button {\n    width: 134px;\n    height: 46px;\n    border: 1.5px solid #777;\n    border-radius: 4px;\n    background: #fff;\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n    padding: 0 12px;\n    color: #272c36;\n    font-size: 15px;\n  }\n  .currency-button .currency-label {\n    display: flex;\n    align-items: center;\n    gap: 7px;\n  }\n  .currency-button .flag { font-size: 22px; line-height: 1; }\n  .chevron { font-size: 18px; line-height: 1; }\n  .info {\n    width: 20px;\n    height: 20px;\n    margin-left: -16px;\n    border: 1.5px solid #727782;\n    border-radius: 50%;\n    display: inline-flex;\n    align-items: center;\n    justify-content: center;\n    color: #626873;\n    font-size: 13px;\n    font-weight: 700;\n  }\n  .currency-menu {\n    display: none;\n    position: absolute;\n    z-index: 5;\n    top: 54px;\n    right: 0;\n    width: 134px;\n    padding: 4px 0;\n    background: #fff;\n    border: 1px solid #e1e3e6;\n    box-shadow: 0 4px 12px rgba(20,30,50,.12);\n  }\n  .currency-menu.open { display: block; }\n  .currency-choice {\n    border: 0;\n    width: 100%;\n    height: 52px;\n    display: flex;\n    align-items: center;\n    text-align: left;\n    padding: 0 10px;\n    gap: 8px;\n    color: #343944;\n    background: #fff;\n    font-size: 14px;\n  }\n  .currency-choice:hover, .currency-choice.selected { background: #f4f7fb; }\n  .currency-choice .flag { font-size: 21px; }\n  .currency-choice .check { margin-left: auto; color: #1769c2; }\n  .cards {\n    display: grid;\n    grid-template-columns: repeat(4, 1fr);\n    gap: 18px;\n    margin-top: 25px;\n    padding-bottom: 80px;\n  }\n  .card {\n    min-height: 500px;\n    border: 4px solid #83a2eb;\n    border-radius: 17px;\n    padding: 44px 32px 32px;\n    color: #202a43;\n  }\n  .card:nth-child(3), .card:nth-child(4) { border-color: #20366f; }\n  .card h2 {\n    margin: 0 0 8px;\n    color: #31558d;\n    font-size: 24px;\n    line-height: 1.25;\n    font-weight: 600;\n    white-space: nowrap;\n  }\n  .card:nth-child(3) h2, .card:nth-child(4) h2 { color: #233a72; }\n  .description {\n    color: #454b57;\n    font-size: 16px;\n    line-height: 1.55;\n    min-height: 52px;\n    margin: 0;\n  }\n  .price-row {\n    margin-top: 21px;\n    display: flex;\n    align-items: baseline;\n    white-space: nowrap;\n  }\n  .amount {\n    color: #353535;\n    font-size: 42px;\n    line-height: 1;\n    letter-spacing: -1.5px;\n    font-weight: 400;\n  }\n  .currency-code {\n    margin-left: 6px;\n    font-size: 15px;\n    color: #31343a;\n  }\n  .billing-caption {\n    margin-top: 8px;\n    color: #4c5058;\n    font-size: 14px;\n    min-height: 20px;\n  }\n  .trial {\n    display: block;\n    width: 100%;\n    height: 48px;\n    margin-top: 36px;\n    border: 0;\n    border-radius: 28px;\n    background: #096bc9;\n    color: #fff;\n    font-size: 15px;\n    font-weight: 700;\n    white-space: nowrap;\n  }\n  .trial:hover { background: #075db1; }\n  @media (max-width: 1300px) {\n    .nav, main { width: calc(100% - 48px); }\n    .plan-tabs { width: auto; }\n    .plan-tab { padding: 0 14px; }\n    .billing-options { gap: 16px; }\n    .radio-option { font-size: 18px; }\n    .card { padding-left: 22px; padding-right: 22px; }\n    .card h2 { font-size: 21px; }\n  }\n  @media (max-width: 900px) {\n    .nav { height: 76px; }\n    .nav-links { display: none; }\n    .sign-in { width: 120px; }\n    main { padding-top: 55px; }\n    h1 { font-size: 42px; }\n    .toolbar { margin-top: 55px; height: auto; align-items: flex-start; flex-direction: column; gap: 18px; }\n    .plan-tabs { width: 100%; height: 64px; }\n    .plan-tab { height: 50px; font-size: 13px; }\n    .billing-options { height: 55px; }\n    .cards { grid-template-columns: repeat(2, minmax(0,1fr)); margin-top: 15px; }\n    .card { padding: 30px 20px; }\n    .card h2 { white-space: normal; }\n  }\n</style>\n</head>\n<body>\n  <div class=\"announcement\" id=\"announcement\">\n    <span>Ready for a new password manager? We'll credit you for the time left on your current bill.</span>\n    <a class=\"btn\" href=\"#\">Let's talk →</a>\n    <button class=\"close-announcement btn\" aria-label=\"Close announcement\">×</button>\n  </div>\n\n  <header class=\"nav\">\n    <a class=\"brand btn\" href=\"#\" aria-label=\"1Password home\">\n      <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/022.png\" width=\"140\" height=\"32\" alt=\"1Password\">\n    </a>\n    <nav class=\"nav-links\">\n      <a class=\"btn\" href=\"#\">Why 1Password <span>⌄</span></a>\n      <a class=\"btn\" href=\"#\">Products <span>⌄</span></a>\n      <a class=\"btn\" href=\"#\">Resources <span>⌄</span></a>\n      <a class=\"btn\" href=\"#\">Pricing</a>\n    </nav>\n    <button class=\"sign-in btn\">Sign in</button>\n  </header>\n\n  <main>\n    <h1>Choose your 1Password<br>Password Manager Plan</h1>\n\n    <section class=\"toolbar\" aria-label=\"Plan options\">\n      <div class=\"plan-tabs\" role=\"tablist\">\n        <button class=\"plan-tab btn\" role=\"tab\">Extended Access Management</button>\n        <button class=\"plan-tab active btn\" role=\"tab\" aria-selected=\"true\">Password Manager</button>\n      </div>\n\n      <div class=\"billing-options\">\n        <label class=\"radio-option\">\n          <input class=\"btn\" type=\"radio\" name=\"billing\" value=\"annual\" checked>\n          <span>Annually</span>\n        </label>\n        <label class=\"radio-option\">\n          <input class=\"btn\" type=\"radio\" name=\"billing\" value=\"monthly\">\n          <span>Monthly</span>\n        </label>\n        <div class=\"currency-wrap\">\n          <button class=\"currency-button btn\" id=\"currencyButton\" aria-expanded=\"false\">\n            <span class=\"currency-label\"><span class=\"flag\" id=\"currentFlag\">🇺🇸</span><span id=\"currentCurrency\">USD</span></span>\n            <span class=\"chevron\">⌄</span>\n          </button>\n          <div class=\"currency-menu\" id=\"currencyMenu\">\n            <button class=\"currency-choice btn\" data-currency=\"USD\"><span class=\"flag\">🇺🇸</span><span>USD</span><span class=\"check\"></span></button>\n            <button class=\"currency-choice btn\" data-currency=\"CAD\"><span class=\"flag\">🇨🇦</span><span>CAD</span><span class=\"check\"></span></button>\n            <button class=\"currency-choice btn\" data-currency=\"EUR\"><span class=\"flag\">🇪🇺</span><span>EUR</span><span class=\"check\"></span></button>\n          </div>\n        </div>\n        <span class=\"info\" title=\"Prices are shown in your selected currency\">i</span>\n      </div>\n    </section>\n\n    <section class=\"cards\" aria-label=\"Password manager plans\">\n      <article class=\"card\">\n        <h2>Individual</h2>\n        <p class=\"description\">Take control of your online<br>security.</p>\n        <div class=\"price-row\"><span class=\"amount\" data-plan=\"individual\">$2.99</span><span class=\"currency-code\">USD</span></div>\n        <div class=\"billing-caption\">Per month. Paid annually.</div>\n        <button class=\"trial btn\">Try FREE for 14 days</button>\n      </article>\n      <article class=\"card\">\n        <h2>Families</h2>\n        <p class=\"description\">Peace of mind for your entire<br>family.</p>\n        <div class=\"price-row\"><span class=\"amount\" data-plan=\"families\">$4.99</span><span class=\"currency-code\">USD</span></div>\n        <div class=\"billing-caption\">Per month. Paid annually.</div>\n        <button class=\"trial btn\">Try FREE for 14 days</button>\n      </article>\n      <article class=\"card\">\n        <h2>Teams Starter Pack</h2>\n        <p class=\"description\">Secure your small team.</p>\n        <div class=\"price-row\"><span class=\"amount\" data-plan=\"teams\">$19.95</span><span class=\"currency-code\">USD</span></div>\n        <div class=\"billing-caption\">Up to 10 users/month. Paid annually.</div>\n        <button class=\"trial btn\">Try FREE for 14 days</button>\n      </article>\n      <article class=\"card\">\n        <h2>Business</h2>\n        <p class=\"description\">Security that adapts to your<br>business.</p>\n        <div class=\"price-row\"><span class=\"amount\" data-plan=\"business\">$7.99</span><span class=\"currency-code\">USD</span></div>\n        <div class=\"billing-caption\">Per user, per month. Paid annually.</div>\n        <button class=\"trial btn\">Try FREE for 14 days</button>\n      </article>\n    </section>\n  </main>\n\n<script>\n  const prices = {\n    USD: {\n      annual: ['2.99', '4.99', '19.95', '7.99'],\n      monthly: ['3.99', '6.95', '24.95', '9.99'],\n      symbol: '$', flag: '🇺🇸'\n    },\n    CAD: {\n      annual: ['3.99', '6.49', '24.95', '9.99'],\n      monthly: ['4.99', '7.95', '29.95', '11.99'],\n      symbol: '$', flag: '🇨🇦'\n    },\n    EUR: {\n      annual: ['2.69', '4.79', '16.95', '7.49'],\n      monthly: ['3.39', '5.95', '20.95', '8.99'],\n      symbol: '€', flag: '🇪🇺'\n    }\n  };\n  let currency = 'USD';\n  let billing = 'annual';\n\n  function updatePrices() {\n    const data = prices[currency];\n    document.querySelectorAll('.amount').forEach((el, i) => {\n      el.textContent = data.symbol + data[billing][i];\n    });\n    document.querySelectorAll('.currency-code').forEach(el => el.textContent = currency);\n    document.querySelectorAll('.billing-caption').forEach((el, i) => {\n      if (billing === 'annual') {\n        el.textContent = i === 2 ? 'Up to 10 users/month. Paid annually.' :\n          i === 3 ? 'Per user, per month. Paid annually.' : 'Per month. Paid annually.';\n      } else {\n        el.textContent = i === 2 ? 'Up to 10 users per month.' :\n          i === 3 ? 'Per user, per month.' : 'Per month.';\n      }\n    });\n    document.getElementById('currentCurrency').textContent = currency;\n    document.getElementById('currentFlag').textContent = data.flag;\n    document.querySelectorAll('.currency-choice').forEach(btn => {\n      btn.classList.toggle('selected', btn.dataset.currency === currency);\n      btn.querySelector('.check').textContent = btn.dataset.currency === currency ? '✓' : '';\n    });\n  }\n\n  document.querySelectorAll('input[name=\"billing\"]').forEach(input => {\n    input.addEventListener('change', () => {\n      billing = input.value;\n      updatePrices();\n    });\n  });\n\n  const currencyButton = document.getElementById('currencyButton');\n  const currencyMenu = document.getElementById('currencyMenu');\n  currencyButton.addEventListener('click', () => {\n    const open = currencyMenu.classList.toggle('open');\n    currencyButton.setAttribute('aria-expanded', open);\n  });\n  document.querySelectorAll('.currency-choice').forEach(btn => {\n    btn.addEventListener('click', () => {\n      currency = btn.dataset.currency;\n      updatePrices();\n      currencyMenu.classList.remove('open');\n      currencyButton.setAttribute('aria-expanded', 'false');\n    });\n  });\n  document.addEventListener('click', e => {\n    if (!e.target.closest('.currency-wrap')) {\n      currencyMenu.classList.remove('open');\n      currencyButton.setAttribute('aria-expanded', 'false');\n    }\n  });\n\n  document.querySelectorAll('.plan-tab').forEach(tab => {\n    tab.addEventListener('click', () => {\n      document.querySelectorAll('.plan-tab').forEach(item => {\n        item.classList.remove('active');\n        item.removeAttribute('aria-selected');\n      });\n      tab.classList.add('active');\n      tab.setAttribute('aria-selected', 'true');\n    });\n  });\n  document.querySelector('.close-announcement').addEventListener('click', () => {\n    document.getElementById('announcement').style.display = 'none';\n  });\n  updatePrices();\n</script>\n</body>\n</html>\n```",
+        "refusal": null,
+        "role": "assistant",
+        "annotations": [],
+        "audio": null,
+        "function_call": null,
+        "tool_calls": null
+      },
+      "content_filter_results": {
+        "hate": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "protected_material_code": {
+          "detected": false,
+          "filtered": false
+        },
+        "protected_material_text": {
+          "detected": false,
+          "filtered": false
+        },
+        "self_harm": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "sexual": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "violence": {
+          "filtered": false,
+          "severity": "safe"
+        }
+      }
+    }
+  ],
+  "created": 1795194891,
+  "model": "gpt-6-luna-2026-09-22",
+  "object": "chat.completion",
+  "metadata": null,
+  "moderation": null,
+  "service_tier": "default",
+  "system_fingerprint": null,
+  "usage": {
+    "completion_tokens": 6836,
+    "prompt_tokens": 9262,
+    "total_tokens": 16098,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": 0,
+      "audio_tokens": 0,
+      "reasoning_tokens": 2395,
+      "rejected_prediction_tokens": 0,
+      "text_tokens": null
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cache_write_tokens": null,
+      "cached_tokens": 0,
+      "image_tokens": null,
+      "text_tokens": null
+    },
+    "latency_checkpoint": {
+      "engine_tbt_ms": 8,
+      "engine_ttft_ms": 1077,
+      "engine_ttlt_ms": 52734,
+      "pre_inference_ms": 621,
+      "service_tbt_ms": 8,
+      "service_ttft_ms": 2068,
+      "service_ttlt_ms": 53716,
+      "user_visible_ttft_ms": 1447
+    }
+  },
+  "prompt_filter_results": [
+    {
+      "prompt_index": 0,
+      "content_filter_results": {
+        "hate": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "jailbreak": {
+          "detected": false,
+          "filtered": false
+        },
+        "self_harm": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "sexual": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "violence": {
+          "filtered": false,
+          "severity": "safe"
+        }
+      }
+    }
+  ],
+  "routing": {
+    "serving_pipereplica": "d20261116094030-d9f39f4b-prefill-r0-dp0-prefill"
+  }
+}

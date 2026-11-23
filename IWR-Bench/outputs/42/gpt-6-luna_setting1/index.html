@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>X Home Replica</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;background:#fff;color:#0f1419;font-family:Arial,Helvetica,sans-serif;font-size:15px}
+  body{min-height:100vh}
+  button,input,textarea{font:inherit}
+  button{border:0;background:none;cursor:pointer;color:inherit}
+  .btn{cursor:pointer}
+  .app{width:1000px;margin:0 auto;display:grid;grid-template-columns:250px 460px 300px;column-gap:16px}
+  .left{height:100vh;position:sticky;top:0;padding:9px 18px 20px 0;border-right:1px solid #eff3f4}
+  .xlogo{font-size:31px;line-height:42px;margin:0 0 7px 12px;font-weight:500}
+  .nav-item{height:48px;display:flex;align-items:center;gap:17px;font-size:17px;padding:0 12px;border-radius:30px}
+  .nav-item:hover{background:#f5f5f5}
+  .nav-icon{width:25px;text-align:center;font-size:23px;line-height:1}
+  .nav-item strong{font-weight:700}
+  .post-side{margin-top:11px;width:220px;height:54px;background:#0f1419;color:#fff;border-radius:28px;font-weight:bold;font-size:16px}
+  .profile-mini{position:absolute;bottom:19px;left:10px;right:12px;display:flex;align-items:center;gap:10px;padding:10px;border-radius:35px}
+  .profile-mini:hover{background:#f5f5f5}
+  .avatar{width:38px;height:38px;border-radius:50%;background:#13a7a5;color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;flex:none}
+  .avatar.small{width:34px;height:34px;font-size:15px}
+  .user-name{font-weight:bold;font-size:13px}
+  .handle{font-size:12px;color:#536471}
+  .more{margin-left:auto;font-size:20px}
+
+  .center{border-left:1px solid #eff3f4;border-right:1px solid #eff3f4;min-height:1304px}
+  .tabs{height:55px;border-bottom:1px solid #eff3f4;display:flex}
+  .tab{width:50%;position:relative;text-align:center;padding-top:19px;color:#536471;font-size:14px}
+  .tab.active{font-weight:bold;color:#0f1419}
+  .tab.active:after{content:"";position:absolute;height:4px;background:#1d9bf0;width:56px;bottom:0;left:calc(50% - 28px);border-radius:3px 3px 0 0}
+  .composer-mini{padding:15px 16px 10px;border-bottom:1px solid #eff3f4;display:flex;gap:10px}
+  .mini-content{flex:1}
+  .placeholder{color:#536471;font-size:18px;padding:9px 0 17px}
+  .toolbar{display:flex;align-items:center;color:#1d9bf0;gap:17px;font-size:18px}
+  .toolbar button{color:#1d9bf0;font-size:18px;padding:0}
+  .mini-post{margin-left:auto;background:#8d9398;color:white;border-radius:20px;padding:7px 18px;font-weight:bold}
+  .tweet{padding:15px 16px;border-bottom:1px solid #eff3f4;display:flex;gap:10px}
+  .tweet-body{flex:1;min-width:0}
+  .meta{font-size:13px;color:#536471;margin-bottom:5px}
+  .meta b{color:#0f1419}
+  .tweet-text{font-size:14px;line-height:1.35;margin-bottom:10px}
+  .post-image{width:100%;height:300px;object-fit:cover;border-radius:14px;display:block}
+  .post-video{width:100%;height:500px;background:#000;border-radius:14px;object-fit:contain;display:block}
+  .actions{display:flex;justify-content:space-between;color:#536471;padding-top:9px;font-size:12px}
+  .action{display:flex;gap:5px;align-items:center}
+  .side{padding-top:5px}
+  .search{height:44px;border:1px solid #cfd9de;border-radius:24px;display:flex;align-items:center;padding:0 14px;color:#536471;margin-bottom:14px}
+  .search span{font-size:17px;margin-right:8px}
+  .search input{border:0;outline:0;width:100%;font-size:14px}
+  .card{border:1px solid #eff3f4;border-radius:16px;padding:16px;margin-bottom:14px}
+  .card h2{font-size:18px;margin:0 0 14px}
+  .card p{font-size:13px;line-height:1.35;margin:0 0 12px}
+  .blue-btn{background:#1d9bf0;color:#fff;border-radius:22px;padding:8px 15px;font-weight:bold}
+  .news-row{padding:10px 0;border-top:1px solid #eff3f4}
+  .news-row:first-of-type{border-top:0}
+  .news-title{font-size:13px;font-weight:bold;line-height:1.3}
+  .news-meta{font-size:11px;color:#536471;margin-top:5px}
+  .trend{padding:9px 0}
+  .trend small{display:block;color:#536471;font-size:11px}
+  .trend b{display:block;font-size:13px;margin:3px 0}
+  .follow{display:flex;align-items:center;gap:10px;padding:9px 0}
+  .follow .follow-btn{margin-left:auto;background:#0f1419;color:#fff;border-radius:18px;padding:7px 14px;font-size:12px;font-weight:bold}
+  .floating{position:fixed;right:22px;bottom:18px;width:48px;height:48px;border:1px solid #cfd9de;background:white;border-radius:15px;font-size:24px}
+
+  .overlay{position:fixed;inset:0;background:rgba(0,0,0,.38);display:none;z-index:20}
+  .overlay.show{display:block}
+  .modal{position:absolute;top:65px;left:50%;transform:translateX(-50%);width:600px;background:#fff;border-radius:16px;overflow:visible;box-shadow:0 2px 12px #0002}
+  .modal-head{height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 18px}
+  .close{font-size:24px}
+  .draft-link{color:#1d9bf0;font-size:13px;font-weight:bold}
+  .modal-main{padding:8px 17px 0;display:flex;gap:10px}
+  .compose-area{flex:1}
+  .compose-input{width:100%;height:100px;border:0;outline:0;resize:none;font-size:18px;padding:10px 0}
+  .compose-input::placeholder{color:#536471}
+  .reply{color:#1d9bf0;font-size:13px;font-weight:bold;padding:8px 0 12px}
+  .modal-bottom{border-top:1px solid #eff3f4;height:52px;display:flex;align-items:center;padding:0 17px;gap:17px;color:#1d9bf0}
+  .modal-bottom .spacer{flex:1}
+  .post-modal{background:#8d9398;color:#fff;border-radius:20px;padding:8px 18px;font-weight:bold}
+  .post-modal.ready{background:#0f1419}
+  .emoji-picker{position:absolute;top:220px;left:10px;width:320px;background:#fff;border-radius:14px;box-shadow:0 2px 14px #0003;padding:10px;display:none;z-index:4}
+  .emoji-picker.show{display:block}
+  .emoji-search{height:38px;border:2px solid #1d9bf0;border-radius:20px;padding:0 12px;width:100%;outline:0;font-size:14px}
+  .emoji-tabs{display:flex;justify-content:space-between;color:#68737c;padding:9px 2px 6px;font-size:16px;border-bottom:1px solid #eff3f4}
+  .emoji-title{font-weight:bold;margin:8px 0}
+  .emoji-grid{display:grid;grid-template-columns:repeat(9,1fr);gap:7px;font-size:20px;max-height:195px;overflow:hidden}
+  .emoji-grid button{padding:0;text-align:center}
+  .emoji-foot{border-top:1px solid #eff3f4;margin-top:8px;padding-top:8px;font-size:14px;color:#68737c}
+  .poll-box{margin:0 16px 8px 50px;border:1px solid #cfd9de;border-radius:14px;padding:10px 10px 0}
+  .choice{height:50px;border:1px solid #cfd9de;border-radius:4px;margin-bottom:12px;padding:6px;position:relative}
+  .choice:focus-within{border:2px solid #1d9bf0}
+  .choice label{display:block;font-size:11px;color:#536471}
+  .choice input{border:0;outline:0;width:90%;font-size:14px}
+  .plus{position:absolute;right:-28px;top:14px;color:#1d9bf0;font-size:22px}
+  .poll-length{border-top:1px solid #eff3f4;margin:7px -10px 0;padding:10px}
+  .poll-label{font-size:13px;margin-bottom:5px}
+  .selects{display:flex;gap:14px}
+  .select{border:1px solid #cfd9de;border-radius:4px;width:110px;padding:8px;font-size:13px;position:relative}
+  .select small{display:block;color:#536471}
+  .remove-poll{text-align:center;color:#e0245e;font-size:13px;padding:13px}
+  .drafts-modal{height:560px}
+  .drafts-header{height:86px;border-bottom:1px solid #eff3f4;padding:12px 18px}
+  .drafts-title{font-size:19px;font-weight:bold;margin:0 0 22px}
+  .draft-tabs{display:flex;justify-content:center;gap:150px;font-size:13px}
+  .draft-tab.active{font-weight:bold;position:relative}
+  .draft-tab.active:after{content:"";position:absolute;left:0;right:0;height:3px;background:#1d9bf0;bottom:-17px}
+  .draft-empty{padding:32px 100px}
+  .draft-empty h1{font-size:27px;margin:0 0 5px}
+  .draft-empty p{color:#536471;font-size:13px;margin:0;line-height:1.35}
+  @media(max-width:1050px){
+    .app{width:960px;grid-template-columns:220px 450px 270px}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="left">
+    <div class="xlogo">𝕏</div>
+    <div class="nav-item btn"><span class="nav-icon">⌂</span><strong>Home</strong></div>
+    <div class="nav-item btn"><span class="nav-icon">⌕</span>Explore</div>
+    <div class="nav-item btn"><span class="nav-icon">♧</span>Notifications</div>
+    <div class="nav-item btn"><span class="nav-icon">▱</span>Messages</div>
+    <div class="nav-item btn"><span class="nav-icon">◉</span>Grok</div>
+    <div class="nav-item btn"><span class="nav-icon">▤</span>Lists</div>
+    <div class="nav-item btn"><span class="nav-icon">♧</span>Bookmarks</div>
+    <div class="nav-item btn"><span class="nav-icon">▣</span>Jobs</div>
+    <div class="nav-item btn"><span class="nav-icon">♧</span>Communities</div>
+    <div class="nav-item btn"><span class="nav-icon">𝕏</span>Premium</div>
+    <div class="nav-item btn"><span class="nav-icon">ϟ</span>Verified Orgs</div>
+    <div class="nav-item btn"><span class="nav-icon">♙</span>Profile</div>
+    <div class="nav-item btn"><span class="nav-icon">•••</span>More</div>
+    <button class="post-side btn" id="openPost">Post</button>
+    <div class="profile-mini btn">
+      <div class="avatar">Z</div>
+      <div><div class="user-name">Zhao haolei</div><div class="handle">@haolei_zha13994</div></div>
+      <div class="more">•••</div>
+    </div>
+  </aside>
+
+  <main class="center">
+    <div class="tabs"><div class="tab active">For you</div><div class="tab">Following</div></div>
+    <div class="composer-mini">
+      <div class="avatar small">Z</div>
+      <div class="mini-content">
+        <div class="placeholder">What’s happening?</div>
+        <div class="toolbar">
+          <button class="btn">▧</button><button class="btn">▣</button><button class="btn" id="miniPoll">☷</button><button class="btn">☻</button><button class="btn">◉</button>
+          <button class="mini-post btn" id="miniPost">Post</button>
+        </div>
+      </div>
+    </div>
+
+    <article class="tweet">
+      <div class="avatar small" style="background:#777">🐻</div>
+      <div class="tweet-body">
+        <div class="meta"><b>Gunther Eagleman™</b> ✓ <span>@GuntherEagleman · 15h</span></div>
+        <div class="tweet-text">Texas Reps Al Green and Jasmine Crockett both losing their seats in Congress makes me happy!<br><br>Great work Texas!</div>
+        <img class="post-image" src="../../../data/data/42/assets/037.png" width="600" height="400" alt="Two public figures">
+        <div class="actions"><span class="action">◯ 5.6K</span><span class="action">⤴ 12K</span><span class="action">♡ 87K</span><span class="action">▥ 1.8M</span><span>♧</span></div>
+      </div>
+    </article>
+
+    <article class="tweet">
+      <div class="avatar small" style="background:#80664c">🌎</div>
+      <div class="tweet-body">
+        <div class="meta"><b>Earth Hippy 🌍💙</b> ✓ <span>@hippygoat · Aug 23</span></div>
+        <div class="tweet-text">WTF.<br>20 YEARS OF SERVING AMERICA.<br>Called in for posts against Israel’s genocide against the Palestinians ‼️<br><br>Basically you THOUGHT you weren't pledging allegiance to Israel but America.<br>UNITED STATES OF ISRAEL 🇺🇸</div>
+        <video class="post-video" src="../../../data/data/42/assets/035.mp4" width="600" height="800" autoplay muted loop playsinline></video>
+        <div class="actions"><span>♡ 2.1K</span><span>⤴ 4.8K</span><span>♡ 18K</span><span>▥ 390K</span></div>
+      </div>
+    </article>
+  </main>
+
+  <aside class="side">
+    <div class="search"><span>⌕</span><input placeholder="Search"></div>
+    <section class="card">
+      <h2>Subscribe to Premium</h2>
+      <p>Subscribe to unlock new features and if eligible, receive a share of revenue.</p>
+      <button class="blue-btn btn">Subscribe</button>
+    </section>
+    <section class="card">
+      <h2>Today’s News <span style="float:right;font-weight:normal">×</span></h2>
+      <div class="news-row"><div class="news-title">Kendrick Lamar Shocks LA Crowd at Eclipse Concert Debut</div><div class="news-meta">◉◉ 3 hours ago · Entertainment · 9,055 posts</div></div>
+      <div class="news-row"><div class="news-title">Ryan Blaney’s Epic Daytona Comeback Seals Playoff Glory</div><div class="news-meta">◉◉ 6 hours ago · Sports · 16.9K posts</div></div>
+      <div class="news-row"><div class="news-title">ATEEZ Electrifies Mexico City in Epic Stadium Debut</div><div class="news-meta">◉◉ 7 hours ago · Entertainment · 13.4K posts</div></div>
+    </section>
+    <section class="card">
+      <h2>What’s happening</h2>
+      <div class="trend"><small>Trending in United States</small><b>Raja</b><small>23.9K posts</small></div>
+      <div class="trend"><small>Only on X · Trending</small><b>#JossGawinFanday23xMANILA</b><small>168K posts</small></div>
+      <div class="trend"><small>Sports · Trending</small><b>Shedeur</b><small>31.6K posts</small></div>
+      <div class="trend"><small>Trending in Los Angeles</small><b>the giverrep</b><small>26.6K posts</small></div>
+      <a class="btn" style="color:#1d9bf0;font-size:13px">Show more</a>
+    </section>
+    <section class="card">
+      <h2>Who to follow</h2>
+      <div class="follow"><div class="avatar small" style="background:#c52b25">⚽</div><div><b style="font-size:13px">Manchester United</b><div class="handle">@ManUtd</div></div><button class="follow-btn btn">Follow</button></div>
+      <div class="follow"><div class="avatar small" style="background:#88735b">M</div><div><b style="font-size:13px">Matt Walsh</b><div class="handle">@MattWalshBlog</div></div><button class="follow-btn btn">Follow</button></div>
+    </section>
+  </aside>
+</div>
+
+<button class="floating btn">◉</button>
+
+<div class="overlay" id="overlay">
+  <div class="modal" id="composeModal">
+    <div class="modal-head"><button class="close btn" id="closeModal">×</button><button class="draft-link btn" id="openDrafts">Drafts</button></div>
+    <div class="modal-main">
+      <div class="avatar">Z</div>
+      <div class="compose-area">
+        <textarea class="compose-input" id="composeText" placeholder="What’s happening?"></textarea>
+        <div class="reply">◉ Everyone can reply</div>
+      </div>
+    </div>
+    <div class="poll-box" id="pollBox" style="display:none">
+      <div class="choice"><label>Choice 1 <span class="counter" style="float:right">0 / 25</span></label><input id="choice1" maxlength="25"></div>
+      <div class="choice"><label>Choice 2 <span class="counter" style="float:right">0 / 25</span></label><input id="choice2" maxlength="25"><span class="plus">＋</span></div>
+      <div class="poll-length"><div class="poll-label">Poll length</div><div class="selects"><div class="select">Days<br><b>1　⌄</b></div><div class="select">Hours<br><b>0　⌄</b></div><div class="select">Minutes<br><b>0　⌄</b></div></div><div class="remove-poll btn">Remove poll</div></div>
+    </div>
+    <div class="modal-bottom">
+      <button class="btn">▧</button><button class="btn">▣</button><button class="btn" id="pollBtn">☷</button><button class="btn">☻</button><button class="btn" id="emojiBtn">☺</button><button class="btn">◉</button>
+      <div class="spacer"></div><button class="post-modal btn" id="modalPost">Post</button>
+    </div>
+    <div class="emoji-picker" id="emojiPicker">
+      <input class="emoji-search" placeholder="⌕ Search emojis">
+      <div class="emoji-tabs">◷　😀　🐻　🐶　⚽　🚗　💡　▣</div>
+      <div class="emoji-title">Smileys & people</div>
+      <div class="emoji-grid" id="emojiGrid"></div>
+      <div class="emoji-foot">👋　　　　　　　　　　　　　　　🟡</div>
+    </div>
+  </div>
+
+  <div class="modal drafts-modal" id="draftsModal" style="display:none">
+    <div class="drafts-header">
+      <button class="btn" id="backDrafts" style="font-size:23px;float:left">←</button>
+      <div class="drafts-title" style="margin-left:45px">Drafts</div>
+      <div class="draft-tabs"><span class="draft-tab active">Unsent posts</span><span class="draft-tab">Scheduled</span></div>
+    </div>
+    <div class="draft-empty"><h1>Hold that thought</h1><p>Not ready to post just yet? Save it to your drafts<br>or schedule it for later.</p></div>
+  </div>
+</div>
+
+<script>
+  const overlay=document.getElementById('overlay');
+  const compose=document.getElementById('composeModal');
+  const drafts=document.getElementById('draftsModal');
+  const emojiPicker=document.getElementById('emojiPicker');
+  const pollBox=document.getElementById('pollBox');
+  const text=document.getElementById('composeText');
+  const emojis=['😀','😃','😄','😁','😆','😅','😂','🤣','😊','😇','🙂','🙃','😉','😌','😍','🥰','😘','😗','😙','😚','😋','😛','😝','😜','🤪','🤨','🧐','🤓','😎','🥸','🤩','🥳','😏','😒','😞','😔','😟','😕','🙁','☹️','😣','😖','😫','😩','🥺','😢','😭','😤','😠','😡','🤬','🤯','😳','🥵','🥶','😱','😨','😰','😥','😓','🤗','🤔','🫡','🤭','🤫','🤥','😶','😐','😑','😬','🙄','😯','😦','😧','😮','😲','🥱','😴','🤤','😪'];
+  const grid=document.getElementById('emojiGrid');
+  emojis.forEach(e=>{let b=document.createElement('button');b.className='btn';b.textContent=e;b.onclick=()=>{text.value+=e;emojiPicker.classList.add('show');updatePost()};grid.appendChild(b)});
+  function openComposer(){overlay.classList.add('show');compose.style.display='block';drafts.style.display='none'}
+  document.getElementById('openPost').onclick=openComposer;
+  document.getElementById('miniPost').onclick=openComposer;
+  document.getElementById('closeModal').onclick=()=>overlay.classList.remove('show');
+  document.getElementById('emojiBtn').onclick=()=>emojiPicker.classList.toggle('show');
+  document.getElementById('pollBtn').onclick=()=>{pollBox.style.display=pollBox.style.display==='none'?'block':'none';emojiPicker.classList.remove('show')};
+  document.getElementById('miniPoll').onclick=openComposer;
+  document.getElementById('openDrafts').onclick=()=>{compose.style.display='none';drafts.style.display='block'};
+  document.getElementById('backDrafts').onclick=()=>{drafts.style.display='none';compose.style.display='block'};
+  function updatePost(){document.getElementById('modalPost').classList.toggle('ready',text.value.trim().length>0 || document.getElementById('choice1').value || document.getElementById('choice2').value)}
+  text.addEventListener('input',updatePost);
+  document.querySelectorAll('.choice input').forEach((el,i)=>el.addEventListener('input',()=>{el.parentElement.querySelector('.counter').textContent=el.value.length+' / 25';updatePost()}));
+  document.querySelector('.remove-poll').onclick=()=>pollBox.style.display='none';
+  overlay.addEventListener('click',e=>{if(e.target===overlay)overlay.classList.remove('show')});
+</script>
+</body>
+</html>

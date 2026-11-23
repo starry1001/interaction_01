@@ -1,0 +1,70 @@
+{
+  "total_step": 3,
+  "success_step": 3,
+  "screenshot_paths_to_eval": [
+    "outputs/12/gpt-6-luna_setting2/evalpoints/0.png",
+    "outputs/12/gpt-6-luna_setting2/evalpoints/0.png"
+  ],
+  "all_mllm_scores": [
+    0.9,
+    0.72
+  ],
+  "all_dino_scores": [
+    0.9228515625,
+    0.84228515625
+  ],
+  "all_ocr_scores": [
+    0.7083993660855785,
+    0.6283676703645008
+  ],
+  "all_avg_scores": [
+    0.843750309528526,
+    0.7302176088715003
+  ],
+  "mllm_score": 0.81,
+  "dino_score": 0.882568359375,
+  "ocr_score": 0.6683835182250397,
+  "avg_score": 0.7869839592000132,
+  "all_mllm_res": [
+    "---\nComments:\n-Layout (9/10): The centered page structure, header rows, hero banner, and product sections are positioned and sized very similarly. There are only small differences in spacing and vertical alignment.\n-Elements (14/15): Both pages include the same navigation, search bar, carousel controls, deal cards, favorites icons, prices, and eBay Live section. A few small icon and carousel details differ.\n-Content and Text (36/40): The banner copy and deal product titles, discounts, and prices closely match. The eBay Live section has noticeably different thumbnail artwork, though its heading and viewer-count badges are similar.\n-Style (13/15): Colors, typography, card styling, and overall eBay visual treatment are closely reproduced, with minor differences in text color, sizing, and image cropping.\n-Overall (18/20): The generated page is a strong match to the reference, with the main differences in live-stream thumbnails and small layout or styling details.\n\nScore: 90/100\n---",
+    "---\nComments:\n-Layout (9/10): The page structure is very close: the header, navigation, hero banner, product carousel, and eBay Live section appear in the same order and at nearly identical widths. The product and live sections sit slightly higher in the generated page.\n-Elements (12/15): Most key elements are present, including search controls, carousel navigation, deal cards, discount labels, and live badges. The hero content is a major difference: the reference uses a full-width automotive-parts photo, while the generated page uses a split layout with a solid orange background and a different image.\n-Content and Text (28/40): The header labels and most deal-card titles and prices closely match. However, the hero headline and supporting text are entirely different, and some eBay Live card content differs.\n-Style (10/15): Typography, spacing, rounded corners, and general eBay styling are similar. The orange hero treatment differs substantially from the reference’s photographic, dark-overlay banner.\n-Overall (13/20): The page is a strong match in structure and much of its shopping content, but the prominent hero banner mismatch and some live-card differences reduce overall similarity.\n\nScore: 72/100\n---"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "Hi Zhao! Daily Deals Brand Outlet Gift Cards Help & Contact Sell Watchlist My eBey ebay Shop by Search for anything AIl Categories Search Aavanced category eBay Saved Motors Electronics Collectibles Home & Garden Clothing; Shoes & Accessories Toys Sporting Goods Business & Industrial Jewelry & Watches Refurbished Style your alter ego this fall Bring them out with vintage curated by Emma Chamberlain: ~Shop her collection Deals for you seetall ARNTDOL G 12 DuaG BEVEL TEM 3 AAKE Forshp) 1036 OFF 1096 OFF 4596 OFF I590 OFF 1290 OFF 104 OFF Size 12.5 - Awake NY x Jordan Air Ship Jordan Air Ship X Awake NY \"Game 12-Inch Sliding Compound Miter Saw Nike Jordan Awake NY Air Ship PE SP Nike Jordan Air Ship PE SP 'Awake NY' Sliding Compc PE SP University Red Royal\" FN8675-104 Size 15 Amp Double Bevel with Extension_ University Red Sz 8 M SNKRS IN HAND (Size 10.5) Brand New/OG Box\"_ Speed with La: S81.00 890.00 S143.99 8169.99 S219.99 8399.99 S212.49 824999 S96.76 810996 S197.97 82199 eBay Live Tune in and shop curated experiences Seeall stase2 2415 1386 796 1821 692 UaeK? RIdGe Live",
+      "screenshot_text": "Hi Zhaol ~ Daily Deals Brand Outlet Gift Cards Contact Sell Watchlist ~ My eBay - ebay Search for anything AII Categories Search Advanced category ~ eBay Live Saved Motors Electronics Collectibles Home Garden Clothing_ Shoes Accessories Toys Sporting Goods Business Industrial Jewelry & Watches Refurbished Style your alter ego this fall Bring them out with vintage curated by Emma Chamberlain: Shop her collection Deals for you Seeall RYTDOL 12 DUAl 'BEVEL GO] TM 0 AKt AIRSHIP 1096 OFF 1096 OFF 4596 OFF 1596 OFF 1296 OFF 1096 OFF Size 12.5 Awake NY x Jordan Air Ship PE Jordan Air Ship Awake NY Game Royal\" 12-Inch Sliding Compound Miter Saw Nike Jordan Awake NY Air Ship PE SP Nike Jordan Air PE SP 'Awake NY\" Sliding Compouni SP University Red FN8675-104 Size Double Beveb with Extension _. University Red Sz M SNKRS IN HAND (Size 10.5) Brand NewlOG Box\" . 581.00 590-00 S143.99 6165009 5219.99 820009 S212.49 624009 596.76 6100-95 5197.97 6210-9 eBay Live Tune in and shop curated experiences Seeall RdIGE 2415 1386 796 START AUCTIOL 1821 SPORIS CHRL 692 ALL LUXURY HANDBAGS 1$ CRADINC LLC pidGe Pfootballpeto EDANO ebay S99 CENT AUCTIONS FOR SINGLES; COIN & WITH JEWELRY SLABS, RIPISHIP PACKS;, SUPPLIES; Help Shop ship Amp Je SLABS 88343 SeALED . SINOLES",
+      "similarity": 0.7083993660855785
+    },
+    {
+      "checkpoint_text": "Hi Zhao! Daily Deals Brand Outlet Gift Cards Help & Contact Sell Watchlist My eBey ebay Shop by Search for anything AIl Categories Search Advanced category eBay Live Saved Electronics Collectibles Home & Garden Clothing; Shoes Accessories Toys Sporting Goods Business & Industriel Jewelry & Watches Refurbished selection: Free returns: Powe IRUN Refunds on select parts and accessories are nOw fast and easy: Shop now Elipibleitemsonly_Exclusionsapply Ju Deals for you seeall ARNTDOL tu 12 DUAL cnn RBEVEL 'EM AwAKL I [urshp) 103t OFF 10* OFF 4590 OFF I590 OFF 1290 OFF 1046 OFF Size 12.5 - Awake NY x Jordan Air Ship Jordan Air Ship XAwake NY Game 12-Inch Sliding Compound Miter Saw Nike Jordan Awake NY Air Ship PE SP Nike Jordan Air Ship PE SP 'Awake NY' Sliding Compc PE SP University Red Royal\" FN8675-104 Size 15 Amp Double Bevel with Extension_ University Red Sz 8 M SNKRS IN HAND (Size 10.5) Brand New/OG Box\"_ Speed with La: S81.00 890.00 S143.99 8169.99 S219.99 8399.99 S212.49 824999 S96.76 8109.96 S197.97 82199 eBay Live Tune in and shop curated experiences See all stage2 2415 1386 796 1821 692 DVa8K7 LIVE RIDGe Motors Huge kay",
+      "screenshot_text": "Hi Zhaol ~ Daily Deals Brand Outlet Gift Cards Contact Sell Watchlist ~ My eBay - ebay Search for anything AII Categories Search Advanced category ~ eBay Live Saved Motors Electronics Collectibles Home Garden Clothing_ Shoes Accessories Toys Sporting Goods Business Industrial Jewelry & Watches Refurbished Style your alter ego this fall Bring them out with vintage curated by Emma Chamberlain: Shop her collection Deals for you Seeall RYTDOL 12 DUAl 'BEVEL GO] TM 0 AKt AIRSHIP 1096 OFF 1096 OFF 4596 OFF 1596 OFF 1296 OFF 1096 OFF Size 12.5 Awake NY x Jordan Air Ship PE Jordan Air Ship Awake NY Game Royal\" 12-Inch Sliding Compound Miter Saw Nike Jordan Awake NY Air Ship PE SP Nike Jordan Air PE SP 'Awake NY\" Sliding Compouni SP University Red FN8675-104 Size Double Beveb with Extension _. University Red Sz M SNKRS IN HAND (Size 10.5) Brand NewlOG Box\" . 581.00 590-00 S143.99 6165009 5219.99 820009 S212.49 624009 596.76 6100-95 5197.97 6210-9 eBay Live Tune in and shop curated experiences Seeall RdIGE 2415 1386 796 START AUCTIOL 1821 SPORIS CHRL 692 ALL LUXURY HANDBAGS 1$ CRADINC LLC pidGe Pfootballpeto EDANO ebay S99 CENT AUCTIONS FOR SINGLES; COIN & WITH JEWELRY SLABS, RIPISHIP PACKS;, SUPPLIES; Help Shop ship Amp Je SLABS 88343 SeALED . SINOLES",
+      "similarity": 0.6283676703645008
+    }
+  ],
+  "assertion_results": [
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/12/gpt-6-luna_setting2/evalpoints/0.png",
+      "curr_img_path": "outputs/12/gpt-6-luna_setting2/evalpoints/1.png",
+      "response": "{\"think\":\"The second product under “Deals for you” has an outlined heart in Image 1 and a filled red heart in Image 2, indicating it was clicked.\",\"result\":\"Yes\"}",
+      "assertion": "The love icon is clicked for the second product under the 'Deals for you'.",
+      "thinking": "The second product under “Deals for you” has an outlined heart in Image 1 and a filled red heart in Image 2, indicating it was clicked."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/12/gpt-6-luna_setting2/evalpoints/1.png",
+      "curr_img_path": "outputs/12/gpt-6-luna_setting2/evalpoints/2.png",
+      "response": "{\"think\":\"The third product under “Deals for you” is the miter saw. Its heart icon changes from an outline in Image 1 to a filled red heart in Image 2, indicating it was clicked.\",\"result\":\"Yes\"}",
+      "assertion": "The love icon is clicked for the third product under the 'Deals for you'.",
+      "thinking": "The third product under “Deals for you” is the miter saw. Its heart icon changes from an outline in Image 1 to a filled red heart in Image 2, indicating it was clicked."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/12/gpt-6-luna_setting2/evalpoints/2.png",
+      "curr_img_path": "outputs/12/gpt-6-luna_setting2/evalpoints/3.png",
+      "response": "{\"think\":\"The fifth product’s love icon changes from an outlined heart in Image 1 to a filled red heart in Image 2, indicating it was clicked.\",\"result\":\"Yes\"}",
+      "assertion": "The love icon is clicked for the fifth product under the 'Deals for you'.",
+      "thinking": "The fifth product’s love icon changes from an outlined heart in Image 1 to a filled red heart in Image 2, indicating it was clicked."
+    }
+  ]
+}

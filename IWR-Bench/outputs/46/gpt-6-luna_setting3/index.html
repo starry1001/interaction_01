@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Livegap Charts</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:Arial,Helvetica,sans-serif;color:#202124}
+  body{background:#c8c8c8}
+  .btn{cursor:pointer}
+  .topbar{
+    height:38px;background:#f6f6f6;border-bottom:1px solid #aaa;
+    display:flex;align-items:center;padding:0 32px;font-size:15px;letter-spacing:.3px;
+    position:fixed;top:0;left:0;right:0;z-index:10
+  }
+  .menu{margin-right:34px;height:38px;display:flex;align-items:center}
+  .signin{margin-left:auto;font-weight:bold;font-size:14px}
+  .workspace{
+    position:fixed;top:38px;left:0;right:400px;bottom:155px;
+    background:#c9c9c9;overflow:hidden
+  }
+  .canvas{
+    position:absolute;left:50%;top:78px;transform:translateX(-50%);
+    width:700px;height:420px;background:white;border:1px solid #aaa;
+    box-shadow:0 1px 4px #888;padding:0
+  }
+  .chart-svg{width:100%;height:100%;display:block}
+  .try{
+    position:absolute;top:503px;left:50%;transform:translateX(-50%);
+    height:37px;border:1px solid #2589d2;border-radius:20px;background:#ddd;
+    padding:0 11px;font-size:15px;display:flex;align-items:center;gap:12px
+  }
+  .new{
+    background:#ed3d54;color:#fff;border-radius:12px;padding:3px 7px;font-size:11px;font-weight:bold
+  }
+  .blue-dot{
+    position:absolute;top:542px;left:50%;transform:translateX(-50%);
+    width:58px;height:58px;border-radius:50%;background:#167dcc;
+    box-shadow:0 2px 5px #777
+  }
+  .sidebar{
+    position:fixed;top:0;right:0;width:400px;bottom:0;background:#39a1d4;
+    overflow-y:auto;padding-top:20px
+  }
+  .brand{height:112px;display:flex;justify-content:center;align-items:flex-start}
+  .brand img{width:185px;height:77px;object-fit:contain}
+  .panel{margin:0 10px 16px;background:#fff;border-radius:4px;overflow:hidden;box-shadow:0 1px 3px #888}
+  .section{
+    min-height:49px;border-bottom:1px solid #ddd;display:flex;align-items:center;
+    padding:0 6px;font-size:16px;background:#fff
+  }
+  .section:last-child{border-bottom:0}
+  .section.open{border-bottom:0}
+  .point-settings{background:#3a3a3a;color:#fff;padding:16px 12px 12px}
+  .toggle-row{height:34px;display:flex;align-items:center;justify-content:center;gap:16px;font-size:17px}
+  .switch{width:39px;height:18px;background:#aaa;border-radius:15px;position:relative}
+  .switch:after{content:"";width:22px;height:22px;background:#fff;border-radius:50%;position:absolute;right:-1px;top:-2px;box-shadow:0 1px 3px #222}
+  .setting-box{border:1px solid #aaa;border-radius:5px;margin-top:12px;padding:10px 10px 8px;color:#333;background:#eee}
+  .setting-label{font-size:14px;color:#555;margin:-4px 0 8px}
+  .circle-choice{height:39px;border:1px solid #bbb;border-radius:4px;display:flex;align-items:center;gap:9px;padding-left:10px}
+  .circle-choice i{display:block;width:25px;height:25px;border:1px solid #777;border-radius:50%;background:#fff}
+  .range-label{margin-top:19px;font-size:16px;color:#555}
+  input[type=range]{width:100%;accent-color:#258ed1}
+  .line-preview{height:23px;border-top:1px solid #444;margin-top:10px}
+  .ad-area{height:180px;display:flex;justify-content:center;align-items:center}
+  .ad-area img{width:140px;height:52px;object-fit:contain}
+  .data{
+    position:fixed;left:0;right:0;bottom:0;height:155px;background:#f6f7fa;
+    border-top:1px solid #aaa;overflow:hidden
+  }
+  .data-tab{
+    position:absolute;top:-36px;left:0;background:#f5f5f5;border:1px solid #bbb;
+    border-bottom:0;border-radius:7px 7px 0 0;width:60px;height:36px;
+    display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:12px
+  }
+  table{border-collapse:collapse;width:100%;table-layout:fixed;font-size:16px}
+  th,td{height:24px;border:1px solid #d1d4d9;text-align:center;padding:2px;background:rgba(255,255,255,.7)}
+  th{height:32px;background:#eef0f5;font-weight:bold}
+  th:first-child,td:first-child{width:200px}
+  td:first-child{font-weight:bold;background:#e9ebf1}
+  td.editable{outline:none}
+  td.editable:focus{border:2px solid #4e91e5;background:#fff;padding:1px;text-align:left}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="menu btn">FILE</div><div class="menu btn">EDIT</div><div class="menu btn">DATA</div>
+  <div class="menu btn">VIEW</div><div class="menu btn">LANGUAGE</div><div class="menu btn">HELP</div>
+  <div class="signin btn">SIGN IN</div>
+</header>
+
+<main class="workspace">
+  <div class="canvas">
+    <svg class="chart-svg" viewBox="0 0 700 420" aria-label="Chart">
+      <rect x="0" y="0" width="700" height="420" fill="#fff"/>
+      <text x="350" y="40" text-anchor="middle" font-size="29" fill="#4aa2d7">Chart Title</text>
+      <text x="350" y="69" text-anchor="middle" font-size="17" fill="#777">Add SubTitle Here</text>
+      <g id="grid" stroke="#dfe3e6" stroke-width="1">
+        <line x1="48" y1="108" x2="653" y2="108"/><line x1="48" y1="130" x2="653" y2="130"/>
+        <line x1="48" y1="152" x2="653" y2="152"/><line x1="48" y1="174" x2="653" y2="174"/>
+        <line x1="48" y1="196" x2="653" y2="196"/><line x1="48" y1="218" x2="653" y2="218"/>
+        <line x1="48" y1="240" x2="653" y2="240"/><line x1="48" y1="262" x2="653" y2="262"/>
+        <line x1="48" y1="284" x2="653" y2="284"/>
+        <line x1="48" y1="108" x2="48" y2="306"/><line x1="149" y1="108" x2="149" y2="306"/>
+        <line x1="250" y1="108" x2="250" y2="306"/><line x1="351" y1="108" x2="351" y2="306"/>
+        <line x1="452" y1="108" x2="452" y2="306"/><line x1="553" y1="108" x2="553" y2="306"/>
+        <line x1="653" y1="108" x2="653" y2="306"/>
+      </g>
+      <g font-size="13" fill="#222" text-anchor="end">
+        <text x="40" y="112">100</text><text x="40" y="134">90</text><text x="40" y="156">80</text>
+        <text x="40" y="178">70</text><text x="40" y="200">60</text><text x="40" y="222">50</text>
+        <text x="40" y="244">40</text><text x="40" y="266">30</text><text x="40" y="288">20</text>
+      </g>
+      <path id="blueFill" fill="#75b7df" fill-opacity=".58" stroke="#328dca" stroke-width="2.5"></path>
+      <path id="greenFill" fill="#65dc91" fill-opacity=".58" stroke="#36c975" stroke-width="2.5"></path>
+      <g id="labels" font-size="13" font-style="italic" fill="#222" text-anchor="middle"></g>
+      <g font-size="13" fill="#222" text-anchor="middle">
+        <text x="48" y="327">January</text><text x="149" y="327">February</text><text x="250" y="327">March</text>
+        <text x="351" y="327">April</text><text x="452" y="327">May</text><text x="553" y="327">June</text><text x="653" y="327">July</text>
+      </g>
+      <g font-size="16">
+        <rect x="278" y="363" width="16" height="16" fill="#8ae7a9" stroke="#32cc72" stroke-width="2"/><text x="301" y="377">2024</text>
+        <rect x="342" y="363" width="16" height="16" fill="#acd3e8" stroke="#398fc9" stroke-width="2"/><text x="365" y="377">2023</text>
+      </g>
+      <text x="350" y="401" text-anchor="middle" font-size="13" fill="#555">Made with Livegap Charts</text>
+    </svg>
+  </div>
+  <div class="try btn">Try <b>code.livegap.com</b><span class="new">New</span></div>
+  <div class="blue-dot"></div>
+</main>
+
+<aside class="sidebar">
+  <div class="brand"><img src="../../../data/data/46/assets/010.png" width="185" height="77" alt="Livegap Charts"></div>
+  <div class="panel" id="controls">
+    <div class="section btn">Chart</div><div class="section btn">Colors</div><div class="section btn">inGraph Data</div>
+    <div class="section btn">Legend</div><div class="section btn">DataSet</div>
+    <div class="section btn" id="pointBtn">Point Dot</div>
+    <div class="point-settings" id="pointSettings" style="display:none">
+      <div class="toggle-row"><span class="switch"></span><span>Point Dot</span></div>
+      <div class="setting-box"><div class="setting-label">Shape</div><div class="circle-choice"><i></i>circle</div>
+        <div class="range-label">Radius</div><input type="range" min="1" max="20" value="6">
+        <div class="setting-label">Stroke Style</div><div class="line-preview"></div>
+        <div class="range-label">Stroke Width</div><input type="range" min="1" max="10" value="2">
+      </div>
+    </div>
+    <div class="section btn">Scale</div><div class="section btn">Axis</div><div class="section btn">Grid</div>
+    <div class="section btn">Text</div><div class="section btn">Annotations</div><div class="section btn">Animation</div>
+    <div class="section btn">Freehand <button class="btn" style="margin-left:10px;border:1px solid #78a9d1;background:#fff;border-radius:4px;color:#397db1;padding:4px 10px">Pro</button></div>
+  </div>
+  <div class="ad-area"><img src="../../../data/data/46/assets/007.png" width="140" height="52" alt="Get it from Microsoft"></div>
+</aside>
+
+<section class="data">
+  <div class="data-tab">DATA</div>
+  <table>
+    <thead><tr><th></th><th>January</th><th>February</th><th>March</th><th>April</th><th>May</th><th>June</th><th>July</th><th></th></tr></thead>
+    <tbody>
+      <tr><td>2023</td><td class="editable" contenteditable="true" data-series="blue" data-index="0">65</td><td class="editable" contenteditable="true" data-series="blue" data-index="1">8</td><td class="editable" contenteditable="true" data-series="blue" data-index="2">90</td><td class="editable" contenteditable="true" data-series="blue" data-index="3">81</td><td class="editable" contenteditable="true" data-series="blue" data-index="4">56</td><td class="editable" contenteditable="true" data-series="blue" data-index="5">55</td><td class="editable" contenteditable="true" data-series="blue" data-index="6">40</td><td></td></tr>
+      <tr><td>2024</td><td class="editable" contenteditable="true" data-series="green" data-index="0">21</td><td class="editable" contenteditable="true" data-series="green" data-index="1">48</td><td class="editable" contenteditable="true" data-series="green" data-index="2">40</td><td class="editable" contenteditable="true" data-series="green" data-index="3">19</td><td class="editable" contenteditable="true" data-series="green" data-index="4">96</td><td class="editable" contenteditable="true" data-series="green" data-index="5">27</td><td class="editable" contenteditable="true" data-series="green" data-index="6">99</td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<script>
+const blue=[65,8,90,81,56,55,40], green=[21,48,40,19,96,27,99];
+const xs=[48,149,250,351,452,553,653], base=306, scale=1.98;
+function smooth(points){
+  let d=`M ${points[0][0]} ${points[0][1]}`;
+  for(let i=0;i<points.length-1;i++){
+    const p=points[i], n=points[i+1], mx=(p[0]+n[0])/2;
+    d+=` C ${mx} ${p[1]}, ${mx} ${n[1]}, ${n[0]} ${n[1]}`;
+  }
+  return d;
+}
+function draw(){
+  const make=(arr)=>arr.map((v,i)=>[xs[i],base-v*scale]);
+  const bp=make(blue),gp=make(green);
+  document.getElementById('blueFill').setAttribute('d',smooth(bp)+` L 653 ${base} L 48 ${base} Z`);
+  document.getElementById('greenFill').setAttribute('d',smooth(gp)+` L 653 ${base} L 48 ${base} Z`);
+  let html='';
+  bp.forEach((p,i)=>html+=`<text x="${p[0]}" y="${p[1]-8}">${blue[i]}</text>`);
+  gp.forEach((p,i)=>html+=`<text x="${p[0]}" y="${p[1]-8}">${green[i]}</text>`);
+  document.getElementById('labels').innerHTML=html;
+}
+draw();
+document.querySelectorAll('.editable').forEach(cell=>{
+  cell.addEventListener('input',()=>{
+    const val=parseFloat(cell.innerText.trim());
+    if(!isNaN(val)){
+      const arr=cell.dataset.series==='blue'?blue:green;
+      arr[+cell.dataset.index]=Math.max(0,Math.min(100,val));
+      draw();
+    }
+  });
+  cell.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();cell.blur()}});
+});
+document.getElementById('pointBtn').addEventListener('click',()=>{
+  const p=document.getElementById('pointSettings');
+  p.style.display=p.style.display==='none'?'block':'none';
+});
+document.querySelectorAll('.section').forEach(el=>{
+  if(el.id!=='pointBtn') el.addEventListener('click',()=>el.classList.toggle('open'));
+});
+</script>
+</body>
+</html>

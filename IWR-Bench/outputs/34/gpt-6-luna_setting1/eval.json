@@ -1,0 +1,145 @@
+{
+  "total_step": 11,
+  "success_step": 8,
+  "screenshot_paths_to_eval": [
+    "outputs/34/gpt-6-luna_setting1/evalpoints/0.png",
+    "outputs/34/gpt-6-luna_setting1/evalpoints/0.png",
+    "outputs/34/gpt-6-luna_setting1/evalpoints/1.png",
+    "outputs/34/gpt-6-luna_setting1/evalpoints/2.png",
+    "outputs/34/gpt-6-luna_setting1/evalpoints/3.png",
+    "outputs/34/gpt-6-luna_setting1/evalpoints/4.png",
+    "outputs/34/gpt-6-luna_setting1/evalpoints/5.png",
+    "outputs/34/gpt-6-luna_setting1/evalpoints/6.png",
+    "outputs/34/gpt-6-luna_setting1/evalpoints/7.png",
+    "outputs/34/gpt-6-luna_setting1/evalpoints/8.png"
+  ],
+  "all_mllm_scores": [
+    0.87,
+    0.23,
+    0.77,
+    0.42,
+    0.32,
+    0.68,
+    0.35,
+    0.73,
+    0.5,
+    0.53
+  ],
+  "all_dino_scores": [
+    0.77734375,
+    0.7705078125,
+    0.8515625,
+    0.8466796875,
+    0.4482421875,
+    0.445068359375,
+    0.80322265625,
+    0.84423828125,
+    0.6708984375,
+    0.76220703125
+  ],
+  "all_ocr_scores": [
+    0.7444444444444445,
+    0.18181818181818177,
+    0.27586206896551724,
+    0.17808219178082196,
+    0.2857142857142857,
+    0.21323529411764708,
+    0.1652892561983471,
+    0.22377622377622375,
+    0.22680412371134018,
+    0.33834586466165417
+  ],
+  "all_avg_scores": [
+    0.7972627314814815,
+    0.3941086647727272,
+    0.6324748563218391,
+    0.4815872930936073,
+    0.351318824404762,
+    0.44610121783088247,
+    0.4395039708161157,
+    0.5993381683420745,
+    0.46590085373711343,
+    0.5435176319705514
+  ],
+  "mllm_score": 0.54,
+  "dino_score": 0.7219970703125,
+  "ocr_score": 0.28333719351884634,
+  "avg_score": 0.5151114212771154,
+  "all_mllm_res": [
+    "Comments:\n- **Layout (10 points): 7/10** — The overall centered single-column structure and large vertical spacing match well. However, the generated version places the title, illustration, and bottom CTA noticeably lower, and the content blocks are larger than in the reference.\n- **Elements (15 points): 13/15** — The logo, title/author block, central illustration, and bottom video-link CTA are all present and correctly arranged. Their proportions and sizing differ from the reference.\n- **Content and Text (40 points): 38/40** — Text content is essentially an exact match: “ThePudding,” “the middle ages,” “by alvin chang,” and “Don’t like scrolling? Watch the video instead!” Minor differences are primarily related to scale and positioning.\n- **Style (15 points): 13/15** — The dark purple background, white/purple typography, centered composition, black CTA panel, and illustration style are highly consistent. The generated page uses somewhat larger visual elements.\n- **Overall (20 points): 16/20** — Strong visual similarity with the same minimalist layout and content, but vertical placement and scale mismatches prevent it from being a near-perfect reproduction.\n\n**Score: 87/100**",
+    "---\nComments:\n-Layout (10 points): The dark full-page canvas and central placement of the illustration are similar, but the illustration is larger and slightly higher/left. The reference’s centered header and bottom video prompt are missing; the speech bubble is instead at the lower left. (3/10)\n-Elements (15 points): The central illustration is present, but the logo, title/byline, and video-link panel are absent. A speech bubble and small decorative figure appear only in the generated page. (4/15)\n-Content and Text (40 points): The reference includes “The Pudding,” “the middle ages,” an author byline, and a video prompt. None are reproduced; the generated page instead shows “Hey, what grade are you in?” (2/40)\n-Style (15 points): The deep purple background and illustration’s appearance are close to the reference. The missing typography and page elements make the overall styling feel incomplete. (10/15)\n-Overall (20 points): The shared background and illustration provide some visual similarity, but most of the reference’s identifying content and composition are missing. (4/20)\n\nScore: 23/100\n---",
+    "Comments:\n- **Layout (10 points): 5/10** — The overall dark, vertically spaced composition is similar, but the positioning and scale of the major elements differ noticeably. The reference places the prompt near the lower-left and the character panel lower and smaller, while the generated page places them higher and larger. The “Watch the video instead!” section is also missing from the visible generated view.\n- **Elements (15 points): 11/15** — The main speech bubbles, character image, response text, and small decorative icon are present. However, the reference includes an additional centered video-link element, and the decorative icon appears different.\n- **Content and Text (40 points): 34/40** — The key text matches closely: “Hey, what grade are you in?” and “Fourth grade!” Typography and wording are consistent. The missing “Don’t like scrolling? Watch the video instead!” text/link reduces completeness.\n- **Style (15 points): 13/15** — The dark purple background, white rounded speech bubbles, illustrated character, and general visual tone are strongly consistent. Minor differences exist in image sizing, icon appearance, and contrast of the video-link area.\n- **Overall (20 points): 14/20** — The page clearly represents the same design and interaction sequence, but the viewport positioning, vertical spacing, element sizing, and omitted video-link content prevent a close visual match.\n\n**Score: 77/100**",
+    "Comments:\n-Layout (10 points): The dark full-page canvas is consistent, but the content is positioned and scaled differently. The reference shows the character near the top, a question bubble at the left, and a classmates panel near the bottom; these are absent or out of view in the generated page. (4/10)\n-Elements (15 points): The generated page includes the character image, the “Fourth grade!” reply bubble, and a small sprite. It omits the question bubble and the classmates image panel visible in the reference. (7/15)\n-Content and Text (40 points): “Fourth grade!” matches, but the reference also includes “Hey, what grade are you in?” and “Yeah! Wanna meet my classmates?” The missing text and associated content are substantial. (12/40)\n-Style (15 points): The deep purple background, illustrated character, and white rounded speech bubble are broadly similar. The generated elements are larger and their spacing differs from the reference. (11/15)\n-Overall (20 points): The page captures the reference’s general visual theme and one key reply, but is incomplete and does not match the reference’s visible content arrangement. (8/20)\n\nScore: 42/100---",
+    "Comments:\n- **Layout (10 points): 2/10** — Both pages use a dark full-screen background with content centered around the middle, but the generated page shows only a single portrait and speech bubble. The reference contains a large multi-row classmate grid, additional dialogue bubbles on the left, and content extending vertically.\n- **Elements (15 points): 4/15** — The generated page includes a portrait, speech bubble, highlighted word, and small cursor/decorative element, which overlap with the reference’s core components. However, it is missing the large student collage, multiple dialogue bubbles, grade label, and other visible page elements.\n- **Content and Text (40 points): 13/40** — The phrase “Yeah! Wanna meet my classmates?” is reproduced closely, including the highlighted “Yeah!”. The reference also includes “Wow. Thanks, kid. Mind if I ask your class a question?” and “I mean, I guess...”, which are absent from the generated page.\n- **Style (15 points): 8/15** — The dark purple background, illustrated character style, white rounded speech bubble, typography, and yellow text highlight are generally consistent. The scale and composition of the visual assets differ substantially.\n- **Overall (20 points): 5/20** — The generated page captures the basic visual theme and one matching interaction state, but it does not reproduce the reference’s main composition or amount of content.\n\n**Score: 32/100**",
+    "Comments:\n-Layout (10 points): Both screenshots use a dark full-page canvas with a centrally positioned visual/story area and dialogue bubbles along the left or center. However, the visible compositions differ substantially: the first shows a single character and central speech bubble, while the second shows a large classroom grid and bottom-centered status text. **6/10**\n-Elements (15 points): Shared elements include illustrated characters, white speech bubbles with triangular pointers, centered storytelling content, and progress/status information. The second view contains a much larger classmate grid and additional labels that are not visible in the first. **11/15**\n-Content and Text (40 points): The dialogue is clearly part of the same narrative sequence, with the exact phrase “I mean, I guess...” appearing in both. Other visible dialogue differs, and the second screenshot includes “4th Elementary,” “Belonging,” and “9%,” which are absent from the first. **25/40**\n-Style (15 points): Strong stylistic consistency: dark purple background, cartoon portrait art, white rounded speech bubbles, small sans-serif text, and purple/pink character palette. The visual treatment and typography are highly similar. **13/15**\n-Overall (20 points): The screenshots appear to represent different states or scroll positions of the same interactive webpage rather than identical layouts. The shared narrative design and styling are evident, but the primary visible content and positioning differ considerably. **13/20**\n\nScore: **68/100**",
+    "Comments:\n- **Layout (10 points): 3/10** — Both pages use a dark background and centered character grid, but the generated page is at a substantially different scroll position. Its large empty area and lower “Belonging” section replace the reference’s prominent grid and label.\n- **Elements (15 points): 8/15** — The illustrated faces and speech-bubble styling are similar. The generated page adds a percentage heading, yellow-highlighted cells, and an overlay bubble, while the reference shows a single unhighlighted grid with a caption beneath it.\n- **Content and Text (40 points): 10/40** — “Elementary” appears in both, but the visible dialogue differs, and “Belonging 9%” and the question overlay appear only in the generated screenshot. The reference instead shows “4th Elementary” and “I mean, I guess...”.\n- **Style (15 points): 9/15** — The dark plum palette, illustrated faces, and white rounded dialogue bubbles are broadly consistent. The generated grid’s yellow highlights and darker treatment make it look noticeably different.\n- **Overall (20 points): 5/20** — There is a clear visual relationship, especially in the artwork and general palette, but the scroll position and visible section make the screenshots poor matches overall.\n\n**Score: 35/100**",
+    "Comments:\n- **Layout (7/10):** Both pages use a centered 4-column portrait grid on a dark purple background with the “4th Elementary” label beneath it. However, the generated version’s grid is substantially smaller and positioned higher, with more empty space around it. The speech bubbles also appear in different locations.\n- **Elements (12/15):** The main visual elements are present: the student-avatar grid, dark background, speech bubbles, highlighted student tiles, and grade label. Some state-specific elements differ, including which tiles are highlighted and the number/placement of dialogue bubbles.\n- **Content and Text (27/40):** The overall classroom/dialogue concept and “4th Elementary” text are consistent. However, the dialogue text is different between the two screenshots, and the student arrangement/highlighting does not match exactly.\n- **Style (13/15):** Strong stylistic similarity in the purple palette, illustrated faces, dark grid borders, white rounded dialogue boxes, and typography. The generated version introduces a prominent yellow highlighted section and darker overlays that alter the visual balance.\n- **Overall (14/20):** The generated webpage clearly reproduces the same experience and visual language, but it appears to represent a different interaction/state and differs notably in scale, positioning, highlighted tiles, and displayed text.\n\n**Score: 73/100**",
+    "Comments:\n- **Layout (4/10):** The page uses a centered portrait grid on a dark purple background, which is broadly consistent. However, the screenshots show major differences in vertical positioning, spacing, and section composition. The generated layout leaves large unused areas and places the speech bubble and score sections differently from the reference.\n- **Elements (7/15):** The character tile grids, speech bubbles, grade label, and “Belonging” score are present. Some grid sections appear structurally similar, but tile counts, visibility states, and placement differ substantially.\n- **Content and Text (20/40):** Key text such as “4th Elementary,” “Belonging,” and “73%” is represented. The speech-bubble text is only partially aligned, and some content appears missing, truncated, or shown at an incorrect scroll position.\n- **Style (10/15):** The dark purple theme, illustrated faces, grid borders, white labels, and yellow percentage accent are well matched. Differences remain in tile coloring, contrast, sizing, and visual emphasis.\n- **Overall (9/20):** The implementation captures the general concept and visual identity, but the page does not closely match the reference in exact composition, section sequencing, spacing, and content placement.\n\n**Score: 50/100**",
+    "Comments:\n-Layout (10 points): Both pages center a tall, four-column student portrait grid on a dark background. The generated page’s grid is larger and starts much higher; the reference adds a heading and percentage above a smaller grid. **6/10**\n-Elements (15 points): The portrait tiles and “4th / Elementary” caption are shared. The speech bubble appears in both, but its position and content differ, and the reference includes a “Belonging 73%” heading absent from the generated page. **9/15**\n-Content and Text (40 points): The grade caption matches, but the dialogue is different: the generated page asks who feels they belong and explains the question, while the reference shows a response from students highlighted in yellow. The reference also includes the belonging percentage. **18/40**\n-Style (15 points): Both use a deep plum background and similar illustrated portraits. The reference grid is substantially dimmed, with yellow-highlighted tiles and text; the generated page is brighter and more uniformly pink. **10/15**\n-Overall (20 points): The two pages share the central visual concept and artwork, but differ noticeably in interaction state, text, grid scale and placement, and visual emphasis. **10/20**\n\nScore: **53/100**"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "Ghepuading the middle ages by alvin changi Don\"t like scrolling? nl( Ifut' vltleo [bieatli",
+      "screenshot_text": "@heeuading the middle ages Dy alvin chang Don t like scrolling? Watch the video insteadl",
+      "similarity": 0.7444444444444445
+    },
+    {
+      "checkpoint_text": "Hey; what grade are you in?",
+      "screenshot_text": "@heeuading the middle ages Dy alvin chang Don t like scrolling? Watch the video insteadl",
+      "similarity": 0.18181818181818177
+    },
+    {
+      "checkpoint_text": "Hey; what grade are you in? Fourth gradel",
+      "screenshot_text": "Dont Iike scrolling? Watch the video insteadi Fourth gradel Hey; what grade are you in?",
+      "similarity": 0.27586206896551724
+    },
+    {
+      "checkpoint_text": "Fourth gradel",
+      "screenshot_text": "Fourth gradel what grade are you in? Yeahl Wanna meet my classmates? Hey:",
+      "similarity": 0.17808219178082196
+    },
+    {
+      "checkpoint_text": "Yeah! Wanna meet my classmates?",
+      "screenshot_text": "Yeahl Wanna meet my classmates? Wow: Thanks, kid. Mind if ask your class a question? mean; guess. 1 3 4th",
+      "similarity": 0.2857142857142857
+    },
+    {
+      "checkpoint_text": "Yeah! Wanna meet my classmates? mean; guess ._",
+      "screenshot_text": "Wow: Thanks, kid. Mind if ask your class a question? mean; guess. 1 3 4th Elementary Surel But hurry up Recess stants soon: Belonging 9%",
+      "similarity": 0.21323529411764708
+    },
+    {
+      "checkpoint_text": "mean; guess_. ~~ Ath Elementary",
+      "screenshot_text": "lementary Surel But hurry up Recess stants soon: Belonging 9% Those of us in yellow feel like we belong do you ask? 7 Why",
+      "similarity": 0.1652892561983471
+    },
+    {
+      "checkpoint_text": "Wow: Thanks, kid. Mind if ask your class a question? 6 Ath Elementary",
+      "screenshot_text": "Those of us in yellow feel like we belong do you ask? 3 Ath Elementary Well, feeling like you belong is really important: It helps you feel Why",
+      "similarity": 0.22377622377622375
+    },
+    {
+      "checkpoint_text": "Surel But hurry up. Recess starts soon: 6 Ath Elementary",
+      "screenshot_text": "Ath Elementary Well, feeling like you belong is really important: It helps you feel Belonging 73%",
+      "similarity": 0.22680412371134018
+    },
+    {
+      "checkpoint_text": "Who here feels like you belong at the school: So, like, feeling respected by other students and supported by adults? 6 Ath Elementary",
+      "screenshot_text": "Belonging 73% Those of us in yellow feel like we belong: Why do you ask? Ath Elementary",
+      "similarity": 0.33834586466165417
+    }
+  ],
+  "assertion_results": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ]
+}

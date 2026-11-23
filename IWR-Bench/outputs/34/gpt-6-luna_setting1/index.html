@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Middle Ages — The Pudding</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:#1d061b;color:#eee;font-family:Arial,Helvetica,sans-serif}
+  body{overflow-x:hidden}
+  .story{position:relative;width:100%;min-height:6500px;background:#1d061b}
+  .section{height:1000px;position:relative;width:100%}
+  .intro{height:1180px}
+  .logo{position:absolute;top:38px;left:50%;transform:translateX(-50%);width:158px;height:43px;object-fit:contain}
+  .intro-title{position:absolute;top:300px;left:50%;transform:translateX(-50%);font-size:17px;color:#ddd;font-weight:400}
+  .byline{position:absolute;top:335px;left:50%;transform:translateX(-50%);font-size:12px;color:#ddd}
+  .byline span{color:#d947bd;text-decoration:underline}
+  .face{position:absolute;left:50%;top:424px;transform:translateX(-50%);width:228px;height:140px;object-fit:contain}
+  .watch{position:absolute;left:50%;bottom:27px;transform:translateX(-50%);background:#090009;padding:17px 58px;color:#ddd;font-size:12px;white-space:nowrap}
+  .watch a{color:#ce23ab;text-decoration:underline}
+  .speech{
+    position:absolute;background:#fff;color:#302b30;border-radius:8px;
+    box-shadow:0 3px 10px rgba(0,0,0,.35);font-size:14px;line-height:1.35;
+    padding:17px 20px;min-width:245px;z-index:4
+  }
+  .speech:before{content:"";position:absolute;width:0;height:0;border-top:12px solid transparent;border-bottom:12px solid transparent}
+  .left-speech{left:15px;top:515px}
+  .left-speech:before{left:-13px;top:20px;border-right:14px solid #fff}
+  .center-speech{left:50%;transform:translateX(-50%);top:594px;min-width:230px}
+  .center-speech:before{top:-12px;left:50%;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:13px solid #fff}
+  .yellow{background:#ffe27b;color:#2d2025;padding:1px 3px}
+  .grade{height:1150px}
+  .grade .face{top:300px}
+  .grade .left-speech{top:510px}
+  .grade .center-speech{top:440px}
+  .butterfly{position:absolute;left:60%;top:520px;font-size:19px;filter:drop-shadow(0 0 2px white)}
+  .classroom{height:1500px}
+  .grid-wrap{position:absolute;top:75px;left:50%;transform:translateX(-50%);width:620px;text-align:center}
+  .grid{display:block;width:620px;height:auto}
+  .grade-label{font-size:22px;font-weight:bold;margin-top:9px;color:#eee}
+  .school-label{font-size:12px;color:#ddd;margin-top:0}
+  .classroom .left-speech{top:595px}
+  .classroom .center-speech{top:164px;left:50%;margin-left:-2px}
+  .classroom .speech.later{top:450px}
+  .classroom .speech.question{top:950px}
+  .belonging{height:1550px}
+  .belonging .grid-wrap{top:78px}
+  .belonging .grid{filter:none}
+  .metric{position:absolute;top:14px;left:50%;transform:translateX(-50%);text-align:center;font-weight:bold}
+  .metric .name{font-size:14px;color:#ddd}
+  .metric .number{font-size:21px;color:#f9df63;margin-top:11px}
+  .belonging .speech{top:165px;left:50%;transform:translateX(-50%);min-width:230px}
+  .belonging .speech:before{left:50%;top:-12px;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:13px solid #fff}
+  .belonging .lower{left:15px;top:925px;transform:none}
+  .ending{height:1100px}
+  .ending .grid-wrap{top:100px}
+  .ending .grid{filter:brightness(.48) saturate(.8)}
+  .ending .metric .number{color:#f9df63}
+  .ending .speech{left:50%;top:510px;transform:translateX(-50%)}
+  .btn{cursor:pointer}
+  @media(max-width:800px){
+    .grid-wrap{width:82vw}.grid{width:82vw}
+    .speech{font-size:13px}
+  }
+</style>
+</head>
+<body>
+<main class="story">
+  <section class="section intro">
+    <img class="logo" src="../../../data/data/34/assets/059.svg" width="158" height="43" alt="The Pudding">
+    <div class="intro-title">the middle ages</div>
+    <div class="byline">by <span>alvin chang</span></div>
+    <img class="face" src="../../../data/data/34/assets/065.png" width="228" height="140" alt="">
+    <div class="watch">Don't like scrolling? <a class="btn" href="#classmates">Watch the video instead!</a></div>
+  </section>
+
+  <section class="section grade">
+    <img class="face" src="../../../data/data/34/assets/065.png" width="228" height="140" alt="">
+    <div class="speech left-speech">Hey, what grade are you in?</div>
+    <div class="speech center-speech">Fourth grade!</div>
+    <div class="butterfly">🦋</div>
+  </section>
+
+  <section class="section classroom" id="classmates">
+    <div class="grid-wrap">
+      <img class="grid" src="../../../data/data/34/assets/066.png" width="620" height="817" alt="A classroom of students">
+      <div class="grade-label">4th</div>
+      <div class="school-label">Elementary</div>
+    </div>
+    <div class="speech left-speech">I mean, I guess...</div>
+    <div class="speech center-speech"> <span class="yellow">Yeah!</span> Wanna meet my<br> classmates?</div>
+    <div class="speech later left-speech">Wow. Thanks, kid. Mind if I ask<br>your class a question?</div>
+    <div class="speech question left-speech">Sure! But hurry up. Recess<br>starts soon.</div>
+  </section>
+
+  <section class="section belonging">
+    <div class="metric">
+      <div class="name">Belonging</div>
+      <div class="number">9%</div>
+    </div>
+    <div class="grid-wrap">
+      <img class="grid" src="../../../data/data/34/assets/067.png" width="620" height="817" alt="Students highlighted by belonging">
+      <div class="grade-label">4th</div>
+      <div class="school-label">Elementary</div>
+    </div>
+    <div class="speech">
+      Those of us in <span class="yellow">yellow</span> feel like<br>
+      we belong. Why do you ask?
+    </div>
+    <div class="speech lower">
+      Well, feeling like you belong is<br>
+      really important. It helps you feel
+    </div>
+  </section>
+
+  <section class="section ending">
+    <div class="metric">
+      <div class="name">Belonging</div>
+      <div class="number">73%</div>
+    </div>
+    <div class="grid-wrap">
+      <img class="grid" src="../../../data/data/34/assets/067.png" width="620" height="817" alt="Students highlighted by belonging">
+      <div class="grade-label">4th</div>
+      <div class="school-label">Elementary</div>
+    </div>
+    <div class="speech">Those of us in <span class="yellow">yellow</span> feel like<br>we belong. Why do you ask?</div>
+  </section>
+</main>
+
+<script>
+  document.querySelectorAll('a.btn').forEach(function(link){
+    link.addEventListener('click',function(e){
+      const target=document.querySelector(this.getAttribute('href'));
+      if(target){
+        e.preventDefault();
+        target.scrollIntoView({behavior:'smooth'});
+      }
+    });
+  });
+
+  const sections=[...document.querySelectorAll('.section')];
+  function updateStory(){
+    const y=window.scrollY;
+    const intro=sections[0];
+    if(y<350){
+      intro.querySelector('.watch').style.opacity='1';
+    }else{
+      intro.querySelector('.watch').style.opacity='.25';
+    }
+  }
+  window.addEventListener('scroll',updateStory);
+  updateStory();
+</script>
+</body>
+</html>

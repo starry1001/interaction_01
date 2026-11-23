@@ -1,0 +1,46 @@
+{
+  "total_step": 11,
+  "success_step": 0,
+  "screenshot_paths_to_eval": [
+    "outputs/40/gpt-6-luna_setting3/evalpoints/0.png"
+  ],
+  "all_mllm_scores": [
+    0.0
+  ],
+  "all_dino_scores": [
+    0.19921875
+  ],
+  "all_ocr_scores": [
+    0.0
+  ],
+  "all_avg_scores": [
+    0.06640625
+  ],
+  "mllm_score": 0.0,
+  "dino_score": 0.19921875,
+  "ocr_score": 0.0,
+  "avg_score": 0.06640625,
+  "all_mllm_res": [
+    "---\nComments:\n-Layout (10 points): The generated page is blank, with none of the reference’s header, hero section, search bar, or literature-card layout. **0/10**\n-Elements (15 points): No visible logo, menu icon, text, search field, book covers, or help banner. **0/15**\n-Content and Text (40 points): None of the reference’s headings, descriptions, book titles, or author names are present. **0/40**\n-Style (15 points): The reference uses a black hero area, white content section, colorful book cards, and contrasting typography. The generated page is entirely white. **0/15**\n-Overall (20 points): The generated page does not visually resemble the reference. **0/20**\n\nScore: **0/100**\n---"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "430px 932px CliffsNotes Explore, Study, Review The original (and the most widely imitated) study guide Search CliffsNotes Literature Notes 1984 Absalom George Orwell Absalom! William Faulkner 1984 Absalom, Absalom! George Orwell William Faulkner Q+A Alhomework help Explanations instantly The Absolutelj Feaen Lece",
+      "screenshot_text": "",
+      "similarity": 0.0
+    }
+  ],
+  "assertion_results": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ]
+}

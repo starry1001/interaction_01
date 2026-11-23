@@ -1,0 +1,195 @@
+```html
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Braille - Wikipedia</title>
+<style>
+:root{--bg:#fff;--text:#202122;--muted:#54595d;--line:#a2a9b1;--soft:#f8f9fa;--link:#36c;color-scheme:light}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:14px/1.6 Arial,Helvetica,sans-serif}
+a{color:var(--link);text-decoration:none;cursor:pointer}
+a:hover{text-decoration:underline}
+button{font:inherit}
+.page{max-width:1232px;margin:0 auto;min-height:100vh}
+.topbar{height:62px;display:flex;align-items:center;gap:20px;padding:0 40px 0 38px}
+.icon{border:0;background:none;color:var(--text);font-size:20px;cursor:pointer;padding:3px}
+.brand{display:flex;align-items:center;gap:8px;color:var(--text);width:160px}
+.brand img{width:38px;height:38px;object-fit:contain}
+.brandname{font:22px Georgia,serif;line-height:20px}
+.brandname small{display:block;font:10px Georgia,serif;text-align:center}
+.search{height:34px;display:flex;width:365px}
+.search input{flex:1;border:1px solid var(--line);padding:6px 10px;font-size:12px;background:var(--bg);color:var(--text)}
+.search button{border:1px solid var(--line);background:var(--soft);font-size:12px;font-weight:bold;padding:0 11px}
+.account{margin-left:auto;color:var(--link);font-size:12px;white-space:nowrap}
+.main{display:grid;grid-template-columns:220px minmax(0,1fr) 220px;gap:30px;padding:0 40px 60px}
+.contents{padding-top:42px;font-size:12px;color:var(--muted)}
+.side-title{font-weight:bold;color:var(--text);border-bottom:1px solid #eaecf0;padding:4px 0 7px;margin-bottom:8px}
+.hide{border:0;background:#eaecf0;color:var(--muted);padding:1px 5px;margin-left:8px;font-size:11px;cursor:pointer}
+.contents ol{list-style:none;padding:0;margin:0}
+.contents li{margin:2px 0}
+.contents .sub{padding-left:18px}
+.contents a{color:#36c}
+.chev{display:inline-block;width:15px;color:var(--text);cursor:pointer;font-size:14px}
+.article{min-width:0;padding-top:13px}
+.article-head{border-bottom:1px solid var(--line);position:relative}
+h1{font:30px Georgia,"Times New Roman",serif;margin:0 0 1px;font-weight:400}
+.lang{position:absolute;right:0;top:7px;color:var(--link);font-size:12px}
+.tabs{height:29px;display:flex;align-items:center;gap:14px;font-size:12px}
+.tabs .right{margin-left:auto;display:flex;gap:14px}
+.tabs a{color:#54595d}
+.tabs .selected{border-bottom:2px solid #202122;padding:5px 0}
+.from{font-size:12px;margin:6px 0 11px}
+.article p{margin:0 0 14px}
+.note{font-style:italic;margin:12px 20px!important}
+.infobox{float:right;width:238px;background:var(--soft);border:1px solid var(--line);padding:4px;margin:8px 0 12px 18px;font-size:12px;line-height:1.35}
+.infobox h3{background:#b0e0e6;text-align:center;font-size:15px;margin:0 0 6px;padding:3px}
+.infobox .photo{width:100%;height:134px;object-fit:cover;display:block}
+.infobox table{width:100%;border-collapse:collapse;margin-top:5px}
+.infobox td{vertical-align:top;padding:2px 3px}
+.infobox td:first-child{font-weight:bold;width:32%}
+.infobox .bar{background:#ddd;text-align:center;font-weight:bold}
+.article h2{font-size:20px;line-height:1.4;border-bottom:1px solid #a2a9b1;margin:30px 0 10px;padding-bottom:3px}
+.article h3{font-size:17px;margin:22px 0 8px;line-height:1.4}
+.edit{font-size:12px;font-weight:normal;margin-left:7px}
+.dots{display:inline-grid;grid-template-columns:repeat(2,10px);grid-template-rows:repeat(3,10px);gap:2px 3px;vertical-align:middle;justify-content:center;padding:5px}
+.dot{width:8px;height:8px;border:1px solid #a2a9b1;border-radius:50%;background:transparent}
+.dot.on{background:#202122;border-color:#202122}
+.dot.red{background:#f33;border-color:#f33}
+.dot.green{background:#24c832;border-color:#24c832}
+.dot.purple{background:#a000d6;border-color:#a000d6}
+.braille-table{border-collapse:collapse;margin:8px 0 14px;font-size:14px;text-align:center}
+.braille-table td{border:1px solid var(--line);padding:0 4px;min-width:54px}
+.braille-table a{display:block}
+.braille-table .dots{display:grid;margin:auto}
+.appearance{padding-top:42px;font-size:12px}
+.appearance .side-title{margin-bottom:7px}
+.group{border-bottom:1px solid #eaecf0;padding:7px 0 11px}
+.group-title{color:var(--muted);margin-bottom:5px}
+.option{display:block;padding:3px 0;cursor:pointer}
+.option input{accent-color:#36c;vertical-align:middle;margin:0 5px 0 0}
+.video{float:right;width:250px;border:1px solid var(--line);padding:4px;margin:5px 0 14px 18px;background:var(--soft)}
+.video img{width:100%;height:126px;object-fit:cover}
+.video figcaption{font-size:12px}
+body.large{font-size:16px}
+body.large .article{font-size:16px}
+body.small{font-size:12px}
+body.wide .page{max-width:1500px}
+body.dark{--bg:#101418;--text:#eaecf0;--muted:#a2a9b1;--line:#54595d;--soft:#202428;--link:#8ab4f8;color-scheme:dark}
+body.dark .dot.on{background:#eaecf0;border-color:#eaecf0}
+body.dark .tabs .selected{border-color:#eaecf0}
+body.dark .braille-table td{background:#171a1d}
+.hidden{display:none}
+@media(max-width:900px){.main{grid-template-columns:180px minmax(0,1fr);padding:0 18px;gap:20px}.appearance{display:none}.topbar{padding:0 18px}.contents{font-size:11px}}
+@media(max-width:650px){.main{display:block}.contents{display:none}.brand{width:auto}.search{width:40%}.account{display:none}.article{padding-top:10px}.infobox{width:45%}}
+</style>
+</head>
+<body>
+<div class="page">
+<header class="topbar">
+<button class="icon btn" aria-label="Main menu">≡</button>
+<div class="brand"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/073.png" width="38" height="38" alt=""><span class="brandname">Wikipedia<small>The Free Encyclopedia</small></span></div>
+<form class="search"><input aria-label="Search Wikipedia" placeholder="⌕  Search Wikipedia"><button class="btn" type="button">Search</button></form>
+<div class="account"><a>Donate</a> &nbsp;<a>Create account</a> &nbsp;<a>Log in</a> &nbsp; •••</div>
+</header>
+<div class="main">
+<aside class="contents" id="contents">
+<div class="side-title">Contents <button class="hide btn" onclick="document.getElementById('toc').classList.toggle('hidden')">hide</button></div>
+<ol id="toc">
+<li><a href="#top">(Top)</a></li>
+<li><span class="chev btn" onclick="toggleGroup(this)">⌄</span><a href="#history">History</a><ol class="sub">
+<li><a href="#derivation">Derivation</a></li><li><a href="#assignment">Assignment</a></li><li><a href="#form">Form</a></li></ol></li>
+<li><span class="chev btn" onclick="toggleGroup(this)">⌄</span><a href="#writing">Writing braille</a><ol class="sub">
+<li><a href="#eight-dot">Eight-dot braille</a></li><li><a href="#letters">Letters</a></li><li><a href="#formatting">Formatting</a></li><li><a href="#punctuation">Punctuation</a></li><li><a href="#contractions">Contractions</a></li><li><a href="#dimensions">Page dimensions</a></li><li><a href="#machine">Braille writing machine</a></li></ol></li>
+<li><a href="#reading">Braille reading</a></li><li><a href="#literacy">Literacy</a></li><li><a href="#transcription">Braille transcription</a></li><li><a href="#software">Braille translation software</a></li><li><a href="#techniques">Braille reading techniques</a></li><li><a href="#uniformity">International uniformity</a></li><li><a href="#conventions">Other braille conventions</a></li>
+<li><span class="chev btn">›</span><a href="#uses">Uses</a></li><li><a href="#unicode">Unicode</a></li><li><a href="#observation">Observation</a></li><li><a href="#devices">Braille devices</a></li><li><a href="#seealso">See also</a></li><li><a href="#notes">Notes</a></li><li><a href="#references">References</a></li><li><a href="#external">External links</a></li>
+</ol></aside>
+<main class="article" id="top">
+<div class="article-head"><h1>Braille</h1><a class="lang">文 99 languages　⌄</a><div class="tabs"><a class="selected">Article</a><a>Talk</a><span class="right"><a class="selected">Read</a><a>Edit</a><a>View history</a><a>Tools　⌄</a></span></div></div>
+<div class="from">From Wikipedia, the free encyclopedia</div>
+<p class="note">This article is about the writing system. For the person who created braille, see <a>Louis Braille</a>. For other uses, see <a>Braille (disambiguation)</a>.</p>
+<aside class="infobox">
+<h3>Braille</h3>
+<img class="photo" src="__PLACEHOLDER_ASSETS_BASE_DIR__/015.jpg" width="230" height="134" alt="A finger reading braille">
+<table>
+<tr><td>Script type</td><td><a>Alphabet (nonlinear)</a></td></tr>
+<tr><td>Creator</td><td><a>Louis Braille</a></td></tr><tr><td>Period</td><td>1834–present</td></tr><tr><td>Direction</td><td>Left-to-right, right-to-left script</td></tr><tr><td>Languages</td><td>133 languages</td></tr>
+<tr><td class="bar" colspan="2">Related scripts</td></tr><tr><td>Parent systems</td><td><a>Night writing</a><br>•　<a>Early braille</a><br>•　Braille</td></tr><tr><td>Child systems</td><td>See <a>Category:French-ordered braille alphabets</a></td></tr><tr><td>Sister systems</td><td><a>New York Point</a></td></tr><tr><td class="bar" colspan="2">ISO 15924</td></tr><tr><td><a>ISO 15924</a></td><td>Brai (570), Braille</td></tr><tr><td class="bar" colspan="2"><a>Unicode</a></td></tr></table>
+</aside>
+<p><b>Braille</b> (/ˈbreɪl/ <i>BRAYL</i>, French: [bʁaj]) is a <a>tactile writing system</a> used by blind or visually impaired people. It can be read either on <a>embossed paper</a> or by using refreshable braille displays that connect to computers and smartphone devices. Braille can be written using a <a>slate and stylus</a>, a <a>braille writer</a>, an electronic braille notetaker or with the use of a computer connected to a braille embosser. For blind readers, braille is an independent writing system, rather than a code of printed orthography.<sup><a>[1]</a></sup></p>
+<p>Braille is named after its creator, <a>Louis Braille</a>, a Frenchman who lost his sight as a result of a childhood accident. In 1824, at the age of fifteen, he developed the braille code based on the French alphabet as an improvement on <a>night writing</a>. He published his system, which subsequently included <a>musical notation</a>, in 1829.<sup>[2]</sup> The second revision, published in 1837, was the first binary form of writing developed in the modern era.</p>
+<p>Braille characters are formed using a combination of six raised dots arranged in a 3 × 2 matrix, called the braille cell. The number and arrangement of these dots distinguishes one character from another. Since the various braille alphabets originated as transcription codes for printed writing, the mappings vary from language to language, and even within one; in <a>English braille</a> there are three levels: <i>uncontracted</i> – a letter-by-letter transcription used for basic literacy; <i>contracted</i> – an addition of abbreviations and contractions used as a space-saving mechanism; and <i>grade 3</i> – various non-standardized personal stenographies that are less commonly used.</p>
+<p>In addition to braille text (letters, punctuation, contractions), it is also possible to create embossed illustrations and graphs, with the lines either solid or made of series of dots or arrows, and bullets that are larger than braille dots.</p>
+<h2 id="history">History <a class="edit">[edit]</a></h2>
+<h3 id="derivation">Derivation <a class="edit">[edit]</a></h3>
+<p>Braille is based on a tactile military code called <a>night writing</a>, developed by Charles Barbier. Braille learned the system and adapted it for practical use.</p>
+<h3 id="assignment">Assignment <a class="edit">[edit]</a></h3>
+<p>In 1829, Louis Braille published his system for writing words, music, and plain songs by means of dots. His method was adopted for education of blind people around the world.</p>
+<h3 id="form">Form <a class="edit">[edit]</a></h3>
+<p>A braille cell is made up of six dot positions, arranged in a rectangle containing two columns of three dots each. A dot may be raised at any of the six positions, producing sixty-four possible combinations.</p>
+<h2 id="writing">Writing braille <a class="edit">[edit]</a></h2>
+<p>Although it is possible to transcribe printed text by simply substituting its equivalent braille letters, in English Braille various contractions and abbreviations are used to make reading and writing more efficient.</p>
+<h3 id="eight-dot">Eight-dot braille <a class="edit">[edit]</a></h3>
+<p>Braille has been extended to an <a>8-dot code</a>, particularly for use with braille embossers and refreshable braille displays. In 8-dot braille the additional dots are added at the bottom of the cell, giving a matrix 4 dots high by 2 dots wide. The additional dots are given the numbers 7 (for the lower-left dot) and 8 (for the lower-right dot). Eight-dot braille has the advantages that the casing of each letter is coded in the cell and that every printable ASCII character can be encoded in a single cell. All 256 (2<sup>8</sup>) possible combinations of 8 dots are encoded by the <a>Unicode</a> standard.</p>
+<h3 id="letters">Letters <a class="edit">[edit]</a></h3>
+<p>The first 25 braille letters, up through the first half of the 3rd decade, transcribe a–z (skipping w). In English Braille, the rest of that decade is rounded out with the ligatures <i>and, for, of, the,</i> and <i>with</i>. Omitting dot 3 from these forms the 4th decade, the ligatures <i>ch, gh, sh, th, wh, ed, er, ou,</i> and the letter <i>w</i>.</p>
+<table class="braille-table"><tr><td><span class="dots"><i class="dot on"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot on"></i></span></td><td><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot"></i><i class="dot"></i><i class="dot on"></i><i class="dot"></i></span></td><td><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot on"></i></span></td></tr><tr><td>ch</td><td>sh</td><td>th</td></tr></table>
+<p>(See <a>English Braille</a>.)</p>
+<h3 id="formatting">Formatting <a class="edit">[edit]</a></h3>
+<p>Various formatting marks affect the values of the letters that follow them. They have no direct equivalent in print. The most important in English Braille are:</p>
+<table class="braille-table"><tr><td><span class="dots"><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot on"></i></span><a>Capital<br>follows</a></td><td><span class="dots"><i class="dot"></i><i class="dot on"></i><i class="dot"></i><i class="dot on"></i><i class="dot on"></i><i class="dot"></i></span><a>Number<br>follows</a></td></tr></table>
+<p>That is, <b>⠠</b> is read as capital 'A', and <b>⠼</b> as the digit '1'.</p>
+<h3 id="punctuation">Punctuation <a class="edit">[edit]</a></h3>
+<p>Basic punctuation marks in English Braille include:</p>
+<table class="braille-table punctuation"><tr id="punct-row"></tr><tr id="punct-row2"></tr></table>
+<p>⠦ is both the question mark and the opening quotation mark. Its reading depends on whether it occurs before a word or after.</p>
+<p>⠶ is used for both opening and closing parentheses. Its placement relative to spaces and other characters determines its interpretation.</p>
+<p>Punctuation varies from language to language. For example, <a>French Braille</a> uses ⠢ for its question mark and swaps the quotation marks and parentheses; it uses ⠲ for both the period and the decimal point, and the English decimal point ⠨ to mark capitalization.</p>
+<h3 id="contractions">Contractions <a class="edit">[edit]</a></h3>
+<p><i>For a full list of abbreviations and contractions in English, see <a>English Braille § Contractions</a>.</i></p>
+<p>In contracted braille, words and common letter combinations can be represented by shorter forms. These contractions make reading faster and reduce the space required to write.</p>
+<h3 id="dimensions">Page dimensions <a class="edit">[edit]</a></h3>
+<p>Most braille embossers support between 34 and 40 cells per line, and 25 lines per page.</p>
+<p>A manually operated Perkins braille typewriter supports a maximum of 42 cells per line (its margins are adjustable), and typical paper allows 25 lines per page.</p>
+<p>A large interlining Stainsby has 36 cells per line and 18 lines per page.</p>
+<p>An A4-sized Marburg braille frame, which allows interpoint braille (dots on both sides of the page, offset so they do not interfere with each other), has 30 cells per line and 27 lines per page.</p>
+<h3 id="machine">Braille writing machine <a class="edit">[edit]</a></h3>
+<figure class="video"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/063.jpg" width="240" height="126" alt="Braille typewriter"><figcaption>Braille typewriter</figcaption></figure>
+<p>A Braille writing machine is a typewriter with six keys that allows the user to write braille on a regular hard copy page.</p>
+<p>The first Braille typewriter to gain general acceptance was invented by <a>Frank Haven Hall</a> (Superintendent of the Illinois School for the Blind), and was presented to the public in 1892.<sup>[12]</sup></p>
+<p>The Stainsby Brailler, developed by Henry Stainsby in 1903, is a mechanical writer with a sliding carriage that moves over an aluminium plate as it embosses Braille characters. An improved version was introduced around 1933.</p>
+<p>In 1951 David Abraham, a woodworking teacher at the <a>Perkins School for the Blind</a>, produced a more advanced Braille typewriter, the <a>Perkins Brailler</a>.</p>
+<p><a>Braille printers or embossers</a> were produced in the 1950s. In 1960 Robert Mann, a teacher in MIT, wrote DOTSYS, a software that allowed automatic braille translation.</p>
+<h3 id="reading">Braille reading <a class="edit">[edit]</a></h3><p>Braille is read by moving the fingertips across the raised dots. Readers typically use both hands to follow a line of text.</p>
+<h3 id="literacy">Literacy <a class="edit">[edit]</a></h3><p>Access to braille literacy supports education, communication, and independence for blind readers.</p>
+<h3 id="transcription">Braille transcription <a class="edit">[edit]</a></h3><p>Transcription converts printed text into braille using established rules and codes.</p>
+<h3 id="software">Braille translation software <a class="edit">[edit]</a></h3><p>Computer software can translate text into braille and prepare it for embossing.</p>
+<h3 id="techniques">Braille reading techniques <a class="edit">[edit]</a></h3><p>Readers use the pads of their fingers to identify dot patterns as they move across a page.</p>
+<h3 id="uniformity">International uniformity <a class="edit">[edit]</a></h3><p>International standards help ensure braille is accessible across languages and regions.</p>
+<h3 id="conventions">Other braille conventions <a class="edit">[edit]</a></h3><p>Different writing systems use braille conventions adapted to their own alphabets.</p>
+<h2 id="uses">Uses <a class="edit">[edit]</a></h2><p>Braille is used in books, signage, labelling, and digital displays.</p><h2 id="unicode">Unicode <a class="edit">[edit]</a></h2><p>Unicode includes patterns for braille symbols.</p><h2 id="observation">Observation <a class="edit">[edit]</a></h2><h2 id="devices">Braille devices <a class="edit">[edit]</a></h2><h2 id="seealso">See also <a class="edit">[edit]</a></h2><h2 id="notes">Notes</h2><h2 id="references">References</h2><h2 id="external">External links</h2>
+</main>
+<aside class="appearance" id="appearance">
+<div class="side-title">Appearance <button class="hide btn" onclick="document.getElementById('appearance').classList.toggle('hidden')">hide</button></div>
+<div class="group"><div class="group-title">Text</div>
+<label class="option"><input class="btn" type="radio" name="size" value="small">Small</label><label class="option"><input class="btn" type="radio" name="size" value="standard" checked>Standard</label><label class="option"><input class="btn" type="radio" name="size" value="large">Large</label></div>
+<div class="group"><div class="group-title">Width</div><label class="option"><input class="btn" type="radio" name="width" value="standard" checked>Standard</label><label class="option"><input class="btn" type="radio" name="width" value="wide">Wide</label></div>
+<div class="group"><div class="group-title">Color (beta)</div><label class="option"><input class="btn" type="radio" name="color" value="automatic">Automatic</label><label class="option"><input class="btn" type="radio" name="color" value="light" checked>Light</label><label class="option"><input class="btn" type="radio" name="color" value="dark">Dark</label></div>
+</aside>
+</div>
+</div>
+<script>
+function toggleGroup(el){let list=el.parentElement.querySelector('ol');if(list){list.classList.toggle('hidden');el.textContent=list.classList.contains('hidden')?'›':'⌄'}}
+document.querySelectorAll('input[name=size]').forEach(x=>x.addEventListener('change',()=>{document.body.classList.remove('small','large');if(x.value!=='standard')document.body.classList.add(x.value)}));
+document.querySelectorAll('input[name=width]').forEach(x=>x.addEventListener('change',()=>{document.body.classList.toggle('wide',x.value==='wide')}));
+document.querySelectorAll('input[name=color]').forEach(x=>x.addEventListener('change',()=>{document.body.classList.toggle('dark',x.value==='dark')}));
+const labels=['Comma','Semicolon','Apostrophe','Colon','Hyphen','Decimal point','Full stop (period)','Exclamation point','Open quote, question mark','Close quote','Bracket (parentheses)','Slash (fraction)'];
+const patterns=[[0,1,3],[0,1,2,3],[2],[1,2,4,5],[3,5],[1,4],[1,2,3,4],[1,2,4],[2,3,5],[1,2,3,5],[1,2,4,5],[2,4]];
+function cell(pattern){let d=document.createElement('span');d.className='dots';for(let i=0;i<6;i++){let dot=document.createElement('i');dot.className='dot'+(pattern.includes(i)?' on':'');d.appendChild(dot)}return d}
+for(let r=0;r<2;r++)for(let c=0;c<6;c++){let i=r*6+c,td=document.createElement('td');td.appendChild(cell(patterns[i]));let a=document.createElement('a');a.textContent=labels[i];td.appendChild(a);document.getElementById(r?'punct-row2':'punct-row').appendChild(td)}
+</script>
+</body>
+</html>
+```

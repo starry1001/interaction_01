@@ -1,0 +1,64 @@
+{
+  "total_step": 7,
+  "success_step": 1,
+  "screenshot_paths_to_eval": [
+    "outputs/36/gpt-6-luna_setting1/evalpoints/0.png",
+    "outputs/36/gpt-6-luna_setting1/evalpoints/0.png",
+    "outputs/36/gpt-6-luna_setting1/evalpoints/1.png"
+  ],
+  "all_mllm_scores": [
+    0.25,
+    0.18,
+    0.31
+  ],
+  "all_dino_scores": [
+    0.1597900390625,
+    0.135986328125,
+    0.253662109375
+  ],
+  "all_ocr_scores": [
+    0.3860544217687075,
+    0.2535460992907801,
+    0.21960297766749381
+  ],
+  "all_avg_scores": [
+    0.2652814869437358,
+    0.18984414247192669,
+    0.26108836234749794
+  ],
+  "mllm_score": 0.24666666666666667,
+  "dino_score": 0.18314615885416666,
+  "ocr_score": 0.28640116624232714,
+  "avg_score": 0.23873799725438682,
+  "all_mllm_res": [
+    "Comments:\n- **Layout (10 points): 3/10** — The generated page preserves the dark Steam-like header and left sidebar structure, but the entire primary content area is blank. The reference includes a centered content column with a secondary navigation bar, page heading, chart, and two game-card sections.\n- **Elements (15 points): 4/15** — The header, Steam branding, navigation links, sidebar categories, dates, and scrollbar are present. However, major elements are missing: the blue store submenu, search box, charts overview heading, player graph, online statistics, game artwork, ranking cards, and active sidebar styling.\n- **Content and Text (40 points): 6/40** — Several sidebar labels and header links match the reference, including “Charts Overview,” “Top Sellers,” “Most Played,” “Steam Deck,” weekly dates, and monthly releases. Most of the reference’s visible textual content is absent, including “CHARTS OVERVIEW,” chart labels, online counts, section headings, and game information.\n- **Style (15 points): 8/15** — The dark color palette, typography direction, header proportions, and sidebar treatment are broadly similar. However, the generated version lacks the reference’s blue gradients, highlighted active navigation item, chart styling, card imagery, spacing hierarchy, and content-area visual contrast.\n- **Overall (20 points): 4/20** — This is a partial structural match limited mainly to the header and sidebar. Since the central page content—which dominates the reference—is completely missing, the visual and functional similarity is very low.\n\n**Score: 25/100**",
+    "Comments:\n- **Layout (3/10):** The dark sidebar structure is partially similar, but the generated page includes a large top header and an entirely empty main content area. The reference uses the main area for two chart panels and additional release sections, with a different scroll position and content alignment.\n- **Elements (3/15):** Some sidebar navigation items and Steam branding are present, but the generated page is missing the chart cards, game artwork, rankings, buttons, dates, and promotional panels shown in the reference.\n- **Content and Text (4/40):** A few sidebar labels overlap with the reference, including “Top Sellers,” “Most Played,” weekly dates, monthly releases, and yearly sections. However, nearly all primary content—game names, rankings, player counts, headings, and call-to-action text—is absent.\n- **Style (6/15):** The dark navy/black color scheme and general Steam-like aesthetic are reasonably close. However, typography, spacing, iconography, header treatment, borders, and panel styling differ substantially from the reference.\n- **Overall (2/20):** The page only loosely matches the reference through its dark theme and sidebar navigation. The missing main content and major structural differences make the overall visual similarity very low.\n\n**Score: 18/100**",
+    "Comments:\n- **Layout (10 points): 3/10** — The generated page preserves the dark top navigation and left sidebar structure, but the primary content area is entirely empty. The reference has a large central chart table, top navigation bar, background artwork, and a right-side promotional panel, all of which are missing.\n- **Elements (15 points): 5/15** — Several sidebar navigation items and header links are present, along with the general Steam-like structure. However, the game ranking rows, thumbnails, search bar, filters, promotional card, country selector, and chart controls are absent. Some icons also appear as simplified or incorrect placeholders.\n- **Content and Text (40 points): 12/40** — The sidebar text largely matches the reference, including “Charts Overview,” “Top Sellers,” “Most Played,” “Steam Deck,” date entries, and yearly sections. The main page title, subtitle, ranked game names, prices, changes, weeks, and related chart data are completely missing.\n- **Style (15 points): 7/15** — The dark color palette and blue-accented Steam navigation are directionally similar. However, the generated version lacks the reference’s background imagery, layered panels, typography scale, highlighted menu styling, game artwork, borders, and visual density. The header logo is also improperly cropped or positioned.\n- **Overall (20 points): 4/20** — The result captures only the basic shell of the page. It resembles the reference in broad structure and color, but the absence of the entire central chart and right promotional area makes it substantially incomplete.\n\n**Score: 31/100**"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "In5t 4 Steam login Ianguage STEAM STORE COMMUNITY ABOUT   SUPPORT Your Store New & Noteworthy Categories Points Shop News Labs {sCt | charts Overview CHARTS OVERVIEW and top played games across Steam LIVE CHARTS PLAYERS ONLINE Top Sellers 38M Most Played 36,143,694 PEAR OMLINE 28M Steam Deck 19M Weekly charts 27,044,673 OulNE Now 9M 12, 2025 Aug 5, 2025 TOP SELLING GAMES MOST PLAYED Jul 29,2025 Montuy Top RELEASES July 2025 June 2025 COUNTER COUNTER StAIKE StrIkE May 2025 1 Counter-Strike 2 Counter-Strike 2 883,007 ToP Selling Right Now Most PLAYED RighT Now IN Game Top selling Aug",
+      "screenshot_text": "Install Steam login language STEAM STORE COMMUNITY ABOUT SUPPORT Charts Overview LIVE CHARTS Top Sellers Most Played Steam Deck WEEKLY CHARTS Aug 12, 2025 Aug 5,2025 Jul 29, 2025 MONTHLY: TOP RELEASES July 2025 June 2025 May 2025 BEST OF YEAR 2024 2023 2022",
+      "similarity": 0.3860544217687075
+    },
+    {
+      "checkpoint_text": "TOP SELLING GAMES MOST PLAYED Jul 29,2025 MONTHLY: Top RELEASES July 2025 ( June 2025 COUNTER COUNTER STRIKE StrikE May 2025 Counter-Strike 2 Counter-Strike 2 883,007 ToP SELLING RighT Now MosT PLAYED RigHT NoW IN GAME BEST OF VEAR Marvel Rivals Dota 2 538,625 2024 Borderlands 4 PUBG: BATTLEGROUNDS 409.575 2023 PEAK Delta Force 141,927 MEIAL GEAR SOLID 4: SNAKE EATER Apex Legends 125,006 2022 SEE ALL 100 TOP SELLEIS SEE ALL 100 MOST PLAYED WEEKLY Aug 12, 2025 MONTHLY July 2025 WEEKLY TOP SELLERS TOP NEW RELEASES YEARLY 2024 aPen How Elldivers@ Bac g T Ebends",
+      "screenshot_text": "Install Steam login language STEAM STORE COMMUNITY ABOUT SUPPORT Charts Overview LIVE CHARTS Top Sellers Most Played Steam Deck WEEKLY CHARTS Aug 12, 2025 Aug 5,2025 Jul 29, 2025 MONTHLY: TOP RELEASES July 2025 June 2025 May 2025 BEST OF YEAR 2024 2023 2022",
+      "similarity": 0.2535460992907801
+    },
+    {
+      "checkpoint_text": "Install Steam login language STEAM STORE COMMUNITY ABOUT SUPPORT Your Store New & Noteworthy Categories Points Shop News Labs search Charts Overview TOP SELLERS United States 100 sel games right now; by revenue LIVE CHARTS RANK PRICE 0 CHANGE 0 WEEKS @0 Top Sellers couai counter-Strike 2 Free To Play 680 Most Played Steam Deck RIVALS Marvel Rivals Free To Play WEEKLY CHARTS DEck Steam Deck 5399.00 182 12,2025 Prcpurchase BORDERLANDS4 Borderlands 4 569.99 5,2025 PeAK PEAK 57,.99 Jul 29, 2025 HeshvpohIE Prepurchase MONTHLY: ToP RELEASES Metal GEAR Sold METAL GEAR SOLID A: SNAKE EATER S69.99 NEW [STEAMOECK 5399.00 July 2025 Helldiverem HELLDIVERST 2 539.99 Steam Deck June 2025 ~Jan 18,2025 3494 KINGDOM HEARTS -HD 1.5+2.5 ReMIX - 40%  529.99 NEW May 2025 Prepurchase DCiHcAcTN Cecoo Top lling Aug Aug",
+      "screenshot_text": "(BTEAM Charts Overview LIVE CHARTS Top Sellers Most Played Steam Deck WEEKLY CHARTS Aug 12, 2025 Aug 5,2025 Jul 29, 2025 MONTHLY: TOP RELEASES July 2025 June 2025 May 2025 BEST OF YEAR 2024 2023 2022",
+      "similarity": 0.21960297766749381
+    }
+  ],
+  "assertion_results": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ]
+}

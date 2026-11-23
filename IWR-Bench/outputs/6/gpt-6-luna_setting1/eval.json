@@ -1,0 +1,92 @@
+{
+  "total_step": 13,
+  "success_step": 3,
+  "screenshot_paths_to_eval": [
+    "outputs/6/gpt-6-luna_setting1/evalpoints/0.png",
+    "outputs/6/gpt-6-luna_setting1/evalpoints/0.png",
+    "outputs/6/gpt-6-luna_setting1/evalpoints/1.png",
+    "outputs/6/gpt-6-luna_setting1/evalpoints/2.png",
+    "outputs/6/gpt-6-luna_setting1/evalpoints/3.png"
+  ],
+  "all_mllm_scores": [
+    0.84,
+    0.11,
+    0.81,
+    0.7,
+    0.77
+  ],
+  "all_dino_scores": [
+    0.6669921875,
+    0.2236328125,
+    0.2386474609375,
+    0.59521484375,
+    0.7236328125
+  ],
+  "all_ocr_scores": [
+    0.42093023255813955,
+    0.259825327510917,
+    0.275092936802974,
+    0.27987742594484166,
+    0.2809667673716012
+  ],
+  "all_avg_scores": [
+    0.6426408066860465,
+    0.197819380003639,
+    0.4412467992468247,
+    0.5250307565649472,
+    0.5915331932905338
+  ],
+  "mllm_score": 0.646,
+  "dino_score": 0.4896240234375,
+  "ocr_score": 0.30333853803769467,
+  "avg_score": 0.47965418715839825,
+  "all_mllm_res": [
+    "Comments:\n- **Layout (9/10):** The overall structure is very closely matched: dark blue top navigation, centered booking bar, full-width hero section, centered hero text and buttons, floating Help control, and rounded white “Save with Special Offers” section. Minor differences exist in header spacing, booking-bar proportions, and hero height.\n- **Elements (12/15):** Most key elements are present and positioned similarly, including navigation links, search field, booking controls, green “View Rates” button, hero CTAs, and Help widget. Some icons, the Disney branding/logo treatment, and certain booking controls differ or are simplified.\n- **Content and Text (35/40):** The primary text matches very well, including “Welcome to,” “The Most Magical Place On Earth,” “Explore Resort Hotels,” “Get Tickets,” and “Save with Special Offers.” Navigation and booking text are also largely consistent, though some labels, capitalization, and secondary text differ.\n- **Style (12/15):** The color palette, typography hierarchy, button styling, rounded corners, and blue Disney-themed branding are close. Differences include font weight/details, icon styling, header logo appearance, overlay treatment, and background imagery.\n- **Overall (16/20):** This is a strong visual reproduction of the reference layout and interaction structure. The largest discrepancy is the hero image/background composition, which features different characters and framing, along with some header branding and minor UI styling differences.\n\n**Score: 84/100**",
+    "Comments:\n- **Layout (10 points): 1/10** — The pages have substantially different structures. The reference uses a ticket-information page with a large illustrated banner and centered informational content, while the generated page uses a navigation bar, vacation booking panel, full-screen promotional hero, and offers section.\n- **Elements (15 points): 2/15** — Both include Disney branding, a large hero area, and a Help widget, but the primary elements differ. The reference contains a breadcrumb, ticket title, Florida resident login notice, and ticket description; the generated page includes navigation links, booking controls, CTA buttons, and promotional content.\n- **Content and Text (40 points): 2/40** — The text does not match. The reference focuses on “Walt Disney World Theme Park Tickets,” ticket pricing, and park admissions. The generated page focuses on “The Most Magical Place On Earth,” resort hotels, tickets, and special offers.\n- **Style (15 points): 4/15** — There is some similarity in Disney’s blue-and-white branding, large promotional imagery, and white typography over a hero image. However, the reference has a starry illustrated theme-park collage, while the generated page uses a photographic Minnie Mouse scene with a significantly different visual treatment.\n- **Overall (20 points): 2/20** — The pages share only broad Disney branding and a promotional webpage concept. The page type, content, imagery, layout, and interactive components are largely unrelated.\n\n**Score: 11/100**",
+    "Comments:\n-Layout (6/10): The page structure and centered content column are consistent with the reference, but the generated view is substantially scrolled down and omits the full navigation bar, hero image, breadcrumb, and page title. This creates a major viewport/layout mismatch.\n-Elements (12/15): The Florida resident notice, introductory copy, “Special Offers” heading, ticket cards, pricing panel, and floating Help control are present. However, the top navigation and hero section are not visible, and the Help widget styling differs slightly.\n-Content and Text (38/40): The visible copy closely matches the reference, including the Florida resident message, park description, My Plans link, and the 3-Day, 3-Park Ticket offer details. Minor differences may exist in text rendering and visible card content due to scrolling.\n-Style (11/15): Typography, spacing, white background, blue text, green offer accent, bordered cards, and blue action button are broadly consistent. The missing hero/navigation styling and differences in the Help widget reduce the score.\n-Overall (14/20): The generated page appears to represent the same Disney ticket page with highly similar content and component styling, but the screenshot is captured at a different scroll position and therefore does not visually reproduce the reference’s prominent header and hero area.\n\nScore: 81/100",
+    "Comments:\n-Layout (10 points): The centered modal is well aligned and presents the ticket details in a clear structure, but it substantially differs from the reference layout, which shows the full page with the promotional offer card, introductory copy, and header image visible. **5/10**\n-Elements (15 points): The modal includes the matching ticket title, close control, scrolling content area, and help widget. However, it omits or obscures major reference elements such as the offer card layout, green “Special Offer” label, pricing panel, and “Continue” button. **9/15**\n-Content and Text (40 points): The ticket information is highly consistent with the reference, including the 3-day/3-park offer, participating parks, $89 daily price, date validity, Magic Kingdom exclusion, and reservation details. Some reference text and supporting page content are hidden or absent. **34/40**\n-Style (15 points): Typography, dark blue text, white background, blue accent color, borders, and help widget are broadly consistent. The modal styling and large overlay treatment differ from the reference card’s compact bordered design and green accent. **10/15**\n-Overall (20 points): The page clearly represents the same Disney ticket offer and reproduces much of the important content, but the open modal changes the primary composition and hides most of the reference page’s visual structure. **12/20**\n\nScore: **70/100**",
+    "Comments:\n- **Layout (10 points): 9/10** — The modal is positioned and sized very similarly to the reference, with nearly identical margins, border, title placement, close button position, and internal scrolling area. Minor differences exist in the modal height and visible scroll position.\n- **Elements (15 points): 13/15** — The main modal, close icon, scrollbar, background page, and floating Help control are present. The Help widget differs in icon styling, color, and placement, and the background content is less visible in the generated version.\n- **Content and Text (40 points): 28/40** — The title and several disclaimer paragraphs match the reference. However, the generated page begins at a later section of the modal content and omits the introductory ticket details visible in the reference, including pricing, eligible parks, dates, and reservation information. The visible “Available Options” section is also positioned differently.\n- **Style (15 points): 12/15** — Typography, dark blue text, blue close icon, white modal, and gray border are closely matched. The generated background is substantially more washed out, and the Help widget styling is noticeably different.\n- **Overall (20 points): 15/20** — Strong structural similarity with a highly comparable modal design, but differences in scroll position, visible text content, background opacity, and Help widget reduce the visual and semantic match.\n\n**Score: 77/100**"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "Visit Disneycom Log or Create Account United States (English) Feonco Cfos G Clesc - (Jnr DiswepWorld Tickets & Parks Places to Things to Do Shop Help & Rules P Cart OMy DipExperience Dates Adults (18+) Children All Resort Hotels Build Your Vacation Check In Check Out All Resort Hotels Accessible Rooms View Rates Welcome to The Most Magical Place On Earth 2 Help Explore Resort Hotels OP Get Tickets Save with Special Offers Stay",
+      "screenshot_text": "Walt Disney World Tickets & Parks Places t0 Things to Do Shop Help Rules Cant United States (English) Search ask a question Dates AII Resont Hotels Build Your Vacation Adults (18+) Children DAccessible Rooms View Rates Check In Check Out AII Resort Hotels Welcome to The Most Magical Place On Earth Help Explore Resort Hotels Get Tickets Save with Special Offers Discover the magic of Walt Disney World Resort: Stay",
+      "similarity": 0.42093023255813955
+    },
+    {
+      "checkpoint_text": "Home > Admission Walt Disney World Theme Park Tickets MOLlyMood JowEL 2 Help Fa Special tickets and prices be available for Florida Residents_ Discover 4 amazing theme parks and 2 water parks near Orlando, Florida -providing plenty of fun for a multi-day stay: Walt Disney World ticket prices below are for one ticket (unless otherwise noted) before tax, for ages 10+. To view or make changes to tickets you've already purchased, visit My Plans: Log may ~day",
+      "screenshot_text": "Walt Disney World Tickets & Parks Places t0 Things to Do Shop Help Rules Cant United States (English) Search ask a question Dates AII Resont Hotels Build Your Vacation Adults (18+) Children DAccessible Rooms View Rates Check In Check Out AII Resort Hotels Welcome to The Most Magical Place On Earth Help Explore Resort Hotels Get Tickets Save with Special Offers Discover the magic of Walt Disney World Resort: Stay",
+      "similarity": 0.259825327510917
+    },
+    {
+      "checkpoint_text": "Special tickets and prices may be available for Florida Residents. Log in Discover 4 amazing theme and water near Orlando; Florida ~providing plenty of fun for multi-day Walt Disney World ticket prices below are for one day ticket (unless otherwise noted) before tax; for ages 10+ To view or make to tickets you've already purchased, visit My Plans: Special Offers 2 Help 3-Park Ticket Admission to Disney'$ Hollywood Studios, ticket (Ages 10+) from: EPCOT and Disney s Animal Kingdom thomc only: One admission per theme park One 589.00 8 theme park per day: ($267.00 per ticket) 1 Docs not include Magic Kingdom park. Valid for start dates from April 6 through September 22, 2025. Ticket must be used within Continue days of selected start date: View Details parks parks stay: changes 3-Day; 3-day Day park",
+      "screenshot_text": "Walt Disney World Tickets & Parks Places t0 Things to Do Shop Help Rules Cant United States (English) Search ask a question Home Admission Walt Disney World Theme Park Tickets 0L Holiyiogp JOwEL Help Special tickets and prices may be available for Florida Residents. Log in Discover 4 amazing theme parks and 2 water parks near Orlando, Florida -providing plenty of fun for a multi-day stay: Walt Disney World ticket prices below are for a one-day ticket (unless otherwise noted) before tax; for ages 10+_ To view or make changes to tickets youve already purchased, visit My Plans Special Offers Stay",
+      "similarity": 0.275092936802974
+    },
+    {
+      "checkpoint_text": "3-Park Ticket Guests can purchase a 3-Day; 3-Park Ticket to Disney's Hollywood Studios, EPCOT and Disney's Animal Kingdom theme only starting at $89 per day; plus tax (total price starting at $267,plus tax): This is a date-based ticket with start dates from April 6 through September 22, 2025. Ticket must be used within 5 days of selected start date: Limit one admission per theme park and one theme park per day for total of 3 admissions, on 3 separate days. Tickets may not be used to enter the same theme more than once: Not valid for admission to Magic 2 Kingdom park: Help This ticket does not require theme park reservations to enter the parks: All tickets and options are nontransferable and nonrefundable; and exclude activitieslevents separately priced: Admission is subject to capacily closures and other restrictions: Parks, attractions and other offerings are subject to availability, closures and change or cancellation without notice or liability: 3-Day; Park park",
+      "screenshot_text": "Special tickets and prices may be available for Florida Residents. Log in Discover 4 amazing theme parks and 2 water parks near Orlando Florida -providing plenty of fun for a multi-day stay: Walt Disney World ticket prices below are for a one-day ticket (unless otherwise noted) before tax; for ages 10+_ To view or make changes to tickets youve already purchased, visit My Plans Special Offers Help }-Day; 3-Park Ticket Admission t0 Disney's Hollywood Studios EPCOT 3-day ticket (Ages 10+) from: and Disney's Animal Kingdom theme park only: One admission per theme park: One theme park per S89.00 8 day: (S267.00 per ticket) 8 Does not include Magic Kingdom park: Valid for start dates from April 6 through September Continue 22, 2025. Ticket must be used within days of selected start date ew Details Day",
+      "similarity": 0.27987742594484166
+    },
+    {
+      "checkpoint_text": "3-Day, 3-Park Ticket All tickets and options are nontransferable and nonrefundable; and exclude activitieslevents separately priced: Admission is subject to capacity closures and other restrictions: Parks, attractions and other offerings are subject to availability; closures and change cancellation without notice or liability: Available Options 2 Help Water Park and Sports option: Visit one theme park per day; plus visits to a water park or other Walt World fun: For each visit, You can choose one of the following: A Walt Disney World water (either Disney's Typhoon Lagoon water park or Disney's Blizzard Beach water park ~whichever is open) ESPN Wide World of Sports Complex Disney's Oak Trail Golf Course FootGolf at Disney'$ Oak Trail enjoy Disney park",
+      "screenshot_text": "3-Day; 3-Park Ticket Guests can purchase a 3-Day; 3-Park Ticket to Disney's Hollywood Studios; EPCOT and Disney's Animal Kingdom theme park only starting at $89 per day; plus tax (total price starting at $267 , plus tax): This is a date-based ticket with start dates from April 6 through September 22, 2025. Ticket must be used within 5 days of selected start date. Limit one admission per theme park and one theme park per ~for a total of 3 admissions_ on 3 separate days. Tickets may not be used to enter the same theme park more than once. Not valid for admission to Magic Help Kingdom park: This ticket does not require theme park reservations to enter the parks. AIl tickets and options are nontransferable and nonrefundable, and exclude activitieslevents separately priced: Admission is subject to capacity closures and other restrictions: Parks, attractions and other offerings are subject to availability; closures and change or cancellation without notice or liability: e  Detaiis day",
+      "similarity": 0.2809667673716012
+    }
+  ],
+  "assertion_results": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ]
+}

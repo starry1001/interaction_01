@@ -1,0 +1,185 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JSTOR Replica</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;color:#111;background:#fff;font-family:Arial,Helvetica,sans-serif}
+body{width:100%;min-width:320px}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.btn{cursor:pointer}
+.serif{font-family:Georgia,"Times New Roman",serif}
+.top-access{height:72px;border-bottom:1px solid #d7d7d7;display:flex;align-items:center;padding:0 36px;font-size:24px;font-style:italic;gap:8px}
+.library-icon{font-style:normal;font-size:25px}
+.header{height:148px;border-bottom:1px solid #ddd;position:relative;padding:12px 36px}
+.logo{width:92px;height:128px;object-fit:contain;object-position:top left}
+.menu-btn{position:absolute;left:163px;top:67px;border:0;background:transparent;font-size:31px;line-height:1}
+.header-actions{position:absolute;right:36px;top:13px;display:flex;gap:24px;align-items:center}
+.register{height:50px;padding:0 20px;background:#fff;border:1px solid #ccc;font-weight:bold}
+.login,.red{background:#a90000;color:#fff;border:0;font-weight:bold}
+.login{height:50px;padding:0 23px;font-size:22px}
+.workspace{position:absolute;right:50px;bottom:22px;font-size:25px;font-weight:bold}
+.search-bar{height:62px;border:1px solid #999;margin:24px 36px 10px;display:flex;align-items:center;padding:0 18px}
+.search-bar input{border:0;outline:0;flex:1;font-size:24px;min-width:0}
+.search-icon{font-size:38px;line-height:1}
+main{width:100%}
+.home{padding-top:42px}
+.hero-title{font-family:Georgia,serif;font-size:76px;line-height:1.07;font-weight:normal;margin:0 36px 48px;max-width:560px}
+.home-search{margin:0 36px;position:relative;z-index:2}
+.tabs{display:flex;height:62px;align-items:stretch}
+.tab{padding:14px 21px;border:1px solid #888;font-size:24px;background:#fff}
+.tab.active{font-weight:bold;border-bottom:2px solid #111}
+.advanced-link{margin-left:auto;align-self:center;font-size:24px;font-weight:bold;text-decoration:underline}
+.big-search{height:86px;border:2px solid #1da7b3;display:flex;align-items:center;padding:0 20px;background:#fff}
+.big-search input{border:0;outline:0;font-size:24px;flex:1;min-width:0}
+.suggest{background:#fff;box-shadow:0 5px 10px #bbb;font-size:24px}
+.suggest div{padding:18px 22px;border-bottom:1px solid #eee}
+.suggest .query{font-weight:bold;color:#183b68}
+.suggest .choice{background:#f4f3f0}
+.hero-image{height:180px;width:100%;object-fit:cover;margin-top:-1px}
+.caption{display:flex;justify-content:space-between;padding:26px 36px 0;font-size:21px;line-height:1.4}
+.caption-text{max-width:370px}
+.caption-controls{font-weight:bold;display:flex;gap:20px;align-items:center}
+.arrows{font-size:44px;font-weight:normal}
+.tiles{display:flex;gap:12px;margin:95px 96px 0;align-items:flex-start}
+.tiles img{width:245px;height:160px;object-fit:cover}
+.tiles img:nth-child(2){margin-top:-75px}
+
+.results{padding:0 12px}
+.filter-button{height:50px;margin:48px 0 62px;width:100%;font-size:23px;text-align:left;padding-left:18px}
+.results-heading{display:flex;align-items:center;justify-content:space-between}
+.results-heading h1{font:48px Georgia,serif;margin:0 0 28px}
+.results-heading a{font-size:23px;text-decoration:underline}
+.sort{height:50px;padding:0 17px;border:1px solid #d5d5d5;background:#fff;font-size:23px;font-weight:bold}
+.result{position:relative;padding:48px 12px 65px 90px}
+.result.selected{background:#f5f4f1}
+.check-area{position:absolute;left:4px;top:54px;display:flex;gap:12px;align-items:center}
+.circle-x{border:2px solid #999;border-radius:50%;width:26px;height:26px;text-align:center;line-height:21px;color:#777;font-weight:bold}
+.checkbox{width:26px;height:26px;border:2px solid #aaa;background:white}
+.checkbox.checked{background:#087b86;border-color:#087b86;position:relative}
+.checkbox.checked:after{content:"✓";color:white;font-weight:bold;position:absolute;left:4px;top:-2px}
+.type{font-size:20px;color:#666;font-weight:bold;margin-bottom:10px}
+.result h2{font:34px/1.2 Georgia,serif;margin:0 0 36px}
+.author{font-size:23px;text-decoration:underline;margin-bottom:12px}
+.journal{font-size:23px;color:#666;line-height:1.55;margin-bottom:23px}
+.abstract{font-size:20px;line-height:1.5;color:#333}
+.result-actions{display:flex;gap:6px;margin-top:22px}
+.result-actions button{height:86px;padding:0 22px;background:#fff;border:1px solid #ccc;font-size:22px;font-weight:bold}
+.result-actions .read{background:#ae0000;color:#fff;border-color:#ae0000}
+.notice{border:1px solid #e1b54a;background:#fffaf0;padding:27px 30px;font-size:22px;line-height:1.6;margin:0 0 12px;text-align:center}
+.selected-head{display:flex;justify-content:space-between;align-items:center;margin-top:20px}
+.selected-head h1{font:48px Georgia;margin:0}
+.bulk{display:flex;gap:18px;margin:8px 0 22px}
+.bulk button{height:50px;padding:0 22px;font-size:22px}
+.clear{text-decoration:underline;font-size:20px}
+.cover{width:150px;height:225px;object-fit:cover;margin:8px 0 25px}
+.article{padding:72px 36px}
+.back{font-size:22px;text-decoration:underline}
+.article .type{margin-top:36px}
+.article h1{font:48px/1.12 Georgia;margin:22px 0 28px}
+.article h2{font-size:24px}
+.article p{font-size:21px;line-height:1.5}
+.download{width:435px;padding:20px;font-size:22px;text-align:left;margin-top:20px}
+.advanced{padding:65px 6px}
+.advanced-title{font:48px Georgia;margin:0 0 45px;white-space:nowrap}
+.help{font:22px Arial;text-decoration:underline;margin-left:16px}
+.advanced-tabs{display:flex;border-bottom:1px solid #ccc;margin-bottom:44px}
+.advanced-tabs div{padding:0 24px 14px;font-size:23px}
+.advanced-tabs .active{font-weight:bold;border-bottom:3px solid #111}
+.advanced h2{font:36px Georgia;margin:0 0 54px}
+.form-row{display:grid;grid-template-columns:1.55fr 1fr;gap:12px;margin-bottom:27px}
+.field label{display:block;font-size:20px;font-weight:bold;margin-bottom:8px}
+.field input,.field select,.access select{height:62px;width:100%;border:1px solid #999;padding:0 18px;font-size:24px;background:#fff}
+.field input:focus,.field select:focus{outline:2px solid #1aa5b1}
+.row2{grid-template-columns:130px 1.1fr 1.4fr 62px}
+.trash{height:62px;border:1px solid #ccc;background:#fff;font-size:30px}
+.add-row{height:50px;background:#fff;border:1px solid #ccc;padding:0 20px;font-size:23px;font-weight:bold}
+.access{margin-top:68px}
+.access label{display:block;font-weight:bold;font-size:20px;margin-bottom:8px}
+.submit{margin-top:47px;height:51px;padding:0 20px;font-size:22px}
+.narrow{margin-top:72px;border-top:1px solid #ccc;padding-top:38px;font:36px Georgia}
+.item-types{font-family:Arial;font-size:22px;line-height:1.6}
+.item-types input{width:26px;height:26px;vertical-align:middle}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:10}
+.drawer{width:407px;height:100%;background:#000;color:#fff;padding:72px 48px}
+.overlay.open{display:block}
+.drawer-logo{width:100px;height:130px;object-fit:contain;filter:grayscale(1) brightness(0) invert(1)}
+.close-drawer{position:absolute;left:365px;top:10px;background:none;color:#fff;border:0;font-size:42px}
+.drawer-actions{display:flex;gap:24px;margin:20px 0 45px}
+.drawer-actions button{height:50px;padding:0 22px;font-size:21px}
+.drawer nav div{font-size:24px;margin:26px 0}
+@media(max-width:700px){
+ .top-access{height:72px;padding:0 58px;font-size:23px;white-space:nowrap}
+ .header{height:148px;padding-left:36px}
+ .home{padding-top:48px}
+ .hero-title{font-size:76px}
+ .search-bar{margin-top:24px}
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div class="overlay" id="overlay">
+  <aside class="drawer">
+    <button class="close-drawer btn" onclick="closeMenu()">‹</button>
+    <img class="drawer-logo" src="__PLACEHOLDER_ASSETS_BASE_DIR__/040.svg" width="100" height="130">
+    <div class="drawer-actions"><button class="login btn">◉ Log in</button><button class="register btn">Register</button></div>
+    <nav><div>Workspace</div><div class="btn" onclick="showAdvanced();closeMenu()">Advanced Search</div><div>Browse　⌄</div><hr><div>Support　⌄</div></nav>
+  </aside>
+</div>
+<script>
+const A='__PLACEHOLDER_ASSETS_BASE_DIR__/';
+let state='home',query='',advancedRows=[{term:'',field:'All fields'},{term:'',field:'All fields'}],selected=false;
+function header(withSearch=false){
+ return `<div class="top-access"><span class="library-icon">▣</span> Have library access? <u>Log in through your library</u>.</div>
+ <header class="header"><img class="logo" src="${A}039.svg" width="92" height="128"><button class="menu-btn btn" onclick="openMenu()">☰</button>
+ <div class="header-actions"><button class="register btn">Register</button><button class="login btn">◉ Log in</button></div><div class="workspace">▮ Workspace</div></header>
+ ${withSearch?`<div class="search-bar"><input value="${query}" placeholder="Search journals, books, images, and primary sources"><span class="search-icon">⌕</span></div>`:''}`;
+}
+function home(){
+ document.getElementById('app').innerHTML=header()+`<main class="home">
+<h1 class="hero-title">Explore the<br>world’s<br>knowledge,<br>cultures, and<br>ideas</h1>
+<section class="home-search"><div class="tabs"><div class="tab active">All Content</div><div class="tab">Images</div><a class="advanced-link btn" onclick="showAdvanced()">Advanced Search</a></div>
+<div class="big-search"><input id="homeInput" value="${query}" placeholder="Search journals, books, images, and primary sources" oninput="searchSuggest()" onkeydown="if(event.key==='Enter')showResults()"><span class="search-icon">⌕</span></div><div id="suggest"></div></section>
+<img class="hero-image" src="${A}033.webp" width="644" height="180">
+<div class="caption"><div class="caption-text">Georgia O’Keeffe, Ghost Ranch<br>Landscape (detail), c. 1936. Part of<br><u>Georgia O’Keeffe Museum.</u></div><div class="caption-controls">Image<br>1 of 5 <span class="arrows">‹　›</span></div></div>
+<div class="tiles"><img src="${A}011.jpg" width="245" height="160"><img src="${A}013.jpg" width="245" height="160"></div></main>`;
+}
+function searchSuggest(){
+ query=document.getElementById('homeInput').value;
+ const s=document.getElementById('suggest');
+ if(!query){s.innerHTML='';return}
+ s.innerHTML=`<div class="suggest"><div class="query">ti:("${query}") <b style="float:right">×</b></div><div class="choice">Just search for:　<b>${query}</b><span style="float:right;color:#777">enter ↵</span></div><div>Author or creator:　<b>${query}</b></div><div>Title:　<b>${query}</b></div><div>Publication name:　<b>${query}</b></div></div>`;
+}
+function showResults(){
+ query=query||'tang'; state=query==='tang'?'results':'filtered'; render();
+}
+function resultCard(second=false){
+ return `<article class="result ${selected&&!second?'selected':''}"><div class="check-area">${!second?'<span class="circle-x">×</span>':''}<span class="checkbox ${selected&&!second?'checked':''} btn" onclick="toggleSelect()"></span></div><div class="type">${second?'JOURNAL ARTICLE':'JOURNAL ARTICLE'}</div><h2 class="btn" onclick="showArticle()">${second?'Vocabularies of Pleasure: Categorizing Female Entertainers in the Late Tang Dynasty':'"Together They Might Make Trouble": Cross-Cultural Interactions in Tang Dynasty Guangzhou, 618-907 C.E.'}</h2><div class="author">${second?'BEVERLY BOSSLER':'ADAM C. FONG'}</div><div class="journal"><i>${second?'Harvard Journal of Asiatic Studies':'Journal of World History'}</i>, Vol. 25, No. 4, SPECIAL ISSUE IN HONOR OF JERRY H. BENTLEY (December 2014), pp. 475-492</div>${!second?`<div class="abstract">..."Together They Might Make Trouble": Cross-Cultural Interactions in Tang Dynasty Guangzhou, 618-907 c.E. ADAM C. FONG University of Northern Colorado Guangzhou, the Tropic of better Cancer known and has in English a subtropical as Canton, climate. lies...</div><div class="result-actions"><button class="read btn" onclick="showArticle()">▣　Read<br>online</button><button class="btn">♧　Save</button><button class="btn">▣　Cite</button></div>`:''}</article>`;
+}
+function results(){
+ let filtered=state==='filtered';
+ document.getElementById('app').innerHTML=header(true)+`<main class="results">${selected?`<div class="selected-head"><h1>1 selected</h1><a class="clear btn" onclick="toggleSelect()">Clear selections</a></div><div class="bulk"><button class="red btn">▣ Cite　⌄</button><button class="red btn">♧ Save</button></div>`:''}<button class="filter-button red btn">Show Search Filters</button>
+ <div class="results-heading"><h1>${filtered?'2':'5,121'} results</h1><span>${filtered?'<u>Modify search</u>　':''}<u>Search help</u></span></div>
+ ${filtered?`<div class="notice">Note: Approximately 10% of articles on JSTOR have abstracts. To widen your search remove the abstract filter to search article full-text.</div>`:''}
+ <button class="sort btn">Sort by: Relevance　⌄</button>${filtered?`<article class="result"><div class="check-area"><span class="checkbox"></span></div><div class="type">BOOK CHAPTER</div><h2>Groups on the Grid: Weiqi Cultures in Song-Yuan-Ming China <small style="font:20px Arial;color:#777">(pp. 23-39)</small></h2><div class="author">ZACH BERGE-BECKER</div><div class="journal">From: <u><i>Games and Play in Chinese and Sinophone Cultures</i>, University of Washington Press</u> (2024)<br><span style="border:1px solid #8baa72;color:#57834a">OPEN ACCESS</span></div></article><article class="result"><div class="check-area"><span class="checkbox"></span></div><div class="type">BOOK CHAPTER</div><h2>Through the Bronze Mirror, Mind-Monkey Joins the</h2></article>`:resultCard()+resultCard(true)}</main>`;
+}
+function showArticle(){state='article';render()}
+function article(){document.getElementById('app').innerHTML=header(true)+`<main class="article"><a class="back btn" onclick="state='results';render()">Back to results</a><div class="type">JOURNAL ARTICLE</div><h1>"Together They Might Make Trouble": Cross-Cultural Interactions in Tang Dynasty Guangzhou, 618-907 C.E.</h1><h2>ADAM C. FONG</h2><p>Journal of World History</p><p><u>Vol. 25, No. 4, SPECIAL ISSUE IN HONOR OF JERRY H. BENTLEY</u> (December 2014), pp. 475-492 (18 pages)<br>Published By: University of Hawai'i Press</p><img class="cover" src="${A}041.jpg" width="150" height="225"><p>https://www.jstor.org/stable/43818461</p><p><u>Cite</u></p><button class="download red btn">Read and download<br>Log in through your school or library</button></main>`}
+function advanced(){document.getElementById('app').innerHTML=header()+`<main class="advanced"><h1 class="advanced-title">Advanced Search <span class="help">Search Help</span></h1><div class="advanced-tabs"><div class="active">All Content</div><div>Images</div></div><h2>Construct your search query</h2><div id="rows"></div><button class="add-row btn" onclick="addRow()">＋ Add row</button><div class="access"><label>SELECT AN ACCESS TYPE</label><select><option>Content I can access</option></select></div><button class="submit red btn" onclick="state='filtered';query='((ab:"tang") AND (ab:"qin"))';render()">Submit Advanced Search</button><div class="narrow">Narrow Results</div><div class="item-types"><b>ITEM TYPE</b><br>□ Articles　　　　　　　　 □ Research Reports<br>□ Reviews　　　　　　　　 □ Miscellaneous</div></main>`;drawRows()}
+function drawRows(){document.getElementById('rows').innerHTML=advancedRows.map((r,i)=>`<div class="form-row ${i?'row2':''}"><div class="field">${i?'<label>BOOLEAN</label><select><option>AND</option></select>':''}<label>${i?'TERM(S)':'TERM(S)'}</label><input value="${r.term}" oninput="advancedRows[${i}].term=this.value"></div><div class="field"><label>FIELD</label><select onchange="advancedRows[${i}].field=this.value"><option>${r.field}</option><option>Abstract</option><option>Title</option></select></div>${i?'<button class="trash btn" onclick="advancedRows.splice('+i+',1);drawRows()">♜</button>':''}</div>`).join('')}
+function addRow(){advancedRows.push({term:'',field:'All fields'});drawRows()}
+function toggleSelect(){selected=!selected;render()}
+function openMenu(){document.getElementById('overlay').classList.add('open')}
+function closeMenu(){document.getElementById('overlay').classList.remove('open')}
+function showAdvanced(){state='advanced';render()}
+function render(){if(state==='home')home();else if(state==='results'||state==='filtered')results();else if(state==='article')article();else advanced()}
+render();
+</script>
+</body>
+</html>
+```

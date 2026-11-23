@@ -1,0 +1,431 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hemingway Editor</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 100%; min-height: 100%; }
+  body {
+    background: #f1f2f5;
+    color: #202938;
+    overflow-x: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  button { font: inherit; cursor: pointer; }
+  .top-notice {
+    height: 36px;
+    background: #b8e7f7;
+    color: #376b80;
+    text-align: center;
+    font-size: 14px;
+    line-height: 36px;
+    border-bottom: 1px solid #a6dced;
+  }
+  .top-notice a { color: #27a952; text-decoration: underline; margin-left: 10px; }
+  .main-nav {
+    height: 56px;
+    background: #e4e9f1;
+    border-bottom: 1px solid #d2d8e1;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 0 16px;
+  }
+  .logo {
+    font: bold 25px Georgia, serif;
+    color: #111827;
+    letter-spacing: -.7px;
+    line-height: 20px;
+  }
+  .logo small {
+    display: block;
+    text-align: right;
+    font: italic bold 10px Georgia, serif;
+    margin-top: -2px;
+  }
+  .toolbar {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    height: 44px;
+    background: #f7f8fa;
+    border: 1px solid #d8dce3;
+    box-shadow: 0 1px 3px #c7cbd2;
+    border-radius: 6px;
+    color: #323945;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+  .toolbar button {
+    border: 0;
+    background: transparent;
+    color: inherit;
+    height: 42px;
+    padding: 0 16px;
+    border-right: 1px solid #e4e6eb;
+  }
+  .toolbar button:last-child { border-right: 0; }
+  .plus {
+    background: #aa00b4;
+    color: #fff;
+    border-radius: 4px;
+    padding: 1px 4px;
+    font-size: 12px;
+    font-weight: bold;
+  }
+  .toolbar .muted { color: #aab0b9; }
+  .nav-right {
+    margin-left: auto;
+    display: flex;
+    gap: 88px;
+    align-items: center;
+  }
+  .small-btn {
+    background: #eef1f5;
+    border: 1px solid #8c929b;
+    border-radius: 4px;
+    padding: 5px 9px;
+    color: #303744;
+    box-shadow: 0 1px 2px #c5c9d0;
+    font-size: 14px;
+  }
+  .menu-btn { border-color: #d6dae0; background: #f8f9fb; }
+  .side-tabs {
+    position: absolute;
+    right: 20px;
+    top: 68px;
+    display: flex;
+    gap: 2px;
+    color: #58606c;
+    font-size: 14px;
+  }
+  .side-tabs button {
+    border: 0;
+    background: #e3e7ed;
+    padding: 7px 12px;
+    color: #59616c;
+  }
+  .side-tabs .active { background: #f7f8fa; border: 1px solid #d4d9e0; padding: 6px 11px; }
+  .ai-button {
+    position: absolute;
+    left: 16px;
+    top: 129px;
+    height: 44px;
+    padding: 0 15px;
+    color: white;
+    border: 0;
+    border-radius: 4px;
+    background: linear-gradient(#b10abd, #9b00a9);
+    font-size: 16px;
+    box-shadow: 0 1px 2px #bbb;
+  }
+  .plus-ad {
+    position: absolute;
+    left: 24px;
+    top: 255px;
+    width: 190px;
+    text-align: center;
+    color: #a300a9;
+    font-size: 13px;
+    line-height: 19px;
+    transform: rotate(-2deg);
+  }
+  .plus-ad .dotted {
+    color: #b342c2;
+    font-size: 42px;
+    line-height: 35px;
+    height: 46px;
+    display: block;
+    transform: rotate(20deg);
+  }
+  .editor {
+    position: absolute;
+    top: 117px;
+    left: calc(50% - 380px);
+    width: 730px;
+    font-family: Georgia, "Times New Roman", serif;
+    color: #253044;
+    font-size: 18px;
+    line-height: 1.39;
+  }
+  .editor h1 {
+    font-size: 36px;
+    line-height: 1.08;
+    margin: 0 0 32px;
+    font-weight: bold;
+    color: #182131;
+    letter-spacing: -.3px;
+  }
+  .editor p { margin: 0 0 21px; }
+  .editor .yellow { background: #fff17a; }
+  .editor .red { background: #f6a7b2; }
+  .editor .blue { background: #a9e5f4; }
+  .editor .purple { background: #dac9ff; }
+  .editor .hidden-red { background: transparent; }
+  .editor[contenteditable="true"]:focus { outline: none; }
+  .sidebar {
+    position: absolute;
+    right: 20px;
+    top: 151px;
+    width: 192px;
+    color: #343b47;
+    font-size: 16px;
+  }
+  .readability {
+    font-weight: bold;
+    margin: 0 0 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .readability img { margin-left: auto; }
+  .grade { color: #287b47; font-size: 18px; margin: 0 0 5px; }
+  .good { color: #777d86; margin-bottom: 39px; }
+  .words { font-size: 18px; margin-bottom: 8px; }
+  .stats-toggle {
+    color: #777d86;
+    font-size: 14px;
+    border: 0;
+    padding: 0;
+    background: transparent;
+  }
+  .stats-details {
+    display: none;
+    text-align: right;
+    font-style: italic;
+    line-height: 1.55;
+    padding: 18px 4px 12px;
+    border-top: 1px solid #d2d5db;
+    margin-top: 16px;
+    font-size: 15px;
+  }
+  .stats-details.open { display: block; }
+  .stats-details strong { font-style: normal; }
+  .cards { margin-top: 30px; border-top: 1px solid #d4d7dc; padding-top: 16px; }
+  .card {
+    position: relative;
+    border-radius: 4px;
+    padding: 9px 24px 9px 9px;
+    margin-bottom: 8px;
+    min-height: 58px;
+    font-size: 15px;
+    line-height: 1.25;
+    cursor: pointer;
+  }
+  .card .count {
+    display: inline-block;
+    font-weight: bold;
+    padding: 1px 4px;
+    margin-right: 3px;
+    color: #8e2838;
+    background: #e66f83;
+  }
+  .card .eye {
+    position: absolute;
+    right: 8px;
+    top: 10px;
+    font-size: 13px;
+    color: #9c7077;
+    cursor: pointer;
+  }
+  .card.red-card { background: #f8c5cd; color: #7c3d48; }
+  .card.yellow-card { background: #fff478; color: #554d17; }
+  .card.yellow-card .count { background: #f3d42b; color: #64530a; }
+  .card.green-card { background: #c9ff91; color: #406327; }
+  .card.blue-card { background: #b1e6f8; color: #38515d; }
+  .card.blue-card .count { background: #49c1e6; color: #14526a; }
+  .card.purple-card { background: #d9cafa; color: #55447c; }
+  .card.purple-card .count { background: #aa82e8; color: #493270; }
+  .upgrade {
+    font-size: 12px;
+    font-weight: bold;
+    display: inline-block;
+    color: white;
+    background: #45a84e;
+    padding: 2px 5px;
+    border-radius: 2px;
+  }
+  .card a { text-decoration: underline; color: inherit; font-size: 13px; }
+  .copyright { color: #a2a6ae; font-size: 12px; text-align: right; margin-top: 17px; }
+  .tutorial {
+    position: fixed;
+    left: 4px;
+    bottom: 48px;
+    width: 205px;
+    height: 99px;
+    background: #b8e8fa;
+    border-radius: 8px;
+    color: #386c84;
+    font-size: 14px;
+    text-align: center;
+    padding: 12px 8px;
+    line-height: 20px;
+  }
+  .tutorial button {
+    display: block;
+    margin: 7px auto 0;
+    padding: 4px 9px;
+    color: #344452;
+    border: 1px solid #586a78;
+    background: #c8eafa;
+    border-radius: 3px;
+    font-size: 14px;
+  }
+  .scrollbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 16px;
+    width: 205px;
+    background: #f8f8f8;
+    border-top: 1px solid #dadada;
+  }
+  .scrollbar:before {
+    content: "◂";
+    color: #8a8a8a;
+    position: absolute;
+    left: 3px;
+    top: -1px;
+  }
+  .scrollbar:after {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: 18px;
+    width: 170px;
+    height: 8px;
+    border-radius: 10px;
+    background: #929292;
+    box-shadow: 179px 0 0 -2px #929292;
+  }
+  .settings-icon { width: 32px; height: 32px; display: block; }
+  .hidden { display: none !important; }
+  @media (max-width: 1100px) {
+    .editor { left: 25%; width: 58%; }
+    .sidebar { right: 12px; width: 180px; }
+    .nav-right { gap: 14px; }
+  }
+</style>
+</head>
+<body>
+  <div class="top-notice">Hemingway's classic desktop app. Save/load files and work offline. No AI. <a class="btn" href="#">Learn more</a></div>
+  <header class="main-nav">
+    <div class="logo">Hemingway<small>Editor</small></div>
+    <nav class="toolbar">
+      <button class="btn" type="button">File <span class="plus">Plus</span></button>
+      <button class="btn" type="button">✣ Fix Grammar <span class="plus">Plus</span></button>
+      <button class="btn" type="button">✣ Rewrite <span class="plus">Plus</span></button>
+      <button class="btn" type="button">Paragraph⌄</button>
+      <button class="btn muted" type="button"><b>B</b></button>
+      <button class="btn muted" type="button"><i>I</i></button>
+      <button class="btn muted" type="button">↗</button>
+    </nav>
+    <div class="nav-right">
+      <button class="btn small-btn" type="button">How to use Hemingway</button>
+      <button class="btn small-btn menu-btn" type="button" id="menuButton">Menu ⌄</button>
+    </div>
+  </header>
+
+  <button class="btn ai-button" type="button">AI Tools - Try Free</button>
+  <div class="plus-ad">
+    <span class="dotted">↷</span>
+    <b>Hemingway Editor Plus</b><br>
+    Fix highlighted issues, check<br>grammar, and adjust tone.<br>
+    Free 2-week trial.
+  </div>
+
+  <div class="side-tabs">
+    <button class="btn" type="button" id="writeTab">Write</button>
+    <button class="btn active" type="button" id="editTab">Edit</button>
+    <button class="btn" type="button">Feedback</button>
+  </div>
+
+  <main class="editor" id="editor" contenteditable="true" spellcheck="false">
+    <h1>Hemingway App makes your writing<br>concise and correct.</h1>
+    <p><span class="yellow">The app highlights lengthy, complex sentences and common errors: if you see a yellow sentence, shorten or split it.</span> <span class="red" id="redHighlight">If you see a red highlight, your sentence is so dense and complicated that your readers will get lost trying to follow its meandering, convoluted logic—try editing this sentence to remove the red highlight.</span></p>
+    <p>You can <span class="purple">utilize</span> a simpler word instead of a purple one. Click on highlights to fix them.</p>
+    <p>Adverbs, passive voice, and other weakening phrases <span class="blue">are marked</span> in blue. <span class="blue">I believe</span> you should replace them with more forceful language.</p>
+    <p>Our Hemingway Editor Plus service uses AI to fix these highlights for you. It also features an advanced grammar checker that marks issues in green. It goes far beyond other grammar tools to catch even the trickiest errors. You can also change the tone or style of your writing by selecting text and using the "AI tools" button at the top.</p>
+    <p>To get started, paste in something you're working on and edit away. Or, click the Write button to hide highlights and compose something new.</p>
+  </main>
+
+  <aside class="sidebar">
+    <div class="readability">Readability <span>ⓘ</span>
+      <button class="btn" type="button" aria-label="Readability settings" style="border:0;background:transparent;padding:0">
+        <img class="settings-icon" src="__PLACEHOLDER_ASSETS_BASE_DIR__/003.svg" width="32" height="32" alt="">
+      </button>
+    </div>
+    <div class="grade">Grade 8</div>
+    <div class="good">Good.</div>
+    <div class="words">Words: 185</div>
+    <button class="btn stats-toggle" id="statsToggle" type="button">Show more stats ⌄</button>
+    <div class="stats-details" id="statsDetails">
+      <div>Letters: <strong>871</strong></div>
+      <div>Characters: <strong>1,075</strong></div>
+      <div>Words: <strong>185</strong></div>
+      <div>Sentences: <strong>13</strong></div>
+      <div>Paragraphs: <strong>6</strong></div>
+      <div>Reading time: <strong>0h 0m 44s</strong></div>
+      <button class="btn stats-toggle" id="showFewer" type="button">Show fewer stats ⌃</button>
+    </div>
+    <div class="cards">
+      <div class="card red-card" id="redCard"><span class="count">1</span> of 13 sentences is<br>very hard to read.<span class="eye" title="Toggle highlight">◉</span></div>
+      <div class="card yellow-card"><span class="count">1</span> of 13 sentences is<br>hard to read.<span class="eye">◉</span></div>
+      <div class="card green-card">Find grammar and spelling<br>issues with Editor Plus.<br><span class="upgrade">Upgrade</span></div>
+      <div class="card blue-card"><span class="count">2</span> weakeners.<br><a class="btn" href="#">View details</a><span class="eye">◉</span></div>
+      <div class="card purple-card"><span class="count">1</span> word with a simpler<br>alternative.<span class="eye">◉</span></div>
+    </div>
+    <div class="copyright">© 2013-2025 .38 Long LLC</div>
+  </aside>
+
+  <div class="tutorial">Want to learn how to use<br>Hemingway Editor?
+    <button class="btn" type="button">Open Tutorial</button>
+  </div>
+  <div class="scrollbar"></div>
+
+<script>
+  const redHighlight = document.getElementById('redHighlight');
+  const redCard = document.getElementById('redCard');
+  const editor = document.getElementById('editor');
+  const details = document.getElementById('statsDetails');
+  const statsToggle = document.getElementById('statsToggle');
+
+  function toggleRed() {
+    redHighlight.classList.toggle('hidden-red');
+  }
+  redCard.addEventListener('click', toggleRed);
+  redHighlight.addEventListener('click', function () {
+    if (redHighlight.classList.contains('hidden-red')) toggleRed();
+  });
+
+  statsToggle.addEventListener('click', function () {
+    details.classList.add('open');
+    statsToggle.classList.add('hidden');
+  });
+  document.getElementById('showFewer').addEventListener('click', function () {
+    details.classList.remove('open');
+    statsToggle.classList.remove('hidden');
+  });
+
+  document.getElementById('writeTab').addEventListener('click', function () {
+    editor.querySelectorAll('.yellow, .red, .blue, .purple').forEach(el => el.classList.add('hidden-red'));
+    this.classList.add('active');
+    document.getElementById('editTab').classList.remove('active');
+  });
+  document.getElementById('editTab').addEventListener('click', function () {
+    editor.querySelectorAll('.hidden-red').forEach(el => el.classList.remove('hidden-red'));
+    this.classList.add('active');
+    document.getElementById('writeTab').classList.remove('active');
+  });
+  document.getElementById('menuButton').addEventListener('click', function () {
+    this.textContent = this.textContent.includes('Menu') ? 'Menu  •  Save  •  Load' : 'Menu ⌄';
+  });
+</script>
+</body>
+</html>
+```

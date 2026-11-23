@@ -1,0 +1,86 @@
+{
+  "total_step": 7,
+  "success_step": 3,
+  "screenshot_paths_to_eval": [
+    "outputs/36/gpt-6-luna_setting3/evalpoints/0.png",
+    "outputs/36/gpt-6-luna_setting3/evalpoints/0.png",
+    "outputs/36/gpt-6-luna_setting3/evalpoints/1.png",
+    "outputs/36/gpt-6-luna_setting3/evalpoints/2.png",
+    "outputs/36/gpt-6-luna_setting3/evalpoints/3.png"
+  ],
+  "all_mllm_scores": [
+    0.77,
+    0.62,
+    0.39,
+    0.21,
+    0.15
+  ],
+  "all_dino_scores": [
+    0.783203125,
+    0.7744140625,
+    0.375732421875,
+    0.4130859375,
+    0.64306640625
+  ],
+  "all_ocr_scores": [
+    0.6462585034013606,
+    0.274822695035461,
+    0.2729528535980149,
+    0.24824684431977562,
+    0.18814139110604333
+  ],
+  "all_avg_scores": [
+    0.7331538761337869,
+    0.5564122525118204,
+    0.34622842515767166,
+    0.29044426060659184,
+    0.3270692657853478
+  ],
+  "mllm_score": 0.42800000000000005,
+  "dino_score": 0.597900390625,
+  "ocr_score": 0.3260844574921311,
+  "avg_score": 0.4506616160390437,
+  "all_mllm_res": [
+    "Comments:\n- **Layout (7/10):** The overall structure is recognizable, with the Steam header, left navigation sidebar, central content area, online-player panel, and two-column game sections. However, the main content in the generated version is shifted noticeably to the right, and spacing, widths, and vertical positioning differ from the reference.\n- **Elements (13/15):** Most major elements are present, including the global header, Steam navigation, secondary store navigation, sidebar categories, chart panel, numerical player statistics, and game cards. Some iconography and lower-page content are missing or differ from the reference.\n- **Content and Text (32/40):** Headings, labels, navigation text, dates, and player-count figures are largely accurate. The main discrepancies are in the chart visualization, game-card imagery/cropping, and some sidebar icon/details. Text placement also differs in several areas.\n- **Style (11/15):** The dark Steam-style visual theme, blue navigation bars, white typography, and green accent colors are well reproduced. Differences remain in font sizing/weight, border treatments, chart styling, header proportions, and image presentation.\n- **Overall (14/20):** The page is clearly the same target design and maintains the correct information hierarchy, but the spatial alignment and visual assets are not sufficiently exact for a very high similarity score.\n\n**Score: 77/100**",
+    "Comments:\n- **Layout (10 points): 5/10** — The page uses a similar dark Steam layout with a left navigation rail and two-column content cards. However, the generated view is vertically offset/scrolled, omits the top header and “Players Online” section, and places the main content farther left than the reference.\n- **Elements (15 points): 8/15** — Shared elements include the sidebar, “Top Selling Games” and “Most Played” panels, game lists, action buttons, and lower promotional tiles. The Steam header, logo/navigation, search bar, page title, online-player chart, and several sidebar controls are missing.\n- **Content and Text (40 points): 27/40** — Many labels, dates, game names, rankings, and section headings correspond closely. The generated page lacks key reference content such as “CHARTS OVERVIEW,” “PLAYERS ONLINE,” online statistics, and the top navigation text. Some image content and card details also differ.\n- **Style (15 points): 11/15** — The dark background, muted blue-gray panels, light typography, cyan accents, borders, and Steam-like visual language are well matched. The card artwork cropping/content and some spacing and typography differ from the reference.\n- **Overall (20 points): 11/20** — The generated page is recognizably the same Steam charts page and shares several major components, but it does not match the reference viewport structure closely due to missing upper-page sections, different scroll position, and altered imagery/layout.\n\n**Score: 62/100**",
+    "Comments:\n- **Layout (10 points): 3/10** — Both pages use a Steam-style dark layout with a left navigation sidebar, but the main structures differ substantially. The reference shows a full-width top header, secondary navigation, a large “Top Sellers” table, and a right-side promotional panel. The generated page instead displays two centered content cards and appears scrolled down, with the header and main table missing.\n- **Elements (15 points): 6/15** — Shared elements include the left chart navigation, game artwork, ranked lists, dark panels, and Steam-like chart sections. However, key reference elements such as the Steam header, search/navigation bar, detailed ranking table, pricing/change/weeks columns, and right promotional advertisement are absent or replaced.\n- **Content and Text (40 points): 15/40** — Several game names overlap, including Counter-Strike 2, Marvel Rivals, Borderlands 4, PEAK, and METAL GEAR SOLID Δ: SNAKE EATER. The sidebar dates also align reasonably well. However, the reference focuses on a detailed Top Sellers list, while the generated page introduces a Most Played list and omits most of the reference’s ranking, pricing, and metadata text.\n- **Style (15 points): 9/15** — The dark navy/charcoal palette, blue accents, thin separators, typography, and Steam-inspired visual language are reasonably similar. The generated page is cleaner and more card-based, while the reference has a denser, more layered interface with overlays and stronger image blending.\n- **Overall (20 points): 6/20** — The generated page captures the general Steam charts theme and some of the same data, but it does not reproduce the reference page’s primary composition, visible navigation, table structure, or promotional content.\n\n**Score: 39/100**",
+    "Comments:\n- **Layout (2/10):** Both pages use a dark Steam-like interface with a left navigation sidebar, but the layouts are substantially different. The reference shows a two-column dashboard with “TOP SELLING GAMES” and “MOST PLAYED” cards, while the generated page is a long ranked list with a large right-side game detail panel.\n- **Elements (4/15):** Some shared elements are present, including date navigation, game imagery, rankings, pricing/stat indicators, and a dark sidebar. However, the reference’s dashboard cards, top online counter, promotional tiles, and “SEE ALL” buttons are missing or replaced with unrelated chart rows.\n- **Content and Text (4/40):** The text content is largely inconsistent. The reference lists Counter-Strike 2, Marvel Rivals, Borderlands 4, PEAK, and other current chart entries, while the generated page contains entries such as Helldivers 2, Warframe, Lost Ark, and Black Desert. Section headings, dates, statistics, and labels do not match.\n- **Style (8/15):** The dark navy/black Steam visual language, blue-gray panels, compact typography, and cyan/green accent colors are reasonably similar. However, the generated page uses a denser ranking-table style and different spacing, borders, and promotional treatments than the reference.\n- **Overall (3/20):** The generated page appears to replicate the general Steam charts aesthetic but not the specific reference webpage. The major structure, content, and card organization are incorrect.\n\n**Score: 21/100**",
+    "Comments:\n-Layout (10 points): The generated page uses a dark Steam-like layout with a left sidebar and centered content cards, but it does not match the reference’s structure. The reference has a top Steam header, blue sign-in banner, navigation bar, product title area, large promotional banner, video player, and right-side product information. The generated page appears scrolled to a different section with rankings and promotional tiles. **2/10**\n-Elements (15 points): Some general Steam elements and branding are present, including dark panels, game lists, promotional imagery, and Steam logos. However, key reference elements such as the Kingdom Hearts banner, community hub button, media carousel, video player, product metadata, and top navigation are missing. **3/15**\n-Content and Text (40 points): The content is almost entirely different. The reference focuses on “KINGDOM HEARTS -HD 1.5+2.5 ReMIX-,” while the generated page contains rankings for Counter-Strike 2, Dota 2, PUBG, and other games, along with “Best of Year” navigation. Textual similarity is therefore extremely low. **2/40**\n-Style (15 points): Both pages use a dark Steam-inspired visual style with blue-gray panels and gaming imagery. Nevertheless, the generated page lacks the reference’s blue header bars, product-page styling, typography hierarchy, and Kingdom Hearts visual identity. **5/15**\n-Overall (20 points): The generated page has limited visual resemblance through the shared Steam theme and dark color palette, but it represents a substantially different page, section, and content type from the reference. **3/20**\n\nScore: **15/100**"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "In5t 4 Steam login Ianguage STEAM STORE COMMUNITY ABOUT   SUPPORT Your Store New & Noteworthy Categories Points Shop News Labs {sCt | charts Overview CHARTS OVERVIEW and top played games across Steam LIVE CHARTS PLAYERS ONLINE Top Sellers 38M Most Played 36,143,694 PEAR OMLINE 28M Steam Deck 19M Weekly charts 27,044,673 OulNE Now 9M 12, 2025 Aug 5, 2025 TOP SELLING GAMES MOST PLAYED Jul 29,2025 Montuy Top RELEASES July 2025 June 2025 COUNTER COUNTER StAIKE StrIkE May 2025 1 Counter-Strike 2 Counter-Strike 2 883,007 ToP Selling Right Now Most PLAYED RighT Now IN Game Top selling Aug",
+      "screenshot_text": "Install Steam login language. STEAM STORE COMMUNITY ABOUT SUPPORT Your Store New & Noteworthy Categories Points Shop News Labs 1 Charts Overview CHARTS OVERVIEW Top selling and played games across Steam LIVE CHARTS PLAYERS ONLINE Top Sellers Most Played 36,143,694 PEAK ONLINE Steam Deck WEEKLY CHARTS 27,044,673 Aug 12, 2025 ONLINE NOW Aug 5, 2025 Jul 29, 2025 TOP SELLING GAMES MOST PLAYED MONTHLY: TOP RELEASES July 2025 June 2025 May 2025 BEST OF YEAR top",
+      "similarity": 0.6462585034013606
+    },
+    {
+      "checkpoint_text": "TOP SELLING GAMES MOST PLAYED Jul 29,2025 MONTHLY: Top RELEASES July 2025 ( June 2025 COUNTER COUNTER STRIKE StrikE May 2025 Counter-Strike 2 Counter-Strike 2 883,007 ToP SELLING RighT Now MosT PLAYED RigHT NoW IN GAME BEST OF VEAR Marvel Rivals Dota 2 538,625 2024 Borderlands 4 PUBG: BATTLEGROUNDS 409.575 2023 PEAK Delta Force 141,927 MEIAL GEAR SOLID 4: SNAKE EATER Apex Legends 125,006 2022 SEE ALL 100 TOP SELLEIS SEE ALL 100 MOST PLAYED WEEKLY Aug 12, 2025 MONTHLY July 2025 WEEKLY TOP SELLERS TOP NEW RELEASES YEARLY 2024 aPen How Elldivers@ Bac g T Ebends",
+      "screenshot_text": "Install Steam login language. STEAM STORE COMMUNITY ABOUT SUPPORT Your Store New & Noteworthy Categories Points Shop News Labs 1 Charts Overview CHARTS OVERVIEW Top selling and played games across Steam LIVE CHARTS PLAYERS ONLINE Top Sellers Most Played 36,143,694 PEAK ONLINE Steam Deck WEEKLY CHARTS 27,044,673 Aug 12, 2025 ONLINE NOW Aug 5, 2025 Jul 29, 2025 TOP SELLING GAMES MOST PLAYED MONTHLY: TOP RELEASES July 2025 June 2025 May 2025 BEST OF YEAR top",
+      "similarity": 0.274822695035461
+    },
+    {
+      "checkpoint_text": "Install Steam login language STEAM STORE COMMUNITY ABOUT SUPPORT Your Store New & Noteworthy Categories Points Shop News Labs search Charts Overview TOP SELLERS United States 100 sel games right now; by revenue LIVE CHARTS RANK PRICE 0 CHANGE 0 WEEKS @0 Top Sellers couai counter-Strike 2 Free To Play 680 Most Played Steam Deck RIVALS Marvel Rivals Free To Play WEEKLY CHARTS DEck Steam Deck 5399.00 182 12,2025 Prcpurchase BORDERLANDS4 Borderlands 4 569.99 5,2025 PeAK PEAK 57,.99 Jul 29, 2025 HeshvpohIE Prepurchase MONTHLY: ToP RELEASES Metal GEAR Sold METAL GEAR SOLID A: SNAKE EATER S69.99 NEW [STEAMOECK 5399.00 July 2025 Helldiverem HELLDIVERST 2 539.99 Steam Deck June 2025 ~Jan 18,2025 3494 KINGDOM HEARTS -HD 1.5+2.5 ReMIX - 40%  529.99 NEW May 2025 Prepurchase DCiHcAcTN Cecoo Top lling Aug Aug",
+      "screenshot_text": "WEEKLY CHARTS 27,044,673 Aug 12, 2025 ONLINE NOW Aug 5, 2025 Jul 29, 2025 TOP SELLING GAMES MOST PLAYED MONTHLY: TOP RELEASES July 2025 June 2025 May 2025 BEST OF YEAR Counter-Strike 2 Counter-Strike 2 883,007 2024 Marvel Rivals Dota 2 538,625 2023 Borderlands 4 PUBG BATTLEGROUNDS 409,575 2022 PEAK Delta Force 141,927 METAL GEAR SOLID A: SNAKE EATER Apex Legendstm 125,006 SEE ALL 100 TOP SELLERS SEEALL 100 MOST PLAYED",
+      "similarity": 0.2729528535980149
+    },
+    {
+      "checkpoint_text": "July 2025 Helldiversm HELLDIVERST 2 539.99 June 2025 KINGDOM HEARTS -HD 1.5+2.5 ReMIX - 40% S29.99 NEW May 2025 Prepurchase Battlefieldm 6 569.99 BEST OF YEAR 2024 10 APEX Apex Legendst Free To 250 Igfous 2023 11 BEARaBY Dead by Daylight 519.99 432 2022 12 MLcLML Umamusume: Pretty Derby Free To Play LLLRCDELI 13 Warframe Free To Play 647 WARFRAME 14 LosTARK Lost Ark Free To Play 15 EA SPORTSr Madden NFL 26 569.99 16 BATTLENELD Battlefield\" 2042 95% 659.99 52.99 NEW Free To 17 READY  NOF  Ready or Not 549.99 Warframe Free t0 Pay Looter Shooler Action RPG Third-Person Shooter Very Positive 628,452 User Reviews 59-39 18 Black Desert 90% S0.99 Buack DESERT 19 WR Thunder Free To Play 425 THUNDER Play Play War",
+      "screenshot_text": "WEEKLY CHARTS 27,044,673 Aug 12, 2025 ONLINE NOW Aug 5, 2025 Jul 29, 2025 TOP SELLING GAMES MOST PLAYED MONTHLY: TOP RELEASES July 2025 June 2025 May 2025 BEST OF YEAR Counter-Strike 2 Counter-Strike 2 883,007 2024 Marvel Rivals Dota 2 538,625 2023 Borderlands 4 PUBG BATTLEGROUNDS 409,575 2022 PEAK Delta Force 141,927 METAL GEAR SOLID A: SNAKE EATER Apex Legendstm 125,006 SEE ALL 100 TOP SELLERS SEEALL 100 MOST PLAYED",
+      "similarity": 0.24824684431977562
+    },
+    {
+      "checkpoint_text": "Install Steam login language STEAM STORE COMMUNITY ABOUT SUPPORT Youte not signed in! Open in Desktop App Open this page in the Steam App to wishlist; follow; purchase see recommendations Your Store New & Notewonthy Categories Points Shop News Labs search AII Games Action Games KINGDOM HEARTS Series Franchise KINGDOM HEARTS-HD 15+2.5 ReMiX- KINGDOM HEARTS -HD 1.5+2.5 ReMIX - Community Hub FRan CHISe KINGDOM HEARTS SALE souarcchx General / Cinematic | ESRB EN Launch KINGDOM HEARTS-HD 1.5+2.5 ReMIX-is an HD remastered collection of 6 unforgettable KINGDOM HEARTS experiences Take up your Keyblade to save the Disney worlds from darkness. reCEITREVIEWS Very Posilive (127] ENGLISHREVIEWS: Very Posilive (5,2731 RELEASE Date; Jun 13, 2024 0.00 /0.00 DEVELOPER Square Enix PuBLISHER Square Enb Popular user-defined tags for this product Action RPG Adventure JRPG Emotional and",
+      "screenshot_text": "June 2025 May 2025 BEST OF YEAR Counter-Strike 2 Counter-Strike 2 883,007 2024 Marvel Rivals Dota 2 538,625 2023 Borderlands 4 PUBG: BATTLEGROUNDS 409,575 2022 PEAK Delta Force 141,927 METAL GEAR SOLID A: SNAKE EATER Apex Legendstm 125,006 SEE ALL 100 TOP SELLERS SEEALL 100 MOST PLAYED BFST OF 2024 elldiversm",
+      "similarity": 0.18814139110604333
+    }
+  ],
+  "assertion_results": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ]
+}

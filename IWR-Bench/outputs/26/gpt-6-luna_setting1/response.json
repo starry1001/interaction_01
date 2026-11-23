@@ -1,0 +1,115 @@
+{
+  "id": "chatcmpl-EmMCKybGrZlyXkDBmEU3yFywuXnZt",
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "logprobs": null,
+      "message": {
+        "content": "```html\n<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no\">\n<title>GeoGebra Graphing Calculator</title>\n<style>\n:root{--purple:#6550d2;--ink:#454545;--gray:#888;--line:#e4e4e4;--soft:#f4f3f7}\n*{box-sizing:border-box}\nhtml,body{height:100%;margin:0;overflow:hidden;font-family:Arial,Helvetica,sans-serif;color:#333;background:#fff}\nbutton{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:pointer}\n.btn{touch-action:manipulation}\n#app{height:100dvh;width:100vw;position:relative;background:#fff;overflow:hidden}\nheader{height:11.2vw;max-height:74px;min-height:52px;display:flex;align-items:center;gap:5vw;padding:0 6vw;border-bottom:1px solid #ccc;box-shadow:0 1px 3px #bbb;position:absolute;top:0;left:0;right:0;z-index:5;background:#fff}\n.menu{font-size:6vw;color:#777;width:5vw;line-height:1}\n.logo{width:29vw;height:8vw;max-height:42px;object-fit:contain;object-position:left center}\n.assign{margin-left:auto;background:#6650cf;color:white;border-radius:5px;height:8.5vw;max-height:54px;width:22.5vw;font-size:3.5vw;letter-spacing:.2px}\n.exit{font-size:6vw;color:#777;width:7vw}\n#graph{position:absolute;left:0;right:0;top:11.2vw;height:65vh;max-height:calc(100% - 120px);overflow:hidden;background:#fff;touch-action:none}\n#plot{width:100%;height:100%;display:block}\n.graph-controls{position:absolute;left:5.5vw;top:3.4vw;display:flex;gap:4vw;color:#aaa;font-size:6vw;line-height:1}\n.gear{position:absolute;right:4vw;top:3.6vw;width:6vw;height:6vw;object-fit:contain;opacity:.58}\n#workarea{position:absolute;top:calc(11.2vw + 65vh);bottom:6vw;left:0;right:0;border-top:1px solid #e5e5e5;box-shadow:0 -2px 5px #ddd;background:#fff;transition:height .18s}\n.grab{height:15px;width:40px;border-radius:4px;background:#ddd;margin:10px auto 0}\n.inputrow{height:58px;display:flex;align-items:center;border-bottom:1px solid #e8e8e8;margin-top:1px;font-size:18px}\n.plus{width:68px;min-width:68px;height:100%;border-right:1px solid #e5e5e5;font-size:32px;color:#888}\n.inputwrap{padding-left:14px;flex:1;height:100%;display:flex;align-items:center}\n#expression{font-size:18px;width:100%;outline:none;border:0;background:transparent;color:#333;caret-color:var(--purple)}\n#expression::placeholder{color:#888}\n.input-alert{width:68px;min-width:68px;height:100%;border-right:1px solid #e5e5e5;display:none;align-items:center;justify-content:center;color:#888;font-size:28px}\n.more{width:48px;color:#888;font-size:26px;display:none}\n#panelcontent{height:calc(100% - 84px);overflow:auto;position:relative}\n.brandline{position:absolute;top:43%;width:100%;display:flex;align-items:center;justify-content:center;gap:12px;color:#b9b9b9;font-size:18px}\n.brandline img{width:30px;height:30px;object-fit:contain;opacity:.35}\n.bottomnav{position:absolute;bottom:0;left:0;right:0;height:6vw;min-height:58px;max-height:86px;display:flex;background:#fff;border-top:1px solid #e6e6e6;box-shadow:0 -1px 5px #ddd;z-index:4}\n.navitem{flex:1;color:#888;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;font-size:12px}\n.navitem img{width:28px;height:28px;object-fit:contain;opacity:.53}\n.navitem.active{color:var(--purple)}\n.navitem.active img{opacity:1}\n.tooltitle{font-size:17px;margin:24px 24px 20px}\n.toolsgrid{display:grid;grid-template-columns:repeat(4,1fr);row-gap:27px;padding:0 18px 24px}\n.tool{display:flex;flex-direction:column;align-items:center;gap:8px;font-size:14px;color:#888}\n.tool img{width:34px;height:34px;object-fit:contain}\n.tool.selected{color:#6150b8;font-weight:bold}\n.tableblank{height:100%;padding-top:0}\n.tabletop{height:56px;background:#f5f4f8;display:flex;align-items:center;padding-left:19%;font-weight:bold}\n.tabletop span{padding:0 6px}\n.sheet{width:100%;border-collapse:collapse;table-layout:fixed;font-size:16px}\n.sheet th,.sheet td{height:42px;border:1px solid #e2e2e2;text-align:center;font-weight:normal}\n.sheet th,.sheet td:first-child{background:#f5f4f8}\n.sheet th:first-child{width:12%}\n.sheet td:first-child{width:12%}\nbody.keyboard-open #graph{height:52vh}\nbody.keyboard-open #workarea{top:calc(11.2vw + 52vh);bottom:0;height:auto}\nbody.keyboard-open .bottomnav{display:none}\nbody.keyboard-open #panelcontent{height:0}\nbody.keyboard-open .inputrow{height:58px}\nbody.keyboard-open .grab{margin-top:10px}\n.keyboard{position:absolute;z-index:8;bottom:0;left:0;right:0;height:255px;background:#f1f0f5;border-top:1px solid #d8d6de;padding:5px 8px 7px;display:none}\nbody.keyboard-open .keyboard{display:block}\n.khead{height:42px;display:flex;align-items:center;gap:4px;margin-bottom:4px}\n.kcat{height:32px;padding:0 12px;border-radius:22px;font-size:17px;white-space:nowrap}\n.kcat.active{background:#a38bea;color:#181329}\n.kspacer{flex:1}\n.kclose{font-size:24px;color:#777;padding:0 8px}\n.keygrid{display:grid;grid-template-columns:repeat(10,1fr);grid-auto-rows:46px;gap:5px}\n.key{background:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;color:#333;box-shadow:0 1px 1px #e0dfe4}\n.key.dark{background:#d2d1d9}\n.key.wide{grid-column:span 2}\n.key.double{grid-column:span 2}\n.fxgrid{grid-template-columns:repeat(8,1fr);grid-auto-rows:46px;gap:5px}\n.fxgrid .key{font-size:19px}\n.abckeys{grid-template-columns:repeat(10,1fr);grid-auto-rows:46px}\n.abckeys .key{font-size:21px}\nbody.keyboard-open #workarea{box-shadow:0 -2px 5px #ddd}\n#expression:focus{caret-color:var(--purple)}\nbody.keyboard-open .inputrow{border-bottom:2px solid #9a7cf0}\n@media(min-width:700px){\n .keyboard{height:32vh;padding:8px 12px}\n .keygrid{grid-auto-rows:minmax(42px,1fr)}\n .fxgrid,.abckeys{grid-auto-rows:minmax(42px,1fr)}\n}\n</style>\n</head>\n<body>\n<div id=\"app\">\n<header>\n <button class=\"btn menu\" aria-label=\"Menu\">☰</button>\n <img class=\"logo\" src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/021.svg\" width=\"150\" height=\"42\" alt=\"GeoGebra\">\n <button class=\"btn assign\">ASSIGN</button>\n <button class=\"btn exit\" aria-label=\"Exit\">⇥</button>\n</header>\n\n<div id=\"graph\">\n <canvas id=\"plot\"></canvas>\n <div class=\"graph-controls\">\n   <button class=\"btn\" id=\"undo\" aria-label=\"Undo\">↶</button>\n   <button class=\"btn\" id=\"redo\" aria-label=\"Redo\">↷</button>\n </div>\n <button class=\"btn\" id=\"settings\" aria-label=\"Settings\"><img class=\"gear\" src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/003.svg\" width=\"28\" height=\"28\" alt=\"\"></button>\n</div>\n\n<section id=\"workarea\">\n <div class=\"grab\"></div>\n <div class=\"inputrow\">\n   <button class=\"btn plus\" id=\"plus\">+</button>\n   <button class=\"btn input-alert\" id=\"alert\">⚠</button>\n   <div class=\"inputwrap\"><input id=\"expression\" placeholder=\"Input...\" autocomplete=\"off\" autocapitalize=\"off\"></div>\n   <button class=\"btn more\" id=\"more\">⋮</button>\n </div>\n <div id=\"panelcontent\"></div>\n</section>\n\n<nav class=\"bottomnav\">\n <button class=\"btn navitem active\" data-tab=\"Algebra\"><img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/018.svg\" width=\"28\" height=\"28\" alt=\"\"><span>Algebra</span></button>\n <button class=\"btn navitem\" data-tab=\"Tools\"><img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/019.svg\" width=\"28\" height=\"28\" alt=\"\"><span>Tools</span></button>\n <button class=\"btn navitem\" data-tab=\"Table\"><img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/020.svg\" width=\"28\" height=\"28\" alt=\"\"><span>Table</span></button>\n <button class=\"btn navitem\" data-tab=\"Spreadsheet\"><img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/022.svg\" width=\"28\" height=\"28\" alt=\"\"><span>Spreadsheet</span></button>\n</nav>\n\n<div class=\"keyboard\" id=\"keyboard\"></div>\n</div>\n<script>\nconst canvas=document.getElementById('plot'),ctx=canvas.getContext('2d');\nconst graph=document.getElementById('graph'),input=document.getElementById('expression');\nlet tab='Algebra', keyboardMode='', expr='', zoomY=1, zoomX=1, panY=0, caret=0;\nconst asset=n=>'__PLACEHOLDER_ASSETS_BASE_DIR__/'+n;\nfunction resize(){let r=graph.getBoundingClientRect(),d=window.devicePixelRatio||1;canvas.width=r.width*d;canvas.height=r.height*d;canvas.style.width=r.width+'px';canvas.style.height=r.height+'px';ctx.setTransform(d,0,0,d,0,0);drawGraph()}\nfunction drawGraph(){\n const w=graph.clientWidth,h=graph.clientHeight;if(!w||!h)return;\n ctx.clearRect(0,0,w,h);let unit=w/8.6*zoomX,cx=w/2,cy=h/2+panY;\n // background minor and major graph-paper lines\n ctx.lineWidth=1;\n for(let i=-80;i<=80;i++){\n  let x=cx+i*unit/4;\n  if(x>=0&&x<=w){ctx.strokeStyle=i%4===0?'#c8c8c8':'#e8e8e8';ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke()}\n }\n for(let i=-100;i<=100;i++){\n  let y=cy+i*unit/4;\n  if(y>=0&&y<=h){ctx.strokeStyle=i%4===0?'#c8c8c8':'#e8e8e8';ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke()}\n }\n // axes and arrowheads\n ctx.strokeStyle='#444';ctx.lineWidth=1.45;ctx.beginPath();ctx.moveTo(0,cy);ctx.lineTo(w-4,cy);ctx.moveTo(cx,0);ctx.lineTo(cx,h);ctx.stroke();\n ctx.fillStyle='#444';ctx.beginPath();ctx.moveTo(w-1,cy);ctx.lineTo(w-8,cy-4);ctx.lineTo(w-8,cy+4);ctx.fill();\n ctx.beginPath();ctx.moveTo(cx,1);ctx.lineTo(cx-4,8);ctx.lineTo(cx+4,8);ctx.fill();\n ctx.font='14px Arial';ctx.fillStyle='#444';ctx.textAlign='center';\n for(let i=-10;i<=10;i++){let x=cx+i*unit;if(x>8&&x<w-8){if(i!==0)ctx.fillText(i,x,cy+19)}}\n ctx.textAlign='right';let yr=unit/zoomY;\n // y grid scale supports independent vertical zoom\n for(let i=-30;i<=30;i++){let y=cy-i*unit*zoomY;if(y>14&&y<h-5&&i!==0)ctx.fillText(i,cx-8,y+5)}\n ctx.textAlign='center';ctx.fillText('0',cx-13,cy+19);\n if(expr){\n  let mode=expr.replace(/\\s/g,'').toLowerCase();\n  let fn=null,domainStart=-4.35;\n  if(mode==='sin(x)')fn=x=>Math.sin(x);\n  else if(mode==='sin(xln(x))'||mode==='sin(x*ln(x))'){fn=x=>Math.sin(x*Math.log(x));domainStart=.05}\n  else if(mode==='cos(x)')fn=x=>Math.cos(x);\n  if(fn){\n   ctx.beginPath();let active=false;\n   for(let px=0;px<=w;px+=1.5){let x=(px-cx)/unit;if(x<domainStart){active=false;continue}let y=fn(x);let py=cy-y*unit*zoomY;\n    if(py<-h||py>h){active=false;continue}\n    if(!active){ctx.moveTo(px,py);active=true}else ctx.lineTo(px,py)\n   }\n   ctx.strokeStyle='#438f7d';ctx.lineWidth=3;ctx.stroke();\n   for(let x=Math.ceil(domainStart);x<4.5;x+=Math.PI/2){let y=fn(x),px=cx+x*unit,py=cy-y*unit*zoomY;if(px>=0&&px<=w&&py>=0&&py<=h){ctx.fillStyle='#777';ctx.beginPath();ctx.arc(px,py,5.5,0,Math.PI*2);ctx.fill()}}\n  }\n }\n}\nfunction renderPanel(){\n const c=document.getElementById('panelcontent'); c.innerHTML='';\n if(tab==='Algebra'){\n  c.innerHTML='<div class=\"brandline\"><img src=\"'+asset('025.svg')+'\" width=\"30\" height=\"30\" alt=\"\"><span>GeoGebra Graphing Calculator</span></div>';\n }else if(tab==='Tools'){\n  c.innerHTML='<div class=\"tooltitle\">Basic Tools</div><div class=\"toolsgrid\">'+[\n   ['002.svg','Move'],['027.svg','Point'],['028.svg','Slider'],['029.svg','Intersect'],\n   ['030.svg','Extremum'],['031.svg','Roots'],['033.svg','Best Fit Line']\n  ].map((t,i)=>'<button class=\"btn tool '+(i===0?'selected':'')+'\"><img src=\"'+asset(t[0])+'\" width=\"34\" height=\"34\" alt=\"\"><span>'+t[1]+'</span></button>').join('')+'</div>';\n  c.querySelectorAll('.tool').forEach(el=>el.onclick=()=>{c.querySelectorAll('.tool').forEach(t=>t.classList.remove('selected'));el.classList.add('selected')});\n }else if(tab==='Table'){\n  c.innerHTML='<div class=\"tableblank\"><div class=\"tabletop\"><span>x</span><span>⋮</span></div></div>';\n }else{\n  let html='<table class=\"sheet\"><thead><tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th></tr></thead><tbody>';\n  for(let i=1;i<=12;i++)html+='<tr><td>'+i+'</td><td></td><td></td><td></td><td></td></tr>';\n  c.innerHTML=html+'</tbody></table>';\n }\n document.querySelectorAll('.navitem').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));\n}\ndocument.querySelectorAll('.navitem').forEach(b=>b.addEventListener('click',()=>{tab=b.dataset.tab;renderPanel();if(tab==='Algebra')document.body.classList.remove('keyboard-open')}));\nfunction keyboardHTML(mode){\n const k=document.getElementById('keyboard');\n let cats='<div class=\"khead\"><button class=\"btn kcat '+(mode==='123'?'active':'')+'\" data-mode=\"123\">123</button><button class=\"btn kcat '+(mode==='fx'?'active':'')+'\" data-mode=\"fx\">f(x)</button><button class=\"btn kcat '+(mode==='ABC'?'active':'')+'\" data-mode=\"ABC\">ABC</button><button class=\"btn kcat '+(mode==='sym'?'active':'')+'\" data-mode=\"sym\">#&¬</button><span class=\"kspacer\"></span><button class=\"btn kcat\" id=\"dots\">•••</button><button class=\"btn kclose\" id=\"closekey\">×</button></div>';\n let keys='';\n if(mode==='fx'){\n  let rows=[['sin','cos','tan','%','!','$','°'],['sin⁻¹','cos⁻¹','tan⁻¹','{','}','≤','≥'],['ln','log₁₀','logₐ','d/dx','∫','i','⌫'],['eˣ','10ˣ','√','▦','‹','›','↵']];\n  keys='<div class=\"keygrid fxgrid\">'+rows.flat().map((x,i)=>'<button class=\"btn key '+((x==='⌫'||x==='↵'||x==='‹'||x==='›')?'dark':'')+'\" data-key=\"'+x+'\">'+x+'</button>').join('')+'</div>';\n }else if(mode==='ABC'){\n  let rows=['qwertyuiop','asdfghjkl','⇧zxcvbnm⌫'];\n  keys='<div class=\"keygrid abckeys\">'+rows.map(row=>[...row].map(ch=>'<button class=\"btn key '+('⇧⌫'.includes(ch)?'dark':'')+'\" data-key=\"'+ch+'\">'+ch+'</button>').join('')).join('')+\n  '<button class=\"btn key dark\" data-key=\"αβγ\" style=\"grid-column:span 1\">αβγ</button><button class=\"btn key\" data-key=\",\" style=\"grid-column:span 1\">,</button><button class=\"btn key\" data-key=\"(\">(</button><button class=\"btn key\" data-key=\")\">)</button><button class=\"btn key\" data-key=\" \" style=\"grid-column:span 3\"></button><button class=\"btn key dark\" data-key=\"‹\">‹</button><button class=\"btn key dark\" data-key=\"›\">›</button><button class=\"btn key dark\" data-key=\"↵\">↵</button></div>';\n }else{\n  let rows=[['x','y','π','e','7','8','9','×','÷'],['▦²','▦','√','▤','4','5','6','+','−'],['<','>','▧','▦','1','2','3','=','⌫'],['ans',',','(',' )','0','.','‹','›','↵']];\n  keys='<div class=\"keygrid\">'+rows.flat().map(x=>'<button class=\"btn key '+(('⌫↵‹›ans').includes(x)?'dark':'')+'\" data-key=\"'+x.trim()+'\">'+x+'</button>').join('')+'</div>';\n }\n k.innerHTML=cats+keys;\n k.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>{keyboardMode=b.dataset.mode;keyboardHTML(keyboardMode)});\n k.querySelector('#closekey').onclick=()=>closeKeyboard();\n k.querySelectorAll('[data-key]').forEach(b=>b.onclick=()=>press(b.dataset.key));\n}\nfunction openKeyboard(mode='123'){keyboardMode=mode;document.body.classList.add('keyboard-open');keyboardHTML(mode);setTimeout(resize,40);input.focus()}\nfunction closeKeyboard(){document.body.classList.remove('keyboard-open');keyboardMode='';input.blur();setTimeout(resize,40)}\nfunction press(key){\n let start=input.selectionStart??input.value.length,end=input.selectionEnd??start,v=input.value;\n if(key==='↵'){evaluate();return}\n if(key==='⌫'){if(start===end&&start>0)start--;input.value=v.slice(0,start)+v.slice(end);input.setSelectionRange(start,start)}\n else if(key==='‹'){input.setSelectionRange(Math.max(0,start-1),Math.max(0,start-1))}\n else if(key==='›'){input.setSelectionRange(Math.min(v.length,end+1),Math.min(v.length,end+1))}\n else if(key==='⇧'||key==='αβγ'||key==='▦'||key==='▦²'||key==='▤'||key==='▧'||key==='ans')return;\n else{\n  let insert=key;\n  if(['sin','cos','tan','ln','log₁₀','logₐ'].includes(key)){insert=(key==='log₁₀'?'log(':key==='logₐ'?'log(':key+'(')+')';}\n  if(key==='√')insert='sqrt()';\n  if(key==='d/dx')insert='Derivative()';\n  if(key==='∫')insert='Integral()';\n  if(key==='×')insert='*';if(key==='÷')insert='/';if(key==='−')insert='-';\n  if(insert==='x'&&v.endsWith('ln(')){} \n  input.value=v.slice(0,start)+insert+v.slice(end);\n  let pos=start+insert.length;\n  if(['sin()','cos()','tan()','ln()','log()','sqrt()'].includes(insert))pos=start+insert.length-1;\n  input.setSelectionRange(pos,pos);\n }\n input.dispatchEvent(new Event('input'));input.focus();validate();\n}\nfunction validate(){\n const v=input.value.trim();let alert=document.getElementById('alert');\n let invalid=/sin\\(\\)|cos\\(\\)|tan\\(\\)|ln\\(\\)/i.test(v);\n alert.style.display=invalid?'flex':'none';document.getElementById('plus').style.display=invalid?'none':'block';\n document.getElementById('more').style.display=v?'block':'none';\n}\nfunction evaluate(){\n expr=input.value.trim().replace(/\\s/g,'');\n if(/^sin\\(x\\)$/i.test(expr)||/^sin\\(xln\\(x\\)\\)$/i.test(expr)||/^sin\\(x\\*ln\\(x\\)\\)$/i.test(expr)||/^cos\\(x\\)$/i.test(expr)){\n  expr=expr.toLowerCase();if(expr==='sin(xln(x))')expr='sin(xln(x))';\n }else if(expr){expr='';}\n drawGraph();validate();\n}\ninput.addEventListener('focus',()=>{if(!document.body.classList.contains('keyboard-open'))openKeyboard('123')});\ninput.addEventListener('input',()=>{validate();let v=input.value;if(v.includes('sin(x)')){expr='sin(x)';drawGraph()}});\ninput.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();evaluate()}});\ndocument.getElementById('plus').onclick=()=>openKeyboard('123');\ndocument.getElementById('alert').onclick=()=>openKeyboard('fx');\ndocument.getElementById('more').onclick=()=>{};\ndocument.getElementById('settings').onclick=()=>{};\ndocument.querySelector('.assign').onclick=()=>{};\ndocument.querySelector('.menu').onclick=()=>{};\ndocument.querySelector('.exit').onclick=()=>{};\ndocument.getElementById('undo').onclick=()=>{expr='';input.value='';drawGraph();validate()};\ndocument.getElementById('redo').onclick=()=>{};\nlet startY=0;\ngraph.addEventListener('touchstart',e=>{startY=e.touches[0].clientY},{passive:true});\ngraph.addEventListener('touchend',e=>{let dy=e.changedTouches[0].clientY-startY;if(Math.abs(dy)>80){zoomY=Math.max(.55,Math.min(2.2,zoomY*(dy<0?1.45:.72)));drawGraph()}},{passive:true});\ngraph.addEventListener('wheel',e=>{zoomY=Math.max(.5,Math.min(2.4,zoomY*(e.deltaY<0?1.1:.9)));drawGraph()},{passive:true});\nrenderPanel();resize();window.addEventListener('resize',resize);\n</script>\n</body>\n</html>\n```",
+        "refusal": null,
+        "role": "assistant",
+        "annotations": [],
+        "audio": null,
+        "function_call": null,
+        "tool_calls": null
+      },
+      "content_filter_results": {
+        "hate": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "protected_material_code": {
+          "detected": true,
+          "filtered": false,
+          "citation": {
+            "URL": "https://github.com/gumgum/design-system/tree/843fe15b41c77df5aa1f74bacad07073bc3b9e6e/docs%2Findex.md",
+            "license": "MIT"
+          }
+        },
+        "protected_material_text": {
+          "detected": false,
+          "filtered": false
+        },
+        "self_harm": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "sexual": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "violence": {
+          "filtered": false,
+          "severity": "safe"
+        }
+      }
+    }
+  ],
+  "created": 1795193780,
+  "model": "gpt-6-luna-2026-09-22",
+  "object": "chat.completion",
+  "metadata": null,
+  "moderation": null,
+  "service_tier": "default",
+  "system_fingerprint": null,
+  "usage": {
+    "completion_tokens": 7449,
+    "prompt_tokens": 17263,
+    "total_tokens": 24712,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": 0,
+      "audio_tokens": 0,
+      "reasoning_tokens": 1794,
+      "rejected_prediction_tokens": 0,
+      "text_tokens": null
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cache_write_tokens": null,
+      "cached_tokens": 0,
+      "image_tokens": null,
+      "text_tokens": null
+    },
+    "latency_checkpoint": {
+      "engine_tbt_ms": 10,
+      "engine_ttft_ms": 1015,
+      "engine_ttlt_ms": 73096,
+      "pre_inference_ms": 1904,
+      "service_tbt_ms": 10,
+      "service_ttft_ms": 3197,
+      "service_ttlt_ms": 75959,
+      "user_visible_ttft_ms": 1292
+    }
+  },
+  "prompt_filter_results": [
+    {
+      "prompt_index": 0,
+      "content_filter_results": {
+        "hate": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "jailbreak": {
+          "detected": false,
+          "filtered": false
+        },
+        "self_harm": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "sexual": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "violence": {
+          "filtered": false,
+          "severity": "safe"
+        }
+      }
+    }
+  ],
+  "routing": {
+    "serving_pipereplica": "d20261105183610-86a44b11-prefill-r6-dp0-prefill"
+  }
+}

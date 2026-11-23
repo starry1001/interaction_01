@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>GeoGebra Graphing Calculator</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; font-family: Arial, Helvetica, sans-serif; color: #222; background: #fff; }
+  :root { --purple: #654dcc; --muted: #777; --nav-h: 88px; --header-h: 72px; }
+  button { font-family: inherit; color: inherit; border: 0; background: none; padding: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .app { position: relative; width: 100%; height: 100dvh; max-width: 100vw; overflow: hidden; background: #fff; }
+  .header {
+    height: var(--header-h); width: 100%; position: absolute; top: 0; left: 0; z-index: 5;
+    display: flex; align-items: center; padding: 0 38px; gap: 0; background: #fff;
+    box-shadow: 0 2px 4px #0002;
+  }
+  .hamburger { width: 38px; height: 46px; display: flex; align-items: center; margin-right: 31px; }
+  .hamburger i, .hamburger i:before, .hamburger i:after { display: block; width: 27px; height: 3px; background: #777; position: relative; content:""; }
+  .hamburger i:before { position:absolute; top:-8px; }
+  .hamburger i:after { position:absolute; top:8px; }
+  .brand { color: #777; font-size: 31px; font-weight: 300; letter-spacing: -.8px; white-space: nowrap; display:flex; align-items:center; }
+  .orbit { width:19px;height:19px; position:relative; display:inline-block; margin:0 -2px 0 -1px; }
+  .orbit:before { content:""; position:absolute; width:16px;height:10px;border:1.5px solid #777;border-radius:50%; transform:rotate(-40deg); left:1px;top:4px; }
+  .orbit:after { content:""; position:absolute; width:4px;height:4px;border-radius:50%; background:#7862df; left:7px;top:7px; box-shadow:8px -3px 0 #777, -5px 5px 0 #a79ae8; }
+  .assign { margin-left:auto; width:144px; height:54px; border-radius:6px; background:#654dcc; color:#fff; font-size:23px; font-weight:400; }
+  .exit { width:44px; height:50px; margin-left:30px; color:#777; position:relative; }
+  .exit:before { content:""; position:absolute; right:4px; top:11px; width:18px;height:25px;border:3px solid #777;border-left:0;border-radius:1px; }
+  .exit:after { content:"↪"; position:absolute; left:0;top:5px;font-size:35px;line-height:38px; transform:scaleX(-1); }
+  .graph {
+    position:absolute; top:var(--header-h); left:0; width:100%; height:calc(100dvh - 421px);
+    overflow:hidden; background-color:#fff;
+    background-image:
+      linear-gradient(to right, #dedede 1px, transparent 1px),
+      linear-gradient(to bottom, #dedede 1px, transparent 1px),
+      linear-gradient(to right, #bcbcbc 1.3px, transparent 1.3px),
+      linear-gradient(to bottom, #bcbcbc 1.3px, transparent 1.3px);
+    background-size:15px 15px,15px 15px,75px 75px,75px 75px;
+    background-position: -7px -7px,-7px -7px,-7px -7px,-7px -7px;
+  }
+  .graph.expanded { height:calc(100dvh - 160px); }
+  .graph.keyboard-open { height:calc(100dvh - 673px); }
+  .graph svg { width:100%; height:100%; position:absolute; inset:0; overflow:visible; }
+  .axis { stroke:#555; stroke-width:1.45; }
+  .tick-label { font-size:17px; fill:#333; }
+  .grid-origin { position:absolute; inset:0; pointer-events:none; }
+  .undo, .redo { position:absolute; top:20px; color:#bcbcbc; font-size:38px; line-height:35px; font-weight:300; }
+  .undo { left:36px; } .redo { left:91px; }
+  .gear { position:absolute; top:23px; right:26px; color:#777; font-size:32px; }
+  .plot { fill:none; stroke:#378f7d; stroke-width:3.2; }
+  .plot-dot { fill:#737373; }
+  .sheet {
+    position:absolute; left:0; right:0; top:calc(100dvh - 421px); bottom:var(--nav-h);
+    background:#fff; z-index:2; border-top:1px solid #d5d5d5; border-radius:7px 7px 0 0;
+    box-shadow:0 -2px 5px #0001;
+  }
+  .sheet.expanded { top:calc(100dvh - 421px); }
+  .handle { height:23px; width:42px; border-radius:4px; background:#d8d8dc; margin:13px auto 0; height:5px; }
+  .input-row { position:relative; height:72px; margin-top:0; display:flex; align-items:center; border-bottom:1px solid #e5e5e5; }
+  .plus, .warning { height:70px; width:87px; flex:0 0 87px; border-right:1px solid #ddd; display:flex; align-items:center; justify-content:center; color:#777; font-size:39px; font-weight:200; }
+  .warning { font-size:30px; }
+  .entry { height:70px; flex:1; text-align:left; padding:0 16px; font-size:23px; color:#222; outline:0; white-space:nowrap; overflow:hidden; }
+  .entry.placeholder { color:#777; }
+  .entry .cursor { display:inline-block; width:1px; height:26px; background:#654dcc; vertical-align:middle; margin-left:2px; }
+  .more { width:52px; font-size:29px; color:#777; }
+  .brand-note { position:absolute; left:0; right:0; top:223px; text-align:center; color:#b6b6b6; font-size:23px; white-space:nowrap; }
+  .brand-note .tiny-mark { display:inline-block; width:29px; height:24px; vertical-align:middle; margin-right:13px; position:relative; }
+  .tiny-mark:before { content:""; position:absolute; left:3px;top:2px;width:22px;height:17px;border-left:2px solid #c9c9d0;border-bottom:2px solid #c9c9d0;transform:skew(-17deg); }
+  .tiny-mark:after { content:""; position:absolute; left:4px;top:1px;width:5px;height:5px;border-radius:50%;background:#bbb;border:1px solid #a99ae4;box-shadow:15px 15px 0 -1px #aaa; }
+  .bottom-nav { position:absolute; height:var(--nav-h); bottom:0; left:0; right:0; z-index:8; background:#fff; display:flex; box-shadow:0 -3px 8px #0000000b; }
+  .nav-item { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; color:#818181; font-size:15px; }
+  .nav-item.active { color:var(--purple); }
+  .nav-icon { width:30px;height:31px;display:flex;align-items:center;justify-content:center;font-size:29px;font-weight:bold;line-height:1; }
+  .icon-algebra { font-size:27px; border:3px solid currentColor; border-radius:2px; width:21px;height:27px; position:relative; }
+  .icon-algebra:after { content:""; position:absolute; left:4px;right:4px;top:5px;bottom:4px; background:repeating-linear-gradient(to bottom, currentColor 0 2px, transparent 2px 6px); }
+  .icon-tools { font-size:31px; }
+  .icon-table { font-size:28px; }
+  .icon-sheet { font-size:27px; }
+  .panel-tools { padding:35px 22px 0; }
+  .panel-title { font-size:23px; margin:0 0 24px; font-weight:400; }
+  .tools-grid { display:grid; grid-template-columns:repeat(4,1fr); row-gap:31px; }
+  .tool { height:76px; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; color:#777; gap:8px; font-size:18px; white-space:nowrap; }
+  .tool.selected { color:#5f5098; font-weight:bold; }
+  .tool-pic { height:34px; display:flex; align-items:center; justify-content:center; font-size:29px; color:#555; font-weight:400; }
+  .tool-pic svg { width:35px;height:32px; }
+  .table-panel { position:absolute; top:24px; left:0; width:100%; border-collapse:collapse; font-size:18px; text-align:center; }
+  .table-panel td { border:1px solid #e3e3e8; height:54px; min-width:33%; color:#333; }
+  .table-panel .thead td { background:#f4f3f7; height:55px; }
+  .table-panel .rowhead { background:#f4f3f7; width:79px; }
+  .spread-panel { position:absolute; top:22px; left:0; right:0; }
+  .spread-grid { display:grid; grid-template-columns:80px repeat(3,1fr); }
+  .spread-cell { height:54px; border:1px solid #e5e5e8; display:flex;align-items:center;justify-content:center;font-size:18px; }
+  .spread-cell.heading { background:#f4f3f7; }
+  .keyboard {
+    position:absolute; z-index:7; left:0; right:0; bottom:0; height:335px; background:#f3f2f7;
+    box-shadow:0 -2px 6px #0002; display:none; padding-top:0;
+  }
+  .keyboard.show { display:block; }
+  .key-tabs { height:64px; display:flex; align-items:center; gap:14px; padding:0 10px; font-size:24px; }
+  .key-tab { padding:5px 11px; border-radius:23px; white-space:nowrap; }
+  .key-tab.active { background:#a58af2; color:#211a37; }
+  .key-spacer { flex:1; }
+  .key-close { color:#777; font-size:31px; width:36px; }
+  .key-grid { display:grid; gap:5px; padding:0 12px 8px; height:267px; }
+  .key-grid.numeric { grid-template-columns:repeat(9,1fr); grid-template-rows:repeat(4,1fr); }
+  .key-grid.functions { grid-template-columns:repeat(7,1fr); grid-template-rows:repeat(4,1fr); }
+  .key-grid.letters { grid-template-columns:repeat(10,1fr); grid-template-rows:repeat(4,1fr); }
+  .key {
+    border-radius:13px; background:#fff; display:flex; align-items:center; justify-content:center; font-size:24px; color:#171717;
+    box-shadow:0 1px 1px #ddd; min-width:0; overflow:hidden;
+  }
+  .key.small { font-size:19px; }
+  .key.dark { background:#d3d2d9; }
+  .key.wide { grid-column:span 2; }
+  .key-grid.functions .key { font-size:22px; }
+  .key-grid.letters .key { font-size:24px; }
+  .keyboard + .bottom-nav { display:none; }
+  .error { color:#777; font-size:29px; margin-left:25px; }
+  .menu-pop { position:absolute; z-index:10; top:65px; left:8px; background:white; box-shadow:0 2px 8px #0003; padding:15px; display:none; }
+  .menu-pop.show { display:block; }
+  @media(max-width:500px) {
+    .header { padding:0 18px; }
+    .hamburger { margin-right:18px; }
+    .brand { font-size:25px; }
+    .assign { width:105px; font-size:19px; }
+    .exit { margin-left:14px; }
+    .tool { font-size:14px; }
+    .brand-note { font-size:18px; }
+  }
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <header class="header">
+    <button class="hamburger btn" id="menuButton" aria-label="Menu"><i></i></button>
+    <div class="brand">Ge<span class="orbit"></span>Gebra</div>
+    <button class="assign btn">ASSIGN</button>
+    <button class="exit btn" aria-label="Sign in"></button>
+  </header>
+  <div class="menu-pop" id="menuPop">GeoGebra Graphing Calculator</div>
+  <main class="graph" id="graph">
+    <div class="undo">↶</div><div class="redo">↷</div>
+    <button class="gear btn" aria-label="Settings">⚙</button>
+    <svg id="graphSvg" preserveAspectRatio="none"></svg>
+  </main>
+  <section class="sheet" id="sheet">
+    <div class="handle"></div>
+    <div class="input-row" id="inputRow">
+      <button class="plus btn" id="plusButton">＋</button>
+      <button class="warning btn" id="warning" style="display:none">⚠</button>
+      <div class="entry placeholder" id="entry" role="button" tabindex="0">Input...</div>
+      <button class="more btn" id="moreButton" style="display:none">⋮</button>
+    </div>
+    <div class="brand-note"><span class="tiny-mark"></span>GeoGebra Graphing Calculator</div>
+    <div class="panel-tools" id="toolsPanel" style="display:none">
+      <h2 class="panel-title">Basic Tools</h2>
+      <div class="tools-grid">
+        <button class="tool selected btn"><span class="tool-pic">↖</span>Move</button>
+        <button class="tool btn"><span class="tool-pic" style="color:#2416a2">•<sup style="font-size:15px">A</sup></span>Point</button>
+        <button class="tool btn"><span class="tool-pic" style="font-size:16px">a = 2<br>―</span>Slider</button>
+        <button class="tool btn"><span class="tool-pic">⌁</span>Intersect</button>
+        <button class="tool btn"><span class="tool-pic">⌒<small>•</small></span>Extremum</button>
+        <button class="tool btn"><span class="tool-pic">∿</span>Roots</button>
+        <button class="tool btn"><span class="tool-pic" style="color:#3930b5">⁙╱•</span>Best Fit Line</button>
+      </div>
+    </div>
+    <div class="spread-panel" id="spreadPanel" style="display:none">
+      <div class="spread-grid" id="spreadGrid"></div>
+    </div>
+    <table class="table-panel" id="tablePanel" style="display:none"></table>
+  </section>
+  <nav class="bottom-nav" id="bottomNav">
+    <button class="nav-item active btn" data-tab="algebra"><span class="nav-icon icon-algebra"></span><span>Algebra</span></button>
+    <button class="nav-item btn" data-tab="tools"><span class="nav-icon icon-tools">⚒</span><span>Tools</span></button>
+    <button class="nav-item btn" data-tab="table"><span class="nav-icon icon-table">▥</span><span>Table</span></button>
+    <button class="nav-item btn" data-tab="spreadsheet"><span class="nav-icon icon-sheet">▦</span><span>Spreadsheet</span></button>
+  </nav>
+  <div class="keyboard" id="keyboard">
+    <div class="key-tabs">
+      <button class="key-tab active btn" data-keymode="numeric">123</button>
+      <button class="key-tab btn" data-keymode="functions">f(x)</button>
+      <button class="key-tab btn" data-keymode="letters">ABC</button>
+      <button class="key-tab btn" data-keymode="symbols">#&¬</button>
+      <span class="key-spacer"></span>
+      <button class="btn" style="font-size:26px;color:#777">•••</button>
+      <button class="key-close btn" id="closeKeyboard">×</button>
+    </div>
+    <div class="key-grid numeric" id="keyGrid"></div>
+  </div>
+</div>
+<script>
+(() => {
+  const graph = document.getElementById('graph'), svg = document.getElementById('graphSvg');
+  const sheet = document.getElementById('sheet'), keyboard = document.getElementById('keyboard');
+  const entry = document.getElementById('entry'), toolsPanel = document.getElementById('toolsPanel');
+  const tablePanel = document.getElementById('tablePanel'), spreadPanel = document.getElementById('spreadPanel');
+  const warning = document.getElementById('warning'), moreButton = document.getElementById('moreButton');
+  const keyGrid = document.getElementById('keyGrid');
+  let mode='algebra', keyboardMode='numeric', expr='', invalid=false;
+  let graphCollapsed=false;
+
+  function buildGraph() {
+    const w=innerWidth, h=graph.clientHeight;
+    svg.setAttribute('viewBox',`0 0 ${w} ${h}`);
+    const expanded=graph.classList.contains('expanded');
+    const oy=expanded ? h*.70 : h*.5;
+    const ox=w/2, unit=w/8;
+    let out='';
+    out += `<line class="axis" x1="0" y1="${oy}" x2="${w-2}" y2="${oy}"/><path d="M ${w-7} ${oy-5} L ${w-1} ${oy} L ${w-7} ${oy+5}" fill="none" stroke="#555" stroke-width="1.4"/>`;
+    out += `<line class="axis" x1="${ox}" y1="${h}" x2="${ox}" y2="2"/><path d="M ${ox-5} 8 L ${ox} 1 L ${ox+5} 8" fill="none" stroke="#555" stroke-width="1.4"/>`;
+    for(let n=-4;n<=4;n++){
+      let x=ox+n*unit;
+      out+=`<text class="tick-label" x="${x}" y="${oy+24}" text-anchor="middle">${n}</text>`;
+    }
+    let top=Math.ceil((oy-h)/unit), bot=Math.floor(oy/unit);
+    for(let n=top;n<=bot;n++){
+      if(n===0) continue;
+      let y=oy-n*unit;
+      out+=`<text class="tick-label" x="${ox-11}" y="${y+6}" text-anchor="end">${n}</text>`;
+    }
+    if(expr && (expr==='sin(x)' || expr==='sin(xln(x))' || expr==='sin(xln())')) {
+      let d='', first=true;
+      for(let px=0;px<=w;px+=2){
+        let x=(px-ox)/unit, y;
+        if(expr==='sin(x)') y=Math.sin(x);
+        else if(x<=0) continue;
+        else y=Math.sin(x*Math.log(x));
+        const py=oy-y*unit;
+        d+=(first?'M':'L')+px.toFixed(1)+' '+py.toFixed(1)+' '; first=false;
+      }
+      out+=`<path class="plot" d="${d}"/>`;
+      let points=expr==='sin(x)'?[-Math.PI, -Math.PI/2,0,Math.PI/2,Math.PI]:[.36,1,2.1,3,3.65];
+      points.forEach(x=>{
+        if(expr!=='sin(x)' && x<=0) return;
+        let y=expr==='sin(x)'?Math.sin(x):Math.sin(x*Math.log(x));
+        out+=`<circle class="plot-dot" cx="${ox+x*unit}" cy="${oy-y*unit}" r="7.2"/>`;
+      });
+    }
+    svg.innerHTML=out;
+  }
+  function setTab(tab){
+    mode=tab;
+    document.querySelectorAll('.nav-item').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));
+    toolsPanel.style.display=tab==='tools'?'block':'none';
+    tablePanel.style.display=tab==='table'?'table':'none';
+    spreadPanel.style.display=tab==='spreadsheet'?'block':'none';
+    const algebra=tab==='algebra';
+    document.getElementById('inputRow').style.display=algebra?'flex':'none';
+    document.querySelector('.brand-note').style.display=algebra?'block':'none';
+    sheet.style.top='';
+    graph.classList.toggle('expanded', graphCollapsed);
+    buildGraph();
+  }
+  function updateEntry(){
+    entry.classList.toggle('placeholder',!expr);
+    entry.innerHTML=expr ? escapeHtml(expr)+(keyboard.classList.contains('show')?'<span class="cursor"></span>':'') : 'Input...';
+    warning.style.display=invalid?'flex':'none';
+    document.getElementById('plusButton').style.display=invalid?'none':'flex';
+    moreButton.style.display=expr?'block':'none';
+    buildGraph();
+  }
+  function escapeHtml(s){ return s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;'); }
+  function showKeyboard(){
+    setTab('algebra');
+    keyboard.classList.add('show');
+    graph.classList.add('keyboard-open');
+    graph.classList.remove('expanded');
+    graphCollapsed=false;
+    updateEntry();
+  }
+  function hideKeyboard(){
+    keyboard.classList.remove('show');
+    graph.classList.remove('keyboard-open');
+    updateEntry();
+  }
+  function evaluate(){
+    if(expr==='sin()' || expr==='sin(xln())'){ invalid=true; }
+    else { invalid=false; }
+    if(expr==='sin(x)') graphCollapsed=false;
+    hideKeyboard();
+  }
+
+  const numeric = ['x','y','π','e','7','8','9','×','÷','□²','□','√□','▥','4','5','6','+','−','<','>','▤','⁙','1','2','3','=','⌫','ans',',','(',')','0','.','‹','›','↵'];
+  const functions = ['sin','cos','tan','%','!','$','°','sin⁻¹','cos⁻¹','tan⁻¹','{','}','≤','≥','ln','log₁₀','log⋅','d/dx','∫','i','⌫','e□','10□','√□','▤','‹','›','↵'];
+  const letters = ['q','w','e','r','t','y','u','i','o','p','a','s','d','f','g','h','j','k','l','⌃','z','x','c','v','b','n','m','⌫','αβγ',',','(',')','','‹','›','↵'];
+  function drawKeys(){
+    keyGrid.innerHTML='';
+    keyGrid.className='key-grid '+keyboardMode;
+    let data=keyboardMode==='functions'?functions:keyboardMode==='letters'?letters:numeric;
+    data.forEach((label,index)=>{
+      const b=document.createElement('button'); b.className='key btn';
+      if(['⌫','↵','‹','›','⌃','αβγ'].includes(label)) b.classList.add('dark');
+      if(label==='') b.classList.add('wide');
+      if(['□²','√□','▥','▤','⁙','e□','10□','log⋅','d/dx'].includes(label)) b.classList.add('small');
+      b.textContent=label;
+      b.addEventListener('click',()=>pressKey(label));
+      keyGrid.appendChild(b);
+    });
+  }
+  function pressKey(k){
+    if(k==='⌫'){ expr=expr.slice(0,-1); invalid=false; updateEntry(); return; }
+    if(k==='↵'){ evaluate(); return; }
+    if(k==='‹'||k==='›'||k==='⌃'||k==='αβγ'||k===''){return;}
+    if(k==='sin'||k==='cos'||k==='tan'||k==='ln') {
+      expr += k+'()'; invalid=true;
+    } else if(k==='x' && expr==='sin()'){
+      expr='sin(x)'; invalid=false;
+    } else if(k==='x' && expr==='sin(xln())'){
+      expr='sin(xln(x))'; invalid=false;
+    } else if(k==='x' && expr.endsWith('ln()')){
+      expr=expr.slice(0,-1)+'x)';
+      invalid=false;
+    } else {
+      expr += k==='×'?'*':k==='÷'?'/':k;
+      invalid=false;
+    }
+    updateEntry();
+  }
+  document.querySelectorAll('[data-keymode]').forEach(b=>b.addEventListener('click',()=>{
+    keyboardMode=b.dataset.keymode==='symbols'?'numeric':b.dataset.keymode;
+    document.querySelectorAll('.key-tab').forEach(t=>t.classList.toggle('active',t===b));
+    drawKeys();
+  }));
+  document.getElementById('closeKeyboard').addEventListener('click',hideKeyboard);
+  entry.addEventListener('click',()=>{ if(!expr) expr=''; showKeyboard(); });
+  entry.addEventListener('keydown',e=>{if(e.key==='Enter')showKeyboard();});
+  document.getElementById('plusButton').addEventListener('click',()=>{expr='';invalid=false;showKeyboard();});
+  document.querySelectorAll('.nav-item').forEach(b=>b.addEventListener('click',()=>{hideKeyboard();setTab(b.dataset.tab);}));
+  document.getElementById('menuButton').addEventListener('click',()=>document.getElementById('menuPop').classList.toggle('show'));
+  document.querySelector('.gear').addEventListener('click',()=>{});
+  document.querySelectorAll('.tool').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('.tool').forEach(t=>t.classList.remove('selected'));b.classList.add('selected');
+  }));
+  moreButton.addEventListener('click',()=>{});
+  function fillTables(){
+    tablePanel.innerHTML='<tbody><tr class="thead"><td></td><td>A</td><td>B</td><td>C</td></tr>'+[1,2,3,4,5,6].map(n=>`<tr><td class="rowhead">${n}</td><td></td><td></td><td></td></tr>`).join('')+'</tbody>';
+    const sg=document.getElementById('spreadGrid');
+    sg.innerHTML='<div class="spread-cell heading"></div>'+['A','B','C'].map(x=>`<div class="spread-cell heading">${x}</div>`).join('')+
+    Array.from({length:7},(_,i)=>`<div class="spread-cell heading">${i+1}</div><div class="spread-cell"></div><div class="spread-cell"></div><div class="spread-cell"></div>`).join('');
+  }
+  fillTables();drawKeys();buildGraph();
+  window.addEventListener('resize',buildGraph);
+  let startY=0;
+  document.querySelector('.handle').addEventListener('touchstart',e=>startY=e.touches[0].clientY,{passive:true});
+  document.querySelector('.handle').addEventListener('touchend',e=>{
+    const delta=e.changedTouches[0].clientY-startY;
+    if(delta>70){graphCollapsed=true;graph.classList.add('expanded');sheet.style.top='calc(100dvh - 421px)';buildGraph();}
+    if(delta<-70){graphCollapsed=false;graph.classList.remove('expanded');buildGraph();}
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+{
+  "total_step": 4,
+  "success_step": 0,
+  "screenshot_paths_to_eval": [
+    "outputs/20/gpt-6-luna_setting2/evalpoints/0.png",
+    "outputs/20/gpt-6-luna_setting2/evalpoints/0.png"
+  ],
+  "all_mllm_scores": [
+    0.46,
+    0.73
+  ],
+  "all_dino_scores": [
+    0.37158203125,
+    0.8984375
+  ],
+  "all_ocr_scores": [
+    0.2701829924650161,
+    0.28202368137782563
+  ],
+  "all_avg_scores": [
+    0.36725500790500537,
+    0.6368203937926086
+  ],
+  "mllm_score": 0.595,
+  "dino_score": 0.635009765625,
+  "ocr_score": 0.27610333692142086,
+  "avg_score": 0.502037700848807,
+  "all_mllm_res": [
+    "Comments:\n-Layout (10 points): Both pages use YouTube Shorts with a left navigation sidebar and a central vertical video. The generated page shifts the video left and adds a large comments panel, which is absent from the reference. **5/10**\n-Elements (15 points): The top bar, sidebar, video controls, creator details, and reaction buttons are broadly similar. The generated page adds a comments panel and comment list not shown in the reference. **8/15**\n-Content and Text (40 points): Sidebar labels and general YouTube controls are similar, but the video, captions, and on-screen text are different. The reaction and comment counts also do not match. **13/40**\n-Style (15 points): Both have a clean white YouTube interface with similar typography, icons, and muted controls. The extra comments panel makes the generated page feel noticeably different. **10/15**\n-Overall (20 points): The page type and many interface elements match, but the different video content and open comments panel substantially reduce similarity. **10/20**\n\nScore: **46/100**",
+    "Comments:\n- **Layout (6/10 points):** The generated page preserves the YouTube Shorts structure, including the left navigation sidebar, top search/header area, centered vertical video, and right-side interaction controls. However, the added comments panel significantly changes the overall composition and shifts the video left compared with the reference, which has a largely empty right side.\n- **Elements (11/15 points):** Most major elements are present and recognizable: YouTube branding, navigation items, search bar, microphone, video controls, reaction buttons, creator information, and scroll arrows. The comments drawer is an additional prominent element not present in the reference, while some icon designs and placements differ slightly.\n- **Content and Text (29/40 points):** The underlying video scene, creator, captions, hashtags, engagement counts, and Chinese interface text are highly similar. However, the displayed video caption differs substantially: the reference shows “Take off,” while the generated page shows “Pick up” and “down pick up.” The generated comments panel also introduces a large amount of content absent from the reference.\n- **Style (12/15 points):** Typography, white background, spacing conventions, rounded controls, YouTube iconography, and overall visual language are close. Differences include sidebar icon styling, some sizing/spacing variations, and the visual treatment of the comments panel.\n- **Overall (15/20 points):** This is clearly the same YouTube Shorts interface and uses the same video and general UI structure, but the comments drawer and altered video state/caption create noticeable visual and content differences.\n\n**Score: 73/100**"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "ouTube + @a Pp { Ad 8 Shorts 0 JJA Idont know Im not sure Thave no idea. T 0 ipizr 5 inm)IR 0 TAEMZ 6 EiaiWem 65 : Jaxk E #hp 4G Level B7 AJmjselo have no idea 1 1.15 0g YouTube 7*5 Sthat YouTube Premium 41 YouTube Music YouTube Kids 7 157 135 4 F #R12R 53 #AJ @arannitalagringa @ RIRE Advanced English Convergation Lesson 6p Subscribe for more Tarianmitalagringa #easyenglisheveryday #F # FRtl Fata] #englishlanguage #learnenglish @MA r= FZA 43 Fatitl 1e554 VouTuhe Aii",
+      "screenshot_text": "YouTube 17 0J4 WiE 2169 = Shorts down pick @borimioi 8 ^ Anj iTA up 2z0| o4542244 =01#1 olllz} 251418 Zxact Wit 67315 # 685 02 Feizs #FE # #amhiR @divalarose 8 ^ Anij Magnifique demonstration pour mieux comprendre TARIA felicitations vous remercie Ritanim MFJi+ F6ia @2 KR @shincymohan 7^ Amj Af Excellent method of teaching phrasal verbs - 320 02 6 @e Pickape off R0E @toufikel__ 4^Amj 5 wonderful teaching methods with beautiful lady 02 #A #02 Atmeel @nasirmaqboo/5936 2 ^ Anij #7 Superb teaching @2 YouTube 72355] #8 2 R@E YouTube Premium @57-d9t 74 nj Tex sbu)pgl  6u+82 j #8_ YouTube Music MFj+ F6i5 YouTube Kids @2 2,169 @NaeimehBerdinajad 7 4 Anj 0 37 Hello dear teacher: The best way teaching: Learning English with ears and eyes is strong Thanks lot ##Rizx @2 #M #iRt @ariannitalagringa HJA 1913 Wji 12E4404 #T #A Ftl WRTEI] Phrasal verbs in Englsh #gringa #english #ariannitalagringa #american Pp FhoiFig: una Ca #za MA",
+      "similarity": 0.2701829924650161
+    },
+    {
+      "checkpoint_text": "YouTube + @ (Pp { Ad 8 Shorts 0 JJA take off T 0 ipizx 5 tnm)IR 0 TAEMZ 6 EiAjiWeM 35 : Take off Jaxk E #hl M7 MJrselo 1 326 0g YouTube 7*6 Sthab YouTube Premium TeX YouTube Music YouTube Kids D 2,169 135 F #i2R ##aba #AJ @ariannitalagringa WJe 0 RIRE Mtajeeia Eli 12+44Fp4 #F #] FRtl FEta] Phrasal verbs in English #gringa #english #ariannitalagringa #american @na r=#rA 43 Fatitl 1e554 VouTuhe A7i-",
+      "screenshot_text": "YouTube 17 0J4 WiE 2169 = Shorts down pick @borimioi 8 ^ Anj iTA up 2z0| o4542244 =01#1 olllz} 251418 Zxact Wit 67315 # 685 02 Feizs #FE # #amhiR @divalarose 8 ^ Anij Magnifique demonstration pour mieux comprendre TARIA felicitations vous remercie Ritanim MFJi+ F6ia @2 KR @shincymohan 7^ Amj Af Excellent method of teaching phrasal verbs - 320 02 6 @e Pickape off R0E @toufikel__ 4^Amj 5 wonderful teaching methods with beautiful lady 02 #A #02 Atmeel @nasirmaqboo/5936 2 ^ Anij #7 Superb teaching @2 YouTube 72355] #8 2 R@E YouTube Premium @57-d9t 74 nj Tex sbu)pgl  6u+82 j #8_ YouTube Music MFj+ F6i5 YouTube Kids @2 2,169 @NaeimehBerdinajad 7 4 Anj 0 37 Hello dear teacher: The best way teaching: Learning English with ears and eyes is strong Thanks lot ##Rizx @2 #M #iRt @ariannitalagringa HJA 1913 Wji 12E4404 #T #A Ftl WRTEI] Phrasal verbs in Englsh #gringa #english #ariannitalagringa #american Pp FhoiFig: una Ca #za MA",
+      "similarity": 0.28202368137782563
+    }
+  ],
+  "assertion_results": [
+    null,
+    null,
+    null,
+    null
+  ]
+}

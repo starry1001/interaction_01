@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>X Home Replica</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;background:#fff;color:#0f1419;font-family:Arial,Helvetica,sans-serif;font-size:16px}
+button,input,textarea{font:inherit}
+button{border:0;background:none;cursor:pointer}
+.btn{cursor:pointer}
+.app{width:1260px;margin:0 auto;display:grid;grid-template-columns:270px 600px 350px;column-gap:0;min-height:1304px}
+.left{border-right:1px solid #eff3f4;position:relative;padding:8px 24px 20px 20px}
+.logo{font-size:34px;line-height:45px;width:48px;text-align:center;margin-bottom:12px;font-weight:400}
+.nav-item{height:60px;display:flex;align-items:center;gap:20px;font-size:21px;padding:0 10px;border-radius:30px;white-space:nowrap}
+.nav-item:hover{background:#eef1f2}
+.icon{width:28px;text-align:center;font-size:27px;line-height:1}
+.nav-item small{position:absolute;margin-left:14px;margin-top:-17px;background:#1d9bf0;color:#fff;border-radius:50%;font-size:10px;width:17px;height:17px;text-align:center;padding-top:2px}
+.post-button{height:54px;width:234px;border-radius:30px;background:#0f1419;color:white;font-weight:bold;font-size:17px;margin:20px 0}
+.profile-mini{position:absolute;bottom:24px;left:20px;right:20px;display:flex;align-items:center;gap:12px;padding:12px;border-radius:30px}
+.profile-mini:hover{background:#eef1f2}
+.avatar{width:42px;height:42px;border-radius:50%;background:#16aaa9;color:white;display:flex;align-items:center;justify-content:center;font-size:22px;flex:none}
+.profile-mini b{font-size:14px}.profile-mini span{display:block;color:#536471;font-size:13px}.dots{margin-left:auto;font-size:20px}
+.center{border-right:1px solid #eff3f4}
+.tabs{height:56px;border-bottom:1px solid #eff3f4;display:flex;position:sticky;top:0;background:#fff;z-index:2}
+.tab{width:50%;display:flex;align-items:center;justify-content:center;color:#536471;position:relative}
+.tab.active{color:#0f1419;font-weight:bold}
+.tab.active:after{content:"";position:absolute;bottom:0;width:56px;height:4px;border-radius:4px;background:#1d9bf0}
+.composer-mini{border-bottom:1px solid #eff3f4;padding:16px 16px 10px;display:flex;gap:12px}
+.composer-main{flex:1}
+.placeholder{font-size:20px;color:#536471;padding:10px 0 18px}
+.compose-tools{display:flex;align-items:center;gap:19px;color:#1d9bf0;font-size:20px}
+.compose-tools .post-small{margin-left:auto;background:#87909a;color:white;border-radius:22px;padding:9px 18px;font-size:14px;font-weight:bold}
+.post{border-bottom:1px solid #eff3f4;padding:16px;display:flex;gap:12px}
+.post-body{flex:1;min-width:0}
+.post-head{font-size:14px;line-height:20px}
+.post-head b{font-size:15px}
+.verified{color:#1d9bf0}
+.muted{color:#536471}
+.post-text{margin:4px 0 13px;line-height:21px}
+.post-image{display:block;width:100%;border-radius:14px;object-fit:cover}
+.post-image.couple{height:302px}
+.video{height:500px;background:#000;border-radius:14px;overflow:hidden;display:flex;justify-content:center}
+.video img{height:100%;width:auto;max-width:100%;object-fit:cover}
+.actions{display:flex;justify-content:space-between;color:#536471;padding-top:11px;font-size:13px}
+.actions span{display:flex;gap:5px;align-items:center}
+.right{padding:6px 12px 0 28px}
+.search{height:46px;border:1px solid #cfd9de;border-radius:25px;display:flex;align-items:center;padding:0 15px;color:#536471;margin-bottom:16px}
+.search input{border:0;outline:0;font-size:15px;width:100%}
+.card{border:1px solid #eff3f4;border-radius:16px;margin-bottom:16px;padding:16px}
+.card h2{font-size:21px;margin:0 0 12px}.card p{font-size:14px;line-height:19px;margin:0 0 12px}
+.blue-btn{background:#1d9bf0;color:#fff;border-radius:22px;padding:10px 17px;font-weight:bold}
+.news-item{padding:14px 0;border-top:1px solid #eff3f4}.news-item:first-of-type{border-top:0}
+.news-item b{font-size:14px;line-height:18px}.news-item small{display:block;color:#536471;margin-top:7px}
+.trend{padding:10px 0}.trend small{color:#536471}.trend b{display:block;margin:4px 0}
+.follow{display:flex;align-items:center;gap:10px;padding:11px 0}.follow button{margin-left:auto;background:#0f1419;color:#fff;border-radius:20px;padding:8px 16px;font-weight:bold;font-size:13px}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.38);z-index:10}
+.overlay.show{display:block}
+.modal{position:fixed;top:65px;left:50%;transform:translateX(-50%);width:600px;background:#fff;border-radius:17px;overflow:visible;box-shadow:0 2px 8px #5554}
+.modal-head{height:62px;display:flex;align-items:center;padding:0 17px}
+.close{font-size:26px}.drafts-link{margin-left:auto;color:#1d9bf0;font-weight:bold}
+.modal-content{padding:8px 16px 0}
+.compose-row{display:flex;gap:12px;min-height:105px}
+.textarea{flex:1;border:0;outline:0;resize:none;font-size:20px;padding:9px 0}
+.reply{color:#1d9bf0;font-weight:bold;border-bottom:1px solid #eff3f4;padding:12px 0}
+.modal-tools{display:flex;align-items:center;gap:20px;color:#1d9bf0;font-size:20px;height:58px}
+.modal-post{margin-left:auto;background:#87909a;color:white;border-radius:22px;padding:10px 19px;font-weight:bold}
+.emoji-panel{display:none;position:absolute;left:0;top:252px;width:310px;height:415px;background:#fff;border-radius:0 0 14px 14px;box-shadow:0 2px 8px #5554;padding:10px;z-index:2}
+.emoji-panel.show{display:block}
+.emoji-search{border:2px solid #1d9bf0;border-radius:22px;padding:9px 14px;color:#536471;margin-bottom:10px}
+.emoji-tabs{color:#aab4ba;display:flex;justify-content:space-between;padding:3px 4px 9px}
+.emoji-panel h3{font-size:16px;margin:4px 0 14px}
+.emojis{display:grid;grid-template-columns:repeat(8,1fr);gap:9px;font-size:21px;max-height:260px;overflow:hidden}
+.emojis span{cursor:pointer;text-align:center}
+.emoji-footer{position:absolute;bottom:0;left:0;right:0;border-top:1px solid #eff3f4;padding:12px;font-size:26px}
+.poll-box{border:1px solid #d7dce0;border-radius:15px;padding:12px;margin:8px 0 0}
+.poll-input{height:66px;border:1px solid #cfd9de;border-radius:5px;margin-bottom:15px;padding:9px;color:#536471;position:relative}
+.poll-input.active{border:2px solid #1d9bf0;color:#1d9bf0}
+.poll-input input{display:block;border:0;outline:0;font-size:18px;width:90%;margin-top:8px}
+.plus{position:absolute;right:-27px;top:22px;color:#1d9bf0;font-size:28px}
+.poll-label{border-top:1px solid #d7dce0;margin:0 -12px;padding:14px 12px 8px;font-weight:bold;color:#536471}
+.selects{display:flex;gap:20px}.select{border:1px solid #cfd9de;border-radius:5px;width:33%;padding:8px;color:#536471}.select strong{display:block;color:#0f1419;font-size:18px;margin-top:7px}
+.remove-poll{text-align:center;color:#e0245e;border-top:1px solid #d7dce0;margin:13px -12px -1px;padding-top:16px}
+.drafts-modal{height:735px;width:600px}
+.drafts-title{font-size:23px;font-weight:bold;margin-left:20px}
+.drafts-tabs{height:52px;border-bottom:1px solid #eff3f4;display:flex}.draft-tab{width:50%;display:flex;justify-content:center;align-items:center;position:relative;color:#536471}.draft-tab.active{font-weight:bold;color:#0f1419}.draft-tab.active:after{content:"";position:absolute;bottom:0;width:96px;height:4px;background:#1d9bf0}
+.empty{padding:36px 132px}.empty h1{font-size:32px;margin:0 0 8px}.empty p{color:#536471;line-height:22px;margin:0}
+@media(max-width:900px){.app{margin-left:0}.right{display:none}.app{grid-template-columns:210px 600px}.left{padding-left:4px}.nav-item{font-size:18px}.post-button{width:170px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="left">
+  <div class="logo">𝕏</div>
+  <div class="nav-item btn"><span class="icon">⌂</span>Home</div>
+  <div class="nav-item btn"><span class="icon">⌕</span>Explore</div>
+  <div class="nav-item btn"><span class="icon">♧</span><span>Notifications<small>1</small></span></div>
+  <div class="nav-item btn"><span class="icon">▣</span>Messages</div>
+  <div class="nav-item btn"><span class="icon">◉</span>Grok</div>
+  <div class="nav-item btn"><span class="icon">▤</span>Lists</div>
+  <div class="nav-item btn"><span class="icon">♡</span>Bookmarks</div>
+  <div class="nav-item btn"><span class="icon">▣</span>Jobs</div>
+  <div class="nav-item btn"><span class="icon">♧</span>Communities</div>
+  <div class="nav-item btn"><span class="icon">𝕏</span>Premium</div>
+  <div class="nav-item btn"><span class="icon">ϟ</span>Verified Orgs</div>
+  <div class="nav-item btn"><span class="icon">♙</span>Profile</div>
+  <div class="nav-item btn"><span class="icon">⊙</span>More</div>
+  <button class="post-button btn" id="openComposer">Post</button>
+  <div class="profile-mini btn"><div class="avatar">Z</div><div><b>Zhao haolei</b><span>@haolei_zha13994</span></div><div class="dots">···</div></div>
+</aside>
+<main class="center">
+  <div class="tabs"><div class="tab active">For you</div><div class="tab">Following</div></div>
+  <div class="composer-mini">
+    <div class="avatar">Z</div><div class="composer-main"><div class="placeholder btn" id="miniOpen">What’s happening?</div><div class="compose-tools"><span>▧</span><span>GIF</span><span>◉</span><span>☷</span><span>☺</span><span>◫</span><span>⌖</span><button class="post-small btn" id="miniPost">Post</button></div></div>
+  </div>
+  <article class="post">
+    <div class="avatar" style="background:#888"><img src="../../../data/data/42/assets/016.png" width="42" height="42" style="width:42px;height:42px;border-radius:50%;object-fit:cover"></div>
+    <div class="post-body"><div class="post-head"><b>Gunther Eagleman™</b> <span class="verified">●</span> <span class="muted">@GuntherEagleman · 15h</span></div><div class="post-text">Texas Reps Al Green and Jasmine Crockett both losing their seats in Congress makes me happy!<br><br>Great work Texas!</div><img class="post-image couple" src="../../../data/data/42/assets/037.png" width="520" height="302"><div class="actions"><span>◯ 5.6K</span><span>⇄ 12K</span><span>♡ 87K</span><span>▥ 1.8M</span><span>♧</span><span>⇧</span></div></div>
+  </article>
+  <article class="post">
+    <div class="avatar"><img src="../../../data/data/42/assets/032.jpg" width="42" height="42" style="width:42px;height:42px;border-radius:50%;object-fit:cover"></div>
+    <div class="post-body"><div class="post-head"><b>Earth Hippy 🌎🕊️💚</b> <span class="verified">●</span> <span class="muted">@hippygoat · Aug 23</span></div><div class="post-text">WTF..<br>20 YEARS OF SERVING AMERICA.<br>Called in for posts against Israel’s genocide against the Palestinians ‼️<br><br>Basically you THOUGHT you weren't pledging allegiance to Israel but America.<br>UNITED STATES OF ISRAEL 🇮🇱🇺🇸</div><div class="video"><img src="../../../data/data/42/assets/035.mp4" width="300" height="500"></div><div class="actions"><span>◯ 5.6K</span><span>⇄ 12K</span><span>♡ 87K</span><span>▥ 1.8M</span><span>♧</span></div></div>
+  </article>
+</main>
+<aside class="right">
+  <div class="search">⌕ <input placeholder="Search"></div>
+  <section class="card"><h2>Subscribe to Premium</h2><p>Subscribe to unlock new features and if eligible, receive a share of revenue.</p><button class="blue-btn btn">Subscribe</button></section>
+  <section class="card"><h2>Today’s News <span style="float:right;font-weight:normal">×</span></h2>
+    <div class="news-item"><b>Kendrick Lamar Shocks LA Crowd at Eclipse Concert Debut</b><small>🌑🌕🌑 &nbsp;3 hours ago · Entertainment · 9,055 posts</small></div>
+    <div class="news-item"><b>Ryan Blaney's Epic Daytona Comeback Seals Playoff Glory</b><small>🌑🌕 &nbsp;6 hours ago · Sports · 16.9K posts</small></div>
+    <div class="news-item"><b>ATEEZ Electrifies Mexico City in Epic Stadium Debut</b><small>🌑🌕 &nbsp;7 hours ago · Entertainment · 13.4K posts</small></div>
+  </section>
+  <section class="card"><h2>What’s happening</h2><div class="trend"><small>Trending in United States</small><b>Raja</b><small>23.9K posts</small></div><div class="trend"><small>Only on X · Trending</small><b>#JossGawinFanday23xMANILA</b><small>168K posts</small></div><div class="trend"><small>Sports · Trending</small><b>Schedeur</b><small>31.6K posts</small></div><div class="trend"><small>Trending in Los Angeles</small><b>the giverp</b><small>26.6K posts</small></div><a style="color:#1d9bf0">Show more</a></section>
+  <section class="card"><h2>Who to follow</h2><div class="follow"><div class="avatar">⚽</div><div><b>Manchester United</b><small>@ManUtd</small></div><button class="btn">Follow</button></div><div class="follow"><div class="avatar" style="background:#777">M</div><div><b>Matt Walsh</b><small>@MattWalshBlog</small></div><button class="btn">Follow</button></div></section>
+</aside>
+</div>
+
+<div class="overlay" id="overlay">
+  <div class="modal" id="composer">
+    <div class="modal-head"><button class="close btn" id="closeComposer">×</button><button class="drafts-link btn" id="openDrafts">Drafts</button></div>
+    <div class="modal-content">
+      <div class="compose-row"><div class="avatar">Z</div><textarea class="textarea" id="postText" placeholder="What’s happening?"></textarea></div>
+      <div class="reply">◉ Everyone can reply</div>
+      <div class="modal-tools"><span>▧</span><span>GIF</span><span>◉</span><span class="btn" id="pollBtn">☷</span><span class="btn" id="emojiBtn">☺</span><span>◫</span><span>⌖</span><button class="modal-post btn">Post</button></div>
+      <div class="emoji-panel" id="emojiPanel"><div class="emoji-search">⌕ Search emojis</div><div class="emoji-tabs">◷　😀　♟　◉　⚽　🚙　💡　⚑</div><h3>Smileys & people</h3><div class="emojis" id="emojis"></div><div class="emoji-footer">👋</div></div>
+      <div class="poll-box" id="pollBox" style="display:none"><div class="poll-input active"><span>Choice 1</span><input id="choice1" maxlength="25"><small style="position:absolute;right:10px;top:9px">0 / 25</small></div><div class="poll-input"><span>Choice 2</span><input id="choice2" maxlength="25"><span class="plus">＋</span></div><div class="poll-label">Poll length</div><div class="selects"><div class="select">Days<strong>1　⌄</strong></div><div class="select">Hours<strong>0　⌄</strong></div><div class="select">Minutes<strong>0　⌄</strong></div></div><div class="remove-poll btn" id="removePoll">Remove poll</div></div>
+    </div>
+  </div>
+  <div class="modal drafts-modal" id="draftsModal" style="display:none"><div class="modal-head"><button class="close btn" id="closeDrafts">←</button><span class="drafts-title">Drafts</span></div><div class="drafts-tabs"><div class="draft-tab active">Unsent posts</div><div class="draft-tab">Scheduled</div></div><div class="empty"><h1>Hold that thought</h1><p>Not ready to post just yet? Save it to your drafts or schedule it for later.</p></div></div>
+</div>
+<script>
+const overlay=document.getElementById('overlay'), composer=document.getElementById('composer'), drafts=document.getElementById('draftsModal');
+function openComposer(){overlay.classList.add('show');composer.style.display='block';drafts.style.display='none'}
+document.getElementById('openComposer').onclick=openComposer;document.getElementById('miniOpen').onclick=openComposer;document.getElementById('miniPost').onclick=openComposer;
+document.getElementById('closeComposer').onclick=()=>overlay.classList.remove('show');
+document.getElementById('openDrafts').onclick=()=>{composer.style.display='none';drafts.style.display='block'};
+document.getElementById('closeDrafts').onclick=()=>{drafts.style.display='none';composer.style.display='block'};
+document.getElementById('pollBtn').onclick=()=>{document.getElementById('pollBox').style.display='block';document.getElementById('emojiPanel').classList.remove('show')};
+document.getElementById('removePoll').onclick=()=>document.getElementById('pollBox').style.display='none';
+const chars=['😀','😃','😄','😁','😆','😅','😂','🤣','😊','😇','🙂','🙃','😉','😌','😍','🥰','😘','😗','😙','😚','😋','😛','😝','😜','🤪','🤨','🧐','🤓','😎','🥸','🤩','🥳','😏','😒','😞','😔','😟','😕','🙁','☹️','😣','😖','😫','😩','🥺','😢','😭','😤','😠','😡','🤬','🤯','😳','🥵','🥶','😱','😨','😰','😥','😓','🤗','🤔','🫡','🤭','🤫','🤥','😶','😐','😑','😬','🙄','😯','😦','😧','😮','😲','🥱','😴','🤤','😪','😵','🤐','🥴','🤢','🤮','🤧','😷','🤒','🤕'];
+document.getElementById('emojis').innerHTML=chars.map(x=>`<span class="btn">${x}</span>`).join('');
+document.getElementById('emojiBtn').onclick=()=>document.getElementById('emojiPanel').classList.toggle('show');
+document.getElementById('emojis').onclick=e=>{if(e.target.tagName==='SPAN'){let t=document.getElementById('postText');t.value+=e.target.textContent;document.getElementById('emojiPanel').classList.remove('show')}};
+document.getElementById('choice1').oninput=e=>e.target.parentElement.querySelector('small').textContent=e.target.value.length+' / 25';
+document.getElementById('choice2').oninput=e=>e.target.parentElement.querySelector('small')&&(e.target.parentElement.querySelector('small').textContent=e.target.value.length+' / 25');
+overlay.onclick=e=>{if(e.target===overlay)overlay.classList.remove('show')};
+</script>
+</body>
+</html>

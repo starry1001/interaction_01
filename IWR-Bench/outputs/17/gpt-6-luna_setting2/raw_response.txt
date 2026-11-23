@@ -1,0 +1,463 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BBC Learning English — Towards advanced</title>
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    color: #333;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #fff;
+    font-size: 16px;
+  }
+  a, button { cursor: pointer; font: inherit; }
+  .btn { cursor: pointer; }
+  .bbc-top {
+    height: 42px;
+    border-bottom: 1px solid #ddd;
+    background: #fff;
+  }
+  .bbc-inner {
+    width: 990px;
+    height: 42px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    color: #111;
+    font-size: 13px;
+    font-weight: bold;
+    white-space: nowrap;
+  }
+  .bbc-logo { display: flex; gap: 5px; align-items: center; }
+  .bbc-logo span {
+    width: 31px; height: 33px; line-height: 33px;
+    text-align: center; background: #111; color: #fff;
+    font-weight: bold; font-size: 25px;
+  }
+  .signin { border-right: 1px solid #ddd; padding-right: 50px; }
+  .signin:before { content: "●"; color: #1687cf; margin-right: 7px; }
+  .top-link { padding: 0 10px; }
+  .bbc-search { background: #f3f3f3; padding: 9px 12px; margin-left: auto; }
+  .hero {
+    height: 155px;
+    position: relative;
+    overflow: hidden;
+    background: #ecebed;
+  }
+  .hero-scene {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .hero-content {
+    position: relative;
+    width: 990px;
+    height: 100%;
+    margin: auto;
+  }
+  .hero-logo {
+    position: absolute;
+    width: 420px; height: 70px;
+    object-fit: contain;
+    left: 0; top: 38px;
+  }
+  .language {
+    position: absolute; right: 0; top: 9px;
+    padding: 12px 15px;
+    color: #fff; background: #003344;
+    border: 0; font-size: 12px; font-weight: bold;
+  }
+  .site-nav {
+    height: 46px;
+    border-bottom: 1px solid #ddd;
+    background: #fff;
+  }
+  .site-nav-inner {
+    width: 990px; height: 100%; margin: auto;
+    display: flex; align-items: center; gap: 30px;
+    color: #183542; font-size: 16px;
+  }
+  .site-nav .btn { color: #183542; background: none; border: 0; padding: 7px 0; }
+  .site-nav .nav-search { margin-left: auto; color: #60717a; }
+  .site-nav .caret { font-size: 12px; margin-left: 5px; }
+  .unit-banner {
+    height: 146px;
+    background: #003342;
+    color: #fff;
+  }
+  .unit-banner-inner {
+    width: 990px; height: 100%; margin: auto;
+    display: flex; align-items: flex-start;
+    padding-top: 32px;
+  }
+  .unit-number {
+    width: 68px; height: 68px; flex: 0 0 68px;
+    border: 5px solid #fff; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 29px; font-weight: bold;
+    margin-right: 14px;
+  }
+  .unit-title { padding-top: 9px; font-size: 24px; line-height: 1.25; }
+  .unit-title strong { display: block; }
+  .close-selector {
+    margin: 8px 0 0 auto;
+    padding: 11px 13px;
+    border: 0; background: #fff; color: #152e36;
+    font-size: 16px; font-weight: bold;
+  }
+  .selector-panel {
+    height: 135px;
+    background: #001f2a;
+    color: #fff;
+  }
+  .selector-inner { width: 990px; height: 100%; margin: auto; position: relative; padding-top: 13px; }
+  .select-label { font-size: 11px; color: #c1d0d4; margin-bottom: 11px; }
+  .unit-grid {
+    width: 975px;
+    display: grid;
+    grid-template-columns: repeat(30, 1fr);
+    gap: 2px;
+    height: 10px;
+  }
+  .unit-cell {
+    border: 1px solid #d7d7d7;
+    background: #eee;
+    padding: 0; height: 10px;
+  }
+  .unit-cell.selected { background: #6bc4b2; border-color: #6bc4b2; }
+  .unit-labels {
+    display: grid; grid-template-columns: repeat(30, 1fr);
+    gap: 2px; width: 975px; margin-top: 5px;
+  }
+  .unit-labels button {
+    border: 0; color: #fff; background: none; padding: 0;
+    text-align: left; font-size: 12px; line-height: 16px;
+  }
+  .tab-row {
+    position: absolute; left: 0; bottom: 0;
+    display: flex; align-items: flex-end; height: 43px;
+  }
+  .tab-row button {
+    border: 0; background: transparent; color: #72c5b8;
+    font-size: 16px; padding: 12px 20px 11px;
+  }
+  .tab-row button.active {
+    background: #fff; color: #142a31; font-weight: bold;
+  }
+  .selector-hidden .selector-panel { display: none; }
+  .selector-hidden .unit-banner { height: 146px; }
+  .main-area { width: 990px; margin: 0 auto; min-height: 350px; }
+  .sessions-view { padding-top: 26px; }
+  .session {
+    display: flex;
+    width: 100%;
+    min-height: 214px;
+    padding: 10px 0 18px 48px;
+    gap: 16px;
+  }
+  .session-image {
+    width: 315px; height: 190px; flex: 0 0 315px;
+    object-fit: cover;
+  }
+  .session-copy { padding-top: 0; max-width: 650px; }
+  .session-heading {
+    color: #247568; font-size: 28px; font-weight: bold;
+    line-height: 1.1; margin-bottom: 6px;
+  }
+  .activity {
+    display: inline-block; vertical-align: 4px;
+    margin-left: 10px; padding: 6px 11px;
+    color: #777; background: #e3e4e5;
+    font-size: 13px; letter-spacing: .3px;
+  }
+  .session-kind { color: #176c61; font-size: 21px; font-weight: bold; margin-bottom: 9px; }
+  .date { font-size: 14px; margin-bottom: 8px; }
+  .description { font-size: 16px; line-height: 1.25; max-width: 645px; }
+  .reference-view {
+    border-left: 1px solid #f0f0f0;
+    border-right: 1px solid #f0f0f0;
+    min-height: 700px;
+    padding: 30px 8px 85px;
+    display: grid;
+    grid-template-columns: 640px 320px;
+    gap: 25px;
+  }
+  .reference-main h1 { font-size: 30px; margin: 0 0 43px; color: #333; }
+  .reference-main h2 { font-size: 20px; margin: 0 0 18px; }
+  .reference-main h3 { font-size: 18px; margin: 20px 0 5px; }
+  .reference-main p { font-size: 16px; line-height: 1.24; margin: 0 0 20px; }
+  .vocab-entry { margin-bottom: 15px; font-size: 16px; line-height: 1.18; }
+  .vocab-entry strong { display: block; margin-bottom: 2px; }
+  .side-box {
+    background: #e0e1e3; margin-bottom: 17px;
+    padding: 17px; color: #333; min-height: 54px;
+  }
+  .side-box a { color: #26796e; font-weight: bold; text-decoration: none; }
+  .side-box h3 { margin: 0 0 20px; font-size: 18px; }
+  .download {
+    background: #f1f1f1; min-height: 72px; padding-left: 64px;
+    position: relative; font-size: 12px; font-weight: bold;
+  }
+  .download:before {
+    content: "⬇"; position: absolute; left: 16px; top: 12px;
+    font-size: 38px; color: #72c8b7;
+  }
+  .download span { display: block; padding-top: 4px; }
+  .practice {
+    display: inline-block; background: #68c5b5; color: #073743;
+    padding: 12px 16px; font-size: 22px; font-weight: bold;
+    border: 0; text-decoration: none; margin-top: 7px;
+  }
+  .footer-about { background: #f1f1f1; padding: 38px 0; }
+  .footer-inner { width: 990px; margin: auto; display: flex; gap: 90px; color: #126b60; font-weight: bold; }
+  .footer-col { width: 240px; }
+  .footer-col h3 { color: #111; margin: 0 0 10px; font-size: 20px; }
+  .footer-col a { display: block; color: #14675d; text-decoration: none; margin: 3px 0; font-size: 16px; }
+  .back-top { margin-left: auto; color: #14675d; }
+  .footer-bbc { background: #4a4a4a; color: #fff; padding: 25px 0 28px; }
+  .footer-bbc .footer-inner { display: block; color: white; }
+  .footer-bbc h3 { margin: 0 0 28px; font-size: 20px; }
+  .bbc-footer-links { display: flex; gap: 42px; font-size: 13px; padding-bottom: 22px; border-bottom: 1px solid #777; }
+  .legal { font-size: 13px; line-height: 2; padding-top: 15px; }
+  @media (max-width: 1050px) {
+    .bbc-inner, .hero-content, .site-nav-inner, .unit-banner-inner, .selector-inner, .main-area, .footer-inner { width: 94%; }
+    .unit-grid, .unit-labels { width: 100%; }
+    .site-nav-inner { gap: 14px; }
+    .reference-view { grid-template-columns: 2fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="bbc-top">
+    <div class="bbc-inner">
+      <div class="bbc-logo"><span>B</span><span>B</span><span>C</span></div>
+      <div class="signin btn">Sign in</div>
+      <span class="top-link btn">Home</span><span class="top-link btn">News</span>
+      <span class="top-link btn">Sport</span><span class="top-link btn">Business</span>
+      <span class="top-link btn">Innovation</span><span class="top-link btn">Culture</span>
+      <span class="top-link btn">Travel</span><span class="top-link btn">…</span>
+      <span class="bbc-search btn">⌕&nbsp; Search BBC</span>
+    </div>
+  </div>
+  <div class="hero">
+    <img class="hero-scene" src="__PLACEHOLDER_ASSETS_BASE_DIR__/014.png" width="1920" height="155" alt="">
+    <div class="hero-content">
+      <img class="hero-logo" src="__PLACEHOLDER_ASSETS_BASE_DIR__/015.png" width="420" height="70" alt="Learning English — Inspiring language learning since 1943">
+      <button class="language btn">ENGLISH CHANGE LANGUAGE&nbsp; ▾</button>
+    </div>
+  </div>
+  <nav class="site-nav">
+    <div class="site-nav-inner">
+      <button class="btn">Courses <span class="caret">▼</span></button>
+      <button class="btn">Grammar <span class="caret">▼</span></button>
+      <button class="btn">Pronunciation <span class="caret">▼</span></button>
+      <button class="btn">Vocabulary <span class="caret">▼</span></button>
+      <button class="btn">News <span class="caret">▼</span></button>
+      <button class="btn">More... <span class="caret">▼</span></button>
+      <button class="btn nav-search">⌕&nbsp; Search&nbsp; ▾</button>
+    </div>
+  </nav>
+</header>
+
+<div id="course">
+  <section class="unit-banner">
+    <div class="unit-banner-inner">
+      <div class="unit-number" id="unitNumber">1</div>
+      <div class="unit-title">
+        <strong id="unitName">Unit 1: Towards advanced</strong>
+        <span id="unitSubtitle">Welcome to our new course</span>
+      </div>
+      <button class="close-selector btn" id="toggleSelector">Close unit selector&nbsp; ∧</button>
+    </div>
+  </section>
+  <section class="selector-panel">
+    <div class="selector-inner">
+      <div class="select-label">SELECT A UNIT</div>
+      <div class="unit-grid" id="unitGrid"></div>
+      <div class="unit-labels" id="unitLabels"></div>
+      <div class="tab-row">
+        <button class="btn active" data-tab="sessions">Sessions</button>
+        <button class="btn" data-tab="vocabulary">Vocabulary reference</button>
+        <button class="btn" data-tab="grammar">Grammar reference</button>
+      </div>
+    </div>
+  </section>
+
+  <main class="main-area" id="mainArea"></main>
+</div>
+
+<footer>
+  <section class="footer-about">
+    <div class="footer-inner">
+      <div class="footer-col"><h3>About</h3>
+        <a class="btn">About BBC Learning English</a><a class="btn">Courses</a>
+        <a class="btn">Course site maps</a><a class="btn">Learning FAQ</a>
+        <a class="btn">Contact BBC Learning English</a>
+      </div>
+      <div class="footer-col"><h3>Social</h3>
+        <a class="btn">TikTok</a><a class="btn">YouTube</a><a class="btn">Instagram</a>
+        <a class="btn">Facebook</a><a class="btn">Social media house rules</a>
+      </div>
+      <div class="back-top"><a class="btn" href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">⌃&nbsp; Back to top</a><br><br>▮&nbsp; RSS</div>
+    </div>
+  </section>
+  <section class="footer-bbc">
+    <div class="footer-inner">
+      <h3>Explore the BBC</h3>
+      <div class="bbc-footer-links"><span>Home<br><br>Travel</span><span>News<br><br>Earth</span><span>Sport<br><br>Video</span><span>Business<br><br>Live</span><span>Innovation</span><span>Culture</span></div>
+      <div class="legal">Terms of Use　 About the BBC　 Privacy Policy　 Cookies　 Accessibility Help　 Parental Guidance　 Contact the BBC　 BBC emails for you<br>
+        Advertise with us<br><br>Copyright © 2025 BBC. The BBC is not responsible for the content of external sites. <b>Read about our approach to external linking.</b>
+      </div>
+    </div>
+  </section>
+</footer>
+
+<script>
+const unitData = {
+  1: {
+    subtitle: "Welcome to our new course",
+    sessions: [
+      ["010.jpg","BBC Masterclass","04 JUL 2016","Non-defining relative clauses are a speaker's friend. Dan teaches us five ways to use them in this bite-sized video."],
+      ["013.jpg","News Review","05 JUL 2016","NASA's Juno mission has arrived at Jupiter. Find out more with Neil and Sian as they look at how the world's media is reacting and the words you need to talk about the story."]
+    ]
+  },
+  4: {
+    subtitle: "Grammar, news, vocabulary and pronunciation",
+    sessions: [
+      ["010.jpg","BBC Masterclass","25 JUL 2016","Dan uses linking words of contrast to destroy four myths about English people."],
+      ["019.png","News Review","26 JUL 2016","Can chickens stop you getting bitten by mosquitoes? Join Rob and Sian in News Review as they bring you this exciting story and the language you need to understand it."]
+    ]
+  },
+  7: {
+    subtitle: "Grammar, news, vocabulary and pronunciation",
+    sessions: [
+      ["010.jpg","BBC Masterclass","15 AUG 2016","They say you shouldn't mix your drinks, but should you mix your conditionals? Find out in this Masterclass with Dan."],
+      ["020.png","News Review","16 AUG 2016","Brazil has won a gold medal in athletics in a shocking pole vault final. Join Sian and Neil in News Review as they bring you this exciting story and the language you need to understand it."]
+    ]
+  }
+};
+const defaultSessions = [
+  ["010.jpg","BBC Masterclass","15 AUG 2016","Improve your English with this week's BBC Learning English Masterclass."],
+  ["020.png","News Review","16 AUG 2016","Learn useful vocabulary and hear the latest story in News Review."]
+];
+let selectedUnit = 1;
+let activeTab = "sessions";
+const grid = document.getElementById("unitGrid");
+const labels = document.getElementById("unitLabels");
+for (let i=1;i<=30;i++) {
+  const cell = document.createElement("button");
+  cell.className = "unit-cell btn" + (i===1 ? " selected" : "");
+  cell.setAttribute("aria-label","Select unit "+i);
+  cell.onclick = () => selectUnit(i);
+  grid.appendChild(cell);
+  const label = document.createElement("button");
+  label.className = "btn";
+  label.textContent = i;
+  label.onclick = () => selectUnit(i);
+  labels.appendChild(label);
+}
+function selectUnit(n) {
+  selectedUnit = n;
+  document.getElementById("unitNumber").textContent = n;
+  document.getElementById("unitName").textContent = "Unit " + n + ": Towards advanced";
+  document.getElementById("unitSubtitle").textContent = (unitData[n] || {}).subtitle || "Grammar, news, vocabulary and pronunciation";
+  [...grid.children].forEach((el,i)=>el.classList.toggle("selected",i===n-1));
+  render();
+}
+document.getElementById("toggleSelector").addEventListener("click",()=>{
+  document.getElementById("course").classList.toggle("selector-hidden");
+  const closed = document.getElementById("course").classList.contains("selector-hidden");
+  document.getElementById("toggleSelector").innerHTML = closed ? "Open unit selector&nbsp; ∨" : "Close unit selector&nbsp; ∧";
+});
+document.querySelectorAll(".tab-row button").forEach(button=>{
+  button.addEventListener("click",()=>{
+    activeTab = button.dataset.tab;
+    document.querySelectorAll(".tab-row button").forEach(b=>b.classList.toggle("active",b===button));
+    render();
+  });
+});
+function sessionMarkup(item,index) {
+  const title = index ? "Session 2" : "Session 1";
+  return `<article class="session">
+    <img class="session-image" src="__PLACEHOLDER_ASSETS_BASE_DIR__/${item[0]}" width="315" height="190" alt="">
+    <div class="session-copy">
+      <div class="session-heading">${title}<span class="activity">1 ACTIVITY</span></div>
+      <div class="session-kind">${item[1]}</div>
+      <div class="date">${item[2]}</div>
+      <div class="description">${item[3]}</div>
+    </div>
+  </article>`;
+}
+function sidebar(grammar) {
+  return `<aside>
+    <div class="side-box"><a class="btn" onclick="setTab('sessions')">View sessions in this unit &gt;</a></div>
+    <div class="side-box"><h3>Session ${grammar ? "Vocabulary" : "Grammar"}</h3><a class="btn">${grammar ? "Practise this vocabulary" : "Practise this grammar"} &gt;</a></div>
+    <div class="side-box download"><span>DOWNLOAD CENTRE</span><a class="btn">Latest course content</a></div>
+  </aside>`;
+}
+function vocabView() {
+  return `<div class="reference-view">
+    <div class="reference-main">
+      <h1>Vocabulary Reference</h1>
+      <h2>Session 2 - News Review</h2>
+      <div class="vocab-entry"><strong>an upset</strong>when someone beats the team or player that was expected to win</div>
+      <div class="vocab-entry"><strong>pull something off</strong>to succeed in doing something that is difficult</div>
+      <div class="vocab-entry"><strong>egg somebody on</strong>encourage someone or urge someone to do something (especially something they shouldn't do)</div>
+      <div class="vocab-entry"><strong>pandemonium</strong>a situation in which there is a lot of noise or craziness because people are excited, angry, or frightened</div>
+      <h2>Session 3 - Lingohack</h2>
+      <div class="vocab-entry"><strong>medal tally</strong>number of medals won</div>
+      <div class="vocab-entry"><strong>feeds on</strong>eats, consumes (especially for animals)</div>
+      <div class="vocab-entry"><strong>cheating</strong>breaking the rules of a competition</div>
+      <h2>Session 4 - Pygmalion: 8 uses of 'round'</h2>
+      <div class="vocab-entry"><strong>driving him around the bend (C2)</strong>making him very annoyed</div>
+      <div class="vocab-entry"><strong>comes round (C2)</strong>begins to accept something previously rejected</div>
+      <div class="vocab-entry"><strong>round and round (B2)</strong>moving in a circular direction</div>
+      <div class="vocab-entry"><strong>round the clock (C1)</strong>all day and all night</div>
+      <div class="vocab-entry"><strong>round (A2)</strong>on all sides (of something)</div>
+      <div class="vocab-entry"><strong>goes round to (A2)</strong>visits</div>
+      <div class="vocab-entry"><strong>in a roundabout kind of way (C2)</strong>more or less; sort of</div>
+      <div class="vocab-entry"><strong>round off (B2)</strong>finish; complete (something)</div>
+      <button class="practice btn">Practise Vocabulary&nbsp; ›</button>
+    </div>${sidebar(false)}
+  </div>`;
+}
+function grammarView() {
+  return `<div class="reference-view">
+    <div class="reference-main">
+      <h1>Grammar Reference</h1>
+      <h2>Conditionals review</h2>
+      <h3>Meaning and use</h3>
+      <p>Conditional sentences express a connection between two actions or states. One thing happens because of another. These connections can be general, specific, likely, unlikely, real or imagined.</p>
+      <p>Although there are quite a few different ways of forming conditional sentences there are common patterns known as zero, first, second and third conditionals.</p>
+      <h3>Zero conditionals</h3>
+      <p>Used to refer to general truths, scientific facts and the predictable results of particular actions. One thing happens and because of this something else happens. In zero conditionals <em>if</em> and <em>when</em> have the same meaning.</p>
+      <p><em>If you heat water enough, it boils.</em></p>
+      <h3>First conditionals</h3>
+      <p>We use the first conditional to talk about a possible situation in the future and its likely result.</p>
+      <button class="practice btn">Practise Grammar&nbsp; ›</button>
+    </div>${sidebar(true)}
+  </div>`;
+}
+function setTab(tab) {
+  activeTab = tab;
+  document.querySelectorAll(".tab-row button").forEach(b=>b.classList.toggle("active",b.dataset.tab===tab));
+  render();
+}
+function render() {
+  const main = document.getElementById("mainArea");
+  if (activeTab === "vocabulary") { main.innerHTML = vocabView(); return; }
+  if (activeTab === "grammar") { main.innerHTML = grammarView(); return; }
+  const items = (unitData[selectedUnit] || {}).sessions || defaultSessions;
+  main.innerHTML = `<div class="sessions-view">${items.map(sessionMarkup).join("")}</div>`;
+}
+render();
+</script>
+</body>
+</html>
+```

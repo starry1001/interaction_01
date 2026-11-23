@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Task 1</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;width:100%;height:100%;font-family:Arial,Helvetica,sans-serif;color:#292a30;background:#f8f8f9}
+  body{overflow:hidden;font-size:14px}
+  button,input,textarea{font:inherit}
+  .btn{cursor:pointer}
+  .workspace{position:absolute;inset:0;background:#f8f8f9;color:#666}
+  .topbar{position:absolute;top:0;left:0;right:0;height:40px;background:#271764;color:#fff;display:flex;align-items:center;padding:0 16px;gap:14px;font-size:12px}
+  .brandmark{width:18px;height:18px;border-radius:50%;background:linear-gradient(140deg,#ff4abb,#7b49ff 55%,#11d8ba);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold;font-size:10px}
+  .search{height:25px;width:410px;margin-left:10px;background:#44317c;border-radius:5px;color:#c6bddf;padding:5px 12px}
+  .topright{margin-left:auto;display:flex;gap:18px;align-items:center}
+  .upgrade{background:#7141e8;border-radius:5px;padding:5px 13px;color:white}
+  .sidebar{position:absolute;top:40px;bottom:0;left:0;width:256px;background:#f7f7f8;border-right:1px solid #ddd;padding:14px 12px;font-size:13px}
+  .workspace-name{font-weight:600;margin:2px 0 22px;color:#555}
+  .nav-item{height:34px;padding:9px 8px;border-radius:5px}
+  .nav-item.active{background:#ece8fa;color:#5436b8;font-weight:600}
+  .side-section{margin:26px 0 8px;font-size:11px;color:#999}
+  .side-spaces{margin-top:10px}
+  .side-row{height:32px;padding:8px;border-radius:4px}
+  .side-row.selected{background:#e9e5f6;color:#4932a4}
+  .board{position:absolute;left:256px;right:0;top:40px;bottom:0;background:#fff}
+  .board-head{height:54px;border-bottom:1px solid #eee;display:flex;align-items:center;padding:0 22px;gap:22px;color:#666}
+  .board-tools{margin-left:auto;display:flex;gap:16px}
+  .board-toolbar{height:42px;border-bottom:1px solid #eee;padding:12px 24px;color:#888}
+  .task-table{padding:15px 24px;color:#777}
+  .table-head,.task-line{display:grid;grid-template-columns:30px 1.6fr 1fr 1fr 1fr 1fr;align-items:center;height:40px;border-bottom:1px solid #f0f0f0}
+  .task-line{font-size:13px}
+  .task-dot{display:inline-block;width:13px;height:13px;border:1px solid #bbb;border-radius:50%;margin-right:10px;vertical-align:middle}
+  .dim{position:absolute;inset:0;background:rgba(0,0,0,.36)}
+  .task-modal{position:absolute;top:130px;bottom:24px;left:50%;transform:translateX(-50%);width:min(1600px,calc(100vw - 80px));min-height:600px;background:#fff;border-radius:9px;box-shadow:0 3px 18px #0002;overflow:hidden;display:flex;flex-direction:column}
+  .modal-header{height:50px;flex:0 0 50px;border-bottom:1px solid #eee;display:flex;align-items:center;padding:0 17px;gap:14px;color:#73757a;font-size:13px}
+  .crumb-icon{color:#4b5caa;font-weight:bold}
+  .header-spacer{flex:1}
+  .modal-header .btn{background:none;border:0;color:#777;padding:5px}
+  .share{background:#6540df!important;color:#fff!important;border-radius:6px;padding:8px 15px!important;font-weight:600}
+  .modal-content{flex:1;min-height:0;display:flex}
+  .task-pane{width:70%;min-width:0;overflow:auto;padding:42px 0 50px}
+  .task-inner{width:min(860px,calc(100% - 120px));margin:0 auto}
+  .task-badges{display:flex;align-items:center;gap:10px;height:28px;color:#777;font-size:13px}
+  .badge{border:1px solid #eee;border-radius:5px;padding:5px 8px;background:#fafafa}
+  .ai-badge{background:#f6eafa;color:#a149a6;border:0}
+  h1{font-size:28px;line-height:34px;margin:10px 0 16px;font-weight:600;color:#25262a}
+  .brain-prompt{height:44px;background:#fafafa;color:#777;border-radius:5px;padding:14px 10px;margin-bottom:20px;font-size:13px}
+  .brain-spark{color:#d84bac;margin-right:7px}
+  .properties{display:grid;grid-template-columns:1fr 1fr;column-gap:34px}
+  .property{height:36px;display:grid;grid-template-columns:150px 1fr;align-items:center;color:#555;font-size:13px}
+  .prop-name{font-weight:600;color:#4b4d52}
+  .prop-icon{display:inline-block;width:19px;color:#96989b}
+  .prop-value{color:#74767b}
+  .status-pill{display:inline-block;background:#3da879;color:white;border-radius:4px;padding:5px 9px;font-size:11px;font-weight:bold}
+  .priority-flag{color:#4768cf;margin-right:5px}
+  .assignee{display:inline-flex;width:22px;height:22px;border-radius:50%;background:#7956df;color:white;align-items:center;justify-content:center;font-size:10px}
+  .track-value{display:inline-block;background:#f0f0f1;border-radius:4px;padding:6px 9px;min-width:275px;color:#999}
+  .description{border-top:1px solid #eee;border-bottom:1px solid #eee;margin-top:18px;color:#97999c}
+  .description button{display:block;width:100%;height:36px;text-align:left;background:#fff;border:0;color:#888;padding:0 4px}
+  .section{margin-top:52px}
+  .section h2{font-size:16px;margin:0 0 13px;color:#333;font-weight:600}
+  .section-row{height:42px;border:1px solid #eee;border-radius:5px;color:#999;padding:12px 10px;font-size:13px}
+  .section-row .plus{font-size:17px;margin-right:13px;color:#777}
+  .attachments .section-row{text-align:center;font-size:12px}
+  .activity{width:26%;min-width:360px;border-left:1px solid #e5e5e5;display:flex;flex-direction:column;background:#fff}
+  .activity-head{height:54px;flex:0 0 54px;border-bottom:1px solid #eee;display:flex;align-items:center;padding:0 20px;font-size:19px;font-weight:600}
+  .activity-controls{margin-left:auto;display:flex;gap:17px;color:#777;font-size:16px}
+  .activity-scroll{flex:1;overflow:auto;padding:20px 22px}
+  .activity-event{font-size:12px;color:#8b8c90;line-height:1.5;padding:2px 0 20px}
+  .event-avatar{display:inline-flex;width:22px;height:22px;background:#eee;border-radius:50%;align-items:center;justify-content:center;margin-right:8px;color:#7d59d8}
+  .comment-card{border:1px solid #ececee;border-radius:8px;margin-top:4px;padding:14px 16px;background:#fff;box-shadow:0 1px 3px #00000008}
+  .comment-meta{display:flex;align-items:center;gap:8px;color:#555;font-size:12px}
+  .comment-meta .avatar{display:inline-flex;width:23px;height:23px;border-radius:50%;background:#8058e7;color:white;align-items:center;justify-content:center}
+  .comment-time{color:#999}
+  .comment-text{font-size:14px;color:#444;margin:15px 0 17px}
+  .comment-footer{border-top:1px solid #eee;padding-top:12px;display:flex;justify-content:space-between;color:#999}
+  .composer{border:1px solid #d9d9dc;border-radius:9px;margin:12px 20px 14px;padding:0 12px 8px;flex:0 0 auto}
+  .composer-tabs{height:39px;border-bottom:1px solid #eee;display:flex;gap:18px;align-items:center;font-size:12px;color:#777}
+  .composer-tabs .chosen{color:#333;font-weight:600;border-bottom:2px solid #555;height:39px;padding-top:13px}
+  .comment-input{height:43px;width:100%;border:0;outline:0;resize:none;padding:11px 0;color:#444;font-size:13px}
+  .comment-input::placeholder{color:#aaa}
+  .composer-tools{height:28px;display:flex;align-items:center;gap:13px;color:#999}
+  .composer-tools .btn{border:0;background:none;color:#888;padding:2px}
+  .send{margin-left:auto;width:29px;height:29px;border-radius:6px!important;background:#6740df!important;color:#fff!important;font-size:17px!important}
+  .right-rail{width:60px;flex:0 0 60px;border-left:1px solid #eee;display:flex;flex-direction:column;align-items:center;padding-top:18px;gap:18px;color:#aaa}
+  .right-rail .btn{border:0;background:none;color:#aaa;font-size:17px;padding:3px}
+  .right-rail .selected{color:#7855dc;background:#f2efff;border-radius:5px}
+  @media(max-width:1100px){
+    .task-modal{top:35px;bottom:20px;width:calc(100vw - 24px)}
+    .task-pane{width:65%}.activity{width:30%;min-width:250px}.right-rail{width:42px;flex-basis:42px}
+    .task-inner{width:calc(100% - 40px)}
+    .property{grid-template-columns:110px 1fr}
+    .track-value{min-width:120px}
+    .sidebar{width:180px}.board{left:180px}
+  }
+</style>
+</head>
+<body>
+<div class="workspace">
+  <div class="topbar">
+    <div class="brandmark">✦</div>
+    <div class="search">⌕ &nbsp; Search</div>
+    <div class="topright"><span class="upgrade">♧ Upgrade</span><span>＋ New</span><span>▦</span><span>⋯</span><span>🟣</span></div>
+  </div>
+  <aside class="sidebar">
+    <div class="workspace-name">🟢 &nbsp;朱嘉亮's Workspace⌄</div>
+    <div class="nav-item">⌂ &nbsp; Home</div><div class="nav-item">▣ &nbsp; Inbox</div><div class="nav-item">◉ &nbsp; More</div>
+    <div class="side-section">Favorites</div><div class="side-section">Spaces</div>
+    <div class="side-row">✳ &nbsp; Everything</div><div class="side-row">▣ &nbsp; Team Space</div>
+    <div class="side-row selected">☷ &nbsp; Project 1 <span style="float:right">3</span></div>
+    <div class="side-row">☷ &nbsp; Project 2 <span style="float:right">3</span></div>
+    <div class="side-row">▤ &nbsp; Project Notes</div><div class="side-row">＋ &nbsp; Create Space</div>
+  </aside>
+  <main class="board">
+    <div class="board-head"><b>▣ Team Space &nbsp;/&nbsp; Project 1</b><span>List</span><span>Board</span><span>Calendar</span><div class="board-tools">Agents &nbsp; Automate &nbsp; Ask AI &nbsp; Share</div></div>
+    <div class="board-toolbar">☷ Group: Status &nbsp;&nbsp; Subtasks <span style="float:right">Search &nbsp; Hide &nbsp; Customize &nbsp; Add Task</span></div>
+    <div class="task-table">
+      <div class="table-head"><span></span><span>Name</span><span>Assignee</span><span>Due date</span><span>Priority</span><span>Status</span></div>
+      <div class="task-line"><span>⌄</span><span>◯ &nbsp; Task 2</span><span></span><span></span><span></span><span></span></div>
+      <div class="task-line"><span></span><span>◯ &nbsp; Task 3</span><span></span><span></span><span></span><span></span></div>
+      <div class="task-line"><span></span><span>◯ &nbsp; meeting</span><span></span><span></span><span></span><span></span></div>
+      <div class="task-line"><span></span><span>＋ &nbsp; Add Task</span><span></span><span></span><span></span><span></span></div>
+    </div>
+  </main>
+  <div class="dim"></div>
+</div>
+
+<section class="task-modal" aria-label="Task details">
+  <header class="modal-header">
+    <button class="btn" aria-label="Toggle sidebar">▣</button><span>⌃</span><span>⌄</span>
+    <span class="crumb-icon">▣</span><span>Team Space&nbsp; / &nbsp;<b>Project 1</b></span><button class="btn">＋</button>
+    <div class="header-spacer"></div>
+    <span>Created on Aug 24</span><button class="btn share">Share</button><button class="btn">⋯</button><button class="btn">☆</button><button class="btn">□</button><button class="btn" aria-label="Close">×</button>
+  </header>
+  <div class="modal-content">
+    <main class="task-pane">
+      <div class="task-inner">
+        <div class="task-badges">
+          <button class="btn badge">◉ Task⌄</button>
+          <span class="badge">86ab77btb</span>
+          <button class="btn badge ai-badge">✿ Ask AI</button>
+        </div>
+        <h1>Task 1</h1>
+        <div class="brain-prompt"><span class="brain-spark">✿</span>Ask Brain to write a description, generate subtasks or find similar tasks</div>
+        <div class="properties">
+          <div>
+            <div class="property"><span class="prop-name"><i class="prop-icon">◎</i>Status</span><button class="btn status-pill">COMPLETE</button></div>
+            <div class="property"><span class="prop-name"><i class="prop-icon">▢</i>Dates</span><button class="btn prop-value">＋ Start &nbsp;→ &nbsp;◷ Due</button></div>
+            <div class="property"><span class="prop-name"><i class="prop-icon">⌛</i>Time Estimate</span><button class="btn prop-value">1h</button></div>
+            <div class="property"><span class="prop-name"><i class="prop-icon">◇</i>Tags</span><button class="btn prop-value">Empty</button></div>
+          </div>
+          <div>
+            <div class="property"><span class="prop-name"><i class="prop-icon">♙</i>Assignees</span><button class="btn assignee">朱</button></div>
+            <div class="property"><span class="prop-name"><i class="prop-icon">⚑</i>Priority</span><button class="btn prop-value"><span class="priority-flag">⚑</span>Normal</button></div>
+            <div class="property"><span class="prop-name"><i class="prop-icon">◷</i>Track Time</span><button class="btn track-value">◉ 59m</button></div>
+            <div class="property"><span class="prop-name"><i class="prop-icon">↗</i>Relationships</span><button class="btn prop-value">Empty</button></div>
+          </div>
+        </div>
+        <div class="description">
+          <button class="btn">▢ &nbsp; Add description</button>
+          <button class="btn"><span class="brain-spark">✿</span>Write with AI</button>
+        </div>
+        <section class="section">
+          <h2>Custom Fields</h2>
+          <button class="btn section-row" style="width:100%;text-align:left"><span class="plus">＋</span>Create a Field on this location</button>
+        </section>
+        <section class="section">
+          <h2>Add subtask</h2>
+          <button class="btn section-row" style="width:100%;text-align:left"><span class="plus">＋</span>Add Task</button>
+        </section>
+        <section class="section">
+          <h2>Checklists</h2>
+          <button class="btn section-row" style="width:100%;text-align:left"><span class="plus">＋</span>Create checklist</button>
+        </section>
+        <section class="section attachments">
+          <h2>Attachments</h2>
+          <button class="btn section-row" style="width:100%">Drop your files here to <u>upload</u></button>
+        </section>
+      </div>
+    </main>
+    <aside class="activity">
+      <div class="activity-head">Activity <div class="activity-controls"><button class="btn">⌕</button><button class="btn">♧ 1</button><button class="btn">☰</button></div></div>
+      <div class="activity-scroll">
+        <div class="activity-event"><span class="event-avatar">◉</span>You created this task by copying #86b5m62ev (You<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Don't Have Access) <span style="float:right">32 mins</span></div>
+        <article class="comment-card">
+          <div class="comment-meta"><span class="avatar">朱</span><b>朱嘉亮</b><span class="comment-time">Just now</span></div>
+          <div class="comment-text">11</div>
+          <div class="comment-footer"><span>♧ &nbsp;☻</span><button class="btn" style="border:0;background:none;color:#777">Reply</button></div>
+        </article>
+      </div>
+      <div class="composer">
+        <div class="composer-tabs"><span class="chosen">Comment</span><button class="btn" style="border:0;background:none;color:#777">Email</button></div>
+        <textarea class="btn comment-input" id="commentBox" placeholder="Comment, press 'space' for AI, '/' for commands"></textarea>
+        <div class="composer-tools">
+          <button class="btn">＋</button><button class="btn" style="color:#d24eab">✿</button><button class="btn">♧</button><button class="btn">@</button><button class="btn">▣</button><button class="btn">☻</button><button class="btn">▱</button><button class="btn">⌖</button><button class="btn">◉</button><button class="btn">···</button>
+          <button class="btn send" id="sendComment" aria-label="Send comment">➤</button>
+        </div>
+      </div>
+    </aside>
+    <nav class="right-rail">
+      <button class="btn selected">▣</button><button class="btn">♧</button><button class="btn">＋</button><span style="font-size:11px">More</span>
+    </nav>
+  </div>
+</section>
+<script>
+  const input = document.getElementById('commentBox');
+  const send = document.getElementById('sendComment');
+  send.addEventListener('click', () => {
+    const value = input.value.trim();
+    if (!value) return;
+    const activity = document.querySelector('.activity-scroll');
+    const card = document.createElement('article');
+    card.className = 'comment-card';
+    card.innerHTML = '<div class="comment-meta"><span class="avatar">朱</span><b>朱嘉亮</b><span class="comment-time">Just now</span></div><div class="comment-text"></div><div class="comment-footer"><span>♧ &nbsp;☻</span><button class="btn" style="border:0;background:none;color:#777">Reply</button></div>';
+    card.querySelector('.comment-text').textContent = value;
+    activity.appendChild(card);
+    input.value = '';
+  });
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send.click(); }
+  });
+  document.querySelectorAll('.status-pill').forEach(el => el.addEventListener('click', () => {
+    el.textContent = el.textContent === 'COMPLETE' ? 'IN PROGRESS' : 'COMPLETE';
+    el.style.background = el.textContent === 'COMPLETE' ? '#3da879' : '#5686df';
+  }));
+</script>
+</body>
+</html>

@@ -1,0 +1,242 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Online Calculator</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;color:#222;background:#fff}
+body{min-width:320px}
+button,a,select{font:inherit}
+.btn{cursor:pointer}
+.header{height:60px;position:relative;display:flex;align-items:flex-start;padding:4px 12px;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:5px;font-size:14px;color:#444}
+.brand img{width:32px;height:32px;object-fit:contain}
+.tools{display:flex;align-items:center;gap:9px;font-size:12px;color:#555;padding-top:5px}
+.search{width:230px;height:24px;border:1px solid #aaa;border-radius:2px;display:flex;align-items:center;padding:2px 5px;color:#777}
+.search input{border:0;outline:0;width:190px;font-size:11px}
+.search img{width:15px;height:15px;object-fit:contain}
+.language{display:flex;align-items:center;gap:4px}
+.language img{width:21px;height:14px;object-fit:cover}
+.language select{border:1px solid #aaa;font-size:11px;background:#fff;max-width:110px}
+.top-nav{height:82px;display:flex;align-content:flex-start;align-items:flex-start;justify-content:center;flex-wrap:wrap;gap:5px 6px;padding:2px 20px 0}
+.nav-btn{height:35px;min-width:136px;padding:3px 9px;border:1px solid rgba(0,0,0,.35);border-radius:4px;color:#fff;text-shadow:0 1px 1px #333;font-size:13px;white-space:nowrap;box-shadow:inset 0 1px 2px #ffffff80,0 1px 2px #777;display:inline-flex;align-items:center;justify-content:center;gap:5px}
+.nav-btn .ico{font-size:16px;line-height:1;text-shadow:0 1px 2px #333}
+.red{background:linear-gradient(#fa4545,#b90000)}
+.green{background:linear-gradient(#9ef442,#40ad08)}
+.purple{background:linear-gradient(#e74aff,#9205bb)}
+.orange{background:linear-gradient(#ffbc36,#ee7400)}
+.gray{background:linear-gradient(#aaa,#666)}
+.pink{background:linear-gradient(#fb7bbd,#c32d7d)}
+.teal{background:linear-gradient(#45edc9,#00a77f)}
+.blue{background:linear-gradient(#52aaff,#0758c6)}
+.cyan{background:linear-gradient(#72eee5,#13a6a0)}
+.darkblue{background:linear-gradient(#2375a0,#034367)}
+main{padding-top:138px}
+.welcome{height:170px;background:linear-gradient(110deg,#1385b3,#279bc3 45%,#117ca9);border-top:8px solid #075d7f;border-bottom:8px solid #075d7f;display:flex;align-items:center;justify-content:center;position:relative}
+.welcome:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent 0,transparent 8px,#ffffff08 9px,#ffffff08 12px)}
+.welcome-card{z-index:1;width:min(1010px,90%);min-height:120px;background:#075579;color:#fff;text-align:center;padding:19px 24px;font-family:Georgia,serif;font-size:14px;line-height:1.65;box-shadow:0 1px 3px #00415a}
+.welcome-card p{margin:0 0 6px}
+.calculator-wrap{height:645px;padding-top:40px;display:flex;align-items:center;flex-direction:column}
+.calculator{width:270px;padding:9px;background:linear-gradient(#f4f4f4,#a7a7a7);border:5px solid #454545;border-radius:15px;box-shadow:0 2px 5px #777}
+.display{height:53px;border:2px solid #777;border-radius:7px;background:linear-gradient(#ddffff,#b9edeb);margin-bottom:9px;padding:7px 9px;text-align:right;font-family:Arial,sans-serif;font-size:21px;line-height:34px;color:#222;overflow:hidden;white-space:nowrap}
+.key-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:5px}
+.key{height:39px;border:1px solid #666;border-radius:5px;background:linear-gradient(#fff,#d9d9e8);box-shadow:inset 0 1px #fff,0 1px 2px #777;color:#111;font-weight:bold;font-size:16px;padding:0}
+.key:hover{filter:brightness(1.08)}
+.key.mem{background:linear-gradient(#b9ffbb,#56d85b);font-size:13px}
+.key.op{background:linear-gradient(#d8fff2,#67e9a3)}
+.key.clear{background:linear-gradient(#ffd5d2,#ff8d7c)}
+.key.equal{background:linear-gradient(#a9ffab,#45ce59)}
+.fullscreen{margin-top:8px;color:#00e;text-decoration:underline;font-family:Georgia,serif;font-size:14px}
+.fullscreen span{font-family:Arial;font-size:17px;color:#111;margin-right:4px}
+.footer-nav{height:120px;background:linear-gradient(110deg,#148bb7,#198fb9);border-top:8px solid #075d7f;display:flex;align-content:center;justify-content:center;align-items:center;flex-wrap:wrap;gap:7px 8px;padding:12px 3%}
+.footer-nav .nav-btn{height:43px;min-width:171px;font-size:14px}
+@media(max-width:1100px){
+ .header{height:55px}.top-nav{height:auto;min-height:82px;padding:2px 8px;gap:4px}
+ .nav-btn{min-width:125px;height:31px;font-size:11px}
+ main{padding-top:75px}
+ .welcome{height:145px}
+ .welcome-card{font-size:12px;min-height:95px}
+ .calculator-wrap{height:590px}
+ .footer-nav{height:auto;min-height:130px}
+ .footer-nav .nav-btn{min-width:145px;height:36px;font-size:12px}
+}
+@media(max-width:600px){
+ .tools{gap:4px}.search{width:125px}.search input{width:90px}
+ .top-nav{padding:5px 3px}
+ .nav-btn{min-width:calc(50% - 8px);font-size:10px;padding:2px}
+ main{padding-top:55px}
+ .welcome-card{padding:12px}
+ .calculator-wrap{height:565px}
+ .footer-nav{gap:5px;padding:10px 6px}
+ .footer-nav .nav-btn{min-width:calc(50% - 5px)}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="header">
+    <div class="brand">
+      <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/011.svg" width="32" height="32" alt="">
+      <span>Online-Calculator</span>
+    </div>
+    <div class="tools">
+      <label class="search"><span>⌕</span><input aria-label="Search" type="search" placeholder="Search Online Calculator"></label>
+      <span class="language"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/034.svg" width="21" height="14" alt=""><select class="btn" aria-label="Change language"><option>Change Language</option><option>English</option></select></span>
+    </div>
+  </div>
+  <nav class="top-nav" aria-label="Calculator tools">
+    <a class="btn nav-btn red"><span class="ico">◉</span>Full Screen Calculator</a>
+    <a class="btn nav-btn green"><span class="ico">◉</span>Scientific Calculator</a>
+    <a class="btn nav-btn purple"><span class="ico">◉</span>Simple Calculator</a>
+    <a class="btn nav-btn orange"><span class="ico">▦</span>Online Abacus</a>
+    <a class="btn nav-btn gray"><span class="ico">◉</span>Dark Calculator</a>
+    <a class="btn nav-btn pink"><span class="ico">✿</span>Maths Calculator</a>
+    <a class="btn nav-btn teal"><span class="ico">◉</span>EMI Calculator</a>
+    <a class="btn nav-btn blue"><span class="ico">◉</span>Ratio Calculator</a>
+    <a class="btn nav-btn green"><span class="ico">◉</span>Ring Size Converter</a>
+    <a class="btn nav-btn orange"><span class="ico">↔</span>Length Converter</a>
+    <a class="btn nav-btn green"><span class="ico">％</span>Percentage Calculator</a>
+    <a class="btn nav-btn orange"><span class="ico">◉</span>Volume Converter</a>
+    <a class="btn nav-btn teal"><span class="ico">◉</span>Weight Converter</a>
+    <a class="btn nav-btn orange"><span class="ico">↔</span>Length Conversions</a>
+    <a class="btn nav-btn purple"><span class="ico">◉</span>Speed Conversions</a>
+    <a class="btn nav-btn red"><span class="ico">🌡</span>Temperature Conversions</a>
+    <a class="btn nav-btn blue"><span class="ico">◷</span>Time Conversions</a>
+    <a class="btn nav-btn gray"><span class="ico">⚖</span>Weight Conversions</a>
+  </nav>
+</header>
+
+<main>
+  <section class="welcome">
+    <div class="welcome-card">
+      <p>Welcome to Online Calculator! We have a range of free, easy to use calculators, conversion tools, and much more!</p>
+      <p>Our tools are designed to help you perform a wide range of calculations and conversions quickly and accurately, whether you're at home, at work, or on the go.</p>
+    </div>
+  </section>
+
+  <section class="calculator-wrap" aria-label="Calculator">
+    <div class="calculator">
+      <div class="display" id="display" aria-live="polite"></div>
+      <div class="key-grid">
+        <button class="btn key mem" data-action="mc">MC</button>
+        <button class="btn key mem" data-action="mr">MR</button>
+        <button class="btn key mem" data-action="mplus">M+</button>
+        <button class="btn key mem" data-action="mminus">M-</button>
+        <button class="btn key clear" data-action="clear">C</button>
+        <button class="btn key" data-value="7">7</button>
+        <button class="btn key" data-value="8">8</button>
+        <button class="btn key" data-value="9">9</button>
+        <button class="btn key op" data-value="/">÷</button>
+        <button class="btn key op" data-action="sqrt">√</button>
+        <button class="btn key" data-value="4">4</button>
+        <button class="btn key" data-value="5">5</button>
+        <button class="btn key" data-value="6">6</button>
+        <button class="btn key op" data-value="*">×</button>
+        <button class="btn key op" data-value="%">%</button>
+        <button class="btn key" data-value="1">1</button>
+        <button class="btn key" data-value="2">2</button>
+        <button class="btn key" data-value="3">3</button>
+        <button class="btn key op" data-value="-">−</button>
+        <button class="btn key op" data-value="+">+</button>
+        <button class="btn key" data-value="0">0</button>
+        <button class="btn key" data-value=".">.</button>
+        <button class="btn key op" data-action="sign">±</button>
+        <button class="btn key op" data-action="back">←</button>
+        <button class="btn key equal" data-action="equals">=</button>
+      </div>
+    </div>
+    <a class="btn fullscreen" id="fullscreen"><span>⛶</span>Use the Online Calculator Full Screen</a>
+  </section>
+</main>
+
+<nav class="footer-nav" aria-label="More calculators">
+  <a class="btn nav-btn darkblue"><span class="ico">⌂</span>Home Page</a>
+  <a class="btn nav-btn red"><span class="ico">◉</span>Full Screen Calculator</a>
+  <a class="btn nav-btn green"><span class="ico">◉</span>Scientific Calculator</a>
+  <a class="btn nav-btn purple"><span class="ico">◉</span>Simple Calculator</a>
+  <a class="btn nav-btn orange"><span class="ico">▦</span>Online Abacus</a>
+  <a class="btn nav-btn gray"><span class="ico">◉</span>Dark Calculator</a>
+  <a class="btn nav-btn pink"><span class="ico">✿</span>Maths Calculator</a>
+  <a class="btn nav-btn teal"><span class="ico">◉</span>EMI Calculator</a>
+  <a class="btn nav-btn blue"><span class="ico">◉</span>Ratio Calculator</a>
+  <a class="btn nav-btn green"><span class="ico">◉</span>Ring Size Converter</a>
+  <a class="btn nav-btn orange"><span class="ico">↔</span>Length Converter</a>
+  <a class="btn nav-btn green"><span class="ico">％</span>Percentage Calculator</a>
+  <a class="btn nav-btn orange"><span class="ico">◉</span>Volume Converter</a>
+  <a class="btn nav-btn teal"><span class="ico">◉</span>Weight Converter</a>
+  <a class="btn nav-btn orange"><span class="ico">↔</span>Length Conversions</a>
+  <a class="btn nav-btn purple"><span class="ico">◉</span>Speed Conversions</a>
+  <a class="btn nav-btn red"><span class="ico">🌡</span>Temperature Conversions</a>
+  <a class="btn nav-btn blue"><span class="ico">◷</span>Time Conversions</a>
+  <a class="btn nav-btn gray"><span class="ico">⚖</span>Weight Conversions</a>
+</nav>
+
+<script>
+(() => {
+  const display = document.getElementById('display');
+  let entry = '', stored = null, operator = null, resetNext = false, memory = 0;
+  const show = value => { display.textContent = value; };
+  const current = () => Number(entry || display.textContent || 0);
+  function digit(v){
+    if(resetNext){ entry=''; resetNext=false; }
+    if(v==='.' && (entry || display.textContent).includes('.')) return;
+    entry = (entry || '') + v;
+    show(entry);
+  }
+  function calculate(a,b,op){
+    if(op==='+') return a+b;
+    if(op==='-') return a-b;
+    if(op==='*') return a*b;
+    if(op==='/') return b===0 ? NaN : a/b;
+    if(op==='%') return a%b;
+    return b;
+  }
+  function choose(op){
+    const n=current();
+    if(operator && !resetNext){
+      const result=calculate(stored,n,operator);
+      stored=result; show(String(result));
+    }else stored=n;
+    operator=op; resetNext=true; entry='';
+  }
+  function equals(){
+    if(operator===null) return;
+    const result=calculate(stored,current(),operator);
+    show(Number.isFinite(result) ? String(Number(result.toPrecision(12))) : 'Error');
+    entry=display.textContent; stored=null; operator=null; resetNext=true;
+  }
+  document.querySelectorAll('.key').forEach(key=>{
+    key.addEventListener('click',()=>{
+      const value=key.dataset.value, action=key.dataset.action;
+      if(value!==undefined){ if('0123456789.'.includes(value)) digit(value); else choose(value); return; }
+      switch(action){
+        case 'clear': entry='';stored=null;operator=null;resetNext=false;show('');break;
+        case 'equals':equals();break;
+        case 'sqrt':show(String(Math.sqrt(current())));entry=display.textContent;resetNext=true;break;
+        case 'sign':show(String(-current()));entry=display.textContent;break;
+        case 'back':entry=(entry||display.textContent).slice(0,-1);show(entry);break;
+        case 'mc':memory=0;break;
+        case 'mr':entry=String(memory);show(entry);break;
+        case 'mplus':memory+=current();break;
+        case 'mminus':memory-=current();break;
+      }
+    });
+  });
+  document.addEventListener('keydown',e=>{
+    if(/^[0-9.]$/.test(e.key)){digit(e.key);e.preventDefault();}
+    else if(['+','-','*','/','%'].includes(e.key)) choose(e.key);
+    else if(e.key==='Enter'||e.key==='='){equals();e.preventDefault();}
+    else if(e.key==='Escape'){entry='';stored=null;operator=null;show('');}
+    else if(e.key==='Backspace'){entry=entry.slice(0,-1);show(entry);}
+  });
+  document.getElementById('fullscreen').addEventListener('click',()=>{
+    if(document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(()=>{});
+  });
+})();
+</script>
+</body>
+</html>
+```

@@ -1,0 +1,116 @@
+{
+  "total_step": 11,
+  "success_step": 3,
+  "screenshot_paths_to_eval": [
+    "outputs/32/gpt-6-luna_setting2/evalpoints/0.png"
+  ],
+  "all_mllm_scores": [
+    0.81
+  ],
+  "all_dino_scores": [
+    0.94873046875
+  ],
+  "all_ocr_scores": [
+    0.8930232558139535
+  ],
+  "all_avg_scores": [
+    0.8839179081879845
+  ],
+  "mllm_score": 0.81,
+  "dino_score": 0.94873046875,
+  "ocr_score": 0.8930232558139535,
+  "avg_score": 0.8839179081879845,
+  "all_mllm_res": [
+    "Comments:\n- **Layout (8/10):** The overall page structure is highly similar: a compact header, multi-colored navigation area, large whitespace, centered blue welcome banner, calculator section, and bottom navigation footer. The banner and footer align closely, though the top navigation spacing, wrapping, and calculator vertical position differ.\n- **Elements (12/15):** Most major elements are present, including the logo, search/language controls, navigation buttons, welcome message, calculator, fullscreen link, and footer navigation. Some navigation items differ in name or icon, and the calculator controls are not identical.\n- **Content and Text (34/40):** The welcome copy and primary navigation concepts closely match the reference. Several labels vary, such as “Dark Calculator” versus “Darts Calculator,” “EMI Calculator” versus “BMI Calculator,” and “Ratio Calculator” versus “Patio Calculator.” Calculator button labels and some footer items also differ.\n- **Style (11/15):** The colorful button-based visual language, blue banner/footer, white background, borders, and centered content are well preserved. However, the logo/header sizing, button styling, typography, iconography, calculator appearance, and banner texture differ noticeably.\n- **Overall (16/20):** The generated page is clearly based on the same design and has a strong visual and structural resemblance. Differences in navigation content, calculator design, header proportions, and styling prevent it from being a near-perfect match.\n\n**Score: 81/100**"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "Online-Calculator SGearch Online-Calculator com Change Language Full Screen Calculator Scientilic Calculator Simple Calculator Online Abacus Darts Galculator Maths Calculator BMI Calculator Patio Calculator Size Convener Length Converter Percentage Calculator Volume Converter Weight Converter Length Conversions Speed Conversions Temperature Conversions Time Conversions Weight Conversions Welcome to Online Calculator! We have a range of free, easy to use calculators, conversion tools, and much morel Our tools are designed to help you perform a wide range of calculations and conversions quickly and accurately, whether youre at home, at work, or on the go MC MR M+ M- CE 8 % nan 0 ui0 Use the Online Calculator Full Screen Home Page Full Screen Calculator Scientific Calculator Simple Calculator Online Abacus Darts Calculator Maths Calculator BMI Calculator Patio Calculator Ring Size Converter Length Converter Percentage Calculator Volume Converter Weight Converter Length Conversions Speed Conversions Temperature Conversions Time Conversions Weight Conversions Ring",
+      "screenshot_text": "Online-Calculator Search Online Calculator Change Lanquzoe Full Screen Calculator Scientiiic Calculator Simple Calculator Online Abacus Dark Calculator Maths Calculator EMI Calculator Ratio Calculator Size Converer Lengih Converer Perceniage Calculaior Volume Corverter Weight Converter Lengih Conversions Speed Conversions Temperature Conversions Time Conversions DU Weight Conversions Welcome t0 Online Calculator! We have range of easy tO use calculators, conversion tools; and much morel Our tools are designed to YOu perform wide range of calculations and conversions quickly and accurately; whether you Te at home; at work; Or on the go. MC MR M+ ~ Usethe_Online Calculator EulL Screen Home Page Full Screen Calculator Scienlic Calculaior Simple Calculator H Online Abacus Dark Calculator Maths Calculator EMI Calculator Ratio Calculator Size Convener Lergih Converter 96 Perceniage Calculator Volume Convener Weight Converter Lengih Conversions Speed Conversions Temperature Conversions Time Conversions uc Weight Conversions Rind frce, help Ring",
+      "similarity": 0.8930232558139535
+    }
+  ],
+  "assertion_results": [
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/32/gpt-6-luna_setting2/evalpoints/0.png",
+      "curr_img_path": "outputs/32/gpt-6-luna_setting2/evalpoints/1.png",
+      "response": "{\"think\":\"In Image 2, the calculator display clearly shows the digit '5'. Therefore, the assertion is true.\",\"result\":\"Yes\"}",
+      "assertion": "Calculator displays '5'.",
+      "thinking": "In Image 2, the calculator display clearly shows the digit '5'. Therefore, the assertion is true."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/32/gpt-6-luna_setting2/evalpoints/1.png",
+      "curr_img_path": "outputs/32/gpt-6-luna_setting2/evalpoints/2.png",
+      "response": "{\n  \"think\": \"Image 2 shows the calculator display reading '53', so the assertion is true.\",\n  \"result\": \"Yes\"\n}",
+      "assertion": "Calculator displays '53'.",
+      "thinking": "Image 2 shows the calculator display reading '53', so the assertion is true."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/32/gpt-6-luna_setting2/evalpoints/2.png",
+      "curr_img_path": "outputs/32/gpt-6-luna_setting2/evalpoints/3.png",
+      "response": "{\"think\":\"The current calculator display in Image 2 clearly shows 532, so the assertion is true.\",\"result\":\"Yes\"}",
+      "assertion": "Calculator displays '532'.",
+      "thinking": "The current calculator display in Image 2 clearly shows 532, so the assertion is true."
+    },
+    {
+      "result": "No",
+      "prev_img_path": "outputs/32/gpt-6-luna_setting2/evalpoints/3.png",
+      "curr_img_path": "outputs/32/gpt-6-luna_setting2/evalpoints/4.png",
+      "response": "{\n  \"think\": \"The current screenshot (Image 2) shows the calculator display as '532.' with a decimal point, not '532.7'. Therefore, the assertion is false.\",\n  \"result\": \"No\"\n}",
+      "assertion": "Calculator displays '532.7'.",
+      "thinking": "The current screenshot (Image 2) shows the calculator display as '532.' with a decimal point, not '532.7'. Therefore, the assertion is false."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/32/gpt-6-luna_setting2/evalpoints/4.png",
+      "curr_img_path": "outputs/32/gpt-6-luna_setting2/evalpoints/5.png",
+      "response": "{\"think\":\"Image 2 shows the calculator display reading exactly 532.7, so the assertion is true.\",\"result\":\"Yes\"}",
+      "assertion": "Calculator displays '532.7'.",
+      "thinking": "Image 2 shows the calculator display reading exactly 532.7, so the assertion is true."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/32/gpt-6-luna_setting2/evalpoints/5.png",
+      "curr_img_path": "outputs/32/gpt-6-luna_setting2/evalpoints/6.png",
+      "response": "{\n  \"think\": \"The current screenshot (Image 2) shows the calculator display reading 532.76, matching the assertion.\",\n  \"result\": \"Yes\"\n}",
+      "assertion": "Calculator displays '532.76'.",
+      "thinking": "The current screenshot (Image 2) shows the calculator display reading 532.76, matching the assertion."
+    },
+    {
+      "result": "No",
+      "prev_img_path": "outputs/32/gpt-6-luna_setting2/evalpoints/6.png",
+      "curr_img_path": "outputs/32/gpt-6-luna_setting2/evalpoints/7.png",
+      "response": "{\n  \"think\": \"The calculator's 'x' button appears in the same normal green state in both screenshots, with no visible highlight, focus outline, or pressed styling indicating selection.\",\n  \"result\": \"No\"\n}",
+      "assertion": "The 'x' button is selected.",
+      "thinking": "The calculator's 'x' button appears in the same normal green state in both screenshots, with no visible highlight, focus outline, or pressed styling indicating selection."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/32/gpt-6-luna_setting2/evalpoints/7.png",
+      "curr_img_path": "outputs/32/gpt-6-luna_setting2/evalpoints/8.png",
+      "response": "{\"think\":\"In Image 2, the calculator display clearly shows the number 9.\",\"result\":\"Yes\"}",
+      "assertion": "Calculator displays '9'.",
+      "thinking": "In Image 2, the calculator display clearly shows the number 9."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/32/gpt-6-luna_setting2/evalpoints/8.png",
+      "curr_img_path": "outputs/32/gpt-6-luna_setting2/evalpoints/9.png",
+      "response": "{\"think\":\"The current screenshot (Image 2) shows the calculator display reading “9.”, including the decimal point. Therefore, the assertion is true.\",\"result\":\"Yes\"}",
+      "assertion": "Calculator displays '9.'.",
+      "thinking": "The current screenshot (Image 2) shows the calculator display reading “9.”, including the decimal point. Therefore, the assertion is true."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/32/gpt-6-luna_setting2/evalpoints/9.png",
+      "curr_img_path": "outputs/32/gpt-6-luna_setting2/evalpoints/10.png",
+      "response": "{\n  \"think\": \"The current screenshot's calculator display clearly shows 9.2.\",\n  \"result\": \"Yes\"\n}",
+      "assertion": "Calculator displays '9.2'.",
+      "thinking": "The current screenshot's calculator display clearly shows 9.2."
+    },
+    null
+  ]
+}

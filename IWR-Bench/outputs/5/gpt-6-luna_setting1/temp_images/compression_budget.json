@@ -1,0 +1,215 @@
+{
+  "setting": 1,
+  "unit": "estimated image input tokens",
+  "profile": {
+    "reference_model": "gpt-5.6-luna",
+    "assumed_for": "gpt-6-luna",
+    "assumption_not_officially_verified": true,
+    "detail": "original",
+    "patch_size": 32,
+    "token_multiplier": 1.2,
+    "max_dimension": 65535,
+    "max_patches": 30000
+  },
+  "target_retained_fraction": 0.6,
+  "baseline": "each original screenshot",
+  "source_estimated_tokens": 15592,
+  "output_estimated_tokens": 9296,
+  "retained_token_fraction": 0.5962031811185223,
+  "source_pixels": 13084448,
+  "output_pixels": 7614464,
+  "allocations": [
+    {
+      "source_size": [
+        1846,
+        886
+      ],
+      "source_pixels": 1635556,
+      "source_patches": 1624,
+      "source_estimated_tokens": 1949,
+      "target_estimated_tokens": 1169,
+      "effective_target_estimated_tokens": 1169,
+      "minimum_patch_limited": false,
+      "profile_cap_limited": false,
+      "output_size": [
+        1408,
+        676
+      ],
+      "output_pixels": 951808,
+      "output_patches": 968,
+      "output_estimated_tokens": 1162,
+      "retained_token_fraction": 0.5962031811185223,
+      "rounding_shortfall_tokens": 7,
+      "output": "screenshot_0.png",
+      "index": 0
+    },
+    {
+      "source_size": [
+        1846,
+        886
+      ],
+      "source_pixels": 1635556,
+      "source_patches": 1624,
+      "source_estimated_tokens": 1949,
+      "target_estimated_tokens": 1169,
+      "effective_target_estimated_tokens": 1169,
+      "minimum_patch_limited": false,
+      "profile_cap_limited": false,
+      "output_size": [
+        1408,
+        676
+      ],
+      "output_pixels": 951808,
+      "output_patches": 968,
+      "output_estimated_tokens": 1162,
+      "retained_token_fraction": 0.5962031811185223,
+      "rounding_shortfall_tokens": 7,
+      "output": "screenshot_1.png",
+      "index": 1
+    },
+    {
+      "source_size": [
+        1846,
+        886
+      ],
+      "source_pixels": 1635556,
+      "source_patches": 1624,
+      "source_estimated_tokens": 1949,
+      "target_estimated_tokens": 1169,
+      "effective_target_estimated_tokens": 1169,
+      "minimum_patch_limited": false,
+      "profile_cap_limited": false,
+      "output_size": [
+        1408,
+        676
+      ],
+      "output_pixels": 951808,
+      "output_patches": 968,
+      "output_estimated_tokens": 1162,
+      "retained_token_fraction": 0.5962031811185223,
+      "rounding_shortfall_tokens": 7,
+      "output": "screenshot_2.png",
+      "index": 2
+    },
+    {
+      "source_size": [
+        1846,
+        886
+      ],
+      "source_pixels": 1635556,
+      "source_patches": 1624,
+      "source_estimated_tokens": 1949,
+      "target_estimated_tokens": 1169,
+      "effective_target_estimated_tokens": 1169,
+      "minimum_patch_limited": false,
+      "profile_cap_limited": false,
+      "output_size": [
+        1408,
+        676
+      ],
+      "output_pixels": 951808,
+      "output_patches": 968,
+      "output_estimated_tokens": 1162,
+      "retained_token_fraction": 0.5962031811185223,
+      "rounding_shortfall_tokens": 7,
+      "output": "screenshot_3.png",
+      "index": 3
+    },
+    {
+      "source_size": [
+        1846,
+        886
+      ],
+      "source_pixels": 1635556,
+      "source_patches": 1624,
+      "source_estimated_tokens": 1949,
+      "target_estimated_tokens": 1169,
+      "effective_target_estimated_tokens": 1169,
+      "minimum_patch_limited": false,
+      "profile_cap_limited": false,
+      "output_size": [
+        1408,
+        676
+      ],
+      "output_pixels": 951808,
+      "output_patches": 968,
+      "output_estimated_tokens": 1162,
+      "retained_token_fraction": 0.5962031811185223,
+      "rounding_shortfall_tokens": 7,
+      "output": "screenshot_4.png",
+      "index": 4
+    },
+    {
+      "source_size": [
+        1846,
+        886
+      ],
+      "source_pixels": 1635556,
+      "source_patches": 1624,
+      "source_estimated_tokens": 1949,
+      "target_estimated_tokens": 1169,
+      "effective_target_estimated_tokens": 1169,
+      "minimum_patch_limited": false,
+      "profile_cap_limited": false,
+      "output_size": [
+        1408,
+        676
+      ],
+      "output_pixels": 951808,
+      "output_patches": 968,
+      "output_estimated_tokens": 1162,
+      "retained_token_fraction": 0.5962031811185223,
+      "rounding_shortfall_tokens": 7,
+      "output": "screenshot_5.png",
+      "index": 5
+    },
+    {
+      "source_size": [
+        1846,
+        886
+      ],
+      "source_pixels": 1635556,
+      "source_patches": 1624,
+      "source_estimated_tokens": 1949,
+      "target_estimated_tokens": 1169,
+      "effective_target_estimated_tokens": 1169,
+      "minimum_patch_limited": false,
+      "profile_cap_limited": false,
+      "output_size": [
+        1408,
+        676
+      ],
+      "output_pixels": 951808,
+      "output_patches": 968,
+      "output_estimated_tokens": 1162,
+      "retained_token_fraction": 0.5962031811185223,
+      "rounding_shortfall_tokens": 7,
+      "output": "screenshot_6.png",
+      "index": 6
+    },
+    {
+      "source_size": [
+        1846,
+        886
+      ],
+      "source_pixels": 1635556,
+      "source_patches": 1624,
+      "source_estimated_tokens": 1949,
+      "target_estimated_tokens": 1169,
+      "effective_target_estimated_tokens": 1169,
+      "minimum_patch_limited": false,
+      "profile_cap_limited": false,
+      "output_size": [
+        1408,
+        676
+      ],
+      "output_pixels": 951808,
+      "output_patches": 968,
+      "output_estimated_tokens": 1162,
+      "retained_token_fraction": 0.5962031811185223,
+      "rounding_shortfall_tokens": 7,
+      "output": "screenshot_7.png",
+      "index": 7
+    }
+  ]
+}

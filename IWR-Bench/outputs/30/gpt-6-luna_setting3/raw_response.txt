@@ -1,0 +1,276 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome file</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:Arial,Helvetica,sans-serif;color:#303030}
+  body{background:#fff}
+  .topbar{
+    height:46px;background:#292929;color:#ddd;display:flex;align-items:center;
+    position:relative;z-index:5;box-shadow:0 1px 2px #999
+  }
+  .tools{display:flex;align-items:center;height:100%;gap:3px;padding-left:5px}
+  .btn{
+    border:0;background:transparent;color:#ddd;cursor:pointer;height:34px;min-width:32px;
+    display:inline-flex;align-items:center;justify-content:center;border-radius:3px;
+    font-weight:600;font-size:18px;padding:0 7px
+  }
+  .btn:hover,.btn.active{background:#4b4b4b;color:#fff}
+  .folder-icon{width:24px;height:17px;background:#d7d7d7;border-radius:2px;position:relative;margin:0 15px 0 5px}
+  .folder-icon:before{content:"";position:absolute;left:2px;top:-4px;width:10px;height:5px;background:#d7d7d7;border-radius:2px 2px 0 0}
+  .undo,.redo{font-size:24px;font-weight:400;color:#777}
+  .tool-bold{font-weight:900;font-family:Georgia,serif}
+  .tool-italic{font-family:Georgia,serif;font-style:italic}
+  .tool-heading{font-size:17px}
+  .tool-strike{text-decoration:line-through}
+  .tool-list{font-size:20px;line-height:12px}
+  .tool-quote{font-family:Georgia,serif;font-size:24px}
+  .tool-code{font-family:monospace;font-size:19px}
+  .tool-table{font-size:17px}
+  .tool-link{font-size:23px;transform:rotate(-35deg)}
+  .tool-image{font-size:20px}
+  .filename{margin-left:auto;font-size:20px;color:#bbb;padding-right:24px}
+  .top-actions{display:flex;gap:7px;margin-right:8px}
+  .top-actions .btn{font-size:18px;color:#888}
+  .app{
+    height:calc(100vh - 68px);display:grid;grid-template-columns:1fr 1fr;position:relative
+  }
+  .pane{height:100%;overflow:auto;position:relative}
+  .editor-pane{background:#fff;border-right:1px solid #e5e5e5}
+  .preview-pane{background:#f7f7f7}
+  .editor-wrap{max-width:1100px;margin:0 auto;padding:2px 0 60px}
+  textarea{
+    display:block;width:100%;height:calc(100vh - 80px);min-height:100%;
+    border:0;outline:0;resize:none;background:transparent;overflow:auto;
+    color:#333;font-family:Arial,Helvetica,sans-serif;font-size:18px;line-height:1.75;
+    padding:3px 0 70px;white-space:pre-wrap
+  }
+  .preview-wrap{max-width:1000px;margin:0 auto;padding:2px 0 80px}
+  .markdown-preview{font-size:18px;line-height:1.75;color:#414141}
+  .markdown-preview h1{font-size:38px;line-height:1.2;margin:3px 0 31px;padding-bottom:18px;border-bottom:1px solid #d7d7d7;color:#303030}
+  .markdown-preview h2{font-size:29px;line-height:1.25;margin:62px 0 28px;padding-bottom:18px;border-bottom:1px solid #d7d7d7;color:#303030}
+  .markdown-preview h3{font-size:24px;margin:40px 0 20px}
+  .markdown-preview p{margin:0 0 43px}
+  .markdown-preview ul,.markdown-preview ol{margin:0 0 40px;padding-left:38px}
+  .markdown-preview hr{border:0;border-top:1px solid #d5d5d5;margin:30px 0}
+  .markdown-preview strong{font-weight:700;color:#252525}
+  .markdown-preview em{font-style:italic}
+  .markdown-preview del{text-decoration:line-through}
+  .markdown-preview code{font-family:monospace}
+  .gutter{
+    position:absolute;left:calc(50% - 13px);top:0;width:26px;height:100%;
+    background:#fafafa;border-left:1px solid #eee;border-right:1px solid #eee;
+    z-index:2;display:flex;flex-direction:column;align-items:center;color:#aaa
+  }
+  .gutter-top{padding-top:6px;display:flex;flex-direction:column;gap:10px;font-size:16px}
+  .gutter-bottom{margin-top:auto;margin-bottom:5px;display:flex;flex-direction:column;gap:6px;font-size:17px}
+  .scrollbar{
+    position:absolute;top:0;right:0;width:8px;height:245px;background:#b9b9b9;border-radius:6px;opacity:.9
+  }
+  .preview-pane .scrollbar{height:220px}
+  .status{
+    height:22px;background:#0784c5;color:white;display:flex;align-items:center;
+    justify-content:space-between;font-size:12px;padding:0 5px;position:fixed;bottom:0;left:0;right:0;z-index:10
+  }
+  .status-left,.status-right{display:flex;gap:9px}
+  @media(max-width:900px){
+    .app{grid-template-columns:1fr}
+    .preview-pane,.gutter{display:none}
+    .editor-wrap{padding:2px 28px}
+    .filename{font-size:15px}
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="tools">
+    <button class="btn" title="File explorer"><span class="folder-icon"></span></button>
+    <button class="btn undo" data-action="undo">↶</button>
+    <button class="btn undo" data-action="redo">↷</button>
+    <button class="btn tool-bold" data-action="bold" title="Bold">B</button>
+    <button class="btn tool-italic" data-action="italic" title="Italic">I</button>
+    <button class="btn tool-heading" data-action="heading" title="Heading">Tᵀ</button>
+    <button class="btn tool-strike" data-action="strike" title="Strikethrough">S</button>
+    <button class="btn tool-list" data-action="ul" title="Bulleted list">☷</button>
+    <button class="btn tool-list" data-action="ol" title="Numbered list">☷</button>
+    <button class="btn tool-list" data-action="check" title="Task list">☑</button>
+    <button class="btn tool-quote" data-action="quote" title="Quote">❞</button>
+    <button class="btn tool-code" data-action="code" title="Code">&lt;&gt;</button>
+    <button class="btn tool-table" data-action="table" title="Table">▦</button>
+    <button class="btn tool-link" data-action="link" title="Link">↗</button>
+    <button class="btn tool-image" data-action="image" title="Image">▧</button>
+  </div>
+  <div class="filename">Welcome file</div>
+  <div class="top-actions">
+    <button class="btn" title="Sync">↻</button>
+    <button class="btn" title="Export">↥</button>
+    <button class="btn" title="Settings">▣</button>
+  </div>
+</header>
+
+<main class="app">
+  <section class="pane editor-pane">
+    <div class="editor-wrap">
+      <textarea id="editor" spellcheck="false"># Welcome to StackEdit!
+
+Hi! I'm your first Markdown file in **StackEdit**. If you want to learn about StackEdit, you can read me. If you want to play with Markdown, you can edit me. Once you have finished with me, you can create new files by opening the **file explorer** on the left corner of the navigation bar.
+
+# Files
+
+StackEdit stores your files in your browser, which means all your files are automatically saved locally and are accessible **offline!**
+
+## Create files and folders
+
+The file explorer is accessible using the button in left corner of the navigation bar. You can create a new file by clicking the **New file** button in the file explorer. You can also create folders by clicking the **New folder** button.
+
+## Switch to another file
+
+All your files and folders are presented as a tree in the file explorer. You can switch from one to another by clicking a file in the tree.
+
+## Rename a file
+
+You can rename the current file by clicking the file name in the navigation bar or by clicking the **Rename** button in the file explorer.
+
+## Delete a file
+
+You can delete the current file by clicking the **Remove** button in the file explorer. The file will be moved into the **Trash** folder and automatically deleted after 7 days of inactivity.
+
+## Export a file
+
+You can export the current file by clicking **Export to disk** in the menu. You can choose to export the file as plain Markdown, as HTML using a Handlebars template or as a PDF.</textarea>
+    </div>
+    <div class="scrollbar"></div>
+  </section>
+
+  <div class="gutter">
+    <div class="gutter-top"><span>▣</span><span>▥</span><span>◉</span></div>
+    <div class="gutter-bottom"><span>⚙</span><span>↕</span><span>▣</span></div>
+  </div>
+
+  <section class="pane preview-pane">
+    <div class="preview-wrap">
+      <article id="preview" class="markdown-preview"></article>
+    </div>
+    <div class="scrollbar"></div>
+  </section>
+</main>
+
+<footer class="status">
+  <div class="status-left">
+    <span id="mode">Markdown</span>
+    <span id="bytes">7173 bytes</span>
+    <span id="words">1086 words</span>
+    <span id="lines">143 lines</span>
+    <span id="cursor">Ln 1, Col 1</span>
+  </div>
+  <div class="status-right">
+    <span>HTML</span><span id="chars">10192 characters</span><span id="pwords">1112 words</span><span>74 paragraphs</span>
+  </div>
+</footer>
+
+<script>
+const editor=document.getElementById('editor');
+const preview=document.getElementById('preview');
+const cursorInfo=document.getElementById('cursor');
+
+function esc(s){
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+function inline(s){
+  s=esc(s);
+  s=s.replace(/`([^`]+)`/g,'<code>$1</code>');
+  s=s.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');
+  s=s.replace(/__([^_]+)__/g,'<strong>$1</strong>');
+  s=s.replace(/~~([^~]+)~~/g,'<del>$1</del>');
+  s=s.replace(/\*([^*]+)\*/g,'<em>$1</em>');
+  s=s.replace(/_([^_]+)_/g,'<em>$1</em>');
+  return s;
+}
+function render(md){
+  const lines=md.split('\n'), out=[]; let para=[], list=null;
+  function flush(){
+    if(para.length){out.push('<p>'+inline(para.join('<br>'))+'</p>');para=[]}
+    if(list){out.push(list.type+'>'+list.items.join('')+'</'+(list.type==='ul'?'ul':'ol')+'>');list=null}
+  }
+  for(let line of lines){
+    let m;
+    if((m=line.match(/^###\s+(.*)$/))){flush();out.push('<h3>'+inline(m[1])+'</h3>');continue}
+    if((m=line.match(/^##\s+(.*)$/))){flush();out.push('<h2>'+inline(m[1])+'</h2>');continue}
+    if((m=line.match(/^#\s+(.*)$/))){flush();out.push('<h1>'+inline(m[1])+'</h1>');continue}
+    if(/^(\*\*\*|---|___)\s*$/.test(line)){flush();out.push('<hr>');continue}
+    if((m=line.match(/^\s*[-*]\s+(.*)$/))){if(!list||list.type!=='ul'){flush();list={type:'ul',items:[]}}list.items.push('<li>'+inline(m[1])+'</li>');continue}
+    if((m=line.match(/^\s*\d+\.\s+(.*)$/))){if(!list||list.type!=='ol'){flush();list={type:'ol',items:[]}}list.items.push('<li>'+inline(m[1])+'</li>');continue}
+    if(line.trim()===''){flush();continue}
+    para.push(line)
+  }
+  flush(); preview.innerHTML=out.join('');
+}
+function update(){
+  render(editor.value);
+  const text=editor.value;
+  document.getElementById('bytes').textContent=text.length+' bytes';
+  document.getElementById('chars').textContent=text.length+' characters';
+  document.getElementById('words').textContent=(text.trim().match(/\S+/g)||[]).length+' words';
+  document.getElementById('lines').textContent=text.split('\n').length+' lines';
+  const before=text.slice(0,editor.selectionStart), last=before.lastIndexOf('\n');
+  cursorInfo.textContent='Ln '+(before.split('\n').length)+', Col '+(before.length-last);
+}
+editor.addEventListener('input',update);
+editor.addEventListener('keyup',update);
+editor.addEventListener('click',update);
+editor.addEventListener('select',update);
+
+function selectedRange(){
+  let a=editor.selectionStart,b=editor.selectionEnd;
+  if(a===b){
+    const lineStart=editor.value.lastIndexOf('\n',a-1)+1;
+    const lineEnd=editor.value.indexOf('\n',a);
+    a=lineStart;b=lineEnd<0?editor.value.length:lineEnd;
+  }
+  return [a,b,editor.value.slice(a,b)];
+}
+function replaceSelection(before,after=before){
+  const [a,b,t]=selectedRange();
+  const val=editor.value;
+  editor.value=val.slice(0,a)+before+t+after+val.slice(b);
+  editor.focus();
+  editor.setSelectionRange(a+before.length,a+before.length+t.length);
+  update();
+}
+function prefixLines(prefix){
+  const [a,b,t]=selectedRange();
+  const start=editor.value.lastIndexOf('\n',a-1)+1;
+  const chunk=editor.value.slice(start,b);
+  const changed=chunk.split('\n').map(x=>prefix+x).join('\n');
+  editor.value=editor.value.slice(0,start)+changed+editor.value.slice(b);
+  editor.focus();editor.setSelectionRange(start,start+changed.length);update();
+}
+document.querySelectorAll('[data-action]').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const act=btn.dataset.action;
+    if(act==='bold')replaceSelection('**');
+    else if(act==='italic')replaceSelection('*');
+    else if(act==='strike')replaceSelection('~~');
+    else if(act==='code')replaceSelection('`');
+    else if(act==='heading')prefixLines('## ');
+    else if(act==='quote')prefixLines('> ');
+    else if(act==='ul')prefixLines('- ');
+    else if(act==='ol')prefixLines('1. ');
+    else if(act==='check')prefixLines('- [ ] ');
+    else if(act==='link')replaceSelection('[','](https://example.com)');
+    else if(act==='image')replaceSelection('![','](image.png)');
+    else if(act==='table'){
+      const [a,b,t]=selectedRange();
+      replaceSelection('| '+t+' |',' |\\n|---|');
+    }
+  });
+});
+update();
+</script>
+</body>
+</html>
+```

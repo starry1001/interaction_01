@@ -1,0 +1,274 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LeetCode - Two Sum</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; }
+  body { font-family: Arial, Helvetica, sans-serif; color: #262626; background: #f5f5f5; font-size: 14px; }
+  button { font: inherit; color: inherit; }
+  .btn { cursor: pointer; }
+  .topbar {
+    height: 50px; width: 100%; display: flex; align-items: center; justify-content: space-between;
+    background: #f1f1f1; border-bottom: 1px solid #dedede; padding: 0 13px 0 21px; position: relative;
+  }
+  .top-left, .top-right, .top-center { display:flex; align-items:center; height:100%; gap: 11px; }
+  .top-left { min-width: 370px; }
+  .brand { width:30px; height:30px; display:block; object-fit:contain; }
+  .nav-icon { color:#777; font-size:19px; line-height:1; width:24px; text-align:center; }
+  .problem-list { font-weight:600; font-size:14px; white-space:nowrap; }
+  .nav-arrow { color:#818181; font-size:22px; padding:0 3px; }
+  .top-center { position:absolute; left:50%; transform:translateX(-50%); gap:5px; }
+  .toolbar-button { height:34px; min-width:37px; padding:0 9px; border:0; border-radius:4px; background:#e9e9e9; font-size:14px; }
+  .toolbar-button.submit { color:#20b84a; font-weight:600; padding:0 13px; }
+  .top-right { gap:13px; color:#7a7a7a; font-size:17px; }
+  .premium { color:#d79a42; background:#fff6e8; border-radius:10px; padding:9px 13px; font-size:13px; }
+  .main { height:calc(100vh - 50px); padding:0 8px 9px; display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .pane { min-width:0; min-height:0; background:#fff; border:1px solid #dfdfdf; border-radius:8px; overflow:hidden; position:relative; }
+  .left-pane { display:flex; flex-direction:column; }
+  .tabs { height:38px; flex:0 0 38px; display:flex; align-items:center; gap:17px; padding:0 14px; background:#fafafa; border-bottom:1px solid #eee; }
+  .tab { height:100%; display:flex; align-items:center; color:#8a8a8a; font-size:14px; white-space:nowrap; }
+  .tab.active { color:#262626; font-weight:600; }
+  .tab .ico { margin-right:5px; font-size:15px; }
+  .tab.active .ico { color:#2785cd; }
+  .tabs-spacer { flex:1; }
+  .icon-btn { border:0; background:transparent; color:#888; padding:4px; font-size:16px; }
+  .article-scroll { flex:1; overflow:auto; scrollbar-width:thin; scrollbar-color:#999 transparent; }
+  .article-scroll::-webkit-scrollbar { width:8px; }
+  .article-scroll::-webkit-scrollbar-thumb { background:#999; border-radius:8px; }
+  .article { max-width:930px; margin:0 auto; padding:0 0 60px; font-size:16px; line-height:1.62; }
+  .all-solutions {
+    position:sticky; top:0; z-index:3; height:34px; display:flex; align-items:center;
+    background:rgba(255,255,255,.98); color:#777; border-bottom:1px solid #f1f1f1;
+    font-size:14px; margin:0; padding-left:0;
+  }
+  .all-solutions .back { font-size:19px; margin-right:9px; color:#666; }
+  .article-content { padding-top:0; }
+  .article p { margin:0 0 13px; }
+  .article h2 { font-size:24px; line-height:1.25; margin:25px 0 14px; color:#222; }
+  .article h3 { font-size:17px; margin:23px 0 15px; }
+  .article ol { padding-left:32px; margin:10px 0 15px; }
+  .article li { padding-left:0; margin:0 0 2px; }
+  .code-card { border:1px solid #dedde1; border-radius:9px; overflow:hidden; margin:12px 0 21px; }
+  .code-tabs { height:42px; display:flex; gap:17px; align-items:center; padding:0 13px; color:#c6c6c6; background:#fff; font-size:14px; }
+  .code-tabs .selected { color:#555; }
+  .snippet { background:#f3f2f5; padding:12px 13px; margin:0; min-height:371px; overflow:hidden; color:#647d89; font:14px/26px Consolas, "Courier New", monospace; white-space:pre; }
+  .kw { color:#32809a; } .fn { color:#b44c5d; } .com { color:#89939a; }
+  .left-footer { height:37px; flex:0 0 37px; display:flex; align-items:center; gap:13px; padding:0 12px; background:rgba(255,255,255,.97); color:#858585; border-top:1px solid #f2f2f2; z-index:2; }
+  .footer-pill { display:flex; align-items:center; gap:5px; }
+  .right-pane { display:flex; flex-direction:column; }
+  .editor-top { height:584px; min-height:350px; display:flex; flex-direction:column; border-bottom:7px solid #f0f0f0; }
+  .section-title { height:36px; flex:0 0 36px; display:flex; align-items:center; padding:0 12px; font-weight:600; background:#fff; }
+  .section-title .green { color:#28b951; margin-right:5px; font-size:16px; }
+  .editor-tools { height:34px; flex:0 0 34px; display:flex; align-items:center; gap:17px; padding:0 11px; color:#777; border-bottom:1px solid #f1f1f1; }
+  .editor-tools .language { font-size:14px; }
+  .editor-tools .auto { color:#777; }
+  .editor-tools .right-tools { margin-left:auto; letter-spacing:8px; font-size:17px; color:#777; }
+  .editor-code { flex:1; overflow:hidden; display:flex; padding-top:8px; font:13px/19px Consolas, "Courier New", monospace; }
+  .line-numbers { width:53px; flex:0 0 53px; text-align:right; padding-right:16px; color:#518296; user-select:none; }
+  .code-text { white-space:pre; color:#242424; }
+  .editor-status { height:25px; flex:0 0 25px; display:flex; align-items:center; justify-content:space-between; padding:0 12px; color:#aaa; font-size:12px; }
+  .editor-status .upgrade { color:#d99a38; }
+  .result { flex:1; min-height:0; display:flex; flex-direction:column; }
+  .result-header { height:38px; flex:0 0 38px; display:flex; align-items:center; gap:13px; background:#fafafa; border-bottom:1px solid #eee; padding:0 13px; }
+  .result-tab { color:#999; }
+  .result-tab.active { color:#272727; font-weight:600; }
+  .result-body { padding:18px 18px 24px; overflow:auto; }
+  .accepted { color:#2db45b; font-size:20px; font-weight:600; margin-bottom:16px; }
+  .runtime { color:#999; font-size:14px; font-weight:400; margin-left:9px; }
+  .case-tabs { display:flex; align-items:center; gap:12px; height:34px; margin-bottom:16px; }
+  .case-tab { border:0; background:transparent; border-radius:8px; padding:8px 13px; font-size:13px; color:#555; }
+  .case-tab.active { background:#f1f1f3; color:#333; font-weight:600; }
+  .case-tab .dot { color:#35b55d; margin-right:5px; }
+  .field-label { color:#999; font-size:13px; margin:14px 0 7px; }
+  .field { min-height:49px; border-radius:8px; background:#f5f5f6; padding:14px; font:14px/20px Consolas, "Courier New", monospace; color:#333; }
+  .field.output { margin-bottom:18px; }
+  .contribute { text-align:center; color:#999; margin-top:24px; font-size:14px; }
+  .result-hidden { display:none; }
+  @media(max-width:900px) {
+    .top-center { display:none; }
+    .main { grid-template-columns:1fr 1fr; }
+    .article { padding-left:14px; padding-right:14px; }
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="top-left">
+    <img class="brand" src="__PLACEHOLDER_ASSETS_BASE_DIR__/001.png" width="30" height="30" alt="LeetCode">
+    <span class="nav-icon btn" title="Problem list">☷</span>
+    <span class="problem-list">Problem List</span>
+    <span class="nav-arrow btn">‹</span>
+    <span class="nav-arrow btn">›</span>
+    <span class="nav-icon btn" title="Shuffle">⤨</span>
+  </div>
+  <div class="top-center">
+    <button class="toolbar-button btn" title="Hints">🏅</button>
+    <button class="toolbar-button btn" title="Run" id="runButton">▶</button>
+    <button class="toolbar-button submit btn" id="submitButton">☁ Submit</button>
+    <button class="toolbar-button btn" title="Console">▣</button>
+  </div>
+  <div class="top-right">
+    <span class="btn">♧</span><span class="btn">♨ 0</span><span class="btn">◉</span>
+    <span class="premium btn">Premium</span>
+  </div>
+</header>
+
+<main class="main">
+  <section class="pane left-pane">
+    <div class="tabs">
+      <button class="tab active btn" data-panel="description"><span class="ico">▤</span>Description</button>
+      <button class="tab btn" data-panel="editorial"><span class="ico">▧</span>Editorial</button>
+      <button class="tab btn" data-panel="solutions"><span class="ico">⚗</span>Solutions</button>
+      <button class="tab btn" data-panel="submissions"><span class="ico">◷</span>Submissions</button>
+      <span class="tabs-spacer"></span>
+      <button class="icon-btn btn" title="Fullscreen">⛶</button>
+      <button class="icon-btn btn" title="Collapse">‹</button>
+    </div>
+
+    <div class="article-scroll" id="articleScroll">
+      <article class="article">
+        <div class="all-solutions btn" id="allSolutions"><span class="back">←</span>All Solutions</div>
+        <div class="article-content" id="articleContent">
+          <p>2. A more efficient approach is to use a hash table (unordered_map in C++). We can iterate through the array once, and for each element, check if the target minus the current element exists in the hash table. If it does, we have found a valid pair of numbers. If not, we add the current element to the hash table.</p>
+
+          <h3>Approach using a hash table:</h3>
+          <ol>
+            <li>Create an empty hash table to store elements and their indices.</li>
+            <li>Iterate through the array from left to right.</li>
+            <li>For each element nums[i], calculate the complement by subtracting it from the target: complement = target - nums[i].</li>
+            <li>Check if the complement exists in the hash table. If it does, we have found a solution.</li>
+            <li>If the complement does not exist in the hash table, add the current element nums[i] to the hash table with its index as the value.</li>
+            <li>Repeat steps 3-5 until we find a solution or reach the end of the array.</li>
+            <li>If no solution is found, return an empty array or an appropriate indicator.</li>
+          </ol>
+          <p>This approach has a time complexity of O(n) since hash table lookups take constant time on average. It allows us to solve the Two Sum problem efficiently by making just one pass through the array.</p>
+
+          <h2>Code</h2>
+          <h2>Solution 1: (Brute Force)</h2>
+          <div class="code-card">
+            <div class="code-tabs"><span class="selected">C++</span><span>Java</span><span>Python3</span></div>
+            <pre class="snippet"><span class="kw">class</span> <span class="fn">Solution</span> {
+<span class="kw">public</span>:
+    vector&lt;int&gt; <span class="fn">twoSum</span>(vector&lt;int&gt;&amp; nums, <span class="kw">int</span> target) {
+        <span class="kw">int</span> n = nums.size();
+        <span class="kw">for</span> (<span class="kw">int</span> i = 0; i &lt; n - 1; i++) {
+            <span class="kw">for</span> (<span class="kw">int</span> j = i + 1; j &lt; n; j++) {
+                <span class="kw">if</span> (nums[i] + nums[j] == target) {
+                    <span class="kw">return</span> {i, j};
+                }
+            }
+        }
+        <span class="kw">return</span> {}; <span class="com">// No solution found</span>
+    }
+};</pre>
+          </div>
+          <h2>Solution 2: (Two-pass Hash Table)</h2>
+          <div class="code-card">
+            <div class="code-tabs"><span class="selected">C++</span><span>Java</span><span>Python3</span></div>
+            <pre class="snippet">class Solution {
+public:
+    vector&lt;int&gt; twoSum(vector&lt;int&gt;&amp; nums, int target) {
+        // Hash table solution
+    }
+};</pre>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="left-footer">
+      <span class="footer-pill btn">♧ 63.7K</span><span class="footer-pill btn">♧</span>
+      <span class="footer-pill btn">▢ 1.5K</span><span class="footer-pill btn">☆</span>
+      <span class="footer-pill btn">↗</span><span class="footer-pill btn">ⓘ</span>
+      <span style="margin-left:auto;color:#36b85c;font-size:12px">●</span><span style="margin-left:-9px">2025 Online</span>
+    </div>
+  </section>
+
+  <section class="pane right-pane">
+    <div class="editor-top">
+      <div class="section-title"><span class="green">‹/›</span>Code</div>
+      <div class="editor-tools"><span class="language btn">C++⌄</span><span class="auto btn">▣ Auto</span><span class="right-tools btn">☷ ▣ {} ↶ ⛶</span></div>
+      <div class="editor-code">
+        <div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14</div>
+        <div class="code-text"><span class="kw">class</span> <span class="fn">Solution</span> {<br><span class="kw">public</span>:<br>    vector&lt;int&gt; <span class="fn">twoSum</span>(vector&lt;int&gt;&amp; nums, <span class="kw">int</span> target) {<br>        <span class="kw">int</span> n = nums.size();<br>        <span class="kw">for</span> (<span class="kw">int</span> i = 0; i &lt; n - 1; i++) {<br>            <span class="kw">for</span> (<span class="kw">int</span> j = i + 1; j &lt; n; j++) {<br>                <span class="kw">if</span> (nums[i] + nums[j] == target) {<br>                    <span class="kw">return</span> {i, j};<br>                }<br>            }<br>        }<br>        <span class="kw">return</span> {}; <span class="com">// No solution found</span><br>    }<br>};</div>
+      </div>
+      <div class="editor-status"><span>Saved</span><span>Ln 14, Col 3</span></div>
+    </div>
+
+    <div class="result">
+      <div class="result-header">
+        <button class="result-tab btn" id="testcaseTab">☑ Testcase</button>
+        <button class="result-tab active btn" id="resultTab">›_ Test Result</button>
+        <button class="icon-btn btn" style="margin-left:auto">⛶</button>
+        <button class="icon-btn btn">⌃</button>
+      </div>
+      <div class="result-body" id="resultBody">
+        <div class="accepted">Accepted <span class="runtime">Runtime: 0 ms</span></div>
+        <div class="case-tabs">
+          <button class="case-tab active btn" data-case="0"><span class="dot">•</span>Case 1</button>
+          <button class="case-tab btn" data-case="1"><span class="dot">•</span>Case 2</button>
+          <button class="case-tab btn" data-case="2"><span class="dot">•</span>Case 3</button>
+        </div>
+        <div class="field-label">Input</div>
+        <div class="field"><span style="color:#999;font-size:12px">nums =</span><br><span id="numsValue">[2,7,11,15]</span></div>
+        <div class="field" style="margin-top:8px"><span style="color:#999;font-size:12px">target =</span><br><span id="targetValue">9</span></div>
+        <div class="field-label">Output</div>
+        <div class="field output" id="outputValue">[0,1]</div>
+        <div class="field-label">Expected</div>
+        <div class="field" id="expectedValue">[0,1]</div>
+        <div class="contribute">♡ Contribute a testcase</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+  const cases = [
+    { nums: "[2,7,11,15]", target: "9", output: "[0,1]" },
+    { nums: "[3,2,4]", target: "6", output: "[1,2]" },
+    { nums: "[3,3]", target: "6", output: "[0,1]" }
+  ];
+  document.querySelectorAll(".case-tab").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".case-tab").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      const item = cases[Number(btn.dataset.case)];
+      document.getElementById("numsValue").textContent = item.nums;
+      document.getElementById("targetValue").textContent = item.target;
+      document.getElementById("outputValue").textContent = item.output;
+      document.getElementById("expectedValue").textContent = item.output;
+    });
+  });
+  document.getElementById("runButton").addEventListener("click", () => {
+    document.getElementById("resultTab").classList.add("active");
+    document.getElementById("testcaseTab").classList.remove("active");
+    document.querySelector(".accepted").style.display = "block";
+  });
+  document.getElementById("submitButton").addEventListener("click", () => {
+    document.querySelector(".accepted").textContent = "Accepted";
+    document.querySelector(".accepted").style.color = "#2db45b";
+  });
+  document.querySelectorAll(".tabs .tab").forEach(tab => {
+    tab.addEventListener("click", () => {
+      document.querySelectorAll(".tabs .tab").forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      if (tab.dataset.panel === "description") {
+        document.getElementById("allSolutions").style.display = "none";
+      } else if (tab.dataset.panel === "solutions") {
+        document.getElementById("allSolutions").style.display = "flex";
+      }
+    });
+  });
+  document.getElementById("allSolutions").addEventListener("click", () => {
+    document.querySelectorAll(".tabs .tab").forEach(t => t.classList.remove("active"));
+    document.querySelector('[data-panel="solutions"]').classList.add("active");
+    document.getElementById("articleScroll").scrollTop = 0;
+  });
+</script>
+</body>
+</html>
+```

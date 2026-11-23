@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minesweeper.Online</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;color:#59636b;background:#fafafa}
+body{overflow-x:auto}
+.header{height:62px;background:#f1f2f4;border-bottom:1px solid #d9dadd;box-shadow:0 1px 3px #ddd}
+.header-inner{width:1100px;height:62px;margin:auto;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;color:#5d646a;font-family:Georgia,serif;font-size:31px;font-weight:bold;white-space:nowrap}
+.brand img{width:48px;height:48px;margin-right:8px}
+.account{display:flex;align-items:center;gap:9px}
+.btn{cursor:pointer}
+.top-btn{border:1px solid #d0d4d7;background:#fff;height:40px;padding:0 15px;font-size:16px;color:#53606a}
+.signup{background:#61c56b;color:#fff;border-color:#58ae62}
+.login{background:#55bfd7;color:#fff;border-color:#4ab0c8}
+.gear-btn{font-size:21px;padding:0;width:40px}
+.lang{padding:0 12px}
+.page{width:1100px;margin:18px auto 0}
+.shell{border:1px solid #ddd;background:#fff;min-height:695px;display:flex}
+.sidebar{width:225px;flex:none;border-right:1px solid #e2e2e2;padding:18px 20px;color:#777;font-size:17px;line-height:27px}
+.side-item{white-space:nowrap}
+.side-item:before{content:"»";font-weight:bold;color:#73a6bd;margin-right:10px}
+.side-item.green:before{color:#7aa96d}
+.side-item.red:before{color:#bb858d}
+.sidebar .gap{height:11px}
+.content{padding:18px 22px;flex:1;min-width:0}
+.toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.tabs{display:flex;gap:28px;align-items:center;font-size:18px}
+.tab{color:#5485a3;text-decoration:none;padding:3px 0}
+.tab.active{font-weight:bold;color:#30383e}
+.controls{display:flex;gap:9px}
+.control{height:34px;border:1px solid #d4d6d8;background:#fff;padding:0 11px;color:#4f5960;font-size:15px}
+.custom-form{display:none;align-items:center;gap:9px;margin:12px 0 20px;font-size:17px;color:#202a30}
+.custom-form.show{display:flex}
+.custom-form label{font-weight:bold}
+.custom-form input{width:51px;height:31px;border:1px solid #c9cdd0;padding:4px 8px;font-size:16px}
+.info{font-weight:bold;color:#92999d;font-size:18px;margin-left:4px}
+.game-area{display:flex;flex-direction:column;align-items:flex-start}
+.minesweeper{display:inline-block;background:#bdbdbd;border:7px solid #858585;border-top-color:#f5f5f5;border-left-color:#f5f5f5;box-shadow:2px 2px 2px #aaa;padding:7px;max-width:100%}
+.counterbar{height:62px;background:#bdbdbd;border:4px solid #eee;border-right-color:#888;border-bottom-color:#888;display:flex;align-items:center;justify-content:space-between;padding:6px 10px;margin-bottom:9px}
+.counter{height:39px;min-width:63px;background:#160000;color:#ef0505;font-family:"Courier New",monospace;font-weight:bold;font-size:31px;line-height:39px;text-align:center;letter-spacing:-5px;padding-right:5px;text-shadow:1px 1px #ff3333}
+.face{width:42px;height:42px;border:3px solid #888;border-top-color:#fff;border-left-color:#fff;background:#ccc;padding:3px}
+.face img{width:30px;height:30px;display:block}
+.board{display:grid;gap:2px;background:#888;border:2px solid #888;padding:1px}
+.cell{width:23px;height:23px;background:#c6c6c6;border:3px solid #eee;border-right-color:#8a8a8a;border-bottom-color:#8a8a8a;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:19px;line-height:19px;color:#1735bd;user-select:none}
+.cell.open{background:#c5c5c5;border:1px solid #aaa}
+.cell.n1{color:#152fca}.cell.n2{color:#168b28}.cell.n3{color:#d32222}.cell.n4{color:#22217e}
+.cell.mine{color:#000;font-size:19px}
+.cell.flag{color:#d00}
+.board.expert .cell,.board.custom .cell{width:23px;height:23px}
+.bottom-bar{height:29px;margin-top:8px;background:#bdbdbd;border:3px solid #eee;border-right-color:#888;border-bottom-color:#888;display:flex;align-items:center}
+.play-triangle{width:23px;height:23px;border:2px solid #aaa;background:#eee;margin-left:0;position:relative}
+.play-triangle:after{content:"";position:absolute;left:7px;top:4px;border-left:9px solid #aaa;border-top:7px solid transparent;border-bottom:7px solid transparent}
+.actions{display:flex;justify-content:center;gap:8px;margin-top:16px;width:100%}
+.action{height:35px;min-width:35px;border:1px solid #bbb;background:linear-gradient(#fff,#ddd);font-size:20px;color:#3f474b}
+.footer{width:1100px;margin:10px auto;color:#b0b3b5;text-align:right;font-size:17px}
+.footer span{margin:0 12px}
+@media(max-width:1100px){
+ .header-inner,.page,.footer{margin-left:0;margin-right:0}
+}
+@media(max-width:700px){
+ .brand{font-size:24px}.header-inner{width:900px}.page{width:900px}
+ .sidebar{width:225px}.content{padding-left:22px}
+}
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="header-inner">
+    <div class="brand">
+      <img src="../../../data/data/10/assets/011.svg" width="48" height="48" alt="">
+      Minesweeper.Online
+    </div>
+    <div class="account">
+      <button class="btn top-btn signup">Sign up</button>
+      <button class="btn top-btn login">Log in</button>
+      <button class="btn top-btn gear-btn">⚙</button>
+      <button class="btn top-btn lang">🇺🇸 English⌄</button>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+<section class="shell">
+<aside class="sidebar">
+  <div class="side-item"><b>Standard mode</b></div>
+  <div class="side-item">No guessing mode</div>
+  <div class="side-item">Multiplayer</div>
+  <div class="side-item">Ranking</div>
+  <div class="side-item">My games</div>
+  <div class="gap"></div>
+  <div class="side-item green">Best players</div>
+  <div class="side-item green">Season leaders</div>
+  <div class="gap"></div>
+  <div class="side-item red">Quests (0)</div>
+  <div class="side-item red">Arena</div>
+  <div class="side-item red">Equipment</div>
+  <div class="side-item red">Marketplace</div>
+  <div class="side-item red">Events</div>
+  <div class="side-item red">Event quests (0)</div>
+  <div class="side-item red">Championship</div>
+  <div class="gap"></div>
+  <div class="side-item">Players online (891)</div>
+  <div class="side-item">News</div>
+  <div class="side-item">Statistics</div>
+  <div class="side-item">My profile</div>
+  <div class="side-item">Chat (1)</div>
+  <div class="side-item">Help</div>
+  <div class="side-item">Premium account</div>
+  <div class="side-item">Shop</div>
+  <div class="side-item">MSWCH 2025</div>
+</aside>
+
+<section class="content">
+  <div class="toolbar">
+    <nav class="tabs">
+      <a class="btn tab" data-mode="beginner">Beginner</a>
+      <a class="btn tab" data-mode="intermediate">Intermediate</a>
+      <a class="btn tab" data-mode="expert">Expert</a>
+      <a class="btn tab active" data-mode="custom">Custom</a>
+    </nav>
+    <div class="controls">
+      <button class="btn control">🔍 24⌄</button>
+      <button class="btn control" style="font-size:21px">⚙</button>
+    </div>
+  </div>
+
+  <div class="custom-form show" id="customForm">
+    <label>Width:</label><input id="widthInput" value="30">
+    <label>Height:</label><input id="heightInput" value="20">
+    <label>Mines:</label><input id="minesInput" value="100">
+    <button class="btn control" id="updateBtn">Update</button>
+    <span class="info">●</span>
+  </div>
+
+  <div class="game-area">
+    <div class="minesweeper">
+      <div class="counterbar">
+        <div class="counter" id="mineCount">100</div>
+        <button class="btn face" id="faceBtn"><img src="../../../data/data/10/assets/022.svg" width="30" height="30" alt=""></button>
+        <div class="counter" id="timeCount">000</div>
+      </div>
+      <div class="board custom" id="board"></div>
+      <div class="bottom-bar"><div class="play-triangle"></div><div style="flex:1"></div><div style="width:18px;height:18px;border:2px solid #999;background:#eee;margin-right:1px"></div></div>
+    </div>
+    <div class="actions">
+      <button class="btn action">♣</button>
+      <button class="btn action">♡</button>
+      <button class="btn action">⌁</button>
+      <button class="btn action">✎</button>
+      <button class="btn action">▣</button>
+    </div>
+  </div>
+</section>
+</section>
+</main>
+<footer class="footer">▣ Download application <span>|</span> Privacy Policy</footer>
+
+<script>
+const presets={
+ beginner:{w:9,h:9,m:10},
+ intermediate:{w:16,h:16,m:40},
+ expert:{w:30,h:16,m:99},
+ custom:{w:30,h:20,m:100}
+};
+let state={...presets.custom}, started=Date.now();
+const board=document.getElementById('board');
+const mineCount=document.getElementById('mineCount');
+const timeCount=document.getElementById('timeCount');
+const smile=document.querySelector('#faceBtn img');
+function makeBoard(){
+  board.innerHTML='';
+  board.style.gridTemplateColumns=`repeat(${state.w},23px)`;
+  board.className='board '+(state.w>=30?'expert':'');
+  mineCount.textContent=String(state.m).padStart(3,'0');
+  for(let i=0;i<state.w*state.h;i++){
+    const c=document.createElement('div');
+    c.className='cell btn';
+    c.dataset.index=i;
+    c.addEventListener('click',()=>openCell(c));
+    c.addEventListener('contextmenu',e=>{e.preventDefault();c.classList.toggle('flag');c.textContent=c.classList.contains('flag')?'⚑':''});
+    board.appendChild(c);
+  }
+}
+function openCell(c){
+  if(c.classList.contains('flag'))return;
+  const i=+c.dataset.index, x=i%state.w,y=Math.floor(i/state.w);
+  if((i*17+x*3+y*7)%29===0){
+    c.classList.add('open','mine');c.textContent='✹';
+    smile.src='../../../data/data/10/assets/021.svg';
+  }else{
+    let n=(i*13+x+y)%6;
+    c.classList.add('open');
+    if(n){c.textContent=n;c.classList.add('n'+Math.min(n,4))}
+  }
+}
+function selectMode(mode){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.mode===mode));
+  if(mode==='custom'){
+    document.getElementById('customForm').classList.add('show');
+    state={w:+widthInput.value||30,h:+heightInput.value||20,m:+minesInput.value||100};
+  }else{
+    document.getElementById('customForm').classList.remove('show');
+    state={...presets[mode]};
+  }
+  makeBoard();
+}
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>selectMode(t.dataset.mode)));
+updateBtn.addEventListener('click',()=>{
+ state={w:Math.max(5,+widthInput.value||30),h:Math.max(5,+heightInput.value||20),m:+minesInput.value||100};
+ makeBoard();
+});
+faceBtn.addEventListener('click',()=>{smile.src='../../../data/data/10/assets/022.svg';started=Date.now();makeBoard()});
+setInterval(()=>{timeCount.textContent=String(Math.floor((Date.now()-started)/1000)%1000).padStart(3,'0')},1000);
+makeBoard();
+</script>
+</body>
+</html>

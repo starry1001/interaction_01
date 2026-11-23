@@ -1,0 +1,340 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wolfram|Alpha</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:#fff;color:#383838;font-family:Arial,Helvetica,sans-serif}
+body{font-size:14px}
+button,input{font:inherit}
+button,a{cursor:pointer}
+.btn{transition:filter .12s,background-color .12s}
+.btn:hover{filter:brightness(.96)}
+.topnav{height:48px;border-bottom:1px solid #eee;display:flex;align-items:center;justify-content:flex-end;padding:0 25px;gap:24px;color:#555;font-size:12px}
+.topnav a{color:#555;text-decoration:none}
+.topnav .signin{border:1px solid #e66b4c;color:#d95f42;border-radius:3px;padding:6px 12px}
+.promo{height:181px;background:#39a867;color:#fff;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.promo-inner{width:570px;height:100%;display:flex;align-items:center;gap:52px}
+.promo-inner img{width:270px;height:130px;object-fit:contain}
+.promo-copy{font-size:22px;line-height:1.22;white-space:nowrap}
+.promo-copy button{display:block;border:0;border-radius:2px;color:white;background:#f05d39;padding:10px 22px;margin:5px auto 0;font-size:14px}
+.promo-close{position:absolute;right:7px;top:8px;background:none;border:0;color:#fff;font-size:14px}
+.page{width:800px;margin:0 auto;position:relative}
+.brand{height:144px;padding-top:63px;text-align:center}
+.brand-kicker{font-size:12px;color:#b4211b;font-style:italic;font-weight:bold;margin-bottom:6px}
+.brand-name{display:flex;align-items:center;justify-content:center;gap:7px;font-size:42px;line-height:45px;letter-spacing:-1.5px;color:#d21c1c;font-weight:500}
+.brand-name span:last-child{color:#ec701c}
+.flower-mark{font-size:39px;line-height:1;color:#d62324;text-shadow:2px 2px #ed6c48}
+.search-area{position:relative}
+.query-row{height:46px;border:4px solid #efb745;border-radius:9px;box-shadow:0 0 2px #d7a346;display:flex;align-items:center;padding:0 8px;background:white}
+.query-row input{border:0;outline:0;flex:1;height:100%;font-size:16px;color:#555;padding:0}
+.query-row input::placeholder{font-style:italic;color:#999}
+.clear-query{border:0;background:#999;color:white;border-radius:50%;width:18px;height:18px;line-height:16px;padding:0;margin-right:8px;display:none}
+.submit-query{width:18px;height:18px;border:0;border-radius:2px;color:#fff;background:#e7603d;font-size:12px;padding:0;line-height:18px}
+.toolrow{height:48px;display:flex;align-items:flex-start;padding-top:7px;font-size:11px;color:#e46143}
+.tool-left,.tool-right{display:flex;align-items:center;gap:5px}
+.tool-left{flex:1}
+.tool-right{gap:13px}
+.toolrow button{background:#fff;border:1px solid #e8d8d3;border-radius:4px;color:#d96a50;padding:5px 8px;font-size:11px;white-space:nowrap}
+.toolrow button.purple{color:#776997}
+.content-layout{position:relative}
+.main-column{width:780px}
+.sidebar{position:absolute;left:800px;top:0;width:205px}
+.ad-image{width:205px;display:block;height:auto;margin-bottom:18px;border-radius:8px}
+.card{background:#fff;border-radius:9px;box-shadow:0 1px 11px rgba(0,0,0,.13);overflow:hidden;margin-bottom:18px}
+.notice{min-height:101px;padding:27px 28px;display:flex;align-items:center;color:#707070;font-size:13px;line-height:1.55}
+.notice-icon{background:#ee6949;color:white;font-weight:bold;padding:4px 6px;margin-right:8px;font-size:15px}
+.interpreting{border:1px solid #f0d37b;background:#fffdfa;padding:20px;margin-bottom:18px;color:#555;font-size:14px}
+.pod-title{height:36px;background:#f3f3f3;color:#78909a;padding:10px 20px;font-size:13px}
+.pod-body{padding:12px 20px;background:#fff}
+.input-expression{font-family:Georgia,"Times New Roman",serif;font-size:18px;line-height:1.5;padding:8px 0}
+.fraction{display:inline-flex;vertical-align:middle;flex-direction:column;text-align:center;line-height:1.05;margin:0 4px}
+.fraction .numerator{border-bottom:1px solid #333;padding:0 5px 3px}
+.fraction .denominator{padding:3px 5px 0}
+.pod-actions{float:right;margin-top:-29px;margin-right:18px;position:relative;z-index:1}
+.pod-actions button,.step-button{border:1px solid #df795f;color:#dc674b;background:white;border-radius:3px;padding:3px 9px;font-size:12px}
+.plot-pod{height:215px;position:relative;padding:8px 20px;background:#fff;border-bottom:1px solid #eee}
+.plot-pod img{height:195px;width:410px;object-fit:contain;object-position:left center}
+.alt-form{padding:11px 20px;border-bottom:1px solid #eee;font-family:Georgia,"Times New Roman",serif;font-size:17px;min-height:64px}
+.pod-footer{height:43px;background:#f3f3f3;padding:13px 12px;color:#777;font-size:12px}
+.pod-footer .powered{float:right}
+.related{padding:17px 20px;color:#666;font-size:13px}
+.related-title{color:#78909a;margin-bottom:10px}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 25px}
+.related a{color:#666;text-decoration:none}
+.related a:before{content:"≡";color:#df694d;font-weight:bold;margin-right:8px}
+.support{height:78px;display:flex;align-items:center;justify-content:center;gap:22px;color:#777;font-size:13px}
+.support-item{display:flex;align-items:center;gap:10px}
+.support-icon{font-size:34px;color:#e86b4b}
+.support a{color:#d9674b;text-decoration:none}
+.support-divider{height:38px;border-left:1px solid #ddd}
+.footer{text-align:center;padding:30px 0 38px;color:#777;font-size:12px;line-height:2.4}
+.footer a{color:#777;text-decoration:none}
+.footer-brand{font-size:16px;font-weight:bold;color:#777;margin-top:18px}
+.footer-brand b{color:#d52b2b;font-size:22px;vertical-align:middle}
+.assumptions{border:1px solid #c5d8df;border-radius:8px;box-shadow:0 1px 8px #ddd;background:#f9fcfd;padding:18px 25px;color:#666;font-size:14px;line-height:1.9;margin-bottom:18px}
+.assumptions a{color:#77a7bf;text-decoration:none}
+.input-table{display:flex;align-items:stretch;margin:4px 0 0;font-family:Georgia,"Times New Roman",serif;font-size:16px}
+.input-cell{border:1px solid #d1d1d1;padding:10px 14px;background:#fff}
+.input-cell.label{background:#f4f4f4}
+.result-line{padding:14px 20px;font-size:15px}
+.section-row{height:36px;background:#f3f3f3;color:#78909a;padding:10px 20px;font-size:13px}
+.conversion{border-bottom:1px solid #ddd;padding:11px 20px;font-size:14px}
+.conversion small,.muted{color:#999}
+.table-wrap{padding:10px 20px 16px}
+.properties{border-collapse:collapse;font-size:14px;width:475px}
+.properties td{border:1px solid #d2d2d2;padding:9px 12px;vertical-align:top}
+.properties td:first-child{width:125px;color:#777}
+.properties td:nth-child(2){width:160px}
+.properties tr:nth-child(even) td:not(:first-child){background:#f3f3f3}
+.nutrition{width:280px;border:1px solid #aaa;font-size:11px;margin:14px 0 0}
+.nutrition div{display:flex;justify-content:space-between;padding:5px 7px;border-bottom:1px solid #bbb}
+.nutrition div:first-child{font-weight:bold;border-bottom:4px solid #aaa}
+.nutrition div:last-child{border:0}
+.assumption-input{padding:12px 20px}
+.result-footer{height:44px;background:#f3f3f3;padding:14px;color:#777;font-size:12px}
+.result-footer .powered{float:right}
+.partial-input{display:flex;align-items:center;font-family:Georgia,"Times New Roman",serif;font-size:17px;padding:8px 0}
+.partial-input .input-cell{padding:14px}
+.partial-result{font-family:Georgia,"Times New Roman",serif;font-size:19px;padding:15px 20px}
+[hidden]{display:none!important}
+@media(max-width:1150px){
+ .page{margin-left:auto;margin-right:auto}
+ .sidebar{display:none}
+}
+@media(max-width:820px){
+ .page{width:calc(100% - 24px)}
+ .main-column{width:100%}
+ .brand{padding-top:42px}
+ .promo-inner{width:100%;justify-content:center;gap:18px}
+ .promo-inner img{width:180px}
+ .promo-copy{font-size:17px}
+ .tool-right{gap:4px}
+ .toolrow{font-size:10px}
+ .toolrow button{font-size:9px;padding:5px}
+}
+</style>
+</head>
+<body>
+<header>
+  <nav class="topnav">
+    <a href="#" class="btn">UPGRADE TO PRO⌄</a>
+    <a href="#" class="btn">APPS⌄</a>
+    <a href="#" class="btn">TOUR</a>
+    <a href="#" class="signin btn">Sign in</a>
+    <a href="#" class="btn">♨⌄</a>
+  </nav>
+  <div class="promo" id="promo">
+    <div class="promo-inner">
+      <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/002.gif" width="270" height="130" alt="">
+      <div class="promo-copy">Use Wolfram|Alpha Pro<br>for reality-checked results
+        <button class="btn">Go Pro Now</button>
+      </div>
+    </div>
+    <button class="promo-close btn" aria-label="Close promotion" onclick="document.getElementById('promo').style.display='none'">×</button>
+  </div>
+</header>
+
+<div class="page">
+  <div class="brand">
+    <div class="brand-kicker">FROM THE MAKERS OF WOLFRAM LANGUAGE AND MATHEMATICA</div>
+    <div class="brand-name"><span class="flower-mark">✹</span><span>Wolfram</span><span>Alpha</span></div>
+  </div>
+
+  <section class="search-area">
+    <form id="queryForm">
+      <div class="query-row">
+        <input id="query" autocomplete="off" placeholder="Enter what you want to calculate or know about" aria-label="Query">
+        <button type="button" id="clearQuery" class="clear-query btn" aria-label="Clear query">×</button>
+        <button class="submit-query btn" type="submit" aria-label="Submit query">▣</button>
+      </div>
+    </form>
+    <div class="toolrow">
+      <div class="tool-left">
+        <button class="btn">✹ NATURAL LANGUAGE</button>
+        <button class="btn purple">∫ MATH INPUT</button>
+      </div>
+      <div class="tool-right">
+        <button class="btn">▦ EXTENDED KEYBOARD</button>
+        <button class="btn">▦ EXAMPLES</button>
+        <button class="btn">⬆ UPLOAD</button>
+        <button class="btn">⚒ RANDOM</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="content-layout">
+    <main class="main-column" id="results">
+      <div id="initialResult">
+        <div class="card notice">
+          <span class="notice-icon">✹</span>
+          <span>Wolfram|Alpha does not yet support Chinese.<br>Wolfram|Alpha 不支持中文。</span>
+        </div>
+        <div class="card interpreting">Interpreting as: <b>1/(x^2 + 4x + 3)</b></div>
+        <div class="card">
+          <div class="pod-title">Input</div>
+          <div class="pod-body input-expression"><span class="fraction"><span class="numerator">1</span><span class="denominator">x² + 4x + 3</span></span></div>
+          <div class="pod-title">Plot</div>
+          <div class="plot-pod"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/014.png" width="410" height="195" alt="Plot of the expression"></div>
+          <div class="plot-pod"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/015.png" width="410" height="195" alt="Plot of the expression"></div>
+          <div class="pod-title">Alternate form <button class="step-button btn" style="float:right;margin-top:-3px">☑ Step-by-step solution</button></div>
+          <div class="alt-form"><span class="fraction"><span class="numerator">1</span><span class="denominator">(x + 3) (x + 1)</span></span></div>
+          <div class="pod-footer">⬇ Download Page <span class="powered">POWERED BY THE <b>WOLFRAM LANGUAGE</b></span></div>
+        </div>
+      </div>
+
+      <div id="partialResult" hidden>
+        <div class="card">
+          <div class="pod-title">Input</div>
+          <div class="pod-body">
+            <div class="partial-input">
+              <span class="input-cell label">partial fractions</span>
+              <span class="input-cell"><span class="fraction"><span class="numerator">1</span><span class="denominator">x² + 4x + 3</span></span></span>
+            </div>
+          </div>
+          <div class="pod-title">Result <button class="step-button btn" style="float:right;margin-top:-3px">☑ Step-by-step solution</button></div>
+          <div class="partial-result">
+            <span class="fraction"><span class="numerator">1</span><span class="denominator">x² + 4x + 3</span></span>
+            =
+            <span class="fraction"><span class="numerator">1</span><span class="denominator">2 (x + 1)</span></span>
+            +
+            <span class="fraction"><span class="numerator">1</span><span class="denominator">2 (x + 3)</span></span>
+          </div>
+          <div class="pod-title">Plot</div>
+          <div class="plot-pod"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/014.png" width="410" height="195" alt="Plot of the expression"></div>
+          <div class="plot-pod"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/015.png" width="410" height="195" alt="Plot of the expression"></div>
+          <div class="pod-title">Alternate form</div>
+          <div class="alt-form"><span class="fraction"><span class="numerator">1</span><span class="denominator">x² + 4x + 3</span></span></div>
+          <div class="alt-form"><span class="fraction"><span class="numerator">1</span><span class="denominator">(x + 1) (x + 3)</span></span></div>
+          <div class="pod-footer">⬇ Download Page <span class="powered">POWERED BY THE <b>WOLFRAM LANGUAGE</b></span></div>
+        </div>
+      </div>
+
+      <div id="caffeineResult" hidden>
+        <div class="assumptions">
+          Assuming coffee | Use <a href="#" class="btn">Starbucks coffee of the week</a> instead<br>
+          Assuming any type of coffee | Use <a href="#" class="btn">coffee, brewed, espresso</a> or <button class="btn">more⌄</button> instead<br>
+          Assuming any type of carbonated beverage | Use <a href="#" class="btn">carbonated beverage, cream</a> or <button class="btn">more⌄</button> instead
+        </div>
+        <div class="card">
+          <div class="pod-title">Input interpretation</div>
+          <div class="assumption-input">
+            <div class="input-table">
+              <span class="input-cell">coffee</span><span class="input-cell muted">amount</span><span class="input-cell">24 oz <small>(ounces)</small></span><span class="input-cell">caffeine</span><span style="padding:8px">+</span>
+            </div>
+            <div class="input-table">
+              <span class="input-cell">carbonated beverage</span><span class="input-cell muted">amount</span><span class="input-cell">24 oz <small>(ounces)</small></span><span class="input-cell">caffeine</span>
+            </div>
+          </div>
+          <div class="section-row">Result <button class="btn" style="float:right;margin-top:-5px;border:1px solid #c8d4d8;background:white;color:#6e929e;padding:4px 10px">Show details</button></div>
+          <div class="result-line">481 mg <span class="muted">(milligrams)</span></div>
+          <div class="section-row">Unit conversion <button class="step-button btn" style="float:right;margin-top:-4px">☑ Step-by-step solution</button></div>
+          <div class="conversion">0.4815 grams</div>
+          <div class="conversion">4.815 × 10<sup>−4</sup> kg <span class="muted">(kilograms)</span></div>
+          <div class="conversion">7.431 grains</div>
+          <div class="section-row">Physical properties</div>
+          <div class="table-wrap">
+            <table class="properties">
+              <tr><td rowspan="3">mass</td><td>coffee</td><td>680 grams</td></tr>
+              <tr><td>carbonated beverage</td><td>680 grams</td></tr>
+              <tr><td>total</td><td>1.4 kg <span class="muted">(kilograms)</span></td></tr>
+              <tr><td rowspan="3">serving volume</td><td>coffee</td><td>671 mL <span class="muted">(milliliters)</span></td></tr>
+              <tr><td>carbonated beverage</td><td>649 mL <span class="muted">(milliliters)</span></td></tr>
+              <tr><td>total</td><td>1320 mL <span class="muted">(milliliters)</span></td></tr>
+              <tr><td rowspan="2">serving density</td><td>coffee</td><td>1 g/cm³ <span class="muted">(gram per cubic centimeter)</span></td></tr>
+              <tr><td>carbonated beverage</td><td>1.1 g/cm³ <span class="muted">(grams per cubic centimeter)</span></td></tr>
+            </table>
+            <div class="nutrition">
+              <div><span>serving size (total: 1850 g)</span><span></span></div>
+              <div><span>total calories 1388</span><span></span></div>
+              <div><span>total fat 703 mg</span><span>1%</span></div>
+              <div><span>saturated fat 346 mg</span><span>2%</span></div>
+              <div><span>trans fat 0 g</span><span></span></div>
+              <div><span>cholesterol 0 g</span><span>0%</span></div>
+              <div><span>sodium 144 mg</span><span>6%</span></div>
+              <div><span>total carbohydrates 47 g</span><span>16%</span></div>
+              <div><span>dietary fiber 0 g</span><span>0%</span></div>
+              <div><span>sugar 43 g</span><span></span></div>
+              <div><span>protein 1 g</span><span>2%</span></div>
+              <div><span>vitamin C 1%　 calcium 4%</span><span></span></div>
+            </div>
+          </div>
+          <div class="result-footer">♧ Sources　 ⬇ Download Page <span class="powered">POWERED BY THE <b>WOLFRAM LANGUAGE</b></span></div>
+        </div>
+        <div class="card related">
+          <div class="related-title">Related Queries:</div>
+          <div class="related-grid">
+            <a class="btn" href="#">how much blood sugar is normal</a><a class="btn" href="#">vitamin D deficiency</a>
+            <a class="btn" href="#">fruit mix optimal storage temperature</a><a class="btn" href="#">sort food by dietary fiber</a>
+            <a class="btn" href="#">V8 vegetable juice</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="support">
+        <div class="support-item"><span class="support-icon">✉</span><span>Have a question about using Wolfram|Alpha?<br><a href="#" class="btn">Contact Pro Premium Expert Support »</a></span></div>
+        <span class="support-divider"></span>
+        <div class="support-item"><span class="support-icon">▢</span><a href="#" class="btn">Give us your feedback »</a></div>
+      </div>
+      <footer class="footer">
+        <div>Pro　|　Mobile Apps　|　Products　|　Business　|　API &amp; Developer Solutions　|　LLM Solutions</div>
+        <div>Resources &amp; Tools　|　About　|　Contact　|　Connect　▣ ▣ ▣ ▣</div>
+        <div>©2025 Wolfram　|　Terms　|　Privacy</div>
+        <div class="footer-brand"><b>✹</b> WOLFRAM　 <a href="#" class="btn">wolfram.com</a>　|　Wolfram Language　|　Mathematica　|　Wolfram Demonstrations　|　Wolfram for Education　|　MathWorld</div>
+      </footer>
+    </main>
+
+    <aside class="sidebar">
+      <img class="ad-image" src="__PLACEHOLDER_ASSETS_BASE_DIR__/009.png" width="205" height="405" alt="Discover what's possible with Wolfram|Alpha">
+      <img class="ad-image" src="__PLACEHOLDER_ASSETS_BASE_DIR__/012.png" width="205" height="500" alt="High school physics">
+      <img class="ad-image" src="__PLACEHOLDER_ASSETS_BASE_DIR__/018.png" width="205" height="210" alt="Wolfram|Alpha Pro step-by-step math answers">
+      <img class="ad-image" src="__PLACEHOLDER_ASSETS_BASE_DIR__/019.png" width="205" height="405" alt="Powering innovation in optimization">
+    </aside>
+  </div>
+</div>
+
+<script>
+const form=document.getElementById('queryForm');
+const query=document.getElementById('query');
+const clearButton=document.getElementById('clearQuery');
+const initialResult=document.getElementById('initialResult');
+const partialResult=document.getElementById('partialResult');
+const caffeineResult=document.getElementById('caffeineResult');
+
+function showResult(type){
+  initialResult.hidden=type!=='initial';
+  partialResult.hidden=type!=='partial';
+  caffeineResult.hidden=type!=='caffeine';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+form.addEventListener('submit',function(e){
+  e.preventDefault();
+  const value=query.value.toLowerCase();
+  if(value.includes('caffeine')||value.includes('coffee')||value.includes('soda')){
+    showResult('caffeine');
+  }else if(value.trim()){
+    showResult('partial');
+  }
+});
+query.addEventListener('input',function(){
+  clearButton.style.display=query.value?'block':'none';
+});
+clearButton.addEventListener('click',function(){
+  query.value='';
+  clearButton.style.display='none';
+  query.focus();
+});
+document.querySelectorAll('.related a').forEach(function(link){
+  link.addEventListener('click',function(e){
+    e.preventDefault();
+    query.value=this.textContent;
+    showResult('caffeine');
+  });
+});
+</script>
+</body>
+</html>
+```

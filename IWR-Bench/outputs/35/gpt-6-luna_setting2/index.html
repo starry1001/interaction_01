@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hulu + Live TV</title>
+<style>
+  * { box-sizing: border-box; }
+  html { background: #08090b; scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: #08090b;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+  }
+  button, select { font: inherit; }
+  .btn { cursor: pointer; }
+  .green { color: #1ce783; }
+  .eyebrow {
+    margin: 0 0 14px;
+    color: #1ce783;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .7px;
+    text-transform: uppercase;
+  }
+  h1, h2, h3, p { margin-top: 0; }
+  h1 { font-size: 48px; line-height: 1.12; margin-bottom: 10px; }
+  h2 { font-size: 36px; line-height: 1.15; margin-bottom: 14px; }
+  h3 { font-size: 19px; }
+  .hero {
+    height: 640px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    text-align: center;
+    background: #050708;
+  }
+  .hero-art {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 40%;
+    opacity: .54;
+  }
+  .hero:after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,.28) 0%, rgba(0,0,0,.38) 40%, #08090b 100%);
+  }
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    padding: 32px 24px 0;
+  }
+  .hero .eyebrow { margin-bottom: 17px; }
+  .hero .subhead { margin: 0 0 10px; font-size: 22px; font-weight: 700; }
+  .hero .fine { color: #d0d0d0; font-size: 14px; margin: 0 auto 19px; }
+  .hero-options {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 18px auto 20px;
+    max-width: 820px;
+  }
+  .hero-option { width: 370px; }
+  .brand-row {
+    min-height: 31px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 700;
+    font-size: 19px;
+  }
+  .brand-row .hulu { color: #1ce783; font-size: 25px; }
+  .hero-option p { margin: 10px 0 13px; font-size: 15px; line-height: 1.35; }
+  .pill-btn {
+    border: 0;
+    border-radius: 2px;
+    background: #1ce783;
+    color: #03140b;
+    min-height: 44px;
+    padding: 0 36px;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: .45px;
+    text-transform: uppercase;
+  }
+  .pill-btn:hover { background: #6affb1; }
+  .legal { color: #aaa; font-size: 10px; margin: 9px auto 0; }
+  .text-link {
+    display: inline-block;
+    border: 0;
+    padding: 0;
+    color: #fff;
+    background: transparent;
+    text-decoration: underline;
+    font-size: 13px;
+  }
+  .bundle-banner {
+    height: 170px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 34px;
+    padding: 20px;
+    background: linear-gradient(100deg, #09242d, #123c44 48%, #0d3e41);
+    text-align: left;
+  }
+  .bundle-logos { min-width: 190px; display: flex; align-items: center; justify-content: center; gap: 17px; }
+  .bundle-logos img { width: 175px; height: 42px; object-fit: contain; }
+  .bundle-copy { width: 580px; }
+  .bundle-copy .eyebrow { margin-bottom: 8px; font-size: 12px; }
+  .bundle-copy p { margin: 0; font-size: 18px; line-height: 1.35; }
+  .bundle-banner .pill-btn { min-height: 40px; padding: 0 30px; }
+  .section { text-align: center; }
+  .all-tv {
+    min-height: 610px;
+    padding: 122px 24px 70px;
+    background: #08090b;
+  }
+  .section-lead { color: #c4c4c4; font-size: 16px; line-height: 1.45; }
+  .poster-grid {
+    display: flex;
+    justify-content: center;
+    gap: 22px;
+    margin: 65px auto 0;
+  }
+  .poster-card {
+    width: 290px;
+    text-align: left;
+    position: relative;
+  }
+  .poster-card img {
+    display: block;
+    width: 290px;
+    height: 390px;
+    object-fit: cover;
+    border-radius: 3px;
+  }
+  .poster-card .poster-title {
+    position: absolute;
+    top: 23px;
+    left: 20px;
+    right: 15px;
+    color: #fff;
+    font-size: 19px;
+    font-weight: 700;
+    text-shadow: 0 2px 5px #000;
+  }
+  .poster-card .poster-kicker { display: block; font-size: 12px; margin-bottom: 4px; }
+  .poster-note { margin: 14px auto 0; color: #aaa; font-size: 11px; }
+  .live-channels {
+    min-height: 485px;
+    padding: 88px 24px 60px;
+    background: #08090b;
+  }
+  .live-channels h2 { margin-bottom: 15px; }
+  .channel-copy { width: 700px; max-width: 90%; margin: 0 auto; color: #d3d3d3; font-size: 16px; line-height: 1.5; }
+  .live-channels .pill-btn { margin-top: 22px; }
+  .channels-link { display: block; margin-top: 18px; color: #fff; font-size: 13px; }
+  .sports {
+    position: relative;
+    height: 700px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    background: #064d32;
+    text-align: left;
+  }
+  .sports-art {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  .sports:after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(0,35,22,.9), rgba(0,48,31,.72) 42%, rgba(0,0,0,.2));
+  }
+  .sports-copy {
+    position: relative;
+    z-index: 1;
+    width: 710px;
+    margin-left: max(calc((100% - 1660px) / 2), 8%);
+    padding: 35px 0;
+  }
+  .sports-tabs { color: #fff; display: flex; gap: 35px; font-size: 12px; font-weight: 700; margin-bottom: 42px; }
+  .sports h2 { font-size: 42px; margin-bottom: 16px; }
+  .sports-copy p { color: #ebf4ef; font-size: 17px; line-height: 1.5; max-width: 610px; }
+  .sports-logos { display: flex; gap: 14px; align-items: center; margin-top: 22px; }
+  .sports-logos span {
+    height: 43px; width: 43px; display: grid; place-items: center;
+    border-radius: 50%; background: white; color: #16365b; font-size: 10px; font-weight: 800;
+  }
+  .sports-screen {
+    position: absolute;
+    z-index: 1;
+    left: 64%;
+    top: 33%;
+    width: 790px;
+    min-height: 420px;
+    border: 1px solid rgba(255,255,255,.4);
+    background: #101f47;
+    box-shadow: 0 12px 45px rgba(0,0,0,.45);
+    padding: 65px 58px;
+  }
+  .sports-screen small { color: #a6b8db; letter-spacing: 2px; }
+  .sports-screen h3 { font-size: 40px; line-height: 1.1; font-weight: 400; margin: 16px 0; }
+  .sports-screen p { color: #d0d8e7; font-size: 16px; }
+  .sports-screen button {
+    border: 1px solid #dce4f3; background: #fff; padding: 11px 24px; margin: 16px 8px 0 0;
+    color: #18213c; font-size: 13px; font-weight: 700;
+  }
+  .plans {
+    padding: 88px 24px 74px;
+    background: #08090b;
+    text-align: center;
+  }
+  .plans h2 { font-size: 38px; margin-bottom: 12px; }
+  .plans .intro { font-size: 15px; color: #d5d5d5; line-height: 1.45; margin-bottom: 22px; }
+  .plan-select {
+    border: 0; border-radius: 20px; background: #fff; color: #111; padding: 9px 38px 9px 18px;
+    min-width: 205px; font-size: 13px; margin-bottom: 36px;
+  }
+  .plan-cards {
+    width: 650px; max-width: 100%; margin: 0 auto 34px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  }
+  .plan-card { border: 1px solid #242528; padding: 20px 18px 16px; min-height: 180px; }
+  .plan-card .mini-logos { height: 32px; display: flex; gap: 12px; align-items: center; justify-content: center; }
+  .mini-logos .disney { font-family: Georgia, serif; font-style: italic; font-size: 18px; }
+  .mini-logos .hulu { font-weight: 800; color: #1ce783; font-size: 19px; }
+  .plan-card .plan-name { color: #eee; font-size: 13px; margin: 9px 0 13px; }
+  .plan-card .price {
+    display: block; background: #fff; color: #101010; border: 0;
+    width: 100%; padding: 12px 8px; font-size: 13px; font-weight: 800; border-radius: 2px;
+  }
+  .plan-card small { display: block; color: #aaa; font-size: 10px; margin-top: 8px; }
+  .compare { width: 1000px; max-width: 100%; margin: 0 auto; text-align: left; }
+  .compare-head {
+    display: grid; grid-template-columns: 1fr 210px 210px; align-items: center;
+    border-bottom: 1px solid #444; min-height: 55px; text-align: center;
+  }
+  .compare-head .heading { color: #c7c7c7; font-size: 14px; }
+  .compare-head .mini-logos { margin-bottom: 3px; }
+  .compare-head .plan-name { color: #bbb; font-size: 11px; }
+  .compare-row {
+    min-height: 56px; display: grid; grid-template-columns: 1fr 210px 210px;
+    align-items: center; border-bottom: 1px solid #343538; color: #ddd; font-size: 14px;
+  }
+  .compare-row .feature { padding: 12px 0; }
+  .compare-row .feature small { color: #aaa; font-size: 10px; margin-left: 4px; }
+  .compare-row .value { text-align: center; color: #1ce783; font-size: 20px; font-weight: 700; }
+  .compare-row .dash { color: #aaa; }
+  .show-more {
+    display: block; width: 100%; text-align: center; background: transparent; border: 0;
+    color: #fff; border-bottom: 1px solid #343538; padding: 22px; font-size: 13px;
+  }
+  .extra-row { display: none; }
+  .extra-row.visible { display: grid; }
+  footer {
+    background: #e8e9ee;
+    color: #52545b;
+    min-height: 440px;
+    padding: 56px max(calc((100% - 1800px) / 2), 7%) 35px;
+    font-size: 12px;
+  }
+  .footer-links {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 32px;
+    padding-bottom: 42px;
+    border-bottom: 1px solid #cdd0d8;
+  }
+  .footer-links h4 { font-size: 12px; color: #44464c; margin: 0 0 13px; text-transform: uppercase; }
+  .footer-links a { display: block; color: #62646c; text-decoration: none; margin: 9px 0; }
+  .social { display: flex; gap: 23px; padding: 33px 0; border-bottom: 1px solid #cdd0d8; font-size: 17px; }
+  .footer-bottom { padding-top: 28px; color: #777982; }
+  .footer-bottom p { margin: 10px 0; }
+  @media (max-width: 850px) {
+    h1 { font-size: 36px; }
+    h2 { font-size: 30px; }
+    .hero { height: auto; min-height: 690px; }
+    .hero-options { display: block; }
+    .hero-option { width: 100%; margin: 20px auto; }
+    .bundle-banner { height: auto; min-height: 170px; flex-wrap: wrap; text-align: center; }
+    .bundle-copy { width: 100%; }
+    .poster-grid { flex-wrap: wrap; }
+    .poster-card, .poster-card img { width: 220px; }
+    .poster-card img { height: 300px; }
+    .sports-copy { margin: 0 8%; width: 80%; }
+    .sports-screen { display: none; }
+    .compare-head, .compare-row { grid-template-columns: 1fr 105px 105px; }
+    .footer-links { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <img class="hero-art" src="../../../data/data/35/assets/027.jpg" width="2560" height="960" alt="">
+      <div class="hero-content">
+        <p class="eyebrow">Hulu + Live TV</p>
+        <h1>Entertainment for every day</h1>
+        <p class="subhead">Bundle plans starting at $10.99/month.</p>
+        <p class="fine">Watch live TV, hit movies, award-winning Hulu Originals, and more.</p>
+        <div class="hero-options">
+          <div class="hero-option">
+            <div class="brand-row"><span>Disney+</span><span class="hulu">hulu</span></div>
+            <p>Both with ads, for<br><strong>$10.99/month for 12 months.</strong></p>
+            <button class="btn pill-btn">Get the bundle</button>
+            <p class="legal">Terms apply. Save with this special offer.</p>
+          </div>
+          <div class="hero-option">
+            <div class="brand-row"><span>Disney+</span><span class="hulu">hulu</span><span>ESPN+</span></div>
+            <p>All three with ads, for<br><strong>$16.99/month for 12 months.</strong></p>
+            <button class="btn pill-btn">Learn more</button>
+            <p class="legal">Terms apply. Save with this special offer.</p>
+          </div>
+        </div>
+        <button class="btn text-link">View all plans</button>
+      </div>
+    </section>
+
+    <section class="bundle-banner">
+      <div class="bundle-logos">
+        <img src="../../../data/data/35/assets/041.png" width="175" height="42" alt="Disney+, Hulu and HBO Max">
+      </div>
+      <div class="bundle-copy">
+        <p class="eyebrow">Disney+, Hulu and HBO Max</p>
+        <p>Save 42% per month with a Disney+, Hulu, HBO Max Bundle. Plans start at <strong>$16.99/mo.</strong></p>
+        <p class="legal">Terms apply. Bundle and save on all your favorite entertainment.</p>
+      </div>
+      <button class="btn pill-btn">Learn more</button>
+    </section>
+
+    <section class="section all-tv">
+      <p class="eyebrow">Included in all plans</p>
+      <h2>All The TV You Love</h2>
+      <p class="section-lead">Watch full seasons of exclusive streaming series, current-season episodes, hit movies, Hulu<br>Originals, kids shows, and more.</p>
+      <div class="poster-grid">
+        <div class="poster-card">
+          <img src="../../../data/data/35/assets/043.jpg" width="290" height="390" alt="Family Guy">
+          <div class="poster-title"><span class="poster-kicker">Past &amp; Current Seasons</span>TV Shows</div>
+        </div>
+        <div class="poster-card">
+          <img src="../../../data/data/35/assets/044.jpg" width="290" height="390" alt="Planet of the Apes">
+          <div class="poster-title"><span class="poster-kicker">New &amp; Classic</span>Movies</div>
+        </div>
+        <div class="poster-card">
+          <img src="../../../data/data/35/assets/045.jpg" width="290" height="390" alt="Shogun">
+          <div class="poster-title"><span class="poster-kicker">Groundbreaking</span>Hulu Originals</div>
+        </div>
+        <div class="poster-card">
+          <img src="../../../data/data/35/assets/046.jpg" width="290" height="390" alt="House of the Dragon">
+          <div class="poster-title"><span class="poster-kicker">Add-on</span>Premiums</div>
+        </div>
+      </div>
+      <p class="poster-note">Premium networks available as add-ons. Additional terms apply.</p>
+    </section>
+
+    <section class="section live-channels">
+      <p class="eyebrow">Try Hulu with Live TV + Live TV free for 3 days</p>
+      <h2>Watch Live TV From 95 Channels</h2>
+      <p class="channel-copy">Get top national and local channels on Hulu (With Ads) + Live TV with your favorite live sports, news, and events — plus the entire Hulu streaming library. With Unlimited DVR, store Live TV recordings for up to nine months and fast forward through your DVR content. Includes access to endless entertainment with Disney+ and live sports with ESPN+.</p>
+      <button class="btn pill-btn">Start your free trial</button>
+      <p class="legal">No hidden fees, equipment rentals, or installation appointments. Switch plans or cancel anytime.</p>
+      <button class="btn text-link channels-link">View channels in your area ↗</button>
+    </section>
+
+    <section class="sports">
+      <img class="sports-art" src="../../../data/data/35/assets/036.jpg" width="2560" height="920" alt="">
+      <div class="sports-copy">
+        <div class="sports-tabs"><span>LIVE SPORTS</span><span>BREAKING NEWS</span><span>LIVE EVENTS</span></div>
+        <h2>Live Sports</h2>
+        <p>Catch your games at home or on the go. Stream live games from major college and pro leagues including the NCAA, NBA, NFL, NHL, and more.</p>
+        <div class="sports-logos"><span>ESPN</span><span>FOX</span><span>ABC</span><span>NFL</span><span>MLB</span></div>
+      </div>
+      <div class="sports-screen">
+        <small>START WATCHING</small>
+        <h3>Los Angeles Rams at<br>New York Jets</h3>
+        <p>Football action from around the National Football League.</p>
+        <p>◉ &nbsp; Football League &nbsp;&nbsp; ◉ &nbsp; National Football League</p>
+        <button class="btn">▶ &nbsp; PLAY</button>
+        <button class="btn">→ &nbsp; DETAILS</button>
+      </div>
+    </section>
+
+    <section class="plans" id="plans">
+      <p class="eyebrow">Try Hulu with Live TV + Live TV free for 3 days</p>
+      <h2>Select Your Plan</h2>
+      <p class="intro">No hidden fees, equipment rentals, or installation appointments.<br><strong>Switch plans or cancel anytime.</strong></p>
+      <select class="btn plan-select" aria-label="Choose plan">
+        <option>Disney+ Hulu Bundle</option>
+        <option>Disney+, Hulu, ESPN+ Bundle</option>
+        <option>Hulu + Live TV</option>
+      </select>
+      <div class="plan-cards">
+        <div class="plan-card">
+          <div class="mini-logos"><span class="disney">Disney+</span><span class="hulu">hulu</span></div>
+          <p class="plan-name">Disney+ Hulu Bundle</p>
+          <button class="btn price">$10.99 / MONTH</button>
+          <small>START NOW</small>
+        </div>
+        <div class="plan-card">
+          <div class="mini-logos"><span class="disney">Disney+</span><span class="hulu">hulu</span></div>
+          <p class="plan-name">Disney+, Hulu Bundle Premium</p>
+          <button class="btn price">$19.99 / MONTH</button>
+          <small>START NOW</small>
+        </div>
+      </div>
+
+      <div class="compare">
+        <div class="compare-head">
+          <div class="heading">Monthly price</div>
+          <div><div class="mini-logos"><span class="disney">Disney+</span><span class="hulu">hulu</span></div><div class="plan-name">Disney+ Hulu Bundle</div></div>
+          <div><div class="mini-logos"><span class="disney">Disney+</span><span class="hulu">hulu</span></div><div class="plan-name">Disney+, Hulu Bundle Premium</div></div>
+        </div>
+        <div class="compare-row"><div class="feature">Monthly price</div><div class="value">$10.99/mo</div><div class="value">$19.99/mo</div></div>
+        <div class="compare-row"><div class="feature">Subscriptions included in each plan</div><div class="value">Disney+ and Hulu</div><div class="value">Disney+ and Hulu</div></div>
+        <div class="compare-row"><div class="feature">Hulu streaming library with tens of thousands of episodes and movies <small>ⓘ</small></div><div class="value">✓</div><div class="value">✓</div></div>
+        <div class="compare-row"><div class="feature">Endless entertainment with Disney+ <small>ⓘ</small></div><div class="value">✓</div><div class="value">✓</div></div>
+        <div class="compare-row"><div class="feature">Most new episodes on Hulu the day after they air <small>ⓘ</small></div><div class="value">✓</div><div class="value">✓</div></div>
+        <div class="compare-row"><div class="feature">Access to award-winning Hulu Originals</div><div class="value">✓</div><div class="value">✓</div></div>
+        <div class="compare-row"><div class="feature">Stream all your favorite shows, movies, and more <small>ⓘ</small></div><div class="value">✓</div><div class="value">✓</div></div>
+        <div class="compare-row"><div class="feature">No ads in Hulu streaming library <small>ⓘ</small></div><div class="value dash">—</div><div class="value">✓</div></div>
+        <div class="compare-row"><div class="feature">No ads on Disney+ <small>ⓘ</small></div><div class="value dash">—</div><div class="value">Ads will be served in select live and linear content</div></div>
+        <div class="compare-row"><div class="feature">Download and watch on Hulu <small>ⓘ</small></div><div class="value dash">—</div><div class="value">✓</div></div>
+        <div class="compare-row extra-row"><div class="feature">Download and watch on Disney+ <small>ⓘ</small></div><div class="value dash">—</div><div class="value">✓</div></div>
+        <div class="compare-row extra-row"><div class="feature">Stream on multiple devices at once</div><div class="value">✓</div><div class="value">✓</div></div>
+        <button class="btn show-more" id="showMore">Show Add-ons &nbsp;⌄</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-links">
+      <div><h4>Browse</h4><a class="btn" href="#">Streaming Library</a><a class="btn" href="#">Live TV</a><a class="btn" href="#">Live News</a><a class="btn" href="#">Live Sports</a></div>
+      <div><h4>TV Shows</h4><a class="btn" href="#">Movies</a><a class="btn" href="#">Hulu Originals</a><a class="btn" href="#">Kids</a><a class="btn" href="#">FX</a></div>
+      <div><h4>HBO Max</h4><a class="btn" href="#">Cinemax</a><a class="btn" href="#">Paramount+ with SHOWTIME</a><a class="btn" href="#">STARZ</a></div>
+      <div><h4>Disney+, Hulu Bundle</h4><a class="btn" href="#">Disney+, Hulu Bundle</a><a class="btn" href="#">Disney+, Hulu, ESPN+ Bundle</a><a class="btn" href="#">Bundles</a></div>
+      <div><h4>Help</h4><a class="btn" href="#">Account &amp; Billing</a><a class="btn" href="#">Plans &amp; Pricing</a><a class="btn" href="#">Supported Devices</a><a class="btn" href="#">Accessibility</a></div>
+      <div><h4>About Us</h4><a class="btn" href="#">Shop Hulu</a><a class="btn" href="#">Press</a><a class="btn" href="#">Jobs</a><a class="btn" href="#">Contact</a></div>
+    </div>
+    <div class="social"><a class="btn" href="#">f</a><a class="btn" href="#">𝕏</a><a class="btn" href="#">▣</a><a class="btn" href="#">◎</a></div>
+    <div class="footer-bottom">
+      <p>© 2025 Hulu, LLC &nbsp; | &nbsp; About Us &nbsp; | &nbsp; Terms of Use &nbsp; | &nbsp; Subscriber Agreement &nbsp; | &nbsp; Privacy Policy</p>
+      <p>Your US State Privacy Rights &nbsp; | &nbsp; Do Not Sell or Share My Personal Information</p>
+      <p>Hulu is a registered trademark of Hulu, LLC. All rights reserved.</p>
+    </div>
+  </footer>
+<script>
+  document.getElementById('showMore').addEventListener('click', function () {
+    const rows = document.querySelectorAll('.extra-row');
+    const expanded = rows[0].classList.contains('visible');
+    rows.forEach(row => row.classList.toggle('visible', !expanded));
+    this.innerHTML = expanded ? 'Show Add-ons &nbsp;⌄' : 'Show Fewer &nbsp;⌃';
+  });
+  document.querySelectorAll('a[href="#"]').forEach(link => {
+    link.addEventListener('click', event => event.preventDefault());
+  });
+</script>
+</body>
+</html>

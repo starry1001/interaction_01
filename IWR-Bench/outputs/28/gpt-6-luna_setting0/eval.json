@@ -1,0 +1,70 @@
+{
+  "total_step": 6,
+  "success_step": 3,
+  "screenshot_paths_to_eval": [
+    "outputs/28/gpt-6-luna_setting0/evalpoints/0.png",
+    "outputs/28/gpt-6-luna_setting0/evalpoints/0.png",
+    "outputs/28/gpt-6-luna_setting0/evalpoints/2.png"
+  ],
+  "all_mllm_scores": [
+    0.78,
+    0.76,
+    0.72
+  ],
+  "all_dino_scores": [
+    0.9306640625,
+    0.76806640625,
+    0.90625
+  ],
+  "all_ocr_scores": [
+    0.9225352112676056,
+    0.3406813627254509,
+    0.30660377358490565
+  ],
+  "all_avg_scores": [
+    0.8777330912558686,
+    0.622915922991817,
+    0.6442845911949685
+  ],
+  "mllm_score": 0.7533333333333333,
+  "dino_score": 0.8683268229166666,
+  "ocr_score": 0.5232734491926541,
+  "avg_score": 0.7149778684808847,
+  "all_mllm_res": [
+    "Comments:\n- **Layout (10 points): 6/10** — The overall page structure, header, centered hero panel, and two-column Partner Program section are present and positioned similarly. However, the hero heading wraps to three lines in the generated page instead of two, pushing the supporting paragraph below the hero panel and creating a noticeable vertical mismatch.\n- **Elements (15 points): 12/15** — Most key elements are included: YouTube Creators navigation, search icon, money illustration, hero content, Partner Program heading, body copy, and promotional graphic. The illustration sizing/placement and lower-right graphic positioning differ somewhat from the reference.\n- **Content and Text (40 points): 35/40** — The visible text content is highly accurate, including navigation labels, “How to make money on YouTube,” descriptive copy, and “YouTube Partner Program.” Minor typography and line-break differences reduce fidelity.\n- **Style (15 points): 11/15** — The minimalist white layout, black typography, red YouTube branding, thin borders, and general visual language are well matched. The generated version uses noticeably different font sizing/weight and a less accurate YouTube Creators logo treatment.\n- **Overall (20 points): 14/20** — This is a strong structural and content match, but the oversized/wrapped hero heading is a prominent discrepancy. Several spacing, illustration, and typography differences remain.\n\n**Score: 78/100**",
+    "Comments:\n- **Layout (10 points): 7/10** — The header layout, navigation spacing, and overall centered page structure are highly similar. However, the screenshots are at substantially different scroll positions: the reference shows the hero section, while the generated page is farther down in the Partner Program content.\n- **Elements (15 points): 12/15** — Shared elements include the YouTube Creators header, navigation links, search icon, Partner Program content area, promotional graphic/video, accordions, and subsequent “Multiple ways to earn” section. Some elements are only partially visible or appear in different positions.\n- **Content and Text (40 points): 30/40** — The visible copy is consistent with the same webpage and includes matching Partner Program messaging and section titles. The generated view omits the prominent “How to make money on YouTube” hero content visible in the reference and instead shows later page text.\n- **Style (15 points): 13/15** — Typography, black-and-white visual treatment, spacing, borders, YouTube branding, and general visual language closely match. Minor differences arise from section positioning and the cropped promotional artwork.\n- **Overall (20 points): 14/20** — This appears to be the same page with strong structural and stylistic correspondence, but the different vertical scroll position significantly reduces direct screenshot similarity.\n\n**Score: 76/100**",
+    "Comments:\n-Layout (10 points): The overall two-column structure and fixed top navigation are similar, but the screenshots show substantially different vertical positions and content framing. The generated page appears scrolled farther down, with the section heading and introductory text largely missing, while the reference clearly presents the “YouTube Partner Program” section and video side-by-side. **6/10**\n-Elements (15 points): Header navigation, search icon, main text column, eligibility accordion, and promotional video are all present. However, the video is noticeably smaller and positioned higher in the generated view, and some visual elements such as the prominent section heading are absent from view. **11/15**\n-Content and Text (40 points): The visible copy is largely accurate and matches the reference, including the Partner Program description and eligibility text. The main discrepancy is that the generated screenshot omits the heading and introductory paragraph shown in the reference, and less of the expected content is visible. **31/40**\n-Style (15 points): Typography, spacing, white background, navigation styling, blue links, and general YouTube Creators branding are close. Differences in scaling, video sizing, and vertical spacing reduce fidelity. **11/15**\n-Overall (20 points): This is recognizably the same webpage with strong content and structural similarity, but the viewport state, vertical alignment, and visibility of key content differ considerably. **13/20**\n\nScore: **72/100**"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "Youlube Creators Welcome; Creators Partner Program How things work questions How make money on YouTube When it comes to turning your ideas into income; you've got options. From traditional ads to selling merchandise to memberships for your fans, there are a lot of ways to use your channel and videos to make money: YouTube Partner Program There are so many formats available to make content on YouTube; such as Shorts, live streaming and long-form video, and we want to make sure MAKE MONEY Creators can get rewarded for making all of them: The YouTube Partner Top to",
+      "screenshot_text": "YouTube Creators Welcome, Creators Partner Program How things work ~ Top questions How to make money on YouTube When it comes to turning your ideas into income, you've got options From traditional ads to selling merchandise to memberships for your fans, there are a lot of ways to use your channel and videos to make money: YouTube Partner Program There are SO formats available to make content on YouTube, such 5 as Shorts; live streaming and long-form video, and we want to make MAKE MONEY sure Creators can get rewarded for making all of them: The YouTube many",
+      "similarity": 0.9225352112676056
+    },
+    {
+      "checkpoint_text": "Youlube Creators Welcome; Creators Partner Program How things work questions Creators can get rewarded for making all of them: The YouTube Partner Program lets qualifying Creators tap into different ways to earn revenue; as well as gives access to resources like 1:1 support and the Copyright ON YOUTUBE Match Tool. Creators are building successful businesses of their own with employees and full-fledged operations and are a significant share of the Ad more than SSOB we ve paid out to creators, artists and media companies Partner Program over the last three years Youlube Partner Program: How to Make Money on YouTube Are you eligible? The benefits of being in the YouTube Partner Program Multiple ways to earn Learn your options for earning money on YouTube; explore what makes the most sense for your channel and start earning: #Subject t0 terms and conditions; which may be different based on region. Eligibility requirements and territory restrictions apply: Ad revenue < VouTuhe Premium Top",
+      "screenshot_text": "YouTube Creators Welcome, Creators Partner Program How things work ~ Top questions How to make money on YouTube When it comes to turning your ideas into income, you've got options From traditional ads to selling merchandise to memberships for your fans, there are a lot of ways to use your channel and videos to make money: YouTube Partner Program There are SO formats available to make content on YouTube, such 5 as Shorts; live streaming and long-form video, and we want to make MAKE MONEY sure Creators can get rewarded for making all of them: The YouTube many",
+      "similarity": 0.3406813627254509
+    },
+    {
+      "checkpoint_text": "YouTube Creators Welcome; Creators Partner Program How things work questions Creators can get rewarded for making all of them: YouTube Partner Program lets qualifying Creators tap into different ways to earn revenue; as well as gives access to resources like 1:1 support and the Copyright ON YOUTUBE Match Tool. Creators are building successful businesses of their own with employees and full-fledged operations and are a significant share of the Ad more than SSOB weve paid out to creators, artists and media companies Partner Program over the last three years_ Youlube Partner Program: How to Make Money on Voulube Are you eligible? To qualify for the YouTube Partner Program; you need t0 be in standing with YouTube; follow all the YouTube monetization policies, and live in a country/region where the YouTube Partner Program is available. Creators in these countries/regions are now able t0 qualify for the YouTube Partner Program sooner: Apply t0 Ihe program and unlock berefits Iike fan funding select YouTube Shopping features at the following eligibility criteria: 500 subscribers with 3 public uploads in the last 90 days,; and either 3K valid public watch hours in the last 12 months OR 3M public Shorts views in the last 90 days Unlock even more benefits including revenue sharing from ads and YouTube Premium when you hic: 1,000 subscribers and either 4K valid public watch hours in the last 12 months OR 1OM valid Shorts views in the last 90 days: Top The good and public",
+      "screenshot_text": "YouTube Creators Welcome, Creators Partner Program How things work ~ Top questions JI ruu!UV When it comes to turning your ideas into income, you've got options From traditional ads to selling merchandise to memberships for your fans, there are a lot of ways to use your channel and videos to make money: YouTube Partner Program There are so many formats available to make content on YouTube, such 5 as Shorts; live streaming and long-form video, and we want to make MAKE MONEY sure Creators can get rewarded for making all of them: The YouTube Partner Program lets qualifying Creators tap into different ways to earn revenue as well as gives access to resources like 1:1 support and the ON YOUTL _ Copyright Match Tool. Creators are building successful businesses of Ad their own with employees and full-fledged operations and are a Partner significant share of the more than SSOB we ve paid out to creators, Program artists and media companies over the last three years_ YouTube Partner Program: HOw t0 Make Money on YouTube_ Are you eligible? To qualify for the YouTube Partner Program, you need to be in good standing with YouTube, follow all the YouTube monetization policies and live in a countrylregion where the YouTube Partner Program is available Creators in these countrieslregions are nOw able to qualify for the YouTube Partner Program sooner:",
+      "similarity": 0.30660377358490565
+    }
+  ],
+  "assertion_results": [
+    null,
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/28/gpt-6-luna_setting0/evalpoints/1.png",
+      "curr_img_path": "outputs/28/gpt-6-luna_setting0/evalpoints/2.png",
+      "response": "{\n  \"think\": \"In Image 1, the 'Are you eligible?' section is collapsed with only the header visible. In Image 2, explanatory text appears beneath the header and the arrow points upward, indicating the content is expanded.\",\n  \"result\": \"Yes\"\n}",
+      "assertion": "The content of the 'Are you eligible?' section is expanded.",
+      "thinking": "In Image 1, the 'Are you eligible?' section is collapsed with only the header visible. In Image 2, explanatory text appears beneath the header and the arrow points upward, indicating the content is expanded."
+    },
+    null,
+    null,
+    null,
+    null
+  ]
+}

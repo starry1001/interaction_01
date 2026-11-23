@@ -1,0 +1,162 @@
+{
+  "total_step": 11,
+  "success_step": 11,
+  "screenshot_paths_to_eval": [
+    "outputs/40/gpt-6-luna_setting0/evalpoints/0.png",
+    "outputs/40/gpt-6-luna_setting0/evalpoints/1.png",
+    "outputs/40/gpt-6-luna_setting0/evalpoints/4.png",
+    "outputs/40/gpt-6-luna_setting0/evalpoints/5.png",
+    "outputs/40/gpt-6-luna_setting0/evalpoints/6.png",
+    "outputs/40/gpt-6-luna_setting0/evalpoints/7.png",
+    "outputs/40/gpt-6-luna_setting0/evalpoints/8.png",
+    "outputs/40/gpt-6-luna_setting0/evalpoints/9.png",
+    "outputs/40/gpt-6-luna_setting0/evalpoints/10.png"
+  ],
+  "all_mllm_scores": [
+    0.93,
+    0.86,
+    0.59,
+    0.52,
+    0.39,
+    0.32,
+    0.14,
+    0.11,
+    0.4
+  ],
+  "all_dino_scores": [
+    0.98388671875,
+    0.91064453125,
+    0.908203125,
+    0.84423828125,
+    0.75537109375,
+    0.70068359375,
+    0.464599609375,
+    0.56103515625,
+    0.5576171875
+  ],
+  "all_ocr_scores": [
+    0.8184713375796179,
+    0.8523676880222841,
+    0.4534883720930233,
+    0.4883720930232558,
+    0.3134920634920635,
+    0.20744680851063835,
+    0.15945330296127558,
+    0.12924528301886795,
+    0.2319474835886215
+  ],
+  "all_avg_scores": [
+    0.9107860187765393,
+    0.8743374064240946,
+    0.650563832364341,
+    0.6175367914244186,
+    0.48628771908068785,
+    0.4093768007535461,
+    0.25468430411209186,
+    0.266760146422956,
+    0.39652155702954045
+  ],
+  "mllm_score": 0.47333333333333333,
+  "dino_score": 0.742919921875,
+  "ocr_score": 0.4060316035877387,
+  "avg_score": 0.5407616195986906,
+  "all_mllm_res": [
+    "---\nComments:\n-Layout (9/10): The hero height, section transition, two-column card grid, and overall spacing closely match the reference. The generated page is slightly wider, and some header spacing differs.\n-Elements (13/15): The logo, hamburger menu, search bar, book cards, and homework-help popup are all present. The reference also has a prominent search icon in the header, which is missing from the generated page.\n-Content and Text (39/40): Headline, subtitle, search placeholder, section title, book titles, and authors closely match. Visible content is nearly identical.\n-Style (14/15): Strong match in the black-and-white palette, typography, card colors, and illustrations. Minor differences in sizing and alignment keep it from being exact.\n-Overall (18/20): The generated page is a convincing recreation with highly similar structure and content; differences are mostly small header and sizing details.\n\nScore: 93/100\n---",
+    "Comments:\n-Layout (10 points): The page structure closely matches: a black hero section, a two-column Literature Notes card grid, and a fixed homework-help banner. The generated page is slightly wider, shifting the menu and content proportions. (9/10)\n-Elements (15 points): The logo, menu, search bar, book cards, and bottom banner are all present. The generated version adds a hamburger icon and scrollbar, and the menu-open overlay dims the page, unlike the reference. (12/15)\n-Content and Text (40 points): Menu labels, hero copy, section heading, and visible book titles and authors largely match. The same items are visible, though some text is obscured by the menu and overlay. (36/40)\n-Style (15 points): Typography, colors, card artwork, and overall visual treatment are quite similar. The dimmed background and different menu positioning are the main visual deviations. (12/15)\n-Overall (20 points): A strong match in content and page composition, with the main difference being the darker overlay and slight sizing/positioning changes. (17/20)\n\nScore: 86/100",
+    "---\nComments:\n-Layout (10 points): The overall structure is very close: black header, yellow literature banner, alphabet navigation, title/author toggle, and vertically stacked book cards are all present. Spacing and card heights differ somewhat, and the visible list starts lower in the reference. (8/10)\n-Elements (15 points): Most key components are included, including the logo, search and menu icons, chevron arrows, and book icons. The book icons render differently, and the generated page includes a visible scrollbar not present in the reference. (12/15)\n-Content and Text (40 points): The headings and navigation are broadly consistent, but the selected letter differs (A in the reference, F in the generated page), and the book titles and authors do not match the reference list. (13/40)\n-Style (15 points): The black, bright yellow, white, and light-gray palette and general typography are similar. Font sizing, card proportions, and some icon treatments differ. (12/15)\n-Overall (20 points): The page convincingly reproduces the reference’s overall design and hierarchy, but the mismatched selected letter and book-list content substantially reduce fidelity. (14/20)\n\nScore: 59/100\n---",
+    "---\nComments:\n-Layout (7/10): The header, literature banner, alphabet navigation, tabs, and vertically stacked list follow the reference’s overall structure. The generated page has larger vertical spacing and introduces author-group headings, which substantially changes the lower-page layout.\n-Elements (10/15): Most key elements are present, including the logo, search and menu icons, alphabet selector, sort tabs, and book rows. The selected letter and active tab differ, and the generated book icon is a different style.\n-Content and Text (13/40): Both pages use the CliffsNotes literature interface, but the reference shows the “D” title list (starting with “DAISY MILLER” and “DAVID COPPERFIELD”), while the generated page shows the “F” selection and groups books by author, with different titles and authors.\n-Style (12/15): The black, white, gray, and yellow palette and typography are broadly similar. The generated page uses black author-heading bars and a different active-tab treatment, unlike the reference.\n-Overall (10/20): The page resembles the reference in its main visual language and top-level structure, but the changed selection, sorting state, and displayed content make it a noticeably different view.\n\nScore: 52/100\n---",
+    "---\nComments:\n- **Layout (3/10):** The generated page has the same general mobile-page structure, but a navigation drawer is open and covers nearly half the screen. The visible page behind it is dimmed and appears scrolled, unlike the reference’s unobstructed view.\n- **Elements (7/15):** The CliffsNotes branding, yellow-and-black palette, literature heading, alphabet navigation, and book-list cards are present or partially visible. The search and menu controls, tab selector, and complete list layout are not shown in the same state as the reference.\n- **Content and Text (15/40):** Some matching content is visible, including “Literature,” “Title,” and book/author text. However, the drawer adds unrelated navigation and sign-up text, while much of the reference’s book list is obscured or appears in a different order.\n- **Style (9/15):** The black, white, and yellow visual identity is broadly similar, as are the typography and card treatments. The dim overlay and prominent drawer make the overall appearance substantially different.\n- **Overall (5/20):** The generated page resembles the reference beneath the overlay, but the mismatched menu state and obstructed content significantly reduce similarity.\n\n**Score: 39/100**\n---",
+    "---\nComments:\n-Layout (5/10): Both pages use a black header, yellow zigzag title banner, and a vertically scrolling mobile layout. The reference includes an alphabet filter and a two-column sort control before its grouped results; the generated page instead shows a simple list.\n-Elements (7/15): The CliffsNotes branding, search/menu icons, and yellow banner are broadly similar. The alphabet navigation, Title/Author tabs, author headers, and book-entry cards from the reference are missing.\n-Content and Text (3/40): The reference is a Literature directory filtered to “A,” showing authors and books such as Chinua Achebe and *Things Fall Apart*. The generated page is a Study Guides index with unrelated subject listings.\n-Style (11/15): The black, white, and bright-yellow palette and overall typography are reasonably close. The generated list cards are much simpler than the reference’s varied black author bars and book cards.\n-Overall (6/20): Some branding and color choices match, but the page’s main purpose, content, and information structure differ substantially.\n\nScore: 32/100\n---",
+    "Comments:\n-Layout (2/10): The generated page is dominated by a large black side menu covering most of the screen, while the reference shows a full-width mobile page with a header, title banner, section navigation, and article content.\n-Elements (4/15): The CliffsNotes branding and black-and-yellow palette are present, but the menu rows, chevrons, and sign-up button do not match the reference’s search and menu icons, title banner, dropdown, and article layout.\n-Content and Text (1/40): The visible generated content is literature-related (author names and book cards), whereas the reference is an accounting page with an “Accounting Principles” title and introductory text and questions.\n-Style (5/15): The black, white, and bright yellow colors are broadly similar, but the generated page’s split overlay and literature-card styling differ substantially from the reference’s clean, vertically stacked layout.\n-Overall (2/20): There is a small brand and color resemblance, but the page structure and subject matter are markedly different.\n\nScore: 14/100",
+    "---\nComments:\n-Layout (10 points): The screenshots show different page structures. The reference is a Study Guides directory with a header and stacked guide links; the generated page shows an article section with a bulleted list, navigation buttons, and a footer. (0/10)\n-Elements (15 points): The CliffsNotes branding appears in both, but the reference also has search and menu icons and repeated guide cards, while the generated page has bullets and previous/next controls. (3/15)\n-Content and Text (40 points): The reference lists study-guide titles such as “Accounting Principles I,” “Algebra I,” and “Astronomy.” The generated page contains accounting-related article prose and questions instead, so the text does not match. (2/40)\n-Style (15 points): Both use a white background, dark text, and CliffsNotes branding, but the reference’s bold yellow header and gray guide cards are absent from the generated view. (4/15)\n-Overall (20 points): Some brand identity and general colors align, but the page content and structure differ substantially. (2/20)\n\nScore: 11/100\n---",
+    "---\nComments:\n- **Layout (2/10):** The reference shows the page from its header through the beginning of the article. The generated screenshot starts much farther down, at the end of the article, and continues into the footer.\n- **Elements (5/15):** The article text, navigation buttons, and footer are present in the generated page, but the reference’s header, course banner, section selector, and article heading are not visible.\n- **Content and Text (20/40):** Several list items and the concluding paragraph correspond to the reference article, but most of the text visible in the reference is absent from the generated screenshot.\n- **Style (8/15):** The typography and black, white, and yellow CliffsNotes branding are broadly consistent. The generated screenshot’s footer dominates, unlike the reference.\n- **Overall (5/20):** The pages appear related, but the different scroll positions make the screenshots substantially dissimilar.\n\n**Score: 40/100**\n---"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "430px 932px CliffsNotes Explore, Study, Review The original (and the most widely imitated) study guide Search CliffsNotes Literature Notes 1984 Absalom George Orwell Absalom! William Faulkner 1984 Absalom, Absalom! George Orwell William Faulkner Q+A Alhomework help Explanations instantly The Absolutelj Feaen Lece",
+      "screenshot_text": "CliffsNotes Explore, Study; Review The original (and the most widely imitated) study guide Search CliffsNotes Literature Notes 1984 Absalom; George Orwell Absalom! William Faulkner 1984 Absalom, Absalom! George Orwell William Faulkner Al homework help Q+A The Absolutel Explanations instantly Tiyuio Diarv C f",
+      "similarity": 0.8184713375796179
+    },
+    {
+      "checkpoint_text": "CliffsNotes Literature Notes Study Guides Documents Explore, Stud Homework Questions Chat PDF The original (and the most In study Sign Up Search CliffsNotes Literature Notes 1984 Absalom George Orwell Absalom! William Faulkner 1984 Absalom, Absalom! George Orwell William Faulkner Q+A Alhomework help Explanations instantly The Absolutel} Feaend Be Log guia",
+      "screenshot_text": "CliffsNotes Literature Notes Study Guides Documents Explore, Stud Homework Questions Chat PDF The original (and the ma In study gui Up Search CliffsNotes Literature Notes 1984 Absalom George Orwell Absalom! William Faulkner 1984 Absalom, Absalom! George Orwell William Faulkner Al homework help Q+A The AbsoluteE Explanations instantly Tyuio Diaru^ f Log Sign",
+      "similarity": 0.8523676880222841
+    },
+    {
+      "checkpoint_text": "CliffsNotes Literature AlI B € D E F G H | ] K L M N 0 P Q R $ T U V W X Y Z Title Author ABSALOM, ABSALOM! William Faulkner THE ABSOLUTELY TRUE DIARY OF A PART-TIME INDIAN Sherman Alexie ADAM BEDE George Eliot THE ADVENTURES OF HUCKLEBERRY FINN",
+      "screenshot_text": "CliffsNotes Literature AlI A B C D EIFIG H | ] K L M N 0 P Q R   S T  U V   W  X Y Z Title Author FAHRENHEIT 451 Ray Bradbury FAREWELL TO ARMS Ernest Hemingway FAREWELL TO MANZANAR Jeanne W: Houston and James D Houston FAR FROM THE MADDING CROWD Thomas Hardy",
+      "similarity": 0.4534883720930233
+    },
+    {
+      "checkpoint_text": "CliffsNotes Literature AlI A B € D E F G H | ] K L M N 0 P Q R $ T U V W X Y Z Title Author DAISY MILLER Henry James DAVID COPPERFIELD Charles Dickens THE DAY OF THE LOCUST Nathanael West DEATH AND THE KING'S HORSEMAN Wole Soyinka",
+      "screenshot_text": "CliffsNotes Literature All A B C D E FiG H | ] K L M N 0 P R   S T  U V   W  X Y Z Title Author Ernest Hemingway FAREWELL TO ARMS Ernest Hemingway Jeanne W. Houston and James D_ Houston FAREWELL TO MANZANAR Jeanne W. Houston and James D_ Houston Rav Bradburv",
+      "similarity": 0.4883720930232558
+    },
+    {
+      "checkpoint_text": "CliffsNotes Literature All A B € D E F G H | ] K L M N 0 P Q R $ T U V W X Y Z Title Author FAHRENHEIT 451 Ray Bradbury A FAREWELL TO ARMS Ernest Hemingway FAREWELL TOMANZANAR Jeanne W. Houston and James D Houston FAR FROMTHE MADDING CROWD Thomas Hardy",
+      "screenshot_text": "Literature Notes CliffsNote d Study Guides Lit Documents All A B € D E Homework Questions R   S T Log in Title Sign Up Ernest Hemingg FAREV Ernest Hem Jeanne W: Houl Houston FAREWE MANZAN Jeanne W: Houston Rav Bradburv",
+      "similarity": 0.3134920634920635
+    },
+    {
+      "checkpoint_text": "CliffsNotes Literature All B € D E F G H | ] k L M N 0 P Q R $ T U V W X Y Z Title Author Chinua Achebe THINGS FALL APART Chinua Achebe Henry Adams THE EDUCATION OF HENRY ADAMS Henry Adams",
+      "screenshot_text": "CliffsNotes Study Guides Accounting Principles Accounting Principles II Algebra Algebra II American Government Anatomy and Physiology Astronomy Basic Math & Pre-Algebra Biochemistry",
+      "similarity": 0.20744680851063835
+    },
+    {
+      "checkpoint_text": "Literature Notes Cliffsn = Study Guides Lill Documents All B € D E Homework Questions 0 P Q R $ T U in Title Sign Up Chinua Achebel THINGS Chinua Ache Henry Adams THE EDU ADAMS Henry Adan Log",
+      "screenshot_text": "CliffsNotes Accounting Principles Introduction to Accounting Introduction to Accounting Accounting is the language of business It is the system of recording, summarizing; and analyzing an economic entity's financial transactions. Effectively communicating this information is to the success of every business. Those who rely on financial information include internal users, such as a company's managers and employees; and external users, such as banks, investors governmental agencies, financial analysts, and labor unions_ These users depend upon data supplied by accountants to answer the following types of questions: Is the company profitable? Is there enough cash to meet payroll needs? How much debt does the company have? How does the company's net income compare to its budget? What is the balance owed by customers? Has the comnanv consistentlv paid cash dividends? key",
+      "similarity": 0.15945330296127558
+    },
+    {
+      "checkpoint_text": "CliffsNotes Study Guides Accounting Principles Accounting Principles II Algebra Algebra II American Government Anatomy and Physiology Astronomy Basic Math & Pre-Algebra Biochemistry",
+      "screenshot_text": "this Information IS Key tO the success Of every business: Those who rely on financial information include internal users, such as a company's managers and employees, and external users, such as banks, investors, governmental agencies, financial analysts, and labor unions. These users depend upon data supplied by accountants to answer the following types of questions: Is the company profitable? Is there enough cash to meet payroll needs? How much debt does the company have? How does the company's net income compare to its budget? What is the balance owed by customers? Has the company consistently paid cash dividends? How much income does each division generate? Should the company invest money to expand? Accountants must present an organization's financial information in clear; concise reports that help make questions like these easy to answer: The most common accounting reports are called financial statements. EVIOUS NE CliffsNotes CliffsNotes study guides are written by real teachers and professors, SO no matter what youre studying; CliffsNotes",
+      "similarity": 0.12924528301886795
+    },
+    {
+      "checkpoint_text": "CliffsNotes Accounting Principles Introduction to Accounting Introduction to Accounting Accountingis the language of business It is the system of recording; summarizing; and analyzingan economic entity's financial transactions. Effectively communicating this information is to the success of every business Those who rely on financial information include internal users, such as a company's managers and employees, and external users, such as banks, investors, governmental agencies, financial analysts, and labor unions. These users depend upon data supplied by accountants to answer the following types of questions: Is the company profitable? Is there enough cash to meet payroll needs? How much debt does the company have? How does the company's net income compare to its budget? What is the balance owed by customers? Has the comnanv consistently paid cash dividends? key",
+      "screenshot_text": "ITov 4oco compuny c TooI cumpei budget? What is the balance owed by customers? Has the company consistently paid cash dividends? How much income does each division generate? Should the company invest money to expand? Accountants must present an organization's financial information in clear; concise reports that help make questions like these easy to answer: The most common accounting reports are called financial statements. EVIOUS NE CliffsNotes CliffsNotes study guides are written by real teachers and professors, SO no matter what youre studying; CliffsNotes can ease your homework headaches and help you score high on exams. About CliffsNotes Advertise with Us Contact Us Copyright, Community Guidelines; DSA & other Legal Resources Honor Code Follow us: CliffsNotes_ a Learneo, Inc. business Terms of Service Privacy Policy Do_Not Sell My_Personal Information Disclaimer Questions_Sitemap Document Sitemap",
+      "similarity": 0.2319474835886215
+    }
+  ],
+  "assertion_results": [
+    {
+      "result": "Error",
+      "prev_img_path": "outputs/40/gpt-6-luna_setting0/evalpoints/0.png",
+      "curr_img_path": "outputs/40/gpt-6-luna_setting0/evalpoints/1.png",
+      "response": "Error: Error code: 400 - Unsupported value: 'temperature' does not support 0.0 with this model. Only the default (1) value is supported.",
+      "assertion": "The menu is expanded to 6 submenus.",
+      "thinking": ""
+    },
+    null,
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/40/gpt-6-luna_setting0/evalpoints/2.png",
+      "curr_img_path": "outputs/40/gpt-6-luna_setting0/evalpoints/3.png",
+      "response": "{\"think\":\"In the current screenshot, the letter D is highlighted in yellow in the alphabet filter. This indicates that the D option is selected.\",\"result\":\"Yes\"}",
+      "assertion": "The 'D' option is selected.",
+      "thinking": "In the current screenshot, the letter D is highlighted in yellow in the alphabet filter. This indicates that the D option is selected."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/40/gpt-6-luna_setting0/evalpoints/3.png",
+      "curr_img_path": "outputs/40/gpt-6-luna_setting0/evalpoints/4.png",
+      "response": "{\"think\":\"In the current screenshot, the letter F is highlighted in yellow, indicating it is selected. The previous screenshot had D highlighted.\",\"result\":\"Yes\"}",
+      "assertion": "The 'F' option is selected.",
+      "thinking": "In the current screenshot, the letter F is highlighted in yellow, indicating it is selected. The previous screenshot had D highlighted."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/40/gpt-6-luna_setting0/evalpoints/4.png",
+      "curr_img_path": "outputs/40/gpt-6-luna_setting0/evalpoints/5.png",
+      "response": "{\"think\":\"Image 2 shows the Author tab highlighted yellow, while Title is black. This indicates the Author option is selected.\",\"result\":\"Yes\"}",
+      "assertion": "The 'Author' option is selected.",
+      "thinking": "Image 2 shows the Author tab highlighted yellow, while Title is black. This indicates the Author option is selected."
+    },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ]
+}

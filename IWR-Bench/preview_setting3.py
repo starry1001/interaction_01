@@ -2,6 +2,7 @@
 """Build a local gallery of setting 3 results, without generation or API calls."""
 
 import argparse
+from concurrent.futures import ThreadPoolExecutor
 import html
 import json
 import os
@@ -11,8 +12,7 @@ from urllib.parse import quote
 
 from PIL import Image, ImageDraw, ImageFont
 
-from utils.screenshot_delta import DeltaOptions, prepare_delta_screenshots
-from utils.screenshot_delta_adaptive import AdaptiveDeltaOptions, prepare_delta_screenshots as prepare_adaptive
+from setting3 import ALGORITHM, DeltaOptions, prepare_delta_screenshots
 
 
 ROOT = Path(__file__).resolve().parent
@@ -34,7 +34,7 @@ def link(path, page_dir):
     return html.escape(quote(os.path.relpath(path, page_dir).replace(os.sep, '/')), quote=True)
 
 
-def render_task(task_dir, output_dir, options, algorithm='adaptive', tile_snap_margin=100):
+def render_task(task_dir, output_dir, options):
     paths = sorted((int(match.group(1)), str(path))
                    for path in (task_dir / 'checkpoints').glob('step_*.png')
                    if (match := re.fullmatch(r'step_(\d+)\.png', path.name)))
@@ -42,21 +42,21 @@ def render_task(task_dir, output_dir, options, algorithm='adaptive', tile_snap_m
         return None
     source_paths = [path for _, path in paths]
     images_dir = output_dir / 'temp_images'
-    prepare = prepare_adaptive if algorithm != 'baseline' else prepare_delta_screenshots
-    if algorithm == 'baseline':
-        prepare(source_paths, images_dir, options)
-    else:
-        prepare(source_paths, images_dir, options, tile_snap_margin=tile_snap_margin)
+    prepare_delta_screenshots(source_paths, images_dir, options)
     manifest = json.loads((images_dir / 'screenshot_manifest.json').read_text(encoding='utf-8'))
     records = manifest['screenshots']
     overview = Image.new('RGB', (1280, 400 * len(records)), 'white')
     font = ImageFont.load_default(size=18)
-    body = [f'<p>算法版本：<strong>{html.escape(manifest["algorithm"])}</strong>。新版算法已用于生成 setting 3。</p>',
+    status = '与 generate.py 的 Setting 3 共用同一套裁剪实现。'
+    body = [f'<p>算法版本：<strong>{html.escape(manifest["algorithm"])}</strong>。{status}</p>',
             '<p><a href="../index.html">返回任务总览</a> · '
             '<a href="preview.png">查看全部步骤拼图</a> · '
             '<a href="temp_images/screenshot_manifest.json">查看算法判断 JSON</a></p>',
             '<p>左侧为原图预览和选区（绿色：裁剪；蓝色：保留整图），右侧为此算法的输出预览。'
-            '点击图片查看原尺寸；预览自动缩放。像素减少比例不等于 token 减少比例。</p>']
+            '点击图片查看原尺寸；预览自动缩放。像素减少比例不等于 token 减少比例。</p>',
+            '<p>首图完整保留；后续图将所有需要保留的区域合成一个包围矩形，保持原有空间关系。'
+            '原始视口大小、滚动方向和位移均单独记录；省略区域沿用上一帧。'
+            '匹配和组件边界是启发式判断，需结合原图检查。</p>']
     total_pixels = retained_pixels = 0
     for record in records:
         index = record['index']
@@ -65,12 +65,12 @@ def render_task(task_dir, output_dir, options, algorithm='adaptive', tile_snap_m
         width, height = thumb.size
         thumb.thumbnail((620, 330))
         sx, sy = thumb.width / width, thumb.height / height
-        x1, y1, x2, y2 = record['box']
         draw = ImageDraw.Draw(thumb)
-        draw.rectangle((x1 * sx, y1 * sy, min(thumb.width - 1, x2 * sx), min(thumb.height - 1, y2 * sy)),
-                       outline='#138a36' if record['mode'] == 'crop' else '#145db5', width=3)
+        for x1, y1, x2, y2 in record.get('boxes', [record['box']]):
+            draw.rectangle((x1 * sx, y1 * sy, min(thumb.width - 1, x2 * sx), min(thumb.height - 1, y2 * sy)),
+                           outline='#145db5' if record['mode'] == 'full' else '#138a36', width=3)
         marked = output_dir / f'original_marked_{index}.png'
-        thumb.save(marked)
+        thumb.save(marked, compress_level=1)
         result_path = images_dir / record['output']
         with Image.open(result_path) as result:
             result_thumb = result.convert('RGB')
@@ -85,6 +85,11 @@ def render_task(task_dir, output_dir, options, algorithm='adaptive', tile_snap_m
         retained_pixels += record['output_size'][0] * record['output_size'][1]
         metrics = html.escape(json.dumps(record['metrics'], ensure_ascii=False))
         palette = ''
+        context = html.escape(record.get('context_note', ''))
+        scroll = record.get('scroll')
+        if scroll:
+            direction = '向下' if scroll['direction'] == 'down' else '向上'
+            context = f'页面{direction}滚动约 {abs(scroll["dy"])} 像素；参考 screenshot_{record["compared_to"]}。' + context
         for change in record.get('theme_changes', []):
             before, after = change['before'], change['after']
             palette += (f'<span style="display:inline-block;background:{before};width:24px;height:18px;border:1px solid #aaa"></span>'
@@ -98,14 +103,17 @@ def render_task(task_dir, output_dir, options, algorithm='adaptive', tile_snap_m
                     f'<img loading="lazy" src="{link(marked, output_dir)}"></a></div>'
                     f'<div><p>算法输出预览</p><a href="{link(result_path, output_dir)}">'
                     f'<img loading="lazy" src="{link(result_path, output_dir)}"></a></div></div>'
-                    f'<p>坐标：<code>{record["box"]}</code> · 原因：{record["reason"]}</p>'
+                    f'<p>{context}</p>'
+                    f'<p>原图坐标：<code>{record.get("boxes", [record["box"]])}</code> · 原因：{record["reason"]}</p>'
                     f'<small>相邻原图比较指标：{metrics}</small>'
                     f'<p>{"主题配色变化（裁剪之外也可能发生）：" + palette if palette else ""}</p></article>')
-    overview.save(output_dir / 'preview.png')
+    overview.save(output_dir / 'preview.png', compress_level=1)
     write_page(output_dir / 'index.html', f'Setting 3 · 任务 {task_dir.name}', ''.join(body))
     return {'task': task_dir.name, 'screenshots': len(records),
             'full': sum(r['mode'] == 'full' for r in records),
-            'crop': sum(r['mode'] == 'crop' for r in records),
+            'crop': sum(r['mode'] != 'full' for r in records),
+            'input_pixels': total_pixels, 'output_pixels': retained_pixels,
+            'scroll_steps': sum(bool(r.get('scroll')) for r in records),
             'pixel_reduction': 1 - retained_pixels / total_pixels}
 
 
@@ -114,16 +122,14 @@ def main():
     parser.add_argument('--data-root', type=Path, default=ROOT / 'data/data_backup')
     parser.add_argument('--output', type=Path, default=ROOT / 'outputs/setting3_previews')
     parser.add_argument('--task', nargs='+', help='Optional task IDs, e.g. --task 1 2')
+    parser.add_argument('--workers', type=int, default=1, help='Parallel local preview tasks (default: 1)')
     parser.add_argument('--pixel-threshold', type=int, default=18)
     parser.add_argument('--padding', type=int, default=24)
-    parser.add_argument('--tile-snap-margin', type=int, default=100)
-    parser.add_argument('--algorithm', choices=('adaptive', 'experimental', 'baseline'), default='adaptive',
-                        help='Current adaptive algorithm (default), legacy baseline, or experimental as an alias for adaptive')
     args = parser.parse_args()
+    if args.workers < 1:
+        parser.error('workers must be positive')
     if not args.data_root.is_dir():
         parser.error(f'Data root not found: {args.data_root}')
-    if args.tile_snap_margin < 0:
-        parser.error('tile-snap-margin must be nonnegative')
     if not 0 <= args.pixel_threshold <= 255 or args.padding < 0:
         parser.error('pixel-threshold must be 0–255 and padding must be nonnegative')
     if args.output.resolve() == args.data_root.resolve() or args.output.resolve() in args.data_root.resolve().parents:
@@ -139,20 +145,25 @@ def main():
     if not tasks:
         parser.error('No task/checkpoints directories found')
     args.output.mkdir(parents=True, exist_ok=True)
-    option_type = AdaptiveDeltaOptions if args.algorithm != 'baseline' else DeltaOptions
-    options = option_type(pixel_threshold=args.pixel_threshold, padding=args.padding)
+    options = DeltaOptions(pixel_threshold=args.pixel_threshold, padding=args.padding)
     results, errors = [], []
-    for task in tasks:
+    def preview(task):
         try:
-            result = render_task(task, args.output / task.name, options, args.algorithm, args.tile_snap_margin)
+            print(f'Preview task {task.name}')
+            result = render_task(task, args.output / task.name, options)
+            if result is not None:
+                return result, None
+            return None, {'task': task.name, 'error': 'No step_<number>.png images'}
+        except Exception as error:
+            print(f'Task {task.name} failed: {error}')
+            return None, {'task': task.name, 'error': str(error)}
+    with ThreadPoolExecutor(max_workers=args.workers) as executor:
+        for result, error in executor.map(preview, tasks):
             if result is not None:
                 results.append(result)
-            else:
-                errors.append({'task': task.name, 'error': 'No step_<number>.png images'})
-        except Exception as error:
-            errors.append({'task': task.name, 'error': str(error)})
-            print(f'Task {task.name} failed: {error}')
-    rows = [f'<p>预览算法：{args.algorithm}。adaptive 对应当前 setting 3；baseline 为旧版。</p>',
+            if error is not None:
+                errors.append(error)
+    rows = [f'<p>预览算法：{ALGORITHM}。与生成流程的 Setting 3 共用实现，裁剪结果不缩放。</p>',
             '<p>仅做本地图片处理，不调用模型 API。点击任务编号查看逐步对比。'
             '本次总览仅列出本次选中的任务。</p><table><tr><th>任务</th><th>截图数</th>'
             '<th>整图</th><th>局部图</th><th>截图像素减少</th></tr>']
@@ -165,7 +176,7 @@ def main():
     for error in errors:
         rows.append(f'<p>任务 {html.escape(error["task"])} 失败：{html.escape(error["error"])}</p>')
     write_page(args.output / 'index.html', 'Setting 3 裁剪预览', ''.join(rows))
-    (args.output / 'summary.json').write_text(json.dumps({'algorithm': args.algorithm, 'tile_snap_margin': args.tile_snap_margin, 'options': vars(options), 'tasks': results, 'errors': errors},
+    (args.output / 'summary.json').write_text(json.dumps({'algorithm': ALGORITHM, 'options': vars(options), 'tasks': results, 'errors': errors},
                                                        ensure_ascii=False, indent=2), encoding='utf-8')
     print(f'Finished: {len(results)} tasks, {len(errors)} errors. Open {args.output / "index.html"}')
     if errors:

@@ -1,0 +1,449 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Pudding — Longform Data Journalism</title>
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: #fff;
+    color: #171717;
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  button, input { font: inherit; }
+  .btn { cursor: pointer; }
+  .page {
+    width: min(1250px, calc(100% - 40px));
+    margin: 0 auto;
+  }
+  .masthead {
+    height: 164px;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1.15fr 1fr;
+    align-items: start;
+    padding-top: 42px;
+  }
+  .tagline {
+    font-size: 15px;
+    line-height: 1.23;
+    color: #333;
+    padding-top: 2px;
+  }
+  .tagline strong { color: #111; }
+  .brand {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: -7px;
+  }
+  .brand img { width: 228px; height: 68px; object-fit: contain; }
+  .mast-links {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+    padding-top: 1px;
+  }
+  .mast-links img { height: 39px; width: auto; object-fit: contain; }
+  .mast-links .about { width: 82px; }
+  .mast-links .subscribe { width: 130px; }
+  .mast-links .more { width: 83px; }
+  .toolbar {
+    height: 75px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(255,255,255,.97);
+    padding-top: 12px;
+  }
+  .search-wrap {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    height: 40px;
+  }
+  .search-wrap img { width: 37px; height: 37px; object-fit: contain; }
+  .search-wrap input {
+    width: 167px;
+    height: 35px;
+    border: 1px solid #aaa;
+    border-radius: 6px;
+    box-shadow: 0 1px 2px #ddd;
+    padding: 5px 9px;
+    font-size: 14px;
+    outline: none;
+  }
+  .search-wrap input:focus { border-color: #333; }
+  .filters {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 18px;
+    height: 40px;
+  }
+  .filter {
+    border: 0;
+    background: transparent;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #171717;
+    font-family: Georgia, serif;
+    font-size: 13px;
+    font-weight: bold;
+    white-space: nowrap;
+    transition: opacity .15s;
+  }
+  .filter img { width: 33px; height: 33px; object-fit: contain; }
+  .filter:not(.active) { opacity: .75; }
+  .filter.active { opacity: 1; }
+  .filter:hover { opacity: 1; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 32px;
+    row-gap: 60px;
+    padding-bottom: 90px;
+  }
+  .story {
+    min-width: 0;
+    position: relative;
+    padding-bottom: 4px;
+    color: #171717;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .story:hover { transform: translateY(-2px); }
+  .meta {
+    height: 39px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-top: 0;
+    font: bold 13px Georgia, serif;
+  }
+  .issue {
+    border: 1px solid #555;
+    border-radius: 20px;
+    padding: 4px 10px 3px;
+    line-height: 1;
+    font-size: 14px;
+    font-weight: normal;
+  }
+  .date { padding-top: 4px; }
+  .cover {
+    height: 405px;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+  .cover img {
+    width: 72%;
+    height: 83%;
+    object-fit: contain;
+    object-position: center bottom;
+    display: block;
+  }
+  .story h2 {
+    font-size: 26px;
+    line-height: 1.08;
+    margin: 13px 0 7px;
+    letter-spacing: -.55px;
+    font-weight: 750;
+  }
+  .story p {
+    font-size: 16px;
+    line-height: 1.3;
+    color: #777;
+    margin: 0;
+    max-width: 98%;
+  }
+  .play {
+    position: absolute;
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.94);
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-45%);
+    z-index: 2;
+    box-shadow: 0 1px 4px rgba(0,0,0,.16);
+  }
+  .play:after {
+    content: "";
+    position: absolute;
+    left: 25px;
+    top: 17px;
+    border-left: 21px solid #222;
+    border-top: 14px solid transparent;
+    border-bottom: 14px solid transparent;
+  }
+  .newsletter {
+    min-height: 468px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    padding: 15px;
+  }
+  .newsletter img { width: 130px; height: 110px; object-fit: contain; }
+  .newsletter h3 { font-weight: 400; font-size: 25px; line-height: 1.05; margin: 10px 0 14px; }
+  .newsletter input {
+    border: 1px solid #aaa;
+    border-radius: 6px;
+    height: 39px;
+    width: 175px;
+    padding: 6px 9px;
+    margin-bottom: 10px;
+  }
+  .newsletter small { font-size: 14px; margin: 1px 0 8px; }
+  .newsletter .subscribe-form { display: flex; gap: 8px; }
+  .newsletter .subscribe-form input { width: 175px; margin: 0; }
+  .newsletter button {
+    background: #171717;
+    border: 0;
+    color: white;
+    border-radius: 3px;
+    font: bold 13px Georgia, serif;
+    padding: 0 11px;
+  }
+  .quote {
+    min-height: 480px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 36px;
+  }
+  .quote p { color: #171717; font-size: 23px; line-height: 1.22; margin-bottom: 24px; }
+  .quote img { width: 84px; height: 84px; object-fit: cover; }
+  .quote strong { margin-top: 10px; font-family: Georgia,serif; font-size: 14px; text-decoration: underline; }
+  .quote span { color: #777; font-size: 13px; margin-top: 3px; }
+  .empty { display: none; }
+  .modal {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    background: rgba(0,0,0,.55);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+  }
+  .modal.open { display: flex; }
+  .modal-box {
+    width: min(650px, 100%);
+    background: white;
+    padding: 32px;
+    position: relative;
+    box-shadow: 0 10px 40px #3336;
+  }
+  .modal-box h2 { margin: 0 0 12px; font-size: 32px; }
+  .modal-box p { color: #666; line-height: 1.5; }
+  .modal-close {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    background: none;
+    border: 0;
+    font-size: 30px;
+  }
+  @media (max-width: 900px) {
+    .page { width: min(760px, calc(100% - 28px)); }
+    .masthead { height: 130px; grid-template-columns: 1fr 1fr; }
+    .tagline { display: none; }
+    .brand { justify-content: flex-start; }
+    .brand img { width: 180px; }
+    .mast-links { gap: 8px; }
+    .mast-links .about, .mast-links .subscribe, .mast-links .more { width: 58px; }
+    .filters { gap: 8px; }
+    .filter { font-size: 0; gap: 0; }
+    .filter img { width: 30px; height: 30px; }
+    .grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 38px 20px; }
+    .cover { height: 340px; }
+  }
+  @media (max-width: 560px) {
+    .page { width: calc(100% - 24px); }
+    .masthead { height: 102px; padding-top: 15px; }
+    .brand img { width: 145px; height: 54px; }
+    .mast-links img { height: 28px; }
+    .mast-links .about, .mast-links .subscribe, .mast-links .more { width: 38px; }
+    .toolbar { height: 60px; padding-top: 5px; }
+    .search-wrap { gap: 6px; }
+    .search-wrap img { width: 28px; height: 28px; }
+    .search-wrap input { width: 130px; height: 31px; }
+    .filters { gap: 4px; }
+    .filter img { width: 24px; height: 24px; }
+    .grid { grid-template-columns: 1fr; row-gap: 36px; }
+    .cover { height: min(100vw, 410px); }
+    .story h2 { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="masthead">
+    <div class="tagline">A digital publication that...<br><strong>brings you longform data journalism</strong></div>
+    <a class="brand btn" href="#" aria-label="The Pudding home"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/057.svg" width="228" height="68" alt="The Pudding"></a>
+    <nav class="mast-links" aria-label="Main navigation">
+      <a class="btn" href="#"><img class="about" src="__PLACEHOLDER_ASSETS_BASE_DIR__/011.png" width="82" height="39" alt="About"></a>
+      <a class="btn" href="#newsletter"><img class="subscribe" src="__PLACEHOLDER_ASSETS_BASE_DIR__/027.png" width="130" height="39" alt="Subscribe"></a>
+      <a class="btn" href="#"><img class="more" src="__PLACEHOLDER_ASSETS_BASE_DIR__/047.png" width="83" height="39" alt="More"></a>
+    </nav>
+  </header>
+
+  <div class="toolbar">
+    <label class="search-wrap">
+      <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/009.png" width="37" height="37" alt="">
+      <input id="search" type="search" placeholder="Find a story..." aria-label="Find a story">
+    </label>
+    <nav class="filters" aria-label="Story filters">
+      <button class="filter btn active" data-filter="faves"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/010.png" width="33" height="33" alt="">OUR FAVES</button>
+      <button class="filter btn active" data-filter="popular"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/012.png" width="33" height="33" alt="">POPULAR</button>
+      <button class="filter btn active" data-filter="updating"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/013.png" width="33" height="33" alt="">UPDATING</button>
+      <button class="filter btn active" data-filter="input"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/014.png" width="33" height="33" alt="">YOUR INPUT</button>
+      <button class="filter btn active" data-filter="video"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/015.png" width="33" height="33" alt="">VIDEO</button>
+      <button class="filter btn active" data-filter="audio"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/016.png" width="33" height="33" alt="">AUDIO</button>
+    </nav>
+  </div>
+
+  <main class="grid" id="stories"></main>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <button class="modal-close btn" aria-label="Close">×</button>
+    <h2 id="modal-title"></h2>
+    <p id="modal-description"></p>
+    <p>Explore the story and discover more from The Pudding.</p>
+  </div>
+</div>
+
+<script>
+const stories = [
+  {n:210,date:"AUG 2025",title:"dicing onions",desc:"What is the best way to dice an onion to get the most uniform piece sizes?",img:"018.jpg",color:"#f8ce17",tags:["faves","popular"]},
+  {n:209,date:"JUL 2025",title:"nyc street view",desc:"What if you could search every visible word on New York City's streets?",img:"019.jpg",color:"#22b8d5",tags:["popular","updating"]},
+  {n:208,date:"JUL 2025",title:"kids book animals",desc:"How and why do we gender animals in stories?",img:"022.jpg",color:"#ffe04d",tags:["faves","popular"]},
+  {n:207,date:"JUN 2025",title:"strangers talking",desc:"Watch hundreds of strangers talk for 30 minutes, and track how their moods change.",img:"023.jpg",color:"#bd8bd0",tags:["faves","video"]},
+  {n:206,date:"JUN 2025",title:"loneliness video",desc:"A six-minute video about the loneliness epidemic, in data.",img:"026.jpg",color:"#8439b7",tags:["video","faves"],play:true},
+  {n:205,date:"MAY 2025",title:"asian representation",desc:"How accurately are Asian Americans cast in Hollywood?",img:"029.jpg",color:"#c9767b",tags:["faves","popular"]},
+  {n:204,date:"MAY 2025",title:"birthday effect",desc:"Are you more likely to die on your birthday? Yes.",img:"031.jpg",color:"#b23d47",tags:["popular"]},
+  {n:203,date:"APR 2025",title:"wine animals",desc:"We try to predict the price and quality of a bottle of wine based on the animal on the label.",img:"034.jpg",color:"#b13d40",tags:["faves"]},
+  {n:202,date:"APR 2025",title:"music dna legacies",desc:"We trace musical DNA from the classical “Hall of the Mountain King” to 2pac's “Hit Em Up.”",img:"036.jpg",color:"#d2e52c",tags:["faves","audio"]},
+  {n:201,date:"MAR 2025",title:"rhoslc apologies",desc:"What we can learn from watching reality stars apologize.",img:"038.jpg",color:"#e7b4f2",tags:["popular","video"]},
+  {n:200,date:"MAR 2025",title:"animal sounds",desc:"Analyzing animal onomatopoeia across languages can demystify how we shape sound into meaning.",img:"040.jpg",color:"#f2e91a",tags:["faves","audio"]},
+  {n:199,date:"MAR 2025",title:"middle school sucks",desc:"Follow hundreds of kids as they navigate their treacherous middle school years.",img:"042.jpg",color:"#b424b5",tags:["faves"]},
+  {n:198,date:"NOV 2024",title:"sitters vs standers",desc:"The American worker divide: Those who sit, and those who stand.",img:"043.jpg",color:"#a32bb4",tags:["popular"]},
+  {n:197,date:"NOV 2024",title:"love songs",desc:"Is love dead in pop music? We checked all 5,141 Top 10 hits since 1958.",img:"045.jpg",color:"#f04c08",tags:["faves","audio"]},
+  {n:196,date:"OCT 2024",title:"queueing theory",desc:"Queues are everywhere we go—discover the hidden mechanics that keep them moving smoothly.",img:"050.jpg",color:"#e0f45a",tags:["video","popular"],play:true},
+  {n:195,date:"OCT 2024",title:"nba jersey colors",desc:"We took a look at the data behind the increasingly vibrant (and maybe a little confusing) landscape of NBA jerseys.",img:"052.jpg",color:"#cf9b64",tags:["faves"]},
+  {n:194,date:"OCT 2024",title:"abortion mazes",desc:"A maze for each state where the difficulty is calculated by the state's abortion policies.",img:"054.jpg",color:"#eb5b13",tags:["faves"]},
+  {n:193,date:"OCT 2024",title:"all about crokinole",desc:"Welcome to Crokinole, the greatest game you've never heard of.",img:"056.jpg",color:"#e400dc",tags:["popular"]},
+  {n:192,date:"OCT 2024",title:"k-pop generations",desc:"Organize these K-pop groups by generation, and we'll make an article using the results.",img:"017.jpg",color:"#df6265",tags:["input","popular"]},
+  {n:191,date:"OCT 2024",title:"fanfic ships",desc:"We looked at a decade of fanfic couples. See who gets shipped and why.",img:"059.jpg",color:"#3033c7",tags:["faves"]},
+  {n:190,date:"SEP 2024",title:"baseball lineups",desc:"See how modern stats are reshaping baseball’s batting lineups.",img:"061.jpg",color:"#c53d32",tags:["popular"]},
+  {n:189,date:"SEP 2024",title:"bball courts mapped",desc:"There are 59,507 outdoor basketball courts in the U.S.A. Explore satellite imagery of all of them.",img:"063.jpg",color:"#4cc59a",tags:["faves"]},
+  {n:188,date:"JUL 2024",title:"k-pop generations",desc:"Organize these K-pop groups by generation, and we'll make an article using the results.",img:"017.jpg",color:"#df6265",tags:["input"]},
+  {n:187,date:"JUL 2024",title:"flipbook",desc:"The results from making a crowd-sourced flipbook animation.",img:"020.jpg",color:"#d18475",tags:["input"]},
+  {n:186,date:"JUL 2024",title:"emotion wheel",desc:"A journey of emotional awareness, where we uncover the power of naming and visualizing your feelings.",img:"021.jpg",color:"#dc9a3b",tags:["faves"]},
+  {n:159,date:"SEP 2022",title:"words vs. strangers",desc:"One random person a day gets the chance to play against the internet in a game of words. Can you beat them?",img:"024.jpg",color:"#cf4e43",tags:["popular"]},
+  {n:151,date:"APR 2022",title:"studying randomness",desc:"We found this cool study about age and randomness, but we think it is flawed. Can you help us reproduce it?",img:"025.jpg",color:"#c93691",tags:["input"]},
+  {n:127,date:"DEC 2020",title:"music roast bot",desc:"How bad is your Spotify or Apple music? Our sophisticated A.I. judges your awful taste.",img:"028.jpg",color:"#ae3d91",tags:["audio","popular"]},
+  {n:123,date:"NOV 2020",title:"how bad is your streaming music?",desc:"A data-driven look at the music you listen to.",img:"028.jpg",color:"#a94795",tags:["audio"]},
+  {n:121,date:"OCT 2020",title:"words against strangers",desc:"Play a game of words against someone from anywhere in the world.",img:"024.jpg",color:"#d14f45",tags:["input"]}
+];
+
+const grid = document.getElementById("stories");
+function makeStory(s) {
+  const card = document.createElement("article");
+  card.className = "story btn";
+  card.dataset.title = (s.title + " " + s.desc).toLowerCase();
+  card.dataset.tags = s.tags.join(" ");
+  card.dataset.issue = s.n;
+  card.innerHTML = `
+    <div class="meta"><span class="issue">#${s.n}</span><span class="date">${s.date}</span></div>
+    <div class="cover" style="background:${s.color}">
+      <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/${s.img}" width="300" height="350" alt="${s.title}">
+      ${s.play ? '<span class="play" aria-hidden="true"></span>' : ''}
+    </div>
+    <h2>${s.title}</h2><p>${s.desc}</p>`;
+  card.addEventListener("click", () => {
+    document.getElementById("modal-title").textContent = s.title;
+    document.getElementById("modal-description").textContent = s.desc;
+    document.getElementById("modal").classList.add("open");
+  });
+  return card;
+}
+stories.forEach((s,i) => {
+  if (s.n === 203) {
+    const newsletter = document.createElement("section");
+    newsletter.className = "newsletter";
+    newsletter.id = "newsletter";
+    newsletter.innerHTML = `
+      <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/032.png" width="130" height="110" alt="Pudding inbox">
+      <h3>Get The Pudding<br>in your inbox:</h3>
+      <input type="email" placeholder="you@example.com" aria-label="Email address">
+      <small>Prove you’re human:</small>
+      <div class="subscribe-form"><input type="text" placeholder="What is 1+1?" aria-label="Human check"><button class="btn" type="button">SUBSCRIBE</button></div>`;
+    grid.appendChild(newsletter);
+  }
+  if (s.n === 196) {
+    const quote = document.createElement("section");
+    quote.className = "quote";
+    quote.innerHTML = `<p>Some of my favorite projects: <strong>generations in music</strong>, <strong>national anthem divas</strong> and <strong>infinite monkey.</strong></p>
+      <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/081.png" width="84" height="84" alt="Michelle Pera-McGhee">
+      <strong>MICHELLE PERA-MCGHEE</strong><span>Pudding Staff</span>`;
+    grid.appendChild(quote);
+  }
+  grid.appendChild(makeStory(s));
+});
+
+const search = document.getElementById("search");
+const filterButtons = [...document.querySelectorAll(".filter")];
+let selectedFilter = "";
+function applyFilters() {
+  const q = search.value.trim().toLowerCase();
+  document.querySelectorAll(".story").forEach(card => {
+    const matchesText = !q || card.dataset.title.includes(q) || card.dataset.issue.includes(q);
+    const matchesTag = !selectedFilter || card.dataset.tags.split(" ").includes(selectedFilter);
+    card.style.display = matchesText && matchesTag ? "" : "none";
+  });
+}
+search.addEventListener("input", applyFilters);
+filterButtons.forEach(button => button.addEventListener("click", () => {
+  const tag = button.dataset.filter;
+  if (selectedFilter === tag) {
+    selectedFilter = "";
+    filterButtons.forEach(b => b.classList.add("active"));
+  } else {
+    selectedFilter = tag;
+    filterButtons.forEach(b => b.classList.toggle("active", b === button));
+  }
+  applyFilters();
+}));
+document.querySelector(".modal-close").addEventListener("click", () => document.getElementById("modal").classList.remove("open"));
+document.getElementById("modal").addEventListener("click", e => {
+  if (e.target.id === "modal") e.currentTarget.classList.remove("open");
+});
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") document.getElementById("modal").classList.remove("open");
+});
+</script>
+</body>
+</html>
+```

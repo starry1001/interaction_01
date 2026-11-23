@@ -1,0 +1,65 @@
+{
+  "total_step": 8,
+  "success_step": 1,
+  "screenshot_paths_to_eval": [
+    "outputs/17/gpt-6-luna_setting1/evalpoints/0.png",
+    "outputs/17/gpt-6-luna_setting1/evalpoints/0.png",
+    "outputs/17/gpt-6-luna_setting1/evalpoints/1.png"
+  ],
+  "all_mllm_scores": [
+    0.58,
+    0.67,
+    0.46
+  ],
+  "all_dino_scores": [
+    0.81103515625,
+    0.81103515625,
+    0.615234375
+  ],
+  "all_ocr_scores": [
+    0.5988700564971752,
+    0.5988700564971752,
+    0.6009732360097324
+  ],
+  "all_avg_scores": [
+    0.6633017375823917,
+    0.6933017375823917,
+    0.5587358703365775
+  ],
+  "mllm_score": 0.57,
+  "dino_score": 0.7457682291666666,
+  "ocr_score": 0.5995711163346943,
+  "avg_score": 0.6384464485004536,
+  "all_mllm_res": [
+    "Comments:\n-Layout (10 points): The page follows the same overall structure: BBC header, Learning English banner, navigation, dark unit selector, and session list. Alignment and spacing differ slightly, particularly around the session images and content. **9/10**\n-Elements (15 points): Nearly all major interface elements are present, including the unit number, progress selector, tabs, activity labels, and two session cards. The second session image is different. **12/15**\n-Content and Text (40 points): The page has the same general course format and keeps “BBC Masterclass” and “News Review,” but the unit number and subtitle, dates, descriptions, and second-session image subject do not match the reference. **10/40**\n-Style (15 points): Colors, typography, branding, and component styling are quite close, with minor differences in sizing and positioning. **14/15**\n-Overall (20 points): A strong match in page template and visual structure, but the visible course content differs substantially from the reference. **13/20**\n\nScore: **58/100**",
+    "---\nComments:\n-Layout (9/10): The page structure and major section placement closely match, including the header, course banner, unit selector, tabs, and session list. Some content aligns slightly differently horizontally.\n-Elements (12/15): Most interface elements are present and styled similarly. The selected unit, second session image, and some item details differ from the reference.\n-Content and Text (17/40): The page follows the same course-session format, but it shows Unit 7 instead of Unit 1, with different subtitle, dates, descriptions, and second-session topic.\n-Style (14/15): Colors, typography, banner treatment, and dark teal unit area are very similar, with only minor differences in sizing and spacing.\n-Overall (15/20): A strong match in page template and visual structure, but the different selected unit and session content noticeably reduce similarity.\n\nScore: 67/100\n---",
+    "---\nComments:\n- **Layout (5/10):** The BBC header and banner are positioned similarly, but the reference has a much taller dark unit panel containing the unit selector and tabs. In the generated page, that panel is shorter, so the session list begins substantially higher.\n- **Elements (8/15):** The shared BBC navigation, unit heading, selector button, and two session entries are present. However, the unit-progress bar and the Sessions, Vocabulary reference, and Grammar reference tabs are missing; the session images also differ.\n- **Content and Text (12/40):** Both pages follow the same general course-session format, but the unit number and session details do not match. The reference shows Unit 4, linking words of contrast, and a news item about chickens and mosquitoes; the generated page shows Unit 7, relative clauses, and a pole-vault story.\n- **Style (11/15):** The color palette, typography, banner treatment, and BBC visual identity are reasonably close. The missing selector details and resulting vertical spacing make the main section noticeably different.\n- **Overall (10/20):** The pages are clearly from the same site and share a similar structure, but the main content, unit state, and expanded selector differ significantly.\n\n**Score: 46/100**\n---"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "B B Sign in Home News Sport Business Innovation Culture Travel Search BBC ENGUSH CHANGE LANGUAGE LEARNING ENGLISH INSPIRING LANGUAGE LEARNING SINCE /943 Courses Grammar Pronunciation Vocabulary News More Search Unit 1: Towards advanced Close unit selector Welcome to our new course SELECT A UNIT 10 1   12   1J 14  15   16   \"7   18   19   20   21   2   2   24   25   26   2   28   29   30 Sessions Vocabulary reference Grammar reference Session AcTIVITY BBC MASTERCLASS BBC Masterclass 04 JUL 2016 Non-defining Non-defining relative clauses are a speaker's friend: Dan teaches us five ways t0 use relative clauses them in this bite-sized video, Session 2 ACTIVITY News Review 05 JUL 2016 NASA's Juno mission has arrived at Jupiter Find out more with Neil and Sian as they look at how the world's media is reacting and the words you need to talk about the story:",
+      "screenshot_text": "Sign in Home News Sport Business Innovation Culture Travel Search BBC ENGLISH CHANGE LANGUAGE LEARNING ENGLISH INSPIRING LANGUAGE LEARNING SINCE /943 Courses Grammar Pronunciation Vocabulary News More .. Search Unit 7: Towards advanced Close unit selector Grammar; news, vocabulary and pronunciation SELECT UNIT 1 | 2 W 10  w| 12 13 LM4UL1S L16 LIZJL18 L19 L2O L2IUL22 L2 l24UL25]L26 LZTUL28UL29 L Sessions Vocabulary reference Grammar reterence Session 1 1 ACTIVITY BBC MASTERCLASS BBC Masterclass 15 AUG 2016 Non-defining They say you shouldnt mix your drinks but should you mix your conditionals? Find out in this Masterclass with Dan_ relative clauses Session 2 1 ACTIVITY News Review 16 AUG 2016 Brazil has won medal in athletics in shocking pole vault final. Join Sian and Neil in News Review as they bring You this exciting story and the language you need to understand it. gold",
+      "similarity": 0.5988700564971752
+    },
+    {
+      "checkpoint_text": "B B Sign in Home News Sport Business Innovation Culture Travel Search BBC ENGUSH CHANGE LANGUAGE LEARNING ENGLISH INSPIRING LANGUAGE LEARNING SINCE /943 Courses Grammar Pronunciation Vocabulary News More Search Unit 1: Towards advanced Close unit selector Welcome to our new course SELECT A UNIT 10 1   12   1J 14  15   16   \"7   18   19   20   21   2   2   24   25   26   2   28   29   30 Sessions Vocabulary reference Grammar reference Session AcTIVITY BBC MASTERCLASS BBC Masterclass 04 JUL 2016 Non-defining Non-defining relative clauses are a speaker's friend: Dan teaches us five ways t0 use relative clauses them in this bite-sized video, Session 2 ACTIVITY News Review 05 JUL 2016 NASA's Juno mission has arrived at Jupiter Find out more with Neil and Sian as they look at how the world's media is reacting and the words you need to talk about the story:",
+      "screenshot_text": "Sign in Home News Sport Business Innovation Culture Travel Search BBC ENGLISH CHANGE LANGUAGE LEARNING ENGLISH INSPIRING LANGUAGE LEARNING SINCE /943 Courses Grammar Pronunciation Vocabulary News More .. Search Unit 7: Towards advanced Close unit selector Grammar; news, vocabulary and pronunciation SELECT UNIT 1 | 2 W 10  w| 12 13 LM4UL1S L16 LIZJL18 L19 L2O L2IUL22 L2 l24UL25]L26 LZTUL28UL29 L Sessions Vocabulary reference Grammar reterence Session 1 1 ACTIVITY BBC MASTERCLASS BBC Masterclass 15 AUG 2016 Non-defining They say you shouldnt mix your drinks but should you mix your conditionals? Find out in this Masterclass with Dan_ relative clauses Session 2 1 ACTIVITY News Review 16 AUG 2016 Brazil has won medal in athletics in shocking pole vault final. Join Sian and Neil in News Review as they bring You this exciting story and the language you need to understand it. gold",
+      "similarity": 0.5988700564971752
+    },
+    {
+      "checkpoint_text": "B B Sign in Home News Sport Business Innovation Culture Travel Search BBC ENGUSH CHANGE LANGUAGE LEARNING ENGLISH INSPIRING LANGUAGE LEARNING SINCE /943 Courses Grammar Pronunciation Vocabulary News More Search Unit 4: Towards advanced Close unit selector Grammar; news, vocabulary and pronunciation SELECT A UNIT 12   1J  14   15 16   \"7   18   19   20   21   2   2   24   25   26   2   28   29   30 Sessions Vocabulary reference Grammar reference Session ACTIVITY BBC MASTERCLASS BBC Masterclass 25 JUL 2016 words of Dan uses linking words of contrast to destroy four myths about English people contrast Session 2 ACTIVITY News Review 26 JUL 2016 Can chickens stop you getting bitten by mosquitoes? Join Rob and Sian in News Review as they bring you this exciting story and the language you need to understand it Linking",
+      "screenshot_text": "C Sign in Home News Spont Business Innovation Culture Travel Search BBC ENGLISH CHANGE LANGUAGE LEARNING ENGLISH INSPIRING LANGUAGE LEARNING SINCE /943 Courses Grammar Pronunciation Vocabulary News More .. Search Unit 7: Towards advanced Open unit selector Grammar; news, vocabulary and pronunciation Session 1 1 ACTIVITY BBC Masterclass BBC MASTERCLASS 15 AUG 2016 Non-defining They say you shouldnt mix your drinks_ but should you mix your conditionals? Find out in this Masterclass with Dan_ relative clauses Session 2 1 ACTIVITY News Review 16 AUG 2016 Brazil has won a gold medal in athletics in a shocking pole vault final. Join Sian and Neil in News Review as they bring you this exciting story and the language you need to understand it.",
+      "similarity": 0.6009732360097324
+    }
+  ],
+  "assertion_results": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ]
+}

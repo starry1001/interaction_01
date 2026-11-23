@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Livegap Charts</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; font-family: Arial, Helvetica, sans-serif; color: #292929; }
+  body { background: #c9c9c9; font-size: 14px; }
+  button, input { font-family: inherit; }
+  .btn { cursor: pointer; }
+  .topbar {
+    position: absolute; left: 0; top: 0; height: 38px; width: calc(100% - 400px);
+    background: #f5f5f5; border-bottom: 1px solid #aaa; display: flex; align-items: center;
+    padding: 0 30px; gap: 34px; z-index: 4;
+  }
+  .topbar button {
+    background: none; border: 0; padding: 0; color: #292929; font-size: 14px;
+    font-weight: 600; letter-spacing: .5px; height: 100%;
+  }
+  .topbar .signin { margin-left: auto; }
+  .workspace {
+    position: absolute; left: 0; top: 38px; bottom: 156px; right: 400px;
+    background: #c9c9c9; overflow: hidden;
+  }
+  .chart-card {
+    position: absolute; top: 78px; left: 50%; transform: translateX(-50%);
+    width: 700px; height: 418px; background: #fff; border: 1px solid #aaa;
+    box-shadow: 0 1px 3px #888; overflow: hidden;
+  }
+  .chart-title {
+    position: absolute; top: 15px; left: 0; right: 0; text-align: center;
+    color: #4d9dd0; font-size: 28px; font-weight: 400;
+  }
+  .chart-subtitle {
+    position: absolute; top: 53px; left: 0; right: 0; text-align: center;
+    color: #777; font-size: 17px;
+  }
+  #chartSvg { position: absolute; left: 24px; top: 80px; width: 652px; height: 254px; overflow: visible; }
+  .legend {
+    position: absolute; top: 359px; left: 0; right: 0; display: flex; justify-content: center;
+    align-items: center; gap: 5px; font-size: 16px; height: 20px;
+  }
+  .legend span { display: inline-flex; align-items: center; gap: 4px; }
+  .legend i { display: inline-block; width: 17px; height: 17px; border: 2px solid; }
+  .legend .green-key { border-color: #29d978; background: rgba(54,220,130,.45); }
+  .legend .blue-key { border-color: #3199d5; background: rgba(67,164,215,.4); }
+  .made-with { position: absolute; left: 0; right: 0; top: 389px; text-align: center; font-size: 13px; }
+  .try-pill {
+    position: absolute; top: 504px; left: 50%; transform: translateX(-50%);
+    border: 1px solid #44a3d9; color: #222; background: #eee; border-radius: 22px;
+    padding: 9px 11px; font-size: 14px; font-weight: 600; white-space: nowrap;
+  }
+  .new-tag { display: inline-block; margin-left: 7px; background: #ef3948; color: white; border-radius: 10px; padding: 2px 7px; font-size: 11px; }
+  .blue-orb {
+    position: absolute; top: 542px; left: 50%; transform: translateX(-50%);
+    width: 58px; height: 58px; border-radius: 50%; background: #2383cf;
+    box-shadow: 0 2px 5px #999;
+  }
+  .sidebar {
+    position: absolute; top: 0; right: 0; bottom: 0; width: 400px;
+    background: #369ed0; overflow-y: auto; overflow-x: hidden;
+    scrollbar-width: thin; scrollbar-color: #888 #ddd;
+  }
+  .brand { height: 132px; display: flex; align-items: center; justify-content: center; }
+  .brand img { width: 190px; height: 90px; object-fit: contain; }
+  .accordion { background: #fff; border-radius: 7px 7px 0 0; overflow: hidden; margin: 0 0 0 10px; }
+  .acc-row {
+    height: 50px; width: 100%; display: flex; align-items: center; text-align: left;
+    border: 0; border-bottom: 1px solid #ddd; background: #fff; padding: 0 7px;
+    font-size: 16px; color: #292929;
+  }
+  .acc-row:hover { background: #f7f7f7; }
+  .acc-content { display: none; background: #f2f2f2; padding: 14px 12px 18px; border-bottom: 8px solid #369ed0; }
+  .acc-content.open { display: block; }
+  .sidebar-ad {
+    height: 168px; display: flex; justify-content: center; align-items: center;
+  }
+  .sidebar-ad img { width: 140px; height: 52px; object-fit: contain; }
+  .control-line { margin: 7px 0 13px; color: #555; font-size: 15px; }
+  .control-line label { display: block; margin-bottom: 5px; }
+  .control-line input[type="range"] { width: 100%; accent-color: #3198d5; }
+  .control-box { border: 1px solid #aaa; border-radius: 4px; background: #f5f5f5; padding: 9px; }
+  .dark-heading {
+    margin: -14px -12px 12px; height: 48px; background: #333; color: white;
+    display: flex; align-items: center; justify-content: center; gap: 18px; font-size: 17px;
+  }
+  .switch { appearance: none; width: 40px; height: 19px; border-radius: 20px; background: #aaa; position: relative; vertical-align: middle; margin: 0; }
+  .switch::after { content: ""; position: absolute; width: 16px; height: 16px; background: white; border-radius: 50%; top: 1.5px; left: 2px; transition: .15s; }
+  .switch:checked { background: #3198d5; }
+  .switch:checked::after { left: 22px; }
+  .radio-row { display: flex; align-items: center; gap: 8px; border: 1px solid #aaa; border-radius: 4px; padding: 8px; }
+  .radio-row input { width: 20px; height: 20px; accent-color: #3198d5; }
+  .data-panel {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 156px; background: #fff;
+    overflow: hidden; border-top: 1px solid #c6c6c6;
+  }
+  .data-tab {
+    position: absolute; left: 0; top: -1px; z-index: 2; height: 31px; min-width: 61px;
+    padding: 0 12px; border: 1px solid #ccc; border-radius: 0 0 6px 0; background: #f5f5f5;
+    color: #333; font-size: 12px; font-weight: 600; letter-spacing: .3px;
+  }
+  .grid-wrap { position: absolute; inset: 30px 0 0; overflow: auto; }
+  table { border-collapse: collapse; table-layout: fixed; width: 2162px; font-size: 16px; }
+  col.row-col { width: 202px; }
+  col.month-col { width: 280px; }
+  th, td {
+    border: 1px solid #d0d1d5; height: 25px; padding: 1px 5px; text-align: center;
+    background: #fff; color: #292929; position: relative; outline: none;
+  }
+  thead th { height: 32px; background: #ececf1; font-weight: 600; }
+  tbody th { background: #ececf1; font-weight: 600; }
+  td.selected { z-index: 1; box-shadow: inset 0 0 0 2px #398df4; }
+  td.editing { text-align: left; box-shadow: inset 0 0 0 2px #398df4; }
+  @media (max-width: 1100px) {
+    .sidebar { width: 300px; }
+    .topbar { width: calc(100% - 300px); gap: 18px; padding: 0 15px; }
+    .workspace { right: 300px; }
+    .chart-card { transform: translateX(-50%) scale(.8); transform-origin: top center; }
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <button class="btn">FILE</button><button class="btn">EDIT</button><button class="btn">DATA</button>
+  <button class="btn">VIEW</button><button class="btn">LANGUAGE</button><button class="btn">HELP</button>
+  <button class="btn signin">SIGN IN</button>
+</header>
+
+<main class="workspace">
+  <section class="chart-card" aria-label="Chart preview">
+    <div class="chart-title">Chart Title</div>
+    <div class="chart-subtitle">Add SubTitle Here</div>
+    <svg id="chartSvg" viewBox="0 0 652 254" aria-label="Area chart"></svg>
+    <div class="legend">
+      <span><i class="green-key"></i>2024</span><span><i class="blue-key"></i>2023</span>
+    </div>
+    <div class="made-with">Made with Livegap Charts</div>
+  </section>
+  <button class="btn try-pill">Try code.livegap.com <span class="new-tag">New</span></button>
+  <button class="btn blue-orb" aria-label="Create chart"></button>
+</main>
+
+<aside class="sidebar" id="sidebar">
+  <div class="brand">
+    <img src="../../../data/data/46/assets/010.png" width="190" height="90" alt="Livegap Charts">
+  </div>
+  <div class="accordion">
+    <button class="btn acc-row">Chart</button><div class="acc-content"></div>
+    <button class="btn acc-row">Colors</button><div class="acc-content"></div>
+    <button class="btn acc-row">inGraph Data</button><div class="acc-content"></div>
+    <button class="btn acc-row">Legend</button><div class="acc-content"></div>
+    <button class="btn acc-row">DataSet</button><div class="acc-content"></div>
+    <button class="btn acc-row">Point Dot</button>
+    <div class="acc-content">
+      <div class="dark-heading"><input class="btn switch" type="checkbox" aria-label="Point dots"><span>Point Dot</span></div>
+      <div class="control-line">
+        <label>Shape</label>
+        <div class="radio-row"><input class="btn" type="radio" name="shape" checked><span>circle</span></div>
+      </div>
+      <div class="control-line"><label>Radius</label><input class="btn" type="range" min="1" max="18" value="5"></div>
+      <div class="control-line">
+        <label>Stroke Style</label>
+        <div class="control-box"><hr style="border:0;border-top:1px solid #555;margin:6px 0"></div>
+      </div>
+      <div class="control-line"><label>Stroke Width</label><input class="btn" type="range" min="0" max="10" value="1"></div>
+    </div>
+    <button class="btn acc-row">Scale</button><div class="acc-content"></div>
+    <button class="btn acc-row">Axis</button><div class="acc-content"></div>
+    <button class="btn acc-row">Grid</button><div class="acc-content"></div>
+    <button class="btn acc-row">Text</button><div class="acc-content"></div>
+    <button class="btn acc-row">Annotations</button><div class="acc-content"></div>
+    <button class="btn acc-row">Animation</button><div class="acc-content"></div>
+    <button class="btn acc-row">Freehand　<span style="color:#4b9dd0;border:1px solid #4b9dd0;border-radius:4px;padding:2px 8px;font-size:12px">Pro</span></button><div class="acc-content"></div>
+  </div>
+  <div class="sidebar-ad">
+    <img src="../../../data/data/46/assets/007.png" width="140" height="52" alt="Get it from Microsoft">
+  </div>
+</aside>
+
+<section class="data-panel">
+  <button class="btn data-tab">DATA</button>
+  <div class="grid-wrap">
+    <table>
+      <colgroup><col class="row-col"><col class="month-col"><col class="month-col"><col class="month-col"><col class="month-col"><col class="month-col"><col class="month-col"><col class="month-col"><col></colgroup>
+      <thead><tr><th></th><th>January</th><th>February</th><th>March</th><th>April</th><th>May</th><th>June</th><th>July</th><th></th></tr></thead>
+      <tbody>
+        <tr><th>2023</th><td class="btn" data-series="0" data-index="0">65</td><td class="btn" data-series="0" data-index="1">8</td><td class="btn" data-series="0" data-index="2">90</td><td class="btn" data-series="0" data-index="3">81</td><td class="btn" data-series="0" data-index="4">56</td><td class="btn" data-series="0" data-index="5">55</td><td class="btn" data-series="0" data-index="6">40</td><td></td></tr>
+        <tr><th>2024</th><td class="btn" data-series="1" data-index="0">21</td><td class="btn" data-series="1" data-index="1">48</td><td class="btn" data-series="1" data-index="2">40</td><td class="btn" data-series="1" data-index="3">19</td><td class="btn" data-series="1" data-index="4">96</td><td class="btn" data-series="1" data-index="5">27</td><td class="btn" data-series="1" data-index="6">99</td><td></td></tr>
+        <tr><th></th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><th></th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><th></th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<script>
+  const months = ["January","February","March","April","May","June","July"];
+  let values = [[65,8,90,81,56,55,40],[21,48,40,19,96,27,99]];
+  const svg = document.getElementById("chartSvg");
+  let dotsEnabled = false;
+
+  function smoothPath(points) {
+    if (!points.length) return "";
+    let d = `M ${points[0].x} ${points[0].y}`;
+    for (let i = 0; i < points.length - 1; i++) {
+      const p0 = points[Math.max(0, i - 1)], p1 = points[i];
+      const p2 = points[i + 1], p3 = points[Math.min(points.length - 1, i + 2)];
+      const c1x = p1.x + (p2.x - p0.x) / 6, c1y = p1.y + (p2.y - p0.y) / 6;
+      const c2x = p2.x - (p3.x - p1.x) / 6, c2y = p2.y - (p3.y - p1.y) / 6;
+      d += ` C ${c1x} ${c1y}, ${c2x} ${c2y}, ${p2.x} ${p2.y}`;
+    }
+    return d;
+  }
+  function drawChart() {
+    const left = 40, right = 637, top = 13, bottom = 203;
+    const xStep = (right-left)/6;
+    const y = n => bottom - (Number(n || 0) / 100) * (bottom-top);
+    let out = "";
+    for (let n=0; n<=100; n+=10) {
+      const yy = y(n);
+      out += `<line x1="${left}" y1="${yy}" x2="${right}" y2="${yy}" stroke="#dedede" stroke-width="1"/>`;
+      out += `<text x="27" y="${yy+4}" text-anchor="end" font-size="12" fill="#333">${n}</text>`;
+    }
+    months.forEach((m,i) => {
+      const xx = left + i*xStep;
+      out += `<line x1="${xx}" y1="${top}" x2="${xx}" y2="${bottom}" stroke="#e5e5e5" stroke-width="1"/>`;
+      out += `<text x="${xx}" y="223" text-anchor="middle" font-size="13" fill="#333">${m}</text>`;
+    });
+    out += `<line x1="${left}" y1="${bottom}" x2="${right}" y2="${bottom}" stroke="#333" stroke-width="1"/>`;
+    out += `<line x1="${left}" y1="${top}" x2="${left}" y2="${bottom}" stroke="#333" stroke-width="1"/>`;
+    const series = values.map(arr => arr.map((v,i)=>({x:left+i*xStep,y:y(v)})));
+    const blueLine = smoothPath(series[0]), greenLine = smoothPath(series[1]);
+    out += `<path d="${blueLine} L ${right} ${bottom} L ${left} ${bottom} Z" fill="rgba(65,164,215,.42)" stroke="#3498d0" stroke-width="2"/>`;
+    out += `<path d="${greenLine} L ${right} ${bottom} L ${left} ${bottom} Z" fill="rgba(43,215,129,.55)" stroke="#26d96f" stroke-width="2"/>`;
+    series.forEach((pts,s) => pts.forEach((p,i) => {
+      const val = values[s][i];
+      out += `<text x="${p.x}" y="${Math.max(10,p.y-8)}" text-anchor="middle" font-size="12" font-style="italic" fill="#333">${val}</text>`;
+      if (dotsEnabled) out += `<circle cx="${p.x}" cy="${p.y}" r="5" fill="${s ? '#24d46a' : '#329bd3'}" stroke="#fff" stroke-width="1"/>`;
+    }));
+    svg.innerHTML = out;
+  }
+  drawChart();
+
+  const cells = [...document.querySelectorAll('td[data-series]')];
+  let selected = null;
+  function commitCell(cell) {
+    if (!cell) return;
+    const s = Number(cell.dataset.series), i = Number(cell.dataset.index);
+    const text = cell.textContent.trim();
+    values[s][i] = text === "" ? 0 : (Number(text) || 0);
+    cell.contentEditable = "false";
+    cell.classList.remove("editing");
+    drawChart();
+  }
+  function beginEdit(cell, replace) {
+    if (selected && selected !== cell && selected.isContentEditable) commitCell(selected);
+    selected = cell;
+    cells.forEach(c => c.classList.toggle("selected", c === cell));
+    cell.contentEditable = "true";
+    cell.classList.add("editing");
+    if (replace) cell.textContent = "";
+    cell.focus();
+    const range = document.createRange();
+    range.selectNodeContents(cell);
+    range.collapse(false);
+    const sel = window.getSelection();
+    sel.removeAllRanges(); sel.addRange(range);
+  }
+  cells.forEach(cell => {
+    cell.addEventListener("click", () => {
+      if (selected && selected !== cell && selected.isContentEditable) commitCell(selected);
+      selected = cell;
+      cells.forEach(c => c.classList.toggle("selected", c === cell));
+    });
+    cell.addEventListener("dblclick", () => beginEdit(cell, false));
+    cell.addEventListener("keydown", e => {
+      if (e.key === "Enter") { e.preventDefault(); commitCell(cell); cell.blur(); }
+      else if (e.key === "Escape") { cell.textContent = values[cell.dataset.series][cell.dataset.index]; commitCell(cell); }
+    });
+    cell.addEventListener("input", () => {
+      const s = Number(cell.dataset.series), i = Number(cell.dataset.index);
+      values[s][i] = Number(cell.textContent.trim()) || 0;
+      drawChart();
+    });
+    cell.addEventListener("blur", () => { if (cell.isContentEditable) commitCell(cell); });
+  });
+  document.addEventListener("keydown", e => {
+    if (!selected || selected.isContentEditable || e.ctrlKey || e.metaKey || e.altKey) return;
+    if (/^[0-9.-]$/.test(e.key)) { e.preventDefault(); beginEdit(selected, true); document.execCommand("insertText", false, e.key); }
+    else if (e.key === "Backspace" || e.key === "Delete") { e.preventDefault(); beginEdit(selected, true); }
+  });
+
+  const rows = [...document.querySelectorAll(".acc-row")];
+  rows.forEach(row => row.addEventListener("click", () => {
+    const content = row.nextElementSibling;
+    const wasOpen = content.classList.contains("open");
+    document.querySelectorAll(".acc-content").forEach(c => c.classList.remove("open"));
+    if (!wasOpen) {
+      content.classList.add("open");
+      if (row.textContent.trim().startsWith("Point Dot")) {
+        setTimeout(() => row.scrollIntoView({block:"center", behavior:"smooth"}), 10);
+      }
+    }
+  }));
+  document.querySelector(".switch").addEventListener("change", e => {
+    dotsEnabled = e.target.checked;
+    drawChart();
+  });
+</script>
+</body>
+</html>

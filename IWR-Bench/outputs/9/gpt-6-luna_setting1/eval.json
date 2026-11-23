@@ -1,0 +1,83 @@
+{
+  "total_step": 4,
+  "success_step": 4,
+  "screenshot_paths_to_eval": [
+    "outputs/9/gpt-6-luna_setting1/evalpoints/0.png",
+    "outputs/9/gpt-6-luna_setting1/evalpoints/0.png",
+    "outputs/9/gpt-6-luna_setting1/evalpoints/1.png",
+    "outputs/9/gpt-6-luna_setting1/evalpoints/2.png",
+    "outputs/9/gpt-6-luna_setting1/evalpoints/3.png"
+  ],
+  "all_mllm_scores": [
+    0.73,
+    0.16,
+    0.12,
+    0.1,
+    0.11
+  ],
+  "all_dino_scores": [
+    0.272705078125,
+    0.192138671875,
+    0.1527099609375,
+    0.382080078125,
+    0.330810546875
+  ],
+  "all_ocr_scores": [
+    0.9770114942528736,
+    0.26023391812865493,
+    0.07421875,
+    0.19913419913419916,
+    0.2230215827338129
+  ],
+  "all_avg_scores": [
+    0.6599055241259578,
+    0.20412419666788498,
+    0.11564290364583334,
+    0.22707142575306638,
+    0.22127737653627097
+  ],
+  "mllm_score": 0.244,
+  "dino_score": 0.2660888671875,
+  "ocr_score": 0.3467239888499081,
+  "avg_score": 0.2856042853458027,
+  "all_mllm_res": [
+    "Comments:\n- **Layout (8/10):** The main sections are in the correct order, and the navigation, promo bar, and iPhone title area are positioned similarly. The generated page’s header and content sections are slightly shifted vertically.\n- **Elements (8/15):** Most navigation items, product icons, and text are present. However, the large hero image of the iPhone is missing, leaving a plain black area; the reference also shows a pause control over the hero.\n- **Content and Text (36/40):** The visible headings, navigation labels, and trade-in promotion closely match the reference. The hero’s visual content is absent.\n- **Style (10/15):** The clean Apple-like typography, white title section, and dark hero region are broadly reproduced, but the empty hero area differs substantially from the reference’s detailed, illuminated product image.\n- **Overall (11/20):** The page structure and visible text are recognizable, but the missing hero image is a major visual mismatch.\n\nScore: 73/100",
+    "Comments:\n- **Layout (10 points): 2/10** — The reference is scrolled to the “Get to know iPhone” section, with a cropped hero image above a row of cards. The generated page shows the top navigation and page title instead, followed by a large blank dark area.\n- **Elements (15 points): 3/15** — Both pages have Apple-style interface elements, but the reference’s hero image, pause control, and feature cards are missing. The generated page instead includes navigation bars and product icons that are not visible in the reference.\n- **Content and Text (40 points): 3/40** — The pages share the iPhone subject, but the reference’s “Get to know iPhone” heading and feature-card text are absent. The generated page shows “iPhone” and “Designed to be loved.”\n- **Style (15 points): 6/15** — The clean typography and restrained palette feel broadly Apple-like, but the generated page’s large solid-black region differs sharply from the reference’s product imagery and varied card colors.\n- **Overall (20 points): 2/20** — The screenshots show different sections of the page and have little visible content in common beyond the brand and general visual language.\n\n**Score: 16/100**",
+    "Comments:\n- **Layout (1/10):** The reference shows the “Get to know iPhone.” heading above a horizontal row of cards. The generated page instead has a large black area filling most of the viewport, pushing the heading to the bottom and hiding the cards.\n- **Elements (2/15):** The heading and a circular control are present, but the prominent feature cards, images, and their plus buttons are missing from view.\n- **Content and Text (5/40):** The heading text matches, but the card labels and descriptions visible in the reference are absent.\n- **Style (2/15):** The heading uses a similar bold, dark type style, but the large black block differs sharply from the reference’s white background and colorful card imagery.\n- **Overall (2/20):** There is a small match in the heading, but the visible page structure and content are substantially different.\n\nScore: **12/100**---",
+    "Comments:\n-Layout (2/10): Both pages have a large heading above a row of four columns, but the reference’s lineup section and the generated page’s feature-card section differ substantially in structure and vertical spacing.\n-Elements (2/15): The reference shows four iPhone product images, color swatches, and a “Compare all models” link. The generated page instead has four large feature cards and a pause control.\n-Content and Text (0/40): The heading and all visible text differ; none of the reference’s iPhone model names or lineup content appears.\n-Style (4/15): Both use Apple-like typography and a clean, minimal presentation, but the reference has a pale gray background and product-focused imagery, while the generated page is mostly white with dark, colorful cards.\n-Overall (2/20): The broad four-column arrangement is a limited point of similarity, but the content and visual composition do not match the reference.\n\nScore: 10/100",
+    "---\nComments:\n- **Layout (2/10):** Both pages use four columns, but the reference is a spacious comparison table with aligned rows of specifications. The generated page instead uses large, tall feature cards with rounded corners.\n- **Elements (2/15):** The reference shows iPhone models, color swatches, pricing, action buttons, and comparison icons. The generated page has promotional imagery and plus buttons, with none of the comparison controls or spec rows.\n- **Content and Text (1/40):** The reference compares iPhone 16 Pro, iPhone 16, iPhone 16e, and iPhone 15, including prices and hardware details. The generated page presents unrelated feature-card copy about Apple Intelligence, cameras, battery life, and design.\n- **Style (4/15):** Both use a clean Apple-like sans-serif aesthetic, but the reference has a pale, minimal table layout while the generated page relies on dramatic images, dark panels, and rounded cards.\n- **Overall (2/20):** The generated page is polished, but it depicts a different section of an Apple webpage and does not match the reference’s purpose or content.\n\nScore: **11/100**\n---"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "Store Mac iPad iPhone Watch Vision AirPods TV & Home Entertainment Accessories Support OS iPhone 16 Pro iPhone 16 iPhone 16e iPhone 15 Compare AirPods AirTag Accessories Apple Card IOS 26 Shop iPhone Previewi Get S160-5600 in credit toward iPhone 16 or iPhone 16 Pro when you trade in iPhone 12 or higher: Shop iPhone > iPhone Designed to be loved:",
+      "screenshot_text": "Store Mac iPad iPhone Watch Vision AirPods TV & Home Entertainment Accessories Suppont OS iPhone 16 Pro iPhone 16 iPhone 16e iPhone 15 Compare AirPods AirTag Accessories Apple Card iOS 26 Shop iPhone Preview Get 5160-5600 credit toward iPhone 16 or iPhone 16 Pro when you trade in iPhone 12 or higher: Shop iPhone iPhone Designed to be loved:",
+      "similarity": 0.9770114942528736
+    },
+    {
+      "checkpoint_text": "Get to know iPhone. Apple Intelligence Cutting-Edge Cameras Chip and Battery Life Innovation Enviroi Al-opening possibilities ' Picture your best Fast that lasts: Beautiful and durable, photos and videos: by design: 94 Reci",
+      "screenshot_text": "Store Mac iPad iPhone Watch Vision AirPods TV & Home Entertainment Accessories Suppont OS iPhone 16 Pro iPhone 16 iPhone 16e iPhone 15 Compare AirPods AirTag Accessories Apple Card iOS 26 Shop iPhone Preview Get 5160-5600 credit toward iPhone 16 or iPhone 16 Pro when you trade in iPhone 12 or higher: Shop iPhone iPhone Designed to be loved:",
+      "similarity": 0.26023391812865493
+    },
+    {
+      "checkpoint_text": "Get to know iPhone. Apple Intelligence Cutting-Edge Cameras Chip and Battery Life Innovation Envirol Al-opening possibilities ' Picture your best Fast that lasts: Beautiful and durable, Recy photos and videos: by design: e . Grnmoi A18 OFCE0J PRO FDj J8 da",
+      "screenshot_text": "Get to know iPhone.",
+      "similarity": 0.07421875
+    },
+    {
+      "checkpoint_text": "Explore the lineup: Compare all models jphone 16 Pro iphone iphone 16e jphone 15",
+      "screenshot_text": "Get to know iPhone. Apple Intelligence Cutting-I Cameras Chip and Battery Life Innovation Al-opening possibilities.1 Picture your best photos Fast that lasts: Beautiful and durable; by and videos design: Cancel Newv Genmoji @o Edge",
+      "similarity": 0.19913419913419916
+    },
+    {
+      "checkpoint_text": "iPhone 16 Pro iPhone 16 iPhone 16e iPhone 15 The ultimate iPhone. A total powerhouse: Latest iPhone. Greatest price: As amazing as ever: From S999 or S41.62/mo. for 24 mo\" From S799 or S33.29/mo. for 24 mosu From S599 or S24.95/mo. for 24 moau From S699 or S29.12/mo. for 24 mozu Learn more Learn more Learn more Learn more Apple Intelligence- Apple Intelligence- Apple Intelligence- A18 A18 A18 A16 A18 Pro chip with 6-core GPU A18 chip with 5-core GPU A18 chip with 4-core GPU A16 Bionic chip with 5-core GPU Camera Control Camera Control Buy Buy Buy Buy",
+      "screenshot_text": "Apple Intelligence Cutting-Edge Cameras Chip and Battery Life Innovation Al-opening possibilities.1 Picture your best photos Fast that lasts: Beautiful and durable; by and videos: design: 9.41 Cant Netv Genmoji t Add Someoosaipuot $ May cicate Uachoccted Icsums A18 Octopus DJ PRO Fd 3mac@",
+      "similarity": 0.2230215827338129
+    }
+  ],
+  "assertion_results": [
+    null,
+    null,
+    null,
+    null
+  ]
+}

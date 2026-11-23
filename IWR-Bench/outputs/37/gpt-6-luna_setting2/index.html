@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chess Game</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; }
+  body {
+    background: #f0f1f4;
+    color: #222a30;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow-x: hidden;
+  }
+  .page {
+    width: 100%;
+    min-height: 968px;
+    position: relative;
+  }
+  .ad-link {
+    position: absolute;
+    top: 365px;
+    color: #9299a0;
+    font: 12px Georgia, serif;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .ad-left { left: max(30px, calc(50% - 870px)); }
+  .ad-right { right: max(30px, calc(50% - 870px)); }
+  .game {
+    width: 1280px;
+    max-width: 100%;
+    min-height: 968px;
+    margin: 0 auto;
+    background: #faf9fc;
+    border-left: 1px solid #e3e4e8;
+    border-right: 1px solid #e3e4e8;
+    box-shadow: 0 0 3px rgba(0,0,0,.06);
+  }
+  .topbar {
+    height: 78px;
+    background: #f0f1f4;
+    border-bottom: 1px solid #dfe1e5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .bar-inner {
+    width: 810px;
+    max-width: 96%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .tiny-info {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    white-space: nowrap;
+  }
+  .badge {
+    width: 27px;
+    height: 33px;
+    object-fit: contain;
+  }
+  .knight-icon {
+    font-size: 25px;
+    color: #121519;
+    line-height: 1;
+  }
+  .flag { font-size: 17px; line-height: 1; }
+  .players {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 100%;
+  }
+  .player {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    min-width: 132px;
+  }
+  .player.right { flex-direction: row; }
+  .player-name {
+    font-size: 19px;
+    line-height: 20px;
+    color: #20272c;
+    white-space: nowrap;
+  }
+  .clock {
+    color: #647079;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 2px;
+  }
+  .clock.pink { color: #d7478a; }
+  .avatar {
+    width: 66px;
+    height: 66px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #25c9a0;
+    border: 5px solid #24c89f;
+  }
+  .robot {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+    background: #34434e;
+    border: 4px solid #34434e;
+  }
+  .score {
+    font-size: 20px;
+    font-weight: 700;
+    color: #454e54;
+    padding: 0 2px;
+  }
+  .board-area {
+    position: relative;
+    padding-top: 58px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .capture-top {
+    height: 0;
+    position: relative;
+    top: -1px;
+    z-index: 2;
+    font-size: 27px;
+    line-height: 30px;
+    color: #151515;
+    font-family: "DejaVu Sans", Arial, sans-serif;
+    white-space: nowrap;
+  }
+  .capture-bottom {
+    height: 27px;
+    padding-top: 7px;
+    line-height: 20px;
+    font-family: "DejaVu Sans", Arial, sans-serif;
+    font-size: 20px;
+    color: #222;
+  }
+  .board {
+    width: 744px;
+    height: 744px;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    user-select: none;
+    touch-action: manipulation;
+  }
+  .square {
+    position: relative;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #050505;
+    font-family: "DejaVu Sans", "Arial Unicode MS", serif;
+    font-size: 73px;
+    line-height: 1;
+    overflow: hidden;
+  }
+  .square.light { background: #aaf5df; }
+  .square.dark { background: #20c99d; }
+  .square.last { background: #cbb99e; }
+  .square.selected::after {
+    content: "";
+    position: absolute;
+    inset: 4px;
+    border: 4px solid rgba(25, 82, 75, .62);
+    border-radius: 3px;
+    pointer-events: none;
+  }
+  .piece {
+    z-index: 1;
+    transform: translateY(-1px);
+    text-shadow: 0 1px 0 rgba(0,0,0,.08);
+    pointer-events: none;
+  }
+  .square .coord {
+    position: absolute;
+    z-index: 2;
+    left: 5px;
+    top: 3px;
+    font: 20px Georgia, serif;
+    line-height: 20px;
+    color: rgba(27, 159, 130, .68);
+    pointer-events: none;
+  }
+  .square .file {
+    position: absolute;
+    z-index: 2;
+    right: 4px;
+    bottom: 0px;
+    font: 19px Georgia, serif;
+    line-height: 19px;
+    color: rgba(27, 159, 130, .7);
+    pointer-events: none;
+  }
+  .btn { cursor: pointer; }
+  @media (max-width: 800px) {
+    .game { min-height: 100vh; }
+    .board-area { padding-top: 28px; }
+    .board {
+      width: min(96vw, 744px);
+      height: min(96vw, 744px);
+    }
+    .square { font-size: min(9.5vw, 73px); }
+    .square .coord, .square .file { font-size: min(2.6vw, 20px); }
+    .bar-inner { width: 100%; padding: 0 8px; }
+    .players { gap: 3px; }
+    .player { min-width: auto; gap: 3px; }
+    .player-name { font-size: 13px; }
+    .avatar, .robot { width: 45px; height: 45px; }
+    .tiny-info { gap: 4px; }
+    .ad-link { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <a class="ad-link ad-left btn">Remove ads</a>
+  <a class="ad-link ad-right btn">Remove ads</a>
+
+  <main class="game">
+    <header class="topbar">
+      <div class="bar-inner">
+        <div class="tiny-info">
+          <img class="badge" src="../../../data/data/37/assets/017.svg" width="27" height="33" alt="">
+          <span class="knight-icon">♞</span>
+          <span class="flag">🇺🇸</span>
+        </div>
+
+        <div class="players">
+          <div class="player">
+            <div>
+              <div class="player-name">ROXY</div>
+              <div class="clock pink">29.0s</div>
+            </div>
+            <img class="avatar" src="../../../data/data/37/assets/011.png" width="66" height="66" alt="ROXY avatar">
+          </div>
+          <div class="score">0&nbsp;0</div>
+          <div class="player right">
+            <img class="robot" src="../../../data/data/37/assets/024.png" width="60" height="60" alt="Robot avatar">
+            <div>
+              <div class="player-name">Julien Song</div>
+              <div class="clock">20.5s</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tiny-info">
+          <span class="flag">🇫🇷</span>
+          <span class="knight-icon">♘</span>
+          <img class="badge" src="../../../data/data/37/assets/017.svg" width="27" height="33" alt="">
+        </div>
+      </div>
+    </header>
+
+    <section class="board-area">
+      <div class="capture-top">♟♟♛<small style="font:16px Arial,sans-serif; vertical-align:middle">+7</small></div>
+      <div class="board" id="board" aria-label="Chess board"></div>
+      <div class="capture-bottom">♗♙</div>
+    </section>
+  </main>
+</div>
+
+<script>
+  // Board is shown from the white player's side at the top, with files reversed.
+  const files = ['h','g','f','e','d','c','b','a'];
+  const boardState = [
+    ['','','R','K','','','N','R'],
+    ['P','','P','Q','','P','P','P'],
+    ['','','N','','','','',''],
+    ['','','','Q','P','','',''],
+    ['','B','','p','','','',''],
+    ['','','','','','','',''],
+    ['','','','p','p','p','p','p'],
+    ['r','n','b','k','q','b','n','r']
+  ];
+
+  // Remove the duplicate queen in the top position: the queen is on d4 in this position.
+  boardState[0][3] = '';
+  const symbols = {
+    K: '♔', Q: '♕', R: '♖', B: '♗', N: '♘', P: '♙',
+    k: '♚', q: '♛', r: '♜', b: '♝', n: '♞', p: '♟'
+  };
+  const board = document.getElementById('board');
+  let selected = null;
+
+  // The final shown position has the white queen on d4 and a black pawn on e5.
+  boardState[3][4] = 'Q';
+  boardState[3][3] = '';
+  boardState[4][3] = 'p';
+  boardState[6][3] = '';
+  const lastSquares = new Set(['3,3', '4,3']);
+
+  function render() {
+    board.innerHTML = '';
+    for (let r = 0; r < 8; r++) {
+      for (let c = 0; c < 8; c++) {
+        const sq = document.createElement('button');
+        sq.type = 'button';
+        sq.className = 'square btn ' + ((r + c) % 2 === 0 ? 'light' : 'dark');
+        if (lastSquares.has(`${r},${c}`)) sq.classList.add('last');
+        if (selected && selected.r === r && selected.c === c) sq.classList.add('selected');
+
+        if (c === 0) {
+          const rank = document.createElement('span');
+          rank.className = 'coord';
+          rank.textContent = String(r + 1);
+          sq.appendChild(rank);
+        }
+        if (r === 7) {
+          const file = document.createElement('span');
+          file.className = 'file';
+          file.textContent = files[c];
+          sq.appendChild(file);
+        }
+        const piece = boardState[r][c];
+        if (piece) {
+          const span = document.createElement('span');
+          span.className = 'piece';
+          span.textContent = symbols[piece];
+          sq.appendChild(span);
+        }
+        sq.addEventListener('click', () => clickSquare(r, c));
+        board.appendChild(sq);
+      }
+    }
+  }
+
+  function clickSquare(r, c) {
+    const piece = boardState[r][c];
+    if (!selected) {
+      if (piece) {
+        selected = {r, c};
+        render();
+      }
+      return;
+    }
+    if (selected.r === r && selected.c === c) {
+      selected = null;
+      render();
+      return;
+    }
+    if (piece && ((piece === piece.toUpperCase()) === (boardState[selected.r][selected.c] === boardState[selected.r][selected.c].toUpperCase()))) {
+      selected = {r, c};
+      render();
+      return;
+    }
+    boardState[r][c] = boardState[selected.r][selected.c];
+    boardState[selected.r][selected.c] = '';
+    selected = null;
+    lastSquares.clear();
+    lastSquares.add(`${r},${c}`);
+    lastSquares.add(`${r},${c}`);
+    render();
+  }
+  render();
+</script>
+</body>
+</html>

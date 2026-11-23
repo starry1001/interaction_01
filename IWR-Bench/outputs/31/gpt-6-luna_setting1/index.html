@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workspace</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;font-family:Arial,Helvetica,sans-serif;color:#292929;background:#000;font-size:14px}button,input,textarea{font:inherit}.btn{cursor:pointer}
+.app{position:absolute;left:0;right:0;top:68px;bottom:0;background:#fff;overflow:hidden}
+.topbar{position:absolute;left:0;right:0;top:-42px;height:42px;background:#302070;color:#fff;display:flex;align-items:center;padding:0 22px;gap:20px}
+.brandmark{font-size:24px;font-weight:bold;color:#ff40d4;width:30px}.search{height:30px;width:650px;background:#514589;border-radius:7px;margin-left:830px;color:#e9e5ff;padding:6px 18px;font-size:16px}.top-actions{margin-left:auto;display:flex;align-items:center;gap:18px}.upgrade{background:#ed24cc;padding:8px 17px;border-radius:6px;font-weight:bold}.avatar{height:32px;width:32px;border-radius:50%;background:#5e40bf;display:flex;align-items:center;justify-content:center;color:white;font-weight:bold}
+.sidebar{position:absolute;left:0;top:0;bottom:0;width:252px;border-right:1px solid #ececec;background:#fafafa}.workspace{height:76px;border-bottom:1px solid #eee;display:flex;align-items:center;padding:0 18px;font-size:17px;font-weight:bold}.workspace-icon{width:27px;height:27px;border-radius:7px;background:#18b89f;color:#fff;display:flex;align-items:center;justify-content:center;margin-right:9px}.nav{padding:13px 10px}.nav-item{height:39px;padding:10px 12px;border-radius:5px;font-size:16px;display:flex;align-items:center;gap:12px}.nav-item.active{background:#e9e1ff;color:#5137b6;font-weight:bold}.section{margin-top:20px;padding:0 16px;color:#888}.section-title{height:38px;display:flex;align-items:center;justify-content:space-between}.space-item{height:40px;display:flex;align-items:center;padding:0 12px;gap:12px;border-radius:5px;font-size:16px}.space-item.selected{background:#e8e0ff;color:#5136b4;font-weight:bold}.list-item{height:39px;padding-left:42px;display:flex;align-items:center;justify-content:space-between;font-size:15px}.footer{position:absolute;bottom:0;left:0;right:0;border-top:1px solid #eee;height:60px;display:flex;justify-content:space-around;align-items:center;color:#555}
+.main{position:absolute;left:252px;top:0;right:0;bottom:0;background:#fff;overflow:auto}.page-head{height:52px;border-bottom:1px solid #eee;display:flex;align-items:center;padding:0 20px;font-size:17px}.page-head strong{margin-left:9px}.toolbar{height:50px;border-bottom:1px solid #eee;display:flex;align-items:center;padding:0 20px;gap:25px}.tabs{display:flex;gap:28px;height:100%;align-items:center}.tab{height:100%;padding-top:17px;color:#555}.tab.active{border-bottom:3px solid #333;font-weight:bold;color:#222}.toolbar-right{margin-left:auto;display:flex;gap:15px;align-items:center}.purple{background:#5d32cf;color:#fff;border:0;border-radius:6px;padding:8px 14px}.banner{height:45px;background:#f5f5f5;display:flex;align-items:center;justify-content:center;color:#555}.content{padding:28px 22px;background:#fafafa;min-height:calc(100% - 147px)}.cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px}.card{background:#fff;border:1px solid #eee;border-radius:8px;box-shadow:0 2px 12px #eee;padding:22px;min-height:305px}.card h3{margin:0 0 20px;font-size:18px}.card-row{padding:7px 0;color:#555}.empty-bookmark{height:230px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#999;text-align:center}.empty-icon{font-size:46px;color:#ccc;margin-bottom:18px}.wide{grid-column:1/4;min-height:300px}.lists{grid-column:1/4;min-height:270px}.table{width:100%;border-collapse:collapse;margin-top:18px}.table th,.table td{text-align:left;padding:12px;border-bottom:1px solid #eee;color:#555}.table th{font-size:12px;color:#999}.taskrow{cursor:pointer}.taskrow:hover{background:#faf7ff}
+.project-view{display:none}.project-view.show{display:block}.project-body{padding:0 18px}.filters{height:52px;display:flex;align-items:center;gap:12px}.pill{border:1px solid #ddd;border-radius:16px;padding:7px 12px;color:#666;background:#fff}.list-table{width:100%;border-collapse:collapse}.list-table th,.list-table td{height:43px;border-bottom:1px solid #eee;text-align:left;padding:0 10px;color:#555}.list-table th{color:#888;font-weight:normal}.status{display:inline-flex;align-items:center;border-radius:5px;padding:6px 10px;background:#f0f0f0}.circle{width:17px;height:17px;border:2px solid #aaa;border-radius:50%;display:inline-block;margin-right:8px}.status.complete{background:#39ad72;color:#fff}.status.progress{background:#278cd1;color:#fff}.status.complete .circle{border-color:#fff}.status.progress .circle{border-color:#fff}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.32);z-index:10}.overlay.show{display:block}.task-modal{position:absolute;left:calc(50% - 785px);top:72px;width:1570px;height:1170px;background:white;border-radius:12px;overflow:hidden;display:flex;box-shadow:0 6px 30px rgba(0,0,0,.2)}.modal-top{position:absolute;top:0;left:0;right:0;height:58px;border-bottom:1px solid #eee;display:flex;align-items:center;padding:0 26px;z-index:2;background:#fff}.crumb{font-size:16px;font-weight:bold}.modal-actions{margin-left:auto;display:flex;gap:16px;align-items:center}.modal-left{width:1100px;margin-top:58px;overflow:auto;padding:45px 130px}.modal-right{width:470px;margin-top:58px;border-left:1px solid #eee;position:relative}.modal-left h1{font-size:30px;margin:24px 0}.ai-banner{background:#fafafa;padding:15px;border-radius:5px;color:#444;margin-bottom:30px}.props{display:grid;grid-template-columns:1fr 1fr;column-gap:90px;row-gap:23px;border-bottom:1px solid #eee;padding-bottom:22px}.prop{display:grid;grid-template-columns:180px 1fr;align-items:center;min-height:24px}.prop-label{font-weight:bold;font-size:16px}.prop-value{color:#888;min-height:32px;display:flex;align-items:center;border-radius:4px;padding:4px 8px}.prop-value:hover{background:#f4f4f4}.empty{color:#999}.description{border-bottom:1px solid #eee;padding:18px 0;color:#999}.section-block{margin-top:58px}.section-block h2{font-size:20px}.addbox{height:45px;border:1px solid #eee;border-radius:6px;padding:13px;color:#999}.activity-head{height:58px;border-bottom:1px solid #eee;padding:18px;font-size:22px;font-weight:bold}.activity-body{padding:24px;color:#777}.commentbox{position:absolute;bottom:18px;left:18px;right:18px;border:1px solid #ddd;border-radius:8px;padding:14px;color:#aaa}.comment-input{width:100%;border:0;outline:0;height:45px;resize:none}.send{float:right;background:#8061e8;color:white;border:0;border-radius:6px;padding:9px 17px}
+.popover{display:none;position:absolute;background:#fff;border:1px solid #ddd;border-radius:10px;box-shadow:0 4px 18px #ccc;z-index:20;color:#555}.popover.show{display:block}.status-pop{left:275px;top:270px;width:190px;padding:8px}.pop-option{padding:11px;border-radius:5px}.pop-option:hover{background:#eee}.assignee-pop{left:820px;top:285px;width:280px;padding:16px}.priority-pop{left:820px;top:340px;width:205px;padding:10px}.estimate-pop{left:275px;top:360px;width:310px;padding:16px}.time-pop{left:785px;top:395px;width:480px;padding:20px}.input{border:1px solid #a18be8;border-radius:7px;padding:10px;width:100%;outline:none}.time-row{padding:16px 4px;border-bottom:1px solid #eee}.toast{position:fixed;bottom:24px;left:18px;background:#222;color:#fff;border-radius:6px;padding:14px 18px;display:none;z-index:50}.toast.show{display:block}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar"><div class="brandmark">⌁</div><div class="search">⌕ &nbsp; Search <span style="float:right">⚙ AI</span></div><div class="top-actions"><div class="upgrade btn">♧ Upgrade</div><span>⊕ New</span><span>▣</span><span>▦</span><div class="avatar">朱</div></div></div>
+  <aside class="sidebar">
+    <div class="workspace"><div class="workspace-icon">朱</div>朱嘉亮's Wor...</div>
+    <div class="nav">
+      <div class="nav-item active btn" id="homeBtn">⌂ <span>Home</span></div>
+      <div class="nav-item btn">▢ <span>Inbox</span></div>
+      <div class="nav-item btn">◉ <span>More</span></div>
+      <div class="section"><div class="section-title">Favorites <span>›</span></div><div class="section-title">Spaces <span>···　⌕　＋</span></div></div>
+      <div class="space-item btn">✣ <span>Everything</span></div>
+      <div class="space-item selected btn">▣ <span>Team Space</span><span style="margin-left:auto">··· ＋</span></div>
+      <div class="list-item btn" id="project1Btn">☷ <span>Project 1</span><span>4</span></div>
+      <div class="list-item btn">☷ <span>Project 2</span><span>3</span></div>
+      <div class="list-item btn">▤ <span>Project Notes</span></div>
+      <div class="space-item btn" style="margin-top:8px">＋ <span>Create Space</span></div>
+    </div>
+    <div class="footer"><span class="btn">♙ Invite</span><span class="btn">ⓘ Help</span></div>
+  </aside>
+  <main class="main">
+    <div class="page-head"><span>⌂</span><strong id="pageTitle">Team Space</strong><span style="margin-left:10px;color:#888">···</span></div>
+    <div class="toolbar">
+      <div class="tabs"><span class="tab active">▦ Overview</span><span class="tab btn">☷ List</span><span class="tab btn">▥ Board</span><span class="tab btn">▣ Calendar</span><span class="tab btn">≡ Gantt</span><span class="tab btn">▤ Table</span><span class="tab btn">＋ View</span></div>
+      <div class="toolbar-right"><span>⚙ Customize</span><button class="purple btn">Add card</button><span>⌄</span></div>
+    </div>
+    <div id="overview">
+      <div class="banner">Get the most out of your Overview! Add, reorder, and resize cards to customize this page&nbsp; <u>Get Started</u></div>
+      <div class="content">
+        <div class="cards">
+          <div class="card"><h3>Recent</h3><div class="card-row">☷　Project 1 <span style="color:#aaa">· in Team Space</span></div></div>
+          <div class="card"><h3>Docs</h3><div class="card-row">▧　Project 1 <span style="color:#aaa">· in Team Space</span></div></div>
+          <div class="card"><h3>Bookmarks</h3><div class="empty-bookmark"><div class="empty-icon">♧</div><div>Bookmarks make it easy to save ClickUp items or any URL from around the web.</div><button class="purple btn" style="margin-top:15px">Add Bookmark</button></div></div>
+          <div class="card wide"><h3>Folders</h3><div style="height:220px;display:flex;align-items:center;justify-content:center;color:#aaa">No Folders to show</div></div>
+          <div class="card lists"><h3>Lists</h3><table class="table"><thead><tr><th>Name</th><th>Color</th><th>Progress</th><th>Start</th><th>End</th><th>Priority</th><th>Owner</th></tr></thead><tbody><tr><td>☷　Project 1</td><td></td><td>━━━━　0/4</td><td>▣</td><td>▣</td><td>⚑</td><td>♙</td></tr><tr><td>☷　Project 2</td><td></td><td>━━━━　0/3</td><td>▣</td><td>▣</td><td>⚑</td><td>♙</td></tr><tr><td>＋　New List</td></tr></tbody></table></div>
+        </div>
+      </div>
+    </div>
+    <div class="project-view" id="projectView">
+      <div class="toolbar"><div class="tabs"><span class="tab active">☷ List</span><span class="tab btn">▥ Board</span><span class="tab btn">▣ Calendar</span><span class="tab btn">≡ Gantt</span><span class="tab btn">▤ Table</span><span class="tab btn">＋ View</span></div><div class="toolbar-right">⌕ Search　 Hide　 Customize <button class="purple btn">Add Task⌄</button></div></div>
+      <div class="project-body"><div class="filters"><span class="pill">◉ Group: Status</span><span class="pill">⌘ Subtasks</span><span class="pill">▥ Columns</span><span style="margin-left:auto" class="pill">⌕ Search...</span></div><table class="list-table"><thead><tr><th style="width:30%">Name</th><th>Assignee</th><th>Due date</th><th>Priority</th><th>Status</th><th>Comments</th><th>···</th></tr></thead><tbody><tr><td colspan="7"><b>⌄　<span class="status">◯ TO DO</span>　4　···　＋ Add Task</b></td></tr><tr class="taskrow btn" data-task="Task 1"><td>　◯　 Task 1</td><td>♙</td><td>▣</td><td>⚑</td><td><span class="status"><span class="circle"></span>TO DO</span></td><td>▢</td><td>···</td></tr><tr class="taskrow btn"><td>　◯　 Task 2</td><td>♙</td><td>▣</td><td>⚑</td><td><span class="status"><span class="circle"></span>TO DO</span></td><td>▢</td><td>···</td></tr><tr class="taskrow btn"><td>　◯　 Task 3</td><td>♙</td><td>▣</td><td>⚑</td><td><span class="status"><span class="circle"></span>TO DO</span></td><td>▢</td><td>···</td></tr><tr class="taskrow btn"><td>　▧　 <b>meeting</b></td><td><span class="avatar" style="display:inline-flex;width:27px;height:27px">朱</span></td><td>Today</td><td>🚩 Urgent</td><td><span class="status"><span class="circle"></span>TO DO</span></td><td>▢</td><td>···</td></tr><tr><td>　＋　 Add Task</td></tr></tbody></table></div>
+    </div>
+  </main>
+</div>
+
+<div class="overlay" id="overlay">
+  <div class="task-modal">
+    <div class="modal-top"><span>▣　⌃　⌄　</span><span class="crumb">▣ Team Space　/　Project 1　⌕　＋</span><div class="modal-actions"><span>Created on Aug 24</span><button class="purple btn">Share</button><span>···　☆　⇩　▣</span><span class="btn" id="closeModal" style="font-size:24px">×</span></div></div>
+    <div class="modal-left">
+      <div><span class="pill">◉ Task⌄</span> <span class="pill">86ab77tbt</span> <span class="pill" style="color:#8f55bb">🌈 Ask AI</span></div>
+      <h1>Task 1</h1><div class="ai-banner">🌈 Ask Brain to write a description, generate subtasks or find similar tasks</div>
+      <div class="props">
+        <div class="prop"><div class="prop-label">◉ Status</div><div class="prop-value btn" id="statusValue"><span class="status complete">COMPLETE</span></div></div>
+        <div class="prop"><div class="prop-label">♙ Assignees</div><div class="prop-value btn" id="assigneeValue"><span class="avatar" style="width:28px;height:28px">朱</span></div></div>
+        <div class="prop"><div class="prop-label">▣ Dates</div><div class="prop-value">▣ Start　→　▣ Due</div></div>
+        <div class="prop"><div class="prop-label">⚑ Priority</div><div class="prop-value btn" id="priorityValue">⚑ Normal</div></div>
+        <div class="prop"><div class="prop-label">⌛ Time Estimate</div><div class="prop-value btn" id="estimateValue">1h</div></div>
+        <div class="prop"><div class="prop-label">◷ Track Time</div><div class="prop-value btn" id="timeValue">◉ 59m</div></div>
+        <div class="prop"><div class="prop-label">♢ Tags</div><div class="prop-value">Empty</div></div>
+        <div class="prop"><div class="prop-label">↗ Relationships</div><div class="prop-value">Empty</div></div>
+      </div>
+      <div class="description btn">▧　Add description<br><span style="line-height:35px">🌈　Write with AI</span></div>
+      <div class="section-block"><h2>Custom Fields</h2><div class="addbox btn">＋　Create a Field on this location</div></div>
+      <div class="section-block"><h2>Add subtask</h2><div class="addbox btn">＋　Add Task</div></div>
+      <div class="section-block"><h2>Checklists</h2><div class="addbox btn">＋　Create checklist</div></div>
+      <div class="section-block"><h2>Attachments</h2><div class="addbox" style="text-align:center">Drop your files here to <u>upload</u></div></div>
+    </div>
+    <div class="modal-right"><div class="activity-head">Activity <span style="float:right;color:#777">⌕　♧ 1　≡</span></div><div class="activity-body">•　You created this task by copying #86b5m62ev (You<br>　 Don't Have Access) <span style="float:right">32 mins</span></div><div class="commentbox"><textarea class="comment-input" id="commentInput" placeholder="Comment, press 'space' for AI, '/' for commands"></textarea><span>＋　🌈　♧　@　▧　◉　▱</span><button class="send btn" id="sendComment">➤</button></div></div>
+    <div class="popover status-pop" id="statusPop"><div class="pop-option btn" data-status="TO DO">◯ TO DO</div><div class="pop-option btn" data-status="IN PROGRESS">◉ IN PROGRESS</div><div class="pop-option btn" data-status="COMPLETE">✓ COMPLETE</div></div>
+    <div class="popover assignee-pop" id="assigneePop"><input class="input" placeholder="⌕ Search or enter email..."><p>People</p><div class="pop-option btn" id="chooseMe">🟣 Me</div><p>Teams</p><div class="pop-option">⚫　1 <span style="float:right">0 people</span></div><div class="pop-option">♙　Invite people via email</div></div>
+    <div class="popover priority-pop" id="priorityPop"><b>Task Priority</b><div class="pop-option btn" data-priority="Urgent">🚩　Urgent</div><div class="pop-option btn" data-priority="High">🚩　High</div><div class="pop-option btn" data-priority="Normal">🚩　Normal</div><div class="pop-option btn" data-priority="Low">🚩　Low</div></div>
+    <div class="popover estimate-pop" id="estimatePop"><b>Time Estimate　?</b><input class="input" id="estimateInput" placeholder="Type in time" value="1h"><small>Changes are automatically saved</small></div>
+    <div class="popover time-pop" id="timePop"><b>Time on all tasks <span style="float:right">0h / 1h</span></b><hr><div class="time-row">🟣　朱嘉亮⌄</div><input class="input" placeholder="Enter time (ex: 3h 20m) or start timer"><div class="time-row">◷　 Sun, Aug 24　 10:01 am　–　11:00 am</div><div class="time-row">☷　 Notes</div><div class="time-row">♢　 Add tags</div><button class="purple btn" style="float:right">Save</button></div>
+  </div>
+</div>
+<div class="toast" id="toast">Task 1 status changed　 <b>Undo　Ctrl + Z</b></div>
+<script>
+const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
+const overlay=$('#overlay'), overview=$('#overview'), project=$('#projectView'), title=$('#pageTitle');
+$('#project1Btn').onclick=()=>{overview.style.display='none';project.classList.add('show');title.textContent='Team Space　/　Project 1'};
+$('#homeBtn').onclick=()=>{overview.style.display='block';project.classList.remove('show');title.textContent='Team Space'};
+$$('.taskrow').forEach(x=>x.onclick=()=>overlay.classList.add('show'));
+$('#closeModal').onclick=()=>overlay.classList.remove('show');
+function toggle(id){document.querySelectorAll('.popover').forEach(p=>p.classList.remove('show'));$(id).classList.add('show')}
+$('#statusValue').onclick=()=>toggle('#statusPop');
+$('#assigneeValue').onclick=()=>toggle('#assigneePop');
+$('#priorityValue').onclick=()=>toggle('#priorityPop');
+$('#estimateValue').onclick=()=>toggle('#estimatePop');
+$('#timeValue').onclick=()=>toggle('#timePop');
+$$('[data-status]').forEach(x=>x.onclick=()=>{let v=x.dataset.status,el=$('#statusValue');el.innerHTML='<span class="status '+(v==='COMPLETE'?'complete':v==='IN PROGRESS'?'progress':'')+'">'+(v==='COMPLETE'?'✓ ':'')+v+'</span>';$('#statusPop').classList.remove('show');$('#toast').classList.add('show');setTimeout(()=>$('#toast').classList.remove('show'),2500)});
+$('#chooseMe').onclick=()=>{$('#assigneeValue').innerHTML='<span class="avatar" style="width:28px;height:28px">朱</span>';$('#assigneePop').classList.remove('show')};
+$$('[data-priority]').forEach(x=>x.onclick=()=>{$('#priorityValue').textContent='⚑ '+x.dataset.priority;$('#priorityPop').classList.remove('show')});
+$('#estimateInput').onchange=()=>{$('#estimateValue').textContent=$('#estimateInput').value||'1h';$('#estimatePop').classList.remove('show')};
+$('#sendComment').onclick=()=>{let i=$('#commentInput');if(i.value.trim()){document.querySelector('.activity-body').innerHTML+='<div style="margin-top:25px;padding:16px;border:1px solid #eee;border-radius:8px"><b>朱嘉亮</b><br><br>'+i.value+'</div>';i.value=''}};
+overlay.onclick=e=>{if(e.target===overlay)overlay.classList.remove('show')};
+</script>
+</body>
+</html>

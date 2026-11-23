@@ -1,0 +1,274 @@
+```html
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Pudding — the middle ages</title>
+<style>
+  * { box-sizing: border-box; }
+  html { background: #1b0719; scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: #1b0719;
+    color: #ead7e8;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow-x: hidden;
+  }
+  a { color: #d34dbd; }
+  .btn { cursor: pointer; }
+  .intro {
+    height: 100vh;
+    min-height: 700px;
+    position: relative;
+    text-align: center;
+    background: #1b0719;
+  }
+  .logo {
+    position: absolute;
+    top: 43px;
+    left: 50%;
+    width: 205px;
+    height: 62px;
+    transform: translateX(-50%);
+    object-fit: contain;
+  }
+  .heading {
+    position: absolute;
+    top: 30%;
+    left: 0;
+    width: 100%;
+    color: #e7d5e5;
+    font-family: Georgia, "Times New Roman", serif;
+  }
+  .heading h1 {
+    margin: 0 0 17px;
+    font-size: 22px;
+    font-weight: 400;
+  }
+  .heading p {
+    margin: 0;
+    font-size: 17px;
+  }
+  .heading a { text-decoration: underline; }
+  .intro-face {
+    position: absolute;
+    top: 42.7%;
+    left: 50%;
+    width: 300px;
+    height: 155px;
+    transform: translateX(-50%);
+    object-fit: cover;
+  }
+  .skip {
+    position: fixed;
+    z-index: 20;
+    left: 50%;
+    bottom: 17px;
+    transform: translateX(-50%);
+    padding: 22px 78px;
+    background: rgba(0,0,0,.83);
+    color: #eee;
+    font-size: 16px;
+    white-space: nowrap;
+    text-decoration: none;
+  }
+  .skip span { color: #d52fbd; text-decoration: underline; }
+  .story {
+    height: 850vh;
+    position: relative;
+    background: #1b0719;
+  }
+  .sticky-stage {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    min-height: 700px;
+    overflow: hidden;
+    background: #1b0719;
+  }
+  .portrait {
+    position: absolute;
+    top: 30.2%;
+    left: 50%;
+    width: 300px;
+    height: 157px;
+    transform: translateX(-50%);
+    object-fit: cover;
+    display: none;
+  }
+  .portrait.show { display: block; }
+  .class-grid {
+    display: none;
+    position: absolute;
+    top: 7.6%;
+    left: 50%;
+    width: 812px;
+    height: 1085px;
+    transform: translateX(-50%);
+    object-fit: fill;
+  }
+  .class-grid.show { display: block; }
+  .grade-label {
+    display: none;
+    position: absolute;
+    top: calc(7.6% + 1088px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    text-align: center;
+    color: #e9d8e8;
+    line-height: 1.25;
+  }
+  .grade-label strong { display: block; font-size: 27px; }
+  .grade-label span { font-size: 16px; }
+  .grade-label.show { display: block; }
+  .bubble {
+    position: absolute;
+    display: none;
+    z-index: 4;
+    width: 320px;
+    min-height: 63px;
+    padding: 20px;
+    border-radius: 10px;
+    background: #fff;
+    color: #29232b;
+    box-shadow: 0 3px 10px rgba(0,0,0,.22);
+    font-size: 18px;
+    line-height: 1.35;
+  }
+  .bubble.show { display: block; }
+  .bubble.left {
+    left: 20px;
+    top: 82%;
+  }
+  .bubble.left.high { top: 9.8%; }
+  .bubble.center {
+    left: 50%;
+    top: 44.5%;
+    transform: translateX(-50%);
+  }
+  .bubble.above-grid {
+    left: calc(50% - 525px);
+    top: 16.8%;
+  }
+  .bubble.question {
+    left: 20px;
+    top: 32.5%;
+    width: 320px;
+  }
+  .bubble.question.wide { width: 320px; }
+  .bubble.point-up:before {
+    content: "";
+    position: absolute;
+    top: -11px;
+    left: 28px;
+    width: 0;
+    height: 0;
+    border-left: 11px solid transparent;
+    border-right: 11px solid transparent;
+    border-bottom: 12px solid #fff;
+  }
+  .bubble.point-left:before {
+    content: "";
+    position: absolute;
+    left: -15px;
+    top: 24px;
+    width: 0;
+    height: 0;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-right: 16px solid #fff;
+  }
+  mark {
+    padding: 1px 3px;
+    background: #ffe082;
+    color: #2a2327;
+  }
+  .metric {
+    display: none;
+    position: absolute;
+    top: 1.2%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    line-height: 1.3;
+  }
+  .metric.show { display: block; }
+  .metric strong { font-size: 18px; }
+  .metric span { display: block; margin-top: 13px; color: #ffe273; font-size: 28px; }
+  @media (max-width: 900px) {
+    .class-grid { width: min(812px, 76vw); height: auto; aspect-ratio: 0.75; }
+    .grade-label { top: auto; bottom: 3%; }
+    .bubble { max-width: 42vw; font-size: 15px; }
+    .bubble.above-grid { left: 4%; }
+    .intro-face, .portrait { width: min(300px, 42vw); }
+  }
+</style>
+</head>
+<body>
+  <section class="intro">
+    <a class="btn" href="#" aria-label="The Pudding home">
+      <img class="logo" src="__PLACEHOLDER_ASSETS_BASE_DIR__/059.svg" width="205" height="62" alt="The Pudding">
+    </a>
+    <div class="heading">
+      <h1>the middle ages</h1>
+      <p>by <a class="btn" href="#">alvin chang</a></p>
+    </div>
+    <img class="intro-face" src="__PLACEHOLDER_ASSETS_BASE_DIR__/065.png" width="300" height="155" alt="A student peeking over a desk">
+    <a class="btn skip" href="#story">Don't like scrolling? <span>Watch the video instead!</span></a>
+  </section>
+
+  <main id="story" class="story">
+    <div class="sticky-stage" id="stage">
+      <img id="portrait" class="portrait show" src="__PLACEHOLDER_ASSETS_BASE_DIR__/065.png" width="300" height="157" alt="A student's face">
+      <img id="classGrid" class="class-grid" src="__PLACEHOLDER_ASSETS_BASE_DIR__/066.png" width="812" height="1085" alt="A classroom of students">
+      <div id="grade" class="grade-label"><strong>4th</strong><span>Elementary</span></div>
+
+      <div class="bubble left point-left" data-state="0">Hey, what grade are you in?</div>
+      <div class="bubble left high point-left" data-state="1">I mean, I guess...</div>
+      <div class="bubble center point-up" data-state="1">Fourth grade!</div>
+      <div class="bubble center point-up" data-state="2"><mark>Yeah!</mark> Wanna meet my classmates?</div>
+      <div class="bubble left point-left" data-state="3">I mean, I guess...</div>
+      <div class="bubble above-grid point-up" data-state="4">Sure! But hurry up. Recess<br>starts soon.</div>
+      <div class="bubble question point-left" data-state="5">Wow. Thanks, kid. Mind if I ask your class a question?</div>
+      <div class="bubble question point-left wide" data-state="6">Who here feels like you <mark>belong at the school</mark>?<br><br>So, like, feeling respected by other students and supported by adults?</div>
+      <div class="bubble above-grid point-up" data-state="7">Those of us in <mark>yellow</mark> feel like we belong. Why do you ask?</div>
+      <div class="metric" id="metric"><strong>Belonging</strong><span>73%</span></div>
+    </div>
+  </main>
+
+<script>
+(function () {
+  const story = document.getElementById('story');
+  const portrait = document.getElementById('portrait');
+  const grid = document.getElementById('classGrid');
+  const grade = document.getElementById('grade');
+  const metric = document.getElementById('metric');
+  const bubbles = Array.from(document.querySelectorAll('.bubble'));
+  const skip = document.querySelector('.skip');
+
+  function update() {
+    const y = Math.max(0, window.scrollY - story.offsetTop);
+    const state = Math.min(7, Math.floor(y / Math.max(1, window.innerHeight * 0.9)));
+    bubbles.forEach(el => el.classList.toggle('show', Number(el.dataset.state) === state));
+    const group = state >= 3;
+    portrait.classList.toggle('show', !group);
+    grid.classList.toggle('show', group);
+    grade.classList.toggle('show', group);
+    metric.classList.toggle('show', state >= 7);
+    if (state >= 7) {
+      grid.src = "__PLACEHOLDER_ASSETS_BASE_DIR__/067.png";
+    } else {
+      grid.src = "__PLACEHOLDER_ASSETS_BASE_DIR__/066.png";
+    }
+    skip.style.display = window.scrollY > 60 ? 'none' : 'block';
+  }
+  window.addEventListener('scroll', update, {passive:true});
+  window.addEventListener('resize', update);
+  update();
+})();
+</script>
+</body>
+</html>
+```

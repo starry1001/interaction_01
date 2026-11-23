@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Booking.com | Find your stay</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;color:#262626}
+body{background:#fff;font-size:14px}
+button,input{font:inherit}
+button{cursor:pointer}
+.btn{cursor:pointer}
+.topbar{height:131px;background:#003b8e;color:#fff}
+.header-inner{width:1100px;height:100%;margin:auto}
+.header-top{height:52px;display:flex;align-items:center;justify-content:space-between}
+.brand{color:white;font-size:26px;font-weight:700;letter-spacing:-1.1px}
+.header-links{display:flex;align-items:center;gap:25px;font-size:14px;font-weight:600}
+.header-links button{border:0;background:none;color:#fff;padding:8px 0}
+.header-links .flag{font-size:22px;padding:0}
+.header-links .account{background:#fff;color:#006ce4;border:1px solid #b5d0ef;border-radius:3px;padding:10px 12px;margin-left:-14px;font-weight:600}
+.nav{height:58px;display:flex;align-items:center;gap:10px}
+.nav button{height:47px;border:1px solid transparent;border-radius:28px;background:transparent;color:#fff;padding:0 15px;display:flex;align-items:center;gap:8px;font-size:14px}
+.nav button.selected{border-color:#a9c5e9;background:#174d99}
+.nav .navicon{font-size:19px;line-height:1}
+.hero-wrap{height:423px;background:#000;position:relative}
+.hero-image{position:absolute;width:1392px;height:423px;left:50%;top:0;transform:translateX(-50%);object-fit:cover}
+.hero-copy{position:relative;width:1100px;margin:auto;padding-top:55px;color:white}
+.hero-copy h1{font-size:48px;line-height:1.24;margin:0 0 7px;font-weight:700;letter-spacing:.1px}
+.hero-copy p{font-size:25px;line-height:1.45;margin:0 0 32px}
+.learn{border:0;background:#0071e8;color:#fff;font-weight:700;padding:17px 18px;border-radius:3px}
+.main{width:1100px;margin:auto;position:relative}
+.search-area{position:relative;margin-top:-32px;z-index:5}
+.search-form{height:66px;display:flex;border:4px solid #febb02;border-radius:7px;background:#fff;box-shadow:0 2px 5px #0002}
+.search-field{position:relative;height:58px;display:flex;align-items:center;background:white;border-right:4px solid #febb02;padding:0 15px;gap:11px;color:#333}
+.search-field.destination{width:390px}
+.search-field.dates{width:300px}
+.search-field.guests{width:300px;border-right:0}
+.field-icon{font-size:22px;color:#686868;flex:none}
+.search-field input{border:0;outline:0;width:100%;font-size:14px;color:#333;background:transparent}
+.search-field input::placeholder{color:#454545;opacity:1}
+.clear-destination{border:0;background:transparent;font-size:20px;color:#555;padding:4px}
+.down{margin-left:auto;font-size:17px;color:#666}
+.search-submit{flex:1;border:0;background:#0071e8;color:#fff;font-size:19px;font-weight:700;border-radius:3px}
+.checks{display:flex;align-items:center;gap:13px;margin-top:13px;color:#343434;font-size:14px}
+.check-label{display:flex;align-items:center;gap:8px}
+.check-label input{appearance:none;width:20px;height:20px;border:1px solid #888;border-radius:4px;margin:0;background:white}
+.check-label input:checked{background:#0071e8;border-color:#0071e8}
+.check-label input:checked:after{content:"✓";color:white;display:block;text-align:center;font-weight:bold}
+.popover{display:none;position:absolute;top:calc(100% + 7px);background:#fff;border:1px solid #e3e3e3;border-radius:5px;box-shadow:0 4px 12px #0002;z-index:20;color:#262626}
+.popover.open{display:block}
+.destination-pop{left:0;width:435px;max-height:390px;overflow:auto}
+.pop-title{padding:15px 14px 12px;font-weight:700}
+.dest-option{height:58px;border-top:1px solid #ddd;padding:9px 15px;display:flex;align-items:center;gap:14px}
+.dest-option:hover{background:#f2f2f2}
+.pin{font-size:23px;color:#666}
+.dest-name{font-weight:700;font-size:14px}
+.dest-country{font-size:12px;margin-top:3px}
+.calendar-pop{left:290px;width:645px;padding:0 16px 18px}
+.calendar-tabs{height:54px;border-bottom:1px solid #ddd;display:flex}
+.calendar-tabs button{width:50%;background:#fff;border:0;color:#555}
+.calendar-tabs .active{color:#0071e8;border-bottom:2px solid #0071e8}
+.months{display:grid;grid-template-columns:1fr 1fr;gap:18px;padding-top:16px}
+.month-head{height:36px;display:flex;justify-content:space-between;align-items:center;font-weight:700;padding:0 10px}
+.month-head button{border:0;background:none;font-size:22px;color:#444}
+.week,.days{display:grid;grid-template-columns:repeat(7,1fr);text-align:center}
+.week{height:33px;align-items:center;color:#777;font-size:13px}
+.day{height:49px;border:0;background:#fff;color:#333;font-size:14px}
+.day:hover{background:#e8f2ff}
+.day.muted{color:#bbb}
+.day.range{background:#dcecff}
+.day.chosen{background:#0071e8;color:white}
+.flexible{display:none;text-align:center;padding:40px 0}
+.guests-pop{left:635px;width:350px;padding:24px 31px 18px}
+.guest-row{height:49px;display:flex;align-items:center;justify-content:space-between;font-weight:600}
+.counter{width:126px;height:44px;border:1px solid #aaa;border-radius:3px;display:flex;align-items:center;justify-content:space-around;font-weight:400}
+.counter button{height:40px;width:34px;border:0;background:#f5f8fc;color:#0071e8;font-size:20px}
+.pet-row{border-top:1px solid #ddd;margin-top:15px;padding-top:18px;display:flex;justify-content:space-between;align-items:center}
+.toggle{width:36px;height:20px;border:0;border-radius:20px;background:#888;padding:2px}
+.toggle:after{content:"";width:16px;height:16px;display:block;border-radius:50%;background:white}
+.pet-note{font-size:12px;color:#555;margin-top:14px;line-height:1.5}
+.pet-note a{color:#0071e8;text-decoration:none}
+.offers{margin-top:76px}
+.offers h2{font-size:24px;margin:0 0 7px}
+.offers-sub{font-size:16px;color:#666;margin-bottom:12px}
+.offer-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.offer-card{height:210px;border:1px solid #ddd;border-radius:7px;overflow:hidden;position:relative;background:#fff}
+.offer-card:first-child{color:white}
+.offer-card img{width:100%;height:100%;object-fit:cover;display:block}
+.offer-card:first-child:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#0008,transparent 90%)}
+.offer-copy{position:absolute;z-index:1;top:18px;left:16px}
+.offer-tag{font-size:12px;margin-bottom:8px}
+.offer-copy h3{font-size:20px;margin:0 0 7px}
+.offer-copy p{font-size:14px;margin:0 0 14px}
+.offer-copy button{border:0;border-radius:3px;background:#0071e8;color:white;padding:10px 15px;font-weight:700}
+.offer-card.second{display:flex;align-items:center;padding:16px}
+.offer-card.second img{width:105px;height:132px;object-fit:cover;border-radius:4px;order:2;margin-left:auto}
+.offer-card.second .offer-copy{position:static;color:#262626}
+.offer-card.second .offer-copy button{margin-top:8px}
+@media(max-width:1150px){
+ .header-inner,.main,.hero-copy{width:94%}
+ .hero-image{width:100%;object-fit:cover}
+ .search-field.destination{width:35%}.search-field.dates{width:27%}.search-field.guests{width:27%}
+ .calendar-pop{left:30%}.guests-pop{left:auto;right:0}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="header-inner">
+    <div class="header-top">
+      <div class="brand">Booking.com</div>
+      <div class="header-links">
+        <button class="btn">USD</button>
+        <button class="btn flag" aria-label="Language">🇺🇸</button>
+        <button class="btn" aria-label="Help">ⓘ</button>
+        <button class="btn">List your property</button>
+        <button class="btn account">Register</button>
+        <button class="btn account">Sign in</button>
+      </div>
+    </div>
+    <nav class="nav">
+      <button class="btn selected"><span class="navicon">▱</span>Stays</button>
+      <button class="btn"><span class="navicon">✈</span>Flights</button>
+      <button class="btn"><span class="navicon">♙</span>Flight + Hotel</button>
+      <button class="btn"><span class="navicon">▰</span>Car rental</button>
+      <button class="btn"><span class="navicon">♧</span>Cruises</button>
+      <button class="btn"><span class="navicon">♧</span>Attractions</button>
+      <button class="btn"><span class="navicon">▤</span>Airport taxis</button>
+    </nav>
+  </div>
+</header>
+
+<section class="hero-wrap">
+  <img class="hero-image" src="../../../data/data/5/assets/005.jpg" width="1392" height="423" alt="">
+  <div class="hero-copy">
+    <h1>Meet the card that<br>travels with you</h1>
+    <p>Earn 5% in Travel Credits on Booking.com with the<br>Genius Rewards Visa<sup>®</sup>. Terms apply.</p>
+    <button class="btn learn">Learn more</button>
+  </div>
+</section>
+
+<main class="main">
+  <section class="search-area">
+    <div class="search-form">
+      <div class="search-field destination">
+        <span class="field-icon">▱</span>
+        <input class="btn" id="destinationInput" type="text" placeholder="Where are you going?" autocomplete="off">
+        <button class="btn clear-destination" id="clearDestination" aria-label="Clear destination" style="display:none">×</button>
+        <div class="popover destination-pop" id="destinationPop">
+          <div class="pop-title">Trending destinations</div>
+          <div class="dest-option btn" data-place="Los Angeles, United States"><span class="pin">♙</span><div><div class="dest-name">Los Angeles</div><div class="dest-country">United States</div></div></div>
+          <div class="dest-option btn" data-place="Las Vegas, United States"><span class="pin">♙</span><div><div class="dest-name">Las Vegas</div><div class="dest-country">United States</div></div></div>
+          <div class="dest-option btn" data-place="San Francisco, United States"><span class="pin">♙</span><div><div class="dest-name">San Francisco</div><div class="dest-country">United States</div></div></div>
+          <div class="dest-option btn" data-place="San Diego, United States"><span class="pin">♙</span><div><div class="dest-name">San Diego</div><div class="dest-country">United States</div></div></div>
+          <div class="dest-option btn" data-place="New York, United States"><span class="pin">♙</span><div><div class="dest-name">New York</div><div class="dest-country">United States</div></div></div>
+        </div>
+      </div>
+      <div class="search-field dates" id="dateField">
+        <span class="field-icon">▦</span>
+        <input class="btn" id="dateInput" type="text" value="Check-in date  —  Check-out date" readonly>
+        <div class="popover calendar-pop" id="calendarPop">
+          <div class="calendar-tabs">
+            <button class="btn active" id="calendarTab">Calendar</button>
+            <button class="btn" id="flexTab">I'm flexible</button>
+          </div>
+          <div id="calendarView">
+            <div class="months" id="months"></div>
+          </div>
+          <div class="flexible" id="flexView">Choose flexible dates<br><br><button class="btn">＋ 1 day</button>　<button class="btn">＋ 2 days</button></div>
+        </div>
+      </div>
+      <div class="search-field guests" id="guestField">
+        <span class="field-icon">♙</span>
+        <input class="btn" id="guestSummary" type="text" value="2 adults · 0 children · 1 room" readonly>
+        <span class="down">⌄</span>
+        <div class="popover guests-pop" id="guestsPop">
+          <div class="guest-row"><span>Adults</span><div class="counter"><button class="btn" data-count="adults" data-delta="-1">−</button><span id="adultsCount">2</span><button class="btn" data-count="adults" data-delta="1">＋</button></div></div>
+          <div class="guest-row"><span>Children</span><div class="counter"><button class="btn" data-count="children" data-delta="-1">−</button><span id="childrenCount">0</span><button class="btn" data-count="children" data-delta="1">＋</button></div></div>
+          <div class="guest-row"><span>Rooms</span><div class="counter"><button class="btn" data-count="rooms" data-delta="-1">−</button><span id="roomsCount">1</span><button class="btn" data-count="rooms" data-delta="1">＋</button></div></div>
+          <div class="pet-row"><span>Traveling with pets?</span><button class="btn toggle" aria-label="Traveling with pets"></button></div>
+          <div class="pet-note">Assistance animals aren’t considered pets.<br><a href="#" class="btn">Read more about traveling with assistance animals</a></div>
+        </div>
+      </div>
+      <button class="btn search-submit">Search</button>
+    </div>
+    <div class="checks">
+      <label class="check-label"><input class="btn" type="checkbox">I'm looking for an entire home or apartment</label>
+      <label class="check-label"><input class="btn" type="checkbox">I'm looking for flights</label>
+    </div>
+  </section>
+
+  <section class="offers">
+    <h2>Offers</h2>
+    <div class="offers-sub">Promotions, deals, and special offers for you</div>
+    <div class="offer-grid">
+      <article class="offer-card">
+        <img src="../../../data/data/5/assets/035.jpg" width="530" height="210" alt="">
+        <div class="offer-copy">
+          <div class="offer-tag">Vacation rentals</div>
+          <h3>Live the dream in a vacation home</h3>
+          <p>Choose from houses, villas, cabins, and more</p>
+          <button class="btn">Discover vacation rentals</button>
+        </div>
+      </article>
+      <article class="offer-card second">
+        <div class="offer-copy">
+          <h3>Quick escape, quality time</h3>
+          <p>Save up to 20% with a Getaway Deal</p>
+          <button class="btn">Save on stays</button>
+        </div>
+        <img src="../../../data/data/5/assets/036.jpg" width="105" height="132" alt="">
+      </article>
+    </div>
+  </section>
+</main>
+
+<script>
+(function(){
+  const destinationInput=document.getElementById('destinationInput');
+  const destinationPop=document.getElementById('destinationPop');
+  const clearButton=document.getElementById('clearDestination');
+  const calendarPop=document.getElementById('calendarPop');
+  const guestsPop=document.getElementById('guestsPop');
+  const dateInput=document.getElementById('dateInput');
+  let selectedStart=null,selectedEnd=null,monthOffset=0;
+  const counts={adults:2,children:0,rooms:1};
+  function closePopovers(except){
+    [destinationPop,calendarPop,guestsPop].forEach(p=>{if(p!==except)p.classList.remove('open')});
+  }
+  destinationInput.addEventListener('focus',()=>{closePopovers(destinationPop);destinationPop.classList.add('open')});
+  destinationInput.addEventListener('input',()=>{destinationPop.classList.add('open');clearButton.style.display=destinationInput.value?'block':'none'});
+  clearButton.addEventListener('click',()=>{destinationInput.value='';clearButton.style.display='none';destinationInput.focus()});
+  document.querySelectorAll('.dest-option').forEach(option=>option.addEventListener('click',()=>{
+    destinationInput.value=option.dataset.place;clearButton.style.display='block';destinationPop.classList.remove('open');
+  }));
+  document.getElementById('dateField').addEventListener('click',e=>{
+    if(e.target.closest('.calendar-pop'))return;
+    closePopovers(calendarPop);calendarPop.classList.toggle('open');renderMonths();
+  });
+  document.getElementById('guestField').addEventListener('click',e=>{
+    if(e.target.closest('.guests-pop'))return;
+    closePopovers(guestsPop);guestsPop.classList.toggle('open');
+  });
+  document.querySelectorAll('.counter button').forEach(button=>button.addEventListener('click',e=>{
+    e.stopPropagation();
+    const key=button.dataset.count;
+    counts[key]=Math.max(key==='adults'||key==='rooms'?1:0,counts[key]+Number(button.dataset.delta));
+    document.getElementById(key+'Count').textContent=counts[key];updateGuests();
+  }));
+  function updateGuests(){
+    document.getElementById('guestSummary').value=counts.adults+' adults · '+counts.children+' children · '+counts.rooms+' room'+(counts.rooms===1?'':'s');
+  }
+  document.getElementById('calendarTab').addEventListener('click',()=>setCalendarTab(true));
+  document.getElementById('flexTab').addEventListener('click',()=>setCalendarTab(false));
+  function setCalendarTab(show){
+    document.getElementById('calendarTab').classList.toggle('active',show);
+    document.getElementById('flexTab').classList.toggle('active',!show);
+    document.getElementById('calendarView').style.display=show?'block':'none';
+    document.getElementById('flexView').style.display=show?'none':'block';
+  }
+  function renderMonths(){
+    const holder=document.getElementById('months');holder.innerHTML='';
+    for(let i=0;i<2;i++){
+      const dt=new Date(2025,7+monthOffset+i,1);
+      const monthName=dt.toLocaleString('en-US',{month:'long'});
+      const year=dt.getFullYear();
+      const panel=document.createElement('div');
+      const head=document.createElement('div');head.className='month-head';
+      const prev=document.createElement('button');prev.className='btn';prev.textContent=i===0?'‹':'';
+      prev.addEventListener('click',()=>{monthOffset--;renderMonths()});
+      const title=document.createElement('span');title.textContent=monthName+' '+year;
+      const next=document.createElement('button');next.className='btn';next.textContent=i===1?'›':'';
+      next.addEventListener('click',()=>{monthOffset++;renderMonths()});
+      head.append(prev,title,next);panel.appendChild(head);
+      const week=document.createElement('div');week.className='week';
+      ['Su','Mo','Tu','We','Th','Fr','Sa'].forEach(d=>{const s=document.createElement('span');s.textContent=d;week.appendChild(s)});
+      panel.appendChild(week);
+      const days=document.createElement('div');days.className='days';
+      const start=dt.getDay(),num=new Date(year,dt.getMonth()+1,0).getDate();
+      for(let j=0;j<start;j++){const blank=document.createElement('button');blank.className='day muted';blank.textContent='';days.appendChild(blank)}
+      for(let day=1;day<=num;day++){
+        const b=document.createElement('button');b.className='day btn';b.textContent=day;
+        const date=new Date(year,dt.getMonth(),day);
+        if(selectedStart&&date.getTime()===selectedStart.getTime())b.classList.add('chosen');
+        if(selectedEnd&&date.getTime()===selectedEnd.getTime())b.classList.add('chosen');
+        if(selectedStart&&selectedEnd&&date>selectedStart&&date<selectedEnd)b.classList.add('range');
+        b.addEventListener('click',()=>{
+          if(!selectedStart||selectedEnd){selectedStart=date;selectedEnd=null}
+          else if(date<selectedStart){selectedStart=date}
+          else selectedEnd=date;
+          updateDates();renderMonths();
+        });
+        days.appendChild(b);
+      }
+      panel.appendChild(days);holder.appendChild(panel);
+    }
+  }
+  function updateDates(){
+    if(!selectedStart){dateInput.value='Check-in date  —  Check-out date';return}
+    const format=d=>d.toLocaleString('en-US',{month:'short'})+' '+d.getDate();
+    dateInput.value=format(selectedStart)+(selectedEnd?'  —  '+format(selectedEnd):'  —  Check-out date');
+  }
+  document.addEventListener('click',e=>{
+    if(!e.target.closest('.search-area'))closePopovers(null);
+  });
+  document.querySelector('.search-submit').addEventListener('click',()=>closePopovers(null));
+  renderMonths();
+})();
+</script>
+</body>
+</html>

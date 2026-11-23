@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TradingView Replica</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:Arial,Helvetica,sans-serif;color:#202124;background:#fff;font-size:14px}
+  button,.btn{cursor:pointer}
+  .topbar{height:42px;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;white-space:nowrap;background:#fff}
+  .hamb{width:53px;text-align:center;font-size:22px;border-right:1px solid #f0f0f0;height:42px;line-height:40px}
+  .topitem{height:42px;display:flex;align-items:center;padding:0 10px;gap:9px;border-right:1px solid #f3f3f3;color:#313131}
+  .search{font-size:14px;width:125px}
+  .plus{font-size:21px;color:#555}
+  .topicon{font-size:20px;line-height:1}
+  .topitem.small{padding:0 8px}
+  .save{margin-left:auto;padding:0 12px}
+  .publish{background:#333;color:#fff;border-radius:18px;padding:7px 13px;margin:0 8px;font-weight:bold}
+  .workarea{height:calc(100vh - 42px);display:flex}
+  .lefttools{width:54px;border-right:1px solid #e5e7eb;background:#fff;display:flex;flex-direction:column;align-items:center}
+  .tool{width:53px;height:42px;display:flex;align-items:center;justify-content:center;font-size:22px;color:#555;border-bottom:1px solid #f4f4f4}
+  .tool:first-child{background:#f1f3f4;color:#222}
+  .tool.line{font-size:25px}
+  .main{position:relative;flex:1;min-width:0;background:#fff}
+  #chart{position:absolute;inset:0;width:100%;height:100%}
+  .charthead{position:absolute;left:10px;top:8px;height:62px;pointer-events:none}
+  .instrument{font-size:16px;display:flex;align-items:center;gap:7px}
+  .round{width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:bold}
+  .round.green{background:#159b73}
+  .round.blue{background:#2da4c4}
+  .round.red{background:#d1274f}
+  .round.cyan{background:#24a6ca}
+  .round.black{background:#111}
+  .mini-info{font-size:12px;color:#119c79;margin-left:6px;word-spacing:3px}
+  .quoteBtns{display:flex;gap:20px;margin-top:7px}
+  .quote{width:80px;height:36px;border:1px solid;border-radius:5px;text-align:center;padding-top:4px;font-size:13px;line-height:14px;background:#fff}
+  .quote.sell{color:#d83457;border-color:#dc5873}
+  .quote.buy{color:#356bd5;border-color:#5a82df}
+  .quote b{display:block;font-size:13px}
+  .tvwater{position:absolute;bottom:83px;left:14px;font-size:21px;font-weight:bold;color:#17191d;pointer-events:none}
+  .bottomtabs{position:absolute;bottom:0;left:0;right:0;height:42px;border-top:1px solid #e5e7eb;background:#fff;display:flex;align-items:center;gap:28px;padding-left:16px}
+  .bottomtabs span{font-size:13px}
+  .range{position:absolute;bottom:42px;left:0;height:34px;display:flex;align-items:center;gap:15px;padding-left:16px;color:#30343a;font-size:12px}
+  .rightpanel{width:304px;border-left:1px solid #dedede;position:relative;background:#fff;overflow:hidden}
+  .watchhead{height:54px;border-bottom:1px solid #e7e7e7;display:flex;align-items:center;padding:0 14px;font-weight:bold}
+  .watchhead .icons{margin-left:auto;font-size:21px;display:flex;gap:18px;font-weight:normal}
+  .cols{height:31px;border-bottom:1px solid #eee;color:#888;display:grid;grid-template-columns:1fr 74px 65px 56px;align-items:center;padding:0 14px}
+  .section{height:28px;display:flex;align-items:center;padding:0 16px;color:#888;font-size:12px}
+  .section:before{content:"⌄";margin-right:9px;color:#777}
+  .row{height:32px;display:grid;grid-template-columns:1fr 74px 65px 56px;align-items:center;padding:0 14px;font-size:13px;border:1px solid transparent}
+  .row.selected{border:2px solid #313131;border-radius:7px;padding-left:12px}
+  .row .sym{display:flex;align-items:center;gap:7px;font-weight:500}
+  .row .last{text-align:right;color:#444}
+  .row .chg,.row .pct{text-align:right;color:#16a184}
+  .row.negative .chg,.row.negative .pct{color:#d44268}
+  .ticker{width:20px;height:20px;border-radius:50%;color:white;display:inline-flex;align-items:center;justify-content:center;font-size:9px;font-weight:bold}
+  .ticker.spx{background:#b82b52}.ticker.ndq{background:#29a4c3}.ticker.dji{background:#31a6c6}.ticker.vix{background:#3baa4b}.ticker.dxy{background:#168e70}.ticker.aapl{background:#111}.ticker.tsla{background:#dc2440}.ticker.nflx{background:#161616}
+  .detail{position:absolute;top:477px;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #ddd;padding:12px 15px}
+  .detailtop{display:flex;align-items:center;gap:8px;font-weight:bold}
+  .detailicons{margin-left:auto;font-size:18px;color:#555;word-spacing:8px}
+  .detailname{font-size:12px;color:#555;margin-top:15px}
+  .bigprice{font-size:29px;font-weight:bold;margin-top:17px;letter-spacing:.5px}
+  .bigprice small{font-size:12px;font-weight:normal}
+  .gain{color:#159776;font-size:15px;font-weight:bold;margin-top:3px}
+  .market{font-size:12px;color:#777;margin-top:8px}
+  .news{height:42px;border-radius:7px;background:#f0eaf7;margin-top:13px;padding:7px 9px;font-size:12px;color:#555}
+  .performance{margin-top:18px;font-weight:bold}
+  .perfgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:8px}
+  .perfgrid div{background:#e5f6f0;text-align:center;padding:7px 2px;font-size:11px;color:#159776}
+  .perfgrid div.bad{background:#fae5ea;color:#d34e70}
+  .season{margin-top:18px;font-weight:bold}
+  .seasonchart{height:92px;margin-top:7px;background:repeating-linear-gradient(90deg,transparent 0,transparent 53px,#eee 54px),linear-gradient(#fff,#fff);position:relative;overflow:hidden}
+  .seasonchart:after{content:"";position:absolute;left:0;right:0;bottom:25px;height:2px;background:#aa3fd6;transform:skewY(-8deg) rotate(-2deg);box-shadow:30px 13px 0 #3877e4,75px -8px 0 #bf4b91,125px 10px 0 #974bd2,175px -15px 0 #d34c8a}
+  .rail{width:48px;border-left:1px solid #e5e7eb;display:flex;flex-direction:column;align-items:center;padding-top:4px;gap:13px;font-size:21px;color:#444}
+  .rail .r{height:34px;display:flex;align-items:center;justify-content:center;width:42px}
+  .rail .active{background:#f0f2f4;border-radius:4px}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="hamb btn">☰</div>
+  <div class="topitem search btn">⌕ <b id="topSymbol">DXY</b></div>
+  <div class="topitem plus btn">⊕</div>
+  <div class="topitem small btn">D</div>
+  <div class="topitem topicon btn">♮</div>
+  <div class="topitem btn">▥ &nbsp;Indicators</div>
+  <div class="topitem topicon btn">▦</div>
+  <div class="topitem btn">◷ &nbsp;Alert</div>
+  <div class="topitem btn">◀◀ &nbsp;Replay</div>
+  <div class="topitem topicon btn">↶</div>
+  <div class="topitem topicon btn">↷</div>
+  <div class="topitem save btn">□ &nbsp;&nbsp;Save　⌄</div>
+  <div class="topitem topicon btn">♨</div>
+  <div class="topitem topicon btn">◉</div>
+  <div class="topitem topicon btn">⌗</div>
+  <div class="topitem topicon btn">▣</div>
+  <div class="publish btn">Publish</div>
+</div>
+
+<div class="workarea">
+  <div class="lefttools">
+    <div class="tool btn">＋</div><div class="tool btn">⌁</div><div class="tool btn">☷</div>
+    <div class="tool btn">⌘</div><div class="tool btn">⌗</div><div class="tool btn">⌁</div>
+    <div class="tool btn">T</div><div class="tool btn">☺</div><div class="tool btn">⌑</div>
+    <div class="tool btn">⊕</div><div class="tool btn">♧</div><div class="tool btn">♢</div>
+    <div class="tool btn">▢</div><div class="tool btn">◉</div><div class="tool btn">♧</div>
+  </div>
+
+  <main class="main">
+    <canvas id="chart"></canvas>
+    <div class="charthead">
+      <div class="instrument"><span id="headBadge" class="round green">$</span><span id="headTitle">U.S. Dollar Index · 1D · TVC</span><span class="mini-info" id="ohlc">O97.725 H97.966 L97.714 C97.846 +0.114 (+0.12%)</span></div>
+      <div class="quoteBtns"><div class="quote sell"><b id="sell">97.846</b>SELL</div><div class="quote buy"><b id="buy">97.846</b>BUY</div></div>
+    </div>
+    <div class="tvwater">Tᐠ TradingView</div>
+    <div class="range"><span>1D</span><span>5D</span><span>1M</span><span>3M</span><span>6M</span><span>YTD</span><span>1Y</span><span>5Y</span><span>All</span><span>▣</span></div>
+    <div class="bottomtabs"><span>​​</span><span>Pine Editor</span><span>Strategy Tester</span><span>Replay Trading</span><span>Trading Panel</span><span style="margin-left:auto">⌃　□</span></div>
+  </main>
+
+  <aside class="rightpanel">
+    <div class="watchhead">Watchlist⌄ <div class="icons"><span class="btn">＋</span><span class="btn">◔</span><span class="btn">•••</span></div></div>
+    <div class="cols"><span>Symbol</span><span>Last</span><span>Chg</span><span>Chg%</span></div>
+    <div class="section">INDICES</div>
+    <div class="row btn" data-symbol="SPX"><span class="sym"><i class="ticker spx">500</i>SPX</span><span class="last">6,466.92</span><span class="chg">96.74</span><span class="pct">1.52%</span></div>
+    <div class="row btn" data-symbol="NDQ"><span class="sym"><i class="ticker ndq">100</i>NDQ</span><span class="last">23,498.12</span><span class="chg">355.53</span><span class="pct">1.54%</span></div>
+    <div class="row btn" data-symbol="DJI"><span class="sym"><i class="ticker dji">30</i>DJI</span><span class="last">45,631.74</span><span class="chg">846.24</span><span class="pct">1.89%</span></div>
+    <div class="row btn" data-symbol="VIX"><span class="sym"><i class="ticker vix">×</i>VIX <small>◦</small></span><span class="last">14.22</span><span class="chg">−2.38</span><span class="pct">−14.34%</span></div>
+    <div class="row btn" data-symbol="DXY"><span class="sym"><i class="ticker dxy">$</i>DXY</span><span class="last">97.846</span><span class="chg">0.114</span><span class="pct">0.12%</span></div>
+    <div class="section">STOCKS</div>
+    <div class="row"><span class="sym"><i class="ticker aapl">●</i>AAPL</span><span class="last">227.76</span><span class="chg">2.86</span><span class="pct">1.27%</span></div>
+    <div class="row"><span class="sym"><i class="ticker tsla">T</i>TSLA</span><span class="last">340.01</span><span class="chg">19.90</span><span class="pct">6.22%</span></div>
+    <div class="row negative"><span class="sym"><i class="ticker nflx">N</i>NFLX</span><span class="last">1,204.65</span><span class="chg">−1.56</span><span class="pct">−0.13%</span></div>
+    <div class="section">FUTURES</div>
+    <div class="row"><span class="sym"><i class="ticker black">A</i>GCQ1!</span><span class="last">3,421.70</span><span class="chg">0.00</span><span class="pct">0.00%</span></div>
+
+    <div class="detail">
+      <div class="detailtop"><span id="detailBadge" class="round green">$</span><span id="detailSymbol">DXY</span><span class="detailicons">⊞　▱　•••</span></div>
+      <div class="detailname" id="detailName">U.S. Dollar Index ◩ · TVC</div>
+      <div class="detailname">Index · Cfd</div>
+      <div class="bigprice" id="bigPrice">97.846 <small>USD</small></div>
+      <div class="gain" id="gain">+0.114　+0.12%</div>
+      <div class="market">● Market open</div>
+      <div class="news">ϟ　21 minutes ago · The 'Why' matters<br>　 for rallies, and rate cuts　　›</div>
+      <div class="performance">Performance</div>
+      <div class="perfgrid"><div>0.06%<br><small>1W</small></div><div>0.41%<br><small>1M</small></div><div class="bad">−1.11%<br><small>3M</small></div><div class="bad">−7.84%<br><small>6M</small></div><div class="bad">−9.83%<br><small>YTD</small></div><div class="bad">−3.55%<br><small>1Y</small></div></div>
+      <div class="season">Seasonals</div><div class="seasonchart"></div>
+    </div>
+  </aside>
+  <div class="rail">
+    <div class="r active btn">▤</div><div class="r btn">◷</div><div class="r btn">▱</div><div class="r btn">◉</div><div class="r btn">▣</div><div class="r btn">◫</div><div class="r btn">▦</div><div class="r btn">◔</div><div class="r btn">♧</div><div class="r btn">♧</div><div class="r btn">?</div>
+  </div>
+</div>
+
+<script>
+const configs={
+ DXY:{title:"U.S. Dollar Index · 1D · TVC",name:"U.S. Dollar Index ◩ · TVC",badge:"$",cls:"green",price:"97.846",change:"+0.114",pct:"+0.12%",min:96,max:111,start:104,trend:-.09,seed:2},
+ VIX:{title:"Volatility S&P 500 Index · 1D · CBOE",name:"Volatility S&P 500 Index ◩ · CBOE",badge:"×",cls:"vix",price:"14.22",change:"−2.38",pct:"−14.34%",min:10,max:65,start:19,trend:-.03,seed:7},
+ DJI:{title:"Dow Jones Industrial Average Index · 1D · TVC",name:"Dow Jones Industrial Average Index ◩ · TVC",badge:"30",cls:"cyan",price:"45,631.74",change:"+846.24",pct:"+1.89%",min:36500,max:46500,start:42000,trend:.035,seed:12},
+ NDQ:{title:"US 100 Index · 1D · TVC",name:"US 100 Index ◩ · TVC",badge:"100",cls:"blue",price:"23,498.12",change:"+355.53",pct:"+1.54%",min:16000,max:24800,start:19800,trend:.045,seed:22},
+ SPX:{title:"S&P 500 Index · 1D · TVC",name:"S&P 500 Index ◩ · TVC",badge:"500",cls:"red",price:"6,466.92",change:"+96.74",pct:"+1.52%",min:3900,max:6500,start:4500,trend:.03,seed:30}
+};
+let current="DXY";
+const canvas=document.getElementById("chart"),ctx=canvas.getContext("2d");
+function rand(seed){let x=Math.sin(seed++)*10000;return x-Math.floor(x)}
+function getData(c){
+ let n=172,a=[],v=c.start;
+ for(let i=0;i<n;i++){
+   let wave=Math.sin(i*.18+c.seed)*.25+Math.sin(i*.047+c.seed)*.6;
+   let event=0;
+   if(c===configs.VIX && i>90&&i<110) event=rand(i+7)*25;
+   if(c===configs.DJI && i>88&&i<103) event=-rand(i+3)*500;
+   if(c===configs.NDQ && i>88&&i<103) event=-rand(i+3)*700;
+   v += c.trend*(c.max-c.min)/5 + wave*(c.max-c.min)/100 + event;
+   v=Math.max(c.min+.03*(c.max-c.min),Math.min(c.max-.03*(c.max-c.min),v));
+   let scale=(c.max-c.min)/70, o=v+(rand(i+c.seed)-.5)*scale*2;
+   let cl=v+(rand(i+c.seed+3)-.5)*scale*2;
+   let hi=Math.max(o,cl)+rand(i+c.seed+6)*scale*2;
+   let lo=Math.min(o,cl)-rand(i+c.seed+8)*scale*2;
+   a.push({o,cl,hi,lo});
+ }
+ return a;
+}
+function draw(){
+ const r=canvas.getBoundingClientRect(),d=devicePixelRatio||1;
+ canvas.width=r.width*d;canvas.height=r.height*d;ctx.setTransform(d,0,0,d,0,0);
+ const w=r.width,h=r.height,c=configs[current],data=getData(c);
+ ctx.clearRect(0,0,w,h);ctx.fillStyle="#fff";ctx.fillRect(0,0,w,h);
+ const left=8,right=76,top=26,bottom=82, cw=w-left-right,ch=h-top-bottom;
+ ctx.strokeStyle="#edf0f2";ctx.lineWidth=1;
+ let rows=10,cols=12;
+ for(let i=0;i<=rows;i++){let y=top+ch*i/rows;ctx.beginPath();ctx.moveTo(left,y);ctx.lineTo(left+cw,y);ctx.stroke()}
+ for(let i=0;i<=cols;i++){let x=left+cw*i/cols;ctx.beginPath();ctx.moveTo(x,top);ctx.lineTo(x,top+ch);ctx.stroke()}
+ const range=c.max-c.min;
+ ctx.font="12px Arial";ctx.fillStyle="#555";ctx.textAlign="left";
+ for(let i=0;i<=rows;i++){let val=c.max-range*i/rows,y=top+ch*i/rows+4;ctx.fillText(format(val,current),left+cw+10,y)}
+ ctx.textAlign="center";ctx.fillStyle="#555";
+ let months=["Oct","Nov","Dec","2025","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep"];
+ for(let i=0;i<months.length;i++)ctx.fillText(months[i],left+cw*i/(months.length-1),top+ch+29);
+ let step=cw/data.length, bw=Math.max(3,step*.58);
+ data.forEach((q,i)=>{
+   let x=left+i*step+step/2;
+   let y=v=>top+(c.max-v)/range*ch;
+   ctx.strokeStyle=q.cl>=q.o?"#129c79":"#dd2850";ctx.lineWidth=1;
+   ctx.beginPath();ctx.moveTo(x,y(q.hi));ctx.lineTo(x,y(q.lo));ctx.stroke();
+   ctx.fillStyle=q.cl>=q.o?"#159b78":"#dc2850";
+   let yy=Math.min(y(q.o),y(q.cl)), hh=Math.max(1,Math.abs(y(q.o)-y(q.cl)));
+   ctx.fillRect(x-bw/2,yy,bw,hh);
+ });
+ // current line
+ let currentVal=parseFloat(c.price.replace(",",""));
+ let cy=top+(c.max-currentVal)/range*ch;
+ ctx.setLineDash([2,3]);ctx.strokeStyle="#84c8b7";ctx.beginPath();ctx.moveTo(left,cy);ctx.lineTo(left+cw,cy);ctx.stroke();ctx.setLineDash([]);
+ ctx.fillStyle="#19a17e";ctx.fillRect(left+cw,cy-10,right,20);ctx.fillStyle="#fff";ctx.textAlign="center";ctx.font="12px Arial";ctx.fillText(c.price,left+cw+right/2,cy+4);
+ ctx.strokeStyle="#d4d8db";ctx.beginPath();ctx.moveTo(left+cw+1,top);ctx.lineTo(left+cw+1,top+ch);ctx.stroke();
+}
+function format(v,s){if(s==="DXY")return v.toFixed(3);if(s==="VIX")return v.toFixed(2);return Math.round(v).toLocaleString()}
+function select(sym){
+ current=sym;let c=configs[sym];
+ document.getElementById("topSymbol").textContent=sym;
+ document.getElementById("headTitle").textContent=c.title;
+ document.getElementById("headBadge").textContent=c.badge;
+ document.getElementById("headBadge").className="round "+(c.cls==="vix"?"green":c.cls);
+ document.getElementById("sell").textContent=c.price;document.getElementById("buy").textContent=c.price;
+ document.getElementById("ohlc").textContent="O"+c.price+" H"+c.price+" L"+c.price+" C"+c.price+" "+c.change+" ("+c.pct+")";
+ document.getElementById("detailBadge").textContent=c.badge;document.getElementById("detailBadge").className="round "+(c.cls==="vix"?"green":c.cls);
+ document.getElementById("detailSymbol").textContent=sym;document.getElementById("detailName").textContent=c.name;
+ document.getElementById("bigPrice").innerHTML=c.price+" <small>USD</small>";document.getElementById("gain").textContent=c.change+"　"+c.pct;
+ document.querySelectorAll(".row[data-symbol]").forEach(x=>x.classList.toggle("selected",x.dataset.symbol===sym));
+ draw();
+}
+document.querySelectorAll(".row[data-symbol]").forEach(x=>x.addEventListener("click",()=>select(x.dataset.symbol)));
+window.addEventListener("resize",draw);select("DXY");
+</script>
+</body>
+</html>

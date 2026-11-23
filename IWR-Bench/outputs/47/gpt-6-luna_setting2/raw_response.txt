@@ -1,0 +1,245 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chart</title>
+<style>
+  *{box-sizing:border-box}
+  :root{--scale:1}
+  body{margin:0;background:#fff;color:#202124;font-family:Arial,Helvetica,sans-serif;overflow:hidden}
+  button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+  .btn{cursor:pointer}
+  .app{width:100vw;height:100vh;display:flex;flex-direction:column;background:white}
+  .topbar{height:2.25vw;min-height:31px;max-height:44px;display:flex;align-items:center;border-bottom:1px solid #e6e6e6;gap:.75vw;padding:0 .7vw;white-space:nowrap;font-size:.72vw;min-font-size:10px}
+  .topbar button{height:100%;display:flex;align-items:center;gap:.35vw}
+  .hamb{font-size:1.05vw}
+  .search{font-weight:600}
+  .top-icon{font-size:.9vw;color:#444}
+  .top-spacer{flex:1}
+  .publish{background:#191919;color:white;border-radius:1vw;padding:.35vw .8vw!important;font-weight:600}
+  .layout{flex:1;min-height:0;display:flex}
+  .left-tools{width:2.8vw;min-width:38px;border-right:1px solid #e9e9e9;display:flex;flex-direction:column;align-items:center;padding-top:.35vw;gap:.12vw;color:#555}
+  .tool{width:100%;height:2.02vw;min-height:25px;display:flex;justify-content:center;align-items:center;font-size:1vw}
+  .tool:first-child{background:#f3f5f7}
+  .main{flex:1;min-width:0;display:flex;flex-direction:column;position:relative}
+  .chart-head{height:2.6vw;min-height:35px;max-height:51px;display:flex;align-items:center;padding:0 .55vw;gap:.55vw;white-space:nowrap;overflow:hidden;font-size:.7vw}
+  .symbol-dot{width:.75vw;height:.75vw;min-width:10px;min-height:10px;background:#1ca981;border-radius:50%;display:inline-block}
+  .chart-name{font-weight:600;font-size:.75vw}
+  .ohlc{color:#179875;font-size:.65vw}
+  .quote-box{position:absolute;z-index:2;left:.55vw;top:2.6vw;display:flex;gap:.5vw}
+  .quote{border:1px solid #e24c68;border-radius:4px;padding:.25vw .4vw;color:#d44761;font-size:.68vw;line-height:1.2;background:#fff}
+  .quote.buy{border-color:#5277d5;color:#5277d5}
+  .quote b{font-weight:600}
+  .plot-wrap{flex:1;min-height:0;position:relative;overflow:hidden}
+  canvas{width:100%;height:100%;display:block}
+  .tv-logo{position:absolute;left:.65vw;bottom:5.1vw;font-weight:700;font-size:.95vw;color:#111;letter-spacing:-.04em;pointer-events:none}
+  .bottom{height:4.55vw;min-height:58px;max-height:86px;border-top:1px solid #e6e6e6;display:flex;flex-direction:column;color:#333;font-size:.65vw}
+  .ranges{height:48%;display:flex;align-items:center;gap:.75vw;padding:0 .85vw;border-bottom:1px solid #eee}
+  .ranges span{white-space:nowrap}
+  .clock{margin-left:auto}
+  .tabs{height:52%;display:flex;align-items:center;gap:1.5vw;padding:0 .85vw}
+  .tab-up{margin-left:auto;font-size:.9vw;color:#777}
+  .watch{width:15.75vw;min-width:210px;border-left:1px solid #e6e6e6;display:flex;flex-direction:column;font-size:.67vw;overflow:hidden}
+  .watch-top{height:2.6vw;min-height:36px;display:flex;align-items:center;padding:0 .75vw;gap:.8vw;border-bottom:1px solid #eee;font-weight:600}
+  .watch-top .push{margin-left:auto}
+  .column-head{height:1.8vw;min-height:25px;color:#888;display:grid;grid-template-columns:1.1fr .7fr .6fr .5fr;align-items:center;padding:0 .55vw}
+  .group{padding:.5vw .6vw .25vw;color:#888;font-size:.61vw;font-weight:600}
+  .row{height:1.65vw;min-height:23px;display:grid;grid-template-columns:1.1fr .7fr .6fr .5fr;align-items:center;padding:0 .5vw;white-space:nowrap;cursor:pointer}
+  .row:hover{background:#f5f7f8}
+  .row.active{outline:1px solid #279b84;outline-offset:-1px;border-radius:4px}
+  .sym{display:flex;align-items:center;gap:.38vw;overflow:hidden;font-weight:600}
+  .badge{width:.65vw;height:.65vw;min-width:9px;min-height:9px;border-radius:50%;color:white;display:inline-flex;align-items:center;justify-content:center;font-size:.43vw;font-weight:bold}
+  .last,.chg,.pct{text-align:right}
+  .green{color:#17a987}.red{color:#e04d6c}
+  .detail{border-top:1px solid #ddd;margin-top:.55vw;padding:.55vw .7vw;overflow:hidden;flex:1}
+  .detail-title{display:flex;align-items:center;gap:.45vw;font-weight:600}
+  .detail-icons{margin-left:auto;color:#777;font-size:.9vw}
+  .instrument{color:#777;font-size:.61vw;margin-top:.6vw}
+  .big-price{font-size:1.2vw;font-weight:700;margin-top:.65vw}
+  .big-price small{font-size:.58vw;font-weight:400}
+  .market{font-size:.6vw;color:#169777;margin-top:.25vw}
+  .news{margin-top:.7vw;background:#f0eafa;border-radius:5px;padding:.45vw;color:#49445c;font-size:.58vw}
+  .perf-title{font-weight:600;margin-top:.8vw}
+  .perf{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:.3vw}
+  .perf div{background:#e6f7f4;text-align:center;padding:.35vw 0;font-size:.56vw;color:#168e7a}
+  .perf div:nth-child(3n){background:#fdebed;color:#d65769}
+  .season{font-weight:600;margin-top:.8vw}
+  .mini-chart{height:5vw;margin-top:.4vw;position:relative;border-bottom:1px solid #ddd;background:repeating-linear-gradient(90deg,transparent 0,transparent 24%,#eee 25%)}
+  .mini-chart svg{width:100%;height:100%}
+  .right-tools{width:2.3vw;min-width:31px;border-left:1px solid #eee;display:flex;flex-direction:column;align-items:center;color:#555}
+  .right-tools button{width:100%;height:2.55vw;min-height:34px;font-size:1.02vw;display:flex;align-items:center;justify-content:center}
+  .right-tools button:first-child{background:#f5f6f7}
+  @media(max-width:900px){
+    .topbar{font-size:10px}.watch{min-width:180px}.chart-name{font-size:11px}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <button class="btn hamb" aria-label="Menu">☰</button>
+    <button class="btn search">⌕ <span id="topSymbol">DXY</span></button>
+    <button class="btn top-icon">⊕</button>
+    <button class="btn">D</button>
+    <button class="btn">▯</button>
+    <button class="btn">▥ <span>Indicators</span></button>
+    <button class="btn top-icon">▦</button>
+    <button class="btn">◷ <span>Alert</span></button>
+    <button class="btn">◁ <span>Replay</span></button>
+    <button class="btn top-icon">↶</button>
+    <button class="btn top-icon">↷</button>
+    <div class="top-spacer"></div>
+    <button class="btn top-icon">□</button>
+    <button class="btn">Save⌄</button>
+    <button class="btn top-icon">◉</button>
+    <button class="btn top-icon">⬡</button>
+    <button class="btn top-icon">⛶</button>
+    <button class="btn top-icon">▧</button>
+    <button class="btn publish">Publish</button>
+  </header>
+  <div class="layout">
+    <nav class="left-tools" aria-label="Drawing tools">
+      <button class="btn tool">＋</button><button class="btn tool">／</button><button class="btn tool">☷</button>
+      <button class="btn tool">♧</button><button class="btn tool">⌁</button><button class="btn tool">♢</button>
+      <button class="btn tool">T</button><button class="btn tool">☺</button><button class="btn tool">／</button>
+      <button class="btn tool">⌕</button><button class="btn tool">♧</button><button class="btn tool">♧</button>
+      <button class="btn tool">♙</button><button class="btn tool">◉</button><button class="btn tool">▱</button>
+    </nav>
+    <main class="main">
+      <div class="chart-head">
+        <span class="symbol-dot" id="symbolDot"></span>
+        <span class="chart-name" id="chartName">U.S. Dollar Index · 1D · TVC</span>
+        <span>◉</span><span class="ohlc" id="ohlc">O97.725 H97.966 L97.714 C97.846 +0.114 (+0.12%)</span>
+      </div>
+      <div class="quote-box">
+        <div class="quote"><b id="sellValue">97.846</b><br>SELL</div>
+        <div class="quote buy"><b id="buyValue">97.846</b><br>BUY</div>
+      </div>
+      <div class="plot-wrap"><canvas id="chart"></canvas><div class="tv-logo">◢ TradingView</div></div>
+      <div class="bottom">
+        <div class="ranges"><span>1D</span><span>5D</span><span>1M</span><span>3M</span><span>6M</span><span>YTD</span><span>1Y</span><span>5Y</span><span>All</span><span>▧</span><span class="clock">04:51:47 UTC</span></div>
+        <div class="tabs"><span>Pine Editor</span><span>Strategy Tester</span><span>Replay Trading</span><span>Trading Panel</span><span class="tab-up">⌃　□</span></div>
+      </div>
+    </main>
+    <aside class="watch">
+      <div class="watch-top"><span>Watchlist⌄</span><span class="push">＋</span><span>◉</span><span>•••</span></div>
+      <div class="column-head"><span>Symbol</span><span class="last">Last</span><span class="chg">Chg</span><span class="pct">Chg%</span></div>
+      <div class="group">⌄　INDICES</div>
+      <div class="row" data-symbol="SPX"><span class="sym"><i class="badge" style="background:#b51d52">S</i>SPX</span><span class="last">6,466.92</span><span class="chg green">96.74</span><span class="pct green">1.52%</span></div>
+      <div class="row" data-symbol="NDQ"><span class="sym"><i class="badge" style="background:#1599ad">100</i>NDQ</span><span class="last">23,498.12</span><span class="chg green">355.53</span><span class="pct green">1.54%</span></div>
+      <div class="row" data-symbol="DJI"><span class="sym"><i class="badge" style="background:#289cb1">30</i>DJI</span><span class="last">45,631.74</span><span class="chg green">846.24</span><span class="pct green">1.89%</span></div>
+      <div class="row" data-symbol="VIX"><span class="sym"><i class="badge" style="background:#43ad50">V</i>VIX</span><span class="last">14.22</span><span class="chg red">-2.38</span><span class="pct red">-14.34%</span></div>
+      <div class="row active" data-symbol="DXY"><span class="sym"><i class="badge" style="background:#078c73">$</i>DXY</span><span class="last">97.846</span><span class="chg green">0.114</span><span class="pct green">0.12%</span></div>
+      <div class="group">⌄　STOCKS</div>
+      <div class="row"><span class="sym"><i class="badge" style="background:#222">A</i>AAPL</span><span class="last">227.76</span><span class="chg green">2.86</span><span class="pct green">1.27%</span></div>
+      <div class="row"><span class="sym"><i class="badge" style="background:#dc2547">T</i>TSLA</span><span class="last">340.01</span><span class="chg green">19.90</span><span class="pct green">6.22%</span></div>
+      <div class="row"><span class="sym"><i class="badge" style="background:#222">N</i>NFLX</span><span class="last">1,204.65</span><span class="chg red">-1.56</span><span class="pct red">-0.13%</span></div>
+      <div class="group">⌄　FUTURES</div>
+      <div class="row"><span class="sym"><i class="badge" style="background:#999">●</i>GC1!</span><span class="last">3,...? </span><span class="chg green">0.00</span><span class="pct green">0.00%</span></div>
+      <div class="detail">
+        <div class="detail-title"><i class="badge" id="detailBadge" style="background:#078c73">$</i><span id="detailSymbol">DXY</span><span class="detail-icons">▦　♢　•••</span></div>
+        <div class="instrument" id="detailName">U.S. Dollar Index　↗ · TVC<br>Index · Cfd</div>
+        <div class="big-price"><span id="detailPrice">97.846</span> <small id="priceUnit">USD</small></div>
+        <div class="market" id="detailChange">+0.114　+0.12%<br>● Market open</div>
+        <div class="news">⚡　21 minutes ago · The ‘Why’ matters<br>　 for rallies, and rate cuts　　›</div>
+        <div class="perf-title">Performance</div>
+        <div class="perf"><div>0.06%<br>1W</div><div>0.41%<br>1M</div><div>-1.11%<br>3M</div><div>-7.84%<br>6M</div><div>-9.83%<br>YTD</div><div>-3.55%<br>1Y</div></div>
+        <div class="season">Seasonals</div>
+        <div class="mini-chart"><svg viewBox="0 0 250 70" preserveAspectRatio="none"><polyline points="0,58 12,50 25,53 38,42 50,46 62,30 75,38 88,28 100,40 113,32 125,41 138,27 150,32 163,21 175,29 188,14 200,22 213,12 225,20 240,5" fill="none" stroke="#c04494" stroke-width="2"/><polyline points="0,60 15,56 30,60 45,47 60,52 75,45 90,50 105,38 120,46 135,40 150,48 165,36 180,43 195,30 210,37 225,24 240,30" fill="none" stroke="#2e78df" stroke-width="2"/></svg></div>
+      </div>
+    </aside>
+    <aside class="right-tools">
+      <button class="btn">▤</button><button class="btn">◷</button><button class="btn">◇</button><button class="btn">◎</button>
+      <button class="btn">▣</button><button class="btn">⊞</button><button class="btn">◉</button><button class="btn">♧</button>
+      <button class="btn">♧</button><button class="btn">?</button>
+    </aside>
+  </div>
+</div>
+<script>
+const info={
+ DXY:{name:"U.S. Dollar Index",desc:"U.S. Dollar Index",price:"97.846",change:"+0.114　+0.12%",unit:"USD",badge:"$",color:"#078c73",open:true},
+ VIX:{name:"Volatility S&P 500 Index",desc:"Volatility S&P 500 Index",price:"14.22",change:"-2.38　-14.34%",unit:"POINT",badge:"V",color:"#43ad50",open:false},
+ DJI:{name:"Dow Jones Industrial Average",desc:"Dow Jones Industrial Average Index",price:"45,631.74",change:"+846.24　+1.89%",unit:"USD",badge:"30",color:"#289cb1",open:false},
+ NDQ:{name:"US 100 Index",desc:"US 100 Index",price:"23,498.12",change:"+355.53　+1.54%",unit:"USD",badge:"100",color:"#1599ad",open:false},
+ SPX:{name:"S&P 500 Index",desc:"S&P 500 Index",price:"6,466.92",change:"+96.74　+1.52%",unit:"USD",badge:"S",color:"#b51d52",open:false}
+};
+let current="DXY";
+const cvs=document.getElementById("chart"),ctx=cvs.getContext("2d");
+function seedRand(seed){let x=seed;return()=>{x=(x*1664525+1013904223)>>>0;return x/4294967296}}
+function draw(){
+ const r=cvs.getBoundingClientRect(),dpr=window.devicePixelRatio||1;
+ cvs.width=Math.round(r.width*dpr);cvs.height=Math.round(r.height*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);
+ const w=r.width,h=r.height;ctx.clearRect(0,0,w,h);
+ const left=0,top=10,right=w-67,bottom=h-41,pw=right-left,ph=bottom-top;
+ ctx.strokeStyle="#f0f1f2";ctx.lineWidth=1;
+ for(let i=0;i<=13;i++){let y=top+ph*i/13;ctx.beginPath();ctx.moveTo(left,y);ctx.lineTo(right,y);ctx.stroke()}
+ for(let i=0;i<=10;i++){let x=left+pw*i/10;ctx.beginPath();ctx.moveTo(x,top);ctx.lineTo(x,bottom);ctx.stroke()}
+ const seed={DXY:13,VIX:27,DJI:42,NDQ:51,SPX:33}[current],rand=seedRand(seed);
+ let n=Math.max(150,Math.floor(pw/5.2)),vals=[],v=.48;
+ for(let i=0;i<n;i++){
+   let t=i/(n-1),target=.5;
+   if(current==="DXY") target=t<.31?.28+t*.88:t<.57?.55-(t-.31)*.42:.43-(t-.57)*.07;
+   if(current==="VIX") target=t<.58?.15+Math.sin(t*12)*.035:t<.67?.83-(t-.58)*3.8:.24-(t-.67)*.08;
+   if(current==="DJI") target=t<.28?.40+Math.sin(t*18)*.08:t<.55?.59-(t-.28)*.77:.38+(t-.55)*.91;
+   if(current==="NDQ") target=t<.3?.38+t*.4:t<.53?.50-(t-.3)*1.18:.23+(t-.53)*1.04;
+   if(current==="SPX") target=.44+t*.25+Math.sin(t*16)*.09;
+   let noise=(rand()-.5)*.09;
+   v+=(target-v)*.16+noise;
+   v=Math.max(.06,Math.min(.94,v));
+   vals.push(v);
+ }
+ const unit=ph/(current==="VIX"?60:36);
+ for(let i=0;i<n;i++){
+   let x=left+i*pw/(n-1),base=top+vals[i]*ph;
+   let open=base+(rand()-.5)*ph*.035,close=base+(rand()-.5)*ph*.05;
+   if(i){open=top+vals[i-1]*ph+(rand()-.5)*ph*.025}
+   let high=Math.min(bottom,Math.min(open,close)-rand()*ph*.028),low=Math.max(top,Math.max(open,close)+rand()*ph*.028);
+   const up=close<open, color=up?"#16aa87":"#e84968";
+   ctx.strokeStyle=color;ctx.lineWidth=Math.max(1,dpr>1?1.2:.9);
+   ctx.beginPath();ctx.moveTo(x,high);ctx.lineTo(x,low);ctx.stroke();
+   ctx.fillStyle=color;let cw=Math.max(2,pw/n*.62);
+   ctx.fillRect(x-cw/2,Math.min(open,close),cw,Math.max(2,Math.abs(close-open)));
+ }
+ // price guide and last quote
+ let final=top+vals[n-1]*ph;ctx.setLineDash([2,3]);ctx.strokeStyle="#8ec7b9";ctx.beginPath();ctx.moveTo(left,final);ctx.lineTo(right,final);ctx.stroke();ctx.setLineDash([]);
+ ctx.fillStyle="#fff";ctx.font="11px Arial";ctx.textAlign="right";ctx.textBaseline="middle";
+ let labels;
+ if(current==="VIX")labels=["65.00","62.50","60.00","57.50","55.00","52.50","50.00","47.50","45.00","42.50","40.00","37.50","35.00","32.50"];
+ else if(current==="DJI")labels=["46,500.00","46,000.00","45,500.00","45,000.00","44,500.00","44,000.00","43,500.00","43,000.00","42,500.00","42,000.00","41,500.00","41,000.00","40,500.00","40,000.00"];
+ else if(current==="NDQ")labels=["24,800.00","24,400.00","24,000.00","23,600.00","23,200.00","22,800.00","22,400.00","22,000.00","21,600.00","21,200.00","20,800.00","20,400.00","20,000.00","19,600.00"];
+ else labels=["111.000","110.000","109.000","108.000","107.000","106.000","105.000","104.000","103.000","102.000","101.000","100.000","99.000","98.000"];
+ ctx.fillStyle="#555";ctx.textAlign="right";
+ for(let i=0;i<labels.length;i++){let y=top+ph*i/(labels.length-1);ctx.fillText(labels[i],w-8,y)}
+ const months=["Oct","Nov","Dec","2025","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep"];
+ ctx.fillStyle="#555";ctx.font="11px Arial";ctx.textAlign="center";
+ months.forEach((m,i)=>ctx.fillText(m,left+pw*i/(months.length-1),h-24));
+ ctx.strokeStyle="#d8d8d8";ctx.beginPath();ctx.moveTo(left,bottom);ctx.lineTo(right,bottom);ctx.stroke();
+ ctx.fillStyle="#179b7e";ctx.fillRect(right+2,final-10,59,19);ctx.fillStyle="#fff";ctx.textAlign="center";ctx.font="bold 10px Arial";
+ ctx.fillText(info[current].price,right+31,final-.5);
+ ctx.fillStyle="#999";ctx.font="11px Arial";ctx.textAlign="right";ctx.fillText("◉",w-7,h-24);
+}
+function setSymbol(sym){
+ if(!info[sym])return;current=sym;
+ document.getElementById("topSymbol").textContent=sym;
+ document.getElementById("chartName").textContent=info[sym].name+" · 1D · "+(sym==="VIX"?"CBOE":"TVC");
+ document.getElementById("detailSymbol").textContent=sym;
+ document.getElementById("detailName").innerHTML=info[sym].desc+"　↗ · "+(sym==="VIX"?"CBOE":"TVC")+"<br>Index · Cfd";
+ document.getElementById("detailPrice").textContent=info[sym].price;
+ document.getElementById("priceUnit").textContent=info[sym].unit;
+ document.getElementById("detailChange").innerHTML=info[sym].change+"<br>● Market "+(info[sym].open?"open":"closed");
+ document.getElementById("detailBadge").textContent=info[sym].badge;
+ document.getElementById("detailBadge").style.background=info[sym].color;
+ document.getElementById("symbolDot").style.background=info[sym].color;
+ document.getElementById("sellValue").textContent=info[sym].price;
+ document.getElementById("buyValue").textContent=info[sym].price;
+ document.querySelectorAll(".row[data-symbol]").forEach(row=>row.classList.toggle("active",row.dataset.symbol===sym));
+ draw();
+}
+document.querySelectorAll(".row[data-symbol]").forEach(row=>row.addEventListener("click",()=>setSymbol(row.dataset.symbol)));
+window.addEventListener("resize",draw);draw();
+</script>
+</body>
+</html>
+```

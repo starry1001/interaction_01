@@ -143,6 +143,30 @@ range, `--ids 1,3,5` for individual IDs, or `--ids 1-3,5` for a mix.
 Space-separated IDs (`--ids 1 3 5`) and the alias `--task` are also supported.
 Tasks run in dataset order; IDs missing from `--data` produce an error before execution.
 
+For screenshot generation, `generate.py --setting 1` scales **every screenshot,
+including the first**, to at most 60% of its estimated original image tokens.
+`--setting 2` keeps the existing group sizes (at most six; five splits into 3 + 2),
+stacks landscape screenshots vertically and portrait screenshots horizontally at
+native size, then scales each labeled sheet to at most 60% of the sum of its
+original screenshots' estimated tokens. Added labels and padding consume this
+same budget; they do not increase the reference budget.
+Both preserve aspect ratio, with integer pixel rounding. Setting 3 uses the same
+crops as `preview_setting3.py`; Setting 0 sends the original screenshots.
+
+Settings 1/2 use `ceil(ceil(W/32) * ceil(H/32) * 1.2)`. Applying the documented
+GPT-5.6 Luna `original` profile to GPT-6 Luna is an explicit experiment assumption.
+Requests to GPT-6 Luna and GPT-5.6 Sol/Terra/Luna explicitly set image
+`detail: original`; these limits are checked before sending. Other model families
+keep their default detail behavior, so the 60% estimate does not describe their
+tokenization rules. Source and output estimates, patch counts, sizes, and rounding
+are saved in `compression_budget.json` alongside the generation results. Generation
+does not create a `backups` directory; `--coverage` replaces the current results.
+For Setting 2, `reference_estimated_tokens` is the sum for the original screenshots;
+`source_estimated_tokens` records the unscaled labeled sheet's estimate separately.
+One-patch inputs cannot always reach 60%; original-detail size caps can also require
+additional reduction. These exceptions are recorded. The old GPT-5 tile snapping
+and `--tile-snap-margin` option are no longer used.
+
 
 
 

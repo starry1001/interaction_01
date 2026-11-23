@@ -1,0 +1,67 @@
+{
+  "total_step": 3,
+  "success_step": 2,
+  "screenshot_paths_to_eval": [
+    "outputs/41/gpt-6-luna_setting3/evalpoints/0.png",
+    "outputs/41/gpt-6-luna_setting3/evalpoints/1.png",
+    "outputs/41/gpt-6-luna_setting3/evalpoints/2.png"
+  ],
+  "all_mllm_scores": [
+    0.87,
+    0.58,
+    0.27
+  ],
+  "all_dino_scores": [
+    0.8896484375,
+    0.83740234375,
+    0.372802734375
+  ],
+  "all_ocr_scores": [
+    0.5053974484789009,
+    0.258248730964467,
+    0.25632740980075386
+  ],
+  "all_avg_scores": [
+    0.7550152953263004,
+    0.5585503582381557,
+    0.29971004805858464
+  ],
+  "mllm_score": 0.5733333333333334,
+  "dino_score": 0.699951171875,
+  "ocr_score": 0.33999119641470726,
+  "avg_score": 0.5377585672076802,
+  "all_mllm_res": [
+    "Comments:\n- **Layout (10 points): 9/10** — Overall structure is highly similar: fixed left sidebar, centered feed, top horizontal card carousel, right communities panel, and matching header proportions. The top carousel cards in the generated page are noticeably narrower and more clipped than the reference.\n- **Elements (15 points): 13/15** — Nearly all major elements are present and positioned correctly, including navigation, search bar, login/app controls, post controls, community list, and sidebar sections. Some icons differ, and the Reddit logo/avatar treatment is simplified.\n- **Content and Text (40 points): 35/40** — Sidebar labels, post title, community names, counts, and interaction labels closely match. Text wrapping differs slightly, and the video frame/content shown is different from the reference capture, though it appears to be the same post/video.\n- **Style (15 points): 13/15** — Colors, typography, spacing, borders, rounded cards, and general Reddit visual language are well reproduced. Iconography and some logo details are less accurate, and the top cards have different sizing.\n- **Overall (20 points): 17/20** — Strong visual match with the same page composition and hierarchy. The main discrepancies are the carousel sizing, icon/logo fidelity, and differing video frame.\n\n**Score: 87/100**",
+    "Comments:\n- **Layout (5/10):** The left navigation and central post column are in roughly the same positions, but the generated page is a Popular feed: it adds a story carousel and feed controls above the post. The reference is a post-detail view, with a signup panel and related posts in the right column.\n- **Elements (9/15):** Both pages include Reddit navigation, the same post video, and voting/comment/share controls. The generated page is missing detail-view elements such as the back control and post flair, as well as the reference’s signup options and related-post list; it adds a carousel and popular-communities panel.\n- **Content and Text (23/40):** The headline and video match closely, and the post metadata and engagement counts are similar. However, much of the reference’s right-column text and the promoted content below the post are absent, replaced by unrelated feed content.\n- **Style (11/15):** The Reddit branding, white background, typography, and rounded controls are broadly consistent. Component styling and spacing differ because the generated page uses a feed layout rather than a post-detail layout.\n- **Overall (10/20):** The page is recognizable as Reddit and reproduces the central post well, but it does not match the reference page’s view or surrounding content.\n\nScore: **58/100**",
+    "Comments:\n- **Layout (10 points):** The left navigation and central/right-column structure are broadly similar, with comparable page width and spacing. However, the reference is a comment thread, while the generated page is a feed with a story carousel and a main post. **5/10**\n- **Elements (15 points):** Both pages include Reddit branding, a search bar, sidebar navigation, and a right-hand column. The reference’s comment controls, nested replies, and related-post list are missing; the generated page instead has media cards, post voting controls, and a popular-communities panel. **6/15**\n- **Content and Text (40 points):** The reference shows a discussion in r/law, including a comment thread and related political posts. The generated page shows a different feed post about deploying the military to Chicago, plus unrelated carousel and community content. The political subject matter overlaps only loosely. **4/40**\n- **Style (15 points):** Both use Reddit’s mostly white interface, familiar red branding, and similar sidebar styling. The generated page is more image-heavy and card-focused, unlike the reference’s sparse, text-dense thread layout. **8/15**\n- **Overall (20 points):** The pages share Reddit’s general interface and broad column layout, but differ substantially in page type, content, and central-page elements. **4/20**\n\n**Score: 27/100**"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "reddit Search Reddit 83 Get App Popular Answers   BETA Clarke loses libel case Beasley cleared, free to sign Weapons hits $10OM est MGS Delta reviews s topics Noel Clarke has lost his libel case again . Malik Beasley has been cleared of any Warner Bros '$ original horror film Wea Metal Gear Solid Delta: Snall Hunitedkingdom morc TNYPOSTauto and more rboxoffice and more rlpcgaming and more Internet Culture (Viral) Best Everyihere POPULAR COMMUNITIES Games #/law 15 hr 4g0 Join r/explainlikeimfive QUAs Trump threatens to deploy the U.S. military into Chicago signaling the start of a 23,272,108 members nationwide crackdown: Technology TMAmA 22,441,949 members Pop Culture CIvE K S rclassicwow Movies & TV 687,I00 Memders See more r/Instagram 988 137 Memders RESOURCES r/NintendoSivitch 7,880,362 members About Reddit See more Advertise Reddit Pro BETA BREAKINGNEWS DOWWAICH Help Ikox| TRUMP: HAVE TOTAL SAFETY , SECURITY IN DC 45,697.44 NEWSI Ewc JCDT 0.26/0.47 94 Careers 60k 0 12K Share Press Log Home mila 0 Blog",
+      "screenshot_text": "reddit Search Reddit Get App Home Popular Answers BETA dunoM arke loses libel case Beasley cleared, free to Clarke loses libel caseagain sign Weapons hits S1OOM ToPICS milestone MG Noel Clarke has Josthis libel case Malik Beasley has been cleared aqan any- Warner Bros \" original hottor Metal Internet Culture J8 Games Best ~ Everywhere ~ POPULAR COMMUNITIES Q&As Tllaw 15 hr: ag0 Join rlexplainlikeimfive 23,272.108 members Technology Trump threatens to deploy the U.S: military into Chicago signaling the rIIAMA start of a nationwide crackdown: 22,441.949 members Pop Culture rlclassicwow LIVE 687,100 members Movies & TV See more 0 LHING glnstagrambers rINintendoSwitch RESOURCES 7,880,362 members See more About Reddit Advertise Reddit Pro BETA Help BREAKING NEWS DOWWAICH Blog Kox| TRUMP: WorLd Cup WILL drive Sz0b For U.S. ECONoMy 45,700.45 Nawci Careers 83Z PT VFOXNEWSLLERL 9147 0.26 0.47 Press 1 60K 12K Share Log E- TRUMP [ WaS ABOUT COK",
+      "similarity": 0.5053974484789009
+    },
+    {
+      "checkpoint_text": "reddit r/law Search in r/law Log In Home rflaw 15 hr: ag0 New to Reddit? Breakfast Top6899 Top 1% Commenter Create your account and connect wath world of Popular Trump threatens to deploy the U.S. military into Chicago communites Answers   BETA signaling the start of a nationwide crackdown: Continue with Google Trump News Continue with Email topics LIvE Internet Culture Continue With Phone Number (Viral) By continuing you agree t0 our User Agreement and Games acknowledge that you understand the Privacy Policy: QUAs fNaw 11days ag0 Technology President Trump is now open t0 Pop Culture deploying US Military in cities lik _ S51K upvotes 7,6k comments Movies & TV See more BREAKINGNEWS F/Ask Reddit mo: ag0 DOWWAICH Kox| TRUMP: WorLd Cup WILl drive S30b For U,S, ECOnOMy 45,700.45 Trump has already started making enemies out NEWS of major American allies: How do you see the: RESOURCES NEWC CdT 0.00 / 0.47 36K upvotes 9 AK comments About Reddit T/AskReddit mo ag0 60k 0 12K Share Advertise Donald Trump is coming to the end of his first 100 days in office; how do you think he has__. Reddit Pro   BETA figure Promoted 22K upvotes I7K comments Help Get up to S750K with Figure' 100% online Equity Line of Credit: Fast funding; easy process no need t0 leave homel One of the easiest T/AskCanada mo: 2g0 loans nave ever received: Let it be clear If you are Conservative and you Learn More figurecom 40o78 onlino support Trump right now: you are traitor Kttuanttruttteati Careers 87K upvotes 9,2K comments Wdeanan FIGURE Press ~TRUMP WaS AbOUT TNCHT RY TTHING 'OF\" Home Blog",
+      "screenshot_text": "reddit Search Reddit Get App Home Popular Answers BETA dunoM arke loses libel case Beasley cleared, free to Clarke loses libel caseagain sign Weapons hits S1OOM ToPICS milestone MG Noel Clarke has Josthis libel case Malik Beasley has been cleared aqan any- Warner Bros \" original hottor Metal Internet Culture J8 Games Best ~ Everywhere ~ POPULAR COMMUNITIES Q&As Tllaw 15 hr: ag0 Join rlexplainlikeimfive 23,272.108 members Technology Trump threatens to deploy the U.S: military into Chicago signaling the rIIAMA start of a nationwide crackdown: 22,441.949 members Pop Culture rlclassicwow LIVE 687,100 members Movies & TV See more 0 LHING glnstagrambers rINintendoSwitch RESOURCES 7,880,362 members See more About Reddit Advertise Reddit Pro BETA Help BREAKING NEWS DOWWAICH Blog Kox| TRUMP: WorLd Cup WILL drive Sz0b For U.S. ECONoMy 45,700.45 Nawci Careers 83Z PT VFOXNEWSLLERL Yi4 0.26 0.47 Press 1 60K 12K Share Log E- TRUMP [ WaS ABOUT COK",
+      "similarity": 0.258248730964467
+    },
+    {
+      "checkpoint_text": "reddit r/law Search in r/law Waen FIgURe Home c politics 10 mo ag0 Join the conversation America will regret its decision to Popular reelect Donald Trump Answers   BETA Sort by: Best Search Comments 48K upvotes 18k comments T/Ask Reddit mo ag0 topics AutoModerator MOD TSh 8g0 Stickied conment US active and reserve duty membets; Internet Culture how are you feeling? What s the consensus: BitterFuture ISh ag0 (Viral) Top 1%2 Commenter 19K upvotes 8 5K comments It\"s not coincidence that he is wearing hat proclaiming that he's the most brilliant man t0 have ever lived Games while declaring he' $ going to ignore laws and order our military to attack our own citizens: e/Globalnews mo ag0 Q&As 8k Reply Award Share Trump orders National Guard t0 LA riots after immigration raids Scarbane ISh ag0 Technology 64K upvotes 6 3K comments The emperor has no brain: Pop Culture 0 2.8k Reply Award Share 6/Genz 6 mo ag0 Movies & TV 253 more replies Trump voters on here; where do you draw the line? See more RetroCasket TSh ag0 16K upvotes 15k commenis Sincerely: that hat is beyond the idiotic: And the fact that it doesnt sound any alarms Or make more than half the country say this man is an idiot is mind blowing to me F/AskReddit Zmo ag0 RESOURCES Ijust never saw this country reaching this point remember when the smallest thing would disqualify do you feel about 700 Marines being About Reddit someone from respected office of presidency; deployed to LA? Z0k upvotes T1k comments Advertise Just feels like dream Reddit Pro BETA 729 Reply Award Share #/AskCanada mo: 2g0 238 more replies Would you fight the US.if it came Help to it? BlackMesaRyan I5h ag0 17K upvotes 99K comments hat is s0 pathetic and cringe Careers 4 22k Reply Award Share rlmilalyinfunating 6 mo 290 Press 306 more replies Detroit was flooded and it froze Log military pale How Blog The",
+      "screenshot_text": "reddit Search Reddit Get App Home Popular Answers BETA dzinoM arke libel case Beasley cleared, free to Clarke loses libel caseagain sign Weapons hits SLOOM milestone MG ToPICS Noel Clarke has Jost his libel case Malik Beasley has been cleared again__ my Warner Bros_ original horror film_. Metal Internet Culture Best ~ Everywhere ~ J8 Games POPULAR COMMUNITIES rllaw 15 hr ag0 Join rlexplainlikeimfive Q&As 23,272.108 members Trump threatens to deploy the U.S: military into Chicago signaling the TMAMA Technology start of a nationwide crackdown: 22,441.949 members Pop Culture rlclassicwow LIVE 687,100 members WaS Movies & TV Tllnstagram 988.137 members See more rINintendoSwitch 880,362 members RESOURCES See more About Reddit Advertise Reddit Pro BETA Help BREAKINGNEWS DOWWATCH Blog Fox| TRUMP: WoRLd Cup WILL drIve 530b For U.S. ECONOMY 45,700.45 NEWGE 787P1 VFOXNEWSLLERU 91748d) 0.26 / 0.47 Careers Press 1 G0K 12K 4 Share Log Joses TRUMP [ ABOUT IGHT FTHINGI [RY7 COF",
+      "similarity": 0.25632740980075386
+    }
+  ],
+  "assertion_results": [
+    {
+      "result": "Error",
+      "prev_img_path": "outputs/41/gpt-6-luna_setting3/evalpoints/0.png",
+      "curr_img_path": "outputs/41/gpt-6-luna_setting3/evalpoints/1.png",
+      "response": "Error: Error code: 400 - Unsupported value: 'temperature' does not support 0.0 with this model. Only the default (1) value is supported.",
+      "assertion": "A video is playing.",
+      "thinking": ""
+    },
+    null,
+    null
+  ]
+}

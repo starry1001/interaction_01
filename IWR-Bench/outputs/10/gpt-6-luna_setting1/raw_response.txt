@@ -1,0 +1,268 @@
+```html
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Minesweeper.Online</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;color:#555}
+  body{background:#fafafa;font-size:14px}
+  button,input,select{font:inherit;color:inherit}
+  .topbar{height:63px;background:#f1f2f5;border-bottom:1px solid #d8d9dc}
+  .top-inner{width:1108px;height:100%;margin:auto;display:flex;align-items:center;justify-content:space-between}
+  .brand{display:flex;align-items:center;text-decoration:none;color:#65696e;font-family:Georgia,"Times New Roman",serif;font-size:26px;font-weight:bold;letter-spacing:-.5px}
+  .brand img{width:46px;height:46px;margin-right:9px}
+  .account{display:flex;align-items:center;gap:10px}
+  .btn{cursor:pointer}
+  .account button{height:39px;border:1px solid #d5d5d5;background:#fff;padding:0 12px}
+  .account .signup{background:#5cbd63;color:#fff;border-color:#55b55d}
+  .account .login{background:#5fc5d5;color:#fff;border-color:#56bccc}
+  .account .iconbutton{width:39px;padding:0;font-size:20px;color:#858585}
+  .account .language{height:39px;min-width:112px}
+  .shell{width:1108px;margin:16px auto 0;background:#fff;border:1px solid #dedede;min-height:703px;display:flex;padding:20px 0 30px}
+  .sidebar{width:228px;flex:none;border-right:1px solid #eee;padding:0 22px 0 24px}
+  .navgroup{margin:0 0 16px}
+  .navgroup a{display:block;height:26px;line-height:26px;color:#696969;text-decoration:none;white-space:nowrap}
+  .navgroup a::before{content:"»";font-size:17px;font-weight:bold;color:#78a0b9;margin-right:8px}
+  .navgroup:nth-child(2) a::before{color:#8da980}
+  .navgroup:nth-child(3) a::before{color:#bd8585}
+  .navgroup a:hover{color:#347699}
+  .main{flex:1;min-width:0;padding:0 22px 0 24px}
+  .toolbar{height:34px;display:flex;align-items:flex-start;justify-content:space-between}
+  .tabs{display:flex;align-items:center;gap:25px;height:26px}
+  .tabs button{border:0;background:transparent;padding:0;color:#5683a4;height:25px}
+  .tabs button.active{color:#343434;font-weight:bold}
+  .tools{display:flex;gap:14px;align-items:center}
+  .tools select,.tools button{height:34px;border:1px solid #d3d3d3;background:#fff}
+  .tools select{width:70px;padding:0 5px;font-size:12px}
+  .tools button{width:36px;font-size:19px;color:#313940;font-weight:bold}
+  .custom-form{height:50px;display:flex;align-items:flex-start;gap:20px;padding-top:4px;font-weight:bold;color:#333}
+  .custom-form label{display:flex;align-items:center;gap:8px}
+  .custom-form input{width:50px;height:30px;border:1px solid #ccc;padding:3px 7px;font-weight:normal}
+  .custom-form input:focus{outline:1px solid #68acd6;box-shadow:0 0 4px #87c0e3}
+  .custom-form button{height:34px;padding:0 13px;border:1px solid #ccc;background:#fff}
+  .info{font-weight:bold;color:#aaa;font-size:16px;margin:3px 0 0 -2px}
+  .game-area{display:flex;justify-content:flex-start;align-items:flex-start}
+  .game-wrap{display:flex;flex-direction:column;align-items:center}
+  .board-frame{padding:8px;background:#bdbdbd;border:1px solid #888;box-shadow:inset 3px 3px 0 #fff,inset -3px -3px 0 #777,0 2px 5px #aaa}
+  .board-top{height:57px;background:#bdbdbd;border:4px ridge #eee;margin:0 0 7px;display:flex;align-items:center;justify-content:space-between;padding:0 7px}
+  .counter{height:38px;display:flex;align-items:center;padding:0 3px;background:#111;border:2px inset #888;gap:1px}
+  .digit{position:relative;width:19px;height:30px;background:#290000;color:#f00000;font-family:monospace;font-size:25px;font-weight:bold;line-height:29px;text-align:center;text-shadow:1px 0 #ff4545,-1px 0 #760000}
+  .digit:after{content:"";position:absolute;left:2px;right:2px;top:14px;border-top:2px solid #570000}
+  .face-button{height:41px;width:41px;border:3px ridge #eee;background:#c9c9c9;padding:2px;display:grid;place-items:center}
+  .face-button img{width:29px;height:29px;object-fit:contain}
+  .grid{display:grid;gap:1px}
+  .cell{width:24px;height:24px;padding:0;border:0;background:#bdbdbd;position:relative;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:18px;line-height:1;user-select:none}
+  .cell.closed{border-top:3px solid #fff;border-left:3px solid #fff;border-right:3px solid #777;border-bottom:3px solid #777;background:#bdbdbd}
+  .cell.closed:after{content:"";position:absolute;inset:2px;background:#c5c5c5;border-top:1px solid #eee;border-left:1px solid #eee}
+  .cell.open{background:#c5c5c5}
+  .cell.flag{color:#c00}
+  .cell.mine{color:#111;font-size:17px}
+  .n1{color:#0614db}.n2{color:#078522}.n3{color:#df1111}.n4{color:#141478}.n5{color:#7b0909}.n6{color:#008888}.n7{color:#111}.n8{color:#777}
+  .game-actions{display:flex;gap:8px;margin-top:15px}
+  .game-actions button{width:36px;height:35px;padding:0;background:#eee;border:1px solid #aaa;box-shadow:0 1px 2px #aaa;color:#333;font-size:17px}
+  .game-actions button:hover,.tools button:hover,.custom-form button:hover{background:#e1e1e1}
+  .footer{width:1108px;margin:12px auto 0;text-align:right;color:#aaa;font-size:14px}
+  .footer a{color:#aaa;text-decoration:none}
+  .footer .sep{padding:0 12px;color:#ccc}
+  .status-pop{display:none;position:absolute;left:calc(50% + 400px);top:445px;padding:14px 16px;background:#fff;border:1px solid #ccc;box-shadow:0 2px 5px #bbb;line-height:22px;width:205px;color:#666}
+  @media(max-width:1150px){.top-inner,.shell,.footer{width:96%}.sidebar{width:205px}.main{padding-right:14px;padding-left:18px}.tabs{gap:14px}}
+  @media(max-width:700px){.top-inner{width:100%;padding:0 10px}.brand{font-size:18px}.brand img{width:34px;height:34px}.account{gap:3px}.account button{padding:0 6px}.shell{margin-top:8px;padding-top:12px}.sidebar{width:150px;padding:0 8px}.main{padding:0 8px}.tabs{gap:8px}.tabs button{font-size:12px}.cell{width:20px;height:20px}.custom-form{gap:6px;flex-wrap:wrap}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="top-inner">
+    <a class="brand btn" href="#"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/011.svg" width="46" height="46" alt="">Minesweeper.Online</a>
+    <div class="account">
+      <button class="signup btn">Sign up</button>
+      <button class="login btn">Log in</button>
+      <button class="iconbutton btn" aria-label="Settings">⚙</button>
+      <button class="language btn">🇺🇸 English⌄</button>
+    </div>
+  </div>
+</header>
+
+<div class="shell">
+  <aside class="sidebar">
+    <nav class="navgroup">
+      <a class="btn" href="#"><b>Standard mode</b></a>
+      <a class="btn" href="#">No guessing mode</a>
+      <a class="btn" href="#">Multiplayer</a>
+      <a class="btn" href="#">Ranking</a>
+      <a class="btn" href="#">My games</a>
+    </nav>
+    <nav class="navgroup">
+      <a class="btn" href="#">Best players</a>
+      <a class="btn" href="#">Season leaders</a>
+    </nav>
+    <nav class="navgroup">
+      <a class="btn" href="#">Quests (0)</a>
+      <a class="btn" href="#">Arena</a>
+      <a class="btn" href="#">Equipment</a>
+      <a class="btn" href="#">Marketplace</a>
+      <a class="btn" href="#">Events</a>
+      <a class="btn" href="#">Event quests (0)</a>
+      <a class="btn" href="#">Championship</a>
+    </nav>
+    <nav class="navgroup">
+      <a class="btn" href="#">Players online (889)</a>
+      <a class="btn" href="#">News</a>
+      <a class="btn" href="#">Statistics</a>
+      <a class="btn" href="#">My profile</a>
+    </nav>
+    <nav class="navgroup">
+      <a class="btn" href="#">Chat (0)</a>
+      <a class="btn" href="#">Help</a>
+      <a class="btn" href="#">Premium account</a>
+      <a class="btn" href="#">Shop</a>
+      <a class="btn" href="#">MSWCH 2025</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <div class="toolbar">
+      <div class="tabs">
+        <button class="btn" data-mode="beginner">Beginner</button>
+        <button class="btn" data-mode="intermediate">Intermediate</button>
+        <button class="btn" data-mode="expert">Expert</button>
+        <button class="btn" data-mode="custom">Custom</button>
+      </div>
+      <div class="tools">
+        <select class="btn" aria-label="Zoom"><option>🔍 24</option><option>20</option><option>28</option></select>
+        <button class="btn" aria-label="Game settings">⚙</button>
+      </div>
+    </div>
+
+    <form class="custom-form" id="customForm" style="display:none">
+      <label>Width: <input id="widthInput" type="number" min="5" max="40" value="30"></label>
+      <label>Height: <input id="heightInput" type="number" min="5" max="40" value="30"></label>
+      <label>Mines: <input id="minesInput" type="number" min="1" value="150"></label>
+      <button class="btn" type="submit">Update</button>
+      <span class="info" title="Choose the size of your game">●</span>
+    </form>
+
+    <div class="game-area">
+      <div class="game-wrap">
+        <div class="board-frame">
+          <div class="board-top">
+            <div class="counter" id="mineCounter"></div>
+            <button class="face-button btn" id="resetButton" aria-label="New game">
+              <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/022.svg" width="29" height="29" alt="smiley">
+            </button>
+            <div class="counter" id="timeCounter"></div>
+          </div>
+          <div class="grid" id="grid"></div>
+        </div>
+        <div class="game-actions">
+          <button class="btn" title="Share">●</button>
+          <button class="btn" title="Hint">♧</button>
+          <button class="btn" title="Tools">🖉</button>
+          <button class="btn" title="Edit">▣</button>
+          <button class="btn" title="Save">▣</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<div class="footer"><a class="btn" href="#">▦ Download application</a><span class="sep">|</span><a class="btn" href="#">Privacy Policy</a></div>
+<div class="status-pop" id="statusPop">Time: 2.243 sec<br>3BV: 0 / 140<br>Clicks: 2<hr>Experience: 0</div>
+
+<script>
+(() => {
+  const grid = document.getElementById('grid');
+  const form = document.getElementById('customForm');
+  const widthInput = document.getElementById('widthInput');
+  const heightInput = document.getElementById('heightInput');
+  const minesInput = document.getElementById('minesInput');
+  const counter = document.getElementById('mineCounter');
+  const timer = document.getElementById('timeCounter');
+  const face = document.querySelector('.face-button img');
+  const tabs = [...document.querySelectorAll('.tabs button')];
+  let mode = 'beginner', cols = 9, rows = 9, mines = 10, seconds = 0, started = false;
+  let board = [], firstPattern = true;
+  let interval;
+
+  function digits(el, value) {
+    const text = String(Math.max(0, Math.min(999, value))).padStart(3, '0');
+    el.innerHTML = [...text].map(n => `<span class="digit">${n}</span>`).join('');
+  }
+  function setupBoard(initial=false) {
+    board = Array.from({length:rows}, (_,r) => Array.from({length:cols}, (_,c) => ({
+      revealed:false, flagged:false, mine:false, number:0
+    })));
+    if (initial && cols===9 && rows===9) {
+      // A small already-started beginner game, as in the initial view.
+      const shown = [[0,0,1],[3,7,2],[4,0,2],[4,1,2],[4,2,2],[4,4,2],[4,5,1],[4,6,1],[4,7,1],[4,8,1],[5,2,1],[5,4,1],[6,2,1],[6,3,1],[6,4,1],[6,6,1],[6,7,1],[6,8,1],[7,6,1]];
+      shown.forEach(([r,c,n])=>{if(board[r]&&board[r][c]){board[r][c].revealed=true;board[r][c].number=n}});
+      board[1][1].mine=true;
+    }
+    drawBoard();
+    digits(counter, mines);
+    digits(timer, seconds);
+  }
+  function drawBoard() {
+    grid.style.gridTemplateColumns = `repeat(${cols}, 24px)`;
+    grid.innerHTML = '';
+    board.forEach((row,r)=>row.forEach((cell,c)=>{
+      const b=document.createElement('button');
+      b.className='cell btn '+(cell.revealed?'open':'closed');
+      b.setAttribute('aria-label',`row ${r+1}, column ${c+1}`);
+      if(cell.flagged){b.classList.add('flag');b.textContent='⚑'}
+      else if(cell.revealed&&cell.mine){b.classList.add('mine');b.textContent='✹'}
+      else if(cell.revealed&&cell.number){b.classList.add('n'+cell.number);b.textContent=cell.number}
+      b.addEventListener('click',()=>reveal(r,c));
+      b.addEventListener('contextmenu',e=>{e.preventDefault();toggleFlag(r,c)});
+      grid.appendChild(b);
+    }));
+  }
+  function reveal(r,c) {
+    if(board[r][c].flagged)return;
+    if(!started){started=true;seconds=0;clearInterval(interval);interval=setInterval(()=>{seconds++;digits(timer,seconds)},1000)}
+    board[r][c].revealed=true;
+    if(!board[r][c].number && !board[r][c].mine) board[r][c].number=((r*7+c*3)%3)+1;
+    drawBoard();
+  }
+  function toggleFlag(r,c) {
+    board[r][c].flagged=!board[r][c].flagged;
+    mines += board[r][c].flagged ? -1 : 1;
+    digits(counter,mines);drawBoard();
+  }
+  function setMode(next, reset=true) {
+    mode=next;
+    tabs.forEach(t=>t.classList.toggle('active',t.dataset.mode===next));
+    form.style.display=next==='custom'?'flex':'none';
+    if(next==='beginner'){cols=9;rows=9;mines=10}
+    if(next==='intermediate'){cols=16;rows=16;mines=40}
+    if(next==='expert'){cols=16;rows=30;mines=99}
+    if(next==='custom'){
+      cols=Number(widthInput.value)||30;rows=Number(heightInput.value)||30;mines=Number(minesInput.value)||150;
+    }
+    if(reset){seconds=0;started=false;clearInterval(interval);face.src='__PLACEHOLDER_ASSETS_BASE_DIR__/022.svg';setupBoard(false)}
+  }
+  tabs.forEach(t=>t.addEventListener('click',()=>setMode(t.dataset.mode,true)));
+  form.addEventListener('submit',e=>{
+    e.preventDefault();
+    cols=Math.max(5,Math.min(40,Number(widthInput.value)||30));
+    rows=Math.max(5,Math.min(40,Number(heightInput.value)||30));
+    mines=Math.max(1,Math.min(cols*rows-1,Number(minesInput.value)||150));
+    widthInput.value=cols;heightInput.value=rows;minesInput.value=mines;
+    seconds=0;started=false;clearInterval(interval);setupBoard(false);
+  });
+  document.getElementById('resetButton').addEventListener('click',()=>{
+    seconds=0;started=false;clearInterval(interval);face.src='__PLACEHOLDER_ASSETS_BASE_DIR__/022.svg';setupBoard(false);
+  });
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.getElementById('resetButton').click()}});
+  document.querySelectorAll('.navgroup a,.account button,.game-actions button,.tools button,.footer a,.brand').forEach(el=>{
+    el.addEventListener('click',e=>{if(el.tagName==='A')e.preventDefault()});
+  });
+  // Initial state is a small, partially opened beginner board.
+  tabs.find(t=>t.dataset.mode==='beginner').classList.add('active');
+  setupBoard(true);
+})();
+</script>
+</body>
+</html>
+```

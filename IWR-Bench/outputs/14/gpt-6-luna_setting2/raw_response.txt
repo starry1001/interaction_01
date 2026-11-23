@@ -1,0 +1,334 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sunset Hollywood Private Room</title>
+<style>
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;color:#222;font-family:Arial,Helvetica,sans-serif;font-size:15px;background:#fff}
+  button{font:inherit;color:inherit}
+  .btn{cursor:pointer}
+  .site-header{height:82px;border-bottom:1px solid #eee;background:#fff}
+  .header-inner{height:100%;max-width:1120px;margin:auto;display:flex;align-items:center;justify-content:space-between;position:relative}
+  .brand{display:flex;align-items:center;gap:4px;color:#ff385c;font-size:22px;font-weight:700;text-decoration:none;letter-spacing:-1px}
+  .brand-mark{width:25px;height:29px;position:relative;display:inline-block}
+  .brand-mark:before{content:"";position:absolute;width:12px;height:21px;left:6px;top:2px;border:2.6px solid #ff385c;border-radius:10px 10px 10px 2px;transform:rotate(27deg)}
+  .brand-mark:after{content:"";position:absolute;width:9px;height:10px;left:13px;top:14px;border:2.6px solid #ff385c;border-radius:8px 8px 2px 8px;transform:rotate(-23deg);background:#fff}
+  .search-pill{position:absolute;left:50%;transform:translateX(-50%);height:50px;padding:0 9px 0 15px;border:1px solid #ddd;border-radius:28px;display:flex;align-items:center;box-shadow:0 2px 5px #00000012;background:white}
+  .search-pill button{height:34px;padding:0 15px;border:0;border-right:1px solid #eee;background:none;font-size:14px;font-weight:600;white-space:nowrap}
+  .search-pill button:last-of-type{border:0;font-weight:400;color:#666}
+  .search-go{border:0!important;background:#ff385c!important;color:#fff;border-radius:50%;width:34px;height:34px;padding:0!important;font-size:17px!important}
+  .header-actions{display:flex;align-items:center;gap:20px;font-size:14px;font-weight:600}
+  .header-actions button{border:0;background:none}
+  .round-action{height:40px;width:40px;border-radius:50%;background:#fff!important;box-shadow:0 1px 5px #0002;font-size:18px}
+  .content{max-width:1120px;margin:auto}
+  .title-row{display:flex;align-items:center;justify-content:space-between;margin:26px 0 22px}
+  h1{font-size:28px;line-height:1.2;margin:0;font-weight:600;letter-spacing:-.5px}
+  .title-actions{display:flex;gap:22px}
+  .title-actions button{border:0;background:none;text-decoration:underline;font-size:14px;font-weight:600}
+  .gallery{height:510px;display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:6px;overflow:hidden;border-radius:12px}
+  .gallery img{display:block;width:100%;height:100%;object-fit:cover}
+  .gallery .large{grid-row:1/3}
+  .gallery .map{object-position:center}
+  .gallery-item{position:relative;overflow:hidden}
+  .show-photos{position:absolute;right:20px;bottom:18px;padding:11px 16px;background:#fff;border:1px solid #222;border-radius:8px;font-weight:600;font-size:14px}
+  .main-layout{display:grid;grid-template-columns:660px 380px;gap:80px;margin-top:35px;align-items:start}
+  .intro{padding-bottom:25px;border-bottom:1px solid #eee}
+  .intro h2{font-size:23px;margin:0 0 6px;font-weight:600}
+  .subline{color:#555;font-size:15px}
+  .favourite{margin-top:35px;border:1px solid #ddd;border-radius:12px;min-height:96px;padding:18px 22px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 2px #00000008}
+  .favourite-left{display:flex;align-items:center;gap:14px}
+  .laurel{font-size:25px;color:#333}
+  .favourite strong{font-size:16px;line-height:1.25}
+  .favourite-copy{max-width:250px;font-weight:600;line-height:1.35}
+  .rating{font-size:18px;text-align:center;white-space:nowrap}
+  .rating small{display:block;font-size:12px;margin-top:4px}
+  .host-row{display:flex;align-items:center;gap:16px;padding:27px 0;border-bottom:1px solid #eee}
+  .host-row img{width:44px;height:44px;border-radius:50%;object-fit:cover}
+  .host-row strong{display:block;margin-bottom:4px}
+  .muted{color:#717171;font-size:14px}
+  .detail-list{padding:13px 0 20px;border-bottom:1px solid #eee}
+  .detail{display:flex;gap:20px;padding:16px 4px;align-items:flex-start}
+  .detail-icon{width:22px;font-size:20px;text-align:center}
+  .detail strong{display:block;font-size:15px;margin-bottom:4px}
+  .detail span{font-size:14px;color:#717171}
+  .translation{font-size:14px;color:#444;margin:28px 0 35px}
+  .translation a,.clear-dates{color:#222;text-decoration:underline;font-weight:600}
+  .section{padding:0 0 38px;margin-bottom:35px;border-bottom:1px solid #eee;scroll-margin-top:90px}
+  .section h2{font-size:22px;font-weight:600;margin:0 0 18px}
+  .about-text{font-size:15px;line-height:1.55;max-width:650px}
+  .about-text p{margin:0 0 16px}
+  .show-more{margin-top:4px;padding:13px 20px;border:0;border-radius:8px;background:#f7f7f7;font-weight:600}
+  .sleep-photo{width:320px;height:220px;object-fit:cover;border-radius:8px;display:block;margin:20px 0 15px}
+  .sleep-title{font-weight:600;margin-bottom:5px}
+  .amenity-grid{display:grid;grid-template-columns:1fr 1fr;row-gap:24px;column-gap:30px}
+  .amenity{display:flex;align-items:center;gap:15px;font-size:15px}
+  .amenity-icon{font-size:20px;width:24px;text-align:center}
+  .show-amenities{margin-top:26px;padding:14px 19px;border:1px solid #222;border-radius:8px;background:white;font-weight:600}
+  .booking-wrap{position:sticky;top:105px}
+  .rare{display:flex;align-items:center;justify-content:center;gap:12px;border-radius:12px;box-shadow:0 4px 18px #00000018;height:60px;margin-bottom:20px;font-size:14px;font-weight:600;background:#fff}
+  .gem{color:#e31c5f;font-size:20px}
+  .booking-card{padding:28px 26px 23px;border-radius:12px;box-shadow:0 6px 20px #0000001c;background:#fff}
+  .price{font-size:16px;margin-bottom:24px}
+  .price strong{font-size:22px;text-decoration:underline}
+  .price span{color:#444}
+  .date-box{border:1px solid #999;border-radius:9px;overflow:hidden}
+  .date-row{display:grid;grid-template-columns:1fr 1fr}
+  .date-cell{padding:11px 12px;border-bottom:1px solid #999;min-height:59px}
+  .date-cell:first-child{border-right:1px solid #999}
+  .date-cell label{display:block;font-size:10px;font-weight:700;margin-bottom:5px}
+  .date-cell span{font-size:14px}
+  .guest-cell{width:100%;text-align:left;border:0;background:#fff;padding:10px 12px;position:relative;height:59px}
+  .guest-cell label{display:block;font-size:10px;font-weight:700;margin-bottom:5px}
+  .guest-cell:after{content:"⌄";position:absolute;right:14px;top:17px;font-size:19px}
+  .reserve{width:100%;height:52px;border:0;border-radius:30px;background:#e5005b;color:#fff;font-weight:700;margin-top:17px}
+  .no-charge{text-align:center;margin:17px 0 0;font-size:13px;color:#555}
+  .report{display:block;text-align:center;margin:23px auto 0;border:0;background:none;text-decoration:underline;font-size:13px;color:#555}
+  .tabs{position:sticky;top:0;background:#fff;border-bottom:1px solid #eee;z-index:5;margin-top:8px}
+  .tabs-inner{max-width:1120px;margin:auto;height:66px;display:flex;align-items:center;gap:30px}
+  .tabs a{font-size:14px;text-decoration:none;color:#333;font-weight:600;padding:24px 0}
+  .calendar-heading{margin-bottom:22px}
+  .calendar-heading h2{margin:0 0 8px}
+  .calendar-heading p{color:#717171;font-size:14px;margin:0}
+  .months{display:grid;grid-template-columns:1fr 1fr;gap:42px}
+  .month-header{height:45px;display:flex;align-items:center;justify-content:space-between;font-weight:600}
+  .month-header button{border:0;background:none;font-size:20px;padding:7px 10px}
+  .weekdays,.days{display:grid;grid-template-columns:repeat(7,1fr);text-align:center}
+  .weekdays{font-size:11px;color:#666;margin-bottom:10px}
+  .days{row-gap:4px}
+  .days button{width:42px;height:42px;border:0;border-radius:50%;background:none;font-size:13px}
+  .days button:hover{border:1px solid #222}
+  .days .selected{background:#222;color:#fff}
+  .days .blank{pointer-events:none}
+  .calendar-bottom{text-align:right;margin-top:30px}
+  .clear-dates{border:0;background:none;font-size:14px}
+  .map-section{height:420px}
+  .map-placeholder{height:300px;background:#eef1ed;border-radius:12px;overflow:hidden}
+  .map-placeholder img{width:100%;height:100%;object-fit:cover;opacity:.9}
+  .notice{position:fixed;bottom:25px;left:50%;transform:translateX(-50%);background:#222;color:white;padding:13px 20px;border-radius:8px;display:none;z-index:20}
+  .modal{display:none;position:fixed;inset:0;z-index:30;background:#fff;overflow:auto}
+  .modal-top{height:70px;padding:0 40px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #eee;position:sticky;top:0;background:#fff}
+  .modal-top button{border:0;background:white;padding:10px;font-size:20px}
+  .modal-grid{max-width:1100px;margin:25px auto;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .modal-grid img{width:100%;height:350px;object-fit:cover;border-radius:8px}
+  @media(max-width:1200px){.content,.header-inner,.tabs-inner{max-width:92%}.main-layout{grid-template-columns:minmax(0,660px) 360px;gap:40px}.gallery{height:450px}}
+  @media(max-width:800px){.header-inner{max-width:94%}.search-pill{display:none}.header-actions>button:first-child{display:none}.content{max-width:94%}.gallery{height:330px;grid-template-columns:1fr 1fr}.gallery .large{grid-row:1/3}.gallery .gallery-item:nth-child(4),.gallery .gallery-item:nth-child(5){display:none}.main-layout{display:flex;flex-direction:column;gap:25px}.booking-wrap{position:static;order:2;width:100%}.left-column{order:1}.tabs-inner{gap:18px}.months{gap:10px}.days button{width:34px;height:34px}.title-row{align-items:flex-start;gap:10px}h1{font-size:22px}.title-actions{gap:8px}.title-actions button{font-size:12px}.favourite{padding:12px}.favourite-copy{max-width:130px}.modal-grid{padding:12px;grid-template-columns:1fr}.modal-grid img{height:260px}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand btn" href="#" aria-label="Airbnb home"><span class="brand-mark"></span><span>airbnb</span></a>
+    <div class="search-pill">
+      <button class="btn">🏙&nbsp; Anywhere</button>
+      <button class="btn">Any week</button>
+      <button class="btn">Add guests</button>
+      <button class="search-go btn" aria-label="Search">⌕</button>
+    </div>
+    <div class="header-actions">
+      <button class="btn">Become a host</button>
+      <button class="round-action btn" aria-label="Language">◎</button>
+      <button class="round-action btn" aria-label="Menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<main class="content">
+  <div class="title-row">
+    <h1>Sunset Hollywood Private Room</h1>
+    <div class="title-actions">
+      <button class="btn" id="shareBtn">♧ &nbsp;Share</button>
+      <button class="btn" id="saveBtn">♡ &nbsp;Save</button>
+    </div>
+  </div>
+
+  <section class="gallery" aria-label="Photos of the listing">
+    <div class="gallery-item large"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/011.jpg" width="600" height="510" alt="A bright sitting area beside the window"></div>
+    <div class="gallery-item"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/012.jpg" width="300" height="252" alt="Bedroom with yellow bedding"></div>
+    <div class="gallery-item"><img class="map" src="__PLACEHOLDER_ASSETS_BASE_DIR__/014.jpg" width="300" height="252" alt="Map of Hollywood"></div>
+    <div class="gallery-item"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/013.jpg" width="300" height="252" alt="Bedroom and sitting area"></div>
+    <div class="gallery-item"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/015.jpg" width="300" height="252" alt="Room with a yellow bed"></div>
+    <button class="show-photos btn" id="photosBtn">▦ &nbsp;Show all photos</button>
+  </section>
+
+  <div class="main-layout">
+    <div class="left-column">
+      <section class="intro">
+        <h2>Room in Burbank, California, United States</h2>
+        <div class="subline">1 double bed · Private attached bathroom</div>
+        <div class="favourite">
+          <div class="favourite-left">
+            <span class="laurel">♧</span>
+            <strong>Guest<br>favourite</strong>
+          </div>
+          <div class="favourite-copy">One of the most loved homes on Airbnb, according to guests</div>
+          <div class="rating">4.98<small>★★★★★</small></div>
+          <div class="rating">41<small>Reviews</small></div>
+        </div>
+      </section>
+
+      <div class="host-row">
+        <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/017.jpg" width="44" height="44" alt="Host Aubrey">
+        <div><strong>Stay with Aubrey</strong><span class="muted">Superhost · 5 years hosting</span></div>
+      </div>
+
+      <div class="detail-list">
+        <div class="detail"><span class="detail-icon">♙</span><div><strong>Self check-in</strong><span>Check yourself in with the smartlock.</span></div></div>
+        <div class="detail"><span class="detail-icon">▣</span><div><strong>Room in a townhouse</strong><span>Your own room in a home, plus access to shared spaces.</span></div></div>
+        <div class="detail"><span class="detail-icon">▧</span><div><strong>Free cancellation before 16 Nov</strong><span>Get a full refund if you change your mind.</span></div></div>
+      </div>
+
+      <p class="translation">Some info has been automatically translated. <a href="#" class="btn">Show original</a></p>
+
+      <section class="section" id="about">
+        <h2>About this place</h2>
+        <div class="about-text" id="aboutText">
+          <p>NOTE: This is 4 miles from the 📍pin! We are located in HOLLYWOOD 😍 The cross streets are Sunset Boulevard and Highland Avenue. Within walking distance to the Hollywood Walk of Fame, the Chinese Theatre, and many other popular tourist destinations. Universal Studios, Griffith Park, &amp; Hollywood Bowl all minutes away! This is a room in a newly constructed multi-room Townhome with attached private full bathroom. Totally safe, secure, quiet and clean! Flexible host! It's fun to live like a local 😎</p>
+          <p><strong>The space...</strong></p>
+          <div id="extraAbout" style="display:none">
+            <p>Enjoy a comfortable private room in a convenient Hollywood location. The room is thoughtfully furnished and includes a private attached bathroom, air conditioning, and access to shared spaces.</p>
+            <p>Guests can easily explore the neighbourhood, local restaurants and nearby attractions during their stay.</p>
+          </div>
+        </div>
+        <button class="show-more btn" id="aboutMore">Show more</button>
+      </section>
+
+      <section class="section" id="sleep">
+        <h2>Where you'll sleep</h2>
+        <img class="sleep-photo" src="__PLACEHOLDER_ASSETS_BASE_DIR__/012.jpg" width="320" height="220" alt="Bedroom">
+        <div class="sleep-title">Bedroom</div>
+        <div class="muted">1 double bed</div>
+      </section>
+
+      <section class="section" id="amenities">
+        <h2>What this place offers</h2>
+        <div class="amenity-grid" id="amenityGrid">
+          <div class="amenity"><span class="amenity-icon">▣</span>Lock on bedroom door</div>
+          <div class="amenity"><span class="amenity-icon">◉</span>Wifi</div>
+          <div class="amenity"><span class="amenity-icon">▱</span>Free on-street parking</div>
+          <div class="amenity"><span class="amenity-icon">❄</span>Air conditioning</div>
+          <div class="amenity"><span class="amenity-icon">♧</span>Bath</div>
+          <div class="amenity"><span class="amenity-icon">▣</span>Luggage drop-off allowed</div>
+          <div class="amenity"><span class="amenity-icon">♨</span>Hair dryer</div>
+          <div class="amenity"><span class="amenity-icon">▧</span>Microwave</div>
+          <div class="amenity"><span class="amenity-icon">▤</span>Exterior security cameras on property</div>
+        </div>
+        <button class="show-amenities btn" id="allAmenities">Show all 31 amenities</button>
+      </section>
+
+      <section class="section" id="calendar">
+        <div class="calendar-heading">
+          <h2>2 nights in Burbank</h2>
+          <p>21 Nov 2025 - 23 Nov 2025</p>
+        </div>
+        <div class="months">
+          <div class="month">
+            <div class="month-header"><button class="btn" aria-label="Previous month">‹</button><span>November 2025</span><span></span></div>
+            <div class="weekdays"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+            <div class="days" id="novDays"></div>
+          </div>
+          <div class="month">
+            <div class="month-header"><span></span><span>December 2025</span><button class="btn" aria-label="Next month">›</button></div>
+            <div class="weekdays"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+            <div class="days" id="decDays"></div>
+          </div>
+        </div>
+        <div class="calendar-bottom"><button class="clear-dates btn" id="clearDates">Clear dates</button></div>
+      </section>
+
+      <section class="section" id="reviews"><h2>Reviews</h2><p>Rated 4.98 out of 5 stars from 41 reviews.</p></section>
+      <section class="section map-section" id="location"><h2>Where you'll be</h2><div class="map-placeholder"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/014.jpg" width="900" height="300" alt="Map showing the Hollywood neighbourhood"></div></section>
+    </div>
+
+    <aside class="booking-wrap">
+      <div class="rare"><span class="gem">♦</span>Rare find! This place is usually booked</div>
+      <div class="booking-card">
+        <div class="price"><strong>$284 SGD</strong> <span>for 2 nights</span></div>
+        <div class="date-box">
+          <div class="date-row">
+            <div class="date-cell"><label>CHECK-IN</label><span>21/11/2025</span></div>
+            <div class="date-cell"><label>CHECKOUT</label><span>23/11/2025</span></div>
+          </div>
+          <button class="guest-cell btn"><label>GUESTS</label>1 guest</button>
+        </div>
+        <button class="reserve btn" id="reserveBtn">Reserve</button>
+        <p class="no-charge">You won't be charged yet</p>
+      </div>
+      <button class="report btn">⚑ &nbsp; Report this listing</button>
+    </aside>
+  </div>
+</main>
+
+<nav class="tabs" aria-label="Listing sections">
+  <div class="tabs-inner">
+    <a class="btn" href="#photos">Photos</a>
+    <a class="btn" href="#amenities">Amenities</a>
+    <a class="btn" href="#reviews">Reviews</a>
+    <a class="btn" href="#location">Location</a>
+  </div>
+</nav>
+
+<div class="notice" id="notice"></div>
+<div class="modal" id="photoModal">
+  <div class="modal-top"><strong>Sunset Hollywood Private Room</strong><button class="btn" id="closeModal" aria-label="Close">✕</button></div>
+  <div class="modal-grid">
+    <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/011.jpg" width="540" height="350" alt="Living area">
+    <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/012.jpg" width="540" height="350" alt="Bedroom">
+    <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/013.jpg" width="540" height="350" alt="Room interior">
+    <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/015.jpg" width="540" height="350" alt="Bedroom view">
+    <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/014.jpg" width="540" height="350" alt="Hollywood map">
+  </div>
+</div>
+
+<script>
+  function fillCalendar(id, offset, count, selectedDays){
+    const el=document.getElementById(id);
+    for(let i=0;i<offset;i++){const b=document.createElement('button');b.className='blank';b.textContent='';el.appendChild(b)}
+    for(let d=1;d<=count;d++){
+      const b=document.createElement('button');
+      b.className='btn'+(selectedDays.includes(d)?' selected':'');
+      b.textContent=d;
+      b.addEventListener('click',()=>{b.classList.toggle('selected')});
+      el.appendChild(b);
+    }
+  }
+  // November 2025 starts Saturday in a Monday-first calendar; December starts Monday.
+  fillCalendar('novDays',5,30,[21,23]);
+  fillCalendar('decDays',0,31,[]);
+
+  const notice=document.getElementById('notice');
+  function toast(text){notice.textContent=text;notice.style.display='block';clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>notice.style.display='none',2300)}
+  document.getElementById('photosBtn').addEventListener('click',()=>document.getElementById('photoModal').style.display='block');
+  document.getElementById('closeModal').addEventListener('click',()=>document.getElementById('photoModal').style.display='none');
+  document.getElementById('shareBtn').addEventListener('click',()=>toast('Link copied'));
+  document.getElementById('saveBtn').addEventListener('click',e=>{e.currentTarget.textContent=e.currentTarget.textContent.includes('Saved')?'♡  Save':'♥  Saved';toast('Added to your wishlist')});
+  document.getElementById('reserveBtn').addEventListener('click',()=>toast('Choose your dates to continue'));
+  document.getElementById('aboutMore').addEventListener('click',e=>{
+    const extra=document.getElementById('extraAbout');
+    const open=extra.style.display==='block';
+    extra.style.display=open?'none':'block';
+    e.currentTarget.textContent=open?'Show more':'Show less';
+  });
+  document.getElementById('allAmenities').addEventListener('click',e=>{
+    const grid=document.getElementById('amenityGrid');
+    const extras=grid.querySelectorAll('.extra-amenity');
+    if(extras.length){extras.forEach(x=>x.remove());e.currentTarget.textContent='Show all 31 amenities';return}
+    const items=['TV','Kitchen','Washer','Heating','Dedicated workspace','Smoke alarm','First aid kit','Coffee maker','Private entrance','Iron'];
+    items.forEach((item,i)=>{const div=document.createElement('div');div.className='amenity extra-amenity';div.innerHTML='<span class="amenity-icon">'+['▣','⌂','▤','♨','▧'][i%5]+'</span>'+item;grid.appendChild(div)});
+    e.currentTarget.textContent='Show fewer amenities';
+  });
+  document.getElementById('clearDates').addEventListener('click',()=>{
+    document.querySelectorAll('.days .selected').forEach(x=>x.classList.remove('selected'));
+    toast('Dates cleared');
+  });
+  document.querySelectorAll('.tabs a').forEach(a=>a.addEventListener('click',e=>{
+    const href=a.getAttribute('href');
+    if(href==='#photos'){e.preventDefault();document.getElementById('photoModal').style.display='block'}
+  }));
+</script>
+</body>
+</html>
+```

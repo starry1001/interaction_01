@@ -1,0 +1,459 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2048 Game</title>
+<style>
+  :root{
+    --cream:#faf8ef;
+    --board:#bbada0;
+    --empty:#c8bdb0;
+    --brown:#bb9f88;
+    --text:#776e65;
+    --gold:#edc53f;
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%;background:var(--cream)}
+  body{
+    color:#111827;
+    font-family:Arial, Helvetica, sans-serif;
+    overflow-x:hidden;
+  }
+
+  .page{
+    width:100%;
+    min-height:100vh;
+    background:var(--cream);
+  }
+
+  .game-wrap{
+    width:500px;
+    margin:0 auto;
+    padding-top:10px;
+  }
+
+  .top-nav{
+    height:40px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:19px;
+    font-size:15px;
+    font-weight:700;
+  }
+
+  .top-nav .btn{
+    border:0;
+    background:transparent;
+    border-radius:10px;
+    padding:11px 15px;
+    color:#101010;
+    cursor:pointer;
+  }
+
+  .top-nav .active{
+    background:#f4bd57;
+  }
+
+  h1{
+    margin:5px 0 10px;
+    text-align:center;
+    font-size:40px;
+    line-height:1;
+    letter-spacing:.2px;
+    font-weight:900;
+    color:#111827;
+  }
+
+  .toolbar{
+    height:60px;
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+  }
+
+  .scores{
+    display:flex;
+    gap:6px;
+  }
+
+  .score-box{
+    width:72px;
+    height:50px;
+    border-radius:4px;
+    background:#b49b86;
+    color:#fff;
+    text-align:center;
+    padding-top:7px;
+    font-weight:700;
+  }
+
+  .score-label{
+    display:block;
+    font-size:11px;
+    line-height:14px;
+    opacity:.95;
+  }
+
+  .score-value{
+    display:block;
+    font-size:20px;
+    line-height:20px;
+  }
+
+  .new-game{
+    border:0;
+    border-radius:4px;
+    background:#b99470;
+    color:white;
+    height:50px;
+    padding:0 14px;
+    font-size:15px;
+    font-weight:700;
+    cursor:pointer;
+  }
+
+  .board{
+    width:500px;
+    height:517px;
+    padding:15px;
+    border-radius:6px;
+    background:var(--board);
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    grid-template-rows:repeat(4,1fr);
+    gap:15px;
+    touch-action:none;
+  }
+
+  .tile{
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:3px;
+    background:var(--empty);
+    color:var(--text);
+    font-weight:700;
+    font-size:58px;
+    line-height:1;
+    transition:background .08s, color .08s, transform .08s;
+  }
+
+  .tile.v2{background:#eee4da}
+  .tile.v4{background:#eee1c6}
+  .tile.v8{background:#efa96f;color:#fff}
+  .tile.v16{background:#f48663;color:#fff}
+  .tile.v32{background:#f66e55;color:#fff}
+  .tile.v64{background:#f45132;color:#fff}
+  .tile.v128{background:#edcf72;color:#fff;font-size:45px}
+  .tile.v256{background:#edcc61;color:#fff;font-size:45px}
+  .tile.v512{background:#edc850;color:#fff;font-size:45px}
+  .tile.v1024,.tile.v2048{background:#edc53f;color:#fff;font-size:38px}
+
+  .ad{
+    width:306px;
+    height:258px;
+    display:block;
+    object-fit:cover;
+    margin:40px auto 28px;
+  }
+
+  .instructions{
+    width:100%;
+    margin-top:0;
+    padding:32px 20px 34px;
+    background:#ffeac5;
+    color:#625b54;
+    text-align:center;
+    font-size:16px;
+    line-height:24px;
+  }
+
+  .instructions p{
+    max-width:940px;
+    margin:0 auto;
+  }
+
+  .other-games{
+    text-align:center;
+    padding:28px 0 70px;
+    background:#fff;
+  }
+
+  .other-games h2{
+    margin:0;
+    font-size:27px;
+    font-weight:900;
+    color:#111827;
+  }
+
+  .game-links{
+    display:flex;
+    justify-content:center;
+    gap:22px;
+    margin-top:20px;
+  }
+
+  .game-links .btn{
+    width:145px;
+    height:25px;
+    border:0;
+    border-radius:9px 9px 0 0;
+    cursor:pointer;
+  }
+  .game-links .btn:nth-child(1){background:#253ba5}
+  .game-links .btn:nth-child(2){background:#b7d4f3}
+  .game-links .btn:nth-child(3){background:#8ce4c8}
+  .game-links .btn:nth-child(4){background:#26b559}
+
+  .floating-up{
+    position:fixed;
+    left:calc(50% - 800px);
+    bottom:0;
+    width:60px;
+    height:30px;
+    border:1px solid #ddd;
+    background:#fff;
+    border-radius:6px 6px 0 0;
+    color:#777;
+    cursor:pointer;
+    font-size:20px;
+  }
+
+  @media (max-width:700px){
+    .page{min-width:578px}
+    .game-wrap{
+      margin-left:39px;
+      margin-right:0;
+      padding-top:2px;
+    }
+    .top-nav{height:40px}
+    h1{
+      margin-top:7px;
+      margin-bottom:16px;
+      font-size:36px;
+    }
+    .toolbar{height:60px}
+    .board{height:517px}
+    .ad,.instructions,.other-games,.floating-up{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <main class="game-wrap">
+    <nav class="top-nav">
+      <button class="btn active" id="classicBtn">Classic</button>
+      <button class="btn" id="cupcakesBtn">Cupcakes</button>
+    </nav>
+
+    <h1>2048 Game</h1>
+
+    <section class="toolbar">
+      <div class="scores">
+        <div class="score-box">
+          <span class="score-label">SCORE</span>
+          <span class="score-value" id="score">20</span>
+        </div>
+        <div class="score-box">
+          <span class="score-label">BEST</span>
+          <span class="score-value" id="best">20</span>
+        </div>
+      </div>
+      <button class="btn new-game" id="newGame">New game</button>
+    </section>
+
+    <div class="board btn" id="board" aria-label="2048 board"></div>
+
+    <img
+      class="ad"
+      src="__PLACEHOLDER_ASSETS_BASE_DIR__/015.png"
+      width="306"
+      height="258"
+      alt="Advertisement"
+    >
+  </main>
+
+  <section class="instructions">
+    <p>
+      Use your arrow keys (also W, A, S, and D keys alternatively) or swipe with your fingers to move the tiles.
+      For example, if you joined 2 tiles with the number 2, they will become 4, 2 tiles with 4 will become 8,
+      and so on. The point of the game is to get the 2048 tile!
+    </p>
+  </section>
+
+  <section class="other-games">
+    <h2>Play Other Games</h2>
+    <div class="game-links">
+      <button class="btn"></button>
+      <button class="btn"></button>
+      <button class="btn"></button>
+      <button class="btn"></button>
+    </div>
+  </section>
+
+  <button class="btn floating-up" id="upBtn">⌃</button>
+</div>
+
+<script>
+(function(){
+  const boardEl = document.getElementById('board');
+  const scoreEl = document.getElementById('score');
+  const bestEl = document.getElementById('best');
+
+  let grid = [
+    [0,0,2,0],
+    [0,0,0,0],
+    [0,2,4,2],
+    [0,0,8,2]
+  ];
+  let score = 20;
+  let best = Number(localStorage.getItem('2048-best') || 20);
+  bestEl.textContent = best;
+
+  function render(){
+    boardEl.innerHTML = '';
+    grid.forEach(row => row.forEach(value => {
+      const tile = document.createElement('div');
+      tile.className = 'tile' + (value ? ' v' + value : '');
+      if(value) tile.textContent = value;
+      boardEl.appendChild(tile);
+    }));
+    scoreEl.textContent = score;
+    bestEl.textContent = best;
+  }
+
+  function emptyCells(){
+    const cells=[];
+    for(let r=0;r<4;r++) for(let c=0;c<4;c++)
+      if(!grid[r][c]) cells.push([r,c]);
+    return cells;
+  }
+
+  function addRandom(){
+    const cells=emptyCells();
+    if(!cells.length)return;
+    const [r,c]=cells[Math.floor(Math.random()*cells.length)];
+    grid[r][c]=Math.random()<.9?2:4;
+  }
+
+  function transpose(a){
+    return a[0].map((_,c)=>a.map(row=>row[c]));
+  }
+
+  function reverseRows(a){ return a.map(row=>row.slice().reverse()); }
+
+  function collapseRow(row){
+    let values=row.filter(Boolean);
+    let result=[], gained=0;
+    for(let i=0;i<values.length;i++){
+      if(values[i]===values[i+1]){
+        const n=values[i]*2;
+        result.push(n);
+        gained+=n;
+        i++;
+      } else result.push(values[i]);
+    }
+    while(result.length<4) result.push(0);
+    return {row:result,gained};
+  }
+
+  function move(direction){
+    let before=JSON.stringify(grid);
+    let work=grid.map(r=>r.slice());
+    let gained=0;
+
+    if(direction==='left'){
+      work=work.map(row=>{
+        const x=collapseRow(row); gained+=x.gained; return x.row;
+      });
+    } else if(direction==='right'){
+      work=reverseRows(work).map(row=>{
+        const x=collapseRow(row); gained+=x.gained; return x.row;
+      });
+      work=reverseRows(work);
+    } else if(direction==='up'){
+      work=transpose(work);
+      work=work.map(row=>{
+        const x=collapseRow(row); gained+=x.gained; return x.row;
+      });
+      work=transpose(work);
+    } else if(direction==='down'){
+      work=transpose(work);
+      work=reverseRows(work).map(row=>{
+        const x=collapseRow(row); gained+=x.gained; return x.row;
+      });
+      work=transpose(reverseRows(work));
+    }
+
+    if(JSON.stringify(work)!==before){
+      grid=work;
+      score+=gained;
+      if(score>best){
+        best=score;
+        localStorage.setItem('2048-best',best);
+      }
+      addRandom();
+      render();
+    }
+  }
+
+  function reset(){
+    grid=[
+      [0,0,2,0],
+      [0,0,0,0],
+      [0,2,4,2],
+      [0,0,8,2]
+    ];
+    score=20;
+    render();
+  }
+
+  document.addEventListener('keydown', e=>{
+    const keys={
+      ArrowLeft:'left',a:'left',A:'left',
+      ArrowRight:'right',d:'right',D:'right',
+      ArrowUp:'up',w:'up',W:'up',
+      ArrowDown:'down',s:'down',S:'down'
+    };
+    if(keys[e.key]){
+      e.preventDefault();
+      move(keys[e.key]);
+    }
+  });
+
+  let startX=0,startY=0;
+  boardEl.addEventListener('pointerdown',e=>{
+    startX=e.clientX; startY=e.clientY;
+    boardEl.setPointerCapture?.(e.pointerId);
+  });
+  boardEl.addEventListener('pointerup',e=>{
+    const dx=e.clientX-startX, dy=e.clientY-startY;
+    if(Math.max(Math.abs(dx),Math.abs(dy))<25)return;
+    if(Math.abs(dx)>Math.abs(dy)) move(dx>0?'right':'left');
+    else move(dy>0?'down':'up');
+  });
+
+  document.getElementById('newGame').addEventListener('click',reset);
+  document.getElementById('classicBtn').addEventListener('click',()=>{
+    document.getElementById('classicBtn').classList.add('active');
+    document.getElementById('cupcakesBtn').classList.remove('active');
+  });
+  document.getElementById('cupcakesBtn').addEventListener('click',()=>{
+    document.getElementById('cupcakesBtn').classList.add('active');
+    document.getElementById('classicBtn').classList.remove('active');
+  });
+  document.getElementById('upBtn').addEventListener('click',()=>{
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
+```

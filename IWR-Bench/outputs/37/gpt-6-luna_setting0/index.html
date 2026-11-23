@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chess Game</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; }
+  body {
+    background: #f0f1f4;
+    color: #17191d;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow-x: hidden;
+  }
+
+  .page {
+    position: relative;
+    width: min(1280px, 100%);
+    min-height: 968px;
+    margin: 0 auto;
+    background: #faf9fc;
+    border-left: 1px solid #e8e8eb;
+    border-right: 1px solid #e8e8eb;
+    box-shadow: 0 0 2px rgba(0,0,0,.12);
+  }
+
+  .topbar {
+    height: 80px;
+    width: 100%;
+    background: #f1f2f5;
+    border-bottom: 1px solid #dedfe3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .bar-inner {
+    width: 880px;
+    max-width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  .utility {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    height: 100%;
+    color: #111;
+  }
+  .utility.right { gap: 12px; }
+  .badge {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 34px;
+    font-size: 21px;
+    line-height: 1;
+  }
+  .gem {
+    width: 24px;
+    height: 31px;
+    background: #e80058;
+    color: white;
+    clip-path: polygon(50% 0, 100% 24%, 100% 77%, 50% 100%, 0 77%, 0 24%);
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .gem:after { content: "3"; }
+  .rating:after { content: "133"; }
+  .small-knight { font-size: 24px; transform: rotate(-8deg); }
+  .flag { font-size: 17px; }
+
+  .players {
+    height: 100%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    gap: 0;
+  }
+  .player {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .player-name {
+    width: 56px;
+    text-align: right;
+    font-size: 20px;
+    line-height: 24px;
+  }
+  .player-name.right-name {
+    width: auto;
+    text-align: left;
+    margin-left: 4px;
+  }
+  .avatar {
+    display: block;
+    width: 69px;
+    height: 69px;
+    border: 6px solid #27c79e;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #20303c;
+  }
+  .avatar.roxy { background: #d8e231; }
+  .avatar.robot {
+    border-color: #24c79f;
+    background: #293744;
+    padding: 0;
+  }
+  .clock {
+    position: absolute;
+    bottom: 15px;
+    font-size: 14px;
+    color: #3e4147;
+  }
+  .clock.left { left: 24px; }
+  .clock.right { right: 61px; }
+  .clock.active { color: #b32469; }
+  .score {
+    font-size: 23px;
+    font-weight: 700;
+    color: #45484d;
+    margin: 0 6px;
+    letter-spacing: 1px;
+  }
+
+  .ad-link {
+    position: fixed;
+    top: 49.5%;
+    color: #8d939b;
+    font-family: Georgia, serif;
+    font-size: 16px;
+    text-decoration: underline;
+    cursor: pointer;
+    z-index: 2;
+  }
+  .ad-left { left: max(24px, calc((100vw - 1688px) / 2)); }
+  .ad-right { right: max(24px, calc((100vw - 1688px) / 2)); }
+
+  .board-wrap {
+    position: relative;
+    width: 744px;
+    height: 744px;
+    margin: 56px auto 0;
+  }
+  .board {
+    width: 744px;
+    height: 744px;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    user-select: none;
+    touch-action: manipulation;
+  }
+  .square {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    overflow: hidden;
+  }
+  .light { background: #aaf4df; }
+  .dark { background: #25c99e; }
+  .square.last { background: #cdbda5; }
+  .square.last-source { background: #91a989; }
+  .square.selected {
+    z-index: 1;
+    outline: 4px solid rgba(21, 91, 76, .52);
+    outline-offset: -5px;
+  }
+  .square .piece {
+    position: relative;
+    z-index: 2;
+    font-family: "DejaVu Sans", "Arial Unicode MS", serif;
+    font-size: 68px;
+    line-height: 1;
+    display: block;
+    transform: translateY(-1px);
+    pointer-events: none;
+  }
+  .piece.white {
+    color: #fff;
+    -webkit-text-stroke: 2px #111;
+    text-shadow: 1px 1px 0 #111, -1px -1px 0 #111;
+  }
+  .piece.black { color: #050505; }
+  .rank-label, .file-label {
+    position: absolute;
+    z-index: 3;
+    font-family: Georgia, serif;
+    font-size: 23px;
+    line-height: 1;
+    color: rgba(33, 145, 117, .65);
+    pointer-events: none;
+  }
+  .rank-label { left: 5px; top: 3px; }
+  .file-label { right: 5px; bottom: 3px; }
+
+  .move-dots {
+    position: absolute;
+    width: 33px;
+    height: 33px;
+    border-radius: 50%;
+    background: rgba(0, 116, 91, .48);
+    z-index: 1;
+    pointer-events: none;
+  }
+  .move-dots.capture {
+    background: transparent;
+    border: 7px solid rgba(0, 116, 91, .36);
+    width: 35px;
+    height: 35px;
+  }
+
+  .captures {
+    height: 32px;
+    margin-top: 9px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+    font-family: Georgia, serif;
+    font-size: 17px;
+  }
+  .captured-piece { font-size: 28px; line-height: 1; }
+  .captured-piece.white { color: #fff; -webkit-text-stroke: 1px #111; text-shadow: 1px 1px #111; }
+  .captured-piece.black { color: #111; }
+
+  .btn { cursor: pointer; }
+  @media (max-width: 780px) {
+    .page { min-height: 100vh; }
+    .bar-inner { padding: 0 8px; }
+    .utility { gap: 4px; }
+    .utility .badge { transform: scale(.8); }
+    .players { transform: translateX(-50%) scale(.8); }
+    .board-wrap { width: min(96vw, 744px); height: min(96vw, 744px); margin-top: 40px; }
+    .board { width: 100%; height: 100%; }
+    .square .piece { font-size: min(9vw, 68px); }
+    .rank-label, .file-label { font-size: 15px; }
+    .ad-link { display: none; }
+  }
+</style>
+</head>
+<body>
+<a class="btn ad-link ad-left" href="#" onclick="return false">Remove ads</a>
+<a class="btn ad-link ad-right" href="#" onclick="return false">Remove ads</a>
+
+<main class="page">
+  <header class="topbar">
+    <div class="bar-inner">
+      <div class="utility">
+        <span class="badge gem"></span>
+        <span class="badge small-knight">♞</span>
+        <span class="badge flag">🇺🇸</span>
+      </div>
+
+      <div class="players">
+        <div class="player">
+          <div class="player-name">ROXY</div>
+          <img class="avatar roxy" src="../../../data/data/37/assets/011.png" width="69" height="69" alt="Roxy">
+        </div>
+        <div class="score">0&nbsp;0</div>
+        <div class="player">
+          <img class="avatar robot" src="../../../data/data/37/assets/024.png" width="69" height="69" alt="Julien Song">
+          <div class="player-name right-name">Julien Song</div>
+        </div>
+        <div class="clock left active" id="clock-left">6.9s</div>
+        <div class="clock right" id="clock-right">1.0s</div>
+      </div>
+
+      <div class="utility right">
+        <span class="badge flag">🇫🇷</span>
+        <span class="badge small-knight">♘</span>
+        <span class="badge gem rating"></span>
+      </div>
+    </div>
+  </header>
+
+  <section class="board-wrap" aria-label="Chess board">
+    <div class="board" id="board"></div>
+    <div class="captures" id="captures"></div>
+  </section>
+</main>
+
+<script>
+(() => {
+  const boardEl = document.getElementById('board');
+  const capturesEl = document.getElementById('captures');
+  const files = ['h','g','f','e','d','c','b','a'];
+  const glyphs = {
+    wk: '♔', wq: '♕', wr: '♖', wb: '♗', wn: '♘', wp: '♙',
+    bk: '♚', bq: '♛', br: '♜', bb: '♝', bn: '♞', bp: '♟'
+  };
+  const board = Array.from({length:8}, () => Array(8).fill(null));
+  const setup = [
+    ['wr','wn','wb','wk','wq','wb','wn','wr'],
+    Array(8).fill('wp'),
+    Array(8).fill(null),
+    Array(8).fill(null),
+    Array(8).fill(null),
+    Array(8).fill(null),
+    Array(8).fill('bp'),
+    ['br','bn','bb','bk','bq','bb','bn','br']
+  ];
+  setup.forEach((row,r) => row.forEach((p,c) => board[r][c] = p));
+  // Recreate the opening move shown in the game: the white knight develops to f3.
+  board[0][1] = null;
+  board[2][2] = 'wn';
+
+  let lastMove = {from:[0,1], to:[2,2]};
+  let selected = null;
+  let captured = [];
+  let moveCount = 1;
+
+  function render() {
+    boardEl.innerHTML = '';
+    for (let r=0; r<8; r++) {
+      for (let c=0; c<8; c++) {
+        const sq = document.createElement('div');
+        sq.className = 'square btn ' + ((r+c)%2 === 0 ? 'light' : 'dark');
+        sq.dataset.r = r;
+        sq.dataset.c = c;
+
+        if (lastMove && lastMove.to[0]===r && lastMove.to[1]===c) sq.classList.add('last');
+        if (lastMove && lastMove.from[0]===r && lastMove.from[1]===c) sq.classList.add('last-source');
+        if (selected && selected[0]===r && selected[1]===c) sq.classList.add('selected');
+
+        if (c===0) {
+          const rank = document.createElement('span');
+          rank.className = 'rank-label';
+          rank.textContent = String(r+1);
+          sq.appendChild(rank);
+        }
+        if (r===7) {
+          const file = document.createElement('span');
+          file.className = 'file-label';
+          file.textContent = files[c];
+          sq.appendChild(file);
+        }
+
+        const piece = board[r][c];
+        if (piece) {
+          const span = document.createElement('span');
+          span.className = 'piece ' + (piece[0] === 'w' ? 'white' : 'black');
+          span.textContent = glyphs[piece];
+          sq.appendChild(span);
+        }
+        sq.addEventListener('click', onSquareClick);
+        boardEl.appendChild(sq);
+      }
+    }
+    renderCaptures();
+  }
+
+  function renderCaptures() {
+    capturesEl.innerHTML = '';
+    captured.forEach(p => {
+      const s = document.createElement('span');
+      s.className = 'captured-piece ' + (p[0] === 'w' ? 'white' : 'black');
+      s.textContent = glyphs[p];
+      capturesEl.appendChild(s);
+    });
+    if (captured.length) {
+      const count = document.createElement('span');
+      count.textContent = '+' + captured.length;
+      capturesEl.appendChild(count);
+    }
+  }
+
+  function onSquareClick(e) {
+    const r = Number(e.currentTarget.dataset.r);
+    const c = Number(e.currentTarget.dataset.c);
+    const here = board[r][c];
+
+    if (selected) {
+      const [sr,sc] = selected;
+      if (sr === r && sc === c) {
+        selected = null;
+        render();
+        return;
+      }
+      if (here && board[sr][sc] && here[0] === board[sr][sc][0]) {
+        selected = [r,c];
+        render();
+        return;
+      }
+      const moving = board[sr][sc];
+      if (moving) {
+        if (here) captured.push(here);
+        board[r][c] = moving;
+        board[sr][sc] = null;
+        if (moving === 'wp' && r === 7) board[r][c] = 'wq';
+        if (moving === 'bp' && r === 0) board[r][c] = 'bq';
+        lastMove = {from:[sr,sc],to:[r,c]};
+        selected = null;
+        moveCount++;
+        updateClocks();
+        render();
+        return;
+      }
+    }
+    if (here) selected = [r,c];
+    else selected = null;
+    render();
+  }
+
+  function updateClocks() {
+    const left = document.getElementById('clock-left');
+    const right = document.getElementById('clock-right');
+    left.classList.toggle('active', moveCount % 2 === 1);
+    right.classList.toggle('active', moveCount % 2 === 0);
+    const l = (6.9 + Math.floor(moveCount / 2) * 2.1).toFixed(1);
+    const rr = (1 + Math.floor((moveCount - 1) / 2) * 2).toFixed(1);
+    left.textContent = l + 's';
+    right.textContent = rr + 's';
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>

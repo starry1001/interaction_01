@@ -1,0 +1,131 @@
+{
+  "total_step": 20,
+  "success_step": 9,
+  "screenshot_paths_to_eval": [
+    "outputs/33/gpt-6-luna_setting1/evalpoints/0.png",
+    "outputs/33/gpt-6-luna_setting1/evalpoints/0.png",
+    "outputs/33/gpt-6-luna_setting1/evalpoints/4.png",
+    "outputs/33/gpt-6-luna_setting1/evalpoints/6.png",
+    "outputs/33/gpt-6-luna_setting1/evalpoints/7.png",
+    "outputs/33/gpt-6-luna_setting1/evalpoints/8.png"
+  ],
+  "all_mllm_scores": [
+    0.83,
+    0.07,
+    0.63,
+    0.64,
+    0.39,
+    0.41
+  ],
+  "all_dino_scores": [
+    0.92919921875,
+    0.4892578125,
+    0.97412109375,
+    0.88818359375,
+    0.82177734375,
+    0.71435546875
+  ],
+  "all_ocr_scores": [
+    0.8049999999999999,
+    0.30341880341880345,
+    0.9019933554817275,
+    0.8094038623005877,
+    0.2805391743892165,
+    0.3006189213085765
+  ],
+  "all_avg_scores": [
+    0.8547330729166666,
+    0.2875588719729345,
+    0.8353714830772425,
+    0.7791958186835292,
+    0.4974388393797389,
+    0.47499146335285874
+  ],
+  "mllm_score": 0.49499999999999994,
+  "dino_score": 0.8028157552083334,
+  "ocr_score": 0.5668290194831519,
+  "avg_score": 0.6215482582304951,
+  "all_mllm_res": [
+    "Comments:\n- **Layout (10 points): 6/10** — The overall section order and two-column hero layout match, but the generated page uses a substantially wider content container and larger spacing than the reference. Main content is positioned farther left and the lower card row is scaled up.\n- **Elements (15 points): 13/15** — Header navigation, hero image, supporting story cards, advertisement label, “Living Healthy” section, view-all link, and five category cards are all present and correctly arranged. Minor sizing and spacing differences remain.\n- **Content and Text (40 points): 37/40** — Headlines, descriptions, navigation labels, section titles, and category names closely match the reference. Text wrapping differs in several places because of the wider layout, especially the hero headline and supporting story titles.\n- **Style (15 points): 12/15** — Colors, typography hierarchy, imagery, borders, and general WebMD visual styling are highly consistent. The generated version appears somewhat larger and less compact, with slightly different text scaling.\n- **Overall (20 points): 15/20** — Strong visual and semantic match with all major content reproduced, but the container width, horizontal positioning, and proportional scaling noticeably reduce pixel-level similarity.\n\n**Score: 83/100**",
+    "Comments:\n- **Layout (1/10):** The top navigation bar has a broadly similar horizontal structure, but the page body layout is completely different. The reference uses a centered news homepage with featured stories, horizontal cards, advertisements, and a “Living Healthy” section, while the generated page presents a symptom checker panel with large empty areas.\n- **Elements (2/15):** Some navigation elements are shared, including the WebMD branding, menu links, Subscribe, Log In, and search icon. However, the featured article image, story cards, category tiles, “View All” link, and corresponding section structure from the reference are missing.\n- **Content and Text (0/40):** The content does not match. The reference contains articles such as “Why Potatoes Deserve A Place On Your Plate,” “Daily Habits That Support Better Mental Health,” and other health-news topics. The generated page instead contains symptom-checker instructions, age/sex inputs, and medical disclaimer text.\n- **Style (3/15):** The dark navy header and general WebMD-inspired branding are somewhat similar. However, the typography, spacing, use of imagery, content density, and visual hierarchy differ substantially from the reference homepage.\n- **Overall (1/20):** Although the navigation header provides limited visual similarity, the generated webpage represents a different page type and does not reproduce the reference’s structure, content, or primary visual elements.\n\n**Score: 7/100**",
+    "Comments:\n- **Layout (10 points): 6/10** — The overall page structure is similar, including the dark blue header, top advertisement, main checker panel, right-side advertisement, and informational text below. However, the generated page’s main content is shifted substantially to the right, includes an extra title above the panel, and the checker panel is significantly taller due to added bottom navigation controls.\n- **Elements (15 points): 8/15** — Most major elements are present, such as navigation tabs, age and sex controls, advertisements, headings, and explanatory copy. The generated version adds “Previous” and bottom “Continue” buttons that are absent from the reference, while the reference has only the disabled inline Continue button.\n- **Content and Text (40 points): 28/40** — The primary WebMD Symptom Checker text and supporting informational content are largely reproduced accurately. Differences include the duplicated title, the age field containing “2” instead of being empty, Male being selected instead of neither option selected, and the resulting enabled Continue button.\n- **Style (15 points): 10/15** — Colors, typography, tabs, borders, and general WebMD styling are reasonably close. The generated header logo is much smaller, spacing differs, and the active controls use stronger teal/blue styling than the reference’s neutral disabled state.\n- **Overall (20 points): 11/20** — The page clearly represents the same WebMD symptom checker and has a fairly similar visual language, but the layout positioning, interaction state, duplicated heading, and extra navigation controls create noticeable differences.\n\n**Score: 63/100**",
+    "Comments:\n- **Layout (8/10):** Overall page structure is closely matched: dark blue header, centered advertisement, pale blue background, main symptom-checker panel, right-side advertisement, and lower informational text. However, the main checker panel is positioned and sized somewhat differently, and the first screenshot places the title inside the panel while the second places it above the panel.\n- **Elements (11/15):** Major elements are present, including navigation, advertisements, tab navigation, symptom-checker card, footer information, and controls. The body-map illustration, symptom input field, “Previous” button, and lower “No symptoms added” area differ substantially from the alternate screenshot’s age/sex form.\n- **Content and Text (20/40):** Shared branding and informational copy are largely consistent, including “WebMD Symptom Checker,” tab labels, advertisements, and disclaimer text. The central interactive content is different: one view shows age and sex selection with an age value of 25, while the other shows symptom entry and a body map. This is the largest similarity limitation.\n- **Style (12/15):** Colors, typography, spacing conventions, borders, shadows, and overall WebMD visual language are very similar. Some differences exist in logo scale, font sizing, panel styling, and control appearance.\n- **Overall (13/20):** The screenshots clearly represent the same webpage and design system, but they appear to be different workflow states rather than near-identical renderings. The consistent shell and styling provide good similarity, while the central content mismatch reduces the score.\n\n**Score: 64/100**",
+    "Comments:\n- **Layout (4/10):** Both pages use a centered WebMD layout with a top navigation bar, advertising areas, a main symptom-checker panel, and a pale blue background. However, the main content is positioned differently: the first screenshot places the title inside the card and centers the card farther left, while the second places the title above the card and uses a wider two-column symptom-selection layout.\n- **Elements (7/15):** Shared elements include the WebMD header, navigation links, subscribe/login/search controls, advertisement placeholders, tab navigation, and a symptom-checker container. The first page contains age/sex controls and explanatory text, while the second contains a symptom search field, symptom results list, body illustration, previous/continue controls, and an empty-state panel.\n- **Content and Text (8/40):** The branding and general symptom-checker context are consistent, but the actual page content differs substantially. The first page shows the introductory information step with “Age,” “Sex,” and “Continue,” whereas the second shows the symptoms step with headache-related search results and “No symptoms added.”\n- **Style (12/15):** Strong visual similarity in typography, navy header, pale blue page background, light gray tab bar, cyan accent color, borders, spacing conventions, and WebMD visual language. Some sizing and alignment differences are noticeable.\n- **Overall (8/20):** The screenshots appear to represent different steps or states of the same WebMD Symptom Checker flow. Shared branding and framework provide moderate similarity, but the primary content, layout structure, and interactive controls are significantly different.\n\n**Score: 39/100**",
+    "Comments:\n- **Layout (4/10):** The overall page structure is recognizable, including the header, advertisement areas, symptom checker panel, and right-side ad. However, the generated page is horizontally shifted, the main content begins lower, and the centered modal significantly changes the composition from the reference.\n- **Elements (9/15):** Most major elements are present: WebMD navigation, symptom checker tabs, body illustration, symptom list, buttons, and advertisements. The generated version adds a prominent symptom-refinement modal that is not present in the reference and obscures several underlying elements.\n- **Content and Text (14/40):** The page shares much of the same WebMD symptom-checker wording, but the visible state differs substantially. The reference shows an empty symptom input and instructional body-map overlay, while the generated version shows a typed “h,” headache options, and the “What kind of headache?” refinement dialog.\n- **Style (7/15):** The header colors, typography, light page background, borders, and general WebMD visual language are similar. The dimmed overlay, modal styling, altered contrast, and slightly different sizing/spacing reduce stylistic similarity.\n- **Overall (7/20):** The generated page appears to be the same underlying webpage in a different interaction state, but the modal, overlay, shifted positioning, and changed symptom content make it a weak visual match to the reference screenshot.\n\n**Score: 41/100**"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "WebMD Conditions Drugs & Supplements Well-Being Symptom Checker Find a Doctor More Subscribe Log In 0 TODAY'S TOP STORIES Why Potatoes Deserve A Place On Your Plate Potatoes often a bad rap, but they offer more than just starch: Discover the nutrients contain and how to enjoy them as part of a balanced diet; Ulcerative Colitis and Daily Habits That Support Practical Tips for Mouth Sores: What' s the Better Mental Health Managing Thinning Hair Connection? adveMISEMENI LiviNG HEALTHY View All Diet & Welj Mental Health Management Healthy Aging Sex k Relatiorships Fitness & Exercise get they",
+      "screenshot_text": "WbMD Conditions ~ Drugs & Supplements~ Well-Being Symptom Checker Find a Doctor More ~ @ Subscribe Log In TODAY'S TOP STORIES Why Potatoes Deserve A Place On Your Plate Potatoes often get a bad rap, but they offer more than just starch: Discover the nutrients they contain how to enjoy them as part of a balanced diet: Ulcerative Daily Habits Practical Tips Colitis and That Support for Managing Mouth Sores: Better Mental Health Thinning Hair What's the Connection? ADVERTISEMENT LIVING HEALTHY View AlI Diet & Weight Mental Health Management Healthy Aging Sex & Relationships Fitness & Exercise and",
+      "similarity": 0.8049999999999999
+    },
+    {
+      "checkpoint_text": "WebMD Conditions Drugs & Supplements Well-Being Symptom Checker Find a Doctor More Subscribe Log In 0 AdvFRTISEMENT AdverTISEMENT UFC sniiptous cOVDIMON? DET L IRETMENi WebMD Symptom Checker With body MaP Identify possible conditions and treatment related to your symptoms This lool does nol plovide Medical advice See #uuiliorai Ilonation Age Sex Malf Female Continue NEW: This symptom checker now includes (he ability t0 select symploms by body localion. We hope this makes it easier for Vou t0 icentily your symptoms and possible conditions: tool also allows you to select mulllple symptoms qulckly Click to see FACs and tips for searching Tell Us What You Think This tool does nol provide medical advice. Il is intended for informational purposes only: This tool may leverage certain gerierative artificial intelllgence lools t0 generate resulls and is not substitule for professiona medical advice, dlagnosis or treatment: Never Ignore prolessiona medical advice in seeking treatment because of something you have read on the WebMD Site. If you Ihink YOu may have a medical emergency imnmediately call your doctor or dial 911. 2025 WebMD LLC All rlghts reserved The",
+      "screenshot_text": "WbMD Conditions ~ Drugs & Supplements~ Well-Being Symptom Checker Find a Doctor More ~ @ Subscribe Log In TODAY'S TOP STORIES Why Potatoes Deserve A Place On Your Plate Potatoes often get a bad rap, but they offer more than just starch: Discover the nutrients they contain how to enjoy them as part of a balanced diet: Ulcerative Daily Habits Practical Tips Colitis and That Support for Managing Mouth Sores: Better Mental Health Thinning Hair What's the Connection? ADVERTISEMENT LIVING HEALTHY View AlI Diet & Weight Mental Health Management Healthy Aging Sex & Relationships Fitness & Exercise and",
+      "similarity": 0.30341880341880345
+    },
+    {
+      "checkpoint_text": "WebMD Conditions Drugs & Supplements Well-Being Symptom Checker Find a Doctor More Subscribe Log In 0 ADVERTISEMENT ADVERTISEMENT INFO SYMPTOMS CONDITIONS DETAILS TREATMENT WebMD Symptom Checker WIth BODY MAP Identify possible conditions and treatment related to your symptoms: This tool does not provide medical advice . See additional information Age Sex Male Female Continue NEW: This symptom checker now includes the ability to select symptoms by body location: We hope this makes it easier for you to identify your symptoms and possible conditions: The tool also allows you to select multiple symptoms quickly: Click to see FAQs and tips for searching - Tell Us What You Think This tool does not provide medical advice: It is intended for informational purposes only: This tool may leverage certain generative artificial intelligence tools t0 generate results, and is not substitute for professional medical advice, diagnosis or treatment: Never ignore professional medical advice in seeking treatment because of something you have read on the WebMD Site. If you think yOu may have a medical emergency; immediately call your doctor or dial 911 . 2025 WebMD, LLC. All rights reserved.",
+      "screenshot_text": "WLMD Conditions ~ Drugs & Supplements ~ Well-Being ~ Symptom Checker Find a Doctor More - @ Subscribe Log In ADVERTISEMENT WebMD Symptom Checker wiTH BoDY MAP ADVERTISEMENT INFO SYMPTOMS CONDITIONS DETAILS TREATMENT WebMD Symptom Checker WITH BODY MAP Identify possible conditions and treatment related to your symptoms: This tool does not provide medical advice See additional information Age Sex Male Female continue Previous continue NEW: This symptom checker now includes the ability to select symptoms by body location: We hope this makes it easier for you to identify your symptoms and possible conditions. The tool also allows you to select multiple symptoms quickly: Click to see FAQs and tips for searching Tell Us What You Think This tool does not provide medical advice. It is intended for informational purposes only: This tool may leverage certain generative artificial intelligence tools tO generate results; and is not substitute for professional medical advice, diagnosis or treatment: Never ignore professional medical advice in seeking treatment because of something you have read on the WebMD Site. If you think you may have medical emergency; immediately call your doctor or dial 911_",
+      "similarity": 0.9019933554817275
+    },
+    {
+      "checkpoint_text": "WebMD Conditions Drugs & Supplements Well-Being Symptom Checker Find a Doctor More Subscribe Log In 0 ADVERTISEMENT ADVERTISEMENT INFO SYMPTOMS CONDITIONS DETAILS TREATMENT WebMD Symptom Checker WIth BODY MAP Identify possible conditions and treatment related to your symptoms: This tool does not provide medical advice . See additional information Age Sex 25 Male Female Continue NEW: This symptom checker now includes the ability to select symptoms by body location: We hope this makes it easier for you to identify your symptoms and possible conditions: The tool also allows you to select multiple symptoms quickly: Click to see FAQs and tips for searching - Tell Us What You Think This tool does not provide medical advice: It is intended for informational purposes only: This tool may leverage certain generative artificial intelligence tools t0 generate results, and is not substitute for professional medical advice, diagnosis or treatment: Never ignore professional medical advice in seeking treatment because of something you have read on the WebMD Site. If you think yOu may have a medical emergency; immediately call your doctor or dial 911 . 2025 WebMD, LLC. All rights reserved.",
+      "screenshot_text": "WLMD Conditions ~ Drugs & Supplements ~ Well-Being ~ Symptom Checker Find a Doctor More - @ Subscribe Log In ADVERTISEMENT WebMD Symptom Checker WITH BODY MAP ADVERTISEMENT INFO SYMPTOMS CONDITIONS DETAILS TREATMENT What are your symptoms? Type your main symptom here No symptoms added Previous contnue NEW: This symptom checker now includes the ability to select symptoms by body location: We hope this makes it easier for you to identify your symptoms and possible conditions. The tool also allows you to select multiple symptoms quickly: Click to see FAQs and tips for searching Tell Us What You Think This tool does not provide medical advice. It is intended for informational purposes only: This tool may leverage certain generative artificial intelligence tools tO generate results; and is not substitute for professional medical advice, diagnosis or treatment: Never ignore professional medical advice in seeking treatment because of something you have read on the WebMD Site. If you think you may have medical emergency; immediately call your doctor or dial 911_",
+      "similarity": 0.8094038623005877
+    },
+    {
+      "checkpoint_text": "WebMD Conditions Drugs & Supplements Well-Being Symptom Checker Find a Doctor More Subscribe Log In 0 ADVERTISEMENT ADVERTISEMENT INFO SYMPTOMS CONDITIONS DETAILS TREATMENT WebMD Symptom Checker WIth BODY MAP Identify possible conditions and treatment related to your symptoms: This tool does not provide medical advice . See additional information Age Sex Male Female continue NEW: This symptom checker includes the ability t0 select symptoms by body location. We hope this makes it easier for you t0 identily your symptoms and possible conditions: The tool also allows you to select multiple symptoms quickly: Click to see FAQs and tips for searching - Tell Us What You Think This tool does not provide medical advice: It is intended for informational purposes only: tool may leverage certain generative artificial intelligence tools t0 generate results, and is not substitute for professional medical advice, diagnosis or treatment: Never ignore professional medical advice in seeking treatment because of something you have read on the WebMD Site. If you think yOu may have a medical emergency; immediately call your doctor or dial 911. 2025 WebMD, LLC. All rights reserved. now This",
+      "screenshot_text": "WLMD Conditions ~ Drugs & Supplements ~ Well-Being ~ Symptom Checker Find a Doctor More - @ Subscribe Log In ADVERTISEMENT WebMD Symptom Checker WITH BODY MAP ADVERTISEMENT INFO SYMPTOMS CONDITIONS DETAILS TREATMENT What are your symptoms? pounding headache ADD dull headache ADD migraine headache ADD severe headache ADD headache in back of head ADD headache in front of head ADD headache hehind earc No symptoms added Previous continue",
+      "similarity": 0.2805391743892165
+    },
+    {
+      "checkpoint_text": "WebMD Conditions Drugs & Supplements Well-Being Symptom Checker Find a Doctor More Subscribe Log In 0 ADVERTISEMENT WebMD Symptom Checker wiTH BODy MAP ADVERTISEMENT INFO SYMPTOMS CONDITIONS DETAILS TREATMENT What are your symptoms? Type your main symptom here SkIN Click on the body t0 find and choose symptoms | Previous NEW: This symptom checker now includes the ability to select symptoms by body location. We hope this makes it easier for you t0 identify your symptoms and possible conditions: The tool also allows you to select multiple symptoms quickly: Click to see FAQs and tips for searching Tell Us What You Think This tool does not provide medical advice. It is intended for informational purposes only: This tool may leverage certain generative artificial intelligence tools to generate results, and is not substitute for professional medical advice , diagnosis or treatment: Never ignore professional medical advice in treatment because of something you have read on the WebMD Site. If you think you may have a medical emergency; immediately call your doctor or dial 911. 2025 WebMD, LLC. All rights reserved. seeking",
+      "screenshot_text": "WEMD Conditions ~ Drugs & Supplements ~ Well-Being- Symptom Checker Find a Doctor More- E Subscribe Log In REFINE YOUR SYMPTOMS What kind of headache? pounding headache dull headache WebMD Symptom Ched ADVERTISEMENT migraine headache INFO SYMPT TREATMENT severe headache What are your sympton headache in back of head headache in front of head pounding headache Done dull headache Skip migraine headache severe headache ADD headache in back of head ADD headache in front of head ADD headache hehind pare No symptoms added Previous Continue",
+      "similarity": 0.3006189213085765
+    }
+  ],
+  "assertion_results": [
+    null,
+    null,
+    {
+      "result": "Error",
+      "prev_img_path": "outputs/33/gpt-6-luna_setting1/evalpoints/2.png",
+      "curr_img_path": "outputs/33/gpt-6-luna_setting1/evalpoints/3.png",
+      "response": "Error: Error code: 400 - Unsupported value: 'temperature' does not support 0.0 with this model. Only the default (1) value is supported.",
+      "assertion": "The '25' is typed into the Age text field.",
+      "thinking": ""
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/33/gpt-6-luna_setting1/evalpoints/3.png",
+      "curr_img_path": "outputs/33/gpt-6-luna_setting1/evalpoints/4.png",
+      "response": "{\n  \"think\": \"In Image 2, the 'Male' button is highlighted in teal while the 'Female' button is not, indicating that Male is selected.\",\n  \"result\": \"Yes\"\n}",
+      "assertion": "The 'Male' button is selected.",
+      "thinking": "In Image 2, the 'Male' button is highlighted in teal while the 'Female' button is not, indicating that Male is selected."
+    },
+    null,
+    null,
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/33/gpt-6-luna_setting1/evalpoints/6.png",
+      "curr_img_path": "outputs/33/gpt-6-luna_setting1/evalpoints/7.png",
+      "response": "{\"think\":\"The current screenshot shows the symptom search box expanded with the letter “h” entered and a dropdown listing head-related symptoms such as pounding headache, dull headache, migraine headache, and severe headache. This indicates the search box was expanded to find head-related symptoms.\",\"result\":\"Yes\"}",
+      "assertion": "Expand the search box to find head-related symptoms.",
+      "thinking": "The current screenshot shows the symptom search box expanded with the letter “h” entered and a dropdown listing head-related symptoms such as pounding headache, dull headache, migraine headache, and severe headache. This indicates the search box was expanded to find head-related symptoms."
+    },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ]
+}

@@ -1,0 +1,229 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BBC Learning English</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;background:#fff;color:#222;font-family:Arial,Helvetica,sans-serif;font-size:14px}
+  a{text-decoration:none;color:inherit}
+  button{font:inherit}
+  .btn{cursor:pointer}
+  .topbar{height:42px;border-bottom:1px solid #ddd;background:#fff}
+  .top-inner{width:1000px;height:42px;margin:auto;display:flex;align-items:center}
+  .bbc{display:flex;gap:4px;margin-right:10px}
+  .bbc span{background:#111;color:#fff;font-weight:bold;font-size:20px;line-height:27px;text-align:center;width:27px;height:27px}
+  .signin{font-size:12px;border-right:1px solid #ddd;padding:0 38px 0 3px;white-space:nowrap}
+  .signin:before{content:"";display:inline-block;background:#168bd0;border-radius:50%;width:13px;height:13px;margin-right:4px;vertical-align:-2px}
+  .main-links{display:flex;align-items:center;gap:29px;margin-left:24px;font-size:12px;font-weight:bold;white-space:nowrap}
+  .search-top{margin-left:auto;background:#f2f2f2;padding:7px 12px;color:#333;font-size:12px}
+  .brand{height:155px;background-image:url("__PLACEHOLDER_ASSETS_BASE_DIR__/014.png");background-size:cover;background-position:center;position:relative}
+  .brand-inner{width:1000px;margin:auto;height:100%;position:relative}
+  .brand-logo{position:absolute;left:0;top:39px;width:420px;height:auto}
+  .language{position:absolute;right:0;top:9px;background:#063348;color:#fff;padding:11px 14px;font-size:11px;font-weight:bold}
+  .nav{height:45px;background:#fff;border-bottom:1px solid #ddd}
+  .nav-inner{width:1000px;margin:auto;height:100%;display:flex;align-items:center;gap:35px;color:#153c4b}
+  .nav a{font-size:14px}
+  .nav a:after{content:"▾";font-size:10px;margin-left:8px}
+  .nav .search{margin-left:auto}
+  .nav .search:before{content:"⌕";color:#9baab0;font-size:18px;margin-right:5px}
+  .unit-head{height:145px;background:#003445;color:#fff}
+  .unit-inner{width:1000px;margin:auto;display:flex;align-items:center;height:100%;position:relative}
+  .unit-circle{width:70px;height:70px;border:4px solid #fff;border-radius:50%;font-size:27px;display:flex;align-items:center;justify-content:center;margin-right:14px}
+  .unit-title{font-size:24px;font-weight:bold;line-height:27px}
+  .unit-subtitle{font-size:21px;font-weight:normal}
+  .close-selector{position:absolute;right:0;top:40px;background:#fff;border:0;padding:12px 14px;color:#182c34;font-weight:bold}
+  .close-selector span{font-size:21px;margin-left:12px;vertical-align:-2px}
+  .selector{height:135px;background:#002632;color:#fff}
+  .selector-inner{width:1000px;margin:auto;padding-top:15px}
+  .select-label{font-size:11px;margin-bottom:9px;color:#d8e2e4}
+  .unit-grid{display:grid;grid-template-columns:repeat(30,1fr);height:12px;gap:1px}
+  .unit-cell{height:12px;background:#edf0ef;border:1px solid #bbc5c7}
+  .unit-cell.active{background:#68c8bd;border-color:#68c8bd}
+  .unit-numbers{display:grid;grid-template-columns:repeat(30,1fr);font-size:10px;text-align:center;color:#c8d7d9;margin-top:4px}
+  .tabs{width:1000px;margin:20px auto 0;display:flex;height:41px;align-items:stretch}
+  .tab{padding:11px 20px;color:#55b9b0;font-size:15px;border:0;background:transparent}
+  .tab.active{background:#fff;color:#263b40;font-weight:bold}
+  .content{width:1000px;margin:auto;padding-top:32px;min-height:410px}
+  .session{display:flex;width:850px;margin:0 0 32px 0}
+  .session-img{width:315px;height:170px;object-fit:cover;margin-right:17px}
+  .session-info{padding-top:0;flex:1}
+  .session-title{font-size:25px;color:#08786e;font-weight:bold;display:inline-block;margin-right:13px}
+  .activity{font-size:12px;color:#7a8588;background:#e7e9ea;padding:6px 10px;font-weight:bold;vertical-align:4px}
+  .session-type{color:#08786e;font-weight:bold;font-size:18px;margin-top:2px}
+  .date{font-size:12px;color:#60686a;margin:8px 0}
+  .description{font-size:15px;line-height:19px;max-width:650px}
+  .reference{display:flex;gap:50px}
+  .reference-main{width:620px}
+  .reference-main h1{font-size:26px;margin:0 0 34px}
+  .reference-main h2{font-size:17px;margin:0 0 12px}
+  .reference-main h3{font-size:16px;margin:17px 0 2px}
+  .reference-main p{margin:0 0 12px;line-height:18px}
+  .side{width:315px}
+  .side-box{background:#e0e1e2;margin-bottom:14px;padding:16px;font-size:15px;font-weight:bold;color:#08786e}
+  .download{background:#f0f0f0;color:#08786e;height:60px;padding:12px;font-weight:bold}
+  .download:before{content:"⇩";font-size:34px;color:#69c8bc;float:left;margin-right:14px;line-height:32px}
+  .download small{color:#444;font-size:11px}
+  .vocab-entry{margin:0 0 13px;line-height:17px}
+  .vocab-entry strong{display:block}
+  .practice{display:inline-block;background:#70c9be;color:#003445;font-size:18px;font-weight:bold;padding:10px 14px;margin-top:7px}
+  footer{margin-top:60px}
+  .footer-light{height:170px;background:#f1f1f1}
+  .footer-inner{width:1000px;margin:auto;display:flex;padding-top:30px}
+  .footer-col{width:250px}
+  .footer-col h3{margin:0 0 8px;font-size:20px}
+  .footer-col a{display:block;color:#17675e;font-weight:bold;line-height:20px}
+  .footer-side{margin-left:auto;color:#17675e;font-weight:bold;line-height:27px}
+  .footer-dark{height:215px;background:#4d4d4d;color:#fff}
+  .dark-inner{width:1000px;margin:auto;padding-top:26px}
+  .dark-inner h2{font-size:20px;margin:0 0 20px}
+  .explore{display:grid;grid-template-columns:repeat(6,1fr);border-bottom:1px solid #888;padding-bottom:16px}
+  .explore div{font-weight:bold;font-size:12px;line-height:27px;border-right:1px solid #888;padding-left:0}
+  .legal{font-size:12px;margin-top:15px;line-height:25px}
+  @media(max-width:1050px){
+    .top-inner,.brand-inner,.nav-inner,.unit-inner,.selector-inner,.tabs,.content,.footer-inner,.dark-inner{width:92%}
+    .main-links{gap:12px}.session{width:100%}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="topbar">
+    <div class="top-inner">
+      <div class="bbc"><span>B</span><span>B</span><span>C</span></div>
+      <div class="signin btn">Sign in</div>
+      <div class="main-links">
+        <a class="btn">Home</a><a class="btn">News</a><a class="btn">Sport</a><a class="btn">Business</a><a class="btn">Innovation</a><a class="btn">Culture</a><a class="btn">Travel</a><a class="btn">•••</a>
+      </div>
+      <div class="search-top btn">⌕ Search BBC</div>
+    </div>
+  </div>
+  <div class="brand">
+    <div class="brand-inner">
+      <img class="brand-logo" src="__PLACEHOLDER_ASSETS_BASE_DIR__/015.png" width="420" height="75" alt="Learning English">
+      <button class="language btn">ENGLISH CHANGE LANGUAGE　▼</button>
+    </div>
+  </div>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="btn">Courses</a><a class="btn">Grammar</a><a class="btn">Pronunciation</a><a class="btn">Vocabulary</a><a class="btn">News</a><a class="btn">More...</a>
+      <a class="search btn">Search</a>
+    </div>
+  </nav>
+</header>
+
+<section class="unit-head">
+  <div class="unit-inner">
+    <div class="unit-circle" id="unitNumber">7</div>
+    <div>
+      <div class="unit-title" id="unitTitle">Unit 7: Towards advanced</div>
+      <div class="unit-subtitle">Grammar, news, vocabulary and pronunciation</div>
+    </div>
+    <button id="closeSelector" class="close-selector btn">Close unit selector <span>⌃</span></button>
+  </div>
+</section>
+
+<section class="selector" id="selector">
+  <div class="selector-inner">
+    <div class="select-label">SELECT A UNIT</div>
+    <div class="unit-grid" id="unitGrid"></div>
+    <div class="unit-numbers" id="unitNumbers"></div>
+    <div class="tabs">
+      <button class="tab active btn" data-tab="sessions">Sessions</button>
+      <button class="tab btn" data-tab="vocab">Vocabulary reference</button>
+      <button class="tab btn" data-tab="grammar">Grammar reference</button>
+    </div>
+  </div>
+</section>
+
+<main class="content" id="content"></main>
+
+<footer id="footer"></footer>
+
+<script>
+const assets="__PLACEHOLDER_ASSETS_BASE_DIR__/";
+const data={
+  1:{
+    title:"Unit 1: Towards advanced", sub:"Welcome to our new course",
+    sessions:[
+      ["010.jpg","BBC Masterclass","04 JUL 2016","Non-defining relative clauses are a speaker's friend. Dan teaches us five ways to use them in this bite-sized video.","Non-defining relative clauses"],
+      ["013.jpg","News Review","05 JUL 2016","NASA's Juno mission has arrived at Jupiter. Find out with Neil and Sian as they look at how the world's media is reacting and the words you need to talk about the story.",""]
+    ]},
+  4:{
+    title:"Unit 4: Towards advanced",sub:"Grammar, news, vocabulary and pronunciation",
+    sessions:[
+      ["010.jpg","BBC Masterclass","25 JUL 2016","Dan uses linking words of contrast to destroy four myths about English people.","Linking words of contrast"],
+      ["019.png","News Review","26 JUL 2016","Can chickens stop you getting bitten by mosquitoes? Join Rob and Sian in News Review as they bring you this exciting story and the language you need to understand it.",""]
+    ]},
+  7:{
+    title:"Unit 7: Towards advanced",sub:"Grammar, news, vocabulary and pronunciation",
+    sessions:[
+      ["010.jpg","BBC Masterclass","15 AUG 2016","They say you shouldn't mix your drinks, but should you mix your conditionals? Find out in this Masterclass with Dan.","Mixed conditionals"],
+      ["020.png","News Review","16 AUG 2016","Brazil has won a gold medal in athletics in a shocking pole vault final. Join Sian and Neil in News Review as they bring you this exciting story and the language you need to understand it.",""]
+    ]}
+};
+let currentUnit=7,currentTab="sessions";
+const grid=document.getElementById("unitGrid"), nums=document.getElementById("unitNumbers");
+for(let i=1;i<=30;i++){
+  const b=document.createElement("button");b.className="unit-cell btn";b.dataset.unit=i;
+  if(i===7)b.classList.add("active");grid.appendChild(b);
+  const n=document.createElement("button");n.className="btn";n.textContent=i;n.dataset.unit=i;nums.appendChild(n);
+}
+grid.addEventListener("click",e=>{if(e.target.dataset.unit)selectUnit(+e.target.dataset.unit)});
+nums.addEventListener("click",e=>{if(e.target.dataset.unit)selectUnit(+e.target.dataset.unit)});
+function selectUnit(n){
+  currentUnit=data[n]?n:7;
+  document.getElementById("unitNumber").textContent=currentUnit;
+  document.getElementById("unitTitle").textContent=data[currentUnit].title;
+  document.querySelectorAll(".unit-cell").forEach(x=>x.classList.toggle("active",+x.dataset.unit===currentUnit));
+  render();
+}
+document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click",()=>{
+  currentTab=t.dataset.tab;
+  document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x===t));render();
+}));
+document.getElementById("closeSelector").addEventListener("click",()=>{
+  const s=document.getElementById("selector"), hidden=s.style.display==="none";
+  s.style.display=hidden?"block":"none";
+  document.getElementById("closeSelector").innerHTML=hidden?"Close unit selector <span>⌃</span>":"Open unit selector <span>⌄</span>";
+});
+function sessionHTML(){
+ return data[currentUnit].sessions.map((s,i)=>`
+  <article class="session">
+   <img class="session-img" src="${assets+s[0]}" width="315" height="170" alt="">
+   <div class="session-info">
+    <span class="session-title">Session ${i+1}</span><span class="activity">1 ACTIVITY</span>
+    <div class="session-type">${s[1]}</div><div class="date">${s[2]}</div>
+    <div class="description">${s[3]}</div>
+   </div>
+  </article>`).join("");
+}
+function vocabHTML(){
+ return `<div class="reference"><div class="reference-main"><h1>Vocabulary Reference</h1>
+ <h2>Session 2 - News Review</h2>
+ ${vocab("an upset","when someone beats the team or player that was expected to win")}
+ ${vocab("pull something off","to succeed in doing something that is difficult")}
+ ${vocab("egg somebody on","encourage someone or urge someone to do something (especially something they shouldn't do)")}
+ ${vocab("pandemonium","a situation in which there is a lot of noise or craziness because people are excited, angry, or frightened")}
+ <h2>Session 3 - Lingohack</h2>${vocab("medal tally","number of medals won")}${vocab("feeds on","eats, consumes (especially for animals)")}${vocab("cheating","breaking the rules of a competition")}
+ <h2>Session 4 - Pygmalion: 8 uses of 'round'</h2>
+ ${vocab("driving him around the bend (C2)","making him very annoyed")}${vocab("comes round (C2)","begins to accept something previously rejected")}${vocab("round and round (B2)","moving in a circular direction")}${vocab("round the clock (C1)","all day and all night")}${vocab("round (A2)","on all sides (of something)")}${vocab("goes round to (A2)","visits")}${vocab("in a roundabout kind of way (C2)","more or less; sort of")}${vocab("round off (B2)","finish; complete (something)")}
+ <button class="practice btn">Practise Vocabulary　&gt;</button></div>${side("Session Grammar","Practise this grammar")}</div>`;
+}
+function vocab(a,b){return `<div class="vocab-entry"><strong>${a}</strong>${b}</div>`}
+function grammarHTML(){return `<div class="reference"><div class="reference-main"><h1>Grammar Reference</h1><h2>Conditionals review</h2><h2>Meaning and use</h2><p>Conditional sentences express a connection between two actions or states. One thing happens because of another. These connections can be general, specific, likely, unlikely, real or imagined.</p><p>Although there are quite a few different ways of forming conditional sentences there are common patterns known as zero, first, second and third conditionals.</p><h3>Zero conditionals</h3><p>Used to refer to general truths, scientific facts and the predictable results of particular actions. One thing happens and because of this something else happens.</p><p><i>If you heat water enough, it boils.</i></p></div>${side("Session Vocabulary","Practise this vocabulary")}</div>`}
+function side(a,b){return `<aside class="side"><div class="side-box btn">View sessions in this unit &gt;</div><div class="side-box"><b>${a}</b><br><br>${b} &gt;</div><div class="download"><small>DOWNLOAD CENTRE</small><br>Latest course content</div></aside>`}
+function render(){
+ const c=document.getElementById("content");
+ c.innerHTML=currentTab==="sessions"?sessionHTML():currentTab==="vocab"?vocabHTML():grammarHTML();
+ if(currentTab==="vocab") document.getElementById("footer").innerHTML=footerHTML();
+ else document.getElementById("footer").innerHTML="";
+}
+function footerHTML(){return `<footer><div class="footer-light"><div class="footer-inner"><div class="footer-col"><h3>About</h3><a>About BBC Learning English</a><a>Courses</a><a>Course site maps</a><a>Learning FAQ</a><a>Contact BBC Learning English</a></div><div class="footer-col"><h3>Social</h3><a>TikTok</a><a>YouTube</a><a>Instagram</a><a>Facebook</a><a>Social media house rules</a></div><div class="footer-side">⌃ Back to top<br>◉ RSS</div></div></div><div class="footer-dark"><div class="dark-inner"><h2>Explore the BBC</h2><div class="explore"><div>Home<br>Travel</div><div>News<br>Earth</div><div>Sport<br>Video</div><div>Business<br>Live</div><div>Innovation</div><div>Culture</div></div><div class="legal">Terms of Use　 About the BBC　 Privacy Policy　 Cookies　 Accessibility Help　 Parental Guidance　 Contact the BBC　 BBC emails for you<br>Advertise with us<br><br>Copyright © 2025 BBC. The BBC is not responsible for the content of external sites.</div></div></div></footer>`}
+render();
+</script>
+</body>
+</html>
+```

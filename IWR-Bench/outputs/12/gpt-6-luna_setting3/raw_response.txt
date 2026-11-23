@@ -1,0 +1,195 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>eBay Home</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;background:#fff;color:#191919;font-family:Arial,Helvetica,sans-serif;font-size:14px}
+body{overflow-x:hidden}
+button,a{font:inherit;color:inherit}
+.btn{cursor:pointer}
+.topbar{height:32px;border-bottom:1px solid #ddd;display:flex;align-items:center;justify-content:center;font-size:12px}
+.topinner{width:min(1500px,calc(100% - 40px));display:flex;justify-content:space-between;align-items:center}
+.topleft,.topright{display:flex;gap:26px;align-items:center}
+.toplink{white-space:nowrap}
+.header{height:88px;border-bottom:1px solid #ddd;display:flex;justify-content:center;align-items:center}
+.headerinner{width:min(1500px,calc(100% - 40px));display:flex;align-items:center;gap:16px}
+.logo{width:118px;height:auto;object-fit:contain}
+.shopcat{width:82px;font-size:13px;line-height:14px;color:#555;display:flex;align-items:center;gap:6px}
+.chev{font-size:18px;color:#777}
+.searchwrap{height:48px;border:2px solid #191919;border-radius:28px;display:flex;align-items:center;flex:1;min-width:300px;overflow:hidden}
+.searchicon{font-size:21px;color:#555;margin:0 14px}
+.searchinput{border:0;outline:0;flex:1;font-size:16px;color:#555}
+.category{height:100%;width:190px;border:0;border-left:1px solid #ddd;padding:0 16px;color:#555;background:white}
+.searchbtn{height:48px;width:170px;background:#366fe8;color:#fff;border:none;border-radius:25px;font-weight:bold;font-size:14px}
+.advanced{font-size:12px;color:#555;white-space:nowrap}
+.icons{display:flex;gap:22px;font-size:23px;align-items:center;margin-left:10px}
+.nav{height:48px;display:flex;justify-content:center;align-items:center}
+.navinner{width:min(1250px,calc(100% - 40px));display:flex;justify-content:space-between;color:#555;font-size:13px}
+.nav a{text-decoration:none;white-space:nowrap}
+main{width:min(1500px,calc(100% - 40px));margin:12px auto 80px}
+.hero{height:380px;border-radius:20px;position:relative;overflow:hidden;background:#efaa00}
+.hero img{width:100%;height:100%;display:block;object-fit:cover}
+.heroText{position:absolute;left:7%;top:27%;z-index:2;max-width:590px;color:#fff}
+.hero.orange .heroText,.hero.yellow .heroText{color:#4b2b00}
+.heroText h1{font-size:38px;line-height:1.1;margin:0 0 12px;font-weight:700}
+.heroText p{font-size:18px;margin:0 0 27px}
+.heroText button{border:0;border-radius:24px;padding:14px 23px;font-size:16px;font-weight:bold;background:#fff}
+.hero.orange .heroText button,.hero.yellow .heroText button{background:#593800;color:#ffbf00}
+.heroDots{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:9px;z-index:3}
+.dot{width:9px;height:9px;border-radius:50%;border:1px solid #fff;background:transparent}
+.dot.active{background:#fff}
+.hero.orange .dot.active,.hero.yellow .dot.active{background:#5a3800;border-color:#5a3800}
+.heroControls{position:absolute;right:28px;bottom:17px;display:flex;gap:10px;z-index:3}
+.circle{width:36px;height:36px;border:0;background:#fff;border-radius:50%;font-size:23px;display:flex;justify-content:center;align-items:center}
+section{margin-top:42px}
+.sectionHead{display:flex;justify-content:space-between;align-items:end;margin-bottom:24px}
+.sectionHead h2{font-size:25px;margin:0}
+.sectionHead a{text-decoration:underline;font-size:14px}
+.productsViewport{position:relative;overflow:hidden}
+.products{display:flex;gap:16px;transition:transform .35s ease}
+.card{flex:0 0 calc((100% - 80px)/6);min-width:190px}
+.cardImg{height:275px;position:relative;overflow:hidden;border-radius:18px;background:#f3f3f3}
+.cardImg img{width:100%;height:100%;object-fit:cover;display:block}
+.heart{position:absolute;right:12px;top:12px;width:34px;height:34px;background:#fff;border:0;border-radius:50%;font-size:23px;line-height:30px}
+.discount{display:inline-block;border:1px solid #d22a47;color:#d22a47;border-radius:10px;font-size:11px;font-weight:bold;padding:2px 7px;margin-top:8px}
+.title{font-size:15px;line-height:20px;height:41px;overflow:hidden;margin-top:4px}
+.price{font-size:18px;font-weight:bold;margin-top:7px}
+.old{font-size:12px;color:#777;text-decoration:line-through;font-weight:normal;margin-left:5px}
+.slideBtn{position:absolute;top:42%;z-index:5;width:38px;height:38px;border:0;border-radius:50%;background:white;box-shadow:0 1px 5px #bbb;font-size:25px}
+.slideBtn.left{left:-5px}.slideBtn.right{right:-5px}
+.scrollbar{height:6px;background:#eee;border-radius:5px;margin:18px 12px 0;position:relative}
+.scrollbar span{display:block;height:100%;width:35%;background:#999;border-radius:5px}
+.liveHead{margin-bottom:22px}
+.liveHead h2{margin-bottom:5px}
+.subtitle{font-size:16px;color:#666}
+.liveViewport{overflow:hidden}
+.liveCards{display:flex;gap:16px}
+.liveCard{flex:0 0 calc((100% - 80px)/6);min-width:190px;position:relative}
+.liveCard img{width:100%;height:270px;object-fit:cover;border-radius:18px;display:block}
+.viewers{position:absolute;top:12px;right:10px;background:#e71920;border-radius:20px;color:#fff;padding:9px 13px;font-weight:bold}
+@media(max-width:1100px){
+ .card,.liveCard{flex-basis:calc((100% - 48px)/4)}
+ .heroText h1{font-size:31px}
+ .category{width:140px}
+}
+@media(max-width:700px){
+ .topinner,.headerinner,main{width:calc(100% - 24px)}
+ .topbar{display:none}.header{height:auto;padding:12px 0}.headerinner{flex-wrap:wrap}
+ .logo{width:90px}.shopcat{display:none}.searchwrap{order:3;flex-basis:100%}
+ .searchbtn,.advanced,.icons,.nav{display:none}
+ .hero{height:330px}.heroText{left:7%;top:22%;max-width:80%}.heroText h1{font-size:26px}.heroText p{font-size:15px}
+ .card,.liveCard{flex-basis:calc((100% - 16px)/2)}
+ .cardImg{height:220px}.liveCard img{height:230px}
+}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="topinner">
+    <div class="topleft">
+      <span class="toplink">Hi Zhao!⌄</span><span class="toplink">Daily Deals</span><span class="toplink">Brand Outlet</span><span class="toplink">Gift Cards</span><span class="toplink">Help &amp; Contact</span>
+    </div>
+    <div class="topright"><span>Sell</span><span>Watchlist⌄</span><span>My eBay⌄</span><span>♧</span><span>🛒</span></div>
+  </div>
+</div>
+<header class="header">
+  <div class="headerinner">
+    <img class="logo" src="__PLACEHOLDER_ASSETS_BASE_DIR__/090.svg" width="118" height="48" alt="eBay">
+    <div class="shopcat btn">Shop by<br>category <span class="chev">⌄</span></div>
+    <div class="searchwrap">
+      <span class="searchicon">⌕</span>
+      <input class="searchinput" placeholder="Search for anything">
+      <select class="category"><option>All Categories</option></select>
+    </div>
+    <button class="searchbtn btn">Search</button>
+    <span class="advanced">Advanced</span>
+    <div class="icons"><span class="btn">♧</span><span class="btn">🛒</span></div>
+  </div>
+</header>
+<nav class="nav">
+  <div class="navinner">
+    <a class="btn">eBay Live</a><a class="btn">Saved</a><a class="btn">Motors</a><a class="btn">Electronics</a><a class="btn">Collectibles</a><a class="btn">Home &amp; Garden</a><a class="btn">Clothing, Shoes &amp; Accessories</a><a class="btn">Toys</a><a class="btn">Sporting Goods</a><a class="btn">Business &amp; Industrial</a><a class="btn">Jewelry &amp; Watches</a><a class="btn">Refurbished</a>
+  </div>
+</nav>
+
+<main>
+  <div class="hero orange" id="hero">
+    <img id="heroImage" src="__PLACEHOLDER_ASSETS_BASE_DIR__/005.webp" width="1500" height="380" alt="Featured collection">
+    <div class="heroText" id="heroText">
+      <h1>Style your alter ego this fall</h1>
+      <p>Bring them out with vintage curated by Emma Chamberlain.</p>
+      <button class="btn">Shop her collection</button>
+    </div>
+    <div class="heroDots" id="heroDots"></div>
+    <div class="heroControls">
+      <button class="circle btn" id="heroPrev">‹</button>
+      <button class="circle btn" id="heroNext">›</button>
+      <button class="circle btn" id="heroPause">Ⅱ</button>
+    </div>
+  </div>
+
+  <section>
+    <div class="sectionHead"><h2>Deals for you</h2><a class="btn">See all</a></div>
+    <div class="productsViewport">
+      <button class="slideBtn left btn" id="prodPrev">‹</button>
+      <div class="products" id="products"></div>
+      <button class="slideBtn right btn" id="prodNext">›</button>
+    </div>
+    <div class="scrollbar"><span id="scrollProgress"></span></div>
+  </section>
+
+  <section>
+    <div class="sectionHead liveHead"><div><h2>eBay Live</h2><div class="subtitle">Tune in and shop curated experiences</div></div><a class="btn">See all</a></div>
+    <div class="liveViewport"><div class="liveCards" id="liveCards"></div></div>
+  </section>
+</main>
+
+<script>
+const base='__PLACEHOLDER_ASSETS_BASE_DIR__/';
+const heroes=[
+ {img:'005.webp',cls:'orange',title:'Style your alter ego this fall',desc:'Bring them out with vintage curated by Emma Chamberlain.',button:'Shop her collection'},
+ {img:'002.webp',cls:'dark',title:'Huge selection. Free returns.',desc:'Refunds on select parts and accessories are now fast and easy.',button:'Shop now'},
+ {img:'003.webp',cls:'dark',title:"Legit 'fits that are legit fresh",desc:'Get streetwear verified by experts with Authenticity Guarantee.',button:'Shop streetwear'},
+ {img:'001.webp',cls:'yellow',title:'Trending this fall',desc:'eBay Watchlist is here. Find must-haves, styled by Brie Welch.',button:'Shop the looks'}
+];
+let heroIndex=0, paused=false;
+const hero=document.getElementById('hero'), heroImage=document.getElementById('heroImage'), heroText=document.getElementById('heroText'), heroDots=document.getElementById('heroDots');
+function renderDots(){heroDots.innerHTML=heroes.map((_,i)=>`<span class="dot ${i===heroIndex?'active':''}"></span>`).join('')}
+function showHero(i){
+ heroIndex=(i+heroes.length)%heroes.length; const h=heroes[heroIndex];
+ heroImage.src=base+h.img; hero.className='hero '+h.cls;
+ heroText.innerHTML=`<h1>${h.title}</h1><p>${h.desc}</p><button class="btn">${h.button}</button>`;
+ renderDots();
+}
+renderDots();
+document.getElementById('heroPrev').onclick=()=>showHero(heroIndex-1);
+document.getElementById('heroNext').onclick=()=>showHero(heroIndex+1);
+document.getElementById('heroPause').onclick=()=>{paused=!paused;document.getElementById('heroPause').textContent=paused?'▶':'Ⅱ'};
+setInterval(()=>{if(!paused)showHero(heroIndex+1)},7000);
+
+const products=[
+ ['009.webp','10% OFF','Size 12.5 - Awake NY x Jordan Air Ship PE SP University Red','$81.00','$90.00'],
+ ['010.webp','10% OFF','Jordan Air Ship x Awake NY "Game Royal" FN8675-104 Size 9','$143.99','$159.99'],
+ ['011.webp','45% OFF','12-Inch Sliding Compound Miter Saw - 15 Amp Double Bevel with Extension...','$219.99','$399.99'],
+ ['012.webp','15% OFF','Nike Jordan Awake NY Air Ship PE SP University Red Sz 8 M SNKRS IN HAND','$212.49','$249.99'],
+ ['013.webp','12% OFF','Nike Jordan Air Ship PE SP "Awake NY" (Size 10.5) Brand New/OG Box ...','$96.76','$109.95'],
+ ['014.webp','10% OFF','Sliding Compound Miter Saw with Laser Guide','$197.97','$219.99'],
+ ['015.webp','10% OFF','Professional compound miter saw with stand','$259.99','$299.99'],
+ ['016.webp','15% OFF','Jordan Air Ship vintage sneakers','$129.99','$169.99']
+];
+const productsEl=document.getElementById('products');
+productsEl.innerHTML=products.map(p=>`<article class="card"><div class="cardImg"><img src="${base+p[0]}" width="250" height="275" alt=""><button class="heart btn">♡</button></div><span class="discount">${p[1]}</span><div class="title">${p[2]}</div><div class="price">${p[3]} <span class="old">${p[4]}</span></div></article>`).join('');
+let productOffset=0;
+function moveProducts(dir){const max=Math.max(0,products.length-6);productOffset=Math.max(0,Math.min(max,productOffset+dir));productsEl.style.transform=`translateX(calc(-${productOffset} * ( (100% - 80px) / 6 + 16px)))`;document.getElementById('scrollProgress').style.width=(35+productOffset*8)+'%'}
+document.getElementById('prodPrev').onclick=()=>moveProducts(-1);document.getElementById('prodNext').onclick=()=>moveProducts(1);
+
+const lives=[['044.png','2415'],['047.png','1386'],['049.png','796'],['051.png','1821'],['053.png','692'],['055.png','1098'],['057.jpg','856']];
+document.getElementById('liveCards').innerHTML=lives.map(x=>`<article class="liveCard"><img src="${base+x[0]}" width="250" height="270" alt=""><span class="viewers">⌁ ${x[1]}</span></article>`).join('');
+</script>
+</body>
+</html>
+```

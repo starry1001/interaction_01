@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hemingway Editor Replica</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; }
+  body {
+    color: #29303a;
+    background: #f4f5f8;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  button { font: inherit; }
+  .btn { cursor: pointer; }
+
+  .top-banner {
+    height: 34px;
+    background: #b9e9fb;
+    color: #386777;
+    text-align: center;
+    font-size: 14px;
+    line-height: 34px;
+    letter-spacing: .1px;
+  }
+  .top-banner a {
+    color: #278879;
+    text-decoration: underline;
+    margin-left: 10px;
+  }
+
+  .toolbar {
+    height: 61px;
+    background: #e8edf6;
+    border-bottom: 1px solid #d8dee8;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  .brand {
+    position: absolute;
+    left: 16px;
+    top: 10px;
+    color: #192335;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 26px;
+    font-weight: bold;
+    line-height: 25px;
+  }
+  .brand small {
+    display: block;
+    font-size: 10px;
+    font-style: italic;
+    text-align: right;
+    margin-right: 5px;
+    line-height: 8px;
+  }
+  .toolbar-center {
+    margin: auto;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #dce1ea;
+    border-radius: 5px;
+    background: rgba(255,255,255,.6);
+    box-shadow: 0 1px 3px rgba(0,0,0,.05);
+  }
+  .tool {
+    height: 32px;
+    padding: 0 16px;
+    border: 0;
+    border-right: 1px solid #dce1e8;
+    background: transparent;
+    color: #303541;
+    font-size: 15px;
+  }
+  .tool:last-child { border-right: 0; }
+  .plus {
+    color: white;
+    background: #a400b8;
+    border-radius: 3px;
+    font-weight: bold;
+    font-size: 11px;
+    padding: 1px 4px;
+    margin-left: 4px;
+  }
+  .help {
+    position: absolute;
+    right: 185px;
+    top: 13px;
+    height: 33px;
+    padding: 0 13px;
+    border: 1px solid #78808b;
+    border-radius: 4px;
+    background: #f5f7fa;
+    color: #30343b;
+    font-size: 14px;
+  }
+  .menu {
+    position: absolute;
+    right: 19px;
+    top: 13px;
+    height: 33px;
+    padding: 0 13px;
+    border: 0;
+    border-radius: 4px;
+    background: #f5f7fa;
+    color: #3d434b;
+    font-size: 14px;
+  }
+
+  .workspace {
+    height: calc(100vh - 95px);
+    display: grid;
+    grid-template-columns: 320px minmax(0, 1fr) 215px;
+    position: relative;
+  }
+
+  .left-ad {
+    position: relative;
+    padding-top: 34px;
+    text-align: center;
+  }
+  .ai-button {
+    background: linear-gradient(90deg, #9d00bb, #b500c9);
+    color: #fff;
+    border: 0;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    height: 45px;
+    padding: 0 14px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.15);
+  }
+  .ad-arrow {
+    height: 70px;
+    width: 45px;
+    margin: 4px auto 0;
+    border-right: 3px dashed #b94ac8;
+    border-radius: 0 60% 60% 0;
+    position: relative;
+    transform: rotate(3deg);
+  }
+  .ad-arrow:after {
+    content: "";
+    position: absolute;
+    right: -7px;
+    bottom: -2px;
+    border-left: 8px solid #b94ac8;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    transform: rotate(10deg);
+  }
+  .ad-copy {
+    color: #8b299e;
+    font-size: 13px;
+    line-height: 18px;
+    width: 190px;
+    margin: -2px auto 0;
+  }
+  .ad-copy strong { display: block; }
+  .tutorial {
+    position: absolute;
+    left: 4px;
+    bottom: 84px;
+    width: 204px;
+    padding: 10px 8px 8px;
+    color: #3e6d81;
+    background: #bcecff;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 14px;
+    line-height: 21px;
+    box-shadow: 0 0 6px rgba(70,190,230,.35);
+  }
+  .tutorial button {
+    display: block;
+    margin: 7px auto 0;
+    background: #d9f5ff;
+    border: 1px solid #547d8d;
+    border-radius: 3px;
+    color: #31576a;
+    padding: 4px 9px;
+    font-size: 14px;
+  }
+
+  .editor-area {
+    min-width: 0;
+    position: relative;
+  }
+  .document {
+    width: 720px;
+    max-width: calc(100% - 40px);
+    margin: 21px auto 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 18px;
+    line-height: 1.34;
+    color: #313942;
+  }
+  .document h1 {
+    margin: 0 0 31px;
+    color: #172237;
+    font-size: 38px;
+    line-height: 1.1;
+    letter-spacing: -.5px;
+  }
+  .document p {
+    margin: 0 0 19px;
+  }
+  .document .intro { margin-bottom: 20px; }
+  mark {
+    padding: 1px 0;
+    color: inherit;
+  }
+  .yellow { background: #fff58c; }
+  .red { background: #f6b9c0; }
+  .purple { background: #d9c3f5; }
+  .blue { background: #b7e4f4; }
+  .document [contenteditable="true"] { outline: none; }
+
+  .right-panel {
+    border-left: 1px solid #eef0f4;
+    padding: 5px 21px 0 10px;
+    color: #37404b;
+    font-size: 14px;
+    position: relative;
+  }
+  .view-tabs {
+    height: 34px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 2px;
+    margin-right: -1px;
+  }
+  .view-tabs button {
+    border: 0;
+    padding: 0 9px;
+    color: #656b74;
+    background: #e5e8ee;
+    height: 33px;
+  }
+  .view-tabs .active {
+    background: #fff;
+    color: #373d46;
+    border: 1px solid #d6d9df;
+    border-bottom: 0;
+  }
+  .readability {
+    padding-top: 22px;
+    position: relative;
+  }
+  .readability strong { display: block; font-size: 16px; }
+  .grade {
+    color: #39805a;
+    font-size: 18px;
+    margin-top: 6px;
+  }
+  .good { color: #7e858e; margin-top: 6px; }
+  .settings {
+    position: absolute;
+    right: 0;
+    top: 16px;
+    width: 34px;
+    height: 30px;
+    background: #f5f6f8;
+    border: 1px solid #75808a;
+    border-radius: 4px;
+    font-size: 17px;
+  }
+  .rule {
+    height: 1px;
+    background: #d2d6dc;
+    margin: 17px 0 20px;
+  }
+  .word-count {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  .stats-toggle {
+    color: #8a9097;
+    border: 0;
+    background: transparent;
+    padding: 0;
+    font-size: 14px;
+  }
+  .stats-toggle:after { content: " ▾"; color: #49515a; }
+  .expanded .stats-toggle:after { content: " ▴"; }
+  .extra-stats {
+    display: none;
+    text-align: right;
+    line-height: 24px;
+    font-size: 17px;
+    margin-top: -6px;
+  }
+  .expanded .extra-stats { display: block; }
+  .expanded .word-count { display: none; }
+  .issues {
+    margin-top: 17px;
+  }
+  .expanded .issues { margin-top: 17px; }
+  .issue {
+    border-radius: 4px;
+    padding: 9px 9px 8px;
+    margin-bottom: 7px;
+    line-height: 19px;
+    position: relative;
+    min-height: 57px;
+  }
+  .issue b {
+    display: inline-block;
+    min-width: 19px;
+    padding: 0 4px;
+    margin-right: 3px;
+    border-radius: 2px;
+    color: #fff;
+    text-align: center;
+  }
+  .issue .eye {
+    position: absolute;
+    right: 8px;
+    top: 9px;
+    opacity: .65;
+  }
+  .pink { background: #ffc1ca; color: #7d4250; }
+  .pink b { background: #e14c64; }
+  .yellow-card { background: #fff58a; color: #73661a; }
+  .yellow-card b { background: #e4b700; }
+  .green { background: #caff83; color: #4c7626; }
+  .green .upgrade {
+    display: inline-block;
+    color: #fff;
+    background: #50b941;
+    border-radius: 3px;
+    padding: 0 4px;
+    font-weight: bold;
+    margin-top: 2px;
+  }
+  .cyan { background: #b6e5f8; color: #32607b; }
+  .cyan b { background: #168bc2; }
+  .purple-card { background: #dcc8fa; color: #65468b; }
+  .purple-card b { background: #7a45d3; }
+  .details { display: block; text-decoration: underline; margin-top: 2px; }
+  .copyright {
+    color: #8d939b;
+    text-align: right;
+    white-space: nowrap;
+    margin-top: 17px;
+    font-size: 13px;
+  }
+
+  @media (max-width: 1300px) {
+    .workspace { grid-template-columns: 230px minmax(0,1fr) 250px; }
+    .document { width: 720px; }
+    .left-ad { transform: scale(.9); transform-origin: top left; }
+  }
+</style>
+</head>
+<body>
+  <div class="top-banner">
+    Hemingway's classic desktop app. Save/load files and work offline. No AI.
+    <a href="#" class="btn">Learn more</a>
+  </div>
+
+  <header class="toolbar">
+    <div class="brand">Hemingway<small>Editor</small></div>
+    <div class="toolbar-center">
+      <button class="tool btn" id="fileBtn">File <span class="plus">Plus</span></button>
+      <button class="tool btn">✣ Fix Grammar <span class="plus">Plus</span></button>
+      <button class="tool btn">✣ Rewrite <span class="plus">Plus</span></button>
+      <button class="tool btn">Paragraph⌄</button>
+      <button class="tool btn"><b>B</b></button>
+      <button class="tool btn"><i>I</i></button>
+      <button class="tool btn">↗</button>
+    </div>
+    <button class="help btn">How to use Hemingway</button>
+    <button class="menu btn">Menu&nbsp;⌄</button>
+  </header>
+
+  <main class="workspace">
+    <aside class="left-ad">
+      <button class="ai-button btn">AI Tools - Try Free</button>
+      <div class="ad-arrow"></div>
+      <div class="ad-copy">
+        <strong>Hemingway Editor Plus</strong>
+        Fix highlighted issues, check<br>
+        grammar, and adjust tone.<br>
+        Free 2-week trial.
+      </div>
+      <div class="tutorial">
+        Want to learn how to use<br>Hemingway Editor?
+        <button class="btn">Open Tutorial</button>
+      </div>
+    </aside>
+
+    <section class="editor-area">
+      <article class="document" contenteditable="true" spellcheck="false">
+        <h1>Hemingway App makes your writing<br>concise and correct.</h1>
+
+        <p class="intro">
+          <mark class="yellow">The app highlights lengthy, complex sentences and common errors; if you see a yellow<br>sentence, shorten or split it.</mark>
+          <mark class="red">If you see a red highlight, your sentence is so dense and<br>complicated that your readers will get lost trying to follow its meandering, convoluted logic—<br>try editing this sentence to remove the red highlight.</mark>
+        </p>
+
+        <p>You can <mark class="purple">utilize</mark> a simpler word instead of a purple one. Click on highlights to fix them.</p>
+
+        <p>Adverbs, passive voice, and other weakening phrases <mark class="blue">are marked</mark> in blue. <mark class="blue">I believe</mark> you should<br>replace them with more forceful language.</p>
+
+        <p>Our Hemingway Editor Plus service uses AI to fix these highlights for you. It also features an<br>advanced grammar checker that marks issues in green. It goes far beyond other grammar tools<br>to catch even the trickiest errors. You can also change the tone or style of your writing by<br>selecting text and using the "AI tools" button at the top.</p>
+
+        <p>To get started, paste in something you're working on and edit away. Or, click the Write button<br>to hide highlights and compose something new.</p>
+      </article>
+    </section>
+
+    <aside class="right-panel" id="rightPanel">
+      <div class="view-tabs">
+        <button class="btn">Write</button>
+        <button class="active btn">Edit</button>
+        <button class="btn">Feedback</button>
+      </div>
+
+      <div class="readability">
+        <strong>Readability <span style="font-size:12px;">ⓘ</span></strong>
+        <button class="settings btn">⚙</button>
+        <div class="grade">Grade 8</div>
+        <div class="good">Good.</div>
+      </div>
+
+      <div class="rule"></div>
+
+      <div class="word-count">Words: 185</div>
+      <button class="stats-toggle btn" id="statsToggle">Show more stats</button>
+
+      <div class="extra-stats">
+        Letters: <b>871</b><br>
+        Characters: <b>1,075</b><br>
+        Words: <b>185</b><br>
+        Sentences: <b>13</b><br>
+        Paragraphs: <b>6</b><br>
+        Reading<br>time: <b>44s</b><br>
+        <span style="color:#8a9097;">Show fewer stats</span>
+      </div>
+
+      <div class="rule"></div>
+
+      <div class="issues">
+        <div class="issue pink btn"><b>1</b>of 13 sentences is<br>very hard to read.<span class="eye">◉</span></div>
+        <div class="issue yellow-card btn"><b>1</b>of 13 sentences is<br>hard to read.<span class="eye">◉</span></div>
+        <div class="issue green btn">Find grammar and spelling<br>issues with Editor Plus.<br><span class="upgrade">Upgrade</span></div>
+        <div class="issue cyan btn"><b>2</b> weakeners.<span class="eye">◉</span><span class="details">View details</span></div>
+        <div class="issue purple-card btn"><b>1</b> word with a simpler<br>alternative.<span class="eye">◉</span></div>
+      </div>
+
+      <div class="copyright">© 2013–2025 38 Long LLC</div>
+    </aside>
+  </main>
+
+<script>
+  const panel = document.getElementById('rightPanel');
+  const toggle = document.getElementById('statsToggle');
+  toggle.addEventListener('click', () => {
+    panel.classList.toggle('expanded');
+    toggle.textContent = panel.classList.contains('expanded') ? 'Show fewer stats' : 'Show more stats';
+  });
+
+  document.querySelectorAll('.issue').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.issue').forEach(x => x.style.outline = 'none');
+      card.style.outline = '2px solid rgba(60,70,80,.35)';
+    });
+  });
+
+  document.querySelector('.help').addEventListener('click', () => {
+    alert('Hemingway Editor helps make your writing clear and concise.');
+  });
+  document.querySelector('.menu').addEventListener('click', () => {
+    alert('Menu');
+  });
+  document.querySelector('.ai-button').addEventListener('click', () => {
+    alert('AI Tools - Try Free');
+  });
+</script>
+</body>
+</html>

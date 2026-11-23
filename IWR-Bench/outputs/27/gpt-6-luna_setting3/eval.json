@@ -1,0 +1,118 @@
+{
+  "total_step": 17,
+  "success_step": 5,
+  "screenshot_paths_to_eval": [
+    "outputs/27/gpt-6-luna_setting3/evalpoints/0.png",
+    "outputs/27/gpt-6-luna_setting3/evalpoints/0.png",
+    "outputs/27/gpt-6-luna_setting3/evalpoints/1.png",
+    "outputs/27/gpt-6-luna_setting3/evalpoints/2.png",
+    "outputs/27/gpt-6-luna_setting3/evalpoints/3.png",
+    "outputs/27/gpt-6-luna_setting3/evalpoints/4.png",
+    "outputs/27/gpt-6-luna_setting3/evalpoints/5.png"
+  ],
+  "all_mllm_scores": [
+    0.91,
+    0.86,
+    0.81,
+    0.89,
+    0.22,
+    0.19,
+    0.09
+  ],
+  "all_dino_scores": [
+    0.806640625,
+    0.447021484375,
+    0.383056640625,
+    0.328857421875,
+    0.84228515625,
+    0.77734375,
+    0.280517578125
+  ],
+  "all_ocr_scores": [
+    0.7911227154046998,
+    0.7676240208877285,
+    0.5065274151436031,
+    0.5724381625441697,
+    0.2838038632986627,
+    0.21895861148197593,
+    0.23395149786019975
+  ],
+  "all_avg_scores": [
+    0.8359211134682333,
+    0.6915485017542428,
+    0.5665280185895344,
+    0.5970985281397233,
+    0.44869633984955426,
+    0.39543412049399196,
+    0.20148969199506658
+  ],
+  "mllm_score": 0.5671428571428572,
+  "dino_score": 0.55224609375,
+  "ocr_score": 0.48206089808871994,
+  "avg_score": 0.5338166163271924,
+  "all_mllm_res": [
+    "Comments:\n- **Layout (9/10):** The overall structure, spacing, and vertical flow closely match the reference, including the top access banner, navigation header, hero heading, search controls, featured image, caption, and lower content. Minor differences appear in header alignment, content width, and thumbnail positioning.\n- **Elements (13/15):** Nearly all key elements are present and correctly arranged. The library-access icon differs, the register/login button dimensions and positions vary slightly, and the search tabs have different widths. The lower image thumbnails are also positioned differently.\n- **Content and Text (38/40):** Text content is highly accurate, including the access prompt, JSTOR branding, hero statement, search labels, artwork caption, and image count. Small discrepancies include an extra period/spacing in the access prompt and slightly truncated search placeholder text.\n- **Style (13/15):** Typography, black-and-white visual treatment, red JSTOR branding, borders, and artwork imagery are very close. Some font sizing/weight, icon styling, button proportions, and search-field border treatment differ subtly.\n- **Overall (18/20):** This is a strong visual reproduction with the same overall appearance and responsive composition. The main deviations are minor header/icon differences, narrower search/navigation controls, and altered positioning of the lower gallery images.\n\n**Score: 91/100**",
+    "Comments:\n- **Layout (8/10):** Overall page structure and vertical flow are very similar, including the top access banner, navigation header, large hero heading, search controls, featured image, caption, and lower content cards. Minor differences appear in spacing, viewport width, image positioning, and the search area height.\n- **Elements (13/15):** Nearly all major elements are present and correctly arranged: JSTOR logo, menu, register/login buttons, workspace link, tabs, advanced search, search field, carousel controls, image caption, and thumbnails. Some icon treatments and the additional search-query row differ.\n- **Content and Text (36/40):** The primary heading, caption, labels, and navigation text closely match. The reference includes an active query row (`ti:(\"tang\")`) that is not present in the other version, and some search placeholder text is clipped or displayed differently.\n- **Style (13/15):** Strong match in typography, black-and-white layout, red JSTOR branding, borders, button styling, and overall editorial appearance. Small differences in font sizing/weight, icon design, and image crop reduce fidelity slightly.\n- **Overall (16/20):** The page is clearly the same design and achieves a strong visual match, but differences in responsive sizing, search-state presentation, spacing, and featured-image placement prevent it from being nearly exact.\n\n**Score: 86/100**",
+    "Comments:\n-Layout (9/10): The overall structure is highly similar, including the top access banner, JSTOR navigation header, large hero heading, search tabs, search field, and image/gallery area. Minor differences appear in header spacing, search positioning, and the amount of lower-page content visible.\n-Elements (12/15): Most major elements are present and correctly arranged: JSTOR logo, menu icon, Register and Log in buttons, Workspace link, tabs, Advanced Search link, search field, hero image, and gallery thumbnails. Some icon shapes and gallery/navigation details differ, and the generated view shows a search suggestion dropdown instead of the reference’s standard search field.\n-Content and Text (30/40): The main headline and most navigation text match closely. However, the search state differs substantially: the generated page contains the query “tang” and autocomplete suggestions, while the reference shows placeholder text. The reference also includes visible artwork caption text and “Image 1 of 5” controls that are not visible in the same way in the generated version.\n-Style (14/15): Typography, black-and-white presentation, red JSTOR branding, borders, button styling, and overall visual language are very close. Minor differences exist in icon rendering, exact font sizing/weight, and some spacing.\n-Overall (16/20): This is a strong visual match to the reference page, particularly in the header and hero section. The main reduction comes from the different search interaction state and resulting vertical content layout.\n\nScore: 81/100",
+    "Comments:\n- **Layout (9/10):** The overall structure closely matches: library-access banner, JSTOR header, navigation controls, large hero heading, search tabs, search field, and featured image area are all positioned similarly. Minor differences arise from the search suggestion panel changing the vertical flow and visible content.\n- **Elements (14/15):** Nearly all major elements are present and correctly arranged, including the JSTOR logo, Register and Log in buttons, menu icon, Workspace link, tabs, Advanced Search link, search icon, and featured artwork. Some icon shapes and spacing differ slightly.\n- **Content and Text (35/40):** The primary heading and most interface text match well. The main discrepancy is the search state: one view displays `ti:(\"tang\")`, while the other shows `tang` with an autocomplete panel containing additional search options. This also causes the featured-image caption and lower content to be less visible.\n- **Style (14/15):** Typography, black-and-white color scheme, red JSTOR branding, borders, spacing, and overall visual treatment are highly consistent. Small differences appear in font rendering, icon styling, and exact button dimensions.\n- **Overall (17/20):** This is a strong match to the reference page, with the primary difference being the interactive search/autocomplete state and resulting vertical content visibility.\n\n**Score: 89/100**",
+    "Comments:\n- **Layout (2/10):** Both pages share a JSTOR-style header with the library-access notice, logo, menu icon, registration/login controls, and workspace link. However, the main page structures are substantially different: the reference is a search-results page with a search bar, filters, result count, sorting controls, and article listing, while the generated page is a homepage with a large promotional headline, search tabs, autocomplete suggestions, and a landscape image.\n- **Elements (5/15):** Several header elements are present and approximately positioned, but most key reference elements are missing, including the search-results toolbar, “Show Search Filters” button, result count, search-help link, article metadata, result controls, and action buttons. The generated page introduces unrelated elements such as “All Content,” “Images,” “Advanced Search,” and autocomplete rows.\n- **Content and Text (3/40):** The shared “Have library access? Log in through your library” text and JSTOR branding provide limited overlap. The main content, article title, author, publication details, result count, and search-results copy do not match the reference. The generated page instead contains the homepage slogan “Explore the world’s knowledge, cultures, and ideas” and search suggestions.\n- **Style (8/15):** Typography, red JSTOR branding, white background, and general header styling are reasonably similar. Some controls also use comparable borders and spacing. However, the large serif headline, colorful bottom image, autocomplete panel, and differing proportions make the visual style diverge considerably from the reference results page.\n- **Overall (4/20):** The shared JSTOR header creates a superficial resemblance, but the page purpose and primary content are different. This is a homepage/search-entry layout rather than a search-results page, resulting in low overall similarity.\n\n**Score: 22/100**",
+    "Comments:\n- **Layout (2/10):** The pages have substantially different structures. The reference uses a JSTOR homepage layout with a large hero heading, search interface, navigation header, and landscape image, while the generated page is a search-results list with filters, sorting, and article cards.\n- **Elements (4/15):** Some shared JSTOR-related elements appear, including a red brand color, header/navigation styling, search-related functionality, and article/search context. However, the major components differ: the generated page lacks the hero section, search tabs, autocomplete panel, and background image shown in the reference.\n- **Content and Text (2/40):** The text content is almost entirely different. The reference contains “Explore the world’s knowledge, cultures, and ideas,” a search for “tang,” and autocomplete suggestions. The generated page contains “5,121 results,” article titles, authors, metadata, and result actions.\n- **Style (7/15):** Both pages use a mostly white layout, black serif typography, red JSTOR branding, and a restrained editorial aesthetic. However, typography scale, spacing, component styling, and visual hierarchy differ significantly.\n- **Overall (4/20):** The generated page appears to belong to the same general JSTOR ecosystem but does not visually or structurally match the reference homepage. Similarity is limited to broad branding and color cues.\n\n**Score: 19/100**",
+    "Comments:\n- **Layout (10 points): 1/10** — The generated page has a results-list layout with selection controls and article cards, while the reference shows a large search landing interface with tabs, a search field, autocomplete panel, and image results. Overall structure, spacing, and page composition differ substantially.\n- **Elements (15 points): 2/15** — Both pages contain search-related functionality and content sections, but the key elements do not match. The reference includes “All Content”/“Images” tabs, “Advanced Search,” a search input, suggestions, and image navigation; these are absent from the generated page.\n- **Content and Text (40 points): 1/40** — The text is almost entirely different. The generated page focuses on selected journal articles about Tang Dynasty topics, while the reference contains the query “tang,” image-search suggestions, and Georgia O’Keeffe/artwork-related content.\n- **Style (15 points): 3/15** — Both use a predominantly white interface with dark text and restrained typography, but the visual styling differs greatly. The generated page uses prominent dark-red buttons, article-card styling, and large serif titles; the reference uses a minimalist search layout with outlined controls, teal accents, autocomplete rows, and prominent imagery.\n- **Overall (20 points): 2/20** — The pages appear to represent different screens and user tasks. Only the broad concept of a search/content webpage is shared.\n\n**Score: 9/100**"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "Have library access? Legin throughyour Register Log in JSTOR Workspace Explore the worlds knowledge; cultures, and ideas All Content Images Advanced Search Search journals; books; images; and primary Georgia O'Keeffe, Ghost Ranch Image Landscape (detail) , c.1936. Part of 1of 5 Georgia Q'Keeffe Museum: library",
+      "screenshot_text": "Have library access? Log_in throughyour library - Register Log in JSTOR Workspace Explore the world s knowledge, cultures, and ideas All Content Images Advanced Search Search journals; books, images, and primary :0 Georgia O'Keeffe, Ghost Ranch Image Landscape (detail) , c. 1936. Part of 1 of 5 Georgia Q'Keeffe_Museum rlaryzlilazsk agrmguf Imaaneidln Mnathicil rlaaucmtmiia rarilan",
+      "similarity": 0.7911227154046998
+    },
+    {
+      "checkpoint_text": "library access? Leginthroughyour_ Register Log in JSTOR Workspace Explore the worlds knowledge; cultures, and ideas All Content Images Advanced Search Iearch journals, books; images, and primary ti:(\"tang\" Georgia O Keeffe, Ghost Ranch Image Landscape (detail) , c. 1936. Part of 1of 5 Georgia Q'Keeffe_Museum: Have library",
+      "screenshot_text": "Have library access? Log_in throughyour library - Register Log in JSTOR Workspace Explore the world s knowledge, cultures, and ideas All Content Images Advanced Search Search journals; books, images, and primary :0 Georgia O'Keeffe, Ghost Ranch Image Landscape (detail) , c. 1936. Part of 1 of 5 Georgia Q'Keeffe_Museum rlaryzlilazsk agrmguf Imaaneidln Mnathicil rlaaucmtmiia rarilan",
+      "similarity": 0.7676240208877285
+    },
+    {
+      "checkpoint_text": "library access? Leginthroughyour_ Register Log in JSTOR Workspace Explore the worlds knowledge; cultures, and ideas All Content Images Advanced Search tang ti:(\"tang\" Just search for: tang enter 4 Author or creator: tang Title: tang Publication name: tang Have library",
+      "screenshot_text": "Have library access? Log_in throughyour library - Register Log in JSTOR Workspace Explore the world s knowledge, cultures, and ideas All Content Images Advanced Search Search journals; books, images, and primary :0 Georgia O'Keeffe, Ghost Ranch Image Landscape (detail) , c. 1936. Part of 1 of 5 Georgia Q'Keeffe_Museum rlaryzlilazsk agrmguf Imaaneidln Mnathicil rlaaucmtmiia rarilan",
+      "similarity": 0.5065274151436031
+    },
+    {
+      "checkpoint_text": "library access? Leginthroughyour_ Register Log in JSTOR Workspace Explore the worlds knowledge; cultures, and ideas All Content Images Advanced Search ti:(\"tang\") | Georgia O Keeffe, Ghost Ranch Image Landscape (detail) , c 1936. Part of > 1of 5 Georgia Q'Keeffe_Museum: Have library",
+      "screenshot_text": "Have library access? Log_in throughyour library - Register Log in JSTOR Workspace Explore the world s knowledge, cultures, and ideas All Content Images Advanced Search tang ti:(\"tang\") Just search for: tang enter Author or creator: tang Title: tang Publication name: tang",
+      "similarity": 0.5724381625441697
+    },
+    {
+      "checkpoint_text": "Have library access? Legin throughyour library Register Log in JSTOR Workspace ti:(\"tang' Show Search Filters 5,121results Search help Sort by: Relevance JOURNAL ARTICLE \"Together They Might Make Trouble\": Cross-Cultural Interactions in Dynasty Guangzhou, 618-907 C.E ADAMG FONG Journal of World History, Vol. 25, No. 4, SPECIAL ISSUE IN HONOR OF JERRY H. BENTLEY (December 2014) , pp. 475-492 \"Together Might Make Trouble\": Cross-Cultural Interactions in Dynasty Guangzhou; 618-907 €.E: ADAM C. FONG University of Northern Colorado Guangzhou; the Tropic of better Cancer known and has in English a subtropical as Canton; climate. lies_ Read Save Cite online Tang They Tang",
+      "screenshot_text": "Have library access? Log_in throughyour library - Register Log in JSTOR Workspace Explore the world s knowledge, cultures, and ideas All Content Images Advanced Search tang ti:(\"tang\") Just search for: tang enter Author or creator: tang Title: tang Publication name: tang",
+      "similarity": 0.2838038632986627
+    },
+    {
+      "checkpoint_text": "Show Search Filters 5,121 results Search help Sort by: Relevance JOURNAL ARTICLE \"Together They Might Make Trouble\": Cross-Cultural Interactions in Dynasty Guangzhou, 618-907 C.E ADAMG FONG Journal of World History; Vol. 25, No. 4, SPECIAL ISSUE IN HONOR OF JERRY H. BENTLEY (December 2014) , pp. 475-492 \"Together Might Make Trouble\": Cross-Cultural Interactions in Dynasty Guangzhou; 618-907 c.E: ADAM C. FONG University of Northern Colorado Guangzhou; the Tropic of better Cancer known and has in English a subtropical as Canton, climate. lies_ Read Save Cite online JOURNAL ARTICLE Vocabularies of Pleasure: Categorizing Female Entertainers in the Late Dynasty BEVERLY BOSSLER Harvard Journal of Asiatic Studies, Vol. 72, No. Tang They Tang Tang",
+      "screenshot_text": "Have library access? Log_in throughyour library - Register Log in JSTOR Workspace Explore the world s knowledge, cultures, and ideas All Content Images Advanced Search tang ti:(\"tang\") Just search for: tang enter Author or creator: tang Title: tang Publication name: tang",
+      "similarity": 0.21895861148197593
+    },
+    {
+      "checkpoint_text": "Show Search Filters 1selected Clear selections L} Cite Save Sort by: Relevance JOURNAL ARTICLE \"Together Might Make Trouble\": Cross-Cultural Interactions in Tang Dynasty Guangzhou, 618-907 C.E ADAMG FQNG Journal of World History; Vol. 25, No. 4, SPECIAL ISSUE IN HONOR OF JERRY H: BENTLEY (December 2014) , pp. 475-492 \"Together They Might Make Trouble\": Cross- Cultural Interactions in Dynasty Guangzhou, 618-907 c.E: ADAM C. FONG University of Northern Colorado Guangzhou; the Tropic of better Cancer known and has in English a subtropical as Canton; climate. lies__. Read Save Cite online JOURNAL ARTICLE Vocabularies of Pleasure: Categorizing Female Entertainers in the Late Tang Dynasty They Tang",
+      "screenshot_text": "world $ knowledge; cultures; and ideas All Content Images Advanced _Search tang ti:(\"tang\") Just search for: tang enter Author or creator: tang Title: tang Publication name: tang Georgia O'Keeffe, Ghost Ranch Image Landscape (detail) , c. 1936. Part of 1 of 5 Georgia Q'Keeffe_Museum [larzli(3sk| gagramanquf Imaancidin nnnathcM rlaaye Ntrla NaailaariIna",
+      "similarity": 0.23395149786019975
+    }
+  ],
+  "assertion_results": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ]
+}

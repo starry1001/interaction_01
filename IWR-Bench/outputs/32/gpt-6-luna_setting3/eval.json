@@ -1,0 +1,116 @@
+{
+  "total_step": 11,
+  "success_step": 3,
+  "screenshot_paths_to_eval": [
+    "outputs/32/gpt-6-luna_setting3/evalpoints/0.png"
+  ],
+  "all_mllm_scores": [
+    0.85
+  ],
+  "all_dino_scores": [
+    0.95556640625
+  ],
+  "all_ocr_scores": [
+    0.9626593806921676
+  ],
+  "all_avg_scores": [
+    0.9227419289807225
+  ],
+  "mllm_score": 0.85,
+  "dino_score": 0.95556640625,
+  "ocr_score": 0.9626593806921676,
+  "avg_score": 0.9227419289807225,
+  "all_mllm_res": [
+    "---\nComments:\n-Layout (8/10): The overall structure and vertical spacing are very close, including the welcome banner, centered calculator, and footer. The top navigation wraps “Weight Converter” onto an extra row in the generated page, unlike the reference.\n-Elements (12/15): Most major elements are present and in the right places. The fullscreen link is missing its fullscreen icon and wraps onto two lines; the language selector icon also differs.\n-Content and Text (37/40): The welcome copy, navigation labels, calculator keys, and footer labels are largely accurate. Minor differences include the wrapped fullscreen-link text and small label or icon variations.\n-Style (12/15): The page closely matches the reference’s white space, blue banner/footer, colorful navigation buttons, and calculator styling. Some button sizing, spacing, and icon treatments differ.\n-Overall (16/20): A strong visual match with the same content and main layout. The navigation wrapping and a few missing or altered details keep it from matching more closely.\n\nScore: 85/100\n---"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "Online-Calculator SGearch Online-Calculator com Change Language Full Screen Calculator Scientilic Calculator Simple Calculator Online Abacus Darts Galculator Maths Calculator BMI Calculator Patio Calculator Size Convener Length Converter Percentage Calculator Volume Converter Weight Converter Length Conversions Speed Conversions Temperature Conversions Time Conversions Weight Conversions Welcome to Online Calculator! We have a range of free, easy to use calculators, conversion tools, and much morel Our tools are designed to help you perform a wide range of calculations and conversions quickly and accurately, whether youre at home, at work, or on the go MC MR M+ M- CE 8 % nan 0 ui0 Use the Online Calculator Full Screen Home Page Full Screen Calculator Scientific Calculator Simple Calculator Online Abacus Darts Calculator Maths Calculator BMI Calculator Patio Calculator Ring Size Converter Length Converter Percentage Calculator Volume Converter Weight Converter Length Conversions Speed Conversions Temperature Conversions Time Conversions Weight Conversions Ring",
+      "screenshot_text": "Online-Calculator Search Online-Calculatorcom Change Language Full Screen Calculator Scientific Calculator Simple Calculator Online Abacus Darts Calculator Maths Calculator BMI Calculator Patio Calculator Size Converter Length Converter Percentage Calculator Volume Converter Weight Converter Length Conversions Speed Conversions Temperature Conversions Time Conversions Weight Conversions Welcome to Online Calculator! We have a range of free, easy tO use calculators conversion tools, and much morel Our tools are designed t0 help you perform a wide range of calculations and conversions quickly and accurately; whether you're at home_ at work, or on the go_ MC MR M+ M- CE % Ilx W WW Onan Ga Wlat 0[ GoM Use the Online Calculator Full Screen Home Page Full Screen Calculator Scientific Calculator Simple Calculator Online Abacus Darts Calculator Maths Calculator BMI Calculator Patio Calculator Ring Size Converter Length Converter Percentage Calculator Volume Converter Weight Converter (0dodi ength Conversions Speed Conversions Temperature Conversions Time Conversions Weight Conversions Ring",
+      "similarity": 0.9626593806921676
+    }
+  ],
+  "assertion_results": [
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/32/gpt-6-luna_setting3/evalpoints/0.png",
+      "curr_img_path": "outputs/32/gpt-6-luna_setting3/evalpoints/1.png",
+      "response": "{\"think\":\"The current screenshot shows the calculator display reading 5, whereas the previous screenshot shows 0. The assertion refers to the current display, so it is true.\",\"result\":\"Yes\"}",
+      "assertion": "Calculator displays '5'.",
+      "thinking": "The current screenshot shows the calculator display reading 5, whereas the previous screenshot shows 0. The assertion refers to the current display, so it is true."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/32/gpt-6-luna_setting3/evalpoints/1.png",
+      "curr_img_path": "outputs/32/gpt-6-luna_setting3/evalpoints/2.png",
+      "response": "{\"think\":\"The current screenshot (Image 2) shows the calculator display reading “53”.\",\"result\":\"Yes\"}",
+      "assertion": "Calculator displays '53'.",
+      "thinking": "The current screenshot (Image 2) shows the calculator display reading “53”."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/32/gpt-6-luna_setting3/evalpoints/2.png",
+      "curr_img_path": "outputs/32/gpt-6-luna_setting3/evalpoints/3.png",
+      "response": "{\"think\":\"The calculator display in the current screenshot (Image 2) reads 532, so the assertion is true.\",\"result\":\"Yes\"}",
+      "assertion": "Calculator displays '532'.",
+      "thinking": "The calculator display in the current screenshot (Image 2) reads 532, so the assertion is true."
+    },
+    {
+      "result": "No",
+      "prev_img_path": "outputs/32/gpt-6-luna_setting3/evalpoints/3.png",
+      "curr_img_path": "outputs/32/gpt-6-luna_setting3/evalpoints/4.png",
+      "response": "{\"think\":\"The current screenshot’s calculator display reads “532.”, not “532.7”.\",\"result\":\"No\"}",
+      "assertion": "Calculator displays '532.7'.",
+      "thinking": "The current screenshot’s calculator display reads “532.”, not “532.7”."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/32/gpt-6-luna_setting3/evalpoints/4.png",
+      "curr_img_path": "outputs/32/gpt-6-luna_setting3/evalpoints/5.png",
+      "response": "{\"think\":\"The calculator display in Image 2 reads 532.7, so the assertion is true.\",\"result\":\"Yes\"}",
+      "assertion": "Calculator displays '532.7'.",
+      "thinking": "The calculator display in Image 2 reads 532.7, so the assertion is true."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/32/gpt-6-luna_setting3/evalpoints/5.png",
+      "curr_img_path": "outputs/32/gpt-6-luna_setting3/evalpoints/6.png",
+      "response": "{\"think\":\"The current screenshot’s calculator display reads 532.76.\",\"result\":\"Yes\"}",
+      "assertion": "Calculator displays '532.76'.",
+      "thinking": "The current screenshot’s calculator display reads 532.76."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/32/gpt-6-luna_setting3/evalpoints/6.png",
+      "curr_img_path": "outputs/32/gpt-6-luna_setting3/evalpoints/7.png",
+      "response": "{\"think\":\"The current screenshot shows an asterisk after 532.76 on the calculator display, indicating the multiplication operation was selected. The “×” button corresponds to the asserted “x” button.\",\"result\":\"Yes\"}",
+      "assertion": "The 'x' button is selected.",
+      "thinking": "The current screenshot shows an asterisk after 532.76 on the calculator display, indicating the multiplication operation was selected. The “×” button corresponds to the asserted “x” button."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/32/gpt-6-luna_setting3/evalpoints/7.png",
+      "curr_img_path": "outputs/32/gpt-6-luna_setting3/evalpoints/8.png",
+      "response": "{\"think\":\"The calculator display in the current screenshot reads 9.\",\"result\":\"Yes\"}",
+      "assertion": "Calculator displays '9'.",
+      "thinking": "The calculator display in the current screenshot reads 9."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/32/gpt-6-luna_setting3/evalpoints/8.png",
+      "curr_img_path": "outputs/32/gpt-6-luna_setting3/evalpoints/9.png",
+      "response": "{\"think\":\"The calculator display in the current screenshot (Image 2) reads “9.”, including the decimal point.\",\"result\":\"Yes\"}",
+      "assertion": "Calculator displays '9.'.",
+      "thinking": "The calculator display in the current screenshot (Image 2) reads “9.”, including the decimal point."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/32/gpt-6-luna_setting3/evalpoints/9.png",
+      "curr_img_path": "outputs/32/gpt-6-luna_setting3/evalpoints/10.png",
+      "response": "{\"think\":\"The calculator display in the current screenshot reads 9.2.\",\"result\":\"Yes\"}",
+      "assertion": "Calculator displays '9.2'.",
+      "thinking": "The calculator display in the current screenshot reads 9.2."
+    },
+    null
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "total_step": 8,
+  "success_step": 6,
+  "screenshot_paths_to_eval": [
+    "outputs/10/gpt-6-luna_setting3/evalpoints/0.png",
+    "outputs/10/gpt-6-luna_setting3/evalpoints/3.png",
+    "outputs/10/gpt-6-luna_setting3/evalpoints/4.png"
+  ],
+  "all_mllm_scores": [
+    0.76,
+    0.59,
+    0.69
+  ],
+  "all_dino_scores": [
+    0.81591796875,
+    0.90185546875,
+    0.9501953125
+  ],
+  "all_ocr_scores": [
+    0.8534278959810875,
+    0.8699763593380615,
+    0.8439716312056738
+  ],
+  "all_avg_scores": [
+    0.8097819549103624,
+    0.7872772760293537,
+    0.8280556479018912
+  ],
+  "mllm_score": 0.68,
+  "dino_score": 0.8893229166666666,
+  "ocr_score": 0.8557919621749409,
+  "avg_score": 0.8083716262805357,
+  "all_mllm_res": [
+    "Comments:\n-Layout (9/10): The overall page structure is very similar, including the centered site container, top navigation bar, left sidebar, main game area, and footer placement. The generated page is slightly more compact in the central content area.\n-Elements (10/15): Most major elements are present, including the logo, sign-up/login controls, language selector, settings buttons, navigation links, game controls, and Minesweeper board. However, the reference includes custom-game inputs and a much larger board, while the generated version shows a smaller board and lacks the custom configuration row.\n-Content and Text (29/40): Site branding and nearly all sidebar navigation text match closely. The main game content differs substantially: the reference is in Custom mode with Width 30, Height 20, and Mines 100, whereas the generated page shows a smaller partially revealed Beginner-style game with different counters and board state.\n-Style (13/15): Typography, colors, borders, gray retro game styling, spacing, and overall visual language are closely matched. Minor differences appear in sizing, button presentation, and game-board proportions.\n-Overall (15/20): The generated webpage clearly reproduces the same website and general interface, but the central gameplay view and selected mode are notably different from the reference, reducing visual and functional similarity.\n\nScore: 76/100",
+    "Comments:\n-Layout (10 points): The overall site structure is similar, including the centered page, top header, left navigation sidebar, and main game area. However, the generated page uses a much smaller game panel and does not match the reference’s large custom-board layout. **5/10**\n-Elements (15 points): Common elements such as the logo, sign-up/log-in controls, language selector, navigation links, difficulty tabs, settings controls, Minesweeper board, and footer links are present. The generated page is missing the custom configuration fields, large board dimensions, bottom board controls, and several reference action icons. **8/15**\n-Content and Text (40 points): Most header and sidebar text is reproduced accurately. However, the reference shows the Custom mode with “Width: 30,” “Height: 20,” “Mines: 100,” and “Update,” while the generated page shows Beginner mode and different counters/game content. Sidebar counts also differ slightly. **25/40**\n-Style (15 points): Typography, muted gray palette, blue links, green/blue account buttons, borders, and general visual treatment are closely matched. The major mismatch is the substantially different board size and game-state presentation. **11/15**\n-Overall (20 points): The generated page is clearly the same Minesweeper.Online interface and captures the general visual identity well, but it does not reproduce the reference’s key Custom-mode state or large 30×20 board. **10/20**\n\nScore: **59/100**",
+    "Comments:\n-Layout (7/10): The overall page structure, centered content container, header, left navigation sidebar, game area, and footer are positioned very similarly. However, the main game panel differs substantially in width and height because the generated page shows the Expert board instead of the larger Custom board in the reference.\n-Elements (10/15): Most major elements are present, including the logo, sign-up/log-in controls, language selector, settings buttons, navigation links, difficulty tabs, Minesweeper board, counters, and action buttons. The generated version is missing the Custom-mode configuration fields and does not match the reference board controls and bottom status bar.\n-Content and Text (27/40): The navigation labels, branding, tabs, and most interface text closely match. Differences include the selected difficulty (“Expert” versus “Custom”), absence of “Width,” “Height,” “Mines,” and “Update” controls, different player count, and different board-counter values.\n-Style (12/15): Colors, typography, borders, spacing, gray Minesweeper styling, header treatment, and button appearance are highly similar. Minor differences appear in board proportions, control sizing, and some icon/button details.\n-Overall (13/20): The page is clearly the same website and uses a highly similar visual design, but the central gameplay state is notably different. Matching the Custom mode and its 30×20 board would substantially improve similarity.\n\nScore: 69/100"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "Minesweeper Online Sign up Login English Standard mode Beginner Intermediate Expert Custom No guessing mode Multiplayer Ranking My games Best players Season leaders Quests (0) Arena 222 2 Equipment Marketplace Events Event quests (0) Championship Players online (889) News Statistics My profile Chat (0) Help Premium account Shop MSWCH 2025 Download application Privacy Policy",
+      "screenshot_text": "Minesweeper: Online Sign up Log in English ~ Standard mode Beginner Intermediate Expert Custom 24 ~ No guessing mode Multiplayer Width: Height: 20 Mines: 100 Update Ranking My games 100 001 Best players Season leaders Quests (0) Arena Equipment Marketplace Events Event quests (0) Championship Players online (891) News Statistics My profile Chat (1) Help Premium account Shop MSWCH 2025 Download application Privacy Policy",
+      "similarity": 0.8534278959810875
+    },
+    {
+      "checkpoint_text": "Minesweeper Online Sign up Log in English Standard mode Beginner Intermediate Expert Custom No guessing mode Multiplayer Ranking My games Best players Season leaders Quests (0) Arena Equipment Marketplace Events Event quests (0) Championship Players online (889) News Statistics My profile Chat (0) Help Premium account Shop MSWCH 2025 Download application Privacy Policy",
+      "screenshot_text": "Minesweeper: Online Sign up Log in English ~ Standard mode Beginner Intermediate Expert Custom 24 ~ No guessing mode Multiplayer Width: Height: 20 Mines: 100 Update Ranking My games 100 012 Best players Season leaders Quests (0) Arena Equipment Marketplace Events Event quests (0) Championship Players online (891) News Statistics My profile Chat (1) Help Premium account Shop MSWCH 2025 Download application Privacy Policy",
+      "similarity": 0.8699763593380615
+    },
+    {
+      "checkpoint_text": "Minesweeper Online Sign up Log in English Standard mode Beginner Intermediate Expert Custom No guessing mode Multiplayer Ranking CED My Best players Season leaders Quests (0) Arena Equipment Marketplace Events Event quests (0) Championship Players online (889) News Statistics My profile Chat (1) Help Premium account Shop MSWCH 2025 Download application Privacy Policy games",
+      "screenshot_text": "Minesweeper: Online Sign up Log in English ~ Standard mode Beginner Intermediate Expert Custom 24 ~ No guessing mode Multiplayer Width: Height: 20 Mines: 100 Update Ranking My games 100 017 Best players Season leaders Quests (0) Arena Equipment Marketplace Events Event quests (0) Championship Players online (891) News Statistics My profile Chat (1) Help Premium account Shop MSWCH 2025 Download application Privacy Policy",
+      "similarity": 0.8439716312056738
+    }
+  ],
+  "assertion_results": [
+    {
+      "result": "Error",
+      "prev_img_path": "outputs/10/gpt-6-luna_setting3/evalpoints/0.png",
+      "curr_img_path": "outputs/10/gpt-6-luna_setting3/evalpoints/1.png",
+      "response": "Error: Error code: 400 - Unsupported value: 'temperature' does not support 0.0 with this model. Only the default (1) value is supported.",
+      "assertion": "The timer box in the upper right corner of the game window is reset to zero.",
+      "thinking": ""
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/10/gpt-6-luna_setting3/evalpoints/1.png",
+      "curr_img_path": "outputs/10/gpt-6-luna_setting3/evalpoints/2.png",
+      "response": "{\n  \"think\": \"The game window is visibly larger in Image 2: the board has more rows and columns, and the overall game panel dimensions increased compared with Image 1.\",\n  \"result\": \"Yes\"\n}",
+      "assertion": "Game window is changed size.",
+      "thinking": "The game window is visibly larger in Image 2: the board has more rows and columns, and the overall game panel dimensions increased compared with Image 1."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/10/gpt-6-luna_setting3/evalpoints/2.png",
+      "curr_img_path": "outputs/10/gpt-6-luna_setting3/evalpoints/3.png",
+      "response": "{\n  \"think\": \"The current screenshot shows a substantially larger Minesweeper game window, with more columns and rows than the previous screenshot. Therefore, the game window size has changed.\",\n  \"result\": \"Yes\"\n}",
+      "assertion": "Game window is changed size.",
+      "thinking": "The current screenshot shows a substantially larger Minesweeper game window, with more columns and rows than the previous screenshot. Therefore, the game window size has changed."
+    },
+    null,
+    null,
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/10/gpt-6-luna_setting3/evalpoints/5.png",
+      "curr_img_path": "outputs/10/gpt-6-luna_setting3/evalpoints/6.png",
+      "response": "{\n  \"think\": \"The top-left corner of the Minesweeper game window visibly displays the number 100 in both screenshots.\",\n  \"result\": \"Yes\"\n}",
+      "assertion": "The left top corner of the game window shows the number 100",
+      "thinking": "The top-left corner of the Minesweeper game window visibly displays the number 100 in both screenshots."
+    },
+    null,
+    null
+  ]
+}

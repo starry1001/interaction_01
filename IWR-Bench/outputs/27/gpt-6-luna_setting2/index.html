@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JSTOR</title>
+<style>
+  :root { --red:#8c0000; --line:#ddd; --muted:#666; --teal:#00a9b7; }
+  * { box-sizing:border-box; }
+  body { margin:0; color:#111; background:#fff; font-family:Arial,Helvetica,sans-serif; font-size:14px; }
+  button, input, select { font:inherit; }
+  button, a, select { cursor:pointer; }
+  .btn { }
+  a { color:inherit; }
+  .library-bar {
+    height:37px; display:flex; align-items:center; gap:7px; padding:0 18px;
+    border-bottom:1px solid #e2e2e2; font-size:13px; font-style:italic; white-space:nowrap;
+  }
+  .library-bar .library-icon { font-style:normal; font-size:16px; }
+  .site-header {
+    height:80px; border-bottom:1px solid #dedede; display:flex; align-items:center;
+    padding:0 19px; position:relative; background:#fff; z-index:2;
+  }
+  .brand { width:51px; height:71px; display:flex; align-items:center; flex:none; }
+  .brand img { display:block; width:49px; height:68px; object-fit:contain; }
+  .hamburger {
+    border:0; background:none; font-size:21px; padding:8px 15px; margin-left:1px;
+  }
+  .header-actions { margin-left:auto; display:flex; align-items:center; gap:8px; }
+  .small-button {
+    border:1px solid #ddd; background:#fff; padding:6px 12px; border-radius:2px;
+    height:29px; font-size:13px; font-weight:600;
+  }
+  .red-button { color:#fff; background:var(--red); border-color:var(--red); }
+  .workspace { position:absolute; right:20px; bottom:9px; font-weight:bold; font-size:13px; }
+  .workspace:before { content:"▮"; font-size:14px; margin-right:6px; }
+  main { min-height:calc(100vh - 117px); }
+  .home { padding:23px 19px 45px; }
+  .hero-title {
+    font:44px/0.97 Georgia,"Times New Roman",serif; letter-spacing:-1.6px;
+    margin:0 0 24px; max-width:355px;
+  }
+  .search-tabs { display:flex; align-items:stretch; height:34px; }
+  .search-tabs button {
+    background:#fff; border:1px solid #bbb; min-width:88px; padding:0 12px; color:#555;
+  }
+  .search-tabs button:first-child { color:#111; font-weight:bold; border-bottom:2px solid #111; }
+  .search-tabs .advanced-link {
+    margin-left:auto; border:0; text-decoration:underline; min-width:auto; font-weight:bold; color:#111;
+  }
+  .search-wrap { position:relative; z-index:1; }
+  .search-input {
+    width:100%; height:47px; border:1px solid #aaa; padding:0 48px 0 12px; outline:none;
+    font-size:14px;
+  }
+  .search-input:focus { border:2px solid var(--teal); }
+  .search-icon {
+    position:absolute; right:14px; top:14px; width:17px; height:17px; pointer-events:none;
+  }
+  .suggestions {
+    position:absolute; top:47px; left:0; right:0; background:white; box-shadow:0 3px 7px #0003;
+    display:none; z-index:3;
+  }
+  .suggestions.show { display:block; }
+  .suggestion {
+    min-height:43px; padding:13px 12px; border-bottom:1px solid #eee; font-size:14px;
+  }
+  .suggestion strong { color:#233d70; }
+  .suggestion:hover { background:#f5f5f5; }
+  .art-strip {
+    height:94px; margin:0 -19px; overflow:hidden; position:relative; background:#ddd;
+  }
+  .art-strip img { width:100%; height:100%; object-fit:cover; display:block; }
+  .art-caption {
+    display:grid; grid-template-columns:1fr auto; gap:12px; padding:16px 0 0;
+    font:12px/1.45 Arial,sans-serif;
+  }
+  .art-caption .image-count { white-space:nowrap; font-weight:bold; margin-right:42px; }
+  .art-caption a { text-decoration:underline; }
+  .carousel-arrows { position:absolute; right:20px; top:18px; display:flex; gap:19px; }
+  .carousel-arrows button { border:0; background:transparent; font-size:27px; padding:0; }
+  .home-gallery { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:82px; }
+  .gallery-card { height:145px; overflow:hidden; }
+  .gallery-card img { width:100%; height:100%; object-fit:cover; }
+  .content { padding:20px 12px 50px; }
+  h1,h2,h3,.serif { font-family:Georgia,"Times New Roman",serif; font-weight:normal; }
+  .page-heading { display:flex; align-items:center; gap:16px; margin:11px 0 22px; }
+  .page-heading h1 { font-size:27px; margin:0; letter-spacing:-.5px; }
+  .page-heading a { font-size:13px; text-decoration:underline; }
+  .tabs {
+    display:flex; gap:0; border-bottom:1px solid #ddd; margin:0 -2px 21px;
+  }
+  .tabs button { border:0; background:#fff; padding:12px 15px 9px; color:#333; }
+  .tabs button.selected { font-weight:bold; border-bottom:2px solid #111; }
+  .content h2 { font-size:20px; margin:0 0 19px; }
+  .field-label { font-size:11px; font-weight:bold; margin-bottom:5px; }
+  .query-row { display:grid; grid-template-columns:1fr 1fr; gap:7px; margin-bottom:13px; }
+  .field input,.field select,.boolean select {
+    height:34px; border:1px solid #aaa; background:#fff; width:100%; padding:0 9px;
+  }
+  .field input:focus { outline:2px solid var(--teal); border-color:var(--teal); }
+  .boolean-row { display:grid; grid-template-columns:70px 1fr 92px 34px; gap:6px; align-items:end; margin:11px 0 12px; }
+  .boolean select { padding:0 6px; }
+  .delete-row { height:34px; border:1px solid #ddd; background:#fff; font-size:18px; }
+  .add-row { border:1px solid #ddd; background:white; padding:5px 10px; margin:0 0 34px; }
+  .add-row b { font-size:19px; vertical-align:-1px; margin-right:5px; }
+  .access-label { font-size:11px; font-weight:bold; margin:0 0 6px; }
+  .access-select { height:34px; width:100%; border:1px solid #aaa; background:#fff; padding:0 10px; }
+  .submit { margin:25px 0 37px; padding:7px 13px; height:28px; }
+  .narrow-title { font:20px Georgia,serif; border-bottom:1px solid #ddd; padding-bottom:9px; margin:0 0 13px; }
+  .filter-heading { font-size:12px; font-weight:bold; margin:15px 0 5px; }
+  .check-grid { display:grid; grid-template-columns:1fr 1fr; gap:5px; font-size:13px; }
+  .check-grid label { display:flex; gap:5px; align-items:center; }
+  input[type=checkbox] { width:14px; height:14px; margin:0; }
+  .results { padding:14px 12px 45px; }
+  .filter-toggle {
+    height:27px; width:100%; text-align:left; border:0; background:var(--red); color:#fff;
+    padding:0 11px; font-size:13px; font-weight:bold; margin-bottom:28px;
+  }
+  .results-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:17px; }
+  .results-head h1 { font-size:27px; margin:0; }
+  .results-head a { text-decoration:underline; font-size:13px; }
+  .sort-row { margin-bottom:18px; }
+  .sort-row select { height:29px; border:1px solid #ddd; background:#fff; padding:0 10px; font-weight:bold; }
+  .result-card { position:relative; padding:9px 10px 21px 48px; margin:0 -5px 10px; }
+  .result-card.selected { background:#f3f2ef; }
+  .result-check { position:absolute; top:11px; left:11px; display:flex; gap:6px; align-items:center; color:#777; }
+  .result-type { color:#666; font-size:11px; margin-bottom:5px; }
+  .result-title { font:21px/1.13 Georgia,"Times New Roman",serif; margin:0 0 18px; }
+  .author { font-size:13px; text-decoration:underline; font-weight:bold; margin-bottom:8px; }
+  .journal { color:#666; font:italic 13px/1.45 Arial,sans-serif; }
+  .abstract { font:13px/1.45 Arial,sans-serif; margin:14px 0; }
+  .action-row { display:flex; gap:6px; flex-wrap:wrap; }
+  .action-row button { border:1px solid #ddd; padding:6px 9px; background:#fff; font-weight:bold; }
+  .action-row .read { background:var(--red); color:#fff; border-color:var(--red); }
+  .plain-button { border:1px solid #ddd; background:#fff; padding:5px 10px; }
+  .detail { padding:27px 20px 60px; }
+  .back { display:inline-block; margin-bottom:25px; }
+  .detail h1 { font:27px/1.1 Georgia,serif; margin:0 0 17px; }
+  .detail .author { margin-bottom:18px; }
+  .detail p { font-size:13px; line-height:1.55; }
+  .journal-cover { width:150px; height:215px; object-fit:cover; display:block; margin:15px 0 22px; }
+  .detail .download { display:block; width:100%; max-width:440px; padding:14px; margin-top:18px; text-align:left; }
+  .drawer-shade { display:none; position:fixed; inset:0; background:#0006; z-index:5; }
+  .drawer {
+    display:none; position:fixed; z-index:6; top:0; bottom:0; left:0; width:min(310px,82vw);
+    background:#050505; color:#fff; padding:18px 20px;
+  }
+  .drawer.open,.drawer-shade.open { display:block; }
+  .drawer-close { border:0; background:none; color:white; font-size:26px; float:right; }
+  .drawer .brand { margin:18px 0; filter:grayscale(1) brightness(0) invert(1); }
+  .drawer-actions { display:flex; gap:10px; margin:12px 0 23px; }
+  .drawer a { display:block; text-decoration:none; padding:7px 0; }
+  .drawer hr { border:0; border-top:1px solid #777; margin:20px 0; }
+  .notice { background:#fff9ef; border:1px solid #e9ca85; padding:14px; line-height:1.5; margin:15px 0; }
+  .open-access { color:#54833b; border:1px solid #7ba764; padding:3px 5px; font-size:11px; font-weight:bold; }
+  @media (min-width:700px) {
+    body { max-width:100%; }
+    .home,.content,.results,.detail { max-width:900px; margin:auto; }
+  }
+</style>
+</head>
+<body>
+<div class="library-bar"><span class="library-icon">▦</span><span>Have library access? <a href="#" class="btn">Log in through your library</a></span></div>
+<header class="site-header">
+  <a class="brand btn" href="#" aria-label="JSTOR home"><img src="../../../data/data/27/assets/039.svg" width="49" height="68" alt="JSTOR"></a>
+  <button class="hamburger btn" id="menuButton" aria-label="Open menu">≡</button>
+  <div class="header-actions">
+    <button class="small-button btn">Register</button>
+    <button class="small-button red-button btn">◉ Log in</button>
+  </div>
+  <a href="#" class="workspace btn">Workspace</a>
+</header>
+
+<div class="drawer-shade" id="shade"></div>
+<nav class="drawer" id="drawer">
+  <button class="drawer-close btn" id="closeDrawer">‹</button>
+  <a class="brand btn" href="#"><img src="../../../data/data/27/assets/039.svg" width="49" height="68" alt="JSTOR"></a>
+  <div class="drawer-actions"><button class="small-button red-button btn">◉ Log in</button><button class="small-button btn">Register</button></div>
+  <a href="#" class="btn">Workspace</a>
+  <a href="#" class="btn" id="drawerAdvanced">Advanced Search</a>
+  <a href="#" class="btn">Browse　⌄</a><hr>
+  <a href="#" class="btn">Support　⌄</a>
+</nav>
+
+<main id="app">
+<section class="home" id="homeView">
+  <h1 class="hero-title">Explore the<br>world’s<br>knowledge,<br>cultures, and<br>ideas</h1>
+  <div class="search-tabs">
+    <button class="btn">All Content</button>
+    <button class="btn">Images</button>
+    <button class="advanced-link btn" id="advancedLink">Advanced Search</button>
+  </div>
+  <div class="search-wrap">
+    <input class="search-input btn" id="homeSearch" type="search" placeholder="Search journals, books, images, and primary sources" autocomplete="off">
+    <img class="search-icon" src="../../../data/data/27/assets/004.svg" width="17" height="17" alt="">
+    <div class="suggestions" id="suggestions">
+      <div class="suggestion btn" id="querySuggestion"><strong>ti:("tang")</strong><span style="float:right">×</span></div>
+      <div class="suggestion btn" id="justSearch">Just search for:　<strong>tang</strong><span style="float:right;color:#777">enter ↵</span></div>
+      <div class="suggestion btn">Author or creator:　<strong>tang</strong></div>
+      <div class="suggestion btn">Title:　<strong>tang</strong></div>
+      <div class="suggestion btn">Publication name:　<strong>tang</strong></div>
+    </div>
+  </div>
+  <div class="art-strip">
+    <img src="../../../data/data/27/assets/033.webp" width="644" height="94" alt="Landscape artwork">
+    <div class="carousel-arrows"><button class="btn" aria-label="Previous image">‹</button><button class="btn" aria-label="Next image">›</button></div>
+  </div>
+  <div class="art-caption">
+    <div>Georgia O’Keeffe, Ghost Ranch<br>Landscape (detail), c. 1936. Part of<br><a href="#" class="btn">Georgia O’Keeffe Museum.</a></div>
+    <div class="image-count">Image<br>1 of 5</div>
+  </div>
+  <div class="home-gallery">
+    <div class="gallery-card"><img src="../../../data/data/27/assets/011.jpg" width="300" height="145" alt="Manuscript"></div>
+    <div class="gallery-card"><img src="../../../data/data/27/assets/013.jpg" width="300" height="145" alt="Historical illustration"></div>
+  </div>
+</section>
+
+<section class="content" id="advancedView" hidden>
+  <div class="page-heading"><h1>Advanced Search</h1><a href="#" class="btn">Search Help</a></div>
+  <div class="tabs"><button class="selected btn">All Content</button><button class="btn">Images</button></div>
+  <h2>Construct your search query</h2>
+  <div id="queryRows">
+    <div class="query-row">
+      <div class="field"><div class="field-label">TERM(S)</div><input class="btn term-input" value="tang"></div>
+      <div class="field"><div class="field-label">FIELD</div><select class="btn field-select"><option>All fields</option><option>Abstract</option><option>Title</option><option>Author</option></select></div>
+    </div>
+    <div class="boolean-row">
+      <div class="field"><div class="field-label">BOOLEAN</div><select class="btn"><option>AND</option><option>OR</option><option>NOT</option></select></div>
+      <div class="field"><div class="field-label">TERM(S)</div><input class="btn term-input" id="secondTerm"></div>
+      <div class="field"><div class="field-label">FIELD</div><select class="btn field-select"><option>All fields</option><option>Abstract</option><option>Title</option><option>Author</option></select></div>
+      <button class="delete-row btn" id="deleteRow">▤</button>
+    </div>
+  </div>
+  <button class="add-row btn" id="addRow"><b>＋</b>Add row</button>
+  <div class="access-label">SELECT AN ACCESS TYPE</div>
+  <select class="access-select btn"><option>Content I can access</option><option>All content</option><option>Open access content</option></select>
+  <button class="small-button red-button submit btn" id="submitAdvanced">Submit Advanced Search</button>
+  <h2 class="narrow-title">Narrow Results</h2>
+  <div class="filter-heading">ITEM TYPE</div>
+  <div class="check-grid">
+    <label><input type="checkbox" class="btn">Articles</label><label><input type="checkbox" class="btn">Research Reports</label>
+    <label><input type="checkbox" class="btn">Reviews</label><label><input type="checkbox" class="btn">Miscellaneous</label>
+  </div>
+  <div class="filter-heading">PUBLICATION DATE</div>
+</section>
+
+<section class="results" id="resultsView" hidden>
+  <button class="filter-toggle btn">Show Search Filters</button>
+  <div class="results-head"><h1 id="resultCount">5,121 results</h1><a href="#" class="btn">Search help</a></div>
+  <div class="sort-row"><select class="btn"><option>Sort by: Relevance</option><option>Newest</option></select></div>
+  <article class="result-card">
+    <div class="result-check"><button class="btn plain-button" aria-label="Remove">⊗</button><input type="checkbox" class="btn select-result"></div>
+    <div class="result-type">JOURNAL ARTICLE</div>
+    <h2 class="result-title">"Together They Might Make Trouble": Cross-Cultural Interactions in Tang Dynasty Guangzhou, 618-907 C.E.</h2>
+    <div class="author">ADAM C. FONG</div>
+    <div class="journal">Journal of World History, Vol. 25, No. 4, SPECIAL ISSUE IN HONOR OF JERRY H. BENTLEY (December 2014), pp. 475-492</div>
+    <p class="abstract">"Together They Might Make Trouble": Cross-Cultural Interactions in Tang Dynasty Guangzhou, 618-907 C.E. ADAM C. FONG University of Northern Colorado Guangzhou, the Tropic of better Canton known and has in English a subtropical as Canton, climate lies...</p>
+    <div class="action-row"><button class="read btn" id="readArticle">▤ Read online</button><button class="btn save">♧ Save</button><button class="btn cite">▣ Cite</button></div>
+  </article>
+  <article class="result-card">
+    <div class="result-check"><button class="btn plain-button">⊗</button><input type="checkbox" class="btn"></div>
+    <div class="result-type">JOURNAL ARTICLE</div>
+    <h2 class="result-title">Vocabularies of Pleasure: Categorizing Female Entertainers in the Late Tang Dynasty</h2>
+    <div class="author">BEVERLY BOSSLER</div><div class="journal">Harvard Journal of Asiatic Studies, Vol. 72, No. 1</div>
+  </article>
+</section>
+
+<section class="detail" id="detailView" hidden>
+  <a href="#" class="back btn" id="backResults">Back to results</a>
+  <div class="result-type">JOURNAL ARTICLE</div>
+  <h1>"Together They Might Make Trouble": Cross-Cultural Interactions in Tang Dynasty Guangzhou, 618-907 C.E.</h1>
+  <div class="author">ADAM C. FONG</div>
+  <p>Journal of World History<br><a href="#" class="btn">Vol. 25, No. 4, SPECIAL ISSUE IN HONOR OF JERRY H. BENTLEY (December 2014)</a> (18 pages)<br>Published By: University of Hawai‘i Press</p>
+  <img class="journal-cover" src="../../../data/data/27/assets/041.jpg" width="150" height="215" alt="Journal of World History cover">
+  <p>https://www.jstor.org/stable/43818461</p>
+  <a href="#" class="btn">Cite</a>
+  <button class="small-button red-button download btn">Read and download<br>Log in through your library</button>
+</section>
+</main>
+
+<script>
+  const home = document.getElementById('homeView');
+  const advanced = document.getElementById('advancedView');
+  const results = document.getElementById('resultsView');
+  const detail = document.getElementById('detailView');
+  const suggestions = document.getElementById('suggestions');
+  const search = document.getElementById('homeSearch');
+  const drawer = document.getElementById('drawer');
+  const shade = document.getElementById('shade');
+  function show(view) {
+    [home, advanced, results, detail].forEach(v => v.hidden = v !== view);
+    window.scrollTo(0,0);
+  }
+  function goResults(count) {
+    document.getElementById('resultCount').textContent = count || '5,121 results';
+    show(results);
+  }
+  document.getElementById('advancedLink').addEventListener('click', e => { e.preventDefault(); show(advanced); });
+  document.getElementById('drawerAdvanced').addEventListener('click', e => { e.preventDefault(); closeMenu(); show(advanced); });
+  document.getElementById('menuButton').addEventListener('click', () => { drawer.classList.add('open'); shade.classList.add('open'); });
+  function closeMenu(){ drawer.classList.remove('open'); shade.classList.remove('open'); }
+  document.getElementById('closeDrawer').addEventListener('click', closeMenu);
+  shade.addEventListener('click', closeMenu);
+  search.addEventListener('input', () => suggestions.classList.toggle('show', search.value.trim().length > 0));
+  search.addEventListener('keydown', e => { if(e.key === 'Enter'){ e.preventDefault(); suggestions.classList.remove('show'); goResults(); } });
+  document.getElementById('justSearch').addEventListener('click', () => { suggestions.classList.remove('show'); goResults(); });
+  document.getElementById('querySuggestion').addEventListener('click', () => { search.value='ti:("tang")'; suggestions.classList.remove('show'); search.focus(); });
+  document.getElementById('submitAdvanced').addEventListener('click', () => {
+    const term = document.querySelector('.term-input').value.trim();
+    const second = document.getElementById('secondTerm').value.trim();
+    if (second.toLowerCase() === 'qin') goResults('2 results');
+    else goResults(term ? '5,121 results' : '0 results');
+  });
+  document.getElementById('addRow').addEventListener('click', () => {
+    const row = document.createElement('div');
+    row.className='boolean-row';
+    row.innerHTML='<div class="field"><div class="field-label">BOOLEAN</div><select class="btn"><option>AND</option><option>OR</option><option>NOT</option></select></div><div class="field"><div class="field-label">TERM(S)</div><input class="btn term-input"></div><div class="field"><div class="field-label">FIELD</div><select class="btn field-select"><option>All fields</option><option>Abstract</option><option>Title</option><option>Author</option></select></div><button class="delete-row btn">▤</button>';
+    document.getElementById('queryRows').appendChild(row);
+    row.querySelector('.delete-row').onclick=()=>row.remove();
+  });
+  document.getElementById('deleteRow').addEventListener('click', () => { document.getElementById('secondTerm').value=''; });
+  document.querySelectorAll('.select-result').forEach(box => box.addEventListener('change', e => e.target.closest('.result-card').classList.toggle('selected', e.target.checked)));
+  document.getElementById('readArticle').addEventListener('click', () => show(detail));
+  document.getElementById('backResults').addEventListener('click', e => { e.preventDefault(); show(results); });
+  document.querySelectorAll('.save,.cite').forEach(button => button.addEventListener('click', () => {
+    button.textContent = button.classList.contains('save') ? '✓ Saved' : 'Cite';
+  }));
+</script>
+</body>
+</html>

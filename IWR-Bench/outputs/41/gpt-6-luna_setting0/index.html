@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reddit</title>
+<style>
+*{box-sizing:border-box}
+:root{--line:#e5e5e5;--text:#17191b;--muted:#777d83;--soft:#f6f7f8;--orange:#d93900}
+html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;color:var(--text);font-size:14px;background:#fff}
+body{overflow-y:auto}
+button,input{font:inherit}
+button{cursor:pointer}
+.btn{cursor:pointer}
+.topbar{height:60px;position:fixed;z-index:20;inset:0 0 auto;background:#fff;border-bottom:1px solid #dedede;display:flex;align-items:center}
+.brand{width:272px;display:flex;align-items:center;padding-left:17px;gap:6px;color:#d93900;font-weight:700;font-size:25px;letter-spacing:-1.4px}
+.reddit-mark{width:33px;height:33px;border-radius:50%;background:#e3441b;position:relative;display:inline-block}
+.reddit-mark:before{content:"";position:absolute;background:#fff;width:19px;height:13px;border-radius:50%;left:7px;top:11px}
+.reddit-mark:after{content:"";position:absolute;width:5px;height:5px;border-radius:50%;background:#e3441b;left:11px;top:15px;box-shadow:8px 0 #e3441b}
+.reddit-mark i{position:absolute;z-index:2;width:4px;height:4px;border:1.5px solid #fff;border-radius:50%;left:8px;top:7px}
+.searchbar{position:absolute;left:50%;transform:translateX(-50%);width:560px;height:44px;border-radius:24px;background:#edf0f2;display:flex;align-items:center;padding:0 18px;color:#777}
+.search-icon{font-size:22px;margin-right:13px;color:#34383b}
+.searchbar input{border:0;background:transparent;outline:0;width:100%;font-size:14px;color:#41464b}
+.search-community{display:none}
+.header-right{margin-left:auto;display:flex;align-items:center;gap:16px;padding-right:25px}
+.login{border:0;color:#fff;background:#d43b04;border-radius:24px;padding:12px 17px;font-weight:bold}
+.more{border:0;background:none;font-size:21px;padding:3px}
+.leftnav{position:fixed;z-index:10;top:60px;bottom:0;left:0;width:272px;border-right:1px solid #d8d8d8;background:#fff;overflow:hidden;padding:14px 15px 20px}
+.nav-toggle{position:fixed;left:254px;top:80px;width:34px;height:34px;border:1px solid #c7c7c7;background:#fff;border-radius:50%;z-index:22;font-size:20px;line-height:28px;color:#555}
+.navrow{height:42px;display:flex;align-items:center;padding:0 20px;gap:15px;border-radius:8px;color:#34383c;font-size:14px}
+.navrow .ico{font-size:20px;width:20px;text-align:center;color:#343a3f}
+.navrow.selected{background:#f0f2f3}
+.nav-section{border-top:1px solid #e4e4e4;margin-top:13px;padding-top:24px}
+.section-title{font-size:12px;letter-spacing:.5px;color:#777e83;padding:0 17px 15px;display:flex;justify-content:space-between}
+.navrow.topic{height:44px;padding-left:21px}
+.navrow.topic .chev{margin-left:auto;font-size:17px}
+.see-more{height:40px;padding:12px 19px;font-size:13px;font-weight:600}
+.resources{margin-top:10px}
+.content{margin-left:272px;padding-top:60px;min-height:100vh}
+.page-wrap{width:1074px;margin-left:280px}
+.carousel{height:258px;display:flex;gap:16px;padding-top:16px;overflow:hidden;position:relative}
+.story{height:223px;flex:0 0 280px;border-radius:17px;position:relative;overflow:hidden;background:#333;color:#fff}
+.story img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.72)}
+.story:after{content:"";position:absolute;inset:35% 0 0;background:linear-gradient(transparent,rgba(0,0,0,.9))}
+.story-copy{position:absolute;z-index:2;bottom:12px;left:13px;right:11px}
+.story-copy strong{font-size:17px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:6px}
+.story-copy .desc{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.story-sub{font-size:12px;margin-top:8px;color:#eee}
+.story-sub img{width:23px!important;height:23px!important;border-radius:50%;vertical-align:middle;object-fit:cover;margin-right:6px}
+.carousel-next{position:absolute;right:3px;top:105px;border:0;background:rgba(255,255,255,.9);border-radius:50%;width:38px;height:38px;font-size:22px}
+.feed-grid{display:grid;grid-template-columns:733px 318px;gap:22px}
+.feed-sort{height:38px;display:flex;align-items:center;gap:22px;color:#596066;padding-left:14px;font-size:13px}
+.feed-sort button{border:0;background:none;color:#596066;padding:4px}
+.post-card{border-top:1px solid #e4e6e8;padding:12px 14px 8px;border-radius:5px}
+.post-meta{font-size:13px;color:#697077;display:flex;align-items:center;gap:5px;height:24px}
+.sub-icon{width:24px;height:24px;border-radius:50%;object-fit:cover}
+.join{margin-left:auto;background:#1769c2;color:#fff;border:0;border-radius:20px;padding:6px 15px;font-weight:bold}
+.post-title{font-weight:600;font-size:19px;line-height:1.35;margin:12px 0 8px}
+.post-title a{color:inherit;text-decoration:none}
+.tag{display:inline-block;background:#f4b51b;border-radius:10px;padding:3px 8px;font-size:12px;margin:4px 0}
+.media-box{height:418px;width:100%;position:relative;background:#111;border-radius:13px;overflow:hidden;cursor:pointer}
+.media-box video{width:100%;height:100%;object-fit:cover;display:block;background:#111}
+.video-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.media-box.playing .video-poster{display:none}
+.media-box:after{content:"";position:absolute;inset:auto 0 0;height:80px;background:linear-gradient(transparent,rgba(0,0,0,.64));pointer-events:none}
+.vid-controls{position:absolute;bottom:9px;left:14px;right:14px;z-index:3;height:30px;color:#fff;display:flex;align-items:center;gap:13px;font-size:13px;text-shadow:0 1px 3px #333}
+.play-symbol{font-size:20px}
+.progress{height:4px;background:rgba(255,255,255,.55);flex:1;position:relative;border-radius:4px}
+.progress:before{content:"";position:absolute;left:0;top:0;width:54%;height:4px;background:#ff4545;border-radius:4px}
+.progress:after{content:"";position:absolute;left:53%;top:-4px;width:12px;height:12px;background:#fff;border-radius:50%}
+.video-time{white-space:nowrap}
+.video-actions{height:62px;display:flex;align-items:center;gap:12px}
+.pill{border:0;border-radius:22px;background:#f0f2f3;height:37px;padding:0 13px;display:flex;align-items:center;gap:8px;font-weight:600;color:#333}
+.pill .arrow{font-size:20px}
+.promoted{border-top:1px solid #eee;padding:12px 0 20px;position:relative}
+.promoted-head{display:flex;align-items:center;gap:8px;color:#777;font-size:12px}
+.promoted-head b{font-size:14px;color:#4b4e52}
+.promoted p{line-height:1.45;color:#444;margin:13px 0 8px}
+.learn{border:1px solid #aaa;background:white;border-radius:22px;padding:9px 14px;font-weight:bold;font-size:12px}
+.ad-small{position:absolute;right:0;top:58px;width:145px;height:112px;border-radius:9px;background:#f4f3f7;padding:14px;color:#514fd1;font-size:12px}
+.ad-small b{display:block;margin-top:18px;text-align:right;color:#222}
+.right-column{padding-top:0}
+.popular-box{background:#f7f8f9;border-radius:10px;padding:18px 19px}
+.right-title{font-size:12px;color:#72777b;margin-bottom:24px}
+.community{height:57px;display:flex;align-items:center;gap:10px}
+.community img{width:34px;height:34px;border-radius:50%;object-fit:cover}
+.community b{display:block;font-size:13px;font-weight:500}
+.community small{color:#777;font-size:12px}
+.community-more{font-size:13px;font-weight:bold;margin-top:13px}
+.detail-layout{display:grid;grid-template-columns:733px 318px;gap:22px;padding-top:18px}
+.detail-header{height:150px;position:relative;padding-left:0}
+.back-btn{position:absolute;left:-41px;top:8px;border:0;border-radius:50%;background:#f2f4f5;width:32px;height:32px;font-size:20px;color:#555}
+.detail-post-meta{height:39px;display:flex;align-items:center;gap:8px;font-size:13px;color:#72787d}
+.detail-post-meta .sub-icon{width:34px;height:34px}
+.detail-post-meta strong{color:#25282b}
+.award{background:#eef1f3;border-radius:10px;padding:3px 7px;font-size:11px}
+.detail-title{font-size:23px;line-height:1.25;margin:2px 0 12px;font-weight:600}
+.detail-tag{position:absolute;top:132px;left:0;background:#f2b817;border-radius:12px;padding:3px 8px;font-size:12px}
+.detail-media{height:436px}
+.detail-media .video-poster{object-fit:cover}
+.detail-actions{height:76px}
+.signup{background:#f7f8fa;border-radius:16px;padding:18px 16px;margin:0 0 22px}
+.signup h3{font-size:19px;margin:0 0 7px}
+.signup p{font-size:13px;color:#656b70;line-height:1.4;margin:0 0 12px}
+.signup-btn{height:43px;border:1px solid #e0e1e2;border-radius:24px;background:white;width:100%;margin:4px 0;display:flex;align-items:center;justify-content:center;gap:12px;font-weight:500}
+.google-g{font-size:21px;font-weight:bold;color:#4285f4;position:absolute;margin-left:-240px}
+.signup-terms{font-size:12px!important;margin-top:9px!important}
+.related-list{padding:0 2px}
+.related{border-bottom:1px solid #e5e5e5;padding:12px 0;min-height:112px}
+.related-head{font-size:12px;color:#777;display:flex;align-items:center;gap:7px;margin-bottom:8px}
+.related-head img{width:24px;height:24px;border-radius:50%;object-fit:cover}
+.related-text{font-size:14px;line-height:1.4;font-weight:500;padding-right:88px;position:relative;min-height:38px}
+.related-text img{position:absolute;right:0;top:-4px;width:82px;height:58px;border-radius:8px;object-fit:cover}
+.related-stats{font-size:12px;color:#747a7f;margin-top:8px}
+.comments{padding-top:8px}
+.join-conversation{height:45px;border:1px solid #d7d9db;border-radius:24px;padding:13px 17px;color:#8a8e92;font-size:15px;margin-bottom:13px}
+.comment-sort{color:#71777c;font-size:13px;margin-bottom:22px;display:flex;gap:16px;align-items:center}
+.comment-sort button{background:white;border:0;color:#3f4245}
+.sticky-comment{font-size:13px;margin:0 0 30px;display:flex;align-items:center;gap:8px}
+.comment{position:relative;padding:0 0 0 39px;margin:0 0 20px;line-height:1.5;color:#34383a}
+.comment:before{content:"";position:absolute;left:17px;top:29px;bottom:-18px;border-left:1px solid #e3e3e3}
+.comment:last-child:before{display:none}
+.comment-avatar{position:absolute;left:0;top:0;width:32px;height:32px;border-radius:50%;object-fit:cover}
+.comment-author{font-size:13px;font-weight:bold;color:#303438}
+.comment-time{font-weight:normal;color:#777}
+.comment-badge{display:inline-block;background:#eef1f2;color:#747b80;border-radius:9px;font-size:11px;padding:1px 6px;margin-left:5px}
+.comment-text{margin:10px 0 9px;font-size:14px}
+.comment-tools{display:flex;gap:19px;align-items:center;font-size:13px;color:#73797e;font-weight:600}
+.comment-tools button{border:0;background:none;padding:0;color:#73797e;font-weight:600}
+.reply{margin-left:37px}
+.more-replies{color:#697077;font-size:13px;margin:10px 0 0 39px}
+.comment.highlight{background:#fffaf0;border-left:2px solid #e2c883;padding-top:8px;padding-bottom:12px}
+.comment-group{margin-top:20px}
+.content-detail{padding-bottom:80px}
+#popularPage{display:block}
+#detailPage{display:none}
+body.detail-open #popularPage{display:none}
+body.detail-open #detailPage{display:block}
+@media(max-width:1500px){
+ .page-wrap{margin-left:30px}
+}
+@media(max-width:1050px){
+ .leftnav{display:none}.nav-toggle{display:none}.content{margin-left:0}.page-wrap{margin:0 auto;width:min(96vw,1074px)}
+ .feed-grid,.detail-layout{grid-template-columns:minmax(0,733px) 300px}
+ .searchbar{width:42vw}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand btn" id="brand"><span class="reddit-mark"><i></i></span><span>reddit</span></div>
+  <div class="searchbar"><span class="search-icon">⌕</span><span class="search-community">◆　r/law　×　</span><input id="searchInput" placeholder="Search Reddit" aria-label="Search Reddit"></div>
+  <div class="header-right"><button class="login btn">Log In</button><button class="more btn">⋯</button></div>
+</header>
+<aside class="leftnav">
+  <div class="navrow btn"><span class="ico">⌂</span>Home</div>
+  <div class="navrow selected btn"><span class="ico">◉</span>Popular</div>
+  <div class="navrow btn"><span class="ico">♧</span>Answers <span style="color:#d74724;font-size:12px">BETA</span></div>
+  <div class="nav-section">
+    <div class="section-title">TOPICS <span>⌃</span></div>
+    <div class="navrow topic btn"><span class="ico">☻</span>Internet Culture<br>(Viral)<span class="chev">⌄</span></div>
+    <div class="navrow topic btn"><span class="ico">🎮</span>Games<span class="chev">⌄</span></div>
+    <div class="navrow topic btn"><span class="ico">☏</span>Q&As<span class="chev">⌄</span></div>
+    <div class="navrow topic btn"><span class="ico">▦</span>Technology<span class="chev">⌄</span></div>
+    <div class="navrow topic btn"><span class="ico">☆</span>Pop Culture<span class="chev">⌄</span></div>
+    <div class="navrow topic btn"><span class="ico">▤</span>Movies &amp; TV<span class="chev">⌄</span></div>
+    <div class="see-more btn">See more</div>
+  </div>
+  <div class="nav-section resources">
+    <div class="section-title">RESOURCES <span>⌃</span></div>
+    <div class="navrow btn"><span class="ico">♧</span>About Reddit</div>
+    <div class="navrow btn"><span class="ico">⚑</span>Advertise</div>
+    <div class="navrow btn"><span class="ico">▥</span>Reddit Pro <span style="color:#d74724;font-size:12px">BETA</span></div>
+    <div class="navrow btn"><span class="ico">ⓘ</span>Help</div>
+    <div class="navrow btn"><span class="ico">▣</span>Blog</div>
+    <div class="navrow btn"><span class="ico">⚒</span>Careers</div>
+    <div class="navrow btn"><span class="ico">♧</span>Press</div>
+  </div>
+</aside>
+<button class="nav-toggle btn">☰</button>
+
+<main class="content">
+  <section id="popularPage">
+    <div class="page-wrap">
+      <div class="carousel">
+        <div class="story btn" data-open><img src="../../../data/data/41/assets/177.png" width="280" height="223" alt=""><div class="story-copy"><strong>Clarke loses libel case</strong><div class="desc">Noel Clarke has lost his libel case again...</div><div class="story-sub">🇬🇧 r/unitedkingdom and more</div></div></div>
+        <div class="story btn" data-open><img src="../../../data/data/41/assets/136.jpg" width="280" height="223" alt=""><div class="story-copy"><strong>Beasley cleared, free to sign</strong><div class="desc">Malik Beasley has been cleared of any...</div><div class="story-sub">◉ r/NYPOSTauto and more</div></div></div>
+        <div class="story btn"><img src="../../../data/data/41/assets/144.jpg" width="280" height="223" alt=""><div class="story-copy"><strong>Weapons hits $100M milestone</strong><div class="desc">Warner Bros.' original horror film...</div><div class="story-sub">◉ r/boxoffice and more</div></div></div>
+        <div class="story btn"><img src="../../../data/data/41/assets/156.jpg" width="280" height="223" alt=""><div class="story-copy"><strong>MGS Delta review scores</strong><div class="desc">Metal Gear Solid Delta: Snake Eater</div><div class="story-sub">◉ r/pcgaming and more</div></div></div>
+        <button class="carousel-next btn">›</button>
+      </div>
+      <div class="feed-grid">
+        <section>
+          <div class="feed-sort"><button class="btn">Best⌄</button><button class="btn">Everywhere⌄</button><button class="btn">▤⌄</button></div>
+          <article class="post-card">
+            <div class="post-meta"><img class="sub-icon" src="../../../data/data/41/assets/102.png" width="24" height="24" alt=""> <b>r/law</b> · 15 hr. ago <button class="join btn">Join</button><button class="more btn">•••</button></div>
+            <h2 class="post-title btn" data-open>Trump threatens to deploy the U.S. military into Chicago - signaling the start of a nationwide crackdown.</h2>
+            <div class="media-box btn" data-open>
+              <video id="feedVideo" poster="../../../data/data/41/assets/120.png" preload="none" muted playsinline>
+                <source src="../../../data/data/41/assets/175.mp4" type="video/mp4">
+              </video>
+              <img class="video-poster" src="../../../data/data/41/assets/120.png" width="733" height="418" alt="News video showing Donald Trump">
+              <div class="vid-controls"><span class="play-symbol">Ⅱ</span><span class="progress"></span><span class="video-time">0:26 / 0:47</span><span>▣</span><span>⚙</span><span>◖</span></div>
+            </div>
+            <div class="video-actions">
+              <button class="pill btn"><span class="arrow">♧</span>60K <span class="arrow">♧</span></button>
+              <button class="pill btn">▢ 12K</button>
+              <button class="pill btn">🏅 3</button>
+              <button class="pill btn">♧ Share</button>
+            </div>
+          </article>
+        </section>
+        <aside class="right-column">
+          <div class="popular-box">
+            <div class="right-title">POPULAR COMMUNITIES</div>
+            <div class="community"><img src="../../../data/data/41/assets/097.svg" width="34" height="34" alt=""><div><b>r/explainlikeimfive</b><small>23,272,108 members</small></div></div>
+            <div class="community"><img src="../../../data/data/41/assets/049.png" width="34" height="34" alt=""><div><b>r/IAmA</b><small>22,441,949 members</small></div></div>
+            <div class="community"><img src="../../../data/data/41/assets/050.png" width="34" height="34" alt=""><div><b>r/classicwow</b><small>687,100 members</small></div></div>
+            <div class="community"><img src="../../../data/data/41/assets/051.png" width="34" height="34" alt=""><div><b>r/Instagram</b><small>988,137 members</small></div></div>
+            <div class="community"><img src="../../../data/data/41/assets/052.jpg" width="34" height="34" alt=""><div><b>r/NintendoSwitch</b><small>7,880,362 members</small></div></div>
+            <div class="community-more btn">See more</div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section id="detailPage">
+    <div class="page-wrap content-detail">
+      <div class="detail-layout">
+        <section>
+          <div class="detail-header">
+            <button class="back-btn btn" id="backBtn">‹</button>
+            <div class="detail-post-meta"><img class="sub-icon" src="../../../data/data/41/assets/102.png" width="34" height="34" alt=""><div><strong>r/law</strong> · 15 hr. ago<br><span style="color:#73797e">BreakfastTop6899</span></div><span class="award">🏅 Top 1% Commenter</span><button class="more btn" style="margin-left:auto">•••</button></div>
+            <h1 class="detail-title">Trump threatens to deploy the U.S. military into Chicago -<br> signaling the start of a nationwide crackdown.</h1>
+            <span class="detail-tag">Trump News</span>
+          </div>
+          <div class="media-box detail-media btn" id="detailMedia">
+            <video id="detailVideo" poster="../../../data/data/41/assets/120.png" preload="none" muted playsinline>
+              <source src="../../../data/data/41/assets/175.mp4" type="video/mp4">
+            </video>
+            <img class="video-poster" src="../../../data/data/41/assets/120.png" width="733" height="436" alt="Donald Trump speaking on a news broadcast">
+            <div class="vid-controls"><span class="play-symbol">Ⅱ</span><span class="progress"></span><span class="video-time">0:00 / 0:47</span><span>CC</span><span>⚙</span><span>◖</span></div>
+          </div>
+          <div class="video-actions detail-actions">
+            <button class="pill btn"><span class="arrow">♧</span>60K <span class="arrow">♧</span></button>
+            <button class="pill btn">▢ 12K</button>
+            <button class="pill btn">🏅 3</button>
+            <button class="pill btn">♧ Share</button>
+          </div>
+          <div class="promoted">
+            <div class="promoted-head"><span style="background:#6354ef;color:white;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:20px">F</span><b>figure</b> · Promoted</div>
+            <p>💰🚀 Get up to $750K with Figure’s 100% online Home Equity Line of Credit. Fast funding,<br> easy process - no need to leave home!</p>
+            <button class="learn btn">Learn More</button><span style="float:right;color:#888;font-size:12px;margin:14px 160px 0 0">figure.com</span>
+            <div class="ad-small">“One of the easiest<br>loans I have ever<br>received.”<b>FIGURE</b></div>
+          </div>
+          <div class="comments">
+            <div class="join-conversation btn">Join the conversation</div>
+            <div class="comment-sort">Sort by: <button class="btn">Best⌄</button><button class="btn" style="border:1px solid #eee;border-radius:18px;padding:9px 14px">⌕　Search Comments</button></div>
+            <div class="sticky-comment">⊕　<b>AutoModerator</b> <span style="color:#45a56a;font-weight:bold">MOD</span> · 15h ago · 📌 Stickied comment</div>
+            <div class="comment">
+              <img class="comment-avatar" src="../../../data/data/41/assets/154.png" width="32" height="32" alt="">
+              <div class="comment-author">BitterFuture <span class="comment-time">· 15h ago</span></div><span class="comment-badge">🏅 Top 1% Commenter</span>
+              <div class="comment-text">It's not a coincidence that he is wearing a hat proclaiming that he's the most brilliant man to have ever lived while declaring he's going to ignore laws and order our military to attack our own citizens.</div>
+              <div class="comment-tools"><button class="btn">♧ 8K</button><button class="btn">♧</button><button class="btn">▢ Reply</button><button class="btn">♙ Award</button><button class="btn">♧ Share</button><button class="btn">•••</button></div>
+              <div class="comment reply">
+                <img class="comment-avatar" src="../../../data/data/41/assets/155.png" width="32" height="32" alt="">
+                <div class="comment-author">Scar bane <span class="comment-time">· 15h ago</span></div>
+                <div class="comment-text">The emperor has no brain.</div>
+                <div class="comment-tools"><button class="btn">♧ 2.8K</button><button class="btn">♧</button><button class="btn">▢ Reply</button><button class="btn">♙ Award</button><button class="btn">♧ Share</button><button class="btn">•••</button></div>
+                <div class="more-replies btn">⊕　253 more replies</div>
+              </div>
+              <div class="comment reply">
+                <img class="comment-avatar" src="../../../data/data/41/assets/130.jpg" width="32" height="32" alt="">
+                <div class="comment-author">RetroCasket <span class="comment-time">· 15h ago</span></div>
+                <div class="comment-text">Sincerely, that is beyond the pale idiotic. And the fact that it doesnt sound any alarms or make more than half the country say this man is an idiot is mind blowing to me.<br><br>I just never saw this country reaching this point. I remember when the smallest thing would disqualify someone from respected office of presidency.<br><br>Just feels like a dream</div>
+                <div class="comment-tools"><button class="btn">♧ 729</button><button class="btn">♧</button><button class="btn">▢ Reply</button><button class="btn">♙ Award</button><button class="btn">♧ Share</button><button class="btn">•••</button></div>
+                <div class="more-replies btn">⊕　238 more replies</div>
+              </div>
+              <div class="comment reply">
+                <img class="comment-avatar" src="../../../data/data/41/assets/161.png" width="32" height="32" alt="">
+                <div class="comment-author">BlackMesaRyan <span class="comment-time">· 15h ago</span></div>
+                <div class="comment-text">The hat is so pathetic and cringe.</div>
+                <div class="comment-tools"><button class="btn">♧ 2.2K</button><button class="btn">♧</button><button class="btn">▢ Reply</button><button class="btn">♙ Award</button><button class="btn">♧ Share</button><button class="btn">•••</button></div>
+                <div class="more-replies btn">⊕　306 more replies</div>
+              </div>
+            </div>
+            <div class="more-replies btn">⊕　488 more replies</div>
+            <div class="comment-group">
+              <div class="comment">
+                <img class="comment-avatar" src="../../../data/data/41/assets/123.jpg" width="32" height="32" alt="">
+                <div class="comment-author">ForcedEntry420 <span class="comment-time">· 15h ago</span></div><span class="comment-badge">🏅 Top 1% Commenter</span>
+                <div class="comment-text">It’s a definite escalation, but at what point do Governor’s mobilize the State Guard to keep the Guard from Red States from invading?</div>
+                <div class="comment-tools"><button class="btn">♧ 2.9K</button><button class="btn">♧</button><button class="btn">▢ Reply</button><button class="btn">♙ Award</button><button class="btn">♧ Share</button><button class="btn">•••</button></div>
+                <div class="more-replies btn">⊕　664 more replies</div>
+              </div>
+              <div class="comment">
+                <img class="comment-avatar" src="../../../data/data/41/assets/130.jpg" width="32" height="32" alt="">
+                <div class="comment-author">alejo699 <span class="comment-time">· 15h ago</span></div><span class="comment-badge">🏅 Top 1% Commenter</span>
+                <div class="comment-text">Crackdown on fucking what? Freedom? Life?</div>
+                <div class="comment-tools"><button class="btn">♧ 2.9K</button><button class="btn">♧</button><button class="btn">▢ Reply</button><button class="btn">♙ Award</button><button class="btn">♧ Share</button><button class="btn">•••</button></div>
+                <div class="comment reply">
+                  <img class="comment-avatar" src="../../../data/data/41/assets/132.jpg" width="32" height="32" alt="">
+                  <div class="comment-author">Admiral_obvious13 <span class="comment-time">· 14h ago</span></div>
+                  <div class="comment-text">Yeah idk man. I've been living in or commuting to Chicago most of my life. There is nothing the military can accomplish here other than wasting a fuckton of money.</div>
+                  <div class="comment-tools"><button class="btn">♧ 1.3K</button><button class="btn">♧</button><button class="btn">▢ Reply</button><button class="btn">♙ Award</button><button class="btn">♧ Share</button></div>
+                  <div class="more-replies btn">⊕　129 more replies</div>
+                </div>
+                <div class="more-replies btn">⊕　274 more replies</div>
+              </div>
+              <div class="comment"><div class="comment-author">⊕　[deleted] <span class="comment-time">· 15h ago · Edited 14h ago</span></div></div>
+              <div class="comment highlight">
+                <img class="comment-avatar" src="../../../data/data/41/assets/168.png" width="32" height="32" alt="">
+                <div class="comment-author">Comfortable_Fill9081 <span class="comment-time">· 14h ago · Edited 12h ago</span></div><span class="comment-badge">🏅 Top 1% Commenter</span>
+                <div class="comment-text">We “African American ladies, beautiful ladies” are NOT saying “please come to Chicago” and he did not “do great with the Black vote.”<br><br>Black women were demographically the <i>least likely</i> of all voters to vote for Trump. Black men the second least likely.</div>
+                <div class="comment-tools"><button class="btn">♧ 1.2K</button><button class="btn">♧</button><button class="btn">▢ Reply</button><button class="btn">♙ Award</button><button class="btn">♧ Share</button></div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <aside class="right-column">
+          <div class="signup">
+            <h3>New to Reddit?</h3>
+            <p>Create your account and connect with a world of communities.</p>
+            <button class="signup-btn btn"><span class="google-g">G</span>Continue with Google</button>
+            <button class="signup-btn btn">✉　 Continue with Email</button>
+            <button class="signup-btn btn">▯　 Continue With Phone Number</button>
+            <p class="signup-terms">By continuing, you agree to our <a>User Agreement</a> and acknowledge that you understand the <a>Privacy Policy</a>.</p>
+          </div>
+          <div class="related-list">
+            <div class="related"><div class="related-head"><img src="../../../data/data/41/assets/102.png" width="24" height="24" alt="">r/law · 11 days ago</div><div class="related-text">President Trump is now open to deploying US Military in cities lik...<img src="../../../data/data/41/assets/120.png" width="82" height="58" alt=""></div><div class="related-stats">51K upvotes · 7.6K comments</div></div>
+            <div class="related"><div class="related-head"><img src="../../../data/data/41/assets/130.jpg" width="24" height="24" alt="">r/AskReddit · 7 mo. ago</div><div class="related-text">Trump has already started making enemies out of major American allies. How do you see the...</div><div class="related-stats">36K upvotes · 9.4K comments</div></div>
+            <div class="related"><div class="related-head"><img src="../../../data/data/41/assets/130.jpg" width="24" height="24" alt="">r/AskReddit · 4 mo. ago</div><div class="related-text">Donald Trump is coming to the end of his first 100 days in office, how do you think he has...</div><div class="related-stats">22K upvotes · 17K comments</div></div>
+            <div class="related"><div class="related-head"><img src="../../../data/data/41/assets/102.png" width="24" height="24" alt="">r/AskCanada · 7 mo. ago</div><div class="related-text">Let it be clear, if you are a Conservative and you support Trump right now, you are a traitor.</div><div class="related-stats">87K upvotes · 9.2K comments</div></div>
+            <div class="related"><div class="related-head"><img src="../../../data/data/41/assets/178.png" width="24" height="24" alt="">r/politics · 10 mo. ago</div><div class="related-text">America will regret its decision to reelect Donald Trump<img src="../../../data/data/41/assets/178.png" width="82" height="58" alt=""></div><div class="related-stats">48K upvotes · 18K comments</div></div>
+            <div class="related"><div class="related-head"><img src="../../../data/data/41/assets/130.jpg" width="24" height="24" alt="">r/AskReddit · 6 mo. ago</div><div class="related-text">US military active and reserve duty members, how are you feeling? What's the consensus...</div><div class="related-stats">19K upvotes · 8.5K comments</div></div>
+            <div class="related"><div class="related-head"><img src="../../../data/data/41/assets/179.png" width="24" height="24" alt="">r/GlobalNews · 3 mo. ago</div><div class="related-text">Trump orders National Guard to LA riots after immigration raids<img src="../../../data/data/41/assets/179.png" width="82" height="58" alt=""></div><div class="related-stats">64K upvotes · 6.3K comments</div></div>
+            <div class="related"><div class="related-head">Z　r/GenZ · 6 mo. ago</div><div class="related-text">Trump voters on here, where do you draw the line?</div><div class="related-stats">16K upvotes · 15K comments</div></div>
+            <div class="related"><div class="related-head">◉　r/AskReddit · 2 mo. ago</div><div class="related-text">How do you feel about 700 Marines being deployed to LA?</div><div class="related-stats">20K upvotes · 11K comments</div></div>
+            <div class="related"><div class="related-head">◉　r/AskCanada · 7 mo. ago</div><div class="related-text">Would you fight the U.S. if it came to it?</div><div class="related-stats">17K upvotes · 9.9K comments</div></div>
+            <div class="related"><div class="related-head">◉　r/mildlyinfuriating · 6 mo. ago</div><div class="related-text">Detroit was flooded and it froze over night. Cars are stuck.</div><div class="related-stats">192K upvotes · 11K comments</div></div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</main>
+<script>
+const body=document.body;
+function openDetail(){
+  body.classList.add('detail-open');
+  window.scrollTo({top:0,behavior:'instant'});
+  document.querySelector('.searchbar input').placeholder='Search in r/law';
+  document.querySelector('.search-community').style.display='inline';
+}
+document.querySelectorAll('[data-open]').forEach(el=>el.addEventListener('click',openDetail));
+document.getElementById('backBtn').addEventListener('click',()=>{
+  body.classList.remove('detail-open');
+  window.scrollTo({top:0,behavior:'instant'});
+  document.querySelector('.searchbar input').placeholder='Search Reddit';
+  document.querySelector('.search-community').style.display='none';
+});
+document.getElementById('brand').addEventListener('click',()=>{
+  body.classList.remove('detail-open');
+  window.scrollTo({top:0,behavior:'instant'});
+  document.querySelector('.searchbar input').placeholder='Search Reddit';
+  document.querySelector('.search-community').style.display='none';
+});
+document.querySelectorAll('.media-box').forEach(box=>{
+  box.addEventListener('click',e=>{
+    if(e.target.closest('.vid-controls')){}
+    const video=box.querySelector('video');
+    if(!video)return;
+    if(video.paused){
+      box.classList.add('playing');
+      video.play().catch(()=>{});
+      box.querySelector('.play-symbol').textContent='Ⅱ';
+    }else{
+      video.pause();
+      box.classList.remove('playing');
+      box.querySelector('.play-symbol').textContent='▶';
+    }
+  });
+});
+document.querySelectorAll('.pill,.join,.login,.signup-btn,.navrow,.see-more,.more,.feed-sort button,.comment-tools button,.more-replies,.carousel-next,.learn,.join-conversation').forEach(el=>{
+  el.addEventListener('click',e=>{
+    if(el.classList.contains('join-conversation')) el.textContent='Log in to join the conversation';
+    if(el.classList.contains('carousel-next')){
+      document.querySelector('.carousel').scrollBy({left:290,behavior:'smooth'});
+    }
+    if(el.classList.contains('login')) el.textContent='Log In';
+    e.stopPropagation();
+  });
+});
+</script>
+</body>
+</html>

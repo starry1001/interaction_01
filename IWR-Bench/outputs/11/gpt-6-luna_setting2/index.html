@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>16Personalities — Free Personality Test</title>
+<style>
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    color:#293042;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#fff;
+    font-size:16px;
+  }
+  .btn{cursor:pointer}
+  header{
+    position:sticky;
+    top:0;
+    z-index:20;
+    height:86px;
+    background:#fff;
+    border-bottom:1px solid #ececef;
+    display:flex;
+    align-items:center;
+    padding:0 32px;
+    box-shadow:0 1px 5px rgba(40,40,60,.04);
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    width:370px;
+    color:#4d4655;
+    font-family:Georgia,serif;
+    font-size:26px;
+    white-space:nowrap;
+  }
+  .brand img{
+    width:50px;
+    height:50px;
+    object-fit:contain;
+    margin-right:10px;
+  }
+  nav{
+    flex:1;
+    display:flex;
+    justify-content:center;
+    gap:38px;
+    height:100%;
+    align-items:center;
+  }
+  nav a,.header-right a{
+    color:#454653;
+    text-decoration:none;
+    font-size:16px;
+    white-space:nowrap;
+  }
+  nav a:first-child{
+    height:100%;
+    display:flex;
+    align-items:center;
+    border-top:4px solid #43a7b8;
+  }
+  .header-right{
+    display:flex;
+    align-items:center;
+    gap:25px;
+    width:370px;
+    justify-content:flex-end;
+  }
+  .icon{font-size:22px;color:#646874}
+  .test-button,.hero-button,.next-button{
+    border:0;
+    color:#fff;
+    background:#8954a2;
+    border-radius:30px;
+    padding:16px 29px;
+    font-weight:bold;
+    font-size:16px;
+  }
+
+  .hero{
+    min-height:825px;
+    background:#49a0b5;
+    position:relative;
+    overflow:hidden;
+    color:#fff;
+    text-align:center;
+    padding-top:86px;
+  }
+  .hero:after{
+    content:"";
+    position:absolute;
+    left:-4%;
+    right:-4%;
+    bottom:-130px;
+    height:310px;
+    background:#fff;
+    border-radius:50% 50% 0 0/25% 25% 0 0;
+  }
+  .hero-content{position:relative;z-index:5}
+  .hero h1{
+    margin:0 auto 18px;
+    font-size:42px;
+    line-height:1.2;
+    font-weight:700;
+  }
+  .hero p{
+    max-width:620px;
+    margin:0 auto 32px;
+    font-size:19px;
+    line-height:1.45;
+  }
+  .hero-button{padding:20px 46px;font-size:18px}
+  .mountains{
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:55px;
+    height:450px;
+    z-index:2;
+  }
+  .mountain{
+    position:absolute;
+    bottom:50px;
+    width:0;height:0;
+    border-left:280px solid transparent;
+    border-right:280px solid transparent;
+    border-bottom:350px solid #bde0e8;
+  }
+  .mountain:after{
+    content:"";
+    position:absolute;
+    top:100px;
+    left:-80px;
+    border-left:80px solid transparent;
+    border-right:80px solid transparent;
+    border-bottom:110px solid #e8f7f7;
+  }
+  .m1{left:3%;transform:scale(.75)}
+  .m2{left:25%;transform:scale(1.1)}
+  .m3{right:19%;transform:scale(1.15)}
+  .m4{right:-3%;transform:scale(.8)}
+  .snow{
+    position:absolute;
+    left:0;right:0;bottom:0;
+    height:280px;
+    background:#fff;
+    clip-path:polygon(0 39%,8% 27%,17% 37%,27% 20%,40% 35%,50% 22%,62% 34%,75% 17%,87% 32%,100% 22%,100% 100%,0 100%);
+    z-index:4;
+  }
+  .trees{position:absolute;bottom:165px;left:0;right:0;height:180px;z-index:3}
+  .tree{
+    position:absolute;
+    bottom:0;
+    width:0;height:0;
+    border-left:28px solid transparent;
+    border-right:28px solid transparent;
+    border-bottom:90px solid #36a36e;
+  }
+  .tree:after{
+    content:"";
+    position:absolute;
+    left:-22px;top:38px;
+    border-left:22px solid transparent;
+    border-right:22px solid transparent;
+    border-bottom:65px solid #248f62;
+  }
+  .t1{left:9%;transform:scale(.8)}.t2{left:18%;transform:scale(1.4)}
+  .t3{left:34%;transform:scale(.7)}.t4{left:58%;transform:scale(1.35)}
+  .t5{left:73%;transform:scale(.9)}.t6{left:86%;transform:scale(1.2)}
+  .camp-figures{
+    position:absolute;
+    z-index:6;
+    bottom:125px;
+    left:0;right:0;
+    height:220px;
+  }
+  .person{
+    position:absolute;
+    bottom:0;
+    width:45px;height:120px;
+    background:#70b86b;
+    border-radius:48% 48% 12px 12px;
+  }
+  .person:before{
+    content:"";
+    position:absolute;
+    width:45px;height:45px;
+    border-radius:50%;
+    background:#f1c39e;
+    top:-35px;left:0;
+  }
+  .p1{left:36%;transform:rotate(-8deg)}
+  .p2{left:61%;height:100px;background:#8d6091;transform:rotate(8deg)}
+  .p3{left:70%;height:135px;background:#54a9a1;transform:rotate(-12deg)}
+  .fire{
+    position:absolute;
+    left:47%;
+    bottom:22px;
+    width:100px;height:100px;
+    background:#f1c323;
+    clip-path:polygon(50% 0,67% 38%,89% 54%,73% 100%,24% 100%,8% 59%,35% 35%);
+    z-index:7;
+  }
+  .stats{
+    position:absolute;
+    bottom:40px;
+    left:0;right:0;
+    z-index:8;
+    display:flex;
+    justify-content:center;
+    gap:175px;
+    font-size:43px;
+    font-weight:bold;
+  }
+  .stats span:nth-child(1){color:#38a1b1}
+  .stats span:nth-child(2){color:#dbb52c}
+  .stats span:nth-child(3){color:#36a67c}
+  .stats span:nth-child(4){color:#725486}
+
+  .intro{
+    background:#f5f5f6;
+    text-align:center;
+    padding:78px 20px 75px;
+    position:relative;
+  }
+  .logo-mark{
+    width:76px;height:76px;
+    object-fit:contain;
+  }
+  .intro h2{
+    font-size:42px;
+    margin:15px 0 12px;
+  }
+  .intro .sub{font-size:18px;margin-bottom:45px}
+  .cards{
+    max-width:1300px;
+    margin:0 auto;
+    display:flex;
+    gap:22px;
+    text-align:left;
+  }
+  .card{
+    flex:1;
+    min-height:290px;
+    background:#fff;
+    border-radius:4px;
+    padding:20px;
+    box-shadow:0 12px 28px rgba(20,30,40,.09);
+    border-top:4px solid #48a8b7;
+    position:relative;
+  }
+  .card:nth-child(2){border-color:#42ad7d}
+  .card:nth-child(3){border-color:#895ba0}
+  .card img{
+    width:155px;height:130px;
+    object-fit:contain;
+    display:block;
+    margin:0 auto 5px;
+  }
+  .step{
+    display:inline-block;
+    color:#fff;
+    background:#46a5b4;
+    border-radius:12px;
+    font-size:11px;
+    padding:5px 10px;
+    font-weight:bold;
+  }
+  .card:nth-child(2) .step{background:#3bab79}
+  .card:nth-child(3) .step{background:#87549b}
+  .card h3{font-size:21px;margin:10px 0}
+  .card p{line-height:1.45;margin:0;color:#4d5360}
+
+  .quiz-section{
+    background:#fff;
+    padding:70px 20px 120px;
+  }
+  .quiz-wrap{max-width:1080px;margin:0 auto}
+  .quiz-title{text-align:center;font-size:27px;margin:0 0 35px}
+  .question{
+    border-bottom:1px solid #ececef;
+    padding:28px 0 38px;
+    transition:.2s;
+  }
+  .question.active-question{background:#fff}
+  .question h3{
+    font-size:20px;
+    font-weight:normal;
+    margin:0 0 27px;
+    color:#70737d;
+  }
+  .question.active-question h3{color:#293042;font-weight:bold}
+  .scale{
+    display:flex;
+    align-items:center;
+    gap:30px;
+  }
+  .agree,.disagree{
+    width:85px;
+    font-size:17px;
+    color:#55b991;
+  }
+  .disagree{color:#825a94;text-align:right}
+  .choices{
+    flex:1;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    max-width:620px;
+  }
+  .choice{
+    width:34px;height:34px;
+    border-radius:50%;
+    border:2px solid #52b993;
+    background:#fff;
+    position:relative;
+    flex:none;
+  }
+  .choice:nth-child(1),.choice:nth-child(7){width:70px;height:70px}
+  .choice:nth-child(2),.choice:nth-child(6){width:54px;height:54px}
+  .choice:nth-child(3),.choice:nth-child(5){width:43px;height:43px}
+  .choice:nth-child(4){border-color:#9b9ca2;width:35px;height:35px}
+  .choice:nth-child(n+5){border-color:#89649a}
+  .choice.selected{
+    background:#43b484;
+    border-color:#43b484;
+  }
+  .choice.selected:after{
+    content:"✓";
+    position:absolute;
+    color:white;
+    font-size:25px;
+    left:50%;top:50%;
+    transform:translate(-50%,-53%);
+  }
+  .choice:nth-child(n+5).selected{background:#89549d;border-color:#89549d}
+  .next-row{padding-top:35px}
+  .next-button{padding:16px 35px}
+  .progress{
+    display:flex;
+    align-items:center;
+    gap:22px;
+    border:1px solid #ececef;
+    padding:18px 20px;
+    margin:0 0 28px;
+    color:#777b85;
+  }
+  .progressbar{height:8px;background:#e9e9ed;border-radius:5px;flex:1}
+  .progressbar span{display:block;height:100%;width:20%;background:#46a2b2;border-radius:5px}
+
+  footer{
+    background:#f2f2f3;
+    min-height:250px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:24px;
+  }
+  footer button{
+    width:62px;height:62px;
+    border:1px solid #babcc2;
+    border-radius:50%;
+    background:transparent;
+    font-size:23px;
+    color:#555;
+  }
+
+  @media(max-width:900px){
+    header{padding:0 15px}.brand{width:auto;font-size:19px}.brand img{width:38px;height:38px}
+    nav{display:none}.header-right{width:auto;margin-left:auto}
+    .header-right a:not(.test-button){display:none}
+    .hero h1{font-size:30px}.stats{gap:25px;font-size:24px}
+    .cards{flex-direction:column;max-width:440px}
+    .scale{gap:8px}.agree,.disagree{width:48px;font-size:12px}.choices{gap:7px}
+    .choice:nth-child(1),.choice:nth-child(7){width:44px;height:44px}
+    .choice:nth-child(2),.choice:nth-child(6){width:37px;height:37px}
+    .choice:nth-child(3),.choice:nth-child(5){width:31px;height:31px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="brand btn" href="#top">
+    <img src="../../../data/data/11/assets/022.png" width="50" height="50" alt="16Personalities">
+    <span>16Personalities</span>
+  </a>
+  <nav>
+    <a class="btn" href="#test">Personality Test</a>
+    <a class="btn" href="#test">Personality Types⌄</a>
+    <a class="btn" href="#test">Career Suite</a>
+    <a class="btn" href="#test">Teams &amp; Pros⌄</a>
+    <a class="btn" href="#test">Resources⌄</a>
+  </nav>
+  <div class="header-right">
+    <a class="btn icon" href="#test">⌕</a>
+    <a class="btn icon" href="#test">◉</a>
+    <a class="btn" href="#test">Log In</a>
+    <button class="test-button btn" onclick="document.getElementById('test').scrollIntoView()">Take the Test</button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="hero-content">
+      <h1>“It’s so incredible to finally be understood.”</h1>
+      <p>Only 10 minutes to get a “freakishly accurate” description of who you are and why you do things the way you do.</p>
+      <button class="hero-button btn" onclick="document.getElementById('test').scrollIntoView()">Take the Test&nbsp; →</button>
+    </div>
+    <div class="mountains">
+      <div class="mountain m1"></div>
+      <div class="mountain m2"></div>
+      <div class="mountain m3"></div>
+      <div class="mountain m4"></div>
+    </div>
+    <div class="trees">
+      <i class="tree t1"></i><i class="tree t2"></i><i class="tree t3"></i>
+      <i class="tree t4"></i><i class="tree t5"></i><i class="tree t6"></i>
+    </div>
+    <div class="camp-figures">
+      <div class="person p1"></div><div class="person p2"></div><div class="person p3"></div>
+      <div class="fire"></div>
+    </div>
+    <div class="snow"></div>
+    <div class="stats">
+      <span>108K+</span><span>184M+</span><span>1436M+</span><span>91.2%</span>
+    </div>
+  </section>
+
+  <section class="intro">
+    <img class="logo-mark" src="../../../data/data/11/assets/022.png" width="76" height="76" alt="Logo">
+    <h2>Free Personality Test</h2>
+    <div class="sub">NERIS Type Explorer<sup>®</sup></div>
+    <div class="cards">
+      <article class="card">
+        <img src="../../../data/data/11/assets/025.png" width="155" height="130" alt="Complete the test">
+        <span class="step">STEP 1</span>
+        <h3>Complete the Test</h3>
+        <p>Be yourself and answer honestly to find out your personality type.</p>
+      </article>
+      <article class="card">
+        <img src="../../../data/data/11/assets/027.png" width="155" height="130" alt="View detailed results">
+        <span class="step">STEP 2</span>
+        <h3>View Detailed Results</h3>
+        <p>Learn how your personality type influences many areas of your life.</p>
+      </article>
+      <article class="card">
+        <img src="../../../data/data/11/assets/028.png" width="155" height="130" alt="Unlock your potential">
+        <span class="step">STEP 3</span>
+        <h3>Unlock Your Potential</h3>
+        <p>Find jobs that suit your personality and get career guidance that actually helps.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="quiz-section" id="test">
+    <div class="quiz-wrap">
+      <div class="progress">
+        <span>PREVIOUS STEP</span>
+        <div class="progressbar"><span id="progressFill"></span></div>
+        <span id="stepText">Step 1 of 10</span>
+      </div>
+
+      <div id="questions"></div>
+
+      <div class="next-row">
+        <button class="next-button btn" id="nextBtn">Next&nbsp; →</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <button class="btn">𝕏</button>
+  <button class="btn">✉</button>
+  <button class="btn">⌘</button>
+</footer>
+
+<script>
+const firstQuestions = [
+  "You regularly make new friends.",
+  "Complex and novel ideas excite you more than simple and straightforward ones.",
+  "You usually feel more persuaded by what resonates emotionally with you than by factual arguments.",
+  "Your living and working spaces are clean and organized.",
+  "You usually stay calm, even under a lot of pressure.",
+  "You find the idea of networking or promoting yourself to strangers very daunting."
+];
+
+const secondQuestions = [
+  "You prioritize and plan tasks effectively, often completing them well before the deadline.",
+  "People’s stories and emotions speak louder to you than numbers or data.",
+  "You like to use organizing tools like schedules and lists.",
+  "Even a small mistake can cause you to doubt your overall abilities and knowledge."
+];
+
+let page = 0;
+const answers = {};
+const questionsEl = document.getElementById("questions");
+
+function renderQuestions(){
+  const list = page === 0 ? firstQuestions : secondQuestions;
+  questionsEl.innerHTML = "";
+
+  if(page > 0){
+    const title = document.createElement("h2");
+    title.className = "quiz-title";
+    title.textContent = "Personality Test";
+    questionsEl.appendChild(title);
+  }
+
+  list.forEach((text,index)=>{
+    const key = page + "-" + index;
+    const row = document.createElement("article");
+    row.className = "question " + (index===0 ? "active-question" : "");
+    row.innerHTML = `
+      <h3>${text}</h3>
+      <div class="scale">
+        <span class="agree">Agree</span>
+        <div class="choices">
+          ${[0,1,2,3,4,5,6].map(n=>`<button class="choice btn" data-key="${key}" data-value="${n}" aria-label="Answer ${n+1}"></button>`).join("")}
+        </div>
+        <span class="disagree">Disagree</span>
+      </div>`;
+    questionsEl.appendChild(row);
+  });
+
+  questionsEl.querySelectorAll(".choice").forEach(btn=>{
+    const key = btn.dataset.key;
+    if(answers[key] === btn.dataset.value) btn.classList.add("selected");
+    btn.addEventListener("click",()=>{
+      answers[key] = btn.dataset.value;
+      document.querySelectorAll(`[data-key="${key}"]`).forEach(x=>x.classList.remove("selected"));
+      btn.classList.add("selected");
+    });
+  });
+}
+
+document.getElementById("nextBtn").addEventListener("click",()=>{
+  if(page===0){
+    page=1;
+    document.getElementById("progressFill").style.width="40%";
+    document.getElementById("stepText").textContent="Step 2 of 10";
+    renderQuestions();
+    window.scrollTo({top:document.getElementById("test").offsetTop-85,behavior:"smooth"});
+  } else {
+    document.getElementById("progressFill").style.width="60%";
+    document.getElementById("stepText").textContent="Step 3 of 10";
+    document.getElementById("nextBtn").textContent="Continue  →";
+    document.querySelector(".next-row").insertAdjacentHTML("beforebegin",
+      '<p style="color:#43a97e;font-weight:bold;margin-top:25px">Your answers have been saved.</p>');
+  }
+});
+renderQuestions();
+</script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+{
+  "id": "chatcmpl-EmMV8ILtWmRL5IOWtffY9f5dLEGWr",
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "logprobs": null,
+      "message": {
+        "content": "```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<title>Online Calculator</title>\n<style>\n*{box-sizing:border-box}\nhtml,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;color:#222;background:#fff}\nbody{min-width:320px}\nbutton,a,select{font:inherit}\n.btn{cursor:pointer}\n.header{height:60px;position:relative;display:flex;align-items:flex-start;padding:4px 12px;justify-content:space-between}\n.brand{display:flex;align-items:center;gap:5px;font-size:14px;color:#444}\n.brand img{width:32px;height:32px;object-fit:contain}\n.tools{display:flex;align-items:center;gap:9px;font-size:12px;color:#555;padding-top:5px}\n.search{width:230px;height:24px;border:1px solid #aaa;border-radius:2px;display:flex;align-items:center;padding:2px 5px;color:#777}\n.search input{border:0;outline:0;width:190px;font-size:11px}\n.search img{width:15px;height:15px;object-fit:contain}\n.language{display:flex;align-items:center;gap:4px}\n.language img{width:21px;height:14px;object-fit:cover}\n.language select{border:1px solid #aaa;font-size:11px;background:#fff;max-width:110px}\n.top-nav{height:82px;display:flex;align-content:flex-start;align-items:flex-start;justify-content:center;flex-wrap:wrap;gap:5px 6px;padding:2px 20px 0}\n.nav-btn{height:35px;min-width:136px;padding:3px 9px;border:1px solid rgba(0,0,0,.35);border-radius:4px;color:#fff;text-shadow:0 1px 1px #333;font-size:13px;white-space:nowrap;box-shadow:inset 0 1px 2px #ffffff80,0 1px 2px #777;display:inline-flex;align-items:center;justify-content:center;gap:5px}\n.nav-btn .ico{font-size:16px;line-height:1;text-shadow:0 1px 2px #333}\n.red{background:linear-gradient(#fa4545,#b90000)}\n.green{background:linear-gradient(#9ef442,#40ad08)}\n.purple{background:linear-gradient(#e74aff,#9205bb)}\n.orange{background:linear-gradient(#ffbc36,#ee7400)}\n.gray{background:linear-gradient(#aaa,#666)}\n.pink{background:linear-gradient(#fb7bbd,#c32d7d)}\n.teal{background:linear-gradient(#45edc9,#00a77f)}\n.blue{background:linear-gradient(#52aaff,#0758c6)}\n.cyan{background:linear-gradient(#72eee5,#13a6a0)}\n.darkblue{background:linear-gradient(#2375a0,#034367)}\nmain{padding-top:138px}\n.welcome{height:170px;background:linear-gradient(110deg,#1385b3,#279bc3 45%,#117ca9);border-top:8px solid #075d7f;border-bottom:8px solid #075d7f;display:flex;align-items:center;justify-content:center;position:relative}\n.welcome:before{content:\"\";position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent 0,transparent 8px,#ffffff08 9px,#ffffff08 12px)}\n.welcome-card{z-index:1;width:min(1010px,90%);min-height:120px;background:#075579;color:#fff;text-align:center;padding:19px 24px;font-family:Georgia,serif;font-size:14px;line-height:1.65;box-shadow:0 1px 3px #00415a}\n.welcome-card p{margin:0 0 6px}\n.calculator-wrap{height:645px;padding-top:40px;display:flex;align-items:center;flex-direction:column}\n.calculator{width:270px;padding:9px;background:linear-gradient(#f4f4f4,#a7a7a7);border:5px solid #454545;border-radius:15px;box-shadow:0 2px 5px #777}\n.display{height:53px;border:2px solid #777;border-radius:7px;background:linear-gradient(#ddffff,#b9edeb);margin-bottom:9px;padding:7px 9px;text-align:right;font-family:Arial,sans-serif;font-size:21px;line-height:34px;color:#222;overflow:hidden;white-space:nowrap}\n.key-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:5px}\n.key{height:39px;border:1px solid #666;border-radius:5px;background:linear-gradient(#fff,#d9d9e8);box-shadow:inset 0 1px #fff,0 1px 2px #777;color:#111;font-weight:bold;font-size:16px;padding:0}\n.key:hover{filter:brightness(1.08)}\n.key.mem{background:linear-gradient(#b9ffbb,#56d85b);font-size:13px}\n.key.op{background:linear-gradient(#d8fff2,#67e9a3)}\n.key.clear{background:linear-gradient(#ffd5d2,#ff8d7c)}\n.key.equal{background:linear-gradient(#a9ffab,#45ce59)}\n.fullscreen{margin-top:8px;color:#00e;text-decoration:underline;font-family:Georgia,serif;font-size:14px}\n.fullscreen span{font-family:Arial;font-size:17px;color:#111;margin-right:4px}\n.footer-nav{height:120px;background:linear-gradient(110deg,#148bb7,#198fb9);border-top:8px solid #075d7f;display:flex;align-content:center;justify-content:center;align-items:center;flex-wrap:wrap;gap:7px 8px;padding:12px 3%}\n.footer-nav .nav-btn{height:43px;min-width:171px;font-size:14px}\n@media(max-width:1100px){\n .header{height:55px}.top-nav{height:auto;min-height:82px;padding:2px 8px;gap:4px}\n .nav-btn{min-width:125px;height:31px;font-size:11px}\n main{padding-top:75px}\n .welcome{height:145px}\n .welcome-card{font-size:12px;min-height:95px}\n .calculator-wrap{height:590px}\n .footer-nav{height:auto;min-height:130px}\n .footer-nav .nav-btn{min-width:145px;height:36px;font-size:12px}\n}\n@media(max-width:600px){\n .tools{gap:4px}.search{width:125px}.search input{width:90px}\n .top-nav{padding:5px 3px}\n .nav-btn{min-width:calc(50% - 8px);font-size:10px;padding:2px}\n main{padding-top:55px}\n .welcome-card{padding:12px}\n .calculator-wrap{height:565px}\n .footer-nav{gap:5px;padding:10px 6px}\n .footer-nav .nav-btn{min-width:calc(50% - 5px)}\n}\n</style>\n</head>\n<body>\n<header>\n  <div class=\"header\">\n    <div class=\"brand\">\n      <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/011.svg\" width=\"32\" height=\"32\" alt=\"\">\n      <span>Online-Calculator</span>\n    </div>\n    <div class=\"tools\">\n      <label class=\"search\"><span>⌕</span><input aria-label=\"Search\" type=\"search\" placeholder=\"Search Online Calculator\"></label>\n      <span class=\"language\"><img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/034.svg\" width=\"21\" height=\"14\" alt=\"\"><select class=\"btn\" aria-label=\"Change language\"><option>Change Language</option><option>English</option></select></span>\n    </div>\n  </div>\n  <nav class=\"top-nav\" aria-label=\"Calculator tools\">\n    <a class=\"btn nav-btn red\"><span class=\"ico\">◉</span>Full Screen Calculator</a>\n    <a class=\"btn nav-btn green\"><span class=\"ico\">◉</span>Scientific Calculator</a>\n    <a class=\"btn nav-btn purple\"><span class=\"ico\">◉</span>Simple Calculator</a>\n    <a class=\"btn nav-btn orange\"><span class=\"ico\">▦</span>Online Abacus</a>\n    <a class=\"btn nav-btn gray\"><span class=\"ico\">◉</span>Dark Calculator</a>\n    <a class=\"btn nav-btn pink\"><span class=\"ico\">✿</span>Maths Calculator</a>\n    <a class=\"btn nav-btn teal\"><span class=\"ico\">◉</span>EMI Calculator</a>\n    <a class=\"btn nav-btn blue\"><span class=\"ico\">◉</span>Ratio Calculator</a>\n    <a class=\"btn nav-btn green\"><span class=\"ico\">◉</span>Ring Size Converter</a>\n    <a class=\"btn nav-btn orange\"><span class=\"ico\">↔</span>Length Converter</a>\n    <a class=\"btn nav-btn green\"><span class=\"ico\">％</span>Percentage Calculator</a>\n    <a class=\"btn nav-btn orange\"><span class=\"ico\">◉</span>Volume Converter</a>\n    <a class=\"btn nav-btn teal\"><span class=\"ico\">◉</span>Weight Converter</a>\n    <a class=\"btn nav-btn orange\"><span class=\"ico\">↔</span>Length Conversions</a>\n    <a class=\"btn nav-btn purple\"><span class=\"ico\">◉</span>Speed Conversions</a>\n    <a class=\"btn nav-btn red\"><span class=\"ico\">🌡</span>Temperature Conversions</a>\n    <a class=\"btn nav-btn blue\"><span class=\"ico\">◷</span>Time Conversions</a>\n    <a class=\"btn nav-btn gray\"><span class=\"ico\">⚖</span>Weight Conversions</a>\n  </nav>\n</header>\n\n<main>\n  <section class=\"welcome\">\n    <div class=\"welcome-card\">\n      <p>Welcome to Online Calculator! We have a range of free, easy to use calculators, conversion tools, and much more!</p>\n      <p>Our tools are designed to help you perform a wide range of calculations and conversions quickly and accurately, whether you're at home, at work, or on the go.</p>\n    </div>\n  </section>\n\n  <section class=\"calculator-wrap\" aria-label=\"Calculator\">\n    <div class=\"calculator\">\n      <div class=\"display\" id=\"display\" aria-live=\"polite\"></div>\n      <div class=\"key-grid\">\n        <button class=\"btn key mem\" data-action=\"mc\">MC</button>\n        <button class=\"btn key mem\" data-action=\"mr\">MR</button>\n        <button class=\"btn key mem\" data-action=\"mplus\">M+</button>\n        <button class=\"btn key mem\" data-action=\"mminus\">M-</button>\n        <button class=\"btn key clear\" data-action=\"clear\">C</button>\n        <button class=\"btn key\" data-value=\"7\">7</button>\n        <button class=\"btn key\" data-value=\"8\">8</button>\n        <button class=\"btn key\" data-value=\"9\">9</button>\n        <button class=\"btn key op\" data-value=\"/\">÷</button>\n        <button class=\"btn key op\" data-action=\"sqrt\">√</button>\n        <button class=\"btn key\" data-value=\"4\">4</button>\n        <button class=\"btn key\" data-value=\"5\">5</button>\n        <button class=\"btn key\" data-value=\"6\">6</button>\n        <button class=\"btn key op\" data-value=\"*\">×</button>\n        <button class=\"btn key op\" data-value=\"%\">%</button>\n        <button class=\"btn key\" data-value=\"1\">1</button>\n        <button class=\"btn key\" data-value=\"2\">2</button>\n        <button class=\"btn key\" data-value=\"3\">3</button>\n        <button class=\"btn key op\" data-value=\"-\">−</button>\n        <button class=\"btn key op\" data-value=\"+\">+</button>\n        <button class=\"btn key\" data-value=\"0\">0</button>\n        <button class=\"btn key\" data-value=\".\">.</button>\n        <button class=\"btn key op\" data-action=\"sign\">±</button>\n        <button class=\"btn key op\" data-action=\"back\">←</button>\n        <button class=\"btn key equal\" data-action=\"equals\">=</button>\n      </div>\n    </div>\n    <a class=\"btn fullscreen\" id=\"fullscreen\"><span>⛶</span>Use the Online Calculator Full Screen</a>\n  </section>\n</main>\n\n<nav class=\"footer-nav\" aria-label=\"More calculators\">\n  <a class=\"btn nav-btn darkblue\"><span class=\"ico\">⌂</span>Home Page</a>\n  <a class=\"btn nav-btn red\"><span class=\"ico\">◉</span>Full Screen Calculator</a>\n  <a class=\"btn nav-btn green\"><span class=\"ico\">◉</span>Scientific Calculator</a>\n  <a class=\"btn nav-btn purple\"><span class=\"ico\">◉</span>Simple Calculator</a>\n  <a class=\"btn nav-btn orange\"><span class=\"ico\">▦</span>Online Abacus</a>\n  <a class=\"btn nav-btn gray\"><span class=\"ico\">◉</span>Dark Calculator</a>\n  <a class=\"btn nav-btn pink\"><span class=\"ico\">✿</span>Maths Calculator</a>\n  <a class=\"btn nav-btn teal\"><span class=\"ico\">◉</span>EMI Calculator</a>\n  <a class=\"btn nav-btn blue\"><span class=\"ico\">◉</span>Ratio Calculator</a>\n  <a class=\"btn nav-btn green\"><span class=\"ico\">◉</span>Ring Size Converter</a>\n  <a class=\"btn nav-btn orange\"><span class=\"ico\">↔</span>Length Converter</a>\n  <a class=\"btn nav-btn green\"><span class=\"ico\">％</span>Percentage Calculator</a>\n  <a class=\"btn nav-btn orange\"><span class=\"ico\">◉</span>Volume Converter</a>\n  <a class=\"btn nav-btn teal\"><span class=\"ico\">◉</span>Weight Converter</a>\n  <a class=\"btn nav-btn orange\"><span class=\"ico\">↔</span>Length Conversions</a>\n  <a class=\"btn nav-btn purple\"><span class=\"ico\">◉</span>Speed Conversions</a>\n  <a class=\"btn nav-btn red\"><span class=\"ico\">🌡</span>Temperature Conversions</a>\n  <a class=\"btn nav-btn blue\"><span class=\"ico\">◷</span>Time Conversions</a>\n  <a class=\"btn nav-btn gray\"><span class=\"ico\">⚖</span>Weight Conversions</a>\n</nav>\n\n<script>\n(() => {\n  const display = document.getElementById('display');\n  let entry = '', stored = null, operator = null, resetNext = false, memory = 0;\n  const show = value => { display.textContent = value; };\n  const current = () => Number(entry || display.textContent || 0);\n  function digit(v){\n    if(resetNext){ entry=''; resetNext=false; }\n    if(v==='.' && (entry || display.textContent).includes('.')) return;\n    entry = (entry || '') + v;\n    show(entry);\n  }\n  function calculate(a,b,op){\n    if(op==='+') return a+b;\n    if(op==='-') return a-b;\n    if(op==='*') return a*b;\n    if(op==='/') return b===0 ? NaN : a/b;\n    if(op==='%') return a%b;\n    return b;\n  }\n  function choose(op){\n    const n=current();\n    if(operator && !resetNext){\n      const result=calculate(stored,n,operator);\n      stored=result; show(String(result));\n    }else stored=n;\n    operator=op; resetNext=true; entry='';\n  }\n  function equals(){\n    if(operator===null) return;\n    const result=calculate(stored,current(),operator);\n    show(Number.isFinite(result) ? String(Number(result.toPrecision(12))) : 'Error');\n    entry=display.textContent; stored=null; operator=null; resetNext=true;\n  }\n  document.querySelectorAll('.key').forEach(key=>{\n    key.addEventListener('click',()=>{\n      const value=key.dataset.value, action=key.dataset.action;\n      if(value!==undefined){ if('0123456789.'.includes(value)) digit(value); else choose(value); return; }\n      switch(action){\n        case 'clear': entry='';stored=null;operator=null;resetNext=false;show('');break;\n        case 'equals':equals();break;\n        case 'sqrt':show(String(Math.sqrt(current())));entry=display.textContent;resetNext=true;break;\n        case 'sign':show(String(-current()));entry=display.textContent;break;\n        case 'back':entry=(entry||display.textContent).slice(0,-1);show(entry);break;\n        case 'mc':memory=0;break;\n        case 'mr':entry=String(memory);show(entry);break;\n        case 'mplus':memory+=current();break;\n        case 'mminus':memory-=current();break;\n      }\n    });\n  });\n  document.addEventListener('keydown',e=>{\n    if(/^[0-9.]$/.test(e.key)){digit(e.key);e.preventDefault();}\n    else if(['+','-','*','/','%'].includes(e.key)) choose(e.key);\n    else if(e.key==='Enter'||e.key==='='){equals();e.preventDefault();}\n    else if(e.key==='Escape'){entry='';stored=null;operator=null;show('');}\n    else if(e.key==='Backspace'){entry=entry.slice(0,-1);show(entry);}\n  });\n  document.getElementById('fullscreen').addEventListener('click',()=>{\n    if(document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(()=>{});\n  });\n})();\n</script>\n</body>\n</html>\n```",
+        "refusal": null,
+        "role": "assistant",
+        "annotations": [],
+        "audio": null,
+        "function_call": null,
+        "tool_calls": null
+      },
+      "content_filter_results": {
+        "hate": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "protected_material_code": {
+          "detected": false,
+          "filtered": false
+        },
+        "protected_material_text": {
+          "detected": false,
+          "filtered": false
+        },
+        "self_harm": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "sexual": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "violence": {
+          "filtered": false,
+          "severity": "safe"
+        }
+      }
+    }
+  ],
+  "created": 1795194946,
+  "model": "gpt-6-luna-2026-09-22",
+  "object": "chat.completion",
+  "metadata": null,
+  "moderation": null,
+  "service_tier": "default",
+  "system_fingerprint": null,
+  "usage": {
+    "completion_tokens": 6264,
+    "prompt_tokens": 7767,
+    "total_tokens": 14031,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": 0,
+      "audio_tokens": 0,
+      "reasoning_tokens": 2123,
+      "rejected_prediction_tokens": 0,
+      "text_tokens": null
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cache_write_tokens": null,
+      "cached_tokens": 0,
+      "image_tokens": null,
+      "text_tokens": null
+    },
+    "latency_checkpoint": {
+      "engine_tbt_ms": 9,
+      "engine_ttft_ms": 1160,
+      "engine_ttlt_ms": 55084,
+      "pre_inference_ms": 1803,
+      "service_tbt_ms": 9,
+      "service_ttft_ms": 3329,
+      "service_ttlt_ms": 57250,
+      "user_visible_ttft_ms": 1526
+    }
+  },
+  "prompt_filter_results": [
+    {
+      "prompt_index": 0,
+      "content_filter_results": {
+        "hate": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "jailbreak": {
+          "detected": false,
+          "filtered": false
+        },
+        "self_harm": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "sexual": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "violence": {
+          "filtered": false,
+          "severity": "safe"
+        }
+      }
+    }
+  ],
+  "routing": {
+    "serving_pipereplica": "d20261116094030-d331fbef-prefill-r3-dp0-prefill"
+  }
+}

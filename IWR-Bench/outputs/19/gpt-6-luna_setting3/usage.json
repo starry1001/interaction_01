@@ -1,0 +1,36 @@
+{
+  "requested_model": "gpt-6-luna",
+  "returned_model": "gpt-6-luna-2026-09-22",
+  "input_tokens": 23812,
+  "output_tokens": 11728,
+  "total_tokens": 35540,
+  "usage": {
+    "completion_tokens": 11728,
+    "prompt_tokens": 23812,
+    "total_tokens": 35540,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": 0,
+      "audio_tokens": 0,
+      "reasoning_tokens": 929,
+      "rejected_prediction_tokens": 0,
+      "text_tokens": null
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cache_write_tokens": null,
+      "cached_tokens": 0,
+      "image_tokens": null,
+      "text_tokens": null
+    },
+    "latency_checkpoint": {
+      "engine_tbt_ms": 9,
+      "engine_ttft_ms": 1010,
+      "engine_ttlt_ms": 108455,
+      "pre_inference_ms": 2079,
+      "service_tbt_ms": 9,
+      "service_ttft_ms": 3330,
+      "service_ttlt_ms": 110770,
+      "user_visible_ttft_ms": 1250
+    }
+  }
+}

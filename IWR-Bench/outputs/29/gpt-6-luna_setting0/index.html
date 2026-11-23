@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Choose your 1Password Plan</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; }
+  body {
+    background: #fff;
+    color: #171b27;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow-x: hidden;
+  }
+  button { font: inherit; color: inherit; }
+  .btn { cursor: pointer; }
+  .announcement {
+    height: 70px;
+    width: 100%;
+    background: #fbf6ef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    color: #111;
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .announcement-copy { display: flex; align-items: center; gap: 17px; }
+  .announcement a { color: #1769bc; text-decoration: none; white-space: nowrap; }
+  .announcement a span { font-size: 20px; margin-left: 4px; vertical-align: -1px; }
+  .close-announcement {
+    position: absolute;
+    right: 27px;
+    top: 16px;
+    width: 36px;
+    height: 36px;
+    border: 0;
+    background: transparent;
+    font-size: 24px;
+    font-weight: 300;
+    color: #333;
+    line-height: 1;
+  }
+  .navigation {
+    height: 113px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+  .nav-inner {
+    width: 1260px;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+  }
+  .brand {
+    width: 140px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+  }
+  .brand img {
+    display: block;
+    width: 140px;
+    height: 34px;
+    object-fit: contain;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    margin-left: 18px;
+    height: 100%;
+  }
+  .nav-link {
+    border: 0;
+    padding: 8px 0;
+    background: transparent;
+    color: #262b42;
+    font-size: 16px;
+    white-space: nowrap;
+  }
+  .nav-link .chevron {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin: 0 0 3px 8px;
+    border-right: 1.5px solid #31354a;
+    border-bottom: 1.5px solid #31354a;
+    transform: rotate(45deg);
+  }
+  .sign-in {
+    width: 201px;
+    height: 47px;
+    border: 1.5px solid #34374d;
+    border-radius: 25px;
+    background: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    margin-left: auto;
+  }
+  main {
+    width: 1262px;
+    margin: 81px auto 80px;
+  }
+  h1 {
+    margin: 0;
+    color: #111b4c;
+    font-size: 60px;
+    font-weight: 400;
+    line-height: 1.23;
+    letter-spacing: -1.5px;
+  }
+  .controls {
+    margin-top: 106px;
+    height: 81px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .plan-tabs {
+    width: 500px;
+    height: 81px;
+    padding: 8px;
+    background: #d9d9dd;
+    border-radius: 17px;
+    display: flex;
+    align-items: center;
+  }
+  .tab {
+    height: 65px;
+    border: 0;
+    border-radius: 11px;
+    background: transparent;
+    padding: 0 16px;
+    font-size: 16px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .tab:first-child { width: 294px; }
+  .tab:last-child { width: 190px; }
+  .tab.active {
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,.05);
+  }
+  .pricing-options {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    height: 52px;
+  }
+  .billing {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+  }
+  .radio-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    color: #4a4d55;
+    font-size: 23px;
+    white-space: nowrap;
+  }
+  .radio-label input {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 25px;
+    height: 25px;
+    margin: 0;
+    border: 1.7px solid #bfc2c8;
+    border-radius: 50%;
+    background: #fff;
+    position: relative;
+    cursor: pointer;
+  }
+  .radio-label input:checked { border-color: #2676cf; }
+  .radio-label input:checked::after {
+    content: "";
+    position: absolute;
+    width: 13px;
+    height: 13px;
+    top: 4.5px;
+    left: 4.5px;
+    border-radius: 50%;
+    background: #2676cf;
+  }
+  .currency-wrap { position: relative; }
+  .currency-trigger {
+    width: 132px;
+    height: 45px;
+    border: 2px solid #999;
+    border-radius: 5px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    font-size: 16px;
+  }
+  .currency-current { display: flex; align-items: center; gap: 5px; }
+  .flag { font-size: 27px; line-height: 1; }
+  .currency-arrow {
+    width: 10px;
+    height: 10px;
+    margin: -5px 0 0 6px;
+    border-right: 2px solid #222;
+    border-bottom: 2px solid #222;
+    transform: rotate(45deg);
+    transition: transform .15s;
+  }
+  .currency-trigger[aria-expanded="true"] .currency-arrow {
+    transform: rotate(225deg);
+    margin-top: 5px;
+  }
+  .currency-menu {
+    display: none;
+    position: absolute;
+    z-index: 5;
+    top: 63px;
+    left: 0;
+    width: 132px;
+    padding: 4px 0;
+    border: 1px solid #e6e6e8;
+    border-radius: 5px;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,.08);
+  }
+  .currency-menu.open { display: block; }
+  .currency-option {
+    width: 100%;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 10px;
+    border: 0;
+    background: white;
+    color: #757983;
+    font-size: 16px;
+    text-align: left;
+  }
+  .currency-option:hover { background: #f7f9fc; }
+  .currency-option.selected {
+    outline: 2px solid #6486cc;
+    outline-offset: -2px;
+    border-radius: 5px;
+  }
+  .currency-option .check {
+    margin-left: auto;
+    color: #5578bd;
+    font-size: 19px;
+  }
+  .info {
+    width: 19px;
+    height: 19px;
+    border: 1.5px solid #757980;
+    border-radius: 50%;
+    color: #686b72;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 16px;
+    text-align: center;
+    background: #fff;
+    padding: 0;
+  }
+  .cards {
+    margin-top: 33px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .card {
+    min-height: 454px;
+    border: 4px solid #7f9de0;
+    border-radius: 17px;
+    padding: 45px 32px 30px;
+    color: #292d34;
+    background: #fff;
+  }
+  .card:nth-child(3), .card:nth-child(4) { border-color: #20386f; }
+  .card h2 {
+    margin: 0 0 7px;
+    color: #17366d;
+    font-size: 23px;
+    line-height: 1.25;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .description {
+    height: 53px;
+    margin: 0;
+    color: #4b4d52;
+    font-size: 16px;
+    line-height: 25px;
+  }
+  .price-line {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+    margin-top: 8px;
+    white-space: nowrap;
+  }
+  .price {
+    font-size: 40px;
+    line-height: 1.15;
+    font-weight: 400;
+    letter-spacing: -1.4px;
+  }
+  .currency-code { font-size: 14px; color: #555961; }
+  .price-note {
+    margin: 3px 0 0;
+    height: 40px;
+    color: #4d5056;
+    font-size: 14px;
+    line-height: 20px;
+  }
+  .trial {
+    display: block;
+    width: 204px;
+    height: 47px;
+    max-width: 100%;
+    margin: 10px auto 0;
+    border: 0;
+    border-radius: 25px;
+    background: #0871ce;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .trial:hover { background: #075fb1; }
+  .features {
+    margin: 26px 0 0;
+    padding: 0;
+    list-style: none;
+    color: #343944;
+    font-size: 15px;
+    line-height: 2.2;
+  }
+  .features li::before {
+    content: "✓";
+    color: #138257;
+    font-weight: bold;
+    margin-right: 9px;
+  }
+  .tooltip {
+    display: none;
+    position: absolute;
+    z-index: 10;
+    top: 28px;
+    right: 0;
+    width: 250px;
+    padding: 12px;
+    color: #333;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-shadow: 0 3px 12px #0002;
+    font-size: 14px;
+  }
+  .tooltip.show { display: block; }
+  @media (max-width: 1300px) {
+    .nav-inner, main { width: calc(100% - 48px); }
+    .cards { grid-template-columns: repeat(2, minmax(260px, 1fr)); }
+    .controls { gap: 24px; }
+    .plan-tabs { flex-shrink: 0; }
+    .pricing-options { gap: 12px; }
+    .radio-label { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+  <div class="announcement" id="announcement">
+    <div class="announcement-copy">
+      <span>Ready for a new password manager? We'll credit you for the time left on your current bill.</span>
+      <a class="btn" href="#" onclick="event.preventDefault()">Let's talk <span>➜</span></a>
+    </div>
+    <button class="close-announcement btn" aria-label="Close announcement" onclick="document.getElementById('announcement').style.display='none'">×</button>
+  </div>
+
+  <header class="navigation">
+    <div class="nav-inner">
+      <a href="#" class="brand btn" aria-label="1Password home" onclick="event.preventDefault()">
+        <img src="../../../data/data/29/assets/022.png" width="140" height="34" alt="1Password">
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <button class="nav-link btn">Why 1Password<span class="chevron"></span></button>
+        <button class="nav-link btn">Products<span class="chevron"></span></button>
+        <button class="nav-link btn">Resources<span class="chevron"></span></button>
+        <button class="nav-link btn">Pricing</button>
+      </nav>
+      <button class="sign-in btn">Sign in</button>
+    </div>
+  </header>
+
+  <main>
+    <h1>Choose your 1Password<br>Password Manager Plan</h1>
+
+    <section class="controls" aria-label="Pricing options">
+      <div class="plan-tabs" role="tablist" aria-label="Plan type">
+        <button class="tab btn" role="tab" aria-selected="false" onclick="selectTab(this)">Extended Access Management</button>
+        <button class="tab active btn" role="tab" aria-selected="true" onclick="selectTab(this)">Password Manager</button>
+      </div>
+      <div class="pricing-options">
+        <div class="billing">
+          <label class="radio-label btn"><input type="radio" name="billing" value="annual" checked><span>Annually</span></label>
+          <label class="radio-label btn"><input type="radio" name="billing" value="monthly"><span>Monthly</span></label>
+        </div>
+        <div class="currency-wrap">
+          <button class="currency-trigger btn" id="currencyTrigger" aria-expanded="false" aria-label="Select currency">
+            <span class="currency-current"><span class="flag" id="currentFlag">🇺🇸</span><span id="currentCode">USD</span></span>
+            <span class="currency-arrow"></span>
+          </button>
+          <div class="currency-menu" id="currencyMenu">
+            <button class="currency-option btn" data-currency="USD"><span class="flag">🇺🇸</span><span>USD</span><span class="check"></span></button>
+            <button class="currency-option btn" data-currency="CAD"><span class="flag">🇨🇦</span><span>CAD</span><span class="check"></span></button>
+            <button class="currency-option btn" data-currency="EUR"><span class="flag">🇪🇺</span><span>EUR</span><span class="check"></span></button>
+          </div>
+        </div>
+        <div class="currency-wrap">
+          <button class="info btn" id="infoButton" aria-label="Currency information">i</button>
+          <div class="tooltip" id="infoTooltip">Prices are shown in the selected currency.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cards" aria-label="Available plans">
+      <article class="card">
+        <h2>Individual</h2>
+        <p class="description">Take control of your online<br>security.</p>
+        <div class="price-line"><span class="price" data-plan="individual">$2.99</span><span class="currency-code">USD</span></div>
+        <p class="price-note" data-note="individual">Per month. Paid annually.</p>
+        <button class="trial btn">Try FREE for 14 days</button>
+        <ul class="features"><li>Unlimited passwords</li><li>Secure sharing</li><li>24/7 support</li></ul>
+      </article>
+      <article class="card">
+        <h2>Families</h2>
+        <p class="description">Peace of mind for your entire<br>family.</p>
+        <div class="price-line"><span class="price" data-plan="families">$4.99</span><span class="currency-code">USD</span></div>
+        <p class="price-note" data-note="families">Per month. Paid annually.</p>
+        <button class="trial btn">Try FREE for 14 days</button>
+        <ul class="features"><li>For up to 5 family members</li><li>Secure sharing</li><li>24/7 support</li></ul>
+      </article>
+      <article class="card">
+        <h2>Teams Starter Pack</h2>
+        <p class="description">Secure your small team.</p>
+        <div class="price-line"><span class="price" data-plan="teams">$19.95</span><span class="currency-code">USD</span></div>
+        <p class="price-note" data-note="teams">Up to 10 users/month. Paid annually.</p>
+        <button class="trial btn">Try FREE for 14 days</button>
+        <ul class="features"><li>Up to 10 team members</li><li>Admin controls</li><li>Priority support</li></ul>
+      </article>
+      <article class="card">
+        <h2>Business</h2>
+        <p class="description">Security that adapts to your<br>business.</p>
+        <div class="price-line"><span class="price" data-plan="business">$7.99</span><span class="currency-code">USD</span></div>
+        <p class="price-note" data-note="business">Per user, per month. Paid annually.</p>
+        <button class="trial btn">Try FREE for 14 days</button>
+        <ul class="features"><li>Advanced protection</li><li>Usage reports</li><li>Priority support</li></ul>
+      </article>
+    </section>
+  </main>
+
+<script>
+  const prices = {
+    annual: {
+      USD: ['$2.99', '$4.99', '$19.95', '$7.99'],
+      CAD: ['$3.99', '$5.99', '$24.95', '$9.99'],
+      EUR: ['€2.99', '€4.99', '€19.95', '€7.99']
+    },
+    monthly: {
+      USD: ['$3.99', '$6.95', '$24.95', '$9.99'],
+      CAD: ['$4.99', '$7.95', '$29.95', '$11.99'],
+      EUR: ['€3.39', '€5.95', '€20.95', '€8.99']
+    }
+  };
+  const planNames = ['individual', 'families', 'teams', 'business'];
+  const currencies = { USD: '🇺🇸', CAD: '🇨🇦', EUR: '🇪🇺' };
+  let billingType = 'annual';
+  let currency = 'USD';
+
+  function updatePrices() {
+    document.querySelectorAll('.price').forEach((el, index) => {
+      el.textContent = prices[billingType][currency][index];
+    });
+    document.querySelectorAll('.currency-code').forEach(el => el.textContent = currency);
+    document.querySelectorAll('.price-note').forEach((el, index) => {
+      if (billingType === 'monthly') {
+        el.textContent = ['Per month.', 'Per month.', 'Up to 10 users per month.', 'Per user, per month.'][index];
+      } else {
+        el.textContent = ['Per month. Paid annually.', 'Per month. Paid annually.', 'Up to 10 users/month. Paid annually.', 'Per user, per month. Paid annually.'][index];
+      }
+    });
+  }
+
+  document.querySelectorAll('input[name="billing"]').forEach(input => {
+    input.addEventListener('change', () => {
+      billingType = input.value;
+      updatePrices();
+    });
+  });
+
+  const trigger = document.getElementById('currencyTrigger');
+  const menu = document.getElementById('currencyMenu');
+  trigger.addEventListener('click', () => {
+    const open = menu.classList.toggle('open');
+    trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  document.querySelectorAll('.currency-option').forEach(option => {
+    option.addEventListener('click', () => {
+      currency = option.dataset.currency;
+      document.getElementById('currentCode').textContent = currency;
+      document.getElementById('currentFlag').textContent = currencies[currency];
+      document.querySelectorAll('.currency-option').forEach(item => {
+        item.classList.toggle('selected', item.dataset.currency === currency);
+        item.querySelector('.check').textContent = item.dataset.currency === currency ? '✓' : '';
+      });
+      menu.classList.remove('open');
+      trigger.setAttribute('aria-expanded', 'false');
+      updatePrices();
+    });
+  });
+
+  document.addEventListener('click', event => {
+    if (!event.target.closest('.currency-wrap')) {
+      menu.classList.remove('open');
+      trigger.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  document.getElementById('infoButton').addEventListener('click', () => {
+    document.getElementById('infoTooltip').classList.toggle('show');
+  });
+
+  function selectTab(button) {
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.classList.remove('active');
+      tab.setAttribute('aria-selected', 'false');
+    });
+    button.classList.add('active');
+    button.setAttribute('aria-selected', 'true');
+  }
+
+  document.querySelectorAll('.trial, .sign-in, .nav-link').forEach(button => {
+    button.addEventListener('click', event => event.preventDefault());
+  });
+
+  document.querySelectorAll('.currency-option').forEach(item => {
+    item.classList.toggle('selected', item.dataset.currency === currency);
+    item.querySelector('.check').textContent = item.dataset.currency === currency ? '✓' : '';
+  });
+  updatePrices();
+</script>
+</body>
+</html>

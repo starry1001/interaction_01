@@ -1,0 +1,68 @@
+{
+  "total_step": 8,
+  "success_step": 1,
+  "screenshot_paths_to_eval": [
+    "outputs/17/gpt-6-luna_setting0/evalpoints/0.png",
+    "outputs/17/gpt-6-luna_setting0/evalpoints/0.png"
+  ],
+  "all_mllm_scores": [
+    0.93,
+    0.91
+  ],
+  "all_dino_scores": [
+    0.955078125,
+    0.9541015625
+  ],
+  "all_ocr_scores": [
+    0.9124423963133641,
+    0.9124423963133641
+  ],
+  "all_avg_scores": [
+    0.9325068404377882,
+    0.925514652937788
+  ],
+  "mllm_score": 0.92,
+  "dino_score": 0.95458984375,
+  "ocr_score": 0.9124423963133641,
+  "avg_score": 0.9290107466877882,
+  "all_mllm_res": [
+    "Comments:\n- **Layout (9/10):** The overall structure, spacing, section heights, and alignment closely match the reference. Minor differences include slightly narrower content positioning and a somewhat wider first session thumbnail in the generated page.\n- **Elements (13/15):** Nearly all major elements are present: BBC header/navigation, Learning English banner, language selector, course navigation, unit selector, tabs, session cards, images, labels, and text. The tab styling and widths differ slightly, with the generated version using more visibly bordered boxes.\n- **Content and Text (39/40):** Text content is highly accurate and matches the reference almost exactly, including navigation labels, unit title, session headings, dates, descriptions, and activity badges. Only very minor visual/text-rendering differences are apparent.\n- **Style (14/15):** Colors, typography, dark teal sections, white backgrounds, imagery, and BBC visual identity are reproduced very well. Small differences exist in font rendering, tab borders, and some header spacing.\n- **Overall (18/20):** This is a very close reproduction with strong visual and structural similarity. The main discrepancies are subtle sizing/alignment differences and the treatment of the tabs.\n\n**Score: 93/100**",
+    "Comments:\n- **Layout (9/10):** The overall structure is very closely matched, including the BBC header, Learning English banner, navigation bar, unit selector, tab area, and vertically stacked session content. Minor differences appear in horizontal alignment, content width, and image/text positioning.\n- **Elements (13/15):** Nearly all major elements are present and correctly placed. The session thumbnails, activity labels, buttons, progress bar, navigation controls, and headings are reproduced well. The main discrepancy is the styling and treatment of the “Vocabulary reference” and “Grammar reference” tabs.\n- **Content and Text (39/40):** Text content is essentially identical, including headings, dates, descriptions, navigation labels, and session information. Typography and line wrapping differ slightly in places, but the content is highly accurate.\n- **Style (12/15):** Colors, typography, spacing, BBC branding, dark teal course section, and photographic banner are closely replicated. The tab backgrounds, borders, and some font sizing/weight differ from the reference.\n- **Overall (18/20):** This is a highly similar recreation with only modest visual differences in alignment, tab styling, and sizing of the session content area.\n\n**Score: 91/100**"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "B B Sign in Home News Sport Business Innovation Culture Travel Search BBC ENGUSH CHANGE LANGUAGE LEARNING ENGLISH INSPIRING LANGUAGE LEARNING SINCE /943 Courses Grammar Pronunciation Vocabulary News More Search Unit 1: Towards advanced Close unit selector Welcome to our new course SELECT A UNIT 10 1   12   1J 14  15   16   \"7   18   19   20   21   2   2   24   25   26   2   28   29   30 Sessions Vocabulary reference Grammar reference Session AcTIVITY BBC MASTERCLASS BBC Masterclass 04 JUL 2016 Non-defining Non-defining relative clauses are a speaker's friend: Dan teaches us five ways t0 use relative clauses them in this bite-sized video, Session 2 ACTIVITY News Review 05 JUL 2016 NASA's Juno mission has arrived at Jupiter Find out more with Neil and Sian as they look at how the world's media is reacting and the words you need to talk about the story:",
+      "screenshot_text": "B B C Sign in Home News Sport Business Innovation Culture Travel Search BBC ENGLISH CHANGE LANGUAGE LEARNING ENGLISH INSPIRING LANGUAGE LEARNING SINCE /943 Courses Grammar Pronunciation Vocabulary News More. Search Unit 1: Towards advanced Close unit selector 1_ Welcome to our new course SELECT UNIT 2 3 5 47   8 10 11   12 13   14   15 16   17 18 19 20   21   22   23 24 25 26   27 28 29 Sessions Vocabulary reference Grammar reference Session 1 1 ACTIVITY BBC MASTERCLASS BBC Masterclass 04 JUL 2016 Non-defining Non-defining relative clauses are a speaker's friend: Dan teaches us five ways to use them in relative clauses this bite-sized video Session 2 1 ACTIVITY News Review 05 JUL 2016 NASA's Juno mission has arrived at Jupiter: Find out more with Neil and Sian as they look at how the world's media is reacting and the words you need to talk about the story:",
+      "similarity": 0.9124423963133641
+    },
+    {
+      "checkpoint_text": "B B Sign in Home News Sport Business Innovation Culture Travel Search BBC ENGUSH CHANGE LANGUAGE LEARNING ENGLISH INSPIRING LANGUAGE LEARNING SINCE /943 Courses Grammar Pronunciation Vocabulary News More Search Unit 1: Towards advanced Close unit selector Welcome to our new course SELECT A UNIT 10 1   12   1J 14  15   16   \"7   18   19   20   21   2   2   24   25   26   2   28   29   30 Sessions Vocabulary reference Grammar reference Session AcTIVITY BBC MASTERCLASS BBC Masterclass 04 JUL 2016 Non-defining Non-defining relative clauses are a speaker's friend: Dan teaches us five ways t0 use relative clauses them in this bite-sized video, Session 2 ACTIVITY News Review 05 JUL 2016 NASA's Juno mission has arrived at Jupiter Find out more with Neil and Sian as they look at how the world's media is reacting and the words you need to talk about the story:",
+      "screenshot_text": "B B C Sign in Home News Sport Business Innovation Culture Travel Search BBC ENGLISH CHANGE LANGUAGE LEARNING ENGLISH INSPIRING LANGUAGE LEARNING SINCE /943 Courses Grammar Pronunciation Vocabulary News More. Search Unit 1: Towards advanced Close unit selector 1_ Welcome to our new course SELECT UNIT 2 3 5 47   8 10 11   12 13   14   15 16   17 18 19 20   21   22   23 24 25 26   27 28 29 Sessions Vocabulary reference Grammar reference Session 1 1 ACTIVITY BBC MASTERCLASS BBC Masterclass 04 JUL 2016 Non-defining Non-defining relative clauses are a speaker's friend: Dan teaches us five ways to use them in relative clauses this bite-sized video Session 2 1 ACTIVITY News Review 05 JUL 2016 NASA's Juno mission has arrived at Jupiter: Find out more with Neil and Sian as they look at how the world's media is reacting and the words you need to talk about the story:",
+      "similarity": 0.9124423963133641
+    }
+  ],
+  "assertion_results": [
+    null,
+    {
+      "result": "No",
+      "prev_img_path": "outputs/17/gpt-6-luna_setting0/evalpoints/1.png",
+      "curr_img_path": "outputs/17/gpt-6-luna_setting0/evalpoints/2.png",
+      "response": "{\n  \"think\": \"Image 1 shows Unit 1 selected, while Image 2 shows Unit 2 selected. The page content updated, but it did not update to Unit 4.\",\n  \"result\": \"No\"\n}",
+      "assertion": "Page content updated to Unit 4",
+      "thinking": "Image 1 shows Unit 1 selected, while Image 2 shows Unit 2 selected. The page content updated, but it did not update to Unit 4."
+    },
+    {
+      "result": "No",
+      "prev_img_path": "outputs/17/gpt-6-luna_setting0/evalpoints/2.png",
+      "curr_img_path": "outputs/17/gpt-6-luna_setting0/evalpoints/3.png",
+      "response": "{\n  \"think\": \"The previous screenshot shows Unit 2, while the current screenshot shows Unit 5. The page content changed, but it did not update to Unit 7.\",\n  \"result\": \"No\"\n}",
+      "assertion": "Page content updated to Unit 7",
+      "thinking": "The previous screenshot shows Unit 2, while the current screenshot shows Unit 5. The page content changed, but it did not update to Unit 7."
+    },
+    null,
+    null,
+    null,
+    null,
+    null
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "total_step": 8,
+  "success_step": 1,
+  "screenshot_paths_to_eval": [
+    "outputs/17/gpt-6-luna_setting3/evalpoints/0.png",
+    "outputs/17/gpt-6-luna_setting3/evalpoints/0.png"
+  ],
+  "all_mllm_scores": [
+    0.96,
+    0.95
+  ],
+  "all_dino_scores": [
+    0.94287109375,
+    0.94287109375
+  ],
+  "all_ocr_scores": [
+    0.9347079037800687,
+    0.9347079037800687
+  ],
+  "all_avg_scores": [
+    0.9458596658433563,
+    0.9425263325100229
+  ],
+  "mllm_score": 0.955,
+  "dino_score": 0.94287109375,
+  "ocr_score": 0.9347079037800687,
+  "avg_score": 0.9441929991766896,
+  "all_mllm_res": [
+    "Comments:\n- **Layout (9.5/10):** The page structure, section ordering, spacing, and alignment closely match the reference. Header, hero banner, navigation, unit selector, tabs, and session list are all positioned nearly identically. Minor differences in viewport scaling and horizontal offsets are visible.\n- **Elements (14.5/15):** All major elements are present, including BBC navigation, language selector, course navigation, unit controls, progress bar, tabs, session cards, badges, and thumbnails. Element sizing differs slightly in places, particularly the session images and some header controls.\n- **Content and Text (39/40):** Text content is essentially an exact match, including headings, dates, labels, descriptions, navigation items, and session information. Only very minor wrapping/positioning differences appear.\n- **Style (14/15):** Colors, typography, borders, imagery, dark teal sections, white content areas, and overall BBC Learning English styling are highly consistent. Small rendering differences in font sizing, image scaling, and spacing reduce perfect similarity slightly.\n- **Overall (19/20):** This is an extremely close reproduction of the reference webpage, with only subtle layout and scaling discrepancies.\n\n**Score: 96/100**",
+    "Comments:\n- **Layout (9/10 points):** The generated page closely matches the reference in overall structure, spacing, alignment, and section order. The header, hero banner, dark course selector area, tabs, and session list are all positioned similarly. Minor differences include slight horizontal offsets in the main content and modest differences in image sizing and vertical spacing.\n- **Elements (14/15 points):** Nearly all visible elements are reproduced: BBC navigation, language selector, secondary navigation, unit indicator, progress bar, tabs, session cards, activity badges, thumbnails, and text blocks. A few small sizing and positioning differences are present, especially around the session thumbnails and header controls.\n- **Content and Text (39/40 points):** Text content is essentially identical, including headings, dates, descriptions, navigation labels, and session titles. Line wrapping differs slightly in places due to small width or font-rendering variations.\n- **Style (14/15 points):** Colors, typography, borders, spacing, and overall BBC Learning English visual treatment are highly consistent. The hero image and dark teal sections closely match. Minor differences appear in font weight, image crop/scale, and some control dimensions.\n- **Overall (19/20 points):** This is a highly accurate reproduction with strong visual and structural similarity. Differences are limited to small alignment, sizing, and rendering variations rather than missing or incorrect content.\n\n**Score: 95/100**"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "B B Sign in Home News Sport Business Innovation Culture Travel Search BBC ENGUSH CHANGE LANGUAGE LEARNING ENGLISH INSPIRING LANGUAGE LEARNING SINCE /943 Courses Grammar Pronunciation Vocabulary News More Search Unit 1: Towards advanced Close unit selector Welcome to our new course SELECT A UNIT 10 1   12   1J 14  15   16   \"7   18   19   20   21   2   2   24   25   26   2   28   29   30 Sessions Vocabulary reference Grammar reference Session AcTIVITY BBC MASTERCLASS BBC Masterclass 04 JUL 2016 Non-defining Non-defining relative clauses are a speaker's friend: Dan teaches us five ways t0 use relative clauses them in this bite-sized video, Session 2 ACTIVITY News Review 05 JUL 2016 NASA's Juno mission has arrived at Jupiter Find out more with Neil and Sian as they look at how the world's media is reacting and the words you need to talk about the story:",
+      "screenshot_text": "B B C Home News Sport Business Innovation Culture Travel Search BBC ENGLISH CHANGE LANGUAGE LEARNING ENGLISH INSPIRING LANGUAGE LEARNING SINCE /943 Courses Grammar Pronunciation Vocabulary News More__. Search 1 Unit 1: Towards advanced Close unit selector Welcome to our new course SELECT UNIT 2 10   11   12   13   14   15   16   17   18   19 20   21   2   23   24   25 26   27   28   29   30 Sessions Vocabulary reference Grammar reference Session 1 1 ACTIVITY BBC MASTERCLASS BBC Masterclass 04 JUL 2016 Non-defining Non-defining relative clauses are speaker's friend. Dan teaches us five ways to use them relative clauses in this bite-sized video Session 2 ACTIVITY News Review 05 JUL 2016 NASA's Juno mission has arrived at Jupiter: Find out more with Neil and Sian as they look at how the world's media is reacting and the words you need to talk about the Sign story:",
+      "similarity": 0.9347079037800687
+    },
+    {
+      "checkpoint_text": "B B Sign in Home News Sport Business Innovation Culture Travel Search BBC ENGUSH CHANGE LANGUAGE LEARNING ENGLISH INSPIRING LANGUAGE LEARNING SINCE /943 Courses Grammar Pronunciation Vocabulary News More Search Unit 1: Towards advanced Close unit selector Welcome to our new course SELECT A UNIT 10 1   12   1J 14  15   16   \"7   18   19   20   21   2   2   24   25   26   2   28   29   30 Sessions Vocabulary reference Grammar reference Session AcTIVITY BBC MASTERCLASS BBC Masterclass 04 JUL 2016 Non-defining Non-defining relative clauses are a speaker's friend: Dan teaches us five ways t0 use relative clauses them in this bite-sized video, Session 2 ACTIVITY News Review 05 JUL 2016 NASA's Juno mission has arrived at Jupiter Find out more with Neil and Sian as they look at how the world's media is reacting and the words you need to talk about the story:",
+      "screenshot_text": "B B C Home News Sport Business Innovation Culture Travel Search BBC ENGLISH CHANGE LANGUAGE LEARNING ENGLISH INSPIRING LANGUAGE LEARNING SINCE /943 Courses Grammar Pronunciation Vocabulary News More__. Search 1 Unit 1: Towards advanced Close unit selector Welcome to our new course SELECT UNIT 2 10   11   12   13   14   15   16   17   18   19 20   21   2   23   24   25 26   27   28   29   30 Sessions Vocabulary reference Grammar reference Session 1 1 ACTIVITY BBC MASTERCLASS BBC Masterclass 04 JUL 2016 Non-defining Non-defining relative clauses are speaker's friend. Dan teaches us five ways to use them relative clauses in this bite-sized video Session 2 ACTIVITY News Review 05 JUL 2016 NASA's Juno mission has arrived at Jupiter: Find out more with Neil and Sian as they look at how the world's media is reacting and the words you need to talk about the Sign story:",
+      "similarity": 0.9347079037800687
+    }
+  ],
+  "assertion_results": [
+    null,
+    {
+      "result": "No",
+      "prev_img_path": "outputs/17/gpt-6-luna_setting3/evalpoints/1.png",
+      "curr_img_path": "outputs/17/gpt-6-luna_setting3/evalpoints/2.png",
+      "response": "{\n  \"think\": \"Both screenshots display Unit 1: Towards advanced. The current screenshot only shows the unit selector expanded and does not indicate that the page content changed to Unit 4.\",\n  \"result\": \"No\"\n}",
+      "assertion": "Page content updated to Unit 4",
+      "thinking": "Both screenshots display Unit 1: Towards advanced. The current screenshot only shows the unit selector expanded and does not indicate that the page content changed to Unit 4."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/17/gpt-6-luna_setting3/evalpoints/2.png",
+      "curr_img_path": "outputs/17/gpt-6-luna_setting3/evalpoints/3.png",
+      "response": "{\n  \"think\": \"Image 1 shows Unit 1, while Image 2 shows Unit 7 in the page header and the selected unit indicator is on 7. Therefore, the page content was updated to Unit 7.\",\n  \"result\": \"Yes\"\n}",
+      "assertion": "Page content updated to Unit 7",
+      "thinking": "Image 1 shows Unit 1, while Image 2 shows Unit 7 in the page header and the selected unit indicator is on 7. Therefore, the page content was updated to Unit 7."
+    },
+    null,
+    null,
+    null,
+    null,
+    null
+  ]
+}

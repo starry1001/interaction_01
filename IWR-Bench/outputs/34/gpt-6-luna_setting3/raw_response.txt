@@ -1,0 +1,280 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Middle Ages</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:#1d0619;color:#eee;font-family:Arial,Helvetica,sans-serif}
+  body{overflow-x:hidden}
+  .page{width:100%;background:#1d0619}
+  .scene{
+    width:100%;
+    min-height:1304px;
+    height:1304px;
+    position:relative;
+    overflow:hidden;
+    background:#1d0619;
+  }
+  .center{position:absolute;left:50%;transform:translateX(-50%)}
+  .logo{
+    top:42px;
+    width:205px;
+    height:auto;
+    object-fit:contain;
+  }
+  .intro-title{
+    top:395px;
+    text-align:center;
+    color:#d9d1da;
+    font-size:25px;
+    line-height:1.7;
+    width:360px;
+  }
+  .intro-title .author{
+    font-size:17px;
+    color:#b99cb9;
+    margin-top:10px;
+  }
+  .intro-title a{color:#c34eaf;text-decoration:underline}
+  .hero{
+    top:558px;
+    width:300px;
+    height:130px;
+    object-fit:cover;
+    border:1px solid rgba(255,255,255,.08);
+  }
+  .watch{
+    bottom:20px;
+    left:50%;
+    transform:translateX(-50%);
+    position:absolute;
+    background:#080207;
+    color:#eee;
+    min-width:500px;
+    text-align:center;
+    padding:25px 35px;
+    font-size:16px;
+    box-shadow:0 0 25px #13000f;
+  }
+  .watch a{color:#d900b0;text-decoration:underline}
+  .bubble{
+    position:absolute;
+    background:#fff;
+    color:#342c39;
+    border-radius:10px;
+    padding:23px 30px;
+    font-size:19px;
+    line-height:1.35;
+    min-width:300px;
+    max-width:390px;
+    box-shadow:0 2px 12px rgba(0,0,0,.45);
+    z-index:5;
+  }
+  .bubble:before{
+    content:"";
+    position:absolute;
+    width:0;height:0;
+    border-top:16px solid transparent;
+    border-bottom:16px solid transparent;
+  }
+  .bubble.left:before{
+    left:-17px;top:29px;border-right:18px solid #fff;
+  }
+  .bubble.right:before{
+    right:-17px;top:29px;border-left:18px solid #fff;
+  }
+  .bubble.top:before{
+    top:-17px;left:50%;border-left:12px solid transparent;border-right:12px solid transparent;border-bottom:18px solid #fff;
+  }
+  .bubble.bottom:before{
+    bottom:-17px;left:50%;border-left:12px solid transparent;border-right:12px solid transparent;border-top:18px solid #fff;
+  }
+  .left-bubble{left:20px;top:570px}
+  .right-bubble{left:calc(50% - 180px);top:575px}
+  .answer-bubble{left:calc(50% - 180px);top:575px}
+  .later-left{left:20px;top:875px}
+  .scene-person{
+    position:absolute;
+    width:300px;
+    height:155px;
+    object-fit:cover;
+    left:50%;
+    transform:translateX(-50%);
+    top:395px;
+  }
+  .scene-person.yellow{
+    background:#ffe17b;
+    box-shadow:0 0 0 1px #87652b;
+  }
+  .small-butterfly{
+    position:absolute;
+    width:28px;
+    height:28px;
+    left:59%;
+    top:680px;
+    color:#fff;
+    font-size:24px;
+  }
+  .grid-wrap{
+    position:absolute;
+    top:42px;
+    left:50%;
+    transform:translateX(-50%);
+    width:815px;
+    text-align:center;
+  }
+  .class-grid{
+    display:block;
+    width:815px;
+    height:auto;
+    image-rendering:auto;
+  }
+  .grid-label{
+    margin-top:12px;
+    color:#e9dcea;
+    font-size:25px;
+    font-weight:bold;
+    line-height:1.05;
+  }
+  .grid-label span{display:block;font-size:16px;font-weight:normal}
+  .grid-bubble{
+    left:20px;
+    top:725px;
+    max-width:320px;
+  }
+  .grid-bubble.centered{
+    left:calc(50% - 245px);
+    top:150px;
+    max-width:305px;
+  }
+  .highlight{background:#ffe18a;color:#30231b;padding:0 3px}
+  .stat-title{
+    position:absolute;
+    top:18px;
+    left:50%;
+    transform:translateX(-50%);
+    text-align:center;
+    color:#bbb0bd;
+    font-size:19px;
+    font-weight:bold;
+  }
+  .stat-title strong{
+    display:block;
+    margin-top:16px;
+    color:#f5d75b;
+    font-size:30px;
+  }
+  .yellow-grid{top:100px}
+  .yellow-grid img{filter:none}
+  .final-bubble{left:calc(50% - 115px);top:655px;max-width:330px}
+  .bottom-bubble{left:20px;top:1245px}
+  .btn{cursor:pointer}
+  @media(max-width:1000px){
+    .grid-wrap,.class-grid{width:70vw}
+    .grid-wrap{left:50%}
+    .hero,.scene-person{width:300px}
+    .watch{min-width:70vw}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <section class="scene" id="intro">
+    <img class="center logo" src="__PLACEHOLDER_ASSETS_BASE_DIR__/059.svg" width="205" height="72" alt="The Pudding">
+    <div class="center intro-title">
+      <div>the middle ages</div>
+      <div class="author">by <a class="btn" href="#grade">alvin chang</a></div>
+    </div>
+    <img class="center hero" src="__PLACEHOLDER_ASSETS_BASE_DIR__/065.png" width="300" height="130" alt="A student looking over a desk">
+    <div class="watch">Don't like scrolling? <a class="btn" href="#grade">Watch the video instead!</a></div>
+  </section>
+
+  <section class="scene" id="grade">
+    <img class="scene-person" src="__PLACEHOLDER_ASSETS_BASE_DIR__/065.png" width="300" height="155" alt="Student">
+    <div class="bubble left left-bubble">Hey, what grade are you in?</div>
+    <div class="bubble right answer-bubble">Fourth grade!</div>
+    <div class="small-butterfly">🦋</div>
+  </section>
+
+  <section class="scene" id="meet">
+    <img class="scene-person yellow" src="__PLACEHOLDER_ASSETS_BASE_DIR__/065.png" width="300" height="155" alt="Student">
+    <div class="bubble left later-left"><span class="highlight">Yeah!</span> Wanna meet my classmates?</div>
+    <div class="bubble left" style="top:1120px">I mean, I guess...</div>
+    <div class="small-butterfly">🦋</div>
+  </section>
+
+  <section class="scene" id="classmates">
+    <div class="grid-wrap">
+      <img class="class-grid" src="__PLACEHOLDER_ASSETS_BASE_DIR__/066.png" width="815" height="1080" alt="A grid of classmates">
+      <div class="grid-label">4th<span>Elementary</span></div>
+    </div>
+    <div class="bubble left grid-bubble">Wow. Thanks, kid. Mind if I ask your class a question?</div>
+    <div class="small-butterfly">🦋</div>
+  </section>
+
+  <section class="scene" id="question">
+    <div class="grid-wrap">
+      <img class="class-grid" src="__PLACEHOLDER_ASSETS_BASE_DIR__/066.png" width="815" height="1080" alt="A grid of classmates">
+      <div class="grid-label">4th<span>Elementary</span></div>
+    </div>
+    <div class="bubble top centered">Sure! But hurry up. Recess starts soon.</div>
+    <div class="small-butterfly">🦋</div>
+  </section>
+
+  <section class="scene" id="belonging-question">
+    <div class="grid-wrap">
+      <img class="class-grid" src="__PLACEHOLDER_ASSETS_BASE_DIR__/066.png" width="815" height="1080" alt="A grid of classmates">
+      <div class="grid-label">4th<span>Elementary</span></div>
+    </div>
+    <div class="bubble left grid-bubble" style="top:350px">
+      Who here feels like you <span class="highlight">belong at the school</span>?<br><br>
+      So, like, feeling respected by other students and supported by adults?
+    </div>
+    <div class="small-butterfly">🦋</div>
+  </section>
+
+  <section class="scene" id="belonging-result">
+    <div class="stat-title">Belonging<strong>9%</strong></div>
+    <div class="grid-wrap yellow-grid">
+      <img class="class-grid" src="__PLACEHOLDER_ASSETS_BASE_DIR__/067.png" width="815" height="1080" alt="Classmates highlighted in yellow">
+      <div class="grid-label">4th<span>Elementary</span></div>
+    </div>
+    <div class="bubble top centered" style="top:218px">
+      Those of us in <span class="highlight">yellow</span> feel like we belong. Why do you ask?
+    </div>
+    <div class="small-butterfly">🦋</div>
+  </section>
+
+  <section class="scene" id="final">
+    <div class="stat-title" style="color:#fff">Belonging<strong>73%</strong></div>
+    <div class="grid-wrap yellow-grid">
+      <img class="class-grid" src="__PLACEHOLDER_ASSETS_BASE_DIR__/067.png" width="815" height="1080" alt="Classmates highlighted in yellow">
+      <div class="grid-label">4th<span>Elementary</span></div>
+    </div>
+    <div class="bubble top final-bubble">
+      Those of us in <span class="highlight">yellow</span> feel like we belong. Why do you ask?
+    </div>
+    <div class="bubble left bottom-bubble">
+      Well, feeling like you belong is really important. It helps you feel safe, supported, and ready to learn.
+    </div>
+  </section>
+
+</div>
+<script>
+  document.querySelectorAll('.btn').forEach(function(el){
+    el.addEventListener('click',function(e){
+      const target=el.getAttribute('href');
+      if(target && target.startsWith('#')){
+        e.preventDefault();
+        document.querySelector(target).scrollIntoView({behavior:'smooth'});
+      }
+    });
+  });
+</script>
+</body>
+</html>
+```

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Apple Music Beta</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; font-family: Arial, Helvetica, sans-serif; color: #262626; }
+  button { font: inherit; }
+  .btn { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .app { width: 100vw; height: 100vh; background: #fff; }
+  .sidebar {
+    position: absolute; top: 0; bottom: 0; left: 0; width: 260px;
+    background: #fafafa; border-right: 1px solid #dedede;
+  }
+  .brand { position: absolute; top: 16px; left: 29px; width: 123px; height: 29px; object-fit: contain; object-position: left center; }
+  .search {
+    position: absolute; left: 25px; top: 70px; width: 208px; height: 34px;
+    border: 1px solid #d8d8d8; border-radius: 2px; background: white;
+    display: flex; align-items: center; padding: 0 9px; color: #8e8e93; font-size: 12px;
+    box-shadow: 0 1px 3px #0000000a;
+  }
+  .search .magnify { color: #cc163e; font-size: 19px; margin-right: 7px; font-weight: 300; }
+  .nav { position: absolute; top: 124px; left: 25px; right: 25px; }
+  .nav-item {
+    height: 34px; display: flex; align-items: center; gap: 11px; padding: 0 8px;
+    border-radius: 5px; color: #373737; font-size: 16px; margin-bottom: 2px;
+  }
+  .nav-item.selected { background: #e8e8e8; }
+  .nav-icon { color: #c9153d; width: 17px; text-align: center; font-size: 18px; line-height: 1; }
+  .sidebar-bottom {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 115px;
+    border-top: 1px solid #e1e1e1; padding: 15px 29px; color: #818181; font-size: 14px;
+  }
+  .open-music { height: 35px; display: flex; align-items: center; gap: 9px; margin-bottom: 17px; }
+  .mini-note { width: 25px; height: 25px; border: 1.5px solid #858585; border-radius: 50%; text-align: center; line-height: 23px; font-size: 16px; color: #777; }
+  .exit { margin-top: 8px; }
+
+  .topbar {
+    position: absolute; top: 0; left: 260px; right: 0; height: 57px;
+    background: linear-gradient(#f6eeee, #f3e9eb); border-bottom: 1px solid #d9d3d4;
+    display: flex; align-items: center; z-index: 2;
+  }
+  .top-controls { position: absolute; left: 165px; display: flex; align-items: center; gap: 13px; color: #69666a; }
+  .top-control { border: 0; background: transparent; color: inherit; padding: 2px; font-size: 18px; line-height: 1; }
+  .top-control.playpause { font-size: 22px; width: 19px; }
+  .top-control.shuffle { font-size: 16px; }
+  .now-playing {
+    position: absolute; top: 5px; left: 50%; transform: translateX(-50%);
+    width: 654px; height: 47px; display: flex; align-items: center;
+    background: rgba(255,255,255,.93); border: 1px solid #e4dfe0;
+    color: #5c5859; cursor: pointer;
+  }
+  .now-playing img { width: 44px; height: 44px; object-fit: cover; flex: 0 0 44px; }
+  .track-summary { flex: 1; text-align: center; line-height: 16px; font-size: 12px; }
+  .track-summary strong { display: block; color: #302d2e; font-size: 13px; }
+  .track-summary span { color: #898487; font-size: 12px; }
+  .preview { color: white; background: #c90032; border-radius: 3px; font-size: 10px; font-weight: bold; padding: 1px 6px; margin: 0 5px; }
+  .volume-top { position: absolute; right: 255px; display: flex; align-items: center; gap: 8px; color: #777; font-size: 12px; }
+  .volume-line { width: 73px; height: 2px; background: #9a9395; position: relative; }
+  .volume-line:after { content:""; position:absolute; width: 10px; height: 10px; top:-4px; left:31px; border:1px solid #999; background:white; border-radius:50%; }
+  .top-list { position: absolute; right: 61px; border:0; background:none; color:#777; font-size:19px; }
+  .account { position:absolute; right:16px; border:0; background:none; color:#c90032; font-size:23px; }
+
+  .landing {
+    position: absolute; top: 57px; left: 260px; right: 0; bottom: 0;
+    color: #fff; text-align: center;
+    background: linear-gradient(112deg, #e6003e 0%, #d80039 53%, #c90037 100%);
+    overflow: hidden;
+  }
+  .hero-content { position: absolute; width: 100%; top: 21px; left: 0; display: flex; align-items: center; flex-direction: column; }
+  .hero-wordmark { color: #fff; font-weight: 600; font-size: 23px; letter-spacing: -.8px; height: 37px; display:flex; align-items:center; }
+  .hero-wordmark .apple { font-size: 22px; margin-right: 1px; }
+  h1 { font-size: 64px; line-height: 1.12; letter-spacing: -2.6px; font-weight: 700; margin: 9px 0 0; color: #fff; }
+  .hero-note { width: 300px; height: 390px; object-fit: contain; margin-top: 29px; filter: drop-shadow(11px 16px 8px #79002055); }
+  .description { position:absolute; top: 678px; width:100%; font-size:17px; line-height:25px; font-weight:400; color:#fff; }
+  .get-started {
+    position:absolute; top:764px; left:50%; transform:translateX(-50%); height:39px; width:150px;
+    background:white; color:#171717; border:0; border-radius:5px; font-size:16px; font-weight:600;
+  }
+  .student { position:absolute; top:825px; left:50%; transform:translateX(-50%); background:none; border:0; color:#fff; font-size:14px; }
+
+  .full-player {
+    position:fixed; inset:0; z-index:10; display:none; color:#fff;
+    background: radial-gradient(ellipse at 50% 45%, #94145f 0%, #7c0754 62%, #72004e 100%);
+  }
+  .full-player.open { display:block; }
+  .close-player { position:absolute; top:10px; left:14px; color:#e5bed7; font-size:35px; line-height:32px; border:0; background:transparent; font-weight:200; }
+  .player-column { position:absolute; left:50%; top:59px; transform:translateX(-50%); width:600px; }
+  .album-art { width:600px; height:635px; object-fit:cover; display:block; border-radius:12px; }
+  .metadata { height:78px; display:flex; align-items:flex-start; padding-top:19px; position:relative; }
+  .meta-text { font-size:17px; line-height:24px; font-weight:bold; color:#f8e7ef; }
+  .meta-text span { display:block; color:#d7aec4; font-size:17px; }
+  .meta-buttons { margin-left:auto; display:flex; gap:14px; padding-top:7px; }
+  .round-control { width:31px; height:31px; border:0; border-radius:50%; background:#ffffff12; color:#f3dbe8; font-size:21px; line-height:30px; padding:0; }
+  .progress-wrap { position:relative; width:100%; margin-top:0; }
+  .progress {
+    width:100%; height:4px; background:#d4a4bd; border-radius:4px; position:relative;
+  }
+  .progress-fill { height:100%; width:13%; background:#fff; border-radius:4px; }
+  .progress-knob { position:absolute; width:13px; height:13px; border-radius:50%; background:#fff; top:50%; left:13%; transform:translate(-50%,-50%); }
+  .times { display:flex; justify-content:space-between; font-size:12px; color:#d4a9c2; margin-top:8px; }
+  .controls { height:66px; display:flex; align-items:center; justify-content:center; gap:31px; color:#f4d9e7; }
+  .player-control { border:0; padding:0; color:inherit; background:none; font-size:20px; min-width:24px; }
+  .player-control.skip { font-size:27px; letter-spacing:-4px; }
+  .player-control.main-play { font-size:33px; min-width:31px; }
+  .volume-bottom { display:flex; align-items:center; gap:8px; margin-top:1px; color:#f2d8e6; font-size:13px; }
+  .volume-track { height:4px; flex:1; background:#d4a4bd; border-radius:4px; position:relative; }
+  .volume-track:after { content:""; position:absolute; left:52%; top:50%; transform:translate(-50%,-50%); width:12px; height:12px; border-radius:50%; background:#fff; }
+
+  .modal {
+    display:none; position:fixed; z-index:20; inset:0; background:#0008; align-items:center; justify-content:center;
+  }
+  .modal.visible { display:flex; }
+  .modal-box { width:380px; background:#fff; border-radius:10px; padding:32px; text-align:center; box-shadow:0 15px 50px #0004; }
+  .modal-box h2 { margin:0 0 12px; font-size:23px; }
+  .modal-box p { color:#666; line-height:1.5; }
+  .modal-box button { border:0; border-radius:5px; padding:10px 26px; background:#d9003b; color:white; margin-top:8px; }
+  @media (max-height:800px) {
+    .player-column { top:28px; transform:translateX(-50%) scale(.82); transform-origin:top center; }
+    .description { top:66%; }
+    .get-started { top:81%; }
+    .student { top:89%; }
+  }
+  @media (max-width:900px) {
+    .sidebar { width:220px; }
+    .topbar { left:220px; }
+    .landing { left:220px; }
+    .now-playing { width:min(58vw,654px); }
+    .volume-top { display:none; }
+    .top-controls { left:18px; }
+    .player-column { width:min(600px, calc(100vw - 40px)); }
+    .album-art { width:100%; height:auto; aspect-ratio:600 / 635; }
+    .description { font-size:15px; }
+    h1 { font-size:clamp(42px,6vw,64px); }
+  }
+  @media (max-width:620px) {
+    .sidebar { width:68px; }
+    .brand { left:9px; width:50px; object-position:left; }
+    .search { left:10px; width:48px; overflow:hidden; }
+    .search span:last-child, .nav-item span:last-child, .sidebar-bottom { display:none; }
+    .nav { left:8px; right:8px; }
+    .nav-item { justify-content:center; padding:0; }
+    .topbar,.landing { left:68px; }
+    .top-controls { display:none; }
+    .now-playing { left:10px; transform:none; width:calc(100% - 85px); }
+    .now-playing .preview { display:none; }
+    .player-column { top:45px; }
+    .metadata { padding-top:13px; }
+    .meta-text,.meta-text span { font-size:14px; }
+    .controls { gap:20px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <img class="brand" src="../../../data/data/2/assets/001.svg" width="123" height="29" alt="Apple Music Beta">
+    <div class="search btn"><span class="magnify">⌕</span><span>Search</span></div>
+    <nav class="nav">
+      <div class="nav-item selected btn"><span class="nav-icon">⌂</span><span>Home</span></div>
+      <div class="nav-item btn"><span class="nav-icon">⊞</span><span>New</span></div>
+      <div class="nav-item btn"><span class="nav-icon">◉</span><span>Radio</span></div>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="open-music btn"><span class="mini-note">♫</span><span>Open in Music ↗</span></div>
+      <div class="exit btn">Exit Beta ↗</div>
+    </div>
+  </aside>
+
+  <header class="topbar">
+    <div class="top-controls">
+      <button class="top-control shuffle btn" aria-label="Shuffle">⤨</button>
+      <button class="top-control btn" aria-label="Previous">◀◀</button>
+      <button class="top-control playpause btn" aria-label="Play">▶</button>
+      <button class="top-control btn" aria-label="Next">▶▶</button>
+      <button class="top-control btn" aria-label="Repeat">↻</button>
+    </div>
+    <div class="now-playing btn" id="openPlayer" role="button" aria-label="Open now playing">
+      <img src="../../../data/data/2/assets/017.jpg" width="44" height="44" alt="Album artwork">
+      <div class="track-summary"><strong>Sacrifice</strong><span>Mariah the Scientist — HEARTS SOLD SEPARATELY</span></div>
+      <span class="preview">PREVIEW</span>
+    </div>
+    <div class="volume-top"><span>◖</span><div class="volume-line"></div></div>
+    <button class="top-list btn" aria-label="Queue">☷</button>
+    <button class="account btn" aria-label="Account">◉</button>
+  </header>
+
+  <main class="landing">
+    <section class="hero-content">
+      <div class="hero-wordmark"><span class="apple">●</span>Music</div>
+      <h1>Discover new music<br>every day.</h1>
+      <img class="hero-note" src="../../../data/data/2/assets/013.webp" width="300" height="390" alt="Music note">
+    </section>
+    <div class="description">Get playlists and albums inspired by the artists and genres<br>you’re listening to.</div>
+    <button class="get-started btn" id="getStarted">Get Started</button>
+    <button class="student btn" id="studentPlan">See Student Plan ›</button>
+  </main>
+</div>
+
+<section class="full-player" id="fullPlayer" aria-label="Now playing">
+  <button class="close-player btn" id="closePlayer" aria-label="Close">×</button>
+  <div class="player-column">
+    <img class="album-art" src="../../../data/data/2/assets/017.jpg" width="600" height="635" alt="Sacrifice album artwork">
+    <div class="metadata">
+      <div class="meta-text">Sacrifice<span>Mariah the Scientist — HEARTS SOLD SEPARATELY</span></div>
+      <div class="meta-buttons">
+        <button class="round-control btn" aria-label="Favorite">☆</button>
+        <button class="round-control btn" aria-label="More">⋯</button>
+      </div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress"><div class="progress-fill" id="progressFill"></div><div class="progress-knob" id="progressKnob"></div></div>
+      <div class="times"><span id="elapsed">0:11</span><span>-1:19</span></div>
+    </div>
+    <div class="controls">
+      <button class="player-control btn" aria-label="Shuffle">⤨</button>
+      <button class="player-control skip btn" aria-label="Previous">◀◀</button>
+      <button class="player-control main-play btn" id="fullPlay" aria-label="Pause">Ⅱ</button>
+      <button class="player-control skip btn" aria-label="Next">▶▶</button>
+      <button class="player-control btn" aria-label="Repeat">↻</button>
+    </div>
+    <div class="volume-bottom"><span>◖</span><div class="volume-track"></div></div>
+  </div>
+</section>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <h2>Listen to Apple Music</h2>
+    <p>Get playlists and albums inspired by the artists and genres you’re listening to.</p>
+    <button class="btn" id="modalClose">Continue</button>
+  </div>
+</div>
+<script>
+  const player = document.getElementById('fullPlayer');
+  const openPlayer = document.getElementById('openPlayer');
+  const closePlayer = document.getElementById('closePlayer');
+  const fullPlay = document.getElementById('fullPlay');
+  const topPlay = document.querySelector('.top-control.playpause');
+  let playing = false;
+  let seconds = 11;
+  let timer;
+
+  function updatePlay() {
+    fullPlay.textContent = playing ? 'Ⅱ' : '▶';
+    fullPlay.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+    topPlay.textContent = playing ? 'Ⅱ' : '▶';
+    topPlay.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+  }
+  function startTimer() {
+    clearInterval(timer);
+    if (playing) timer = setInterval(() => {
+      seconds = seconds >= 89 ? 0 : seconds + 1;
+      const mins = Math.floor(seconds / 60);
+      const secs = String(seconds % 60).padStart(2, '0');
+      document.getElementById('elapsed').textContent = mins + ':' + secs;
+      const pct = Math.min(88, 13 + (seconds - 11) * .9);
+      document.getElementById('progressFill').style.width = pct + '%';
+      document.getElementById('progressKnob').style.left = pct + '%';
+    }, 1000);
+  }
+  openPlayer.addEventListener('click', () => {
+    player.classList.add('open');
+    playing = true;
+    updatePlay();
+    startTimer();
+  });
+  closePlayer.addEventListener('click', () => {
+    player.classList.remove('open');
+    clearInterval(timer);
+  });
+  fullPlay.addEventListener('click', () => { playing = !playing; updatePlay(); startTimer(); });
+  topPlay.addEventListener('click', () => { playing = !playing; updatePlay(); startTimer(); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') player.classList.remove('open');
+    if (e.code === 'Space' && player.classList.contains('open')) {
+      e.preventDefault(); playing = !playing; updatePlay(); startTimer();
+    }
+  });
+  document.querySelectorAll('.nav-item').forEach(item => item.addEventListener('click', () => {
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('selected'));
+    item.classList.add('selected');
+  }));
+  const modal = document.getElementById('modal');
+  document.getElementById('getStarted').addEventListener('click', () => modal.classList.add('visible'));
+  document.getElementById('studentPlan').addEventListener('click', () => modal.classList.add('visible'));
+  document.getElementById('modalClose').addEventListener('click', () => modal.classList.remove('visible'));
+  modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('visible'); });
+</script>
+</body>
+</html>

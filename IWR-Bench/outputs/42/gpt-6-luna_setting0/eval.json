@@ -1,0 +1,108 @@
+{
+  "total_step": 8,
+  "success_step": 8,
+  "screenshot_paths_to_eval": [
+    "outputs/42/gpt-6-luna_setting0/evalpoints/0.png",
+    "outputs/42/gpt-6-luna_setting0/evalpoints/1.png",
+    "outputs/42/gpt-6-luna_setting0/evalpoints/2.png",
+    "outputs/42/gpt-6-luna_setting0/evalpoints/3.png",
+    "outputs/42/gpt-6-luna_setting0/evalpoints/7.png"
+  ],
+  "all_mllm_scores": [
+    0.85,
+    0.85,
+    0.87,
+    0.87,
+    0.79
+  ],
+  "all_dino_scores": [
+    0.90283203125,
+    0.9248046875,
+    0.8720703125,
+    0.86962890625,
+    0.7119140625
+  ],
+  "all_ocr_scores": [
+    0.6183310533515731,
+    0.5764796310530361,
+    0.5653973509933774,
+    0.5549132947976878,
+    0.5451829723674384
+  ],
+  "all_avg_scores": [
+    0.790387694867191,
+    0.7837614395176787,
+    0.7691558878311259,
+    0.7648474003492293,
+    0.6823656782891462
+  ],
+  "mllm_score": 0.8460000000000001,
+  "dino_score": 0.85625,
+  "ocr_score": 0.5720608605126226,
+  "avg_score": 0.7581036201708742,
+  "all_mllm_res": [
+    "Comments:\n-Layout (9/10): The three-column X feed layout, left navigation, central timeline, and right sidebar are closely matched. Column widths and alignment are slightly different, and the generated page has more whitespace around the layout.\n-Elements (12/15): Most visible components are present, including navigation icons, composer, post cards, engagement row, news and trending panels, and follow suggestions. Some small icons and details differ, and the second post’s media is rendered as a plain black rectangle instead of the video shown in the reference.\n-Content and Text (35/40): The main post text, account names, sidebar headlines, and trend labels are largely reproduced accurately. Some small labels, metadata, and post details are missing or altered.\n-Style (12/15): The page captures X’s white background, black text, blue accents, thin dividers, and rounded sidebar cards. Typography and spacing are close, though some sizing and icon styling differ.\n-Overall (17/20): A strong recreation of the reference page, with the main visual structure and most content in place. The missing video imagery and minor layout and detail differences are the most noticeable gaps.\n\nScore: 85/100",
+    "Comments:\n-Layout (9/10): The generated page closely matches the reference’s three-column X feed and centered compose modal. Column positions and overall proportions are very similar, with minor differences in feed sizing and vertical placement.\n-Elements (12/15): Navigation, feed posts, right-side panels, and modal controls are present and well positioned. Some small icons and engagement controls differ, and the lower feed video is a black block rather than the visible video in the reference.\n-Content and Text (34/40): Most visible labels, headlines, trends, and post text correspond closely to the reference. Some profile imagery and small metadata details vary, and the video content is missing.\n-Style (13/15): The typography, muted overlay, white modal, blue accents, and dark buttons closely resemble the reference. A few text weights, icon styles, and spacing details differ.\n-Overall (17/20): This is a strong visual match, particularly in the modal and page structure. The most noticeable discrepancy is the black video area in the generated feed.\n\nScore: 85/100",
+    "Comments:\n-Layout (9/10): The three-column X layout and the centered compose modal align closely with the reference. The emoji picker is also in nearly the same position and size.\n-Elements (13/15): Most interface elements are present, including the navigation, feed, sidebar cards, composer controls, and emoji picker. Some toolbar icons differ, and the lower feed media is missing.\n-Content and Text (34/40): Sidebar and visible post text largely match. The upper feed image is similar, but the reference shows a video with a person below the post, while the generated page shows a solid black media area.\n-Style (13/15): Typography, colors, borders, and dimmed-background treatment are close to the reference. Minor differences appear in iconography and emoji-picker details.\n-Overall (18/20): A strong match in structure and modal state, with the missing video content and small control differences keeping it from being closer.\n\nScore: 87/100",
+    "Comments:\n- **Layout (9/10):** The three-column X layout and the placement and size of the compose window and emoji picker are very close. The feed and right sidebar are shifted slightly compared with the reference.\n- **Elements (13/15):** Most interface elements are present, including the navigation, compose controls, emoji picker, and sidebar cards. Some icons and small details differ, and the lower feed video is missing its visible image.\n- **Content and Text (34/40):** The visible labels, trend items, and post text largely match. The main content difference is the black video area in the generated page where the reference shows a person.\n- **Style (14/15):** The typography, colors, borders, dimmed overlay, and overall X appearance are closely reproduced. A few emoji picker details and icon treatments differ.\n- **Overall (17/20):** A strong visual match with the major structure and modal state reproduced accurately, though the missing video imagery and minor positioning differences are noticeable.\n\n**Score: 87/100**",
+    "Comments:\n-Layout (8/10): Both images show the X home feed dimmed behind a centered post-composer modal. The modal and three-column page structure are positioned similarly, though the generated modal is slightly taller and the feed content begins at a different vertical position.\n-Elements (12/15): The navigation, post composer, poll controls, reply-permission row, action icons, and right-side panels are all present. Some small icons and details differ; the generated feed’s video area is a plain black rectangle rather than the visible video in the reference.\n-Content and Text (31/40): Most surrounding navigation labels and news/trending content are close. The poll fields differ: the reference shows empty choices, while the generated page contains “1” and “2.” Some feed text and account details also vary.\n-Style (12/15): The X-like typography, colors, borders, rounded modal, and dimmed overlay are well reproduced. The generated modal and controls are a little cleaner and more uniformly spaced than the reference.\n-Overall (16/20): Strong match in the page structure and modal state, with the poll entries and feed media being the most noticeable differences.\n\nScore: 79/100"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "For you Following Search Home What's happening? Subscribe to Premium Subscribe to unlock new features Explore Post eligible; receive a share of revenue: Subscribe Notifications Gunther EaglemanTu @GuntherEagleman . 15h Texas Reps Al Green and Jasmine Crockett both losing their seats in Congress makes me happyl Messages Today's News Great work Texasl Grok Kendrick Lamar Shocks LA Crowd at Concert Debut 3 hours ag0 Entertainment \" 9,055 posts Lists Ryan Blaney's Epic Daytona Comeback Bookmarks Seals Playoff Glory 6 hours ag0 Sports . 16.9K posts Jobs ATEEZ Electrifies Mexico City in Epic Stadium Debut 88 Communities hours ag0 : Entertainment : 13.4K posts X Premium 0 5,6K 12 12K 87K il L.8m What's happening 1 Verified Earth Hippy @hippyygoat Aug 23 WTE Trending In United States 20 YEARS OF SERVING AMERICA: Raja 8 Profile Called in for posts against Israel's genocide against the Palestinians 23.9K posts Basically you THOUGHT you weren't pledging alleglance to Israel but Only on X . Trending More America. #JossGawinFanday23xMANILA UNITED STATES OF ISRAELS Trending with #GMMTVFANDAY23inMANILA; JOSSGAWNIN IN MAANILA 168K Post Sports Trending Shedeur 31.6K posts Trending in Los Angeles the giverep 26.6K posts Show more Who to follow Ehetinchz They made mecome hack fodav Manchester United Follow @ManUtd Zhao haolei Active Duty Sergeant @haolei_zha13994 YMAA 2U targeted for being Anti-Israel Matt Walsh Follow Ola chdico andi Clipse Orgs posts klla",
+      "screenshot_text": "For you Following Search Home What's happening? Subscribe to Premium GIF Post Subscribe tO unlock new features and if eligible Explore receive a share Of revenue. Subscribe Notifications Gunther Eagleman GuntherEagleman 15h Texas Reps Al Green and Jasmine Crockett both losing their seats in Congress makes me happyl Messages Today's News Great work Texas! Grok Kendrick Lamar Shocks LA Crowd at Clipse Concert Debut hours ag0 Entertainment 9,055 posts Lists Ryan Blaney's Epic Daytona Comeback Seals Playoff Glory Bookmarks hours ag0 Sports 16.9K posts ATEEZ Electrifies Mexico City in Epic Jobs Stadium Debut hours ag0 Ententainment 13.4K posts Communities What's happening Premium 5.6K 212K 87K 8M Trending in United States Raja Verified Orgs Earth Hippy @hippygoat 23.9K posts WTF 20 YEARS OF SERVING AMERICA Only on X Trending Profile Called in for posts against Israel's genocide against the Palestinians #JossGawinFanday23xMANILA Trending with #GMMTVFANDAY23inMANILA; JOSSGAWIN IN MANILA Basically you THOUGHT you werent pledging allegiance to Israel but 168K posts More America UNITED STATES OF ISRAEL~u Sponts Trending Shedeur Post 31.6K posts Trending in Los Angeles the giverep 26.6K posts Show more Who to follow Manchester United Follow @ManUtd Matt Walsh Follow @MattWalshBlog Zhao haolei @haolei_zhal3994 Aug",
+      "similarity": 0.6183310533515731
+    },
+    {
+      "checkpoint_text": "Foryou Following Search @ Home Drafts Jbscribe to Premium bscribe to unlock new features Explore What's happening? gible; receive a share of revenue_ Subscribe Notifications Messages Everyone can reply Oday's News Grok Post ndrick Lamar Shocks LA Crowd at sncert Debut 3 hours ag0 Entertainment . 9,055 posts Lists Ryan Blaney's Epic Daytona Comeback Bookmarks Seals Playoff Glory hours ag0 Sports . 16.9K posts Jobs ATEEZ Electrifies Mexico City in Epic Stadium Debut 88 Communities hours ag0 . Entertainment * 13.4K posts Premium 5.6K tl 12K 87K Ill 1.8M What's happening 1 Verified Earth Hippy @hippyygoat ' Aug 23 WTE Trending in United States 20 YEARS OF SERVING AMERICA: Raja 8 Profile Called in for posts against Israel's genocide against the Palestinians 23.9K posts Basically you THOUGHT you weren't pledging allegiance to Israel but Only on X . Trending More America. #JossGawinFanday23xMANILA UNITED STATES OF ISRAEL Trending with #GMMTVFANDAY23inMANILA, JOSSGAWIN IN MANILA 168K posts Post Sports Trending Shedeur 31.6K posts Trending in Los Angeles the giverep 26.6K posts Show more Who to follow cpudSDa nni Nher3oamt Manchester United Follow @ManUtd Zhao haolei Active Duty Sergeant @haolei_zha13994 YMAA.2U targeted for being Anti-Israel Matt Walsh Follow ONatNalchploo and Clipse Orgs",
+      "screenshot_text": "For you Following Search Home Drafts iubscribe to Premium ubscribe tO unlock new features and if eligible Explore What's happening? 'ceive share Of revenue. Subscribe Notifications Messages Everyone can reply oday's News Post Grok endrick Lamar Shocks LA Crowd at Clipse oncert Debut hours ag0 Entertainment 9,055 posts Lists Ryan Blaney's Epic Daytona Comeback Seals Playoff Glory Bookmarks hours ag0 Sports 16.9K posts ATEEZ Electrifies Mexico City in Epic Jobs Stadium Debut hours ag0 Entertainment 13.4K posts 88 Communities What's happening Premium 5.6K 212K 87K 1.8M Trending in United States Raja Verified Orgs Earth Hippy @hippygoat 23.9K posts WTF 20 YEARS OF SERVING AMERICA_ Only on X Trending Profile Called in for posts against Israel's genocide against the Palestinians #JossGawinFanday23xMANILA Trending with #GMMTVFANDAY23inMANILA, JOSSGAWIN IN MANILA Basically you THOUGHT you werent pledging allegiance to Israel but 168K posts More America: UNITED STATES OF ISRAEL~M Sponts Trending Shedeur Post 31.6K posts Trending in Los Angeles the giverep 26.6K posts Show more Who to follow Manchester United Follow @ManUtd Matt Walsh Follow @MattWalshBlog Zhao haolei @haolei_zhal3994 Aug",
+      "similarity": 0.5764796310530361
+    },
+    {
+      "checkpoint_text": "Foryou Following Search @ Home Drafts Jbscribe to Premium bscribe to unlock new features Explore What's happening? gible; receive a share of revenue__ Subscribe Notifications Messages Everyone can reply Oday's News Grok Post ndrick Lamar Shocks LA Crowd at Clipse sncert Debut Search emojis 3 hours ag0 Entertainment . 9,055 posts Lists Ryan Blaney's Epic Daytona Comeback Bookmarks Seals Playoff Glory Smileys & people hours ag0 Sports . 16.9K posts Jobs ATEEZ Electrifies Mexico City in Epic Stadium Debut 88 Communities hours ag0 . Entertainment * 13.4K posts Premium Ill 1.8M What's happening 1 Verified Trending in United States Raja 8 Profile nst the Palestinians 23.9K posts Basically you THOUGHT you weren't pledging allegiance to Israel but on X . Trending More America. #JossGawinFanday23xMANILA UNITED STATES OF ISRAELZ Trending with #GMMTVFANDAY23inMANILA, JOSSGAWIN MANILA 168K posts Post Sports Trending Shedeur 31.6K posts Trending in Los Angeles the giverep 26.6K posts Show more Who to follow Fret irn a Nner3oe oven stull Manchester United Follow @ManUtd Zhao haolei Active Duty Sergeant @haolei_zha13994 YMAA2U targeted for being Anti-Israel Matt Walsh Follow ONatNalchploo and Orgs Only 5",
+      "screenshot_text": "For you Following Search Home Drafts iubscribe to Premium ubscribe tO unlock new features and if eligible Explore What's happening? 'ceive share Of revenue. Subscribe Notifications Messages Everyone can reply oday's News Post Grok endrick Lamar Shocks LA Crowd at Clipse oncert Debut hours ag0 Entertainment 9,055 posts Lists Search emojis Ryan Blaney's Epic Daytona Comeback Seals Playoff Glory Bookmarks hours ag0 Sports 16.9K posts Smileys & people ATEEZ Electrifies Mexico City in Epic Jobs Stadium Debut hours ag0 Entertainment 13.4K posts 88 Communities What's happening Premium 1.8M Trending in United States Raja Verified Orgs 23.9K posts Only on X Trending Profile gainst the Palestinians #JossGawinFanday23xMANILA Trending with #GMMTVFANDAY23inMANILA, JOSSGAWIN IN MANILA Basically you THOUGHT you werent pledging allegiance to Israel but 168K posts More America: UNITED STATES OF ISRAELZM Sponts Trending Shedeur Post 31.6K posts Trending in Los Angeles the giverep 26.6K posts Show more Who to follow Manchester United Follow @ManUtd Matt Walsh Follow @MattWalshBlog Zhao haolei @haolei_zhal3994",
+      "similarity": 0.5653973509933774
+    },
+    {
+      "checkpoint_text": "Foryou Following Search @ Home Drafts Jbscribe to Premium bscribe to unlock new features Explore gible; receive a share of revenue__ Subscribe Notifications Messages Everyone can reply )day's News Grok Post ndrick Lamar Shocks LA Crowd at Clipse Jncert Debut Search emojis 3 hours ag0 Entertainment . 9,055 posts Lists Ryan Blaney's Epic Daytona Comeback Bookmarks Seals Playoff Glory Smileys & people hours ag0 Sports . 16.9K posts Jobs ATEEZ Electrifies Mexico City in Epic Stadium Debut 88 Communities hours ag0 : Entertainment : 13.4K posts Premium Il L.8M What's happening Verified Trending in United States Raja Grinning face Profile nst the Palestinians 23.9K posts Basically you THOUGHT you weren't pledging allegiance to Israel but on X . Trending More America. #JossGawinFanday23xMANILA UNITED STATES OF ISRAELZ Trending with #GMMTVFANDAY23inMANILA, JOSSGAWIN MANILA 168K posts Post Sports Trending Shedeur 31.6K posts Trending in Los Angeles the giverep 26.6K posts Show more Who to follow ecptioson ioielil to Irprthernovenstutl Manchester United Follow @ManUtd Zhao haolei Active Duty Sergeant @haolei_zha13994 YMAA.2U targeted for being Anti-Israel Matt Walsh Follow ONatWNalchploo and Orgs Only :",
+      "screenshot_text": "For you Following Search Home Drafts iubscribe to Premium ubscribe tO unlock new features and if eligible Explore 'ceive share Of revenue. Subscribe Notifications Messages Everyone can reply Joday's News Post Grok endrick Lamar Shocks LA Crowd at Clipse oncert Debut hours ag0 Entertainment 9,055 posts Lists Search emojis Ryan Blaney's Epic Daytona Comeback Seals Playoff Glory Bookmarks hours ag0 Sports 16.9K posts Smileys & people ATEEZ Electrifies Mexico City in Epic Jobs Stadium Debut hours ag0 Entertainment 13.4K posts 88 Communities What's happening Premium 1.8M Trending in United States Raja Verified Orgs 23.9K posts Only on X Trending Profile gainst the Palestinians #JossGawinFanday23xMANILA Trending with #GMMTVFANDAY23inMANILA, JOSSGAWIN IN MANILA Basically you THOUGHT you werent pledging allegiance to Israel but 168K posts More America: UNITED STATES OF ISRAELZM Sponts Trending Shedeur Post 31.6K posts Trending in Los Angeles the giverep 26.6K posts Show more Who to follow Manchester United Follow @ManUtd Matt Walsh Follow @MattWalshBlog Zhao haolei @haolei_zhal3994",
+      "similarity": 0.5549132947976878
+    },
+    {
+      "checkpoint_text": "Foryou Following Search @ Home Drafts Jbscribe to Premium bscribe to unlock new features Explore gible; receive a share of revenue_ Subscribe Notifications Choice Messages )day's News Choice 2 ndrick Lamar Shocks LA Crowd at Clipse Grok ncert Debut 3 hours ag0 Entertainment * 9,055 posts Lists Poll length Days Hours Minutes Blaney's Epic Daytona Comeback Bookmarks als Playoff Glory hours ag0 Sports . 16.9K posts Remove Jobs JEEZ Electrifies Mexico City in Epic Everyone can reply adium Debut 88 Communities 7 hours ag0 . Entertainment : 13.4K posts Post Premium 5.6k 12K B7K #.8M What's happening Verified Earth Hippy @hippyygoat Aug 23 WTE Trending in United States 20 YEARS OF SERVING AMERICA: Raja Profile Called in for posts against Israel\"s genocide against the Palestinians 23.9K posts Basically you THOUGHT you weren't pledging allegiance to Israel but on X . Trending More America. #JossGawinFanday23xMANILA UNITED STATES OF ISRAELZ Trending with #GMMTVFANDAY23inMANILA, JOSSGAWIN MANILA 168K posts Post Sports Trending Shedeur 31.6K posts Trending in Los Angeles the giverep 26.6K posts Show more Who to follow ecptioton 'oielil to Irprthennlovenstutl Manchester United Follow @ManUtd Zhao haolei Active Duty Sergeant @haolei_zha13994 YMAA2U targeted for being Anti-Israel Matt Walsh Follow ONatWNalchploo and poll Orgs Only :",
+      "screenshot_text": "For you Following Search Home Drafts jubscribe to Premium ubscribe tO unlock new features and if eligible Explore 'ceive share Of revenue. Subscribe Notifications Choice 1/25 Messages Joday's News Choice 1 /25 Grok endrick Lamar Shocks LA Crowd at Clipse oncert Debut hours ag0 Entertainment 9,055 posts Lists Poll length yan Blaney's Epic Daytona Comeback Days Hours Minutes eals Playoff Glory Bookmarks hours ag0 Sports 16.9K posts TEEZ Electrifies Mexico City in Epic Jobs Remove poll tadium Debut hours ag0 Entertainment 13.4K posts 88 Communities Everyone can reply Post Vhat's happening Premium Trending in United States Raja Verified Orgs Earth Hippy @hippygoat 23.9K posts WTF 20 YEARS OF SERVING AMERICA Only on X Trending Profile Called in for posts against Israel's genocide against the Palestinians #JossGawinFanday23xMANILA Trending with #GMMTVFANDAY23inMANILA, JOSSGAWIN IN MANILA Basically you THOUGHT you werent pledging allegiance to Israel but 168K posts More America: UNITED STATES OF ISRAEL~M Sponts Trending Shedeur Post 31.6K posts Trending in Los Angeles the giverep 26.6K posts Show more Who to follow Manchester United Follow @ManUtd Matt Walsh Follow @MattWalshBlog Zhao haolei @haolei_zhal3994 Aug",
+      "similarity": 0.5451829723674384
+    }
+  ],
+  "assertion_results": [
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/42/gpt-6-luna_setting0/evalpoints/0.png",
+      "curr_img_path": "outputs/42/gpt-6-luna_setting0/evalpoints/1.png",
+      "response": "{\"think\":\"The current screenshot shows a compose dialog with a blue “Drafts” link at the top right. It is visible on the page.\",\"result\":\"Yes\"}",
+      "assertion": "A 'Drafts' card appears on the page.",
+      "thinking": "The current screenshot shows a compose dialog with a blue “Drafts” link at the top right. It is visible on the page."
+    },
+    null,
+    null,
+    null,
+    null,
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/42/gpt-6-luna_setting0/evalpoints/5.png",
+      "curr_img_path": "outputs/42/gpt-6-luna_setting0/evalpoints/6.png",
+      "response": "{\"think\":\"Image 1 shows Choice 1 empty, while Image 2 shows the value “1” entered for Choice 1. Therefore, the assertion is true.\",\"result\":\"Yes\"}",
+      "assertion": "Choice 1 is 1.",
+      "thinking": "Image 1 shows Choice 1 empty, while Image 2 shows the value “1” entered for Choice 1. Therefore, the assertion is true."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/42/gpt-6-luna_setting0/evalpoints/6.png",
+      "curr_img_path": "outputs/42/gpt-6-luna_setting0/evalpoints/7.png",
+      "response": "{\"think\":\"In the current screenshot, the second poll option is labeled “Choice 2” and its entered value is “2.” The previous screenshot showed the field empty, so the assertion is true.\",\"result\":\"Yes\"}",
+      "assertion": "Choice 2 is 2.",
+      "thinking": "In the current screenshot, the second poll option is labeled “Choice 2” and its entered value is “2.” The previous screenshot showed the field empty, so the assertion is true."
+    },
+    null
+  ]
+}

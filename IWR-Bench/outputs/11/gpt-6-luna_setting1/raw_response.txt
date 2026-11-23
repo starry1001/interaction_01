@@ -1,0 +1,490 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Personality Test | 16Personalities</title>
+<style>
+:root {
+  --ink: #343746;
+  --teal: #4da2b2;
+  --green: #43b582;
+  --purple: #89599a;
+  --pale: #f5f5f5;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  background: #fff;
+}
+button { font: inherit; }
+.btn { cursor: pointer; }
+header {
+  height: 94px;
+  position: fixed;
+  z-index: 20;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  background: rgba(255,255,255,.98);
+  box-shadow: 0 2px 7px rgba(30,35,45,.08);
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 310px;
+  color: #453c43;
+  font-family: Georgia, serif;
+  font-size: 30px;
+  white-space: nowrap;
+}
+.brand img { width: 52px; height: 52px; object-fit: contain; }
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  height: 100%;
+  margin: 0 auto;
+}
+.nav a, .right-nav a {
+  color: #454752;
+  text-decoration: none;
+  font-size: 18px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.nav a:first-child { height: 100%; display: flex; align-items: center; border-top: 4px solid var(--teal); padding-top: 0; }
+.right-nav { display: flex; align-items: center; gap: 22px; min-width: 260px; justify-content: flex-end; }
+.small-icon { width: 24px; height: 24px; opacity: .72; }
+.take-top {
+  color: white !important;
+  background: var(--purple);
+  border: 0;
+  border-radius: 40px;
+  padding: 18px 32px;
+  font-weight: 700;
+}
+main { padding-top: 94px; }
+#landing { display: block; }
+.hero {
+  position: relative;
+  overflow: hidden;
+  height: 1060px;
+  background: linear-gradient(to bottom, #4da1b2 0, #4da1b2 69%, #fff 69%, #fff 100%);
+  text-align: center;
+}
+.hero:before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 50px;
+  background: #fff;
+  clip-path: polygon(0 0,100% 0,100% 40%,78% 95%,59% 45%,39% 93%,19% 42%,0 80%);
+  z-index: 2;
+}
+.hero-copy { position: relative; z-index: 5; padding-top: 112px; color: white; }
+.hero h1 { font-size: 48px; margin: 0 0 22px; font-weight: 700; }
+.hero p { font-size: 20px; line-height: 1.45; margin: 0 auto 34px; }
+.hero-cta {
+  border: 0; border-radius: 45px; background: var(--purple); color: #fff;
+  padding: 22px 50px; font-weight: 700; font-size: 19px;
+}
+.arrow { font-size: 22px; margin-left: 10px; }
+.mountains {
+  position: absolute; z-index: 1; left: -5%; right: -5%; top: 510px; height: 380px;
+  background: #d3eff2;
+  clip-path: polygon(0 72%,13% 31%,20% 58%,32% 4%,43% 60%,53% 29%,63% 62%,73% 0,84% 61%,92% 29%,100% 71%,100% 100%,0 100%);
+}
+.mountains:after {
+  content: ""; position: absolute; inset: 0;
+  background: #b4e0e5;
+  clip-path: polygon(0 77%,14% 44%,21% 68%,33% 17%,39% 45%,49% 74%,61% 32%,69% 60%,74% 13%,83% 70%,91% 46%,100% 78%,100% 100%,0 100%);
+}
+.snow {
+  position: absolute; z-index: 2; top: 650px; left: -2%; width: 104%; height: 410px;
+  background: #fff;
+  clip-path: polygon(0 15%,16% 0,31% 9%,50% 3%,68% 11%,84% 0,100% 15%,100% 100%,0 100%);
+}
+.tree {
+  position: absolute; z-index: 3; width: 0; height: 0;
+  border-left: 30px solid transparent; border-right: 30px solid transparent;
+  border-bottom: 100px solid #39ad78;
+}
+.tree:after {
+  content: ""; position: absolute; left: -20px; top: 30px;
+  border-left: 20px solid transparent; border-right: 20px solid transparent;
+  border-bottom: 75px solid #38a977;
+}
+.t1 { top: 485px; left: 17%; transform: scale(1.25); }
+.t2 { top: 470px; left: 27%; transform: scale(.8); }
+.t3 { top: 495px; left: 73%; transform: scale(1.2); }
+.t4 { top: 520px; left: 82%; transform: scale(.9); }
+.person {
+  position: absolute; z-index: 4; top: 665px; width: 84px; height: 180px;
+  border-radius: 35px 35px 10px 10px;
+}
+.person:before {
+  content: ""; position: absolute; width: 48px; height: 52px; border-radius: 50%;
+  top: -42px; left: 18px; background: #e4b996;
+}
+.person.one { left: 36%; background: #48bda9; transform: rotate(-6deg); }
+.person.two { left: 49%; top: 655px; background: #70ad59; height: 145px; }
+.person.three { left: 64%; background: #9b66a6; height: 190px; }
+.person.two:before { background: #e8c19c; }
+.person.three:before { background: #edc5a1; }
+.fire {
+  position: absolute; z-index: 4; top: 730px; left: 47%;
+  width: 85px; height: 95px; background: #f2cb32;
+  clip-path: polygon(50% 0,72% 34%,100% 54%,67% 100%,30% 88%,0 55%,34% 39%);
+}
+.stats {
+  position: absolute; z-index: 5; left: 0; right: 0; bottom: 20px;
+  display: flex; justify-content: center; gap: 140px;
+  font-size: 52px; font-weight: 700;
+}
+.stats span:nth-child(1) { color: var(--teal); }
+.stats span:nth-child(2) { color: #d4b447; }
+.stats span:nth-child(3) { color: var(--green); }
+.stats span:nth-child(4) { color: #765889; }
+.test-intro {
+  height: 440px;
+  position: relative;
+  text-align: center;
+  background: #f5f5f5;
+  padding-top: 64px;
+}
+.test-intro:after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 110px;
+  background: #fff;
+  clip-path: polygon(0 30%,22% 100%,44% 56%,64% 88%,82% 55%,100% 100%,100% 100%,0 100%);
+}
+.round-logo {
+  width: 78px; height: 78px; margin: 0 auto 20px;
+}
+.round-logo img { width: 100%; height: 100%; object-fit: contain; }
+.test-intro h1 { font-size: 54px; line-height: 1.1; margin: 0 0 20px; }
+.test-intro p { font-size: 20px; margin: 0; }
+.test-area { position: relative; z-index: 2; width: 1300px; max-width: calc(100% - 60px); margin: -120px auto 0; }
+.steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+.step-card {
+  height: 310px; position: relative; overflow: hidden; padding: 160px 20px 20px;
+  background: #fff; border-radius: 10px; box-shadow: 0 12px 32px rgba(45,49,57,.12);
+  border-top: 4px solid var(--teal);
+}
+.step-card:nth-child(2) { border-color: var(--green); }
+.step-card:nth-child(3) { border-color: var(--purple); }
+.step-card .image-wash {
+  position: absolute; left: 0; right: 0; top: 0; height: 150px; opacity: .13;
+}
+.step-card:nth-child(1) .image-wash { background: var(--teal); }
+.step-card:nth-child(2) .image-wash { background: var(--green); }
+.step-card:nth-child(3) .image-wash { background: var(--purple); }
+.step-card img {
+  position: absolute; width: 165px; height: 145px; object-fit: contain;
+  right: 20px; top: 14px;
+}
+.step-card .step-label {
+  display: inline-block; color: white; border-radius: 20px; padding: 5px 11px;
+  background: var(--teal); font-size: 11px; font-weight: bold; margin-bottom: 7px;
+}
+.step-card:nth-child(2) .step-label { background: var(--green); }
+.step-card:nth-child(3) .step-label { background: var(--purple); }
+.step-card h2 { font-size: 21px; margin: 0 0 12px; }
+.step-card p { font-size: 17px; line-height: 1.5; margin: 0; }
+.questions { width: 1085px; max-width: 100%; margin: 70px auto 0; }
+.question {
+  padding: 0 0 39px;
+  margin: 0 0 39px;
+  border-bottom: 1px solid #ededed;
+  color: #bfc0c5;
+  transition: color .15s;
+}
+.question.active, .question:hover, .question.answered { color: var(--ink); }
+.question h3 { font-size: 21px; line-height: 1.4; font-weight: 600; margin: 0 0 26px; }
+.answers {
+  display: grid;
+  grid-template-columns: 100px 70px 58px 48px 38px 48px 58px 70px 145px;
+  align-items: center;
+  gap: 18px;
+  min-height: 76px;
+}
+.agree-label, .disagree-label { font-size: 19px; font-weight: 500; }
+.agree-label { color: var(--green); }
+.disagree-label { color: var(--purple); }
+.choice {
+  display: flex; align-items: center; justify-content: center;
+  width: 100%; padding: 0; border: 0; background: transparent;
+}
+.dot {
+  width: 70px; height: 70px; border-radius: 50%; border: 3px solid var(--green);
+  display: flex; align-items: center; justify-content: center; color: transparent;
+  transition: background .12s, transform .12s;
+}
+.choice:nth-of-type(3) .dot { width: 58px; height: 58px; }
+.choice:nth-of-type(4) .dot { width: 46px; height: 46px; }
+.choice:nth-of-type(5) .dot { width: 36px; height: 36px; border-color: #aaaab1; }
+.choice:nth-of-type(6) .dot, .choice:nth-of-type(7) .dot, .choice:nth-of-type(8) .dot { border-color: var(--purple); }
+.choice:nth-of-type(6) .dot { width: 46px; height: 46px; }
+.choice:nth-of-type(7) .dot { width: 58px; height: 58px; }
+.choice:nth-of-type(8) .dot { width: 70px; height: 70px; }
+.choice:hover .dot { transform: scale(1.06); }
+.choice.selected .dot { color: #fff; background: var(--green); border-color: var(--green); }
+.choice.selected.purple .dot { background: var(--purple); border-color: var(--purple); }
+.choice.selected .dot:after { content: "✓"; font-size: 26px; font-weight: 400; }
+.next-row { padding: 0 0 105px; }
+.next-button {
+  background: var(--purple); color: #fff; border: 0; border-radius: 40px;
+  padding: 20px 40px; font-size: 18px; font-weight: 700;
+}
+.progress {
+  background: #fff; padding: 23px 20px; display: flex; align-items: center;
+  gap: 20px; margin: 0 0 42px; box-shadow: 0 3px 14px rgba(30,35,45,.09);
+  color: var(--teal); font-size: 14px; font-weight: 700;
+}
+.progress .previous { border: 0; background: none; color: var(--teal); font-weight: bold; }
+.bar { margin-left: auto; height: 8px; width: 300px; background: #ececf0; border-radius: 10px; overflow: hidden; }
+.bar span { display: block; height: 100%; background: var(--teal); width: 20%; }
+.progress-count { color: #73747a; font-size: 16px; font-weight: 400; }
+.footer {
+  min-height: 360px; background: #f5f5f5; display: flex; justify-content: center;
+  align-items: flex-start; padding-top: 90px; gap: 30px; position: relative;
+}
+.footer:before {
+  content: ""; position: absolute; left: 0; right: 0; top: -55px; height: 90px;
+  background: #f5f5f5; clip-path: polygon(0 55%,20% 5%,42% 75%,59% 25%,79% 65%,100% 18%,100% 100%,0 100%);
+}
+.social {
+  width: 62px; height: 62px; border: 1px solid #ccc; border-radius: 50%;
+  background: transparent; color: #555; font-size: 25px; position: relative; z-index: 1;
+}
+#test { display: none; }
+body.testing #landing { display: none; }
+body.testing #test { display: block; }
+@media(max-width:1000px) {
+  header { height: 70px; padding: 0 14px; }
+  main { padding-top: 70px; }
+  .brand { min-width: 0; font-size: 21px; }
+  .brand img { width: 40px; height: 40px; }
+  .nav { gap: 12px; }
+  .nav a, .right-nav a { font-size: 13px; }
+  .right-nav { min-width: 0; gap: 10px; }
+  .take-top { padding: 12px 16px; }
+  .test-intro h1 { font-size: 38px; }
+  .test-area { max-width: calc(100% - 30px); }
+  .steps { gap: 10px; }
+  .step-card { height: 270px; padding: 135px 12px 15px; }
+  .step-card img { width: 120px; height: 120px; }
+  .step-card p { font-size: 14px; }
+  .step-card h2 { font-size: 17px; }
+  .questions { width: 760px; }
+  .answers { grid-template-columns: 72px 56px 48px 40px 32px 40px 48px 56px 90px; gap: 7px; }
+}
+@media(max-width:650px) {
+  header { padding: 0 10px; }
+  .brand { font-size: 16px; gap: 5px; }
+  .brand img { width: 32px; height: 32px; }
+  .nav { display: none; }
+  .right-nav { gap: 8px; }
+  .right-nav .take-top { display: none; }
+  .hero { height: 850px; }
+  .hero h1 { font-size: 32px; padding: 0 15px; }
+  .hero p { font-size: 16px; padding: 0 15px; }
+  .mountains { top: 420px; }
+  .snow { top: 570px; }
+  .stats { gap: 14px; font-size: 20px; }
+  .test-intro { height: 380px; padding-top: 45px; }
+  .test-intro h1 { font-size: 32px; }
+  .test-intro p { font-size: 16px; }
+  .test-area { margin-top: -75px; }
+  .steps { grid-template-columns: 1fr; }
+  .step-card { height: 180px; padding-top: 82px; }
+  .step-card .image-wash { height: 85px; }
+  .step-card img { width: 95px; height: 85px; }
+  .step-card h2 { margin-bottom: 6px; }
+  .questions { margin-top: 45px; }
+  .question h3 { font-size: 17px; }
+  .answers { grid-template-columns: 48px repeat(7, minmax(26px, 1fr)) 65px; gap: 3px; }
+  .agree-label, .disagree-label { font-size: 12px; }
+  .dot, .choice:nth-of-type(8) .dot { width: 38px; height: 38px; border-width: 2px; }
+  .choice:nth-of-type(3) .dot, .choice:nth-of-type(7) .dot { width: 34px; height: 34px; }
+  .choice:nth-of-type(4) .dot, .choice:nth-of-type(6) .dot { width: 30px; height: 30px; }
+  .choice:nth-of-type(5) .dot { width: 25px; height: 25px; }
+  .progress { gap: 8px; padding: 15px 8px; font-size: 11px; }
+  .bar { width: 80px; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/022.png" width="52" height="52" alt="">
+    <span>16Personalities</span>
+  </div>
+  <nav class="nav">
+    <a class="btn" href="#" onclick="return false">Personality Test</a>
+    <a class="btn" href="#" onclick="return false">Personality Types⌄</a>
+    <a class="btn" href="#" onclick="return false">Career Suite</a>
+    <a class="btn" href="#" onclick="return false">Teams &amp; Pros⌄</a>
+    <a class="btn" href="#" onclick="return false">Resources⌄</a>
+  </nav>
+  <div class="right-nav">
+    <a class="btn" href="#" onclick="return false" aria-label="Accessibility">ⓐ</a>
+    <a class="btn" href="#" onclick="return false" aria-label="Language">◎</a>
+    <a class="btn" href="#" onclick="return false">Log In</a>
+    <button class="btn take-top" onclick="startTest()">Take the Test</button>
+  </div>
+</header>
+
+<main>
+  <section id="landing">
+    <div class="hero">
+      <div class="hero-copy">
+        <h1>“It’s so incredible to finally be understood.”</h1>
+        <p>Only 10 minutes to get a “freakishly accurate” description of who<br>you are and why you do things the way you do.</p>
+        <button class="btn hero-cta" onclick="startTest()">Take the Test <span class="arrow">→</span></button>
+      </div>
+      <div class="mountains"></div>
+      <div class="tree t1"></div><div class="tree t2"></div><div class="tree t3"></div><div class="tree t4"></div>
+      <div class="snow"></div>
+      <div class="person one"></div><div class="person two"></div><div class="person three"></div><div class="fire"></div>
+      <div class="stats"><span>108K+</span><span>184M+</span><span>1436M+</span><span>91.2%</span></div>
+    </div>
+  </section>
+
+  <section id="test">
+    <div class="test-intro">
+      <div class="round-logo"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/022.png" width="78" height="78" alt=""></div>
+      <h1>Free Personality Test</h1>
+      <p>NERIS Type Explorer<sup>®</sup></p>
+    </div>
+    <div class="test-area">
+      <div class="steps">
+        <article class="step-card">
+          <div class="image-wash"></div>
+          <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/025.png" width="165" height="145" alt="">
+          <span class="step-label">STEP 1</span>
+          <h2>Complete the Test</h2>
+          <p>Be yourself and answer honestly to find out your personality type.</p>
+        </article>
+        <article class="step-card">
+          <div class="image-wash"></div>
+          <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/027.png" width="165" height="145" alt="">
+          <span class="step-label">STEP 2</span>
+          <h2>View Detailed Results</h2>
+          <p>Learn how your personality type influences many areas of your life.</p>
+        </article>
+        <article class="step-card">
+          <div class="image-wash"></div>
+          <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/028.png" width="165" height="145" alt="">
+          <span class="step-label">STEP 3</span>
+          <h2>Unlock Your Potential</h2>
+          <p>Find jobs that suit your personality and get career guidance that actually helps.</p>
+        </article>
+      </div>
+      <div id="progress" class="progress" style="display:none">
+        <button class="btn previous" onclick="previousStep()">← PREVIOUS STEP</button>
+        <div class="bar"><span id="barFill"></span></div>
+        <div class="progress-count" id="stepCount">Step 1 of 10</div>
+      </div>
+      <div class="questions" id="questions"></div>
+      <div class="next-row" id="nextRow">
+        <button class="btn next-button" onclick="nextStep()">Next <span class="arrow">→</span></button>
+      </div>
+    </div>
+    <footer class="footer">
+      <button class="btn social" aria-label="X">𝕏</button>
+      <button class="btn social" aria-label="Email">✉</button>
+      <button class="btn social" aria-label="Share">▦</button>
+    </footer>
+  </section>
+</main>
+
+<script>
+const questionSets = [
+  [
+    "You regularly make new friends.",
+    "Complex and novel ideas excite you more than simple and straightforward ones.",
+    "You usually feel more persuaded by what resonates emotionally with you than by factual arguments.",
+    "Your living and working spaces are clean and organized.",
+    "You usually stay calm, even under a lot of pressure.",
+    "You find the idea of networking or promoting yourself to strangers very daunting."
+  ],
+  [
+    "You prioritize and plan tasks effectively, often completing them well before the deadline.",
+    "People’s stories and emotions speak louder to you than numbers or data.",
+    "You like to use organizing tools like schedules and lists.",
+    "Even a small mistake can cause you to doubt your overall abilities and knowledge.",
+    "You feel comfortable approaching someone you find interesting and striking up a conversation.",
+    "You are not too interested in discussing various interpretations and analyses of creative works."
+  ],
+  [
+    "You prefer to completely finish one project before starting another.",
+    "You enjoy lively discussions about ethical dilemmas.",
+    "You generally prefer to act immediately rather than spend time planning.",
+    "You are a relatively reserved and quiet person.",
+    "You are drawn to various forms of creative expression."
+  ]
+];
+let currentStep = 0;
+const answers = {};
+function startTest() {
+  document.body.classList.add("testing");
+  currentStep = 0;
+  renderQuestions();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+function renderQuestions() {
+  const holder = document.getElementById("questions");
+  holder.innerHTML = "";
+  const qlist = questionSets[Math.min(currentStep, questionSets.length - 1)];
+  qlist.forEach((text, index) => {
+    const key = currentStep + "-" + index;
+    const row = document.createElement("article");
+    row.className = "question" + ((index === 0 || answers[key] !== undefined) ? " active" : "");
+    row.innerHTML = `<h3>${text}</h3><div class="answers">
+      <span class="agree-label">Agree</span>
+      ${[0,1,2,3,4,5,6].map((v) => {
+        const selected = answers[key] === v;
+        const purple = v >= 4;
+        return `<button class="btn choice ${selected ? "selected" : ""} ${purple ? "purple" : ""}" aria-label="Response ${v+1}" onclick="selectAnswer('${key}',${v},this)"><span class="dot"></span></button>`;
+      }).join("")}
+      <span class="disagree-label">Disagree</span>
+    </div>`;
+    holder.appendChild(row);
+  });
+  const progress = document.getElementById("progress");
+  progress.style.display = currentStep === 0 ? "none" : "flex";
+  document.getElementById("stepCount").textContent = `Step ${currentStep + 1} of 10`;
+  document.getElementById("barFill").style.width = `${(currentStep + 1) * 10}%`;
+  document.getElementById("nextRow").style.display = "block";
+}
+function selectAnswer(key, value, button) {
+  answers[key] = value;
+  const row = button.closest(".question");
+  row.classList.add("active", "answered");
+  row.querySelectorAll(".choice").forEach(c => c.classList.remove("selected"));
+  button.classList.add("selected");
+}
+function nextStep() {
+  currentStep++;
+  renderQuestions();
+  window.scrollTo({top: document.querySelector(".test-area").offsetTop - 110, behavior:"smooth"});
+}
+function previousStep() {
+  currentStep = Math.max(0, currentStep - 1);
+  renderQuestions();
+  window.scrollTo({top: document.querySelector(".test-area").offsetTop - 110, behavior:"smooth"});
+}
+renderQuestions();
+</script>
+</body>
+</html>
+```

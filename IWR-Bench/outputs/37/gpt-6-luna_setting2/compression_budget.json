@@ -1,0 +1,681 @@
+{
+  "setting": 2,
+  "unit": "estimated image input tokens",
+  "profile": {
+    "reference_model": "gpt-5.6-luna",
+    "assumed_for": "gpt-6-luna",
+    "assumption_not_officially_verified": true,
+    "detail": "original",
+    "patch_size": 32,
+    "token_multiplier": 1.2,
+    "max_dimension": 65535,
+    "max_patches": 30000
+  },
+  "target_retained_fraction": 0.6,
+  "baseline": "sum of original screenshot token estimates in each group, excluding added labels and padding",
+  "reference_estimated_tokens": 44640,
+  "source_estimated_tokens": 45216,
+  "output_estimated_tokens": 26500,
+  "retained_token_fraction": 0.5936379928315412,
+  "retained_vs_unscaled_image_fraction": 0.5860757254069356,
+  "source_pixels": 38400000,
+  "output_pixels": 22580480,
+  "allocations": [
+    {
+      "source_size": [
+        1920,
+        3000
+      ],
+      "source_pixels": 5760000,
+      "source_patches": 5640,
+      "source_estimated_tokens": 6768,
+      "reference_estimated_tokens": 6696,
+      "target_estimated_tokens": 4017,
+      "effective_target_estimated_tokens": 4017,
+      "minimum_patch_limited": false,
+      "profile_cap_limited": false,
+      "output_size": [
+        1472,
+        2301
+      ],
+      "output_pixels": 3387072,
+      "output_patches": 3312,
+      "output_estimated_tokens": 3975,
+      "retained_token_fraction": 0.5936379928315412,
+      "retained_vs_unscaled_image_fraction": 0.587322695035461,
+      "rounding_shortfall_tokens": 42,
+      "output": "screenshot_sheet_0.png",
+      "screenshot_count": 3,
+      "source_indices": [
+        0,
+        1,
+        2
+      ],
+      "layout": "vertical",
+      "source_regions": [
+        {
+          "index": 0,
+          "source_size": [
+            1920,
+            968
+          ],
+          "source_sheet_box": [
+            0,
+            0,
+            1920,
+            968
+          ],
+          "output_sheet_box": [
+            0,
+            0,
+            1472,
+            743
+          ]
+        },
+        {
+          "index": 1,
+          "source_size": [
+            1920,
+            968
+          ],
+          "source_sheet_box": [
+            0,
+            1000,
+            1920,
+            1968
+          ],
+          "output_sheet_box": [
+            0,
+            767,
+            1472,
+            1510
+          ]
+        },
+        {
+          "index": 2,
+          "source_size": [
+            1920,
+            968
+          ],
+          "source_sheet_box": [
+            0,
+            2000,
+            1920,
+            2968
+          ],
+          "output_sheet_box": [
+            0,
+            1534,
+            1472,
+            2277
+          ]
+        }
+      ],
+      "original_screenshot_pixels": 5575680
+    },
+    {
+      "source_size": [
+        1920,
+        2000
+      ],
+      "source_pixels": 3840000,
+      "source_patches": 3780,
+      "source_estimated_tokens": 4536,
+      "reference_estimated_tokens": 4464,
+      "target_estimated_tokens": 2678,
+      "effective_target_estimated_tokens": 2678,
+      "minimum_patch_limited": false,
+      "profile_cap_limited": false,
+      "output_size": [
+        1472,
+        1534
+      ],
+      "output_pixels": 2258048,
+      "output_patches": 2208,
+      "output_estimated_tokens": 2650,
+      "retained_token_fraction": 0.5936379928315412,
+      "retained_vs_unscaled_image_fraction": 0.5842151675485009,
+      "rounding_shortfall_tokens": 28,
+      "output": "screenshot_sheet_1.png",
+      "screenshot_count": 2,
+      "source_indices": [
+        3,
+        4
+      ],
+      "layout": "vertical",
+      "source_regions": [
+        {
+          "index": 3,
+          "source_size": [
+            1920,
+            968
+          ],
+          "source_sheet_box": [
+            0,
+            0,
+            1920,
+            968
+          ],
+          "output_sheet_box": [
+            0,
+            0,
+            1472,
+            743
+          ]
+        },
+        {
+          "index": 4,
+          "source_size": [
+            1920,
+            968
+          ],
+          "source_sheet_box": [
+            0,
+            1000,
+            1920,
+            1968
+          ],
+          "output_sheet_box": [
+            0,
+            767,
+            1472,
+            1510
+          ]
+        }
+      ],
+      "original_screenshot_pixels": 3717120
+    },
+    {
+      "source_size": [
+        1920,
+        3000
+      ],
+      "source_pixels": 5760000,
+      "source_patches": 5640,
+      "source_estimated_tokens": 6768,
+      "reference_estimated_tokens": 6696,
+      "target_estimated_tokens": 4017,
+      "effective_target_estimated_tokens": 4017,
+      "minimum_patch_limited": false,
+      "profile_cap_limited": false,
+      "output_size": [
+        1472,
+        2301
+      ],
+      "output_pixels": 3387072,
+      "output_patches": 3312,
+      "output_estimated_tokens": 3975,
+      "retained_token_fraction": 0.5936379928315412,
+      "retained_vs_unscaled_image_fraction": 0.587322695035461,
+      "rounding_shortfall_tokens": 42,
+      "output": "screenshot_sheet_2.png",
+      "screenshot_count": 3,
+      "source_indices": [
+        5,
+        6,
+        7
+      ],
+      "layout": "vertical",
+      "source_regions": [
+        {
+          "index": 5,
+          "source_size": [
+            1920,
+            968
+          ],
+          "source_sheet_box": [
+            0,
+            0,
+            1920,
+            968
+          ],
+          "output_sheet_box": [
+            0,
+            0,
+            1472,
+            743
+          ]
+        },
+        {
+          "index": 6,
+          "source_size": [
+            1920,
+            968
+          ],
+          "source_sheet_box": [
+            0,
+            1000,
+            1920,
+            1968
+          ],
+          "output_sheet_box": [
+            0,
+            767,
+            1472,
+            1510
+          ]
+        },
+        {
+          "index": 7,
+          "source_size": [
+            1920,
+            968
+          ],
+          "source_sheet_box": [
+            0,
+            2000,
+            1920,
+            2968
+          ],
+          "output_sheet_box": [
+            0,
+            1534,
+            1472,
+            2277
+          ]
+        }
+      ],
+      "original_screenshot_pixels": 5575680
+    },
+    {
+      "source_size": [
+        1920,
+        2000
+      ],
+      "source_pixels": 3840000,
+      "source_patches": 3780,
+      "source_estimated_tokens": 4536,
+      "reference_estimated_tokens": 4464,
+      "target_estimated_tokens": 2678,
+      "effective_target_estimated_tokens": 2678,
+      "minimum_patch_limited": false,
+      "profile_cap_limited": false,
+      "output_size": [
+        1472,
+        1534
+      ],
+      "output_pixels": 2258048,
+      "output_patches": 2208,
+      "output_estimated_tokens": 2650,
+      "retained_token_fraction": 0.5936379928315412,
+      "retained_vs_unscaled_image_fraction": 0.5842151675485009,
+      "rounding_shortfall_tokens": 28,
+      "output": "screenshot_sheet_3.png",
+      "screenshot_count": 2,
+      "source_indices": [
+        8,
+        9
+      ],
+      "layout": "vertical",
+      "source_regions": [
+        {
+          "index": 8,
+          "source_size": [
+            1920,
+            968
+          ],
+          "source_sheet_box": [
+            0,
+            0,
+            1920,
+            968
+          ],
+          "output_sheet_box": [
+            0,
+            0,
+            1472,
+            743
+          ]
+        },
+        {
+          "index": 9,
+          "source_size": [
+            1920,
+            968
+          ],
+          "source_sheet_box": [
+            0,
+            1000,
+            1920,
+            1968
+          ],
+          "output_sheet_box": [
+            0,
+            767,
+            1472,
+            1510
+          ]
+        }
+      ],
+      "original_screenshot_pixels": 3717120
+    },
+    {
+      "source_size": [
+        1920,
+        3000
+      ],
+      "source_pixels": 5760000,
+      "source_patches": 5640,
+      "source_estimated_tokens": 6768,
+      "reference_estimated_tokens": 6696,
+      "target_estimated_tokens": 4017,
+      "effective_target_estimated_tokens": 4017,
+      "minimum_patch_limited": false,
+      "profile_cap_limited": false,
+      "output_size": [
+        1472,
+        2301
+      ],
+      "output_pixels": 3387072,
+      "output_patches": 3312,
+      "output_estimated_tokens": 3975,
+      "retained_token_fraction": 0.5936379928315412,
+      "retained_vs_unscaled_image_fraction": 0.587322695035461,
+      "rounding_shortfall_tokens": 42,
+      "output": "screenshot_sheet_4.png",
+      "screenshot_count": 3,
+      "source_indices": [
+        10,
+        11,
+        12
+      ],
+      "layout": "vertical",
+      "source_regions": [
+        {
+          "index": 10,
+          "source_size": [
+            1920,
+            968
+          ],
+          "source_sheet_box": [
+            0,
+            0,
+            1920,
+            968
+          ],
+          "output_sheet_box": [
+            0,
+            0,
+            1472,
+            743
+          ]
+        },
+        {
+          "index": 11,
+          "source_size": [
+            1920,
+            968
+          ],
+          "source_sheet_box": [
+            0,
+            1000,
+            1920,
+            1968
+          ],
+          "output_sheet_box": [
+            0,
+            767,
+            1472,
+            1510
+          ]
+        },
+        {
+          "index": 12,
+          "source_size": [
+            1920,
+            968
+          ],
+          "source_sheet_box": [
+            0,
+            2000,
+            1920,
+            2968
+          ],
+          "output_sheet_box": [
+            0,
+            1534,
+            1472,
+            2277
+          ]
+        }
+      ],
+      "original_screenshot_pixels": 5575680
+    },
+    {
+      "source_size": [
+        1920,
+        2000
+      ],
+      "source_pixels": 3840000,
+      "source_patches": 3780,
+      "source_estimated_tokens": 4536,
+      "reference_estimated_tokens": 4464,
+      "target_estimated_tokens": 2678,
+      "effective_target_estimated_tokens": 2678,
+      "minimum_patch_limited": false,
+      "profile_cap_limited": false,
+      "output_size": [
+        1472,
+        1534
+      ],
+      "output_pixels": 2258048,
+      "output_patches": 2208,
+      "output_estimated_tokens": 2650,
+      "retained_token_fraction": 0.5936379928315412,
+      "retained_vs_unscaled_image_fraction": 0.5842151675485009,
+      "rounding_shortfall_tokens": 28,
+      "output": "screenshot_sheet_5.png",
+      "screenshot_count": 2,
+      "source_indices": [
+        13,
+        14
+      ],
+      "layout": "vertical",
+      "source_regions": [
+        {
+          "index": 13,
+          "source_size": [
+            1920,
+            968
+          ],
+          "source_sheet_box": [
+            0,
+            0,
+            1920,
+            968
+          ],
+          "output_sheet_box": [
+            0,
+            0,
+            1472,
+            743
+          ]
+        },
+        {
+          "index": 14,
+          "source_size": [
+            1920,
+            968
+          ],
+          "source_sheet_box": [
+            0,
+            1000,
+            1920,
+            1968
+          ],
+          "output_sheet_box": [
+            0,
+            767,
+            1472,
+            1510
+          ]
+        }
+      ],
+      "original_screenshot_pixels": 3717120
+    },
+    {
+      "source_size": [
+        1920,
+        3000
+      ],
+      "source_pixels": 5760000,
+      "source_patches": 5640,
+      "source_estimated_tokens": 6768,
+      "reference_estimated_tokens": 6696,
+      "target_estimated_tokens": 4017,
+      "effective_target_estimated_tokens": 4017,
+      "minimum_patch_limited": false,
+      "profile_cap_limited": false,
+      "output_size": [
+        1472,
+        2301
+      ],
+      "output_pixels": 3387072,
+      "output_patches": 3312,
+      "output_estimated_tokens": 3975,
+      "retained_token_fraction": 0.5936379928315412,
+      "retained_vs_unscaled_image_fraction": 0.587322695035461,
+      "rounding_shortfall_tokens": 42,
+      "output": "screenshot_sheet_6.png",
+      "screenshot_count": 3,
+      "source_indices": [
+        15,
+        16,
+        17
+      ],
+      "layout": "vertical",
+      "source_regions": [
+        {
+          "index": 15,
+          "source_size": [
+            1920,
+            968
+          ],
+          "source_sheet_box": [
+            0,
+            0,
+            1920,
+            968
+          ],
+          "output_sheet_box": [
+            0,
+            0,
+            1472,
+            743
+          ]
+        },
+        {
+          "index": 16,
+          "source_size": [
+            1920,
+            968
+          ],
+          "source_sheet_box": [
+            0,
+            1000,
+            1920,
+            1968
+          ],
+          "output_sheet_box": [
+            0,
+            767,
+            1472,
+            1510
+          ]
+        },
+        {
+          "index": 17,
+          "source_size": [
+            1920,
+            968
+          ],
+          "source_sheet_box": [
+            0,
+            2000,
+            1920,
+            2968
+          ],
+          "output_sheet_box": [
+            0,
+            1534,
+            1472,
+            2277
+          ]
+        }
+      ],
+      "original_screenshot_pixels": 5575680
+    },
+    {
+      "source_size": [
+        1920,
+        2000
+      ],
+      "source_pixels": 3840000,
+      "source_patches": 3780,
+      "source_estimated_tokens": 4536,
+      "reference_estimated_tokens": 4464,
+      "target_estimated_tokens": 2678,
+      "effective_target_estimated_tokens": 2678,
+      "minimum_patch_limited": false,
+      "profile_cap_limited": false,
+      "output_size": [
+        1472,
+        1534
+      ],
+      "output_pixels": 2258048,
+      "output_patches": 2208,
+      "output_estimated_tokens": 2650,
+      "retained_token_fraction": 0.5936379928315412,
+      "retained_vs_unscaled_image_fraction": 0.5842151675485009,
+      "rounding_shortfall_tokens": 28,
+      "output": "screenshot_sheet_7.png",
+      "screenshot_count": 2,
+      "source_indices": [
+        18,
+        19
+      ],
+      "layout": "vertical",
+      "source_regions": [
+        {
+          "index": 18,
+          "source_size": [
+            1920,
+            968
+          ],
+          "source_sheet_box": [
+            0,
+            0,
+            1920,
+            968
+          ],
+          "output_sheet_box": [
+            0,
+            0,
+            1472,
+            743
+          ]
+        },
+        {
+          "index": 19,
+          "source_size": [
+            1920,
+            968
+          ],
+          "source_sheet_box": [
+            0,
+            1000,
+            1920,
+            1968
+          ],
+          "output_sheet_box": [
+            0,
+            767,
+            1472,
+            1510
+          ]
+        }
+      ],
+      "original_screenshot_pixels": 3717120
+    }
+  ]
+}

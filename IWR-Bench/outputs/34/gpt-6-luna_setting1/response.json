@@ -1,0 +1,48 @@
+{
+  "id": "resp_083e666c0b2876b8016b007c744aa887d2bb8ec52504af94fb",
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "logprobs": null,
+      "message": {
+        "content": "```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<title>The Middle Ages — The Pudding</title>\n<style>\n  *{box-sizing:border-box}\n  html,body{margin:0;padding:0;background:#1d061b;color:#eee;font-family:Arial,Helvetica,sans-serif}\n  body{overflow-x:hidden}\n  .story{position:relative;width:100%;min-height:6500px;background:#1d061b}\n  .section{height:1000px;position:relative;width:100%}\n  .intro{height:1180px}\n  .logo{position:absolute;top:38px;left:50%;transform:translateX(-50%);width:158px;height:43px;object-fit:contain}\n  .intro-title{position:absolute;top:300px;left:50%;transform:translateX(-50%);font-size:17px;color:#ddd;font-weight:400}\n  .byline{position:absolute;top:335px;left:50%;transform:translateX(-50%);font-size:12px;color:#ddd}\n  .byline span{color:#d947bd;text-decoration:underline}\n  .face{position:absolute;left:50%;top:424px;transform:translateX(-50%);width:228px;height:140px;object-fit:contain}\n  .watch{position:absolute;left:50%;bottom:27px;transform:translateX(-50%);background:#090009;padding:17px 58px;color:#ddd;font-size:12px;white-space:nowrap}\n  .watch a{color:#ce23ab;text-decoration:underline}\n  .speech{\n    position:absolute;background:#fff;color:#302b30;border-radius:8px;\n    box-shadow:0 3px 10px rgba(0,0,0,.35);font-size:14px;line-height:1.35;\n    padding:17px 20px;min-width:245px;z-index:4\n  }\n  .speech:before{content:\"\";position:absolute;width:0;height:0;border-top:12px solid transparent;border-bottom:12px solid transparent}\n  .left-speech{left:15px;top:515px}\n  .left-speech:before{left:-13px;top:20px;border-right:14px solid #fff}\n  .center-speech{left:50%;transform:translateX(-50%);top:594px;min-width:230px}\n  .center-speech:before{top:-12px;left:50%;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:13px solid #fff}\n  .yellow{background:#ffe27b;color:#2d2025;padding:1px 3px}\n  .grade{height:1150px}\n  .grade .face{top:300px}\n  .grade .left-speech{top:510px}\n  .grade .center-speech{top:440px}\n  .butterfly{position:absolute;left:60%;top:520px;font-size:19px;filter:drop-shadow(0 0 2px white)}\n  .classroom{height:1500px}\n  .grid-wrap{position:absolute;top:75px;left:50%;transform:translateX(-50%);width:620px;text-align:center}\n  .grid{display:block;width:620px;height:auto}\n  .grade-label{font-size:22px;font-weight:bold;margin-top:9px;color:#eee}\n  .school-label{font-size:12px;color:#ddd;margin-top:0}\n  .classroom .left-speech{top:595px}\n  .classroom .center-speech{top:164px;left:50%;margin-left:-2px}\n  .classroom .speech.later{top:450px}\n  .classroom .speech.question{top:950px}\n  .belonging{height:1550px}\n  .belonging .grid-wrap{top:78px}\n  .belonging .grid{filter:none}\n  .metric{position:absolute;top:14px;left:50%;transform:translateX(-50%);text-align:center;font-weight:bold}\n  .metric .name{font-size:14px;color:#ddd}\n  .metric .number{font-size:21px;color:#f9df63;margin-top:11px}\n  .belonging .speech{top:165px;left:50%;transform:translateX(-50%);min-width:230px}\n  .belonging .speech:before{left:50%;top:-12px;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:13px solid #fff}\n  .belonging .lower{left:15px;top:925px;transform:none}\n  .ending{height:1100px}\n  .ending .grid-wrap{top:100px}\n  .ending .grid{filter:brightness(.48) saturate(.8)}\n  .ending .metric .number{color:#f9df63}\n  .ending .speech{left:50%;top:510px;transform:translateX(-50%)}\n  .btn{cursor:pointer}\n  @media(max-width:800px){\n    .grid-wrap{width:82vw}.grid{width:82vw}\n    .speech{font-size:13px}\n  }\n</style>\n</head>\n<body>\n<main class=\"story\">\n  <section class=\"section intro\">\n    <img class=\"logo\" src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/059.svg\" width=\"158\" height=\"43\" alt=\"The Pudding\">\n    <div class=\"intro-title\">the middle ages</div>\n    <div class=\"byline\">by <span>alvin chang</span></div>\n    <img class=\"face\" src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/065.png\" width=\"228\" height=\"140\" alt=\"\">\n    <div class=\"watch\">Don't like scrolling? <a class=\"btn\" href=\"#classmates\">Watch the video instead!</a></div>\n  </section>\n\n  <section class=\"section grade\">\n    <img class=\"face\" src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/065.png\" width=\"228\" height=\"140\" alt=\"\">\n    <div class=\"speech left-speech\">Hey, what grade are you in?</div>\n    <div class=\"speech center-speech\">Fourth grade!</div>\n    <div class=\"butterfly\">🦋</div>\n  </section>\n\n  <section class=\"section classroom\" id=\"classmates\">\n    <div class=\"grid-wrap\">\n      <img class=\"grid\" src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/066.png\" width=\"620\" height=\"817\" alt=\"A classroom of students\">\n      <div class=\"grade-label\">4th</div>\n      <div class=\"school-label\">Elementary</div>\n    </div>\n    <div class=\"speech left-speech\">I mean, I guess...</div>\n    <div class=\"speech center-speech\"> <span class=\"yellow\">Yeah!</span> Wanna meet my<br> classmates?</div>\n    <div class=\"speech later left-speech\">Wow. Thanks, kid. Mind if I ask<br>your class a question?</div>\n    <div class=\"speech question left-speech\">Sure! But hurry up. Recess<br>starts soon.</div>\n  </section>\n\n  <section class=\"section belonging\">\n    <div class=\"metric\">\n      <div class=\"name\">Belonging</div>\n      <div class=\"number\">9%</div>\n    </div>\n    <div class=\"grid-wrap\">\n      <img class=\"grid\" src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/067.png\" width=\"620\" height=\"817\" alt=\"Students highlighted by belonging\">\n      <div class=\"grade-label\">4th</div>\n      <div class=\"school-label\">Elementary</div>\n    </div>\n    <div class=\"speech\">\n      Those of us in <span class=\"yellow\">yellow</span> feel like<br>\n      we belong. Why do you ask?\n    </div>\n    <div class=\"speech lower\">\n      Well, feeling like you belong is<br>\n      really important. It helps you feel\n    </div>\n  </section>\n\n  <section class=\"section ending\">\n    <div class=\"metric\">\n      <div class=\"name\">Belonging</div>\n      <div class=\"number\">73%</div>\n    </div>\n    <div class=\"grid-wrap\">\n      <img class=\"grid\" src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/067.png\" width=\"620\" height=\"817\" alt=\"Students highlighted by belonging\">\n      <div class=\"grade-label\">4th</div>\n      <div class=\"school-label\">Elementary</div>\n    </div>\n    <div class=\"speech\">Those of us in <span class=\"yellow\">yellow</span> feel like<br>we belong. Why do you ask?</div>\n  </section>\n</main>\n\n<script>\n  document.querySelectorAll('a.btn').forEach(function(link){\n    link.addEventListener('click',function(e){\n      const target=document.querySelector(this.getAttribute('href'));\n      if(target){\n        e.preventDefault();\n        target.scrollIntoView({behavior:'smooth'});\n      }\n    });\n  });\n\n  const sections=[...document.querySelectorAll('.section')];\n  function updateStory(){\n    const y=window.scrollY;\n    const intro=sections[0];\n    if(y<350){\n      intro.querySelector('.watch').style.opacity='1';\n    }else{\n      intro.querySelector('.watch').style.opacity='.25';\n    }\n  }\n  window.addEventListener('scroll',updateStory);\n  updateStory();\n</script>\n</body>\n</html>\n```",
+        "refusal": null,
+        "role": "assistant",
+        "annotations": null,
+        "audio": null,
+        "function_call": null,
+        "tool_calls": null,
+        "reasoning_content": "**Planning screenshot reconstruction and layout****Planning dialogue bubble layout and interactivity**"
+      },
+      "native_finish_reason": "stop"
+    }
+  ],
+  "created": 1795193972,
+  "model": "gpt-6-luna",
+  "object": "chat.completion",
+  "metadata": null,
+  "moderation": null,
+  "service_tier": null,
+  "system_fingerprint": null,
+  "usage": {
+    "completion_tokens": 2817,
+    "prompt_tokens": 39413,
+    "total_tokens": 42230,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": null,
+      "audio_tokens": null,
+      "reasoning_tokens": 673,
+      "rejected_prediction_tokens": null,
+      "text_tokens": null
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": null,
+      "cache_write_tokens": null,
+      "cached_tokens": 8832,
+      "image_tokens": null,
+      "text_tokens": null,
+      "cached_creation_tokens": 0
+    }
+  }
+}

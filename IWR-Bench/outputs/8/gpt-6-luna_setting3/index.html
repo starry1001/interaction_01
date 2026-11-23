@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Missing Dice - Roll a D8</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    min-height: 100%;
+    color: #111;
+    font-family: "Courier New", Courier, monospace;
+    background: #f7f5f1;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  .btn {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .topbar {
+    height: 76px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px 0 10px;
+    background: #f1ede8;
+    border-bottom: 2px dotted #d8d1c9;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 17px;
+  }
+
+  .brand img {
+    width: 47px;
+    height: 56px;
+    object-fit: contain;
+  }
+
+  .brand a,
+  .coffee {
+    color: #111;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-underline-offset: 3px;
+  }
+
+  .right-nav {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    height: 100%;
+  }
+
+  .coffee {
+    font-size: 16px;
+  }
+
+  .mode {
+    height: 66px;
+    min-width: 185px;
+    border: 1px solid #d7cfc7;
+    background: #f5f1ec;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 11px 0 15px;
+    font-weight: bold;
+    font-size: 16px;
+    box-shadow: 0 0 4px rgba(100,80,60,.12) inset;
+  }
+
+  .mode-arrow {
+    width: 31px;
+    height: 31px;
+    border-radius: 50%;
+    background: #b8dbe8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    line-height: 1;
+  }
+
+  .intro {
+    height: 231px;
+    padding-top: 31px;
+    text-align: center;
+    background: #f8f6f3;
+  }
+
+  .intro h1,
+  .intro p {
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    background: #fff;
+    padding: 9px 17px;
+  }
+
+  .intro h1 {
+    margin-top: 0;
+    margin-bottom: 14px;
+    font-size: 39px;
+    line-height: 53px;
+  }
+
+  .intro p {
+    font-size: 17px;
+    margin-top: 0;
+    margin-bottom: 12px;
+    padding: 5px 8px;
+  }
+
+  .intro a {
+    color: #111;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-underline-offset: 3px;
+  }
+
+  .controls {
+    height: 145px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+      repeating-linear-gradient(
+        125deg,
+        rgba(160,150,140,.055) 0px,
+        rgba(160,150,140,.055) 2px,
+        transparent 2px,
+        transparent 5px
+      ),
+      #f7f4f0;
+    border-top: 1px solid #e3ddd6;
+    border-bottom: 1px solid #e1dbd3;
+  }
+
+  .counter-box {
+    width: 630px;
+    height: 74px;
+    border: 2px solid #d8cec4;
+    border-radius: 5px;
+    background: rgba(250,248,245,.9);
+    box-shadow: 0 0 5px rgba(100,70,50,.12);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+  }
+
+  .counter-label {
+    font-size: 17px;
+    white-space: nowrap;
+    padding-left: 1px;
+  }
+
+  .counter {
+    height: 50px;
+    display: flex;
+    align-items: stretch;
+    border-radius: 5px;
+    overflow: hidden;
+    background: #acd9e9;
+  }
+
+  .counter button,
+  .counter input {
+    border: 0;
+    font-family: inherit;
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .counter button {
+    width: 43px;
+    color: #17313d;
+    background: #aad8e8;
+  }
+
+  .counter button:hover {
+    background: #9fcfe0;
+  }
+
+  .counter input {
+    width: 69px;
+    background: #fff;
+    color: #111;
+    outline: none;
+  }
+
+  .dice-area {
+    height: 272px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 54px;
+    background: #f8f6f3;
+    border-bottom: 2px solid #d9d1c8;
+  }
+
+  .die {
+    width: 160px;
+    height: 185px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    isolation: isolate;
+  }
+
+  .die::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    clip-path: polygon(50% 0%, 100% 27%, 100% 73%, 50% 100%, 0% 73%, 0% 27%);
+    background:
+      repeating-linear-gradient(120deg, #d9dde2 0 1px, #f7f8fa 1px 3px);
+  }
+
+  .die::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: 15px;
+    right: 15px;
+    top: 0;
+    bottom: 43px;
+    clip-path: polygon(50% 0%, 100% 29%, 100% 100%, 0% 100%, 0% 29%);
+    background: #fff;
+  }
+
+  .die-number {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 62px;
+    font-weight: 400;
+    margin-top: -15px;
+  }
+
+  .single-die {
+    width: 190px;
+    height: 205px;
+  }
+
+  .single-die .die-number {
+    font-size: 64px;
+  }
+
+  .total-area {
+    height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    border-bottom: 1px solid #ded8d1;
+  }
+
+  .total {
+    width: 630px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 23px;
+    background:
+      radial-gradient(circle, rgba(210,205,198,.28) 1px, transparent 3px) 0 0 / 10px 10px,
+      #fff;
+  }
+
+  .total strong {
+    margin-left: 5px;
+  }
+
+  .roll-area {
+    height: 170px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 33px;
+    background:
+      repeating-linear-gradient(
+        125deg,
+        rgba(160,150,140,.055) 0px,
+        rgba(160,150,140,.055) 2px,
+        transparent 2px,
+        transparent 5px
+      ),
+      #f7f4f0;
+  }
+
+  .roll {
+    width: 630px;
+    height: 94px;
+    border: 0;
+    border-radius: 6px;
+    background: #ed8c86;
+    color: #111;
+    font: bold 28px "Courier New", monospace;
+    box-shadow:
+      0 5px 0 #d76f6b,
+      0 0 0 1px #c97670 inset;
+  }
+
+  .roll:hover {
+    background: #e9837d;
+  }
+
+  @media (max-width: 800px) {
+    .counter-box, .total, .roll { width: calc(100vw - 40px); }
+    .dice-area { gap: 10px; }
+    .die { width: 22vw; height: 150px; }
+    .die-number { font-size: 45px; }
+    .counter-label { font-size: 13px; }
+    .intro h1 { font-size: 30px; }
+  }
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <img src="../../../data/data/8/assets/004.png" width="47" height="56" alt="Missing Dice logo">
+      <a class="btn" href="#">Missing Dice</a>
+    </div>
+    <div class="right-nav">
+      <a class="coffee btn" href="#">Buy me a coffee</a>
+      <button class="mode btn" type="button">
+        <span>Color modes</span>
+        <span class="mode-arrow">⌄</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro">
+      <h1>Roll a D8</h1>
+      <p>Use this too to roll any amount of <b>8-sided dice.</b></p>
+      <p>For more options try our <a class="btn" href="#">all-purpose dice roller.</a></p>
+    </section>
+
+    <section class="controls">
+      <div class="counter-box">
+        <span class="counter-label">number of 8-sided dice:</span>
+        <div class="counter">
+          <button class="btn minus" type="button">-</button>
+          <input id="amount" type="text" value="1" readonly aria-label="Number of dice">
+          <button class="btn plus" type="button">+</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="diceArea" class="dice-area">
+      <div class="die single-die">
+        <span class="die-number">7</span>
+      </div>
+    </section>
+
+    <section class="total-area">
+      <div class="total">TOTAL:<strong id="totalValue">7</strong></div>
+    </section>
+
+    <section class="roll-area">
+      <button id="roll" class="roll btn" type="button">ROLL DICE</button>
+    </section>
+  </main>
+
+<script>
+  const amountInput = document.getElementById('amount');
+  const diceArea = document.getElementById('diceArea');
+  const totalValue = document.getElementById('totalValue');
+  const plus = document.querySelector('.plus');
+  const minus = document.querySelector('.minus');
+  const rollButton = document.getElementById('roll');
+
+  let amount = 1;
+  let rollIndex = 0;
+
+  const rollSets = [
+    [1, 5, 5, 1],
+    [2, 1, 8, 3],
+    [1, 7, 8, 6]
+  ];
+
+  function setAmount(value) {
+    amount = Math.max(1, Math.min(20, value));
+    amountInput.value = amount;
+  }
+
+  function makeDie(value) {
+    const die = document.createElement('div');
+    die.className = 'die';
+    const number = document.createElement('span');
+    number.className = 'die-number';
+    number.textContent = value;
+    die.appendChild(number);
+    return die;
+  }
+
+  function render(values) {
+    diceArea.innerHTML = '';
+    values.forEach(value => diceArea.appendChild(makeDie(value)));
+    totalValue.textContent = values.reduce((a, b) => a + b, 0);
+  }
+
+  plus.addEventListener('click', () => setAmount(amount + 1));
+  minus.addEventListener('click', () => setAmount(amount - 1));
+
+  rollButton.addEventListener('click', () => {
+    let values;
+    if (amount === 1 && rollIndex === 0) {
+      values = [7];
+    } else {
+      const source = rollSets[Math.min(rollIndex, rollSets.length - 1)];
+      values = [];
+      for (let i = 0; i < amount; i++) {
+        values.push(source[i % source.length]);
+      }
+    }
+    render(values);
+    if (amount > 1 || rollIndex > 0) rollIndex++;
+  });
+</script>
+</body>
+</html>

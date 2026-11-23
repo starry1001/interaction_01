@@ -1,0 +1,115 @@
+{
+  "id": "chatcmpl-EmMTA0RxZtXuVdmk24SXf6qG7IgiS",
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "logprobs": null,
+      "message": {
+        "content": "```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no\">\n<title>GeoGebra Graphing Calculator</title>\n<style>\n  * { box-sizing: border-box; }\n  html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }\n  body {\n    font-family: Arial, Helvetica, sans-serif;\n    color: #424242;\n    background: #fff;\n    -webkit-tap-highlight-color: transparent;\n  }\n  button { font: inherit; border: 0; color: inherit; cursor: pointer; }\n  .app {\n    height: 100dvh;\n    width: 100vw;\n    display: flex;\n    flex-direction: column;\n    overflow: hidden;\n    background: #fff;\n  }\n  .topbar {\n    flex: 0 0 5.2%;\n    min-height: 52px;\n    display: flex;\n    align-items: center;\n    padding: 0 4.7%;\n    gap: 23px;\n    border-bottom: 1px solid #d8d8d8;\n    box-shadow: 0 1px 3px rgba(0,0,0,.14);\n    z-index: 2;\n    background: #fff;\n  }\n  .icon-button {\n    background: transparent;\n    display: grid;\n    place-items: center;\n    padding: 0;\n    color: #777;\n    flex: 0 0 auto;\n  }\n  .hamburger { width: 22px; height: 22px; position: relative; }\n  .hamburger::before, .hamburger::after, .hamburger span {\n    content: \"\";\n    position: absolute;\n    left: 1px;\n    width: 20px;\n    height: 2px;\n    background: #777;\n  }\n  .hamburger::before { top: 5px; }\n  .hamburger span { top: 10px; }\n  .hamburger::after { top: 15px; }\n  .brand {\n    color: #777;\n    font-size: clamp(18px, 3.7vw, 25px);\n    font-weight: 300;\n    white-space: nowrap;\n    letter-spacing: -.7px;\n    margin-right: auto;\n  }\n  .brand-mark {\n    display: inline-block;\n    position: relative;\n    color: #6656c8;\n    font-size: .68em;\n    vertical-align: 3px;\n    margin: 0 -2px;\n  }\n  .assign {\n    background: #634bd0;\n    border-radius: 4px;\n    color: white;\n    height: 42px;\n    min-width: 112px;\n    font-size: 15px;\n    letter-spacing: .3px;\n    box-shadow: 0 1px 2px rgba(0,0,0,.15);\n  }\n  .exit-icon { width: 26px; height: 28px; position: relative; margin-left: 4px; }\n  .exit-icon::before {\n    content: \"\"; position: absolute; right: 1px; top: 4px;\n    height: 18px; width: 12px; border: 2px solid #777; border-left: 0;\n  }\n  .exit-icon::after {\n    content: \"➜\"; position: absolute; left: -1px; top: 2px;\n    font-size: 23px; line-height: 22px; color: #777;\n  }\n\n  .graph {\n    flex: 1 1 auto;\n    min-height: 0;\n    position: relative;\n    overflow: hidden;\n    --unit: calc(100vw / 8.5);\n    background-color: white;\n    background-image:\n      linear-gradient(to right, rgba(0,0,0,.045) 1px, transparent 1px),\n      linear-gradient(to bottom, rgba(0,0,0,.045) 1px, transparent 1px),\n      linear-gradient(to right, rgba(0,0,0,.12) 1px, transparent 1px),\n      linear-gradient(to bottom, rgba(0,0,0,.12) 1px, transparent 1px);\n    background-size:\n      calc(var(--unit) / 5) calc(var(--unit) / 5),\n      calc(var(--unit) / 5) calc(var(--unit) / 5),\n      var(--unit) var(--unit),\n      var(--unit) var(--unit);\n    background-position: center center;\n  }\n  .graph svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }\n  .axis { stroke: #555; stroke-width: 1.1; }\n  .axis-arrow { fill: none; stroke: #555; stroke-width: 1.2; }\n  .curve { fill: none; stroke: #398e79; stroke-width: 2.6; }\n  .curve-point { fill: #747474; }\n  .axis-label {\n    fill: #333;\n    font-family: Arial, sans-serif;\n    font-size: 13px;\n    text-anchor: middle;\n  }\n  .graph-tools {\n    position: absolute;\n    top: 14px;\n    left: 26px;\n    right: 24px;\n    height: 28px;\n    display: flex;\n    align-items: center;\n    color: #b9b9b9;\n    font-size: 25px;\n    z-index: 1;\n    pointer-events: none;\n  }\n  .graph-tools .gear { margin-left: auto; color: #727272; font-size: 23px; }\n  .graph-handle {\n    position: absolute;\n    bottom: -1px;\n    left: 50%;\n    transform: translateX(-50%);\n    width: 43px;\n    height: 5px;\n    border-radius: 5px;\n    background: #d8d8dc;\n    z-index: 1;\n  }\n\n  .entry {\n    flex: 0 0 6.4%;\n    min-height: 68px;\n    display: flex;\n    align-items: center;\n    border-bottom: 1px solid #927bf0;\n    box-shadow: 0 1px 2px rgba(0,0,0,.09);\n    background: white;\n    z-index: 1;\n  }\n  .entry-plus {\n    width: 68px;\n    height: 100%;\n    display: grid;\n    place-items: center;\n    color: #777;\n    background: white;\n    border-right: 1px solid #e5e5e5;\n    font-size: 29px;\n    font-weight: 300;\n  }\n  .expression {\n    padding-left: 16px;\n    flex: 1;\n    font-size: 18px;\n    color: #333;\n    white-space: nowrap;\n  }\n  .more {\n    width: 52px;\n    height: 100%;\n    background: white;\n    color: #777;\n    font-size: 24px;\n    letter-spacing: 1px;\n  }\n  .blank { flex: 0 0 12.1%; background: #fff; }\n\n  .keyboard {\n    flex: 0 0 24.8%;\n    min-height: 290px;\n    background: #f5f4f8;\n    box-shadow: 0 -2px 5px rgba(0,0,0,.12);\n    padding: 4px 7px 7px;\n    display: flex;\n    flex-direction: column;\n    z-index: 2;\n  }\n  .tabs {\n    height: 43px;\n    flex: 0 0 43px;\n    display: flex;\n    align-items: center;\n    gap: 17px;\n    padding: 0 6px 4px;\n    color: #333;\n    font-size: 18px;\n  }\n  .tab {\n    background: transparent;\n    padding: 5px 9px;\n    border-radius: 20px;\n    white-space: nowrap;\n  }\n  .tab.active { background: #a38af5; color: #282044; }\n  .tab-spacer { flex: 1; }\n  .tiny-menu { color: #777; font-weight: bold; letter-spacing: 2px; }\n  .close-keyboard { color: #777; font-size: 29px; font-weight: 300; line-height: 1; }\n  .keyrows {\n    flex: 1;\n    min-height: 0;\n    display: flex;\n    flex-direction: column;\n    gap: 5px;\n  }\n  .keyrow {\n    display: flex;\n    gap: 5px;\n    flex: 1;\n    min-height: 0;\n  }\n  .key {\n    flex: 1 1 0;\n    min-width: 0;\n    border-radius: 10px;\n    background: #fff;\n    box-shadow: 0 1px 1px rgba(0,0,0,.045);\n    color: #25252a;\n    display: grid;\n    place-items: center;\n    font-size: clamp(16px, 3.5vw, 21px);\n    padding: 0 2px;\n    white-space: nowrap;\n  }\n  .key.special { background: #d1d0d8; }\n  .key.wide { flex: 1.35 1 0; }\n  .key.space { flex: 2.3 1 0; }\n  .key.smalltext { font-size: 16px; }\n  .keyrows.numeric { display: none; }\n  @media (max-height: 850px) {\n    .topbar { min-height: 44px; }\n    .keyboard { min-height: 240px; }\n    .entry { min-height: 54px; }\n  }\n</style>\n</head>\n<body>\n<div class=\"app\">\n  <header class=\"topbar\">\n    <button class=\"icon-button hamburger btn\" aria-label=\"Menu\"><span></span></button>\n    <div class=\"brand\">Geo<span class=\"brand-mark\">✿</span>Gebra</div>\n    <button class=\"assign btn\">ASSIGN</button>\n    <button class=\"icon-button exit-icon btn\" aria-label=\"Sign in\"></button>\n  </header>\n\n  <main class=\"graph\" id=\"graph\">\n    <div class=\"graph-tools\"><span>↶</span><span style=\"margin-left:15px\">↷</span><span class=\"gear\">⚙</span></div>\n    <svg id=\"plot\" aria-label=\"Graph of sin(x ln(x))\"></svg>\n    <div class=\"graph-handle\"></div>\n  </main>\n\n  <section class=\"entry\">\n    <button class=\"entry-plus btn\" aria-label=\"Add expression\">+</button>\n    <div class=\"expression\" id=\"expression\">sin(xln(x))</div>\n    <button class=\"more btn\" aria-label=\"More options\">⋮</button>\n  </section>\n  <div class=\"blank\"></div>\n\n  <section class=\"keyboard\" id=\"keyboard\">\n    <div class=\"tabs\">\n      <button class=\"tab btn\" data-layout=\"numeric\">123</button>\n      <button class=\"tab btn\" data-layout=\"function\">f(x)</button>\n      <button class=\"tab active btn\" data-layout=\"letters\">ABC</button>\n      <button class=\"tab btn\" data-layout=\"symbols\">#&amp;¬</button>\n      <span class=\"tab-spacer\"></span>\n      <button class=\"icon-button tiny-menu btn\" aria-label=\"Keyboard options\">•••</button>\n      <button class=\"icon-button close-keyboard btn\" aria-label=\"Close keyboard\">×</button>\n    </div>\n    <div class=\"keyrows letters\" id=\"letters\">\n      <div class=\"keyrow\">\n        <button class=\"key btn\">q</button><button class=\"key btn\">w</button><button class=\"key btn\">e</button><button class=\"key btn\">r</button><button class=\"key btn\">t</button><button class=\"key btn\">y</button><button class=\"key btn\">u</button><button class=\"key btn\">i</button><button class=\"key btn\">o</button><button class=\"key btn\">p</button>\n      </div>\n      <div class=\"keyrow\">\n        <button class=\"key btn\">a</button><button class=\"key btn\">s</button><button class=\"key btn\">d</button><button class=\"key btn\">f</button><button class=\"key btn\">g</button><button class=\"key btn\">h</button><button class=\"key btn\">j</button><button class=\"key btn\">k</button><button class=\"key btn\">l</button>\n      </div>\n      <div class=\"keyrow\">\n        <button class=\"key special wide btn\">⌃</button><button class=\"key btn\">z</button><button class=\"key btn\">x</button><button class=\"key btn\">c</button><button class=\"key btn\">v</button><button class=\"key btn\">b</button><button class=\"key btn\">n</button><button class=\"key btn\">m</button><button class=\"key special wide btn\" data-action=\"backspace\">⌫</button>\n      </div>\n      <div class=\"keyrow\">\n        <button class=\"key special btn\">αβγ</button><button class=\"key btn\">,</button><button class=\"key btn\">(</button><button class=\"key btn\">)</button><button class=\"key space btn\"></button><button class=\"key special btn\">‹</button><button class=\"key special btn\">›</button><button class=\"key special btn\" data-action=\"enter\">↵</button>\n      </div>\n    </div>\n    <div class=\"keyrows numeric\" id=\"numeric\">\n      <div class=\"keyrow\"><button class=\"key btn\">x</button><button class=\"key btn\">y</button><button class=\"key btn\">π</button><button class=\"key btn\">e</button><button class=\"key btn\">7</button><button class=\"key btn\">8</button><button class=\"key btn\">9</button><button class=\"key btn\">×</button><button class=\"key btn\">÷</button></div>\n      <div class=\"keyrow\"><button class=\"key btn\">√</button><button class=\"key btn\">²</button><button class=\"key btn\">(</button><button class=\"key btn\">)</button><button class=\"key btn\">4</button><button class=\"key btn\">5</button><button class=\"key btn\">6</button><button class=\"key btn\">+</button><button class=\"key btn\">−</button></div>\n      <div class=\"keyrow\"><button class=\"key btn\">sin</button><button class=\"key btn\">cos</button><button class=\"key btn\">tan</button><button class=\"key btn\">1</button><button class=\"key btn\">2</button><button class=\"key btn\">3</button><button class=\"key btn\">=</button><button class=\"key special btn\" data-action=\"backspace\">⌫</button></div>\n      <div class=\"keyrow\"><button class=\"key special btn\">ans</button><button class=\"key btn\">,</button><button class=\"key btn\">0</button><button class=\"key btn\">.</button><button class=\"key special btn\">‹</button><button class=\"key special btn\">›</button><button class=\"key special btn\" data-action=\"enter\">↵</button></div>\n    </div>\n  </section>\n</div>\n\n<script>\n(function(){\n  const graph = document.getElementById('graph');\n  const svg = document.getElementById('plot');\n  const expr = document.getElementById('expression');\n  const ns = 'http://www.w3.org/2000/svg';\n\n  function el(tag, attrs, parent) {\n    const node = document.createElementNS(ns, tag);\n    Object.keys(attrs || {}).forEach(k => node.setAttribute(k, attrs[k]));\n    if (parent) parent.appendChild(node);\n    return node;\n  }\n  function draw() {\n    const w = graph.clientWidth, h = graph.clientHeight;\n    if (!w || !h) return;\n    svg.setAttribute('viewBox', `0 0 ${w} ${h}`);\n    svg.replaceChildren();\n    const unit = w / 8.5, ox = w / 2, oy = h / 2;\n\n    el('line', {x1:0,y1:oy,x2:w-5,y2:oy,class:'axis'}, svg);\n    el('path', {d:`M ${w-9} ${oy-4} L ${w-4} ${oy} L ${w-9} ${oy+4}`,class:'axis-arrow'}, svg);\n    el('line', {x1:ox,y1:0,x2:ox,y2:h,class:'axis'}, svg);\n    el('path', {d:`M ${ox-4} 6 L ${ox} 1 L ${ox+4} 6`,class:'axis-arrow'}, svg);\n\n    for (let i=-4; i<=4; i++) {\n      if (i !== 0) {\n        const t = el('text',{x:ox+i*unit,y:oy+17,class:'axis-label'},svg);\n        t.textContent = i;\n        const ty = el('text',{x:ox-13,y:oy-i*unit+4,class:'axis-label','text-anchor':'end'},svg);\n        ty.textContent = i;\n      } else {\n        const zero = el('text',{x:ox-10,y:oy+16,class:'axis-label','text-anchor':'end'},svg);\n        zero.textContent='0';\n      }\n    }\n\n    let d = '';\n    const xStart = 0.055, xEnd = Math.min(4.5, (w-ox)/unit);\n    const steps = 500;\n    for (let i=0;i<=steps;i++) {\n      const x = xStart + (xEnd-xStart)*i/steps;\n      const y = Math.sin(x*Math.log(x));\n      const px = ox+x*unit, py = oy-y*unit;\n      d += (i ? ' L ' : 'M ') + px.toFixed(2) + ' ' + py.toFixed(2);\n    }\n    el('path',{d,class:'curve'},svg);\n    [[1,0],[Math.exp(Math.sqrt(Math.PI/2)),1],[Math.exp(Math.sqrt(3*Math.PI/2)),-1],[Math.exp(Math.sqrt(Math.PI)) ,0],[Math.exp(Math.sqrt(2*Math.PI)),0]].forEach(p=>{\n      const x=p[0], y=p[1];\n      if(x < xEnd+.2) el('circle',{cx:ox+x*unit,cy:oy-y*unit,r:5.4,class:'curve-point'},svg);\n    });\n  }\n  draw();\n  window.addEventListener('resize', draw);\n\n  document.querySelectorAll('.tab[data-layout]').forEach(tab=>{\n    tab.addEventListener('click',()=>{\n      document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));\n      tab.classList.add('active');\n      const numeric = document.getElementById('numeric');\n      const letters = document.getElementById('letters');\n      const layout = tab.dataset.layout;\n      numeric.style.display = layout === 'numeric' || layout === 'function' || layout === 'symbols' ? 'flex' : 'none';\n      letters.style.display = layout === 'letters' ? 'flex' : 'none';\n      if(layout === 'function' || layout === 'symbols') {\n        const keys = numeric.querySelectorAll('.key');\n        if(layout === 'function') {\n          const vals=['sin','cos','tan','%','!','$','°','sin⁻¹','cos⁻¹','tan⁻¹','{','}','≤','≥','ln','log₁₀','logₐ','d/dx','∫','i','⌫','e','10ˣ','√','∷','‹','›','↵'];\n          keys.forEach((k,i)=>{ if(vals[i]) k.textContent=vals[i]; });\n        } else {\n          const vals=['!','@','#','$','%','^','&','*','(',')','-','_','=','+','[',']','{','}','\\\\','|',';',':','\"',\"'\",'<','>','?','↵'];\n          keys.forEach((k,i)=>{ if(vals[i]) k.textContent=vals[i]; });\n        }\n      }\n    });\n  });\n\n  document.querySelectorAll('.key').forEach(key=>{\n    key.addEventListener('click',()=>{\n      const action=key.dataset.action;\n      if(action==='backspace') expr.textContent=expr.textContent.slice(0,-1);\n      else if(action==='enter') return;\n      else {\n        const v=key.textContent.trim();\n        if(v && v!=='⌃' && v!=='‹' && v!=='›' && v!=='αβγ') expr.textContent += v;\n      }\n    });\n  });\n  document.querySelector('.close-keyboard').addEventListener('click',()=>{\n    document.getElementById('keyboard').style.display='none';\n  });\n  document.querySelector('.entry-plus').addEventListener('click',()=>{\n    expr.textContent='';\n    document.getElementById('keyboard').style.display='flex';\n  });\n})();\n</script>\n</body>\n</html>\n```",
+        "refusal": null,
+        "role": "assistant",
+        "annotations": [],
+        "audio": null,
+        "function_call": null,
+        "tool_calls": null
+      },
+      "content_filter_results": {
+        "hate": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "protected_material_code": {
+          "detected": true,
+          "filtered": false,
+          "citation": {
+            "URL": "https://github.com/RuBisCO28/tech_blog/tree/7e41392fe050d649fa3d70ad19480333c2fc57c9/contents%2Fposts%2F2020-09-19%2Findex.md",
+            "license": "NOASSERTION"
+          }
+        },
+        "protected_material_text": {
+          "detected": false,
+          "filtered": false
+        },
+        "self_harm": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "sexual": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "violence": {
+          "filtered": false,
+          "severity": "safe"
+        }
+      }
+    }
+  ],
+  "created": 1795194824,
+  "model": "gpt-6-luna-2026-09-22",
+  "object": "chat.completion",
+  "metadata": null,
+  "moderation": null,
+  "service_tier": "default",
+  "system_fingerprint": null,
+  "usage": {
+    "completion_tokens": 6956,
+    "prompt_tokens": 15133,
+    "total_tokens": 22089,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": 0,
+      "audio_tokens": 0,
+      "reasoning_tokens": 2176,
+      "rejected_prediction_tokens": 0,
+      "text_tokens": null
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cache_write_tokens": null,
+      "cached_tokens": 0,
+      "image_tokens": null,
+      "text_tokens": null
+    },
+    "latency_checkpoint": {
+      "engine_tbt_ms": 8,
+      "engine_ttft_ms": 1240,
+      "engine_ttlt_ms": 56182,
+      "pre_inference_ms": 1343,
+      "service_tbt_ms": 8,
+      "service_ttft_ms": 2938,
+      "service_ttlt_ms": 57874,
+      "user_visible_ttft_ms": 1595
+    }
+  },
+  "prompt_filter_results": [
+    {
+      "prompt_index": 0,
+      "content_filter_results": {
+        "hate": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "jailbreak": {
+          "detected": false,
+          "filtered": false
+        },
+        "self_harm": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "sexual": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "violence": {
+          "filtered": false,
+          "severity": "safe"
+        }
+      }
+    }
+  ],
+  "routing": {
+    "serving_pipereplica": "d20261116094030-338cfecd-prefill-r2-dp0-prefill"
+  }
+}

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CliffsNotes Replica</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;font-family:Arial,Helvetica,sans-serif;color:#171719;background:#fff}
+body{min-width:320px}
+button,.btn{cursor:pointer;border:0}
+.header{height:154px;background:#000;color:#fff;display:flex;align-items:center;padding:0 22px;position:relative;z-index:5}
+.logo{font-size:55px;font-weight:bold;letter-spacing:-4px;line-height:1;color:#fff;white-space:nowrap}
+.logo span{color:#ffff00}
+.logo sup{font-size:14px;letter-spacing:0;color:#fff;vertical-align:top;margin-left:4px}
+.header-actions{margin-left:auto;display:flex;align-items:center;gap:30px}
+.search-icon{width:42px;height:42px;border:5px solid #ffff00;border-radius:50%;position:relative}
+.search-icon:after{content:"";position:absolute;width:22px;height:5px;background:#ffff00;right:-17px;bottom:-9px;transform:rotate(48deg);border-radius:3px}
+.hamburger{width:43px;height:34px;display:flex;flex-direction:column;justify-content:space-between}
+.hamburger i{height:6px;background:#ffff00;width:43px}
+.stripe{height:27px;background:repeating-linear-gradient(125deg,#000 0 55px,#ffff29 55px 115px)}
+.yellow-title{height:132px;background:#ffff29;display:flex;align-items:center;justify-content:center;font-size:43px}
+.home-hero{height:456px;background:#000;color:#fff;text-align:center;padding-top:84px}
+.home-hero h1{font-size:45px;margin:0 0 35px}
+.home-hero p{font-size:29px;line-height:1.4;margin:0 auto 30px;max-width:570px}
+.searchbox{height:62px;background:#f5f3f5;border-radius:36px;width:430px;max-width:85%;margin:auto;display:flex;align-items:center;text-align:left;color:#777;font-size:24px;padding:0 20px}
+.magnify{width:24px;height:24px;border:3px solid #111;border-radius:50%;margin-right:18px;position:relative}
+.magnify:after{content:"";position:absolute;width:12px;height:3px;background:#111;right:-10px;bottom:-5px;transform:rotate(48deg)}
+.arrow-submit{margin-left:auto;font-size:42px;color:#aaa;font-weight:bold}
+.section-heading{text-align:center;font-size:47px;margin:85px 0 65px}
+.books-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:0 24px}
+.book{border-radius:5px;overflow:hidden;background:#f5f3f5}
+.book img{width:100%;height:400px;display:block;object-fit:cover}
+.book-caption{padding:15px;font-size:24px;line-height:1.2;background:#fff}
+.book-caption small{font-size:18px;color:#555;display:block;margin-top:6px}
+.float-help{position:fixed;right:24px;bottom:18px;background:#000;color:#fff;border-radius:22px;padding:19px 25px;z-index:8;font-size:22px;font-weight:bold}
+.float-help small{font-size:16px;font-weight:normal;display:block;margin-top:5px}
+.float-help b{background:#dfeaff;color:#111;padding:9px;margin-right:14px}
+.alphabet{background:#000;color:#fff;padding:17px 23px 20px;display:flex;flex-wrap:wrap;gap:0 20px;font-size:26px;line-height:1.9}
+.alphabet span{display:inline-block;min-width:20px;text-align:center}
+.alphabet .active{background:#ffff29;color:#111;padding:1px 10px}
+.tabs{display:flex;margin:45px 23px 80px;height:82px;border-bottom:9px solid #000}
+.tabs button{font-size:30px;background:#000;color:#fff;flex:1}
+.tabs button.active{background:#ffff29;color:#111}
+.literature-list{padding:0 23px}
+.lit-card{height:150px;background:#f0eef0;margin:0 0 28px;display:flex;align-items:stretch;position:relative}
+.book-icon{width:100px;background:#d8d8d8;display:flex;align-items:center;justify-content:center;font-size:36px}
+.lit-info{padding:20px 10px;flex:1}
+.lit-info h3{font-size:35px;margin:0 0 40px;line-height:1.15}
+.lit-info p{font-size:24px;margin:0}
+.chevron{font-size:58px;align-self:center;padding-right:18px}
+.author-group{background:#000;color:#fff;font-size:30px;padding:28px 35px;margin:0 0 12px}
+.author-group em{color:#ffff00;font-style:normal}
+.study-list{padding:60px 23px}
+.study-item{height:92px;background:#f0eef0;margin-bottom:28px;padding:27px 33px;font-size:27px;position:relative}
+.study-item .chevron{position:absolute;right:13px;top:11px}
+.study-item .loading{position:absolute;right:210px;top:32px;width:28px;height:28px;border-radius:50%;background:#aaa}
+.article-title{background:#ffff29;font-size:38px;padding:24px 23px;height:108px}
+.article-section{background:#000;color:#ffff29;font-size:30px;font-weight:bold;padding:34px 31px}
+.article{padding:68px 23px 30px;font-size:24px;line-height:1.58}
+.article h1{font-size:36px;line-height:1.2;margin:0 0 50px}
+.article p{margin:0 0 34px}
+.article ul{padding-left:25px;margin-top:0}
+.article li{padding-left:2px;margin:0 0 28px}
+.article-nav{display:flex;justify-content:space-between;padding:30px 23px 55px}
+.article-nav button{height:78px;width:277px;font-size:24px;background:#eee;color:#999}
+.article-nav button:last-child{background:#ccc;color:#000}
+.footer{background:#000;color:#fff;text-align:center;padding:30px 23px 0}
+.footer .logo{font-size:55px;margin-bottom:22px}
+.footer p{font-size:22px;line-height:1.5;margin:0 auto 35px;max-width:570px}
+.footer-links{background:#444;padding:28px 15px;font-size:20px;line-height:1.8}
+.legal{background:#ccc;color:#222;padding:28px;font-size:19px;line-height:3;text-decoration:underline}
+.menu-home{position:fixed;right:28px;top:95px;background:#fff;color:#222;width:250px;padding:22px;border-radius:6px;z-index:20;box-shadow:0 3px 16px #555}
+.menu-home div{font-size:22px;margin:0 0 24px}
+.menu-home button{background:#000;color:#fff;width:100%;height:48px;font-size:19px;font-weight:bold}
+.drawer{position:fixed;right:0;top:0;width:365px;height:100vh;background:#000;color:#fff;z-index:30;border-left:8px solid #ffff29}
+.drawer .drawer-logo{height:180px;padding:45px 20px 0}
+.drawer-row{height:105px;border-top:1px solid #888;padding:28px 25px;font-size:25px;position:relative}
+.drawer-row:after{content:"›";position:absolute;right:22px;font-size:55px;top:13px}
+.drawer-sign{margin:30px;background:#ffff29;color:#111;text-align:center;border-radius:6px;padding:17px;font-size:24px;font-weight:bold}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.2);z-index:19}
+.hidden{display:none}
+.topbtn{position:fixed;left:0;bottom:150px;background:#111;color:#fff;padding:13px 17px;font-size:18px;z-index:10}
+@media(max-width:650px){
+ .header{height:120px;padding:0 18px}.logo{font-size:48px}.header-actions{gap:27px}.search-icon{transform:scale(.8)}.hamburger{transform:scale(.85)}
+ .yellow-title{height:132px;font-size:41px}.stripe{height:26px}
+ .home-hero{height:490px;padding-top:82px}.home-hero h1{font-size:38px}.home-hero p{font-size:27px}
+ .section-heading{font-size:42px;margin:85px 0 65px}
+ .books-grid{gap:24px;padding:0 24px}.book img{height:400px}
+ .drawer{width:365px;max-width:86vw}
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const A="../../../data/data/40/assets/";
+const books=[
+ ["1984","George Orwell","027.jpg"],["Absalom, Absalom!","William Faulkner","035.jpg"],
+ ["The Absolutely True Diary of a Part-Time Indian","Sherman Alexie","036.jpg"],
+ ["Adam Bede","George Eliot","037.jpg"],["The Adventures of Huckleberry Finn","Mark Twain","038.jpg"],
+ ["The Adventures of Tom Sawyer","Mark Twain","039.jpg"],["The Aeneid","Virgil","041.jpg"]
+];
+const lit={
+ A:[["ABSALOM, ABSALOM!","William Faulkner"],["THE ABSOLUTELY TRUE DIARY OF A PART-TIME INDIAN","Sherman Alexie"],["ADAM BEDE","George Eliot"],["THE ADVENTURES OF HUCKLEBERRY FINN","Mark Twain"]],
+ D:[["DAISY MILLER","Henry James"],["DAVID COPPERFIELD","Charles Dickens"],["THE DAY OF THE LOCUST","Nathanael West"],["DEATH AND THE KING’S HORSEMAN","Wole Soyinka"]],
+ F:[["FAHRENHEIT 451","Ray Bradbury"],["A FAREWELL TO ARMS","Ernest Hemingway"],["FAREWELL TO MANZANAR","Jeanne W. Houston and James D. Houston"],["FAR FROM THE MADDING CROWD","Thomas Hardy"]]
+};
+const guides=["Accounting Principles I","Accounting Principles II","Algebra I","Algebra II","American Government","Anatomy and Physiology","Astronomy","Basic Math & Pre-Algebra","Biochemistry I"];
+let state={page:"home",letter:"A",mode:"title",menu:false};
+function logo(){return `<div class="logo">Cliffs<span>Notes</span><sup>®</sup></div>`}
+function header(){return `<header class="header">${logo()}<div class="header-actions"><button class="btn search-icon" onclick="go('literature')"></button><button class="btn hamburger" onclick="toggleMenu()"><i></i><i></i><i></i></button></div></header>`}
+function stripes(){return `<div class="stripe"></div>`}
+function menu(){
+ if(!state.menu)return "";
+ if(state.page==="home")return `<div class="overlay" onclick="toggleMenu()"></div><div class="menu-home"><div class="btn" onclick="go('literature')">Literature Notes</div><div class="btn" onclick="go('guides')">Study Guides</div><div>Documents</div><div>Homework Questions</div><div>Chat PDF</div><div>Log In</div><button class="btn">Sign Up</button></div>`;
+ return `<div class="overlay" onclick="toggleMenu()"></div><aside class="drawer"><div class="drawer-logo">${logo()}</div><div class="drawer-row btn" onclick="go('literature')">Literature Notes</div><div class="drawer-row btn" onclick="go('guides')">Study Guides</div><div class="drawer-row">Documents</div><div class="drawer-row">Homework Questions</div><div class="drawer-row">Log in</div><div class="drawer-sign btn">Sign Up</div></aside>`;
+}
+function home(){
+ return header()+`<section class="home-hero"><h1>Explore, Study, Review</h1><p>The original (and the most widely imitated)<br>study guide</p><div class="searchbox btn" onclick="go('literature')"><span class="magnify"></span>Search CliffsNotes <b class="arrow-submit">➤</b></div></section><h2 class="section-heading">Literature Notes</h2><div class="books-grid">${books.map(b=>`<div class="book btn"><img src="${A+b[2]}" width="285" height="400"><div class="book-caption">${b[0]}<small>${b[1]}</small></div></div>`).join("")}</div><div class="float-help"><b>Q+A</b> AI homework help<small>Explanations instantly　×</small></div>`;
+}
+function alphabet(){
+ let letters="AllABCDEFGHIJKLM NOPQRSTUVWXYZ".replace(" ","").split("");
+ return `<div class="alphabet">${letters.map(x=>`<span class="btn ${x===state.letter?'active':''}" onclick="setLetter('${x}')">${x}</span>`).join("")}</div>`;
+}
+function litPage(){
+ let rows=lit[state.letter]||lit.A;
+ if(state.mode==="author")return header()+stripes()+`<div class="yellow-title">Literature</div>${alphabet()}<div class="tabs"><button class="btn" onclick="setMode('title')">Title</button><button class="btn active">Author</button></div><div class="literature-list"><div class="author-group">Chinua <em>Achebe</em></div>${card(["THINGS FALL APART","Chinua Achebe"])}<div class="author-group">Henry <em>Adams</em></div>${card(["THE EDUCATION OF HENRY ADAMS","Henry Adams"])}</div>${menu()}`;
+ return header()+stripes()+`<div class="yellow-title">Literature</div>${alphabet()}<div class="tabs"><button class="btn active">Title</button><button class="btn" onclick="setMode('author')">Author</button></div><div class="literature-list">${rows.map(card).join("")}</div>${menu()}`;
+}
+function card(r){return `<div class="lit-card btn"><div class="book-icon">▣</div><div class="lit-info"><h3>${r[0]}</h3><p>${r[1]}</p></div><div class="chevron">›</div></div>`}
+function guidesPage(){return header()+stripes()+`<div class="yellow-title">Study Guides</div><div class="study-list">${guides.map((x,i)=>`<div class="study-item btn" onclick="${i===0?'go(\\'article\\')':''}">${x}${i===0?'<span class="loading"></span>':''}<span class="chevron">›</span></div>`).join("")}</div>${menu()}`}
+function article(){
+ return header()+stripes()+`<div class="article-title">Accounting Principles I</div><div class="article-section">Introduction to Accounting <span style="float:right">▼</span></div><main class="article"><h1>Introduction to Accounting</h1><p>Accounting is the language of business. It is the system of recording, summarizing, and analyzing an economic entity's financial transactions. Effectively communicating this information is key to the success of every business. Those who rely on financial information include internal users, such as a company's managers and employees, and external users, such as banks, investors, governmental agencies, financial analysts, and labor unions. These users depend upon data supplied by accountants to answer the following types of questions:</p><ul><li>Is the company profitable?</li><li>Is there enough cash to meet payroll needs?</li><li>How much debt does the company have?</li><li>How does the company's net income compare to its budget?</li><li>What is the balance owed by customers?</li><li>Has the company consistently paid cash dividends?</li><li>How much income does each division generate?</li><li>Should the company invest money to expand?</li></ul><p>Accountants must present an organization's financial information in clear, concise reports that help make questions like these easy to answer. The most common accounting reports are called financial statements.</p></main><div class="article-nav"><button class="btn">❮　PREVIOUS</button><button class="btn">NEXT　❯</button></div><footer class="footer">${logo()}<p>CliffsNotes study guides are written by real teachers and professors, so no matter what you're studying, CliffsNotes can ease your homework headaches and help you score high on exams.</p><div class="footer-links">About CliffsNotes　 Advertise with Us　 Contact Us<br>Copyright, Community Guidelines, DSA & other Legal Resources<br>Honor Code<br>Follow us:　●　●　●　●</div><div class="legal">CliffsNotes, a Learneo, Inc. business　 Terms of Service<br>Privacy Policy　 Do Not Sell My Personal Information<br>Disclaimer　 Questions Sitemap　 Document Sitemap</div></footer>${menu()}`;
+}
+function render(){let c=state.page==="home"?home():state.page==="literature"?litPage():state.page==="guides"?guidesPage():article();document.getElementById("app").innerHTML=c}
+function go(p){state.page=p;state.menu=false;render();scrollTo(0,0)}
+function toggleMenu(){state.menu=!state.menu;render()}
+function setLetter(x){if(x==="All")x="A";state.letter=x;render()}
+function setMode(x){state.mode=x;render()}
+render();
+</script>
+</body>
+</html>

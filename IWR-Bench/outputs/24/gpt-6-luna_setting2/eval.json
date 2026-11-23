@@ -1,0 +1,63 @@
+{
+  "total_step": 10,
+  "success_step": 2,
+  "screenshot_paths_to_eval": [
+    "outputs/24/gpt-6-luna_setting2/evalpoints/0.png",
+    "outputs/24/gpt-6-luna_setting2/evalpoints/0.png"
+  ],
+  "all_mllm_scores": [
+    0.68,
+    0.39
+  ],
+  "all_dino_scores": [
+    0.900390625,
+    0.9638671875
+  ],
+  "all_ocr_scores": [
+    0.4140161725067385,
+    0.2659914712153518
+  ],
+  "all_avg_scores": [
+    0.6648022658355796,
+    0.5399528862384506
+  ],
+  "mllm_score": 0.535,
+  "dino_score": 0.93212890625,
+  "ocr_score": 0.34000382186104516,
+  "avg_score": 0.6023775760370151,
+  "all_mllm_res": [
+    "Comments:\n- **Layout (10 points): 8/10** — The generated page closely matches the reference’s overall Hugging Face structure: top navigation, confirmation banner, dataset metadata header, tab bar, two-column content area, dataset viewer, and right sidebar. However, the viewer and sidebar widths, spacing, and vertical alignment differ somewhat.\n- **Elements (15 points): 11/15** — Most major elements are present, including the dataset title, metadata chips, tabs, dataset table, search field, and sidebar sections. Some controls differ noticeably: the reference has Download and overflow controls, while the generated version shows API, Embed, and Data Studio controls. The right-side card styling and section organization also do not fully match.\n- **Content and Text (40 points): 25/40** — The primary dataset name and many navigation labels are accurate. However, the table rows, questions, answers, row count, file size, update information, and model listings differ substantially from the reference. The generated page also includes additional dataset-card text below the viewer that is not visible in the reference.\n- **Style (15 points): 11/15** — The visual language is broadly consistent with Hugging Face: light background, subtle borders, compact typography, pale metadata area, rounded controls, and similar icon usage. Differences in font sizing, table density, border treatment, and visual sharpness reduce fidelity.\n- **Overall (20 points): 13/20** — This is clearly recognizable as the same Hugging Face dataset page and preserves the main composition, but several important content details and interface controls do not match the reference closely.\n\n**Score: 68/100**",
+    "Comments:\n-Layout (3/10): The generated page shares the Hugging Face dataset context and includes a central dataset table, but the structure differs substantially. It omits the global navigation, dataset metadata header, and right-side download/details card present in the reference. The generated layout instead uses a nearly full-width table with a SQL/Data Studio sidebar.\n-Elements (7/15): Both pages contain dataset breadcrumbs, tabs, a split selector, search field, image/problem/answer columns, and a scrollable list. However, the reference includes metadata badges, download controls, dataset information panels, and a narrower centered content area that are missing or replaced in the generated version.\n-Content and Text (14/40): The dataset title and general column concepts are similar, but the visible row content differs considerably. The generated page displays raw `<image>` markers and LaTeX-style text, while the reference shows natural-language geometry questions. Row counts, answers, and split statistics also do not match.\n-Style (8/15): The typography, light color palette, borders, and general Hugging Face visual language are reasonably similar. Nevertheless, the generated page appears denser and more utilitarian, with smaller table content and a prominent SQL console absent from the reference.\n-Overall (7/20): The generated page is recognizably related to the same Hugging Face dataset, but it represents a different page view and differs in major layout, sidebar content, metadata, and visible dataset records.\n\nScore: 39/100"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "Hugging Face Search models datasets users; = Models Datasets Spaces Community Docs 0 Enterprise Pricing Please check your email address for a confirmation link Resend confirmation email Datasets: Yuting6 Geo3k-augmentation like Modalities Image Text Formats: parquet Size: IK - IOK Arxiv: arxiv 2506.09736 Libraries; Datasets pandas Croissant Dataset card Data Studio Files and versions xet Community Downloads last month Dataset Viewer Alro-convarted t0 Parquuet API Embed Data Studio Split (2) train 42k rowS Use this dataset Search (nis dataset images problen answer Size 0l downlonded dutaset Iles: inages list enatha string Jensths string 01asses 224 MB Sie 0l tha puto convertrd Parquet fles Mumborof rotr 668 valuds 224 MB 5,803 <image Find Round [0 the nearest tenth, if necessary Choices: 8 Models trained or fine-tuned on Yuting6 /Geo3k- _ cimage>In the figure the vertices of quadrilateral ABCD 5: 9 intersect square Efgh and divide its into serments with= Yuting6/Vision-Matters-78 Updated Jun 13 124 <image Find the value 0f Sfs in the parallelogran Choices: 14 18 mradermacher /Vision-Matters-7B-GGUF Updated 24 days a80 105 0 [ <image Find value 0f the variable Sys in the figure 44 Choices 56 115 125 135 126 Yuting6/Vision-Matters-Evaluation Upcated Jun 43 Prav [ous Next Collection including Yuting6 Geo3k-augmentati_ Vision-Matters Collection 419 items Updated Jun 13 0 2 license: mit datasets: - Yuting6lgeoqa-rlv-augmentation - Yutinge/math-8k-augmentation - Yuting6/m3cot augmentation - Yuting6/TQA-augmentation - Yuting6/Geo3k-augmentation - Yutinge/geoqa-rlv-noise - Yutinge/geoqa- rlv-crop - Yutinge/geoqa-rlv-blur - Yutinge/geoqa-rlv-8k-rotated - Yuting6/geoqa-rlv-8k-mixup base_model:- Qwen/Qwen2.5-VL-7B-Instruct Vision Matters: Simple Visual Perturbations Can Boost Multimodal Math Reasoning Paper Title and Link sides 9 1 Ine",
+      "screenshot_text": "Hugging Face Search models; datasets users Models E Datasets Spaces Community Docs Enterprise Pricing Please check your email address for confirmation link Resend confirmation email Datasets Yuting6 Geo3k-augmentation Like Modalities: Image Text Formats; parquet Size: 1K-1OK ArXiv: arxiv 2506.09736 Libraries- Datasets pandas Croissant Dataset card Data Studio Files and versions Community Dataset viewer Download Download this dataset Use this dataset Split train 3.2k rowS Dowloads last month Size Search this dataset ~12 GB image problem answer Rows Updated 3.2k 5 months ago In the figure find the measure of the indicated angle Choose the correct answer: Models trained or fine-tuned on Find the value of x in the diagram. What is the measure of the missing angle? YutingMision-Math-Augmentation Geo3k-augmentation The triangle shown has height of 12 f. Find its area 132 Collection including dataset In the diagram, determine the length of the indicated segment Vision Matters Collection Find the value of x Use the information given in the figure Dataset card What is the measure of angle in the triangle? 709 Files and versions Community Find the value of the variable using the properties of the quadrilateral Find the missing side length in the similar triangles. What is the value of X in the diagram? Find the measures of the numbered angles_ Use the diagram t0 find the missing measure: 909 Determine the value of x irom the parallel lines: Find the measure of the angle shown in the circle_ 602 Use the diagram solve for the unknown value: What is the length of the indicated side? Find the measure of the indicated arc.",
+      "similarity": 0.4140161725067385
+    },
+    {
+      "checkpoint_text": "Please checkyour email address for a confirmation link Resend confirmation email Datasets: Yuting6 Geo3k-augmentation like Dataset card Data Studio Files and versions (XCl Community Split (2) train 4.2k rows Ask Al to help write your query_. Ctrltk Search this dataset The SQL console is powereo by  DuckDB WASM and runs entirel Get started by typing query selecting viewv from the images problem answer SELECT FROM [rain LIMIT 10; images list 'lengths string lengths string classes 291 6.68 values <inage Find X= Round the nearest tenth, necessary Choices: <image In the figure the vertices 0f quadrilateral ABCD intersect square EFGH and divide its sides into segments with measures that have Tatio 0f 132. Find the ratio petieen the areas of ABCD and EfGh Choices: 1:4 1:2 5:9 sqit Subsets and Splits 0 <inage Find the value of Sfs in the parallelogram Choices: 14 18 36 Run Query (image Find the value of the variable Sys in the figure Choices: 55 115 125 135 125 (inage Find Smlangle Ss Choices: 68 80 123 125 123 MA <inage Find Sxs that Iparallel S. Choices: 10 11 12 13 <inage Find ZRSU 50 Ehat $ Iparallel Choices: 114 116 120 124 124 <inage Find Sxs Choices: <image Find the perimeter 0f the Sltriangle C,$ if Sltriangle Isim |triangle D=5$ SC 0=12 $ and SB C=31.25 Choices: 32.5 72 78 187.2 <inage sloverline_ABlS is diameter, SAC-8s inches, and SBC-155 inches. Find the diameter of the circle _ Choices: 8.5 15 17 <inage Find Slangle 103 Choices: 80 100 160 Saved Queries Top Community Queries <inage Find the  measure of Slangle 75 if Sloverlinef4 B} Iperp |overlinefB C}s Choices: 110 120 130 140 140 <inage Find Sm Iwidehat {CF}S. Choices: No saved queries Save your SQL queries to embed, download, acccss tnem <inage Sloverline:BC; I loverline-OF}S . SAC=1S 830=3x-28, SCF=3x-28 and SAB-125 Find SxS Choices: later Queries will appear here once saved. yet and =",
+      "screenshot_text": "Hugging Face Search models; datasets users Models E Datasets Spaces Community Docs Enterprise Pricing Please check your email address for confirmation link Resend confirmation email Datasets Yuting6 Geo3k-augmentation Like Modalities: Image Text Formats; parquet Size: 1K-1OK ArXiv: arxiv 2506.09736 Libraries- Datasets pandas Croissant Dataset card Data Studio Files and versions Community Dataset viewer Download Download this dataset Use this dataset Split train 3.2k rowS Dowloads last month Size Search this dataset ~12 GB image problem answer Rows Updated 3.2k 5 months ago In the figure find the measure of the indicated angle Choose the correct answer: Models trained or fine-tuned on Find the value of x in the diagram. What is the measure of the missing angle? YutingMision-Math-Augmentation Geo3k-augmentation The triangle shown has height of 12 f. Find its area 132 Collection including dataset In the diagram, determine the length of the indicated segment Vision Matters Collection Find the value of x Use the information given in the figure Dataset card What is the measure of angle in the triangle? 709 Files and versions Community Find the value of the variable using the properties of the quadrilateral Find the missing side length in the similar triangles. What is the value of X in the diagram? Find the measures of the numbered angles_ Use the diagram t0 find the missing measure: 909 Determine the value of x irom the parallel lines: Find the measure of the angle shown in the circle_ 602 Use the diagram solve for the unknown value: What is the length of the indicated side? Find the measure of the indicated arc.",
+      "similarity": 0.2659914712153518
+    }
+  ],
+  "assertion_results": [
+    null,
+    null,
+    {
+      "result": "No",
+      "prev_img_path": "outputs/24/gpt-6-luna_setting2/evalpoints/2.png",
+      "curr_img_path": "outputs/24/gpt-6-luna_setting2/evalpoints/3.png",
+      "response": "{\n  \"think\": \"In Image 1, the split selector shows train (3.2k rows). In Image 2, the selector is expanded and still shows train (3.2k rows); no test option is selected or displayed as the current split.\",\n  \"result\": \"No\"\n}",
+      "assertion": "'train' under 'Split (2)' becomes 'test'",
+      "thinking": "In Image 1, the split selector shows train (3.2k rows). In Image 2, the selector is expanded and still shows train (3.2k rows); no test option is selected or displayed as the current split."
+    },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ]
+}

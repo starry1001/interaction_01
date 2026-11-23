@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glassdoor Community</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;color:#111820;background:#fff}
+  body{font-size:14px}
+  button,input,textarea{font:inherit}
+  button{color:inherit}
+  .btn{cursor:pointer}
+  .topbar{height:68px;border-bottom:1px solid #e4e5e7;background:#fff}
+  .top-inner{height:100%;max-width:1280px;margin:auto;display:flex;align-items:center;position:relative}
+  .brand{position:absolute;left:0;top:50%;transform:translateY(-50%);width:125px;height:34px;display:flex;align-items:center}
+  .brand img{width:125px;height:34px;object-fit:contain}
+  .nav{position:absolute;left:415px;top:0;height:100%;display:flex;align-items:center;gap:42px}
+  .nav a,.header-tools button{border:0;background:none;text-decoration:none;font-weight:600;font-size:14px;padding:8px 0}
+  .header-tools{margin-left:auto;display:flex;align-items:center;gap:23px}
+  .header-tools button{display:flex;align-items:center;gap:8px}
+  .icon{width:18px;height:18px;display:inline-block;position:relative;flex:none}
+  .search-icon:before{content:"";position:absolute;width:10px;height:10px;border:1.6px solid #111;border-radius:50%;left:1px;top:1px}
+  .search-icon:after{content:"";position:absolute;width:7px;height:1.6px;background:#111;transform:rotate(48deg);left:11px;top:12px}
+  .bell:before{content:"";position:absolute;left:3px;top:1px;width:11px;height:13px;border:1.5px solid #111;border-radius:7px 7px 3px 3px}
+  .bell:after{content:"";position:absolute;left:2px;top:14px;width:14px;height:1.5px;background:#111}
+  .person:before{content:"";position:absolute;left:2px;top:1px;width:14px;height:14px;border:1.5px solid #111;border-radius:50%}
+  .person:after{content:"";position:absolute;left:6px;top:4px;width:6px;height:5px;border:1px solid #111;border-radius:50%;box-shadow:0 6px 0 1px #fff,0 6px 0 2px #111}
+  .layout{max-width:1280px;margin:32px auto 0;display:grid;grid-template-columns:270px 590px 280px;gap:60px;align-items:start}
+  .left-col{padding-top:0}
+  .anon-card{height:202px;border:1px solid #dfe1e5;border-radius:12px;background:#fbfbfc;overflow:hidden;box-shadow:0 1px 2px #00000008}
+  .anon-top{height:88px;background:#f4f4f6;display:flex;align-items:center;padding:18px 28px;gap:12px}
+  .anon-avatar{width:48px;height:48px;border:1px solid #d8dce1;border-radius:50%;background:white;display:grid;place-items:center;font-size:22px}
+  .anon-label{font-size:13px;line-height:19px}
+  .anon-label strong{display:block;font-size:14px}
+  .down{font-size:16px;margin-left:auto}
+  .create-wrap{height:112px;display:flex;align-items:flex-start;justify-content:center;padding-top:22px}
+  .create-post{height:46px;border:0;border-radius:24px;background:#07121d;color:white;padding:0 21px;font-weight:700}
+  .create-post span{font-size:18px;margin-left:6px}
+  .my-bowls{margin-top:18px;border-top:1px solid #e3e5e8;padding-top:16px}
+  .my-bowls h2{font-size:20px;margin:0 0 14px;font-weight:700}
+  .bowl-link{height:49px;display:flex;align-items:center;gap:10px;font-weight:600;font-size:15px}
+  .bowl-link img{width:24px;height:24px;object-fit:cover;border-radius:50%;background:#eef1f3}
+  .explore{margin-top:11px;border:1px solid #555;border-radius:9px;background:white;padding:8px 13px;font-weight:600;display:flex;align-items:center;gap:9px}
+  .explore .mini{font-size:18px}
+  .feed-search{height:44px;border-radius:24px;background:#f4f4f5;color:#74777b;display:flex;align-items:center;padding:0 18px;margin:0 16px 16px;font-size:16px}
+  .feed-search .search-icon{margin-right:8px;opacity:.55}
+  .composer{height:108px;border:1px solid #dfe1e5;border-radius:8px 8px 0 0;display:flex;align-items:center;padding:20px 30px;gap:16px}
+  .anonymous-mark{width:34px;height:34px;border-radius:50%;border:1px solid #e2e3e5;display:grid;place-items:center;font-size:18px;background:#fff;flex:none}
+  .composer-arrow{font-size:20px;color:#30343a}
+  .composer input{height:48px;border:1px solid #d3d5d8;padding:0 16px;flex:1;font-size:16px;color:#65696d}
+  .post{border:1px solid #e0e2e5;border-top:0}
+  .post:not(:last-child){margin-bottom:0}
+  .post-meta{height:52px;display:flex;align-items:center;padding:0 30px;color:#767b80;font-size:13px}
+  .post-meta .join-pill{margin-left:auto}
+  .join-pill{border:0;background:#f4f4f5;padding:5px 10px;border-radius:6px;font-weight:700;font-size:13px}
+  .post-head{display:flex;align-items:center;padding:0 30px 0 30px;gap:11px;min-height:46px}
+  .avatar{width:33px;height:33px;border-radius:50%;object-fit:cover;background:#e5f5f8;flex:none}
+  .author{font-size:15px;font-weight:700;line-height:19px}
+  .author-sub{font-size:14px;line-height:18px}
+  .post-head .time{margin-left:auto;color:#85898d}
+  .more{font-size:22px;letter-spacing:2px;border:0;background:none;padding:0 0 8px 10px}
+  .post-copy{padding:8px 30px 4px;font-size:15px;line-height:20px}
+  .read-more{color:#6e7479;text-decoration:underline;white-space:nowrap}
+  .actions{height:55px;display:flex;align-items:center;padding:0 30px;gap:26px}
+  .action{border:0;background:none;padding:6px 0;color:#5f666c;display:flex;align-items:center;gap:7px;font-size:15px}
+  .action .outline-heart{font-size:22px;line-height:16px;color:#788087}
+  .action.liked{color:#008b58}
+  .action.liked .outline-heart{color:#00a765}
+  .reaction-count{margin-left:auto;display:flex;align-items:center;gap:6px;font-size:14px;font-weight:600}
+  .reaction-emojis{font-size:16px;letter-spacing:-5px;margin-right:4px}
+  .preview-comment{margin:0 30px 28px 72px;background:#f3f4f6;border-radius:8px;padding:13px 14px 15px;min-height:72px}
+  .preview-name{font-weight:700;margin-bottom:9px;font-size:14px}
+  .preview-copy{font-size:14px;line-height:19px}
+  .second-post{border-top:1px solid #e3e4e6}
+  .second-post .post-copy{padding-top:8px;padding-bottom:5px}
+  .third-post{border-top:1px solid #e3e4e6}
+  .third-copy{padding:7px 30px 13px;font-size:15px;line-height:25px}
+  .third-copy strong{color:#008d57}
+  .post-photo{width:100%;height:360px;display:block;object-fit:cover;object-position:center 31%}
+  .right-card{border:1px solid #e0e2e5;border-radius:9px;overflow:hidden}
+  .right-card h2{font-size:20px;margin:23px 16px 20px}
+  .explore-bowls{display:block;margin:0 16px 17px;color:#009866;font-size:16px;font-weight:700;text-decoration:none}
+  .explore-bowls span{font-size:20px;margin-left:5px}
+  .recommendation{min-height:139px;border-top:1px solid #e4e5e7;padding:14px 13px 10px;display:grid;grid-template-columns:48px 1fr;column-gap:10px}
+  .recommendation img{width:46px;height:46px;border-radius:50%;object-fit:cover}
+  .rec-title{font-weight:700;font-size:15px;line-height:19px}
+  .rec-desc{font-size:13px;color:#666d73;line-height:16px;margin-top:2px}
+  .rec-members{font-size:12px;color:#858a8f;margin-top:2px}
+  .rec-buttons{grid-column:2;display:flex;justify-content:flex-end;gap:17px;margin-top:7px}
+  .rec-buttons button{border:0;background:none;font-weight:700;padding:3px 5px;font-size:14px}
+  .rec-buttons .join{background:#f2f3f5;border-radius:6px;padding:6px 12px}
+  .overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;align-items:center;justify-content:center;z-index:20}
+  .overlay.open{display:flex}
+  .modal{width:610px;height:1045px;max-height:calc(100vh - 46px);background:white;border-radius:9px;box-shadow:0 8px 30px #0002;display:flex;flex-direction:column;overflow:hidden}
+  .modal-head{height:66px;display:flex;align-items:center;padding:0 30px;border-bottom:1px solid #f0f0f0;flex:none}
+  .modal-head h2{font-size:20px;margin:0}
+  .modal-join{margin-left:auto;color:#009e68;border:0;background:none;font-size:13px;font-weight:700;padding:10px}
+  .close{font-size:25px;border:0;background:none;margin-left:20px;font-weight:300}
+  .modal-scroll{overflow:auto;padding:18px 30px 28px}
+  .modal-post-author{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+  .modal-post-author .avatar{width:34px;height:34px}
+  .modal-time{margin-left:auto;color:#81868a;font-size:12px}
+  .modal-copy{font-size:15px;line-height:20px;margin:0 0 13px}
+  .modal-actions{display:flex;align-items:center;gap:27px;height:43px}
+  .modal-actions .action{font-size:14px}
+  .modal-actions .reaction-count{font-size:13px}
+  .comment-form{display:flex;gap:15px;margin:14px 0 30px;align-items:flex-start}
+  .comment-form .anonymous-mark{width:38px;height:38px}
+  .form-area{flex:1}
+  .comment-form textarea{width:100%;height:94px;border:1px solid #cfd2d5;border-radius:3px;padding:14px;font-size:15px;resize:none}
+  .form-controls{height:50px;display:flex;align-items:center;justify-content:space-between}
+  .picture-icon{color:#afb4b8;font-size:20px}
+  .form-controls button{border:0;background:none;color:#a4a8ac;padding:9px 15px}
+  .form-controls .comment-submit{background:#b8bec3;color:white;border-radius:7px;font-weight:700;margin-left:6px}
+  .sort{display:flex;justify-content:flex-end;align-items:center;gap:12px;margin:0 0 24px;font-size:14px}
+  .sort-icon{font-size:20px}
+  .comment{display:flex;gap:10px;margin-bottom:20px}
+  .comment .anonymous-mark{width:32px;height:32px;flex:none}
+  .comment-body{flex:1}
+  .comment-box{background:#f2f3f5;border-radius:8px;padding:12px 11px 14px}
+  .comment-author{font-weight:700;font-size:14px;margin-bottom:12px}
+  .comment-author span{float:right;color:#70767b;font-weight:400}
+  .comment-text{font-size:14px;line-height:20px}
+  .comment-actions{height:35px;display:flex;align-items:center;gap:20px;padding-left:4px;color:#697177;font-size:13px}
+  .comment-actions button{border:0;background:none;padding:4px 0;color:inherit}
+  .comment-reactions{margin-left:auto}
+  .replies{color:#008d58;font-size:13px;font-weight:700;margin:0 0 14px 4px}
+  @media(max-width:1400px){
+    .top-inner,.layout{width:calc(100% - 40px)}
+    .layout{grid-template-columns:230px minmax(470px,590px) 250px;gap:30px}
+    .nav{left:270px}
+  }
+  @media(max-width:900px){
+    .layout{display:block;max-width:590px}
+    .left-col,.right-col,.nav{display:none}
+    .top-inner{justify-content:flex-end}
+    .brand{left:0}
+    .header-tools{margin-right:0}
+    .modal{width:min(610px,calc(100vw - 20px))}
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="top-inner">
+    <a class="brand btn" href="#" aria-label="Glassdoor home"><img src="../../../data/data/48/assets/026.svg" width="125" height="34" alt="Glassdoor"></a>
+    <nav class="nav">
+      <a class="btn" href="#">Community</a><a class="btn" href="#">Jobs</a><a class="btn" href="#">Companies</a><a class="btn" href="#">Salaries</a>
+    </nav>
+    <div class="header-tools">
+      <button class="btn"><i class="icon search-icon"></i>Search</button>
+      <button class="btn" aria-label="Notifications"><i class="icon bell"></i></button>
+      <button class="btn" aria-label="Profile"><i class="icon person"></i></button>
+    </div>
+  </div>
+</header>
+
+<main class="layout">
+  <aside class="left-col">
+    <section class="anon-card">
+      <div class="anon-top">
+        <div class="anon-avatar">♙</div>
+        <div class="anon-label">Post anonymously as<strong>Software Engineer</strong></div>
+        <span class="down">⌄</span>
+      </div>
+      <div class="create-wrap"><button class="create-post btn">Create post <span>＋</span></button></div>
+    </section>
+    <section class="my-bowls">
+      <h2>My Bowls</h2>
+      <div class="bowl-link"><img src="../../../data/data/48/assets/022.jpg" width="24" height="24" alt="">Jobs in STEM</div>
+      <div class="bowl-link"><img src="../../../data/data/48/assets/025.jpg" width="24" height="24" alt="">Job Hunting in Tech</div>
+      <div class="bowl-link"><img src="../../../data/data/48/assets/013.png" width="24" height="24" alt="">Tech</div>
+      <div class="bowl-link"><img src="../../../data/data/48/assets/014.png" width="24" height="24" alt="">Software Engineering</div>
+      <div class="bowl-link"><img src="../../../data/data/48/assets/022.jpg" width="24" height="24" alt="">Salaries in STEM</div>
+      <div class="bowl-link"><img src="../../../data/data/48/assets/022.jpg" width="24" height="24" alt="">Salaries in Tech</div>
+      <button class="explore btn"><span class="mini">♧</span> Explore Bowls <span style="color:#00a967">●</span></button>
+    </section>
+  </aside>
+
+  <section class="center-col">
+    <div class="feed-search"><i class="icon search-icon"></i>Search for Bowls or conversations</div>
+    <div class="composer">
+      <div class="anonymous-mark">♙</div><span class="composer-arrow">⌄</span>
+      <input aria-label="Create a post" value="Post as “Software Engineer”" readonly>
+    </div>
+
+    <article class="post">
+      <div class="post-meta">Discover new communities <button class="join-pill btn">Join Bowl</button></div>
+      <div class="post-head">
+        <img class="avatar" src="../../../data/data/48/assets/022.jpg" width="33" height="33" alt="">
+        <div><div class="author">The Worklife Bowl</div><div class="author-sub">Human Resources Manager</div></div>
+        <span class="time">2w</span><button class="more btn" aria-label="More">···</button>
+      </div>
+      <div class="post-copy">Don't give up. I am 73 years old and was offered a full time position today. The new salary is what I was making but a 6 times greater bonus potential. The new job is in an industry that I worked in ... <a class="read-more btn" href="#">read more</a></div>
+      <div class="actions">
+        <button class="action like-btn btn"><span class="outline-heart">♡</span><span class="like-label">Like</span></button>
+        <button class="action comments-btn btn"><span>◉</span>340 Comments</button>
+        <button class="action btn"><span>↗</span>Share</button>
+        <div class="reaction-count"><span class="reaction-emojis">💚🟡💜</span><span class="count">2538</span></div>
+      </div>
+      <div class="preview-comment"><div class="preview-name">Consultant 1</div><div class="preview-copy">Huge congratulations! Made me happy reading this, all the very best :)</div></div>
+    </article>
+
+    <article class="post second-post">
+      <div class="post-meta">Discover new communities <button class="join-pill btn">Join Bowl</button></div>
+      <div class="post-head">
+        <img class="avatar" src="../../../data/data/48/assets/025.jpg" width="33" height="33" alt="">
+        <div><div class="author">#OverheardAtWork</div><div class="author-sub">Analyst</div></div>
+        <span class="time">1mo</span><button class="more btn" aria-label="More">···</button>
+      </div>
+      <div class="post-copy">I asked a colleague out, and she said she wouldn't go because it's too hard to date someone at work in case it doesn't pan out well. I heard her tell someone on her team that "it's too risky". Is that... <a class="read-more btn" href="#">read more</a></div>
+      <div class="actions">
+        <button class="action btn"><span class="outline-heart">♡</span>Like</button>
+        <button class="action btn"><span>◉</span>566 Comments</button>
+        <button class="action btn"><span>↗</span>Share</button>
+        <div class="reaction-count"><span class="reaction-emojis">💚🟡💙</span>555</div>
+      </div>
+      <div class="preview-comment"><div class="preview-name">Regional Lead 1</div><div class="preview-copy">Just let it go mate. Sure it can work, but it can also fail, and when it fails it’s failing bad. Either she’s very principled, or a relationship is...</div></div>
+    </article>
+
+    <article class="post third-post">
+      <div class="post-meta">Discover new communities <button class="join-pill btn">Follow bowl</button></div>
+      <div class="post-head">
+        <img class="avatar" src="../../../data/data/48/assets/011.png" width="33" height="33" alt="">
+        <div><div class="author" style="color:#009666">Bo Baxter <span style="font-size:13px">✿</span></div><div class="author-sub"><b>posted in The Water Cooler</b></div></div>
+        <button class="join-pill btn" style="margin-left:auto">Follow</button><span class="time">3d</span><button class="more btn" aria-label="More">···</button>
+      </div>
+      <div class="third-copy">As summer starts to wind down, hopefully productivity does the opposite 😅<br><br>Do you go through seasonal slumps, or are you always on it?</div>
+      <img class="post-photo" src="../../../data/data/48/assets/074.png" width="590" height="360" alt="A person working at a laptop">
+    </article>
+  </section>
+
+  <aside class="right-col">
+    <section class="right-card">
+      <h2>Bowls for you</h2>
+      <a class="explore-bowls btn" href="#">Explore all Bowls <span>→</span></a>
+      <div class="recommendation">
+        <img src="../../../data/data/48/assets/025.jpg" width="46" height="46" alt="">
+        <div><div class="rec-title">Job Referrals!</div><div class="rec-desc">Best way to get your foot in the door with your favorite company! Plus employees won't mind gettin...</div><div class="rec-members">1M</div></div>
+        <div class="rec-buttons"><button class="btn">View</button><button class="join btn">Join</button></div>
+      </div>
+      <div class="recommendation">
+        <img src="../../../data/data/48/assets/022.jpg" width="46" height="46" alt="">
+        <div><div class="rec-title">The Worklife Bowl</div><div class="rec-desc">A bowl for professionals from any industry to come together and discuss the day-to-day happenin...</div><div class="rec-members">11M</div></div>
+        <div class="rec-buttons"><button class="btn">View</button><button class="join btn">Join</button></div>
+      </div>
+      <div class="recommendation">
+        <img src="../../../data/data/48/assets/023.jpg" width="46" height="46" alt="">
+        <div><div class="rec-title">New York City</div><div class="rec-desc">To help NYC residents as well as visitors discover what the world's most popular city has to offer!</div><div class="rec-members">230K</div></div>
+        <div class="rec-buttons"><button class="btn">View</button><button class="join btn">Join</button></div>
+      </div>
+      <div class="recommendation">
+        <img src="../../../data/data/48/assets/024.webp" width="46" height="46" alt="">
+        <div><div class="rec-title">Personal Investment Chatter</div><div class="rec-desc">Offer questions and experiences related to personal finance and investments</div><div class="rec-members">440K</div></div>
+        <div class="rec-buttons"><button class="btn">View</button><button class="join btn">Join</button></div>
+      </div>
+      <div class="recommendation">
+        <img src="../../../data/data/48/assets/022.jpg" width="46" height="46" alt="">
+        <div><div class="rec-title">Career Advice for Students</div><div class="rec-desc">A place for students to ask questions and get advice from working professionals. Please do...</div><div class="rec-members">3M</div></div>
+        <div class="rec-buttons"><button class="btn">View</button><button class="join btn">Join</button></div>
+      </div>
+    </section>
+  </aside>
+</main>
+
+<div class="overlay" id="overlay" aria-hidden="true">
+  <section class="modal" role="dialog" aria-modal="true" aria-label="The Worklife Bowl comments">
+    <header class="modal-head">
+      <h2>The Worklife Bowl</h2><button class="modal-join btn">Join</button><button class="close btn" aria-label="Close">×</button>
+    </header>
+    <div class="modal-scroll">
+      <div class="modal-post-author">
+        <img class="avatar" src="../../../data/data/48/assets/022.jpg" width="34" height="34" alt="">
+        <div><div class="author">The Worklife Bowl</div><div class="author-sub">Human Resources Manager</div></div>
+        <span class="modal-time">2w</span><button class="more btn" aria-label="More">···</button>
+      </div>
+      <p class="modal-copy">Don't give up. I am 73 years old and was offered a full time position today. The new salary is what I was making but a 6 times greater bonus potential. The new job is in an industry that I worked in for 22 years, but that was 25 years ago. A friend that I worked with 25 years ago got me an interview. Never underestimate networking. For you seasoned and not so seasoned job seekers: don't quit, don't let the system get you down, don't stay discouraged, and don't give up. If I can, you can too</p>
+      <div class="modal-actions">
+        <button class="action like-btn btn"><span class="outline-heart">♡</span><span class="like-label">Like</span></button>
+        <button class="action btn"><span>◉</span>340 Comments</button>
+        <button class="action btn"><span>↗</span>Share</button>
+        <div class="reaction-count"><span class="reaction-emojis">💚🟡💜</span><span class="count">2538</span></div>
+      </div>
+      <div class="comment-form">
+        <div class="anonymous-mark">♙</div>
+        <div class="form-area"><textarea placeholder="Join this Bowl to comment"></textarea><div class="form-controls"><span class="picture-icon">▧</span><span><button class="btn">Cancel</button><button class="comment-submit btn">Comment</button></span></div></div>
+      </div>
+      <div class="sort"><span class="sort-icon">☰</span>Popular <span>⌄</span></div>
+      <div class="comment">
+        <div class="anonymous-mark">♙</div>
+        <div class="comment-body">
+          <div class="comment-box"><div class="comment-author">Consultant 1 <span>2w　···</span></div><div class="comment-text">Huge congratulations! Made me happy reading this, all the very best :)</div></div>
+          <div class="comment-actions"><button class="btn">♡ Like</button><button class="btn">◉ Reply</button><button class="btn">↗ Share</button><span class="comment-reactions">💚🟡　167</span></div>
+        </div>
+      </div>
+      <div class="comment">
+        <div class="anonymous-mark">♙</div>
+        <div class="comment-body">
+          <div class="comment-box"><div class="comment-author">IBM 1 <span>2w　···</span></div><div class="comment-text">Thanks for the vote of confidence, and congrats on landing the new role.<br><br>At 48, facing the probability that IBM isn't my final stop, I think way too much about ageism and my career taking a skip jump trajectory when that time comes. Your story shows that it doesn't have to be that way.</div></div>
+          <div class="comment-actions"><button class="btn">♡ Like</button><button class="btn">◉ Reply</button><button class="btn">↗ Share</button><span class="comment-reactions">💚🟡　61</span></div>
+          <div class="replies">View 3 more replies</div>
+        </div>
+      </div>
+      <div class="comment">
+        <div class="anonymous-mark">♙</div>
+        <div class="comment-body"><div class="comment-box"><div class="comment-author">Senior Manager <span>2w　···</span></div><div class="comment-text">This is such a great reminder that it's never too late to try something new. Congratulations!</div></div><div class="comment-actions"><button class="btn">♡ Like</button><button class="btn">◉ Reply</button><button class="btn">↗ Share</button></div></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+  const overlay=document.getElementById('overlay');
+  const commentButtons=document.querySelectorAll('.comments-btn');
+  const closeButton=document.querySelector('.close');
+  commentButtons.forEach(button=>button.addEventListener('click',()=>{overlay.classList.add('open');overlay.setAttribute('aria-hidden','false')}));
+  closeButton.addEventListener('click',()=>{overlay.classList.remove('open');overlay.setAttribute('aria-hidden','true')});
+  overlay.addEventListener('click',event=>{if(event.target===overlay){overlay.classList.remove('open');overlay.setAttribute('aria-hidden','true')}});
+  document.addEventListener('keydown',event=>{if(event.key==='Escape'){overlay.classList.remove('open');overlay.setAttribute('aria-hidden','true')}});
+  document.querySelectorAll('.like-btn').forEach(button=>button.addEventListener('click',()=>{
+    const liked=button.classList.toggle('liked');
+    button.querySelector('.outline-heart').textContent=liked?'♥':'♡';
+    button.querySelector('.like-label').textContent=liked?'Like':'Like';
+    document.querySelectorAll('.count').forEach(count=>count.textContent=liked?'2539':'2538');
+  }));
+  document.querySelectorAll('a[href="#"]').forEach(link=>link.addEventListener('click',event=>event.preventDefault()));
+</script>
+</body>
+</html>

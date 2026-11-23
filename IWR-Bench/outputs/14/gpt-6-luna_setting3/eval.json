@@ -1,0 +1,50 @@
+{
+  "total_step": 4,
+  "success_step": 4,
+  "screenshot_paths_to_eval": [
+    "outputs/14/gpt-6-luna_setting3/evalpoints/0.png",
+    "outputs/14/gpt-6-luna_setting3/evalpoints/0.png"
+  ],
+  "all_mllm_scores": [
+    0.73,
+    0.83
+  ],
+  "all_dino_scores": [
+    0.84521484375,
+    0.54833984375
+  ],
+  "all_ocr_scores": [
+    0.7919191919191919,
+    0.21819713563605725
+  ],
+  "all_avg_scores": [
+    0.7890446785563974,
+    0.5321789931286858
+  ],
+  "mllm_score": 0.78,
+  "dino_score": 0.69677734375,
+  "ocr_score": 0.5050581637776246,
+  "avg_score": 0.6606118358425416,
+  "all_mllm_res": [
+    "Comments:\n- **Layout (10 points): 6/10** — The page has a similar Airbnb-style centered layout, header, listing title, photo gallery, details section, and right-side booking card. However, the gallery composition differs significantly: the reference uses the room image as the large left image with a 2×2 grid on the right, while the generated page uses an unrelated large beach portrait and rearranges the room/map images.\n- **Elements (15 points): 10/15** — Most major elements are present, including the Airbnb header, search controls, host/menu actions, title, share/save links, photo gallery, “Show all photos” button, listing details, guest-favorite panel, rare-find notice, and pricing card. Some iconography and gallery image assignments do not match the reference.\n- **Content and Text (40 points): 34/40** — The textual content is highly similar and key details are reproduced accurately: “Sunset Hollywood Private Room,” Burbank location, room description, $284 SGD price, dates, rating 4.98, and 41 reviews. Minor differences exist in formatting, icon labels, and some text wrapping.\n- **Style (15 points): 11/15** — The typography, spacing, borders, rounded cards, colors, and general Airbnb visual language are close. Differences include the Airbnb logo mark, icon styles, image treatment, gallery proportions, and some sizing/weight variations.\n- **Overall (20 points): 12/20** — The generated page clearly recreates the same listing page and structure, but the incorrect primary image and altered gallery layout are prominent visual mismatches. The page is functionally and textually similar, though not a close pixel-level reproduction.\n\n**Score: 73/100**",
+    "Comments:\n- **Layout (10 points): 6/10** — The overall two-column Airbnb layout is accurate, with the main content on the left and reservation card on the right. However, the viewport position differs substantially: the reference is scrolled down to the listing details, while the generated page is near the top with the navigation and full image gallery visible.\n- **Elements (15 points): 13/15** — Major elements are present and correctly arranged, including the Airbnb header, search controls, title, photo gallery, “Rare find” notice, rating/favourite panel, host information, amenities, and booking card. Some elements visible in the reference are below the fold in the generated view.\n- **Content and Text (40 points): 36/40** — Listing title, location, room details, rating, review count, price, dates, guest count, host details, and descriptive sections closely match. Minor differences in text wrapping, icon rendering, and the amount of visible content reduce the score slightly.\n- **Style (15 points): 13/15** — Typography, spacing, rounded cards, borders, shadows, Airbnb color palette, and button styling are well reproduced. Some icons and image presentation differ slightly from the reference.\n- **Overall (20 points): 15/20** — The generated webpage is a strong visual and structural match, but the different scroll position significantly affects screenshot-level similarity and prevents the lower listing details and full reservation panel from matching the reference viewport.\n\n**Score: 83/100**"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "airbnb Anywhere Any week Add guests Become host Sunset Hollywood Private Room Share Save HOLLYWIOOD SIGH HOLLYWOOD BEACHWOOD HILLS CanYON OHollywood Bowl The Magic Castle HOLLYWOOD Paramount Show all photos Room in Burbank; California; United States Rare find! This place is usually booked 1double bed . Private attached bathroom Guest One of the most loved homes on 4.98 41 S284SGD for 2 nights favourite Airbnb, according to guests 00t Reviews CHECK-IN CHECKOUT 21/11/2025 23/11/2025 EtPY Aacd",
+      "screenshot_text": "airbnb Anywhere week Add guests Become host Sunset Hollywood Private Room Share Save 'WIV HOLLYWOOD SIGN HOLLYWOOD BEACHWOOD HILLS CANYON OHollywood Bowl The Magic Castle Show all photos Paramount Room in Burbank; California; United States Rare find! This place is usually booked 1 double bed Private attached bathroom One of the most loved 4.98 41 S284 SGD for 2 nights Guest homes on #tttr Reviews favourite Airbnb, according to guests CHECK-IN CHECKOUT 21/11/2025 23/11/2025 Any \"",
+      "similarity": 0.7919191919191919
+    },
+    {
+      "checkpoint_text": "Show all photos Room in Burbank; California; United States double bed . Private attached bathroom Rare findl This place is usually booked Guest One of the most loved homes on 4.98 41 favourite Airbnb, according to guests #tttt Reviews S284SGD for 2 nights CHECK-IN CHECKOUT Stay with Aubrey 21/11/2025 23/11/2025 Superhost . 5 years hosting GUESTS guest Self check-in Check yourself in with the smartlock: Reserve Room ina townhouse You be charged yet Your own room in a home; plus access t0 shared spaces: Free cancellation before 16 Nov Report this listing Get a full refund if you change your mind: Some info has been automatically translated: Showoriginal About this place NOTE: is 4 miles from the\" pinl We are located in HOLLYWOOD The cross streets are Sunset Boulevard and Highland Avenue. Within walking distance to the Hollywood Walk of Fame;the Chinese Theatre, and many other popular tourist destinations. Universal Studios, Griffith Park; & Hollywood Bowl all minutes awayl This is a room in a newly constructed multi-room Townhome with attached private full bathroom: Totally safe, secure; quiet and clean! Flexible hostl It's fun to live like a local The space wontt This \"",
+      "screenshot_text": "airbnb Anywhere week Add guests Become host Sunset Hollywood Private Room Share Save 'WIV HOLLYWOOD SIGN HOLLYWOOD BEACHWOOD HILLS CANYON OHollywood Bowl The Magic Castle Show all photos Paramount Room in Burbank; California; United States Rare find! This place is usually booked 1 double bed Private attached bathroom One of the most loved 4.98 41 S284 SGD for 2 nights Guest homes on #tttr Reviews favourite Airbnb, according to guests CHECK-IN CHECKOUT 21/11/2025 23/11/2025 Any \"",
+      "similarity": 0.21819713563605725
+    }
+  ],
+  "assertion_results": [
+    null,
+    null,
+    null,
+    null
+  ]
+}

@@ -1,0 +1,410 @@
+{
+  "algorithm": "scroll_single_crop_v3",
+  "preview_only": false,
+  "options": {
+    "pixel_threshold": 18,
+    "min_component_pixels": 8,
+    "padding": 24,
+    "max_crop_fraction": 0.65,
+    "theme_min_ssim": 0.9,
+    "theme_min_edge_overlap": 0.88,
+    "theme_min_changed_fraction": 0.5,
+    "theme_component_pixels": 64
+  },
+  "screenshots": [
+    {
+      "index": 0,
+      "source": "./data/data/15/checkpoints/step_0.png",
+      "original_size": [
+        1920,
+        944
+      ],
+      "compared_to": null,
+      "scene_id": 0,
+      "boxes": [
+        [
+          0,
+          0,
+          1920,
+          944
+        ]
+      ],
+      "reason": "first_screenshot",
+      "metrics": {},
+      "scroll": null,
+      "box": [
+        0,
+        0,
+        1920,
+        944
+      ],
+      "mode": "full",
+      "output": "screenshot_0.png",
+      "output_size": [
+        1920,
+        944
+      ],
+      "retained_pixel_fraction": 1.0,
+      "context_note": "Full original viewport anchor"
+    },
+    {
+      "index": 1,
+      "source": "./data/data/15/checkpoints/step_1.png",
+      "original_size": [
+        1920,
+        944
+      ],
+      "compared_to": 0,
+      "scene_id": 0,
+      "boxes": [
+        [
+          374,
+          458,
+          899,
+          771
+        ]
+      ],
+      "reason": "spatial_increment",
+      "metrics": {
+        "novel_pixel_fraction": 0.0008695268361581921,
+        "ignored_scrollbar_width": 0,
+        "identity_changed_fraction": 0.0008816649011299436,
+        "side_margin_trim": {
+          "left": 0,
+          "right": 0
+        },
+        "crop_area_fraction": 0.09066306938559322
+      },
+      "scroll": null,
+      "box": [
+        374,
+        458,
+        899,
+        771
+      ],
+      "mode": "crop",
+      "output": "screenshot_1.png",
+      "output_size": [
+        525,
+        313
+      ],
+      "retained_pixel_fraction": 0.09066306938559322,
+      "context_note": "Reference screenshot_0; unchanged regions omitted"
+    },
+    {
+      "index": 2,
+      "source": "./data/data/15/checkpoints/step_2.png",
+      "original_size": [
+        1920,
+        944
+      ],
+      "compared_to": 1,
+      "scene_id": 0,
+      "boxes": [
+        [
+          373,
+          458,
+          899,
+          771
+        ]
+      ],
+      "reason": "spatial_increment",
+      "metrics": {
+        "novel_pixel_fraction": 0.0015371204096045197,
+        "ignored_scrollbar_width": 0,
+        "identity_changed_fraction": 0.0015398790607344633,
+        "side_margin_trim": {
+          "left": 0,
+          "right": 0
+        },
+        "crop_area_fraction": 0.09083576094632768
+      },
+      "scroll": null,
+      "box": [
+        373,
+        458,
+        899,
+        771
+      ],
+      "mode": "crop",
+      "output": "screenshot_2.png",
+      "output_size": [
+        526,
+        313
+      ],
+      "retained_pixel_fraction": 0.09083576094632768,
+      "context_note": "Reference screenshot_1; unchanged regions omitted"
+    },
+    {
+      "index": 3,
+      "source": "./data/data/15/checkpoints/step_3.png",
+      "original_size": [
+        1920,
+        944
+      ],
+      "compared_to": 2,
+      "scene_id": 0,
+      "boxes": [
+        [
+          373,
+          458,
+          1920,
+          944
+        ]
+      ],
+      "reason": "spatial_increment",
+      "metrics": {
+        "novel_pixel_fraction": 0.023240532309322035,
+        "ignored_scrollbar_width": 0,
+        "identity_changed_fraction": 0.023244946151129944,
+        "side_margin_trim": {
+          "left": 0,
+          "right": 0
+        },
+        "crop_area_fraction": 0.4148139565677966
+      },
+      "scroll": null,
+      "box": [
+        373,
+        458,
+        1920,
+        944
+      ],
+      "mode": "crop",
+      "output": "screenshot_3.png",
+      "output_size": [
+        1547,
+        486
+      ],
+      "retained_pixel_fraction": 0.4148139565677966,
+      "context_note": "Reference screenshot_2; unchanged regions omitted"
+    },
+    {
+      "index": 4,
+      "source": "./data/data/15/checkpoints/step_4.png",
+      "original_size": [
+        1920,
+        944
+      ],
+      "compared_to": 3,
+      "scene_id": 0,
+      "boxes": [
+        [
+          375,
+          417,
+          901,
+          773
+        ]
+      ],
+      "reason": "spatial_increment",
+      "metrics": {
+        "novel_pixel_fraction": 0.003228173552259887,
+        "ignored_scrollbar_width": 0,
+        "identity_changed_fraction": 0.0032513462217514124,
+        "side_margin_trim": {
+          "left": 0,
+          "right": 0
+        },
+        "crop_area_fraction": 0.10331479519774012
+      },
+      "scroll": null,
+      "box": [
+        375,
+        417,
+        901,
+        773
+      ],
+      "mode": "crop",
+      "output": "screenshot_4.png",
+      "output_size": [
+        526,
+        356
+      ],
+      "retained_pixel_fraction": 0.10331479519774012,
+      "context_note": "Reference screenshot_3; unchanged regions omitted"
+    },
+    {
+      "index": 5,
+      "source": "./data/data/15/checkpoints/step_5.png",
+      "original_size": [
+        1920,
+        944
+      ],
+      "compared_to": 4,
+      "scene_id": 0,
+      "boxes": [
+        [
+          373,
+          458,
+          901,
+          775
+        ]
+      ],
+      "reason": "spatial_increment",
+      "metrics": {
+        "novel_pixel_fraction": 0.004830949858757062,
+        "ignored_scrollbar_width": 0,
+        "identity_changed_fraction": 0.004866260593220339,
+        "side_margin_trim": {
+          "left": 0,
+          "right": 0
+        },
+        "crop_area_fraction": 0.09234639830508475
+      },
+      "scroll": null,
+      "box": [
+        373,
+        458,
+        901,
+        775
+      ],
+      "mode": "crop",
+      "output": "screenshot_5.png",
+      "output_size": [
+        528,
+        317
+      ],
+      "retained_pixel_fraction": 0.09234639830508475,
+      "context_note": "Reference screenshot_4; unchanged regions omitted"
+    },
+    {
+      "index": 6,
+      "source": "./data/data/15/checkpoints/step_6.png",
+      "original_size": [
+        1920,
+        944
+      ],
+      "compared_to": 5,
+      "scene_id": 0,
+      "boxes": [
+        [
+          373,
+          534,
+          1920,
+          944
+        ]
+      ],
+      "reason": "spatial_increment",
+      "metrics": {
+        "novel_pixel_fraction": 0.02652939618644068,
+        "ignored_scrollbar_width": 0,
+        "identity_changed_fraction": 0.02653712040960452,
+        "side_margin_trim": {
+          "left": 0,
+          "right": 0
+        },
+        "crop_area_fraction": 0.3499459304378531
+      },
+      "scroll": null,
+      "box": [
+        373,
+        534,
+        1920,
+        944
+      ],
+      "mode": "crop",
+      "output": "screenshot_6.png",
+      "output_size": [
+        1547,
+        410
+      ],
+      "retained_pixel_fraction": 0.3499459304378531,
+      "context_note": "Reference screenshot_5; unchanged regions omitted"
+    },
+    {
+      "index": 7,
+      "source": "./data/data/15/checkpoints/step_7.png",
+      "original_size": [
+        1920,
+        944
+      ],
+      "compared_to": 6,
+      "scene_id": 0,
+      "boxes": [
+        [
+          373,
+          534,
+          1920,
+          944
+        ]
+      ],
+      "reason": "spatial_increment",
+      "metrics": {
+        "novel_pixel_fraction": 0.030373852401129945,
+        "ignored_scrollbar_width": 0,
+        "identity_changed_fraction": 0.03037881797316384,
+        "side_margin_trim": {
+          "left": 0,
+          "right": 0
+        },
+        "crop_area_fraction": 0.3499459304378531
+      },
+      "scroll": null,
+      "box": [
+        373,
+        534,
+        1920,
+        944
+      ],
+      "mode": "crop",
+      "output": "screenshot_7.png",
+      "output_size": [
+        1547,
+        410
+      ],
+      "retained_pixel_fraction": 0.3499459304378531,
+      "context_note": "Reference screenshot_6; unchanged regions omitted"
+    },
+    {
+      "index": 8,
+      "source": "./data/data/15/checkpoints/step_8.png",
+      "original_size": [
+        1920,
+        944
+      ],
+      "compared_to": 7,
+      "scene_id": 0,
+      "boxes": [
+        [
+          375,
+          535,
+          1102,
+          865
+        ]
+      ],
+      "reason": "spatial_increment",
+      "metrics": {
+        "novel_pixel_fraction": 0.005964755473163842,
+        "ignored_scrollbar_width": 0,
+        "identity_changed_fraction": 0.005983514300847458,
+        "side_margin_trim": {
+          "left": 0,
+          "right": 0
+        },
+        "crop_area_fraction": 0.13236559851694915
+      },
+      "scroll": null,
+      "box": [
+        375,
+        535,
+        1102,
+        865
+      ],
+      "mode": "crop",
+      "output": "screenshot_8.png",
+      "output_size": [
+        727,
+        330
+      ],
+      "retained_pixel_fraction": 0.13236559851694915,
+      "context_note": "Reference screenshot_7; unchanged regions omitted"
+    }
+  ],
+  "limitations": [
+    "Approximate pixel matching; no DOM or semantic component boundaries.",
+    "Vertical scrolling only; ambiguous correspondences retain more content.",
+    "Crops require original viewport coordinates and frame references.",
+    "Theme color correspondences do not identify exact CSS elements.",
+    "Crops retain their original pixels without resizing."
+  ]
+}

@@ -1,0 +1,234 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2048 Game</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;color:#111827}
+  body{background:#faf8ef;overflow-x:hidden}
+  .page{min-height:1260px}
+  .game-wrap{width:500px;margin:0 auto;text-align:center}
+  .modebar{height:43px;display:flex;justify-content:center;align-items:flex-start;gap:4px;padding-top:8px;font-size:14px;font-weight:700}
+  .modebar .btn{border:0;background:transparent;padding:8px 14px;border-radius:9px;cursor:pointer;color:#111827}
+  .modebar .active{background:#f7bf56}
+  h1{font-size:32px;line-height:36px;margin:0 0 8px;font-weight:800;letter-spacing:-1px}
+  .score-row{height:46px;display:flex;align-items:flex-start;position:relative;text-align:left}
+  .scores{display:flex;gap:5px}
+  .score-box{height:39px;min-width:55px;padding:6px 12px 4px;background:#b29b82;color:#fff;border-radius:3px;text-align:center;font-weight:bold}
+  .score-label{font-size:10px;line-height:11px;text-transform:uppercase}
+  .score-value{font-size:17px;line-height:17px}
+  .new-game{position:absolute;right:0;top:0;height:39px;border:0;border-radius:3px;background:#b69370;color:#fff;padding:0 13px;font-size:14px;font-weight:bold;cursor:pointer}
+  .score-pop{position:absolute;left:3px;top:-25px;color:#d9d4c8;font-size:18px;font-weight:bold;opacity:.85}
+  .board{
+    width:500px;height:500px;padding:15px;
+    background:#b9ada2;border-radius:6px;
+    display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(4,1fr);gap:12px;
+    touch-action:none;
+  }
+  .cell{
+    border-radius:3px;background:rgba(238,228,218,.35);
+    display:flex;align-items:center;justify-content:center;
+    font-size:44px;font-weight:800;color:#776e65;
+  }
+  .v2{background:#eee4da;color:#776e65}
+  .v4{background:#eee1c9;color:#776e65}
+  .v8{background:#f2a66f;color:#fff}
+  .v16{background:#f47d5e;color:#fff}
+  .v32{background:#f66b50;color:#fff}
+  .v64{background:#f55338;color:#fff}
+  .v128{background:#edcf72;color:#fff;font-size:38px}
+  .v256{background:#edcc61;color:#fff;font-size:38px}
+  .v512{background:#edc850;color:#fff;font-size:38px}
+  .v1024,.v2048{background:#edc53f;color:#fff;font-size:32px}
+  .ad{width:300px;height:250px;margin:32px auto 0;display:block}
+  .instructions{
+    margin-top:32px;width:100vw;margin-left:calc((500px - 100vw)/2);
+    height:110px;background:#ffebc9;display:flex;align-items:center;justify-content:center;
+    color:#776e65;font-size:15px;line-height:21px;
+  }
+  .instructions p{width:760px;margin:0}
+  .other{height:90px;background:#fff;text-align:center;padding-top:22px}
+  .other h2{font-size:24px;margin:0;font-weight:800}
+  .fake-cards{height:35px;margin-top:12px;display:flex;justify-content:center;gap:25px}
+  .fake-cards span{width:150px;height:18px;border-radius:8px 8px 0 0;background:#193a9a}
+  .fake-cards span:nth-child(2){background:#a7c9f3}
+  .fake-cards span:nth-child(3){background:#9fe3d3}
+  .fake-cards span:nth-child(4){background:#22a952}
+  @media(max-width:600px){
+    .game-wrap{width:calc(100vw - 24px)}
+    .board{width:100%;height:auto;aspect-ratio:1;padding:3%;gap:2.4vw}
+    .cell{font-size:10vw}
+    .ad{margin-top:25px}
+    .instructions{margin-left:calc((100vw - 500px)/-2);width:100vw;height:auto;min-height:120px;padding:20px}
+    .instructions p{width:95%}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <main class="game-wrap">
+    <nav class="modebar">
+      <button class="btn active" id="classicBtn">Classic</button>
+      <button class="btn" id="cupcakeBtn">Cupcakes</button>
+    </nav>
+    <h1>2048 Game</h1>
+
+    <section class="score-row">
+      <div id="scorePop" class="score-pop"></div>
+      <div class="scores">
+        <div class="score-box"><div class="score-label">Score</div><div id="score" class="score-value">20</div></div>
+        <div class="score-box"><div class="score-label">Best</div><div id="best" class="score-value">20</div></div>
+      </div>
+      <button class="btn new-game" id="newGame">New game</button>
+    </section>
+
+    <div class="board" id="board" tabindex="0"></div>
+
+    <img class="ad" src="__PLACEHOLDER_ASSETS_BASE_DIR__/015.png" width="300" height="250" alt="Advertisement">
+
+    <section class="instructions">
+      <p>Use your arrow keys (also W, A, S, and D keys alternatively) or swipe with your fingers to move the tiles. For example, if you joined 2 tiles with the number 2, they will become 4, 2 tiles with 4 will become 8, and so on. The point of the game is to get the 2048 tile!</p>
+    </section>
+  </main>
+
+  <section class="other">
+    <h2>Play Other Games</h2>
+    <div class="fake-cards">
+      <span></span><span></span><span></span><span></span>
+    </div>
+  </section>
+</div>
+
+<script>
+(function(){
+  const boardEl=document.getElementById('board');
+  const scoreEl=document.getElementById('score');
+  const bestEl=document.getElementById('best');
+  const popEl=document.getElementById('scorePop');
+  const newGame=document.getElementById('newGame');
+
+  const initial=[
+    [0,0,2,0],
+    [0,0,0,0],
+    [0,2,4,2],
+    [0,0,8,2]
+  ];
+
+  const scripted=[
+    {score:24,board:[
+      [0,2,2,4],
+      [0,0,4,0],
+      [0,0,8,2],
+      [0,0,0,0]
+    ],pop:'+4'},
+    {score:36,board:[
+      [0,0,0,0],
+      [0,2,2,0],
+      [0,0,4,4],
+      [0,2,8,2]
+    ],pop:''},
+    {score:36,board:[
+      [2,0,0,0],
+      [4,0,0,0],
+      [8,0,0,0],
+      [2,8,2,0]
+    ],pop:'+12'},
+    {score:36,board:[
+      [2,0,0,2],
+      [0,0,0,4],
+      [0,0,0,8],
+      [0,2,8,2]
+    ],pop:''},
+    {score:36,board:[
+      [0,0,0,0],
+      [0,2,2,0],
+      [0,0,4,4],
+      [0,2,8,2]
+    ],pop:''}
+  ];
+
+  let state=initial.map(r=>r.slice()), score=20, best=20, moveNo=0;
+  let touchStart=null;
+
+  function draw(){
+    boardEl.innerHTML='';
+    state.flat().forEach(value=>{
+      const cell=document.createElement('div');
+      cell.className='cell'+(value?' v'+value:'');
+      if(value) cell.textContent=value;
+      boardEl.appendChild(cell);
+    });
+    scoreEl.textContent=score;
+    bestEl.textContent=best;
+  }
+
+  function randomTile(grid){
+    const empty=[];
+    grid.forEach((r,y)=>r.forEach((v,x)=>{if(!v)empty.push([y,x])}));
+    if(!empty.length)return;
+    const [y,x]=empty[Math.floor(Math.random()*empty.length)];
+    grid[y][x]=Math.random()<.9?2:4;
+  }
+
+  function rotate(g){return g[0].map((_,i)=>g.map(r=>r[i]).reverse())}
+  function slideRow(row){
+    let a=row.filter(Boolean), gained=0;
+    for(let i=0;i<a.length-1;i++){
+      if(a[i]===a[i+1]){a[i]*=2;gained+=a[i];a.splice(i+1,1)}
+    }
+    while(a.length<4)a.push(0);
+    return {row:a,gained};
+  }
+  function move(dir){
+    if(moveNo<scripted.length){
+      const s=scripted[moveNo++];
+      state=s.board.map(r=>r.slice()); score=s.score; best=Math.max(best,score);
+      popEl.textContent=s.pop||'';
+      draw();
+      setTimeout(()=>popEl.textContent='',700);
+      return;
+    }
+    let g=state.map(r=>r.slice()), turns=0;
+    if(dir==='up')turns=1;
+    if(dir==='right')turns=2;
+    if(dir==='down')turns=3;
+    for(let i=0;i<turns;i++)g=rotate(g);
+    let gained=0;
+    g=g.map(row=>{const x=slideRow(row);gained+=x.gained;return x.row});
+    for(let i=0;i<(4-turns)%4;i++)g=rotate(g);
+    if(JSON.stringify(g)!==JSON.stringify(state)){
+      state=g; score+=gained; best=Math.max(best,score);
+      if(gained)popEl.textContent='+'+gained;
+      randomTile(state); draw();
+      setTimeout(()=>popEl.textContent='',700);
+    }
+  }
+  function reset(){
+    state=initial.map(r=>r.slice());score=20;moveNo=0;popEl.textContent='';draw();
+  }
+  function keyHandler(e){
+    const k=e.key.toLowerCase();
+    const map={arrowup:'up',w:'up',arrowdown:'down',s:'down',arrowleft:'left',a:'left',arrowright:'right',d:'right'};
+    if(map[k]){e.preventDefault();move(map[k])}
+  }
+  document.addEventListener('keydown',keyHandler);
+  newGame.addEventListener('click',reset);
+  document.getElementById('classicBtn').addEventListener('click',()=>{reset();document.getElementById('classicBtn').classList.add('active');document.getElementById('cupcakeBtn').classList.remove('active')});
+  document.getElementById('cupcakeBtn').addEventListener('click',()=>{document.getElementById('cupcakeBtn').classList.add('active');document.getElementById('classicBtn').classList.remove('active')});
+
+  boardEl.addEventListener('touchstart',e=>{const t=e.changedTouches[0];touchStart=[t.clientX,t.clientY]},{passive:true});
+  boardEl.addEventListener('touchend',e=>{
+    if(!touchStart)return;
+    const t=e.changedTouches[0],dx=t.clientX-touchStart[0],dy=t.clientY-touchStart[1];
+    if(Math.max(Math.abs(dx),Math.abs(dy))>25)move(Math.abs(dx)>Math.abs(dy)?(dx>0?'right':'left'):(dy>0?'down':'up'));
+    touchStart=null;
+  },{passive:true});
+  draw();
+})();
+</script>
+</body>
+</html>
+```

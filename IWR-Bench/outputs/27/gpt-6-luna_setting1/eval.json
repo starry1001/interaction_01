@@ -1,0 +1,85 @@
+{
+  "total_step": 17,
+  "success_step": 2,
+  "screenshot_paths_to_eval": [
+    "outputs/27/gpt-6-luna_setting1/evalpoints/0.png",
+    "outputs/27/gpt-6-luna_setting1/evalpoints/0.png",
+    "outputs/27/gpt-6-luna_setting1/evalpoints/1.png",
+    "outputs/27/gpt-6-luna_setting1/evalpoints/2.png"
+  ],
+  "all_mllm_scores": [
+    0.94,
+    0.91,
+    0.77,
+    0.92
+  ],
+  "all_dino_scores": [
+    0.92724609375,
+    0.52197265625,
+    0.375,
+    0.94970703125
+  ],
+  "all_ocr_scores": [
+    0.7391304347826086,
+    0.7365728900255755,
+    0.48593350383631717,
+    0.7089337175792507
+  ],
+  "all_avg_scores": [
+    0.8687921761775362,
+    0.7228485154251919,
+    0.5436445012787724,
+    0.8595469162764169
+  ],
+  "mllm_score": 0.885,
+  "dino_score": 0.6934814453125,
+  "ocr_score": 0.667642636555938,
+  "avg_score": 0.7487080272894794,
+  "all_mllm_res": [
+    "Comments:\n- **Layout (10 points): 9/10** — The overall structure, section ordering, spacing, and responsive composition closely match. Minor differences appear in header alignment, search-bar width, and the vertical spacing before the lower content images.\n- **Elements (15 points): 14/15** — Nearly all major elements are present: library-access banner, JSTOR branding, navigation/menu, register and login buttons, workspace link, hero heading, search tabs, advanced search, artwork banner, caption, carousel controls, and lower image cards. The library-access icon and some button/icon details differ slightly.\n- **Content and Text (40 points): 39/40** — Text content is essentially identical, including the headline, search placeholder, artwork caption, image count, and navigation labels. There are only very minor rendering/cropping differences in the search placeholder.\n- **Style (15 points): 14/15** — Typography, colors, borders, logo treatment, and overall visual style are highly consistent. Small deviations occur in button sizing, icon styling, and exact font rendering/weight.\n- **Overall (20 points): 18/20** — This is a very close reproduction with strong visual and structural fidelity. The main discrepancies are subtle header positioning, slightly different control dimensions, visible scrollbar behavior, and lower-section vertical spacing.\n\n**Score: 94/100**",
+    "Comments:\n- **Layout (9/10):** Overall structure and spacing closely match: top access bar, navigation/header, large hero heading, search controls, featured image, caption, and lower content are all positioned similarly. Minor differences in viewport width, scrollbar presence, and vertical spacing are visible.\n- **Elements (13/15):** Nearly all major elements are present and correctly arranged. The first version includes an active search query/overlay state and slightly different icon treatments, while the second shows the default search state.\n- **Content and Text (37/40):** Headline, navigation labels, search placeholder, artwork caption, and image count match very closely. Small differences include text clipping in the search field and the visible query text in the first version.\n- **Style (14/15):** Typography, colors, borders, button styling, and overall JSTOR visual identity are highly consistent. The hero artwork rendering and some icon styling differ slightly.\n- **Overall (18/20):** Strong visual match with only minor state, cropping, and responsive-layout differences.\n\n**Score: 91/100**",
+    "Comments:\n- **Layout (9/10 points):** The overall structure is highly similar: top library-access bar, JSTOR navigation header, large hero headline, search tabs, search field, and artwork section all appear in the expected positions. Minor differences exist in vertical spacing, header alignment, and the amount of content visible below the search area.\n- **Elements (11/15 points):** Most major elements are present, including the JSTOR logo, menu icon, Register and Log in buttons, Workspace link, search controls, artwork imagery, and navigation arrows. The generated version shows an active search dropdown that is not present in the reference state, while some artwork metadata is obscured.\n- **Content and Text (29/40 points):** The main headline, navigation labels, and library-access text closely match. However, the search field content/state differs substantially: the generated page contains the query “tang” and autocomplete suggestions, whereas the reference shows the placeholder text. The artwork caption and image-count text are also less visible or absent in the generated view.\n- **Style (13/15 points):** Typography, color palette, borders, button styling, spacing style, and overall JSTOR visual treatment are closely reproduced. Small differences appear in icon rendering, font sizing/weight, and some control borders.\n- **Overall (15/20 points):** This is a strong visual match to the same page and viewport, but the interactive search state creates a noticeable difference in the central portion of the page and hides content visible in the reference.\n\n**Score: 77/100**",
+    "Comments:\n- **Layout (9/10):** The overall structure, spacing, alignment, and responsive arrangement closely match the reference. Header, hero text, search controls, featured image, caption, and lower content grid are all positioned similarly. Minor vertical spacing differences appear below the featured image and around the lower thumbnails.\n- **Elements (14/15):** Nearly all major elements are present and correctly arranged, including the library-access banner, JSTOR logo, menu icon, register/log-in controls, workspace link, tabs, advanced search link, search field, image navigation, caption, and thumbnails. The library-access icon and a few icon details differ slightly.\n- **Content and Text (37/40):** The main headline, navigation labels, caption, image count, and supporting text are highly accurate. The primary discrepancy is the search query: the reference shows `ti:(\"tang\")` with a visible cursor, while the generated page shows only `tang`. Some text wrapping and minor positioning also differ.\n- **Style (14/15):** Typography, black-and-white presentation, red JSTOR branding, borders, button styling, and overall visual hierarchy are very close. Small differences in icon rendering, font weight, and exact spacing prevent a perfect score.\n- **Overall (18/20):** This is a highly faithful reproduction with only minor content, icon, and spacing discrepancies.\n\n**Score: 92/100**"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "Have library access? Legin throughyour Register Log in JSTOR Workspace Explore the worlds knowledge; cultures, and ideas All Content Images Advanced Search Search journals; books; images; and primary Georgia O'Keeffe, Ghost Ranch Image Landscape (detail) , c.1936. Part of 1of 5 Georgia Q'Keeffe Museum: library",
+      "screenshot_text": "Have access? Login through your library Register Log in JSTOR Workspace Explore the world s knowledge, cultures, and ideas All Content Images Advanced Search Search journals; books, images, and primary sOIO Georgia O'Keeffe , Ghost Ranch Image Landscape (detail) , c. 1936. Part of 1 of 5 Georgia Q 'Keeffe_Museum_ 7p9rilarez16a58 47151392,i7n4001 ue5mnrhirmm annrhhimanjnzidi Gminui library",
+      "similarity": 0.7391304347826086
+    },
+    {
+      "checkpoint_text": "library access? Leginthroughyour_ Register Log in JSTOR Workspace Explore the worlds knowledge; cultures, and ideas All Content Images Advanced Search Iearch journals, books; images, and primary ti:(\"tang\" Georgia O Keeffe, Ghost Ranch Image Landscape (detail) , c. 1936. Part of 1of 5 Georgia Q'Keeffe_Museum: Have library",
+      "screenshot_text": "Have access? Login through your library Register Log in JSTOR Workspace Explore the world s knowledge, cultures, and ideas All Content Images Advanced Search Search journals; books, images, and primary sOIO Georgia O'Keeffe , Ghost Ranch Image Landscape (detail) , c. 1936. Part of 1 of 5 Georgia Q 'Keeffe_Museum_ 7p9rilarez16a58 47151392,i7n4001 ue5mnrhirmm annrhhimanjnzidi Gminui library",
+      "similarity": 0.7365728900255755
+    },
+    {
+      "checkpoint_text": "library access? Leginthroughyour_ Register Log in JSTOR Workspace Explore the worlds knowledge; cultures, and ideas All Content Images Advanced Search tang ti:(\"tang\" Just search for: tang enter 4 Author or creator: tang Title: tang Publication name: tang Have library",
+      "screenshot_text": "Have access? Login through your library Register Log in JSTOR Workspace Explore the world s knowledge, cultures, and ideas All Content Images Advanced Search Search journals; books, images, and primary sOIO Georgia O'Keeffe , Ghost Ranch Image Landscape (detail) , c. 1936. Part of 1 of 5 Georgia Q 'Keeffe_Museum_ 7p9rilarez16a58 47151392,i7n4001 ue5mnrhirmm annrhhimanjnzidi Gminui library",
+      "similarity": 0.48593350383631717
+    },
+    {
+      "checkpoint_text": "library access? Leginthroughyour_ Register Log in JSTOR Workspace Explore the worlds knowledge; cultures, and ideas All Content Images Advanced Search ti:(\"tang\") | Georgia O Keeffe, Ghost Ranch Image Landscape (detail) , c 1936. Part of > 1of 5 Georgia Q'Keeffe_Museum: Have library",
+      "screenshot_text": "Have access? Login through your library Register Log in JSTOR Workspace Explore the world s knowledge, cultures, and ideas All Content Images Advanced Search tang Georgia O'Keeffe , Ghost Ranch Image Landscape (detail) , c. 1936. Part of 1 of 5 Georgia Q 'Keeffe_Museum_ 7p9rilarez16a58 47151392,i7n4001 ue5mnrhirmm annrhhimanjnzidi Gminui library",
+      "similarity": 0.7089337175792507
+    }
+  ],
+  "assertion_results": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ]
+}

@@ -1,0 +1,129 @@
+{
+  "total_step": 11,
+  "success_step": 11,
+  "screenshot_paths_to_eval": [
+    "outputs/38/gpt-6-luna_setting0/evalpoints/0.png",
+    "outputs/38/gpt-6-luna_setting0/evalpoints/0.png",
+    "outputs/38/gpt-6-luna_setting0/evalpoints/1.png",
+    "outputs/38/gpt-6-luna_setting0/evalpoints/5.png",
+    "outputs/38/gpt-6-luna_setting0/evalpoints/8.png",
+    "outputs/38/gpt-6-luna_setting0/evalpoints/9.png"
+  ],
+  "all_mllm_scores": [
+    0.91,
+    0.91,
+    0.21,
+    0.84,
+    0.89,
+    0.82
+  ],
+  "all_dino_scores": [
+    0.974609375,
+    0.9755859375,
+    0.958984375,
+    0.9921875,
+    0.98876953125,
+    0.97705078125
+  ],
+  "all_ocr_scores": [
+    0.7160883280757098,
+    0.7164296998420221,
+    0.27092320966350303,
+    0.8737373737373737,
+    0.9178255372945638,
+    0.688539741219963
+  ],
+  "all_avg_scores": [
+    0.86689923435857,
+    0.8673385457806742,
+    0.47996919488783435,
+    0.9019749579124579,
+    0.9321983561815212,
+    0.8285301741566542
+  ],
+  "mllm_score": 0.7633333333333333,
+  "dino_score": 0.9778645833333334,
+  "ocr_score": 0.6972573149721892,
+  "avg_score": 0.8128184105462853,
+  "all_mllm_res": [
+    "Comments:\n- **Layout (10 points): 9/10** — The overall three-column dashboard structure, header, left repository sidebar, central feed, right “Latest changes” panel, footer, and open dropdown menu are closely matched. The main content in the generated page is shifted slightly left and some vertical spacing differs.\n- **Elements (15 points): 13/15** — Nearly all major UI components are present and positioned correctly, including search, repository controls, Copilot prompt, suggestion buttons, feed cards, filter button, activity timeline, and dropdown actions. Some icons and header controls do not match the reference exactly, especially the GitHub logo/avatar and several top-right icons.\n- **Content and Text (40 points): 38/40** — Text content is highly accurate, including repository names, descriptions, activity updates, button labels, footer links, and dropdown items. Minor differences appear in truncation, punctuation, and a few icon-adjacent labels.\n- **Style (15 points): 13/15** — The generated page closely reproduces the white GitHub-like aesthetic, borders, typography, spacing, muted colors, green action button, and rounded controls. Differences include slightly heavier/darker text, subtly altered icon styling, and small variations in border/color rendering.\n- **Overall (20 points): 18/20** — Very strong visual and structural resemblance. The page communicates the same interface and has nearly identical composition, with the main discrepancies limited to iconography, small alignment shifts, and minor spacing differences.\n\n**Score: 91/100**",
+    "Comments:\n- **Layout (9/10):** The generated page closely matches the reference’s overall GitHub dashboard structure: top navigation, left repository sidebar, centered Home/feed column, right “Latest changes” panel, footer, and open creation menu. Minor differences include the main content being slightly shifted left/up and small spacing/height variations in the feed, right panel, and footer.\n- **Elements (13/15):** Nearly all major UI elements are present and correctly positioned, including search, navigation controls, repository search, New button, Copilot input, suggestion chips, filter button, repository cards, timeline panel, and dropdown menu. Some icons and logos differ noticeably from the reference, particularly the GitHub logo, repository/avatar icons, and top-right controls.\n- **Content and Text (38/40):** Text content is highly accurate, including headings, repository names, descriptions, metadata, latest changes, dropdown options, and footer links. There are only very minor differences in truncation, line wrapping, or icon-adjacent characters.\n- **Style (13/15):** The light GitHub-like styling, borders, rounded corners, typography, spacing, and green accent color are well reproduced. The generated version appears slightly sharper/darker, with some iconography, chip colors, and menu row spacing differing from the reference.\n- **Overall (18/20):** This is a strong visual match with the same page composition and nearly identical content. The main remaining discrepancies are custom icon/logo substitutions and small alignment and sizing differences.\n\n**Score: 91/100**",
+    "Comments:\n- **Layout (10 points): 2/10** — Both pages use a GitHub-style top navigation bar, but the primary layouts are substantially different. The reference centers a repository creation form, while the generated page uses a left sidebar, central feed, and right-side updates panel.\n- **Elements (15 points): 4/15** — Some common elements are present, including the header, search field, menu button, account controls, and green action styling. However, the reference’s repository form fields, configuration sections, and creation button are missing.\n- **Content and Text (40 points): 3/40** — The textual content is almost entirely different. The reference focuses on “Create a new repository,” owner/repository name, description, visibility, README, `.gitignore`, license, and “Create repository.” The generated page instead contains dashboard, feed, trending repositories, Copilot prompts, and latest changes content.\n- **Style (15 points): 8/15** — The pages share a broadly similar GitHub visual language: white background, light gray borders, compact sans-serif typography, rounded controls, and green accents. Iconography, spacing, and component styling differ noticeably.\n- **Overall (20 points): 4/20** — The generated page appears to be a different GitHub dashboard screen rather than a recreation of the repository creation page. Only the surrounding application chrome has moderate similarity.\n\n**Score: 21/100**",
+    "Comments:\n- **Layout (9/10 points):** The generated page closely matches the reference’s overall structure, spacing, centered form placement, section arrangement, and header layout. Minor differences exist in form width, vertical spacing, and button positioning.\n- **Elements (13/15 points):** Nearly all major components are present: top navigation, repository title area, owner and repository fields, description field, configuration panel, visibility selector, toggles/dropdowns, and create button. Some header icons, avatar/logo details, and control styling differ slightly.\n- **Content and Text (32/40 points):** Labels, headings, helper text, configuration options, and button text are highly consistent. However, the generated state differs from the reference: the repository name and description are populated, an availability message is shown, and the description character count differs.\n- **Style (13/15 points):** Typography, colors, borders, spacing, and GitHub-like visual treatment are very similar. Differences are mainly in iconography, avatar appearance, input styling, and small control details.\n- **Overall (17/20 points):** This is a strong visual reproduction with the same page identity and interaction structure. The primary deductions come from differing field values/state and minor header/icon styling discrepancies.\n\n**Score: 84/100**",
+    "Comments:\n- **Layout (9/10):** The generated page closely matches the reference in overall structure, centered form placement, header height, section ordering, and spacing. Minor differences include slightly altered vertical spacing and a somewhat different configuration panel height.\n- **Elements (13/15):** Nearly all major elements are present, including the header controls, repository fields, visibility selector, README toggle, gitignore/license dropdowns, and create button. Some icons and avatar graphics differ from the reference.\n- **Content and Text (36/40):** Headings, labels, helper text, links, repository name, username, and button text are highly consistent. Differences include the populated description field (“an interesting boy”) versus the empty reference field, the character count, and the README toggle state.\n- **Style (13/15):** Typography, borders, button styling, colors, and general GitHub-like appearance are very similar. The generated version has small differences in iconography, control styling, and some spacing.\n- **Overall (18/20):** Strong visual match with the same page identity and interaction layout. The main discrepancies are field state/content differences and minor header/icon variations.\n\n**Score: 89/100**",
+    "Comments:\n- **Layout (10 points): 8/10** — The overall page structure, header, centered repository form, numbered sections, and vertical spacing closely match the reference. The generated page is slightly more compact in places, and the open license dropdown changes the visible composition significantly.\n- **Elements (15 points): 11/15** — Most major elements are present: navigation bar, repository fields, owner selector, visibility selector, README toggle, `.gitignore`, license selector, and create button. Differences include the README toggle being **On** instead of **Off**, altered header icons/avatar styling, and the license dropdown being open in the generated page.\n- **Content and Text (40 points): 36/40** — Text content is highly accurate, including “Create a new repository,” repository name `jackccc`, description “an interesting boy,” availability message, configuration labels, and button text. The generated dropdown adds license option text that is not visible in the reference, and some small icon/search placeholder text differs.\n- **Style (15 points): 11/15** — Typography, white background, light borders, blue links, green availability/button accents, and general GitHub-like styling are well reproduced. However, icons, avatar appearance, control styling, and the open dropdown introduce noticeable visual differences.\n- **Overall (20 points): 16/20** — Strong overall resemblance with accurate structure and content. The main deviations are the altered control state, open license menu, and differences in header/icon styling.\n\n**Score: 82/100**"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "Dashboard Type Oto New issue Top repositories New New repository Home Latest changes Find repository: Import repository days ag0 Ask Copilot Jimmy6668889/jack Premium request overage policy is New codespace generally available for Copilot Busines __ New gist Interpret an architecture diagram 81 Summarize request Suggest next steps for an issue days ago GraphQL Explorer removal from API documentation on November 1, 2025 organization Feed Filter New project days ag0 Enterprises can create organization roles L Trending repositories See more for use across their enterprise and_ days ago winapps-org/winapps Star Pull request changed\" public Run Windows apps as Microsoft Office/Adobe in Linux (Ubuntu/Fedora) and GNOME/KDE as if they were part of experience August 21 updates the native OS, including Nautilus integration: Hard fork of https:/ /github com/Fmst_ View changelog Shell 17 6,3k moeru-ai/airi Star Self hosted; you owned Grok Companion; container of of waifu; cyber livings to bring them into our worlds; wishing to achieve Neuro-sama'$ altitude: Capable of realtime voice chat; Minec_ 9,5k 0 2025 Github; Inc; Terms Privacy Security Status Docs Contact Manage cookies Do not share my personal information search pull _ New Files such previewy souls Vuc",
+      "screenshot_text": "Dashboard Type to search New issue repositories New Home New repository Find a repository__. Latest changes Import repository Ask Copilot 3 days ag0 Jimmyb668889/jack Premium request average policy is New codespace generally available for Copilot Busines_ Interpret an architecture diagram Summarize pull request Suggest next steps for an issue 3 days ag0 New gist GraphQL Explorer removal from API documentation on November 1, 2025 New organization Feed Filter days ag0 New project Enterprises can create organization Trending repositories Seemore roles for use across their enterprise and_ winapps-orglwinapps Star Run Windows apps such as Microsoft OfficelAdobe in Linux (UbuntulFedora) and GNOMEIKDE as if they were part of 3 days ag0 the native OS, including Nautilus integration. Hard fork of htrps Ilgithub comlFmst__. Pull request \"Files changed\" public preview experience August 21 updates Shell 6.3k moeru-ailairi 57 Star Self hosted, you owned Grok Companion; container of souls of waifu, cyber livings to bring them into our worlds, wishing to achieve Neuro-sama's altitude Capable of realtime voice chat; Minec . Vue 77 9.5k 2025 GitHub, Inc: Terms Privacy Security Stalus Docs Contact Manage cookies Do not share my personal information Top",
+      "similarity": 0.7160883280757098
+    },
+    {
+      "checkpoint_text": "Dashboard Type Oto New issue Top repositories New New repository Home Latest changes Find repository: Import repository days ag0 Ask Copilot Jimmy6668889/jack Premium request overage policy is New codespace generally available for Copilot Busines: New gist Interpret an architecture diagram 81 Summarize request Suggest next steps for an issue days ago GraphQL Explorer removal from API documentation on November 1, 2025 organization Feed Filter New project days ag0 Enterprises can create organization roles L Trending repositories See more for use across their enterprise and_ days ago winapps-org/winapps Star Pull request changed\" public Run Windows apps as Microsoft Office/Adobe in Linux (Ubuntu/Fedora) and GNOME/KDE as if they were part of experience August 21 updates the native OS, including Nautilus integration: Hard fork of https:/ /github com/Fmst_ View changelog Shell 17 6,3k moeru-ai/airi Star Self hosted; you owned Grok Companion; container of of waifu; cyber livings to bring them into our worlds; wishing to achieve Neuro-sama'$ altitude: Capable of realtime voice chat; Minec_ 9,5k 0 2025 Github; Inc; Terms Privacy Security Status Docs Contact Manage cookies Do not share my personal information search pull _ New Files such previewy souls Vuc",
+      "screenshot_text": "Dashboard Type to search New issue repositories New Home New repository Find a repository__. Latest changes Import repository Ask Copilot 3 days ag0 Jimmyb668889/jack Premium request average policy is New codespace generally available for Copilot Busines_ Interpret an architecture diagram Summarize pull request Suggest next steps for an issue 3 days ag0 New gist GraphQL Explorer removal from API documentation on November 1, 2025 New organization Feed Filter days ag0 New project Enterprises can create organization Trending repositories Seemore roles for use across their enterprise and_ winapps-orglwinapps Star Run Windows apps such as Microsoft OfficelAdobe in Linux (UbuntulFedora) and GNOMEIKDE as if they were part of 3 days ag0 the native OS, including Nautilus integration. Hard fork of htrps Ilgithub comlFmst__. Pull request \"Files changed\" public preview experience August 21 updates Shell 6.3k moeru-ailairi 57 Star Self hosted, you owned Grok Companion; container of souls of waifu, cyber livings to bring them into our worlds, wishing to achieve Neuro-sama's altitude Capable of realtime voice chat; Minec . Vue 77 9.5k 2025 GitHub, Inc: Terms Privacy Security Stalus Docs Contact Manage cookies Do not share my personal information Top",
+      "similarity": 0.7164296998420221
+    },
+    {
+      "checkpoint_text": "New repository Type Oto Create a new repository Preview Switch back to classic experience Repositories contain project's files and version history. Have project elsewhere? Import repository; Required fields are marked with an asterisk (*) General Owner Repository name Jimmy6668889 Great repository names are short and memorable How about sturdy-waffle? Description 350 characters Configuration Choose visibility Public Choose who can see and commit to this repository Add README READMEs can be used as longer descriptions Ahout RFADMES Add .gitignore No ,gitignore gitignore tells git which files not to track About ignoring files Add license No license Licenses explain how others can use your code; About licenses Create repository search",
+      "screenshot_text": "Dashboard Type to search repositories New Home Find a repository__. Latest changes Ask Copilot 3 days ag0 Jimmyb668889/jack Premium request average policy is generally available for Copilot Busines_ Interpret an architecture diagram Summarize pull request Suggest next steps for an issue 3 days ag0 GraphQL Explorer removal from API documentation on November 1, 2025 Feed Filter days ag0 Enterprises can create organization Trending repositories Seemore roles for use across their enterprise and_ winapps-orglwinapps Star Run Windows apps such as Microsoft OfficelAdobe in Linux (UbuntulFedora) and GNOMEIKDE as if they were part of 3 days ag0 the native OS, including Nautilus integration. Hard fork of htrps Ilgithub comlFmst__. Pull request \"Files changed\" public preview experience August 21 updates Shell 6.3k moeru-ailairi 57 Star Self hosted, you owned Grok Companion; container of souls of waifu, cyber livings to bring them into our worlds, wishing to achieve Neuro-sama's altitude Capable of realtime voice chat; Minec . Vue 77 9.5k 2025 GitHub, Inc: Terms Privacy Security Stalus Docs Contact Manage cookies Do not share my personal information Top",
+      "similarity": 0.27092320966350303
+    },
+    {
+      "checkpoint_text": "New repository Type Oto Create a new repository Preview Switch back to classic experience Repositories contain project's files and version history. Have project elsewhere? Import repository; Required fields are marked with an asterisk (*) General Owner Repository name Jimmy6668889 Great repository names are short and memorable: How about sturdy-waffle? Description 350 characters Configuration Choose visibility Public Choose who can see and commit to this repository Add README READMEs can be used as longer descriptions Ahout RFADMES Add ,gitignore No ,gitignore gitignore tells git which not to track: About ignoring files Add license No license Licenses explain how others can use your code; About licenses Create repository search Fles",
+      "screenshot_text": "New repository Type to search Create a new repository Preview Switch back t0 classic experience Repositories contain project's files and version Have project elsewhere? Import a repository Required fields are marked with an asterisk (#). General Owner Repository name Jimmy6668889 jackccc jackccc available: Great repository names are short and memorable. How about sturdy-waffle? Description interesting 18 / 350 characters Configuration Choose visibility- Public Choose who can see and commit to this repository Add README Off READMEs can be used as longer descriptions About READMES Add .gitignore No gitignore ~gitignore tells git which files not to track Aboutignorngfles Add license No license Licenses explain how others can use your code- About licenses Create repository history: boy",
+      "similarity": 0.8737373737373737
+    },
+    {
+      "checkpoint_text": "New repository Type Oto Create a new repository Preview Switch back to classic experience Repositories contain project's files and version history. Have project elsewhere? Import a repository; Required fields are marked with an asterisk (*) General Owner Repository name Jimmy6668889 jackccc Jackccc /5 avallable: Great repository names are short and memorable: How about sturdy-waffle? Description 350 characters Configuration Choose visibility Public Choose who can see and commit to this repository Add README READMEs can be used as longer descriptions: About READMEs Add ,gitignore No .gitignore ~gitignore tells git which files not to track: Aboutignoring files Add license No license Licenses explain how others can use your code: About licenses Create repository search",
+      "screenshot_text": "New repository Type to search Create a new repository Preview Switch back t0 classic experience Repositories contain project's files and version Have project elsewhere? Import a repository Required fields are marked with an asterisk (#). General Owner Repository name Jimmy6668889 jackccc jackccc available: Great repository names are short and memorable. How about sturdy-waffle? Description an interesting 18 / 350 characters Configuration Choose visibility- Public Choose who can see and commit to this repository Add README READMEs can be used as longer descriptions About READMES Add .gitignore No gitignore ~gitignore tells git which files not to track Aboutignorngfles Add license No license Licenses explain how others can use your code- About licenses Create repository history: boy",
+      "similarity": 0.9178255372945638
+    },
+    {
+      "checkpoint_text": "New repository Type Oto Create a new repository Preview Switch back to classic experience Repositories contain project's files and version history. Have project elsewhere? Import a repository; Required fields are marked with an asterisk (*} General Owner Repository name Jimmy6668889 jackccc jackccc available Great repository names are short and memorable: How about sturdy-waffle? Description an interesting boy 350 characters Configuration Choose visibility Public Choose who can see and commit to this repository Add README READMEs can be used as longer descriptions: About RFADMEs Add .gitignore No .gitignore gitignore tells git which files not to track About ignoring files Add license No license Licenses explain how others can use your code: About licenses Create repository search",
+      "screenshot_text": "New repository Type to search Create a new repository Preview Switch back t0 classic experience Repositories contain project's files and version Have project elsewhere? Import a repository Required fields are marked with an asterisk (#). General Owner Repository name Jimmy6668889 jackccc jackccc available: Great repository names are short and memorable. How about sturdy-waffle? Description an interesting 18 / 350 characters Configuration Choose visibility- Public Choose who can see and commit to this repository Add README READMEs can be used as longer descriptions About READMES Add .gitignore No gitignore ~gitignore tells git which files not to track Aboutignorngfles Add license No license Licenses explain how others can use your code- About licenses Choose license Search licenses No license Apache License 2.0 GNU General Public License v3.0 MIT License BSD 2-Clause \"Simplified\" License BSD 3-Clause \"New\"' or Revised\" License Boost Software License 1.0 Creative Commons Zero VL.O Universal Eclipse Public License 2.0 GNU Affero General Public License v3.0 history: boy",
+      "similarity": 0.688539741219963
+    }
+  ],
+  "assertion_results": [
+    null,
+    null,
+    null,
+    {
+      "result": "Error",
+      "prev_img_path": "outputs/38/gpt-6-luna_setting0/evalpoints/3.png",
+      "curr_img_path": "outputs/38/gpt-6-luna_setting0/evalpoints/4.png",
+      "response": "Error: Error code: 400 - Unsupported value: 'temperature' does not support 0.0 with this model. Only the default (1) value is supported.",
+      "assertion": "Under the input box displays 'jackccc is available'",
+      "thinking": ""
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/38/gpt-6-luna_setting0/evalpoints/4.png",
+      "curr_img_path": "outputs/38/gpt-6-luna_setting0/evalpoints/5.png",
+      "response": "{\"think\":\"The current screenshot shows the Description input field containing the text “an interesting boy,” matching the assertion exactly.\",\"result\":\"Yes\"}",
+      "assertion": "The content under the 'Description' input field is 'an interesting boy'",
+      "thinking": "The current screenshot shows the Description input field containing the text “an interesting boy,” matching the assertion exactly."
+    },
+    null,
+    null,
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/38/gpt-6-luna_setting0/evalpoints/7.png",
+      "curr_img_path": "outputs/38/gpt-6-luna_setting0/evalpoints/8.png",
+      "response": "{\"think\":\"In Image 1, the word next to the switch is \\\"Off.\\\" In Image 2, it changes to \\\"On,\\\" confirming the assertion.\",\"result\":\"Yes\"}",
+      "assertion": "The word next to the switch changes from Off to On",
+      "thinking": "In Image 1, the word next to the switch is \"Off.\" In Image 2, it changes to \"On,\" confirming the assertion."
+    },
+    null,
+    null,
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/38/gpt-6-luna_setting0/evalpoints/10.png",
+      "curr_img_path": "outputs/38/gpt-6-luna_setting0/evalpoints/11.png",
+      "response": "{\"think\":\"The README displays the title “jackccc” and the content “an interesting boy,” matching the assertion exactly.\",\"result\":\"Yes\"}",
+      "assertion": "The title in the README is 'jackccc', and the content is 'an interesting boy'",
+      "thinking": "The README displays the title “jackccc” and the content “an interesting boy,” matching the assertion exactly."
+    }
+  ]
+}

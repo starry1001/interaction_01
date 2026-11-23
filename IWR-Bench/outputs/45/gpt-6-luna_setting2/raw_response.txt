@@ -1,0 +1,598 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wolfram|Alpha: Computational Intelligence</title>
+<style>
+  * { box-sizing: border-box; }
+  html { background: #fff; }
+  body {
+    margin: 0;
+    color: #454545;
+    background: #fff;
+    font: 14px Arial, Helvetica, sans-serif;
+  }
+  button, input { font: inherit; }
+  button { cursor: pointer; }
+  .topnav {
+    height: 48px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 26px;
+    gap: 27px;
+    color: #696969;
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+  .topnav .btn {
+    border: 0;
+    background: transparent;
+    color: inherit;
+    padding: 6px 0;
+    text-decoration: none;
+  }
+  .topnav .signin {
+    border: 1px solid #e66b4e;
+    border-radius: 3px;
+    color: #d85b3e;
+    padding: 6px 12px;
+    text-transform: none;
+  }
+  .promo {
+    height: 180px;
+    background: #37a767;
+    position: relative;
+    color: white;
+    overflow: hidden;
+  }
+  .promo-inner {
+    width: 700px;
+    height: 100%;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  .promo-mascot {
+    width: 285px;
+    height: 145px;
+    object-fit: contain;
+    margin-right: 35px;
+    align-self: flex-end;
+  }
+  .promo-copy {
+    font-size: 21px;
+    line-height: 1.35;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .promo-copy small {
+    display: block;
+    font-size: 18px;
+    font-weight: 400;
+  }
+  .promo-copy .btn {
+    display: block;
+    margin: 8px auto 0;
+    color: #fff;
+    background: #f15a35;
+    border: 0;
+    border-radius: 2px;
+    padding: 11px 22px;
+    font-weight: bold;
+    font-size: 14px;
+  }
+  .promo-close {
+    position: absolute;
+    top: 8px;
+    right: 9px;
+    color: #dbf1e4;
+    border: 0;
+    background: none;
+    font-size: 17px;
+  }
+  .page {
+    width: 1050px;
+    margin: 62px auto 0;
+  }
+  .brand {
+    width: 790px;
+    margin-left: 0;
+    text-align: center;
+    height: 86px;
+    position: relative;
+  }
+  .brand .maker {
+    font-size: 11px;
+    color: #c33c35;
+    font-style: italic;
+    font-weight: bold;
+    margin-bottom: 5px;
+    letter-spacing: .1px;
+  }
+  .brand-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    color: #c91917;
+    font-size: 43px;
+    line-height: 44px;
+    font-weight: 600;
+    letter-spacing: -1.7px;
+  }
+  .brand-logo .alpha { color: #ef6e00; }
+  .brand-logo img {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+  }
+  .columns {
+    display: grid;
+    grid-template-columns: 790px 205px;
+    gap: 18px;
+    align-items: start;
+  }
+  .main { min-width: 0; }
+  .query-wrap { margin: 0 0 27px; }
+  .query-form {
+    height: 47px;
+    border: 4px solid #f6b832;
+    border-radius: 9px;
+    box-shadow: 0 1px 3px #bbb;
+    display: flex;
+    align-items: center;
+    background: white;
+    overflow: hidden;
+  }
+  .query-form input {
+    border: 0;
+    outline: 0;
+    height: 100%;
+    flex: 1;
+    padding: 0 12px;
+    font-size: 16px;
+    color: #4a4a4a;
+    min-width: 0;
+  }
+  .query-form input::placeholder { color: #888; font-style: italic; }
+  .clear-query {
+    display: none;
+    color: #888;
+    border: 0;
+    background: none;
+    font-size: 19px;
+    padding: 0 8px;
+  }
+  .submit {
+    border: 0;
+    background: #e45c37;
+    color: white;
+    width: 20px;
+    height: 20px;
+    line-height: 18px;
+    margin: 0 7px;
+    border-radius: 2px;
+    font-weight: bold;
+    padding: 0;
+  }
+  .tools {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    height: 34px;
+    color: #d45d45;
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: .35px;
+  }
+  .tools .btn {
+    background: #fff;
+    border: 1px solid #e4dcd7;
+    border-radius: 4px;
+    padding: 6px 8px;
+    color: #d56a4b;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .2px;
+  }
+  .tools .spacer { flex: 1; }
+  .tools .plain {
+    background: transparent;
+    border: 0;
+    padding: 5px 2px;
+  }
+  .panel {
+    border: 1px solid #ededed;
+    border-radius: 8px;
+    box-shadow: 0 1px 10px rgba(0,0,0,.09);
+    overflow: hidden;
+    margin-bottom: 14px;
+    background: #fff;
+  }
+  .section-title {
+    background: #f3f3f3;
+    color: #77929a;
+    height: 34px;
+    padding: 9px 19px;
+    font-size: 13px;
+  }
+  .section-body {
+    padding: 14px 19px;
+    background: #fff;
+  }
+  .interpretation {
+    padding: 18px 20px;
+    background: #f9fcfd;
+    border: 1px solid #c8e0e5;
+    border-radius: 7px;
+    color: #666;
+    font-size: 13px;
+    line-height: 1.8;
+    margin-bottom: 15px;
+    box-shadow: 0 1px 5px rgba(0,0,0,.1);
+  }
+  .interpretation a { color: #6d9fb1; text-decoration: none; }
+  .token-table {
+    border-collapse: collapse;
+    font: 16px Georgia, "Times New Roman", serif;
+    color: #444;
+  }
+  .token-table td {
+    border: 1px solid #ddd;
+    padding: 10px 15px;
+    white-space: nowrap;
+  }
+  .token-table td:nth-child(2) { color: #888; }
+  .token-table .token-key { background: #f5f5f5; }
+  .result-line {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    min-height: 45px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 16px;
+  }
+  .result-line .number { font-size: 18px; color: #333; }
+  .muted { color: #999; font: 13px Arial, sans-serif; }
+  .small-action {
+    float: right;
+    border: 1px solid #df765d;
+    color: #d8674d;
+    background: white;
+    border-radius: 3px;
+    padding: 4px 9px;
+    font-size: 12px;
+  }
+  .conversion {
+    border-top: 1px solid #e6e6e6;
+    min-height: 39px;
+    padding: 10px 20px;
+    font: 15px Georgia, "Times New Roman", serif;
+  }
+  .conversion:first-child { border-top: 0; }
+  .properties {
+    width: 470px;
+    margin: 6px 0 6px;
+    border-collapse: collapse;
+    font: 15px Georgia, "Times New Roman", serif;
+    color: #444;
+  }
+  .properties td {
+    border: 1px solid #d7d7d7;
+    padding: 8px 11px;
+    vertical-align: top;
+  }
+  .properties td:first-child { width: 130px; }
+  .properties td:nth-child(2) { width: 160px; }
+  .properties tr:nth-child(odd) td:not(:first-child) { background: #f3f3f3; }
+  .nutrition {
+    width: 238px;
+    margin: 20px 0;
+    padding: 8px 10px;
+    border: 1px solid #aaa;
+    font-family: Arial, sans-serif;
+    color: #333;
+    font-size: 11px;
+  }
+  .nutrition h3 {
+    margin: 0 0 7px;
+    padding-bottom: 4px;
+    border-bottom: 4px solid #333;
+    font-size: 19px;
+  }
+  .nutrition div {
+    padding: 5px 0;
+    border-bottom: 1px solid #aaa;
+  }
+  .nutrition b { float: right; }
+  .related {
+    padding: 18px 20px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    box-shadow: 0 1px 8px rgba(0,0,0,.08);
+    color: #78929a;
+  }
+  .related-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 20px;
+    margin-top: 12px;
+    color: #555;
+    font-size: 13px;
+  }
+  .related-grid a { color: #555; text-decoration: none; }
+  .related-grid a::before { content: "≡"; color: #ed6a4b; padding-right: 8px; font-weight: bold; }
+  .sidebar { padding-top: 109px; }
+  .ad {
+    display: block;
+    width: 205px;
+    height: auto;
+    margin: 0 0 18px;
+    border-radius: 8px;
+  }
+  .contact {
+    width: 790px;
+    margin: 36px 0 34px;
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    color: #df694e;
+    font-size: 13px;
+  }
+  .contact .btn {
+    color: #df694e;
+    border: 0;
+    background: transparent;
+    padding: 0;
+  }
+  footer {
+    padding: 10px 0 40px;
+    text-align: center;
+    color: #777;
+    font-size: 12px;
+    line-height: 2.5;
+  }
+  footer a { color: #777; text-decoration: none; padding: 0 5px; }
+  .footer-logo {
+    color: #888;
+    font-size: 17px;
+    font-weight: bold;
+  }
+  .footer-logo img { width: 23px; height: 23px; vertical-align: middle; }
+  .notice {
+    display: none;
+    border: 1px solid #e8d6a7;
+    border-radius: 6px;
+    background: #fffdf8;
+    padding: 16px 20px;
+    margin-bottom: 15px;
+    color: #666;
+  }
+  .notice.on { display: block; }
+  @media (max-width: 1100px) {
+    .page { width: 96%; }
+    .columns { grid-template-columns: minmax(0, 1fr) 190px; gap: 14px; }
+    .brand, .contact { width: calc(100% - 204px); }
+    .sidebar { padding-top: 109px; }
+    .ad { width: 100%; }
+    .promo-inner { width: 650px; }
+  }
+  @media (max-width: 760px) {
+    .topnav { height: 40px; gap: 12px; padding: 0 10px; }
+    .promo { height: 125px; }
+    .promo-inner { width: 100%; justify-content: center; }
+    .promo-mascot { width: 155px; height: 112px; margin: 0 12px 0 0; }
+    .promo-copy { font-size: 16px; }
+    .promo-copy small { font-size: 14px; }
+    .page { margin-top: 30px; }
+    .brand { width: 100%; height: 76px; }
+    .brand-logo { font-size: 34px; }
+    .brand-logo img { width: 34px; height: 34px; }
+    .columns { display: flex; flex-direction: column; }
+    .main { width: 100%; }
+    .sidebar { padding: 0; display: flex; gap: 10px; width: 100%; }
+    .ad { width: calc(50% - 5px); max-width: 205px; }
+    .tools { flex-wrap: wrap; height: auto; padding: 7px 0 12px; }
+    .properties { width: 100%; }
+    .contact { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<header class="topnav">
+  <button class="btn">Upgrade to Pro⌄</button>
+  <button class="btn">Apps⌄</button>
+  <button class="btn">Tour</button>
+  <button class="btn signin">Sign in</button>
+  <button class="btn">◉⌄</button>
+</header>
+
+<section class="promo" id="promo">
+  <div class="promo-inner">
+    <img class="promo-mascot" src="__PLACEHOLDER_ASSETS_BASE_DIR__/002.gif" width="285" height="145" alt="WolframAlpha mascot">
+    <div class="promo-copy">
+      Use Wolfram|Alpha Pro
+      <small>for reality-checked results</small>
+      <button class="btn">Go Pro Now</button>
+    </div>
+  </div>
+  <button class="btn promo-close" aria-label="Close promotion" onclick="document.getElementById('promo').style.display='none'">×</button>
+</section>
+
+<div class="page">
+  <div class="brand">
+    <div class="maker">FROM THE MAKERS OF WOLFRAM LANGUAGE AND MATHEMATICA</div>
+    <div class="brand-logo">
+      <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/016.png" width="42" height="42" alt="">
+      <span>Wolfram<span class="alpha">Alpha</span></span>
+    </div>
+  </div>
+
+  <div class="columns">
+    <main class="main">
+      <div class="query-wrap">
+        <form class="query-form" id="queryForm">
+          <input id="query" aria-label="Enter a query" value="Caffeine content in 24 ounces of coffee and 24 ounces of soda">
+          <button class="btn clear-query" id="clearButton" type="button" aria-label="Clear query">×</button>
+          <button class="btn submit" type="submit" aria-label="Submit query">≡</button>
+        </form>
+        <div class="tools">
+          <button class="btn">✹ Natural language</button>
+          <button class="btn">∑ Math input</button>
+          <span class="spacer"></span>
+          <button class="btn plain">▦ Extended keyboard</button>
+          <button class="btn plain">▦ Examples</button>
+          <button class="btn plain">⬆ Upload</button>
+          <button class="btn plain">⤨ Random</button>
+        </div>
+      </div>
+
+      <div class="notice" id="notice"></div>
+
+      <section class="panel" id="interpretPanel">
+        <div class="section-title">Input interpretation</div>
+        <div class="section-body">
+          <table class="token-table" id="tokens">
+            <tr>
+              <td class="token-key">coffee</td><td>amount</td><td><b>24 oz</b> <span class="muted">(ounces)</span></td><td>caffeine</td><td>+</td>
+            </tr>
+            <tr>
+              <td class="token-key">carbonated beverage</td><td>amount</td><td><b>24 oz</b> <span class="muted">(ounces)</span></td><td>caffeine</td>
+            </tr>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="section-title">Result <button class="btn small-action">Show details</button></div>
+        <div class="section-body result-line">
+          <span class="number">481 mg</span>
+          <span class="muted">(milligrams)</span>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="section-title">Unit conversion <button class="btn small-action">☑ Step-by-step solution</button></div>
+        <div class="conversion">0.4815 grams</div>
+        <div class="conversion">4.815 × 10<sup>−4</sup> kg <span class="muted">(kilograms)</span></div>
+        <div class="conversion">7.431 grains</div>
+      </section>
+
+      <section class="panel">
+        <div class="section-title">Physical properties</div>
+        <div class="section-body">
+          <table class="properties">
+            <tr><td rowspan="3">mass</td><td>coffee</td><td>680 grams</td></tr>
+            <tr><td>carbonated beverage</td><td>680 grams</td></tr>
+            <tr><td>total</td><td>1.4 kg <span class="muted">(kilograms)</span></td></tr>
+            <tr><td rowspan="3">serving volume</td><td>coffee</td><td>671 mL <span class="muted">(milliliters)</span></td></tr>
+            <tr><td>carbonated beverage</td><td>649 mL <span class="muted">(milliliters)</span></td></tr>
+            <tr><td>total</td><td>1320 mL <span class="muted">(milliliters)</span></td></tr>
+            <tr><td rowspan="2">serving density</td><td>coffee</td><td>1 g/cm³ <span class="muted">(gram per cubic centimeter)</span></td></tr>
+            <tr><td>carbonated beverage</td><td>1.1 g/cm³ <span class="muted">(grams per cubic centimeter)</span></td></tr>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="section-title">Nutrition facts</div>
+        <div class="section-body">
+          <div class="nutrition">
+            <h3>Nutrition facts</h3>
+            <div>Serving size: 24 oz <b></b></div>
+            <div>Calories <b>188</b></div>
+            <div>Total fat <b>0 g</b></div>
+            <div>Saturated fat <b>0 g</b></div>
+            <div>Cholesterol <b>0 mg</b></div>
+            <div>Sodium <b>144 mg</b></div>
+            <div>Total carbohydrates <b>47 g</b></div>
+            <div>Dietary fiber <b>0 g</b></div>
+            <div>Sugars <b>43 g</b></div>
+            <div>Protein <b>1 g</b></div>
+            <div>Vitamin C 1% <b>Calcium 4%</b></div>
+            <div>Iron 5% <b>Thiamin 2%</b></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="related">
+        Related Queries:
+        <div class="related-grid">
+          <a href="#" class="btn">how much blood sugar is normal</a>
+          <a href="#" class="btn">vitamin D deficiency</a>
+          <a href="#" class="btn">fruit mix optimal storage temperature</a>
+          <a href="#" class="btn">sort food by dietary fiber</a>
+          <a href="#" class="btn">V8 vegetable juice</a>
+        </div>
+      </section>
+
+      <div class="contact">
+        <button class="btn">✉ Have a question about using Wolfram|Alpha?<br>Contact Pro Premium Expert Support »</button>
+        <button class="btn">▱ Give us your feedback »</button>
+      </div>
+    </main>
+
+    <aside class="sidebar">
+      <img class="ad" src="__PLACEHOLDER_ASSETS_BASE_DIR__/009.png" width="205" height="307" alt="Discover what's possible with WolframAlpha">
+      <img class="ad" src="__PLACEHOLDER_ASSETS_BASE_DIR__/018.png" width="175" height="175" alt="WolframAlpha Pro step-by-step math answers">
+      <img class="ad" src="__PLACEHOLDER_ASSETS_BASE_DIR__/019.png" width="135" height="275" alt="Powering innovation in optimization">
+    </aside>
+  </div>
+
+  <footer>
+    <div><a class="btn" href="#">Pro</a> | <a class="btn" href="#">Mobile Apps</a> | <a class="btn" href="#">Products</a> | <a class="btn" href="#">Business</a> | <a class="btn" href="#">API &amp; Developer Solutions</a> | <a class="btn" href="#">LLM Solutions</a></div>
+    <div><a class="btn" href="#">Resources &amp; Tools</a> | <a class="btn" href="#">About</a> | <a class="btn" href="#">Contact</a> | <a class="btn" href="#">Connect</a></div>
+    <div>©2025 Wolfram | <a class="btn" href="#">Terms</a> | <a class="btn" href="#">Privacy</a></div>
+    <div class="footer-logo"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/016.png" width="23" height="23" alt=""> WOLFRAM　 <a class="btn" href="#">wolfram.com</a> | <a class="btn" href="#">Wolfram Language</a> | <a class="btn" href="#">Mathematica</a> | <a class="btn" href="#">Wolfram Demonstrations</a> | <a class="btn" href="#">MathWorld</a></div>
+  </footer>
+</div>
+
+<script>
+  const form = document.getElementById('queryForm');
+  const input = document.getElementById('query');
+  const clearButton = document.getElementById('clearButton');
+  const notice = document.getElementById('notice');
+
+  function updateClear() {
+    clearButton.style.display = input.value ? 'block' : 'none';
+  }
+  input.addEventListener('input', updateClear);
+  updateClear();
+
+  clearButton.addEventListener('click', function () {
+    input.value = '';
+    input.focus();
+    updateClear();
+  });
+
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    const value = input.value.trim();
+    if (!value) return;
+    if (/partial fraction|1\/\(?x/i.test(value)) {
+      notice.className = 'notice on';
+      notice.innerHTML = 'Interpreting as: <b>1/(x² + 4x + 3)</b><br><br><b>Result</b><br><span style="font:18px Georgia">1/(x² + 4x + 3) = 1/[2(x + 1)] − 1/[2(x + 3)]</span>';
+      document.querySelector('.section-title').textContent = 'Input interpretation';
+    } else {
+      notice.className = 'notice';
+    }
+    updateClear();
+  });
+
+  document.querySelectorAll('.related-grid a').forEach(function (link) {
+    link.addEventListener('click', function (event) {
+      event.preventDefault();
+      input.value = link.textContent;
+      updateClear();
+      form.requestSubmit();
+    });
+  });
+</script>
+</body>
+</html>
+```

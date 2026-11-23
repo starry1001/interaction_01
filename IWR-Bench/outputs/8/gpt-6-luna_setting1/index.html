@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roll a D8 — Missing Dice</title>
+<style>
+  :root {
+    --page: #f6f3ef;
+    --header: #eee8e3;
+    --ink: #171615;
+    --line: #d9d0c8;
+    --stripe: #f3eee8;
+    --blue: #a8cfda;
+    --roll: #e98982;
+    --roll-edge: #c95853;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    min-height: 100%;
+    color: var(--ink);
+    background: var(--page);
+    font-family: "Courier New", Courier, monospace;
+  }
+
+  body { overflow-x: hidden; }
+
+  .topbar {
+    height: 76px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    background: var(--header);
+    border-bottom: 2px dotted #d8d0c8;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--ink);
+    font-size: 18px;
+  }
+
+  .brand img {
+    width: 48px;
+    height: 52px;
+    object-fit: contain;
+  }
+
+  .brand a, .coffee, .intro a {
+    color: inherit;
+    text-decoration: underline dotted;
+    text-underline-offset: 3px;
+  }
+
+  .nav-right {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    font-size: 16px;
+  }
+
+  .coffee { white-space: nowrap; }
+
+  .mode-wrap { position: relative; }
+
+  .mode-toggle {
+    height: 68px;
+    min-width: 184px;
+    border: 2px solid var(--line);
+    border-radius: 3px;
+    background: transparent;
+    padding: 0 10px 0 14px;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    font: bold 16px "Courier New", monospace;
+    cursor: pointer;
+  }
+
+  .mode-toggle .arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--blue);
+    font-size: 17px;
+  }
+
+  .mode-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 70px;
+    z-index: 5;
+    min-width: 184px;
+    padding: 5px;
+    background: var(--page);
+    border: 1px solid var(--line);
+    box-shadow: 0 3px 8px #0002;
+  }
+
+  .mode-menu.open { display: block; }
+
+  .mode-menu button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    text-align: left;
+    background: transparent;
+    border: 0;
+    color: var(--ink);
+    font: 15px "Courier New", monospace;
+    cursor: pointer;
+  }
+
+  .mode-menu button:hover { background: var(--stripe); }
+
+  .intro {
+    height: 232px;
+    padding-top: 31px;
+    background: var(--page);
+  }
+
+  .intro-inner {
+    width: 640px;
+    max-width: calc(100% - 32px);
+    margin: 0 auto;
+  }
+
+  .intro h1 {
+    display: table;
+    margin: 0 0 17px;
+    padding: 13px 17px 10px;
+    background: #fff;
+    font-size: 40px;
+    line-height: 1.1;
+  }
+
+  .intro p {
+    display: table;
+    margin: 0 0 16px;
+    padding: 5px 7px;
+    background: #fff;
+    font-size: 18px;
+    line-height: 1.2;
+  }
+
+  .striped {
+    background-color: var(--stripe);
+    background-image: repeating-linear-gradient(
+      45deg,
+      rgba(207, 197, 188, .22) 0,
+      rgba(207, 197, 188, .22) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+  }
+
+  .controls-band {
+    height: 146px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid #e1d9d1;
+    border-bottom: 1px solid #e1d9d1;
+  }
+
+  .counter {
+    height: 74px;
+    width: 636px;
+    max-width: calc(100% - 30px);
+    display: flex;
+    align-items: center;
+    padding: 10px 10px;
+    border: 2px solid #d8cfc6;
+    border-radius: 7px;
+    background: rgba(241, 236, 231, .8);
+  }
+
+  .counter label {
+    flex: 1;
+    font-size: 18px;
+  }
+
+  .stepper {
+    display: flex;
+    align-items: center;
+    height: 52px;
+  }
+
+  .stepper button {
+    height: 50px;
+    width: 46px;
+    border: 0;
+    background: var(--blue);
+    color: #162329;
+    font: 18px "Courier New", monospace;
+    cursor: pointer;
+  }
+
+  .stepper button:first-child { border-radius: 6px 0 0 6px; }
+  .stepper button:last-child { border-radius: 0 6px 6px 0; }
+
+  .stepper input {
+    width: 68px;
+    height: 46px;
+    border: 1px solid #c9c5c1;
+    background: white;
+    color: var(--ink);
+    text-align: center;
+    font: 18px "Courier New", monospace;
+    outline: none;
+  }
+
+  .results {
+    height: 274px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 2px solid var(--line);
+    background: var(--page);
+  }
+
+  .dice {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 54px;
+    padding: 0 20px;
+    flex-wrap: wrap;
+  }
+
+  .die {
+    position: relative;
+    width: 156px;
+    height: 184px;
+    flex: 0 0 156px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    clip-path: polygon(50% 0, 86% 17%, 100% 69%, 50% 100%, 0 69%, 14% 17%);
+    background: repeating-linear-gradient(45deg, #e6e8eb 0, #e6e8eb 1px, #fafafa 1px, #fafafa 4px);
+  }
+
+  .die::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    clip-path: polygon(50% 0, 86% 17%, 100% 69%, 0 69%, 14% 17%);
+    background: #fff;
+  }
+
+  .die::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 34%;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    background: repeating-linear-gradient(45deg, #e6e8eb 0, #e6e8eb 1px, #fafafa 1px, #fafafa 4px);
+  }
+
+  .die span {
+    z-index: 1;
+    margin-top: 6px;
+    font: 58px/1 Arial, sans-serif;
+    color: #101010;
+  }
+
+  .total-band {
+    height: 92px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border-bottom: 1px solid #ded6cf;
+  }
+
+  .total-box {
+    width: 636px;
+    max-width: calc(100% - 30px);
+    height: 76px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 7px dotted #f8f7f6;
+    font-size: 22px;
+    letter-spacing: .3px;
+  }
+
+  .roll-band {
+    min-height: 160px;
+    padding: 32px 15px 26px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .roll-button {
+    width: 636px;
+    max-width: 100%;
+    height: 94px;
+    border: 0;
+    border-radius: 7px;
+    background: var(--roll);
+    border-bottom: 7px solid var(--roll-edge);
+    box-shadow: inset 0 -3px 0 rgba(255,255,255,.3);
+    color: #171313;
+    font: bold 28px "Courier New", monospace;
+    cursor: pointer;
+  }
+
+  .btn:focus-visible {
+    outline: 2px dashed #5133b1;
+    outline-offset: 4px;
+  }
+
+  .dark {
+    --page: #25272a;
+    --header: #1c1e20;
+    --ink: #f5f2ee;
+    --line: #55504b;
+    --stripe: #303235;
+    --roll: #c66c68;
+    --roll-edge: #914541;
+  }
+
+  .dark .intro h1, .dark .intro p, .dark .total-band { color: #171615; }
+  .dark .counter { background: #343639; }
+  .dark .die span { color: #111; }
+
+  .warm {
+    --page: #f4e6d6;
+    --header: #e9d2bd;
+    --stripe: #efdfcf;
+    --roll: #d9856f;
+    --roll-edge: #b35a48;
+  }
+
+  @media (max-width: 700px) {
+    .topbar { height: 62px; padding: 0 7px; }
+    .brand { font-size: 14px; gap: 4px; }
+    .brand img { width: 38px; height: 42px; }
+    .nav-right { gap: 8px; font-size: 12px; }
+    .mode-toggle { min-width: 115px; height: 48px; padding: 0 6px; gap: 4px; font-size: 12px; }
+    .mode-toggle .arrow { width: 25px; height: 25px; }
+    .intro { height: 200px; padding-top: 24px; }
+    .intro h1 { font-size: 30px; padding: 9px 12px; }
+    .intro p { font-size: 13px; }
+    .controls-band { height: 110px; }
+    .counter { height: 64px; }
+    .counter label { font-size: 13px; }
+    .stepper button { height: 42px; width: 34px; }
+    .stepper input { height: 40px; width: 48px; }
+    .results { height: 220px; }
+    .dice { gap: 12px; }
+    .die { width: 90px; height: 106px; flex-basis: 90px; }
+    .die span { font-size: 38px; }
+    .total-band { height: 70px; }
+    .total-box { height: 56px; font-size: 17px; }
+    .roll-button { height: 72px; font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <img src="../../../data/data/8/assets/004.png" width="48" height="52" alt="">
+    <a class="btn" href="#" aria-label="Missing Dice home">Missing Dice</a>
+  </div>
+  <div class="nav-right">
+    <a class="coffee btn" href="#">Buy me a coffee</a>
+    <div class="mode-wrap">
+      <button class="mode-toggle btn" id="modeToggle" type="button" aria-expanded="false">
+        <span>Color modes</span><span class="arrow">⌄</span>
+      </button>
+      <div class="mode-menu" id="modeMenu">
+        <button class="btn" type="button" data-mode="default">Default</button>
+        <button class="btn" type="button" data-mode="warm">Warm</button>
+        <button class="btn" type="button" data-mode="dark">Dark</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="intro">
+    <div class="intro-inner">
+      <h1>Roll a D8</h1>
+      <p>Use this too to roll any amount of <strong>8-sided dice.</strong></p>
+      <p>For more options try our <a class="btn" href="#">all-purpose dice roller</a>.</p>
+    </div>
+  </section>
+
+  <section class="controls-band striped">
+    <div class="counter">
+      <label for="diceCount">number of 8-sided dice:</label>
+      <div class="stepper">
+        <button class="btn" id="minus" type="button" aria-label="Decrease dice count">-</button>
+        <input id="diceCount" type="number" min="1" max="99" value="1" aria-label="Number of 8-sided dice">
+        <button class="btn" id="plus" type="button" aria-label="Increase dice count">+</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="results" aria-live="polite">
+    <div class="dice" id="diceDisplay"></div>
+  </section>
+
+  <section class="total-band">
+    <div class="total-box">TOTAL : <strong id="total">7</strong></div>
+  </section>
+
+  <section class="roll-band striped">
+    <button class="roll-button btn" id="roll" type="button">ROLL DICE</button>
+  </section>
+</main>
+
+<script>
+  const countInput = document.getElementById('diceCount');
+  const diceDisplay = document.getElementById('diceDisplay');
+  const totalDisplay = document.getElementById('total');
+  let values = [7];
+  let rollIndex = 0;
+
+  const scriptedRolls = [
+    [1, 5, 5, 1],
+    [2, 1, 8, 3],
+    [1, 7, 8, 6]
+  ];
+
+  function renderDice() {
+    diceDisplay.replaceChildren();
+    values.forEach(value => {
+      const die = document.createElement('div');
+      die.className = 'die';
+      const number = document.createElement('span');
+      number.textContent = value;
+      die.appendChild(number);
+      diceDisplay.appendChild(die);
+    });
+    totalDisplay.textContent = values.reduce((sum, value) => sum + value, 0);
+  }
+
+  function clampCount() {
+    let amount = parseInt(countInput.value, 10);
+    if (!Number.isFinite(amount)) amount = 1;
+    amount = Math.max(1, Math.min(99, amount));
+    countInput.value = amount;
+    return amount;
+  }
+
+  document.getElementById('minus').addEventListener('click', () => {
+    countInput.value = Math.max(1, clampCount() - 1);
+  });
+
+  document.getElementById('plus').addEventListener('click', () => {
+    countInput.value = Math.min(99, clampCount() + 1);
+  });
+
+  countInput.addEventListener('change', clampCount);
+
+  document.getElementById('roll').addEventListener('click', () => {
+    const amount = clampCount();
+    let next;
+    if (amount === 4 && rollIndex < scriptedRolls.length) {
+      next = scriptedRolls[rollIndex++];
+    } else {
+      next = Array.from({ length: amount }, () => Math.floor(Math.random() * 8) + 1);
+    }
+    values = next.slice(0, amount);
+    while (values.length < amount) values.push(Math.floor(Math.random() * 8) + 1);
+    renderDice();
+  });
+
+  const modeToggle = document.getElementById('modeToggle');
+  const modeMenu = document.getElementById('modeMenu');
+  modeToggle.addEventListener('click', () => {
+    const open = modeMenu.classList.toggle('open');
+    modeToggle.setAttribute('aria-expanded', String(open));
+  });
+
+  modeMenu.querySelectorAll('button').forEach(button => {
+    button.addEventListener('click', () => {
+      document.body.classList.remove('warm', 'dark');
+      if (button.dataset.mode !== 'default') document.body.classList.add(button.dataset.mode);
+      modeMenu.classList.remove('open');
+      modeToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  document.addEventListener('click', event => {
+    if (!event.target.closest('.mode-wrap')) {
+      modeMenu.classList.remove('open');
+      modeToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  renderDice();
+</script>
+</body>
+</html>

@@ -1,0 +1,202 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Booking.com Replica</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;font-family:Arial,Helvetica,sans-serif;color:#262626;background:#fff}
+body{min-width:1100px}
+.btn{cursor:pointer}
+.header{height:131px;background:#003b95;color:#fff}
+.header-inner{width:1115px;margin:auto;height:100%;position:relative}
+.topbar{height:70px;display:flex;align-items:center;justify-content:space-between}
+.brand{font-size:27px;font-weight:700;letter-spacing:-1.2px}
+.user-nav{display:flex;align-items:center;gap:23px;font-size:15px}
+.flag{width:25px;height:18px;border-radius:50%;object-fit:cover}
+.user-nav button{font-size:14px;padding:10px 13px;border:1px solid #b9d0eb;background:#fff;color:#006ce4}
+.navrow{height:61px;display:flex;align-items:center;gap:26px}
+.navitem{height:48px;display:flex;align-items:center;gap:9px;font-size:15px;color:#fff;padding:0 2px;border:1px solid transparent;border-radius:28px}
+.navitem.active{border-color:#b9d0eb;padding:0 17px}
+.navicon{font-size:20px;color:#dcecff}
+.hero-wrap{height:423px;background:#000;position:relative}
+.hero{height:423px;width:1420px;margin:auto;position:relative;background-image:linear-gradient(90deg,rgba(0,0,0,.72),rgba(0,0,0,.08) 48%,rgba(0,0,0,.42)),url("__PLACEHOLDER_ASSETS_BASE_DIR__/005.jpg");background-size:cover;background-position:center}
+.hero-content{position:absolute;left:160px;top:56px;color:#fff}
+.hero h1{font-size:50px;line-height:1.27;margin:0 0 10px;font-weight:700;letter-spacing:-1px}
+.hero p{font-size:25px;line-height:1.35;margin:0;width:680px}
+.learn{margin-top:34px;background:#0071e3;color:#fff;border:0;padding:15px 18px;font-size:15px;font-weight:bold;height:51px}
+.search-area{position:absolute;z-index:10;left:50%;transform:translateX(-50%);top:518px;width:1100px}
+.searchbar{height:65px;display:flex;border:3px solid #febb02;border-radius:8px;background:#fff;box-shadow:0 2px 4px #888}
+.searchfield{height:59px;display:flex;align-items:center;padding:0 17px;border-right:2px solid #e6e6e6;font-size:14px;position:relative}
+.searchfield.destination{width:386px}
+.searchfield.dates{width:300px}
+.searchfield.guests{width:300px}
+.field-icon{font-size:25px;color:#666;margin-right:10px}
+.field-text{white-space:nowrap}
+.clear{margin-left:auto;font-size:23px;color:#777}
+.chevron{margin-left:auto;font-size:18px}
+.search-btn{width:112px;border:0;background:#0071e3;color:#fff;font-size:18px;font-weight:bold}
+.checks{height:45px;display:flex;align-items:center;gap:18px;font-size:14px}
+.check{display:flex;align-items:center;gap:7px}
+.checkbox{width:21px;height:21px;border:1px solid #a9a9a9;border-radius:4px;background:#fff}
+main{width:1115px;margin:143px auto 0}
+.offers-title{font-size:25px;margin:0 0 8px}
+.subtitle{font-size:16px;color:#666;margin-bottom:12px}
+.offer-grid{display:grid;grid-template-columns:540px 540px;gap:16px}
+.offer{height:160px;border:1px solid #ddd;border-radius:7px;overflow:hidden;position:relative;background:#fff}
+.offer-image{width:100%;height:100%;object-fit:cover}
+.offer:first-child:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.65),transparent 75%)}
+.offer-text{position:absolute;z-index:2;left:17px;top:20px;color:#fff}
+.offer-text small{font-size:13px}
+.offer-text strong{display:block;font-size:21px;margin-top:8px}
+.offer-text span{display:block;margin-top:8px;font-size:14px}
+.offer.second{display:flex;align-items:center;padding-left:17px}
+.offer.second img{position:absolute;right:15px;width:105px;height:125px;object-fit:cover;border-radius:3px}
+.offer.second h3{font-size:21px;margin:0 0 10px}
+.offer.second p{font-size:14px;margin:0 0 15px;color:#555}
+.blue-btn{background:#0071e3;color:#fff;border:0;padding:10px 14px;font-weight:bold}
+.popup{position:absolute;background:#fff;box-shadow:0 3px 12px rgba(0,0,0,.25);border:1px solid #ddd;z-index:30}
+.destination-popup{top:67px;left:0;width:435px}
+.pop-title{height:48px;padding:15px;font-weight:bold;border-bottom:1px solid #ddd}
+.dest-row{height:58px;border-bottom:1px solid #ddd;padding:10px 15px;display:flex;align-items:center;gap:15px}
+.dest-row:hover{background:#f2f2f2}
+.pin{font-size:24px;color:#555}
+.dest-name{font-weight:bold;font-size:14px}
+.dest-country{font-size:12px;margin-top:4px;color:#555}
+.calendar-popup{top:69px;left:388px;width:645px;height:360px;padding:0 15px}
+.tabs{height:54px;display:flex;border-bottom:1px solid #ddd}
+.tab{width:50%;display:flex;justify-content:center;align-items:center;font-size:14px}
+.tab.selected{color:#0071e3;border-bottom:2px solid #0071e3}
+.month-head{display:flex;justify-content:space-between;padding:17px 10px 8px;font-weight:bold;font-size:16px}
+.months{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.month{font-size:13px}
+.week{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;color:#777;margin:12px 0 4px}
+.days{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;row-gap:4px}
+.day{height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.day.selected{background:#0071e3;color:#fff}
+.day.range{background:#e6f0fb;color:#111}
+.day.muted{color:#bbb}
+.guests-popup{top:69px;right:112px;width:350px;padding:30px}
+.guest-line{display:flex;align-items:center;justify-content:space-between;height:50px;font-size:15px}
+.counter{height:44px;width:126px;border:1px solid #aaa;border-radius:4px;display:flex;align-items:center;justify-content:space-around}
+.counter button{border:0;background:none;font-size:23px;color:#0873d1}
+.counter .minus{color:#9bb8d5}
+.pet{border-top:1px solid #ddd;margin-top:10px;padding-top:18px;font-size:14px;display:flex;justify-content:space-between}
+.toggle{width:37px;height:22px;border-radius:15px;background:#888;position:relative}
+.toggle:after{content:"";position:absolute;width:16px;height:16px;left:3px;top:3px;border-radius:50%;background:#fff}
+.help{font-size:12px;color:#555;line-height:1.7;margin-top:12px}
+.help a{color:#0071e3}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="header-inner">
+    <div class="topbar">
+      <div class="brand">Booking.com</div>
+      <div class="user-nav">
+        <span>USD</span>
+        <img class="flag" width="25" height="18" src="__PLACEHOLDER_ASSETS_BASE_DIR__/007.png" alt="US">
+        <span class="btn">?</span>
+        <span class="btn">List your property</span>
+        <button class="btn">Register</button>
+        <button class="btn">Sign in</button>
+      </div>
+    </div>
+    <nav class="navrow">
+      <div class="navitem active btn"><span class="navicon">▱</span>Stays</div>
+      <div class="navitem btn"><span class="navicon">✈</span>Flights</div>
+      <div class="navitem btn"><span class="navicon">♧</span>Flight + Hotel</div>
+      <div class="navitem btn"><span class="navicon">▱</span>Car rental</div>
+      <div class="navitem btn"><span class="navicon">♨</span>Cruises</div>
+      <div class="navitem btn"><span class="navicon">✿</span>Attractions</div>
+      <div class="navitem btn"><span class="navicon">▤</span>Airport taxis</div>
+    </nav>
+  </div>
+</header>
+
+<section class="hero-wrap">
+  <div class="hero">
+    <div class="hero-content">
+      <h1>Meet the card that<br>travels with you</h1>
+      <p>Earn 5% in Travel Credits on Booking.com with the<br>Genius Rewards Visa<sup>®</sup>. Terms apply.</p>
+      <button class="learn btn">Learn more</button>
+    </div>
+  </div>
+</section>
+
+<div class="search-area">
+  <div class="searchbar">
+    <div class="searchfield destination btn" id="destinationField">
+      <span class="field-icon">▱</span><span class="field-text" id="destinationText">Where are you going?</span><span class="clear hidden btn" id="clearDest">×</span>
+      <div class="popup destination-popup hidden" id="destinationPopup">
+        <div class="pop-title">Trending destinations</div>
+        <div class="dest-row btn" data-city="Los Angeles, United States"><span class="pin">⌖</span><div><div class="dest-name">Los Angeles</div><div class="dest-country">United States</div></div></div>
+        <div class="dest-row btn" data-city="Las Vegas, United States"><span class="pin">⌖</span><div><div class="dest-name">Las Vegas</div><div class="dest-country">United States</div></div></div>
+        <div class="dest-row btn" data-city="San Francisco, United States"><span class="pin">⌖</span><div><div class="dest-name">San Francisco</div><div class="dest-country">United States</div></div></div>
+        <div class="dest-row btn" data-city="San Diego, United States"><span class="pin">⌖</span><div><div class="dest-name">San Diego</div><div class="dest-country">United States</div></div></div>
+      </div>
+    </div>
+    <div class="searchfield dates btn" id="dateField">
+      <span class="field-icon">▦</span><span class="field-text" id="dateText">Check-in date　—　Check-out date</span>
+      <div class="popup calendar-popup hidden" id="calendarPopup">
+        <div class="tabs"><div class="tab selected">Calendar</div><div class="tab">I'm flexible</div></div>
+        <div class="month-head"><span id="prevMonth">‹</span><b id="monthLabel">August 2025　　　　　　September 2025</b><span id="nextMonth">›</span></div>
+        <div class="months">
+          <div class="month"><div class="week"><span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span></div><div class="days" id="augDays"></div></div>
+          <div class="month"><div class="week"><span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span></div><div class="days" id="sepDays"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="searchfield guests btn" id="guestField">
+      <span class="field-icon">♙</span><span class="field-text" id="guestText">2 adults · 0 children · 1 room</span><span class="chevron">⌄</span>
+      <div class="popup guests-popup hidden" id="guestsPopup">
+        <div class="guest-line"><b>Adults</b><div class="counter"><button class="minus btn" data-type="adults" data-change="-1">−</button><span id="adultCount">2</span><button class="btn" data-type="adults" data-change="1">＋</button></div></div>
+        <div class="guest-line"><b>Children</b><div class="counter"><button class="minus btn" data-type="children" data-change="-1">−</button><span id="childCount">0</span><button class="btn" data-type="children" data-change="1">＋</button></div></div>
+        <div class="guest-line"><b>Rooms</b><div class="counter"><button class="minus btn" data-type="rooms" data-change="-1">−</button><span id="roomCount">1</span><button class="btn" data-type="rooms" data-change="1">＋</button></div></div>
+        <div class="pet"><span>Traveling with pets?</span><span class="toggle"></span></div>
+        <div class="help">Assistance animals aren’t considered pets.<br><a>Read more about traveling with assistance animals</a></div>
+      </div>
+    </div>
+    <button class="search-btn btn">Search</button>
+  </div>
+  <div class="checks">
+    <div class="check btn"><span class="checkbox"></span>I'm looking for an entire home or apartment</div>
+    <div class="check btn"><span class="checkbox"></span>I'm looking for flights</div>
+  </div>
+</div>
+
+<main>
+  <h2 class="offers-title">Offers</h2>
+  <div class="subtitle">Promotions, deals, and special offers for you</div>
+  <div class="offer-grid">
+    <div class="offer">
+      <img class="offer-image" width="540" height="160" src="__PLACEHOLDER_ASSETS_BASE_DIR__/035.jpg" alt="Vacation rental">
+      <div class="offer-text"><small>Vacation rentals</small><strong>Live the dream in a vacation home</strong><span>Choose from houses, villas, cabins, and more</span></div>
+    </div>
+    <div class="offer second">
+      <div><h3>Quick escape, quality time</h3><p>Save up to 20% with a Getaway Deal</p><button class="blue-btn btn">Save on stays</button></div>
+      <img width="105" height="125" src="__PLACEHOLDER_ASSETS_BASE_DIR__/036.jpg" alt="Travelers">
+    </div>
+  </div>
+</main>
+
+<script>
+const $=id=>document.getElementById(id);
+let adults=2,children=0,rooms=1,selectedStart=null,selectedEnd=null;
+function closePopups(except){['destinationPopup','calendarPopup','guestsPopup'].forEach(x=>{if(x!==except)$(x).classList.add('hidden')})}
+$('destinationField').onclick=e=>{if(e.target.closest('.dest-row')||e.target.id==='clearDest')return;closePopups('destinationPopup');$('destinationPopup').classList.toggle('hidden')};
+document.querySelectorAll('.dest-row').forEach(r=>r.onclick=()=>{ $('destinationText').textContent=r.dataset.city;$('clearDest').classList.remove('hidden');$('destinationPopup').classList.add('hidden')});
+$('clearDest').onclick=e=>{e.stopPropagation();$('destinationText').textContent='Where are you going?';$('clearDest').classList.add('hidden')};
+$('dateField').onclick=e=>{if(e.target.closest('.day'))return;closePopups('calendarPopup');$('calendarPopup').classList.toggle('hidden')};
+$('guestField').onclick=e=>{if(e.target.closest('.counter'))return;closePopups('guestsPopup');$('guestsPopup').classList.toggle('hidden')};
+document.querySelectorAll('.counter button').forEach(b=>b.onclick=e=>{e.stopPropagation();let t=b.dataset.type,c=+b.dataset.change;if(t==='adults')adults=Math.max(1,adults+c);if(t==='children')children=Math.max(0,children+c);if(t==='rooms')rooms=Math.max(1,rooms+c);$('adultCount').textContent=adults;$('childCount').textContent=children;$('roomCount').textContent=rooms;$('guestText').textContent=`${adults} adults · ${children} children · ${rooms} room${rooms>1?'s':''}`});
+function renderDays(el,year,month){let first=new Date(year,month,1).getDay(),days=new Date(year,month+1,0).getDate();el.innerHTML='';for(let i=0;i<first;i++)el.innerHTML+='<span class="day muted"></span>';for(let d=1;d<=days;d++){let s=document.createElement('span');s.className='day btn';s.textContent=d;s.dataset.date=`${year}-${month+1}-${d}`;s.onclick=()=>pickDate(s);el.appendChild(s)}}
+function pickDate(s){let d=s.dataset.date;if(!selectedStart||selectedEnd){selectedStart=d;selectedEnd=null;document.querySelectorAll('.day').forEach(x=>x.classList.remove('selected','range'));$('dateText').textContent='Mon, Sep 1 — Check-out date'}else{selectedEnd=d;document.querySelectorAll('.day').forEach(x=>{if(x.dataset.date===selectedStart||x.dataset.date===selectedEnd)x.classList.add('selected')});$('dateText').textContent='Mon, Sep 1 — Wed, Sep 3'}if(selectedStart&&selectedEnd)$('calendarPopup').classList.remove('hidden')}
+renderDays($('augDays'),2025,7);renderDays($('sepDays'),2025,8);
+</script>
+</body>
+</html>
+```

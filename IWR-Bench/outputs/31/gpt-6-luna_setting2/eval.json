@@ -1,0 +1,79 @@
+{
+  "total_step": 22,
+  "success_step": 2,
+  "screenshot_paths_to_eval": [
+    "outputs/31/gpt-6-luna_setting2/evalpoints/0.png",
+    "outputs/31/gpt-6-luna_setting2/evalpoints/0.png",
+    "outputs/31/gpt-6-luna_setting2/evalpoints/1.png"
+  ],
+  "all_mllm_scores": [
+    0.2,
+    0.24,
+    0.23
+  ],
+  "all_dino_scores": [
+    0.93798828125,
+    0.91552734375,
+    0.86474609375
+  ],
+  "all_ocr_scores": [
+    0.30333333333333334,
+    0.3011111111111111,
+    0.3322222222222222
+  ],
+  "all_avg_scores": [
+    0.4804405381944445,
+    0.48554615162037035,
+    0.47565610532407404
+  ],
+  "mllm_score": 0.22333333333333336,
+  "dino_score": 0.9060872395833334,
+  "ocr_score": 0.31222222222222223,
+  "avg_score": 0.4805475983796296,
+  "all_mllm_res": [
+    "Comments:\n- **Layout (10 points): 1/10** — The reference is a full ClickUp Overview dashboard with a left sidebar, top navigation, announcement banner, and multiple content cards. The generated page is a centered task-detail modal over a dimmed project list, with a substantially different composition and hierarchy.\n- **Elements (15 points): 4/15** — Both include ClickUp-style navigation, sidebar items, project references, and purple action controls, but the reference contains overview cards, folders, lists, bookmarks, and workload sections that are absent from the generated page. The generated page instead adds task fields, activity, comments, checklists, and attachments.\n- **Content and Text (40 points): 5/40** — Some labels such as “Team Space,” “Project 1,” “Project 2,” “Share,” and “Ask AI” overlap conceptually, but most text content is different. The reference focuses on dashboard sections like “Recent,” “Docs,” “Bookmarks,” “Folders,” and “Lists,” while the generated page focuses on “Task 1” details and activity.\n- **Style (15 points): 7/15** — The generated page shares the general ClickUp visual language: purple header, white surfaces, light gray borders, compact sans-serif text, and purple buttons. However, the modal overlay, darker dimmed background, field styling, and dense task-detail layout differ notably from the reference’s bright dashboard presentation.\n- **Overall (20 points): 3/20** — The pages appear to belong to the same product and use similar branding, but they represent different screens and interaction states. The generated result does not reproduce the reference dashboard structure or content.\n\n**Score: 20/100**",
+    "Comments:\n-Layout (10 points): 2/10 — The reference shows a full Home dashboard with a two-column card layout and multiple sections, while the generated page shows a centered task-detail modal over a project list. Overall structure, spacing, and page composition are substantially different.\n-Elements (15 points): 5/15 — Both include a similar dark purple top navigation bar, left workspace sidebar, project/task navigation, and ClickUp-style controls. However, the reference contains dashboard cards such as Recents, Agenda, My Work, and Assigned to me, which are absent from the generated page.\n-Content and Text (40 points): 5/40 — Some shared labels and entities appear, including the workspace name, Team Space, Project 1, tasks, and ClickUp-related terminology. Most of the reference’s visible text and information architecture are missing or replaced by task-detail content such as “Task 1,” status fields, custom fields, checklists, attachments, and activity comments.\n-Style (15 points): 8/15 — The purple header, light-gray workspace background, white panels, compact sans-serif typography, and general productivity-app aesthetic are reasonably similar. The modal treatment, dimmed background, borders, and control styling differ noticeably from the reference dashboard.\n-Overall (20 points): 4/20 — The generated page appears to belong to the same application family and preserves some branding and navigation conventions, but it does not reproduce the reference screen’s Home dashboard view or primary visual hierarchy.\n\nScore: 24/100",
+    "Comments:\n- **Layout (2/10):** Both screenshots use a ClickUp-style layout with a dark purple top bar and left navigation, but the primary content structure is substantially different. The reference shows a full-width project list/table, while the generated page centers a large task-detail modal with an activity panel.\n- **Elements (5/15):** Shared elements include the workspace sidebar, project navigation, top search/navigation controls, and ClickUp-style action buttons. However, the reference contains table columns, task rows, filters, and an onboarding tooltip, while the generated page contains task properties, custom fields, checklists, attachments, and comments.\n- **Content and Text (5/40):** Some labels overlap, such as “Team Space,” “Project 1,” “Project 2,” “Project Notes,” “Agents,” “Automate,” “Ask AI,” and “Share.” Most visible task content, headings, statuses, and supporting text differ significantly. The reference focuses on a project list, whereas the generated page focuses on “Task 1” details and activity.\n- **Style (7/15):** The purple ClickUp branding, light workspace background, typography, compact controls, and sidebar styling are reasonably similar. The generated page introduces a dimmed overlay, large modal treatment, and more pronounced bordered input fields that are absent from the reference.\n- **Overall (4/20):** The screenshots appear to represent the same general product and workspace, but they depict different views and UI states. The shared application chrome provides limited similarity, while the main page composition and content are largely mismatched.\n\n**Score: 23/100**"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "Search 8AI Upgrade New RER's Wor_ Team Space Agents Automate Ask AI Share Home Overview List '0o Board Calendar Gantt B Table View Hide Customize Add card Inbox Get the most out of your Overviewl Add, reorder; and resize cards to customize this page Get Started More Filtets Hide Protect viewy Refreshed: just now Auto refresh; On Favorites Spaces Recent Docs Bookmarks Everything Project in Team Space Project in Team Space Team Space Project Project 2 Project Notes Bookmarks make it easy t0 save ClickUp items or any URL from around the wcd; Create Space Add Bookmark Folders No Folders L0 show Lists Name Color Progress Stant End Priority Owner Project 1 0/4 Project 2 0/3 New List Resources Workload by Status 1/5 8 Invite Help",
+      "screenshot_text": "Search Upgrade New #3Xs Workspace ~ Team Space Project 1 List Board Calendar Agents Automate AskAI Share Home Group: Status Subtasks Search Hide Customize Add Task Inbox Team Space Project Created on Aug 24 Share Name Status More Task - Activity Favorites Task ~ 86ab77btb Ask Al Task - Spaces You created this task by copying #BGbSm6Zev (You Task 1 Dont Have Access) 32 mins Everything meeting Team Space Add Task Ask Brain [0 write description; generate subtasks or find similar tasks #87 Just now More Project 1 Project 2 Status COMPLETE Assignees Project Notes Dates Start @ Due Priority Norma Reply Create Space Time Estimate Track Time 59m Tags Empty Relationships Empty Add description Write with AI Custom Fields Create Field on this location Add subtask Add Task Checklists Create checklist Attachments Drop your files here t0 upload Comment Email Comment; press 'space' for Al; for commands",
+      "similarity": 0.30333333333333334
+    },
+    {
+      "checkpoint_text": "Search #AI Upgrade New 0 # RER's Wor_ Home Manage cards Home Good morning; #55 Inbox More Recents Agenda Project in Team Space Aug 24, Sun Today Favorites meeting n Project Spaces meeting AII 111 in #83s List Everything Task n Project Team Space Task 2 n Project Project Task 3 in Project Project 2 Task 3 Project Notes Task Create Space Tacl My Work Assigned to me To Do Done Delegated Group: Status Subtasks Columns Filter Closed Search Customize Today TO DO Add Task meeting Team Space Project Today Name Prority Duc date meeting Urgent Today Overdue Add Task Next Unscheduled Personal List 0 Assigned comments Group: None Subtasks Columns Closed Searchu Customize Add Task Name Assignee Due date Priority Date created 8 Invite Help day Filtet Tasks",
+      "screenshot_text": "Search Upgrade New #3Xs Workspace ~ Team Space Project 1 List Board Calendar Agents Automate AskAI Share Home Group: Status Subtasks Search Hide Customize Add Task Inbox Team Space Project Created on Aug 24 Share Name Status More Task - Activity Favorites Task ~ 86ab77btb Ask Al Task - Spaces You created this task by copying #BGbSm6Zev (You Task 1 Dont Have Access) 32 mins Everything meeting Team Space Add Task Ask Brain [0 write description; generate subtasks or find similar tasks #87 Just now More Project 1 Project 2 Status COMPLETE Assignees Project Notes Dates Start @ Due Priority Norma Reply Create Space Time Estimate Track Time 59m Tags Empty Relationships Empty Add description Write with AI Custom Fields Create Field on this location Add subtask Add Task Checklists Create checklist Attachments Drop your files here t0 upload Comment Email Comment; press 'space' for Al; for commands",
+      "similarity": 0.3011111111111111
+    },
+    {
+      "checkpoint_text": "Search #AI Upgrade New RER's Wor_ Team Space 3= Project 1 Agents Automate Ask Al Share Home Gantt B Table View Search Hide Customize Add Task Inbox Filter Closed Assignee Search More Favorites Assignee Due date Priority Status Comments Spaces Meet List View TO DO Everything Get started by learning how to use List TO DO View t0 manage your work Team Space TO DO Explore on my own Show me Project = Today Urgent TO DO Project 2 of 6 Project Notes Create Space 1/5 8 Invite Help",
+      "screenshot_text": "Search Upgrade New #3Xs Workspace ~ Team Space Project 1 List Board Calendar Agents Automate AskAI Share Home Group: Status Subtasks Search Hide Customize Add Task Inbox Team Space Project Created on Aug 24 Share Name Status More Task - Activity Favorites Task ~ 86ab77btb Ask Al Task - Spaces You created this task by copying #BGbSm6Zev (You Task 1 Dont Have Access) 32 mins Everything meeting Team Space Add Task Ask Brain [0 write description; generate subtasks or find similar tasks #87 Just now More Project 1 Project 2 Status COMPLETE Assignees Project Notes Dates Start @ Due Priority Norma Reply Create Space Time Estimate Track Time 59m Tags Empty Relationships Empty Add description Write with AI Custom Fields Create Field on this location Add subtask Add Task Checklists Create checklist Attachments Drop your files here t0 upload Comment Email Comment; press 'space' for Al; for commands",
+      "similarity": 0.3322222222222222
+    }
+  ],
+  "assertion_results": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ]
+}

@@ -1,0 +1,588 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Polygon — Gaming and Entertainment</title>
+<style>
+  :root {
+    --pink: #c90052;
+    --green: #62ff71;
+    --ink: #171719;
+    --muted: #68676b;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    color: var(--ink);
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  .btn { cursor: pointer; }
+  .header-shell { height: 160px; position: relative; z-index: 20; }
+  .header {
+    height: 160px;
+    width: 100%;
+    background: #fff;
+    transition: height .2s, background .2s;
+  }
+  .header-inner {
+    width: min(1320px, calc(100% - 64px));
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding-top: 36px;
+  }
+  .brand {
+    display: block;
+    width: 340px;
+    height: 92px;
+    object-fit: contain;
+    object-position: left center;
+  }
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 59px;
+    padding-top: 62px;
+    color: var(--pink);
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .nav a { text-decoration: none; }
+  .nav-icon {
+    border: 0;
+    background: transparent;
+    color: var(--pink);
+    padding: 0;
+    font-size: 23px;
+    line-height: 1;
+  }
+  .hamburger {
+    width: 25px;
+    height: 21px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 2px 0;
+  }
+  .hamburger i { display: block; height: 3px; width: 23px; background: currentColor; }
+  .header-shell.scrolled .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 56px;
+    background: var(--green);
+    box-shadow: 0 2px 4px #00000012;
+  }
+  .header-shell.scrolled .header-inner {
+    align-items: center;
+    padding-top: 0;
+  }
+  .header-shell.scrolled .brand {
+    width: 26px;
+    height: 38px;
+    object-fit: cover;
+    object-position: left center;
+  }
+  .header-shell.scrolled .nav {
+    padding-top: 0;
+    gap: 20px;
+    color: #111;
+    font-size: 13px;
+  }
+  .header-shell.scrolled .nav a { display: none; }
+  .header-shell.scrolled .nav-icon { color: #111; }
+  .sign-in {
+    display: none;
+    border: 0;
+    background: #fff;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 9px 14px;
+  }
+  .header-shell.scrolled .sign-in { display: inline-block; }
+  .page { width: min(1160px, calc(100% - 40px)); margin: 34px auto 100px; }
+  .top-grid {
+    display: grid;
+    grid-template-columns: 570px 235px 205px;
+    gap: 40px;
+    align-items: start;
+  }
+  .feature-img {
+    display: block;
+    width: 570px;
+    height: 390px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 5px solid var(--pink);
+  }
+  .tag {
+    display: block;
+    margin: 12px 0 8px;
+    color: var(--pink);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .3px;
+    text-transform: uppercase;
+  }
+  .headline {
+    display: inline;
+    font-size: 36px;
+    line-height: 1.21;
+    font-weight: 800;
+    letter-spacing: -.5px;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+  .byline {
+    margin-top: 12px;
+    color: #77757a;
+    font-size: 12px;
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
+  }
+  .byline strong { font-weight: 500; }
+  .mini-card { margin-bottom: 26px; }
+  .mini-card img {
+    display: block;
+    width: 235px;
+    height: 162px;
+    object-fit: cover;
+    border-radius: 9px;
+    border: 4px solid var(--pink);
+  }
+  .mini-card .tag { margin: 9px 0 5px; }
+  .mini-card h3 {
+    font-size: 18px;
+    line-height: 1.27;
+    margin: 0;
+    font-weight: 800;
+  }
+  .mini-card .byline { font-size: 11px; margin-top: 10px; }
+  .latest {
+    border-left: 1px solid #e6e2e4;
+    padding-left: 18px;
+  }
+  .latest h2 {
+    margin: 0 0 3px;
+    font-size: 28px;
+    font-weight: 400;
+    letter-spacing: 2px;
+  }
+  .bolt { font-size: 32px; line-height: 1; }
+  .latest-item { margin: 8px 0 28px; }
+  .latest-item small {
+    display: block;
+    color: var(--pink);
+    font-size: 11px;
+    font-weight: 800;
+    margin-bottom: 7px;
+  }
+  .latest-item a { color: #555; font-size: 16px; line-height: 1.25; }
+  .plus-section { margin-top: 40px; }
+  .section-title {
+    color: var(--pink);
+    font-size: 28px;
+    font-weight: 400;
+    letter-spacing: 1.8px;
+    margin: 0 0 18px;
+  }
+  .triple-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .story img {
+    display: block;
+    width: 100%;
+    height: 183px;
+    object-fit: cover;
+    border: 4px solid var(--pink);
+    border-radius: 10px;
+  }
+  .story .tag { margin: 12px 0 6px; }
+  .story h3 { margin: 0; font-size: 20px; line-height: 1.28; font-weight: 800; }
+  .story .byline { font-size: 11px; margin-top: 12px; }
+  .ad-space { height: 340px; }
+  .feature-section {
+    border-top: 3px solid #a5ffb0;
+    padding-top: 12px;
+  }
+  .section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 22px;
+  }
+  .section-heading h2 {
+    font-size: 28px;
+    font-weight: 400;
+    letter-spacing: 1.8px;
+    margin: 0;
+  }
+  .see-more {
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 800;
+    text-decoration: none;
+  }
+  .see-more::after { content: "  ›"; font-size: 20px; vertical-align: -1px; }
+  .games .story img { height: 205px; }
+  .grounded {
+    background: #63ff70;
+    border-radius: 10px;
+    padding: 38px 60px 34px;
+    margin: 0 -60px;
+  }
+  .grounded .section-heading { margin-bottom: 18px; }
+  .grounded .section-heading h2 {
+    font-size: 29px;
+    letter-spacing: 0;
+    font-weight: 800;
+  }
+  .guide-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 28px;
+    row-gap: 0;
+  }
+  .guide {
+    display: grid;
+    grid-template-columns: 1fr 90px;
+    gap: 14px;
+    align-items: center;
+    padding: 16px 0;
+    border-bottom: 1px solid #38e954;
+  }
+  .guide:nth-last-child(-n+3) { border-bottom: 0; }
+  .guide a { font-weight: 800; font-size: 15px; line-height: 1.2; }
+  .guide img {
+    width: 90px;
+    height: 94px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  .playing { margin-top: 38px; }
+  .playing .section-title { margin-bottom: 20px; }
+  .playing .story img { height: 255px; }
+  .playing .story:nth-child(2) img { height: 255px; }
+  .latest-list {
+    width: 100%;
+    margin-top: 390px;
+    display: grid;
+    grid-template-columns: 640px 240px 1fr;
+    gap: 36px;
+    align-items: start;
+  }
+  .latest-list h2 { margin: 0 0 34px; }
+  .list-article { margin: 0 0 54px; }
+  .list-article .category {
+    display: inline-block;
+    background: #78ff8a;
+    color: #378442;
+    font-size: 11px;
+    padding: 3px 6px;
+    margin-bottom: 6px;
+  }
+  .list-article h3 { font-size: 21px; line-height: 1.25; margin: 0; }
+  .list-article .byline { font-size: 11px; margin-top: 10px; letter-spacing: .3px; }
+  .latest-thumbs img {
+    width: 240px;
+    height: 188px;
+    display: block;
+    object-fit: cover;
+    border-radius: 10px;
+    margin: 43px 0 32px;
+  }
+  .trending { color: var(--pink); letter-spacing: 1px; font-size: 17px; margin-top: 225px; }
+  .modal-shade {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #0008;
+    z-index: 40;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-shade.open { display: flex; }
+  .modal {
+    background: white;
+    width: min(420px, calc(100% - 32px));
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 10px 40px #0003;
+  }
+  .modal h2 { margin-top: 0; }
+  .modal button {
+    background: var(--pink);
+    color: white;
+    border: 0;
+    padding: 10px 24px;
+    border-radius: 24px;
+  }
+  .menu-panel {
+    display: none;
+    position: fixed;
+    z-index: 30;
+    right: max(calc((100vw - 1320px)/2), 25px);
+    top: 60px;
+    background: white;
+    box-shadow: 0 8px 28px #0002;
+    padding: 24px;
+    width: 250px;
+  }
+  .menu-panel.open { display: block; }
+  .menu-panel a { display: block; margin: 10px 0; color: var(--pink); font-weight: bold; }
+  @media (max-width: 1100px) {
+    .top-grid { grid-template-columns: minmax(0, 2fr) minmax(190px, 1fr); gap: 24px; }
+    .feature-img { width: 100%; }
+    .latest { display: none; }
+    .mini-card img { width: 100%; }
+    .headline { font-size: 30px; }
+    .grounded { margin: 0; padding: 30px; }
+  }
+  @media (max-width: 700px) {
+    .header-shell, .header { height: 90px; }
+    .header-inner { width: calc(100% - 32px); padding-top: 14px; }
+    .brand { width: 205px; height: 62px; }
+    .nav { padding-top: 23px; gap: 12px; }
+    .nav a { display: none; }
+    .page { margin-top: 20px; width: calc(100% - 28px); }
+    .top-grid { display: block; }
+    .feature-img { height: 245px; }
+    .headline { font-size: 28px; }
+    .side-stories { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 25px; }
+    .mini-card img { height: 120px; }
+    .mini-card h3 { font-size: 15px; }
+    .plus-section { margin-top: 35px; }
+    .triple-cards { grid-template-columns: 1fr; }
+    .story img, .games .story img { height: 220px; }
+    .ad-space { height: 120px; }
+    .grounded { padding: 24px 18px; }
+    .guide-grid { grid-template-columns: 1fr; }
+    .guide:nth-last-child(-n+3) { border-bottom: 1px solid #38e954; }
+    .guide:last-child { border-bottom: 0; }
+    .latest-list { display: block; margin-top: 180px; }
+    .latest-thumbs, .trending { display: none; }
+    .header-shell.scrolled .header-inner { width: calc(100% - 32px); }
+  }
+</style>
+</head>
+<body>
+<div class="header-shell" id="headerShell">
+  <header class="header">
+    <div class="header-inner">
+      <a class="btn" href="#" aria-label="Polygon home">
+        <img class="brand" src="__PLACEHOLDER_ASSETS_BASE_DIR__/054.svg" width="340" height="92" alt="Polygon">
+      </a>
+      <nav class="nav">
+        <a class="btn" href="#guides">Guides</a>
+        <a class="btn" href="#playing">Gaming</a>
+        <a class="btn" href="#latest">Entertainment</a>
+        <button class="btn nav-icon" type="button" aria-label="Sign in" onclick="openModal()">●</button>
+        <button class="btn nav-icon hamburger" type="button" aria-label="Open menu" onclick="toggleMenu()"><i></i><i></i><i></i></button>
+        <button class="btn sign-in" type="button" onclick="openModal()">Sign In Now　●</button>
+      </nav>
+    </div>
+  </header>
+</div>
+
+<div class="menu-panel" id="menuPanel">
+  <a class="btn" href="#guides" onclick="toggleMenu()">Guides</a>
+  <a class="btn" href="#playing" onclick="toggleMenu()">Gaming</a>
+  <a class="btn" href="#latest" onclick="toggleMenu()">Entertainment</a>
+</div>
+
+<main class="page">
+  <section class="top-grid">
+    <article>
+      <a class="btn" href="#latest">
+        <img class="feature-img" src="__PLACEHOLDER_ASSETS_BASE_DIR__/116.png" width="570" height="390" alt="A colorful greenhouse and garden in a cozy game">
+      </a>
+      <span class="tag">Gamescom</span>
+      <a class="btn headline" href="#latest">One of 2026's most interesting cozy games combines hotel renovation, ghosts, and ska</a>
+      <div class="byline">By <strong>Marloes Valentina Stella</strong>　 ▣</div>
+    </article>
+
+    <div class="side-stories">
+      <article class="mini-card">
+        <a class="btn" href="#latest"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/143.png" width="235" height="162" alt="A game world with a character exploring a green landscape"></a>
+        <span class="tag">Grand Theft Auto 6</span>
+        <h3><a class="btn" href="#latest">Too many games are about to cannibalize each other trying to fill GTA 6's vacuum</a></h3>
+        <div class="byline">By Austin Manchester　 ▣ 7</div>
+      </article>
+      <article class="mini-card">
+        <a class="btn" href="#latest"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/139.png" width="235" height="162" alt="A scene from Star Trek"></a>
+        <span class="tag">Star Trek</span>
+        <h3><a class="btn" href="#latest">Star Trek: Strange New Worlds asks if Starfleet are colonizers</a></h3>
+        <div class="byline">By Samantha Nelson　 ▣ 5</div>
+      </article>
+    </div>
+
+    <aside class="latest">
+      <h2>THE LATEST</h2><div class="bolt">⚡</div>
+      <div class="latest-item"><small>11 HOURS AGO</small><a class="btn" href="#latest">Bone Lake works as a sex pun, but it's also scary erotic horror</a></div>
+      <div class="latest-item"><small>12 HOURS AGO</small><a class="btn" href="#latest">Another game has been delayed because of Hollow Knight: Silksong</a></div>
+      <div class="latest-item"><small>12 HOURS AGO</small><a class="btn" href="#latest">Alan Wake, one of the best horror thriller games of all time, is barely over a dollar now</a></div>
+      <div class="latest-item"><small>13 HOURS AGO</small><a class="btn" href="#latest">KPop Demon Hunters' sing-along version is already on Netflix</a></div>
+      <div class="latest-item"><small>14 HOURS AGO</small><a class="btn" href="#latest">Fortnite adds virtual band Gorillaz for season 10</a></div>
+      <div class="latest-item"><small>20 HOURS AGO</small><a class="btn" href="#latest">KPop Demon Hunters gives Netflix its first theatrical win</a></div>
+      <div class="latest-item"><small>1 DAY AGO</small><a class="btn" href="#latest">Pokémon Mystery Dungeon is a criminally underrated roguelike</a></div>
+      <div class="latest-item"><small>2 DAYS AGO</small><a class="btn" href="#latest">Is Avengers: Doomsday already doomed?</a></div>
+      <div class="latest-item"><small>2 DAYS AGO</small><a class="btn" href="#latest">30 years ago, Nintendo's biggest flop was decades ahead of its time</a></div>
+    </aside>
+  </section>
+
+  <section class="plus-section">
+    <h2 class="section-title">PLUS THIS</h2>
+    <div class="triple-cards">
+      <article class="story">
+        <a class="btn" href="#latest"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/127.png" width="350" height="183" alt="Animated characters at a table"></a>
+        <span class="tag">Animation</span>
+        <h3><a class="btn" href="#latest">BoJack Horseman's creator returns with a dark new animated comedy 'for everybody'</a></h3>
+        <div class="byline">By Samantha Nelson　 ▣</div>
+      </article>
+      <article class="story">
+        <a class="btn" href="#latest"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/138.png" width="350" height="183" alt="A colorful farming simulation game"></a>
+        <span class="tag">Story of Seasons: Grand Bazaar</span>
+        <h3><a class="btn" href="#latest">A farming sim that admits you can’t save the world alone</a></h3>
+        <div class="byline">By Aimee Hart　 ▣ 1</div>
+      </article>
+      <article class="story">
+        <a class="btn" href="#latest"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/141.png" width="350" height="183" alt="A person in a city at night"></a>
+        <span class="tag">Culture</span>
+        <h3><a class="btn" href="#latest">Spike Lee's new movie is a scathing attack on social media — but he says Instagram has one great use</a></h3>
+        <div class="byline">By Tasha Robinson　 ▣ 1</div>
+      </article>
+    </div>
+  </section>
+
+  <div class="ad-space"></div>
+
+  <section class="feature-section games">
+    <div class="section-heading">
+      <h2>GAMESCOM 2025</h2>
+      <a class="btn see-more" href="#latest">See more</a>
+    </div>
+    <div class="triple-cards">
+      <article class="story">
+        <a class="btn" href="#latest"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/142.png" width="350" height="205" alt="A horror game at Gamescom"></a>
+        <span class="tag">Gamescom</span>
+        <h3><a class="btn" href="#latest">John Carpenter's newest horror is actually a game — and I played it</a></h3>
+        <div class="byline">By Samantha Nelson　 ▣</div>
+      </article>
+      <article class="story">
+        <a class="btn" href="#latest"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/143.png" width="350" height="205" alt="An explorer in a lush green world"></a>
+        <span class="tag">Previews</span>
+        <h3><a class="btn" href="#latest">Somehow, the sequel to Planet of Lana feels bigger, prettier, and deeper in every way</a></h3>
+        <div class="byline">By Marloes Valentina Stella　 ▣ 5</div>
+      </article>
+      <article class="story">
+        <a class="btn" href="#latest"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/140.png" width="350" height="205" alt="Action game combat scene"></a>
+        <span class="tag">Pragmata</span>
+        <h3><a class="btn" href="#latest">Pragmata’s combat-puzzle mechanics live up to the hype</a></h3>
+        <div class="byline">By Michael McWhertor　 ▣</div>
+      </article>
+    </div>
+  </section>
+
+  <div class="ad-space"></div>
+
+  <section class="grounded" id="guides">
+    <div class="section-heading">
+      <h2>Little guys, big secrets</h2>
+      <a class="btn see-more" href="#guides">See more</a>
+    </div>
+    <div class="guide-grid">
+      <div class="guide"><a class="btn" href="#guides">Where to find sturdy quartzite in Grounded 2</a><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/056.jpg" width="90" height="94" alt="Grounded 2 game scene"></div>
+      <div class="guide"><a class="btn" href="#guides">Where to find brittle quartzite for brittle whetstone in Grounded 2</a><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/057.jpg" width="90" height="94" alt="A Grounded 2 cave"></div>
+      <div class="guide"><a class="btn" href="#guides">Where to find crow feather pieces in Grounded 2</a><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/058.png" width="90" height="94" alt="Crow feather area in Grounded 2"></div>
+      <div class="guide"><a class="btn" href="#guides">Where to find Wolf Spiders in Grounded 2</a><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/059.jpg" width="90" height="94" alt="A spider in the grass"></div>
+      <div class="guide"><a class="btn" href="#guides">All ranger station locations in Grounded 2</a><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/060.jpg" width="90" height="94" alt="A ranger station"></div>
+      <div class="guide"><a class="btn" href="#guides">Two studios, one backyard: How Obsidian and Eidos… gambled on Grounded 2</a><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/061.jpg" width="90" height="94" alt="A backyard game world"></div>
+    </div>
+  </section>
+
+  <section class="playing" id="playing">
+    <div class="section-heading">
+      <h2 class="section-title">WHAT WE'RE PLAYING</h2>
+      <a class="btn see-more" href="#playing">See more</a>
+    </div>
+    <div class="triple-cards">
+      <article class="story">
+        <a class="btn" href="#latest"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/126.png" width="350" height="255" alt="A vibrant indie game"></a>
+        <span class="tag">Impressions</span>
+        <h3><a class="btn" href="#latest">This indie gem could be the summer’s best roguelike</a></h3>
+        <div class="byline">By Austin Manchester　 ▣</div>
+      </article>
+      <article class="story">
+        <a class="btn" href="#latest"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/144.png" width="350" height="255" alt="A charming silver robot"></a>
+        <span class="tag">Nintendo Switch 2</span>
+        <h3><a class="btn" href="#latest">The Switch 2's latest GameCube game is a truly delightful hidden gem</a></h3>
+        <div class="byline">By Giovanni Colantonio　 ▣ 4</div>
+      </article>
+      <article class="story">
+        <a class="btn" href="#latest"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/145.png" width="350" height="255" alt="A vampire hero from Blood of the Dawnwalker"></a>
+        <span class="tag">Gamescom</span>
+        <h3><a class="btn" href="#latest">Blood of the Dawnwalker lets you choose your own vampire adventure</a></h3>
+        <div class="byline">By Samantha Nelson　 ▣ 2</div>
+      </article>
+    </div>
+  </section>
+
+  <section class="latest-list" id="latest">
+    <div>
+      <h2 class="section-title">LATEST</h2>
+      <article class="list-article">
+        <span class="category">HORROR</span>
+        <h3><a class="btn" href="#latest">Bone Lake works as a sex pun, but it's also scary erotic horror</a></h3>
+        <div class="byline">By Isaac Rouse　 11 hours ago　 ▣</div>
+      </article>
+      <article class="list-article">
+        <span class="category">NEWS</span>
+        <h3><a class="btn" href="#latest">Another game has been delayed because of Hollow Knight: Silksong</a></h3>
+        <div class="byline">By Polygon Staff　 12 hours ago　 ▣</div>
+      </article>
+      <article class="list-article">
+        <span class="category">GAMING</span>
+        <h3><a class="btn" href="#latest">Alan Wake, one of the best horror thriller games of all time, is barely over a dollar now</a></h3>
+      </article>
+    </div>
+    <div class="latest-thumbs">
+      <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/117.png" width="240" height="188" alt="A character in a dark scene">
+      <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/118.png" width="240" height="188" alt="A colorful action game">
+    </div>
+    <div class="trending">TRENDING NOW</div>
+  </section>
+</main>
+
+<div class="modal-shade" id="modalShade" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <h2>Sign in to Polygon</h2>
+    <p>Get the latest gaming and entertainment stories.</p>
+    <button class="btn" type="button" onclick="closeModal()">Continue</button>
+  </div>
+</div>
+
+<script>
+  const headerShell = document.getElementById('headerShell');
+  const menuPanel = document.getElementById('menuPanel');
+  window.addEventListener('scroll', () => {
+    headerShell.classList.toggle('scrolled', window.scrollY > 110);
+  }, { passive: true });
+  function toggleMenu() { menuPanel.classList.toggle('open'); }
+  function openModal() { document.getElementById('modalShade').classList.add('open'); }
+  function closeModal() { document.getElementById('modalShade').classList.remove('open'); }
+</script>
+</body>
+</html>
+```

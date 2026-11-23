@@ -1,0 +1,97 @@
+{
+  "total_step": 9,
+  "success_step": 2,
+  "screenshot_paths_to_eval": [
+    "outputs/30/gpt-6-luna_setting2/evalpoints/0.png",
+    "outputs/30/gpt-6-luna_setting2/evalpoints/1.png"
+  ],
+  "all_mllm_scores": [
+    0.85,
+    0.84
+  ],
+  "all_dino_scores": [
+    0.91748046875,
+    0.96923828125
+  ],
+  "all_ocr_scores": [
+    0.6104236970378702,
+    0.620856610800745
+  ],
+  "all_avg_scores": [
+    0.7926347219292902,
+    0.8100316306835816
+  ],
+  "mllm_score": 0.845,
+  "dino_score": 0.943359375,
+  "ocr_score": 0.6156401539193076,
+  "avg_score": 0.801333176306436,
+  "all_mllm_res": [
+    "Comments:\n- **Layout (8/10):** The generated page closely matches the reference’s split editor/preview structure, fixed top toolbar, bottom status bar, and scrolling behavior. The vertical split is slightly shifted, and the spacing/margins differ modestly between panes.\n- **Elements (13/15):** Nearly all major interface elements are present, including the dark toolbar, file title, editor pane, preview pane, pane controls, scrollbars, and blue status bar. Some toolbar icons and small controls differ in appearance or placement.\n- **Content and Text (37/40):** The Markdown content is highly consistent with the reference, including the same headings, paragraphs, bold emphasis, and section order. Minor differences appear in line wrapping, visible scroll position, and the amount of content shown at the bottom.\n- **Style (11/15):** Overall colors and typography are similar, but the generated version has noticeably different font sizing, heading treatment, horizontal rules, padding, and editor text styling. The preview is somewhat more spacious and visually structured than the reference.\n- **Overall (16/20):** This is a strong recreation of the reference StackEdit interface and content, with the main differences limited to typography, spacing, exact pane proportions, and icon styling.\n\n**Score: 85/100**",
+    "Comments:\n-Layout (9/10 points): The split-pane StackEdit layout, toolbar placement, central divider, preview pane, and bottom status bar are closely matched. Minor differences exist in pane widths, internal padding, and vertical spacing.\n-Elements (13/15 points): Most major UI elements are present, including the toolbar icons, file title, editor/preview panes, scrollbars, divider controls, and status indicators. Some toolbar icons and small controls differ slightly in appearance or positioning.\n-Content and Text (34/40 points): The primary Markdown content and rendered headings are substantially similar, including “Welcome to StackEdit!”, “Files,” and the subsequent instructional sections. However, the editor-side text styling and document/status metadata differ, and the visible amount of content is not perfectly aligned.\n-Style (12/15 points): Typography, dark toolbar, light preview background, blue status bar, bold headings, and general visual language are highly consistent. Differences in editor font treatment, heading rendering, spacing, and contrast reduce the match slightly.\n-Overall (16/20 points): This is a strong recreation of the reference interface with the same overall structure and content. The main discrepancies are in editor formatting, text density, spacing, and some minor UI icon details.\n\nScore: 84/100"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "B I T & 5 = = \" <> 8 & 0 Welcome file Welcome to StackEdit! Welcome to StackEdit? Hil Im your first Markdown file in StackEdit If you want to learn about StackEdit; you can read me: If you want to play with Markdown; you can edit me. Once you have finished with me; you can create new files by opening the file explorer Hil Im your first Markdown file in StackEdit If you want to learn about StackEdit You can read me: If you want to play with on the left corner of the navigation bar: Markdown, you can edit me: Once you have finished with me; You can create new files by opening the file explorer on the left corner of the navigation bar: Files Files StackEdit stores your files in your browser; which means all your files are automatically saved locally and are accessible offlinel StackEdit stores your files in your browser: which means all your files are automatically saved locally and are accessible ## Create files and folders offline! The file explorer is accessible the button in left corner of the navigation bar You can create a new file by clicking the New file button in the file explorer: You can also create folders by clicking the New folder button; Create files and folders ##ISwitch to another file The file explorer is accessible the button in left corner of the navigation You can create a new file by clicking the New file button in the file explorer: You can also create folders by clicking the New folder button. All your files and folders are presented as a tree in the file explorer: You can switch from one to another by clicking a file in the tree Switch to another file ### Rename a file You can rename the current file by clicking the file name in the navigation bar or by clicking the Rename button in the file All your files and folders are presented a5 a tree in the file explorer: You can switch from one to another by clicking a file in explorer. the tree ## Delete a file Rename a file You can delete the current file by clicking the Remove button in the file explorer: The file will be moved into the Trash folder and automatically deleted after 7 days of inactivity: You can rename the current file by clicking the file name in the navigation bar or by clicking the Rename button in the file explorer: ## Export a file You can export the current file by clicking Export to disk in the menu: You can choose to export the file as plain Delete a file Markdown, as HTML using a Handlebars template or as a PDF Yolcandelete thecurre clicking the Remove_button in the file exnlorer The file willlbe moved intothe Trash folder Markdown  7173 bytes 1086 words_143m6 01 Cold HTML 10192 characters 1112words 71 paragraphs using using bar:",
+      "screenshot_text": "B 1 t & 3 3 @ Welcome file #Welcome to StackEditl Welcome to StackEdit! Hi! Tm your first Markdown file in **StackEdit** . If you want to learn to use StackEdit; You can read me If you want to play with Markdown; you can edit me. Once you have finished with me, YOu can create new files by opening the **file explorer** on the left corner of the navigation bar: Hi! Im your first Markdown file in StackEdit: If you want to learn to use StackEdit; You can read me_ If you want to play with Markdown, you can edit me. Once you have finished with me, You can create new files by opening the file ## Files explorer on the left corner of the navigation bar: StackEdit stores your files in your browser; which means all your files are automatically saved locally and are accessible #*offlinel** Files ## Create files and folders The file explorer is accessible using the button in left corner of the navigation bar: You can create a new file by clicking the **New StackEdit stores your files in your browser; which means all your files are automatically saved locally and are filet* button in the file explorer: You can also create folders by clicking the **New foldert* button. accessible offlinel ##Switch to another file All your files and folders are presented as a tree in the file explorer: You can switch from one to another by clicking a file in the Create files and folders tree ##Rename a file The file explorer is accessible using the button in left corner of the navigation bar: You can create a new file by clicking You can rename the current file by clicking the file name in the navigation bar or by clicking the **Rename** button in the file the New file button in the file explorer: You can also create folders by clicking the New folder button. explorer: ## Delete a file Switch to another file You can delete the current file by clicking the **Remove** button in the file explorer: The file will be moved into the **Trasht* folder and automatically deleted after days of inactivity: All your files and folders are presented as a tree in the file explorer: You can switch from one to another by clicking a file ##Export a file in the tree. You can export the current file by clicking **Export to diskt* in the menu: You can choose to export the file as plain Markdown as HTML using a Handlebars template or as a PDF Rename a file You can rename the current file by clicking the file name in the navigation bar or by clicking the Rename button in the file explorer: Markdown 1463 bytes   257 words 27 lines Ln 27,Col 178 HTML 1407 characters 257 words 14 paragraphs",
+      "similarity": 0.6104236970378702
+    },
+    {
+      "checkpoint_text": "0 B I T & = = % \" <> 8 G 0 Welcome file Welcome to StackEdit! Welcome to StackEdit! Hi! Im your first Markdown file in StackEdit If you want to learn about StackEdit; you can read me: If you want to play with Markdown, you can edit me. Once you have finished with me; you can create new files by opening the file explorer Hi! Im your first Markdown file in StackEdit: If you want to learn about StackEdit; you can read me: If you want to play with on the left corner of the navigation bar: Markdown; you can edit me: Once you have finished with me; you can create new files by opening the file explorer on the left corner of the navigation bar: FFiles Files StackEdit stores your files in your browser; which means all your files are automatically saved locally and are accessible offlinel StackEdit stores your files in your browser; which means all your files are automatically saved locally and are accessible ##Create files and folders offlinel The file explorer is accessible using the button in left corner of the navigation bar: You can create a new file by clicking the New file button in the file explorer: You can also create folders by clicking the New folder button. Create files and folders ## Switch to another file The file explorer is accessible using the button in left corner of the navigation bar: You can create a new file by clicking the New file button in the file explorer: You can also create folders by clicking the New folder button: All your files and folders are presented as a tree in the file explorer: You can switch from one to another by clicking a file in the tree: Switch to another file ## Rename a file You can rename the current file by clicking the file name in the navigation bar or by clicking the Rename button in the file All your files and folders are presented as a tree in the file explorer: You can switch from one to another by clicking a file in explorer: the tree: ## Delete a file Rename a file You can delete the current file by clicking the Remove button in the file explorer: The file will be moved into the Trash folder and automatically deleted after 7 days of inactivity: You can rename the current file by clicking the file name in the navigation bar or by clicking the Rename button in the file explorer: ##Export a file You can export the current file by clicking Export to disk in the menu: You can choose to export the file as plain Delete a file Markdown, as HTML using a Handlebars template or as a PDF Youcandelete thecurre file clicking the Remove button in the file exnlorer The file willlbe moved into the Trash folder Markdown 7173 bytes 1086 words  143 lines Ln6; Colz HTML 10192 characters 1112 words 71 paragraphs",
+      "screenshot_text": "B 1 t & 3 3 @ Welcome file #Welcome to StackEditl Welcome to StackEdit! Hi! Tm your first Markdown file in **StackEdit** . If you want to learn to use StackEdit; You can read me If you want to play with Markdown; you can edit me. Once you have finished with me, YOu can create new files by opening the **file explorer** on the left corner of the navigation bar: Hi! Im your first Markdown file in StackEdit: If you want to learn to use StackEdit; You can read me_ If you want to play with Markdown, you can edit me. Once you have finished with me, You can create new files by opening the file ## Files explorer on the left corner of the navigation bar: StackEdit stores your files in your browser; which means all your files are automatically saved locally and are accessible #*offlinel** Files ## Create files and folders The file explorer is accessible using the button in left corner of the navigation bar: You can create a new file by clicking the **New StackEdit stores your files in your browser; which means all your files are automatically saved locally and are filet* button in the file explorer: You can also create folders by clicking the **New foldert* button. accessible offlinel ##Switch to another file All your files and folders are presented as a tree in the file explorer: You can switch from one to another by clicking a file in the Create files and folders tree ##Rename a file The file explorer is accessible using the button in left corner of the navigation bar: You can create a new file by clicking You can rename the current file by clicking the file name in the navigation bar or by clicking the **Rename** button in the file the New file button in the file explorer: You can also create folders by clicking the New folder button. explorer: ## Delete a file Switch to another file You can delete the current file by clicking the **Remove** button in the file explorer: The file will be moved into the **Trasht* folder and automatically deleted after days of inactivity: All your files and folders are presented as a tree in the file explorer: You can switch from one to another by clicking a file ##Export a file in the tree. You can export the current file by clicking **Export to diskt* in the menu: You can choose to export the file as plain Markdown as HTML using a Handlebars template or as a PDF Rename a file You can rename the current file by clicking the file name in the navigation bar or by clicking the Rename button in the file explorer: Markdown 1463 bytes   257 words 27 lines Ln 27,Col 178 HTML 1407 characters 257 words 14 paragraphs",
+      "similarity": 0.620856610800745
+    }
+  ],
+  "assertion_results": [
+    null,
+    {
+      "result": "Error",
+      "prev_img_path": "outputs/30/gpt-6-luna_setting2/evalpoints/1.png",
+      "curr_img_path": "outputs/30/gpt-6-luna_setting2/evalpoints/2.png",
+      "response": "Error: Error code: 400 - Unsupported value: 'temperature' does not support 0.0 with this model. Only the default (1) value is supported.",
+      "assertion": "'Files' is selected in the left section.",
+      "thinking": ""
+    },
+    {
+      "result": "No",
+      "prev_img_path": "outputs/30/gpt-6-luna_setting2/evalpoints/2.png",
+      "curr_img_path": "outputs/30/gpt-6-luna_setting2/evalpoints/3.png",
+      "response": "{\n  \"think\": \"The selected text in the left editor is “bold text,” not “Files.” The “Files” heading does not have “**” immediately to its left, so the assertion is not satisfied.\",\n  \"result\": \"No\"\n}",
+      "assertion": "'**' appears on the left and left of the selected 'Files' on the left",
+      "thinking": "The selected text in the left editor is “bold text,” not “Files.” The “Files” heading does not have “**” immediately to its left, so the assertion is not satisfied."
+    },
+    {
+      "result": "No",
+      "prev_img_path": "outputs/30/gpt-6-luna_setting2/evalpoints/3.png",
+      "curr_img_path": "outputs/30/gpt-6-luna_setting2/evalpoints/4.png",
+      "response": "{\n  \"think\": \"The asterisks surrounding the selected text remain visible in the current screenshot, so they have not disappeared.\",\n  \"result\": \"No\"\n}",
+      "assertion": "'**' disappears on the left and left of the selected 'Files' on the left",
+      "thinking": "The asterisks surrounding the selected text remain visible in the current screenshot, so they have not disappeared."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/30/gpt-6-luna_setting2/evalpoints/4.png",
+      "curr_img_path": "outputs/30/gpt-6-luna_setting2/evalpoints/5.png",
+      "response": "{\n  \"think\": \"The current screenshot shows additional '**' characters inserted immediately before and after the selected text compared with the previous screenshot.\",\n  \"result\": \"Yes\"\n}",
+      "assertion": "'**' appears on the left and left of the selected 'Files' on the left",
+      "thinking": "The current screenshot shows additional '**' characters inserted immediately before and after the selected text compared with the previous screenshot."
+    },
+    {
+      "result": "No",
+      "prev_img_path": "outputs/30/gpt-6-luna_setting2/evalpoints/5.png",
+      "curr_img_path": "outputs/30/gpt-6-luna_setting2/evalpoints/6.png",
+      "response": "{\"think\":\"The left-side “Files” heading appears unchanged and remains in regular (non-italic) text. Although the italic toolbar button is active in the current screenshot, the visible “Files” text itself does not become italic.\",\"result\":\"No\"}",
+      "assertion": "The selected 'Files' on the left side becomes italic.",
+      "thinking": "The left-side “Files” heading appears unchanged and remains in regular (non-italic) text. Although the italic toolbar button is active in the current screenshot, the visible “Files” text itself does not become italic."
+    },
+    null,
+    null,
+    {
+      "result": "No",
+      "prev_img_path": "outputs/30/gpt-6-luna_setting2/evalpoints/8.png",
+      "curr_img_path": "outputs/30/gpt-6-luna_setting2/evalpoints/9.png",
+      "response": "{\n  \"think\": \"The selected text is the export paragraph near the bottom of the left editor, and it gains strikethrough formatting. The 'Files' heading on the right preview and the corresponding left-side text are not struck through.\",\n  \"result\": \"No\"\n}",
+      "assertion": "The selected 'Files' on the right side and left aise becomes strikethrough.",
+      "thinking": "The selected text is the export paragraph near the bottom of the left editor, and it gains strikethrough formatting. The 'Files' heading on the right preview and the corresponding left-side text are not struck through."
+    }
+  ]
+}

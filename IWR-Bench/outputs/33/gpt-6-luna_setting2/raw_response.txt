@@ -1,0 +1,303 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WebMD Symptom Checker</title>
+<style>
+  *{box-sizing:border-box}
+  :root{--navy:#071476;--blue:#299fd0;--teal:#39c9c7;--ink:#252535;--muted:#85858b;--pale:#f3f8fc}
+  body{margin:0;color:var(--ink);font-family:Arial,Helvetica,sans-serif;background:#fff;font-size:16px}
+  button,input{font:inherit}
+  button{cursor:pointer}
+  .btn{cursor:pointer}
+  .topbar{height:78px;background:var(--navy);color:white}
+  .navinner{max-width:1215px;height:100%;margin:auto;display:flex;align-items:center;gap:34px}
+  .logo{font:italic 39px Georgia,serif;color:white;letter-spacing:-2px;white-space:nowrap}
+  .navitem{color:white;text-decoration:none;font-size:16px;font-weight:600;white-space:nowrap}
+  .navitem small{font-size:12px;margin-left:5px}
+  .navright{margin-left:auto;display:flex;align-items:center;gap:23px}
+  .subscribe{border:1px solid #d8dafa;border-radius:4px;padding:9px 12px;color:white;background:transparent;font-size:15px}
+  .searchicon{width:18px;height:18px;border:2px solid #fff;border-radius:50%;position:relative;display:inline-block}
+  .searchicon:after{content:"";position:absolute;width:9px;height:2px;background:white;right:-7px;bottom:-4px;transform:rotate(48deg)}
+  .adtop{height:232px;display:flex;justify-content:center;align-items:flex-start;padding-top:22px;background:white}
+  .adlabel{font-size:12px;color:#888;letter-spacing:.5px;text-align:center;margin-bottom:8px}
+  .adbox{width:740px;height:145px;border:1px solid #e7e7e7}
+  .mainbg{background:var(--pale);min-height:1060px;padding:18px 0 40px}
+  .layout{max-width:1380px;margin:0 auto;display:grid;grid-template-columns:890px 340px;gap:125px;align-items:start}
+  .title{height:55px;display:flex;align-items:center}
+  .title .webmd{font:italic 42px Georgia,serif;color:#158ab6;letter-spacing:-2px}
+  .title strong{font-size:29px;font-weight:400;margin-left:8px;color:#17172d}
+  .title .bodymap{color:#438cb5;font-size:14px;margin-left:12px}
+  .checker{background:#fff;border:1px solid #d8d8dc;box-shadow:0 2px 8px #00000017;min-height:400px;position:relative}
+  .tabs{height:49px;background:#eeeef2;border-bottom:1px solid #ddd;display:flex;align-items:stretch}
+  .tab{flex:1;display:flex;align-items:center;justify-content:center;color:#999;font-size:14px;position:relative}
+  .tab.active{color:#777;border-bottom:4px solid var(--teal)}
+  .tab.active:after{content:"";position:absolute;right:-13px;top:0;border-top:24px solid transparent;border-bottom:24px solid transparent;border-left:14px solid white;z-index:2}
+  .stepcontent{min-height:335px;padding:25px 45px 24px}
+  .infoform{text-align:center;padding-top:40px}
+  .checkertitle{font-family:Georgia,serif;color:#0a87b7;font-size:23px}
+  .checkertitle b{color:#17172d;font-family:Arial,sans-serif}
+  .checkertitle small{color:#398bb2;font:12px Arial,sans-serif}
+  .intro{font-size:15px;color:#666;margin:17px auto 24px}
+  .fields{display:flex;align-items:flex-end;justify-content:center;gap:36px}
+  .fieldlabel{display:block;font-size:14px;margin-bottom:8px;color:#555}
+  .ageinput{width:62px;height:40px;border:1px solid #d7d7d7;text-align:center;box-shadow:0 1px 3px #ddd}
+  .sexbuttons{display:flex;gap:4px}
+  .sexbuttons button{height:40px;min-width:90px;border:1px solid #d9e0e3;background:#eaf3f7;color:#515a60}
+  .sexbuttons button.selected{background:#3ec8c6;color:white;border-color:#3ec8c6}
+  .continue-row{height:64px;border-top:1px solid #e5e5e5;display:flex;align-items:center;justify-content:space-between;padding:0 24px}
+  .stepbtn{height:48px;min-width:235px;border:1px solid #dedede;background:#fff;color:#555}
+  .stepbtn.next{background:#299fd0;color:#fff;border:0}
+  .stepbtn:disabled{background:#e4e4e4;color:#fff;cursor:default}
+  .stepbtn .arrow{font-size:23px;float:right;line-height:20px}
+  .stepbtn.previous .arrow{float:left;margin-right:22px}
+  .symptom-layout{display:grid;grid-template-columns:440px 1fr;gap:22px;min-height:515px;padding:30px 30px 18px}
+  .prompt{font-size:25px;color:#51515b;margin:8px 0 20px}
+  .searchwrap{position:relative}
+  .symptom-input{height:62px;width:100%;padding:0 24px;border:1px solid #cfcfd2;box-shadow:0 2px 5px #00000013;color:#333;font-size:17px}
+  .symptom-input::placeholder{color:#c5c5ca}
+  .suggestions{display:none;position:absolute;z-index:4;top:61px;left:0;width:100%;max-height:315px;overflow:auto;background:#fff;border:1px solid #ddd;box-shadow:0 3px 8px #0002}
+  .suggestions.show{display:block}
+  .suggestion{height:48px;padding:0 18px;display:flex;align-items:center;justify-content:space-between;font-size:16px}
+  .suggestion .add{border:0;background:#e8f1f5;color:#8195a0;font-size:11px;padding:5px 9px}
+  .suggestion:hover{background:#f5f8fa}
+  .emptybox,.mylist{margin:80px 10px 0;background:#fafafa;height:210px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#999;font-size:16px}
+  .emptyicon{width:58px;height:73px;border:2px solid #d8e3e5;border-radius:8px;margin-bottom:22px;position:relative}
+  .emptyicon:before{content:"✓  ✓";position:absolute;top:15px;left:8px;line-height:20px;color:#b6cbcf;font-size:13px}
+  .mylist{display:block;padding:22px 26px;margin-top:80px;height:auto;min-height:170px}
+  .mylist h3{font-size:17px;font-weight:400;margin:0 0 15px}
+  .myitem{padding:13px 3px;border-bottom:1px solid #e4e4e4;font-size:14px;color:#53616b}
+  .delete{float:right;border:0;background:none;color:#aaa}
+  .bodyarea{height:440px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+  .human{height:420px;width:300px;opacity:.78}
+  .bodytools{position:absolute;right:0;top:38px;display:flex;flex-direction:column;gap:9px}
+  .bodytools button{width:46px;height:44px;background:#fff;border:1px solid #eee;color:#9ba5a9;font-size:12px}
+  .bodytools button:hover{border-color:var(--teal)}
+  .info-copy{border-top:1px solid #d9dfe2;margin-top:75px;padding-top:48px;font-size:16px;line-height:1.45;color:#38383e}
+  .info-copy p{margin:0 0 16px}
+  .info-copy a{color:#1889b6;font-weight:bold;text-decoration:none}
+  .sidead{padding-top:44px}
+  .sidead .adbox{width:340px;height:260px}
+  .modalshade{display:none;position:fixed;inset:0;background:rgba(35,36,39,.58);z-index:20;align-items:flex-start;justify-content:center;padding-top:140px}
+  .modalshade.open{display:flex}
+  .modal{width:565px;background:#fff;box-shadow:0 3px 10px #0004;padding:54px 40px 34px;position:relative;text-align:center}
+  .modal-kicker{font-size:14px;color:#888;margin-bottom:12px}
+  .modal h2{font-size:22px;margin:0 0 30px;color:#4d4b52}
+  .choices{height:475px;overflow-y:auto;text-align:left;padding:0 5px 0 10px}
+  .choice{height:79px;display:flex;align-items:center;gap:20px;font-size:18px}
+  .choice input{appearance:none;width:24px;height:24px;border:1px solid #c8c8c8;border-radius:3px;margin:0;flex:none}
+  .choice input:checked{background:#39c9c7;border-color:#39c9c7}
+  .choice input:checked:after{content:"✓";display:block;color:white;text-align:center;font-weight:bold;line-height:22px}
+  .modal-done{height:64px;width:100%;background:#ccc;border:0;color:#fff;margin-top:16px}
+  .modal-done.enabled{background:#119de0}
+  .skip{border:0;background:none;color:#358bb2;margin-top:19px;font-size:16px}
+  .closemodal{display:none}
+  .results{padding:42px 60px 35px;min-height:650px}
+  .result-title{font-size:20px;margin-bottom:18px}
+  .resultcols{display:grid;grid-template-columns:1fr 1fr;gap:55px}
+  .condition{display:block;text-align:left;width:100%;border:1px solid #d4e5e8;background:#effafa;padding:18px;margin-bottom:8px;color:#555}
+  .condition strong{display:block;font-size:17px;margin-bottom:8px}
+  .match{color:#35bdbb;font-size:14px}
+  .result-summary{font-size:15px;line-height:1.55;border-top:1px solid #ddd;padding-top:12px}
+  .result-summary div{padding:10px 0;border-bottom:1px solid #ddd}
+  .details{padding:34px 46px;min-height:980px;display:grid;grid-template-columns:300px 1fr;gap:38px}
+  .detail-content h2{font-size:28px;margin:8px 0}
+  .detail-content h3{font-size:20px;margin:28px 0 10px}
+  .detail-content p{line-height:1.5;color:#555;font-size:16px}
+  .interest{border-top:1px solid #ddd;padding-top:20px;margin-top:25px}
+  .interest-card{display:inline-block;width:45%;vertical-align:top;padding:15px;border:1px solid #ddd;margin-right:10px;min-height:150px;background:#f9fcfd}
+  .side-news{margin-top:580px;border-top:4px solid #ddd;padding-top:18px}
+  .side-news h3{font-size:20px}
+  .side-news input[type=email]{height:40px;width:100%;margin:10px 0;border:1px solid #ddd;padding:10px}
+  .side-news button{padding:10px 24px;border:0;background:#ddd}
+  @media(max-width:1000px){
+    .navinner{padding:0 16px;gap:12px}.navitem{font-size:12px}
+    .layout{display:block;margin:0 16px}.sidead{display:none}
+    .checker,.title{max-width:890px;margin:auto}
+    .mainbg{padding-top:10px}.adtop{height:150px}
+    .symptom-layout{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <nav class="navinner">
+    <a class="logo btn" href="#" aria-label="WebMD home">WebMD</a>
+    <a class="navitem btn" href="#">Conditions<small>⌄</small></a>
+    <a class="navitem btn" href="#">Drugs &amp; Supplements<small>⌄</small></a>
+    <a class="navitem btn" href="#">Well-Being<small>⌄</small></a>
+    <a class="navitem btn" href="#checker">Symptom Checker</a>
+    <a class="navitem btn" href="#">Find a Doctor</a>
+    <a class="navitem btn" href="#">More<small>⌄</small></a>
+    <div class="navright">
+      <button class="subscribe btn">✉ &nbsp;Subscribe</button>
+      <a class="navitem btn" href="#">Log In</a>
+      <a class="btn" href="#" aria-label="Search"><span class="searchicon"></span></a>
+    </div>
+  </nav>
+</header>
+<div class="adtop">
+  <div><div class="adlabel">ADVERTISEMENT</div><div class="adbox"></div></div>
+</div>
+<main class="mainbg">
+  <div class="layout">
+    <section>
+      <div class="title"><span class="webmd">WebMD</span><strong>Symptom Checker</strong><span class="bodymap">WITH BODY MAP</span></div>
+      <div class="checker" id="checker">
+        <div class="tabs" id="tabs"></div>
+        <div id="stage"></div>
+      </div>
+      <section class="info-copy">
+        <p><b>NEW:</b> This symptom checker now includes the ability to select symptoms by body location. We hope this makes it easier for you to identify your symptoms and possible conditions.</p>
+        <p>The tool also allows you to select multiple symptoms quickly. <a class="btn" href="#">Click to see FAQs and tips for searching⌄</a></p>
+        <p><a class="btn" href="#">Tell Us What You Think</a></p>
+        <p>This tool does not provide medical advice. It is intended for informational purposes only. This tool may leverage certain generative artificial intelligence tools to generate results, and is not a substitute for professional medical advice, diagnosis or treatment. Never ignore professional medical advice in seeking treatment because of something you have read on the WebMD Site. If you think you may have a medical emergency, immediately call your doctor or dial 911.</p>
+        <p>© 2025 WebMD, LLC. All rights reserved.</p>
+      </section>
+    </section>
+    <aside class="sidead">
+      <div class="adlabel">ADVERTISEMENT</div><div class="adbox"></div>
+      <div class="side-news">
+        <div class="adlabel">ADVERTISEMENT</div><div class="adbox"></div>
+        <h3>SUBSCRIBE TO WEBMD NEWSLETTERS</h3>
+        <label><input type="checkbox"> WebMD Daily</label><br><br>
+        <label><input type="checkbox"> Women's Health</label><br><br>
+        <label><input type="checkbox"> Men's Health</label><br><br>
+        <label><input type="checkbox"> Food &amp; Fitness</label>
+        <input type="email" placeholder="Enter your email address">
+        <button class="btn">Subscribe</button>
+        <p>By clicking Subscribe, I agree to the WebMD Terms &amp; Conditions &amp; Privacy Policy and understand that I may opt out of WebMD subscriptions at any time.</p>
+      </div>
+    </aside>
+  </div>
+</main>
+<div class="modalshade" id="modalshade">
+  <div class="modal">
+    <div class="modal-kicker">REFINE YOUR SYMPTOMS</div>
+    <h2>What kind of headache?</h2>
+    <div class="choices" id="choices"></div>
+    <button class="modal-done btn" id="done">Done</button>
+    <button class="skip btn" id="skip">Skip</button>
+  </div>
+</div>
+<script>
+(function(){
+  const steps=['INFO','SYMPTOMS','CONDITIONS','DETAILS','TREATMENT'];
+  let step=0, age='', sex='', query='', symptoms=[], chosenCondition='Migraine Headache';
+  const stage=document.getElementById('stage'), tabs=document.getElementById('tabs');
+  const choices=['pounding headache','dull headache','migraine headache','severe headache','headache in back of head','headache in front of head','headache behind ears','headache on temples','one sided headache','tension headache','repeated headaches','sudden severe headache','headache in the morning','headache','None of the above'];
+  let checked=new Set();
+  function drawTabs(){
+    tabs.innerHTML=steps.map((s,i)=>`<div class="tab ${i===step?'active':''}">${s}</div>`).join('');
+  }
+  function btnrow(prev=true,nextText='Continue',disabled=false){
+    return `<div class="continue-row">${prev?'<button class="stepbtn previous btn" id="prev"><span class="arrow">‹</span>Previous</button>':'<span></span>'}<button class="stepbtn next btn" id="next" ${disabled?'disabled':''}>${nextText}<span class="arrow">›</span></button></div>`;
+  }
+  function render(){
+    drawTabs();
+    if(step===0){
+      stage.innerHTML=`<div class="stepcontent infoform">
+        <div class="checkertitle"><span>WebMD</span> <b>Symptom Checker</b> <small>WITH BODY MAP</small></div>
+        <div class="intro">Identify possible conditions and treatment related to your symptoms.<br>This tool does not provide medical advice.</div>
+        <div class="fields"><div><label class="fieldlabel" for="age">Age</label><input class="ageinput" id="age" type="number" min="1" max="120" value="${age}"></div><div><span class="fieldlabel">Sex</span><div class="sexbuttons"><button class="btn ${sex==='Male'?'selected':''}" data-sex="Male">Male</button><button class="btn ${sex==='Female'?'selected':''}" data-sex="Female">Female</button></div></div></div>
+      </div>${btnrow(false,'Continue',!(age&&sex))}`;
+      document.getElementById('age').addEventListener('input',e=>{age=e.target.value;render()});
+      document.querySelectorAll('[data-sex]').forEach(b=>b.onclick=()=>{sex=b.dataset.sex;render()});
+    }else if(step===1){
+      stage.innerHTML=`<div class="symptom-layout">
+        <div><div class="prompt">What are your symptoms?</div>
+          <div class="searchwrap"><input class="symptom-input" id="symptomInput" placeholder="Type your main symptom here" value="${query}">
+            <div class="suggestions" id="suggestions"></div></div>
+          ${symptoms.length?`<div class="mylist"><h3>My Symptoms</h3>${symptoms.map((s,i)=>`<div class="myitem">${s}<button class="delete btn" data-del="${i}">▤</button></div>`).join('')}</div>`:`<div class="emptybox"><div class="emptyicon"></div>No symptoms added</div>`}
+        </div>
+        <div class="bodyarea">
+          <svg class="human" viewBox="0 0 300 440" aria-label="Body map">
+            <defs><linearGradient id="skin" x1="0" x2="1"><stop stop-color="#c7d7da"/><stop offset=".48" stop-color="#eff7f8"/><stop offset="1" stop-color="#bdcdd0"/></linearGradient></defs>
+            <g fill="url(#skin)" stroke="#d3e0e2" stroke-width="2">
+              <ellipse cx="150" cy="39" rx="28" ry="36"/>
+              <path d="M131 72 Q150 83 169 72 L177 106 Q201 110 218 127 L239 191 Q244 205 231 210 Q220 212 214 198 L191 154 L198 231 Q193 254 186 284 L195 400 Q197 420 184 422 Q173 422 171 404 L154 300 L147 300 L128 404 Q126 422 114 422 Q101 421 104 400 L112 283 Q106 253 102 231 L108 154 L84 198 Q78 212 67 208 Q56 204 62 190 L82 127 Q99 109 123 106Z"/>
+              <path d="M125 79 Q150 91 175 79 L184 131 Q177 168 150 173 Q123 168 116 131Z"/>
+              <path d="M115 132 Q150 150 185 132 L177 206 Q151 225 123 205Z"/>
+            </g>
+            <path d="M137 39h5m17 0h5M143 55q7 5 14 0" stroke="#aababc" fill="none" stroke-width="2"/>
+          </svg>
+          <div class="bodytools"><button class="btn" title="Body map">☏</button><button class="btn">☷</button><button class="btn">SKIN</button></div>
+        </div>
+      </div>${btnrow(true,'Continue',symptoms.length===0)}`;
+      const inp=document.getElementById('symptomInput'), box=document.getElementById('suggestions');
+      inp.addEventListener('input',()=>{query=inp.value;fillSuggestions()});
+      inp.addEventListener('focus',fillSuggestions);
+      function fillSuggestions(){
+        const q=query.toLowerCase().trim();
+        if(!q){box.classList.remove('show');return}
+        const arr=['headache in front of head','headache in back of head','headache on one side of head','headache','head edema','head swelling','headache behind ears','headache on temples'];
+        const matches=arr.filter(x=>x.includes(q)||q==='head');
+        box.innerHTML=matches.map(item=>`<div class="suggestion"><span>${item}</span><button class="add btn" data-add="${item}">ADD</button></div>`).join('');
+        box.classList.add('show');
+        box.querySelectorAll('[data-add]').forEach(b=>b.onclick=()=>{query='';box.classList.remove('show');if(b.dataset.add.includes('headache'))openModal();else addSymptom(b.dataset.add)});
+      }
+      document.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{symptoms.splice(+b.dataset.del,1);render()});
+    }else if(step===2){
+      stage.innerHTML=`<div class="results">
+        <div style="text-align:center;color:#aaa;font-size:13px;margin-bottom:70px">You received few matches. Try adding more symptoms to improve your results.</div>
+        <div class="result-title">Conditions that match your symptoms</div>
+        <div class="resultcols"><div>
+          ${['Migraine Headache (Adult)','Tension Headache','Cluster Headache'].map((n,i)=>`<button class="condition btn" data-condition="${n}"><strong>${n}</strong><span class="match">▰ ▰ ▰ ▰　${i?'Moderate':'STRONG'} match</span></button>`).join('')}
+        </div><div class="result-summary"><div>Gender　${sex||'Male'}　　Age　${age||'25'}　<a class="btn" href="#">Edit</a></div><div>My Symptoms<br><b>${symptoms.join(', ')||'headache'}</b></div><button class="stepbtn btn" style="margin-top:55px;width:300px">⟳　Start Over</button></div></div>
+      </div>${btnrow(true)}`;
+      document.querySelectorAll('[data-condition]').forEach(b=>b.onclick=()=>{chosenCondition=b.dataset.condition.replace(' (Adult)','');step=3;render()});
+      const restart=document.querySelector('.result-summary .stepbtn');restart.onclick=()=>{step=0;age='';sex='';symptoms=[];render()};
+    }else if(step===3||step===4){
+      stage.innerHTML=`<div class="details">
+        <div><div style="font-size:19px;margin:8px 0">Conditions that match your symptoms</div><a style="font-size:12px;color:#168bb8">UNDERSTANDING YOUR RESULTS ⓘ</a>
+          ${['Migraine Headache (Adult)','Tension Headache','Cluster Headache'].map((n,i)=>`<button class="condition btn" style="margin-top:10px" data-condition="${n}"><strong>${n}</strong><span class="match">▰ ▰ ▰　${i?'Moderate':'STRONG'} match</span></button>`).join('')}
+          <button class="stepbtn previous btn" id="prev" style="margin-top:15px"><span class="arrow">‹</span>Previous</button>
+        </div>
+        <div class="detail-content"><h2>${step===4?'Treatment Options':chosenCondition}</h2><div style="text-align:center;color:#777">Migraine | Cephalgia | Vascular headache</div>
+          <div style="border-bottom:1px solid #ddd;padding:15px;text-align:center">CONDITION DETAILS　　<a class="btn" href="#">TREATMENT OPTIONS</a></div>
+          <h3>${step===4?'Treatment Options':'Symptoms'}</h3><p>The most common symptoms of migraine include a dull or severe headache that may be worse on one side of the head, and a throbbing, pulsating, or pounding in the head. Other symptoms may include loss of appetite, nausea and vomiting, sensitivity to sound or light, chills, sweating, numbness or tingling, and increased urination.</p>
+          <h3>How Common</h3><p>About 1 in 10 people have migraine headaches.</p>
+          <h3>Overview</h3><p>Migraines are a common type of headache that can cause severe pain. They can last for a few hours or a few days and may cause throbbing, sensitivity to sound or light, nausea, or vomiting. Migraines are caused by abnormal brain activity that is triggered by certain foods, stress, or other factors... <a class="btn" href="#">read more &gt;</a></p>
+          <a class="btn" href="#">Learn More about Migraine Symptoms &gt;</a>
+          <div class="interest"><h3 style="text-align:center">You might be interested in</h3><div class="interest-card"><b>Migraine Headache Made Worse By</b><p>Movement, bright lights and loud sounds, smoking, and alcohol.</p></div><div class="interest-card"><b>Migraine Headache</b><p>Migraines are a common type of headache that can cause severe pain.</p></div></div>
+          <h3>Risk Factors</h3><p>Risk factors for migraine include being a woman, being under age 40, and having a family history of migraine.</p>
+          <h3>Diagnosed By</h3><p>To diagnose migraine, your doctor will take a medical history and do a physical exam. You may also need a CT scan, MRI, or other tests to rule out other problems.</p>
+          <button class="stepbtn next btn" id="treatment">Treatment Options　›</button>
+          <h3>Did You Know?</h3><p>Migraines and other vascular headaches cause spasms or dilations in the blood vessels of the brain.</p>
+        </div>
+      </div>${btnrow(true)}`;
+      document.querySelectorAll('[data-condition]').forEach(b=>b.onclick=()=>{chosenCondition=b.dataset.condition.replace(' (Adult)','');render()});
+      document.getElementById('treatment').onclick=()=>{step=4;render()};
+    }else{
+      stage.innerHTML=`<div class="results"><h2>Treatment Options</h2><p>Talk with your doctor about treatment options for your symptoms.</p></div>${btnrow(true,'Start Over')}`;
+    }
+    const prev=document.getElementById('prev');if(prev)prev.onclick=()=>{if(step>0){step--;render()}};
+    const next=document.getElementById('next');if(next)next.onclick=()=>{if(!next.disabled){step=Math.min(step+1,4);render()}};
+  }
+  function addSymptom(s){if(!symptoms.includes(s))symptoms.push(s);render()}
+  function openModal(){
+    checked=new Set();
+    document.getElementById('choices').innerHTML=choices.map((c,i)=>`<label class="choice"><input type="checkbox" value="${c}" ${checked.has(c)?'checked':''}>${c}</label>`).join('');
+    document.querySelectorAll('#choices input').forEach(input=>input.onchange=()=>{input.checked?checked.add(input.value):checked.delete(input.value);document.getElementById('done').classList.toggle('enabled',checked.size>0)});
+    document.getElementById('done').classList.remove('enabled');
+    document.getElementById('modalshade').classList.add('open');
+  }
+  function closeModal(add){
+    if(add){
+      if(checked.has('one sided headache')&&!symptoms.includes('one sided headache'))symptoms.push('one sided headache');
+      if(checked.has('headache')&&!symptoms.includes('headache'))symptoms.push('headache');
+      if(!symptoms.length)symptoms.push(...Array.from(checked).filter(x=>x!=='None of the above'));
+      query='';
+    }
+    document.getElementById('modalshade').classList.remove('open');render();
+  }
+  document.getElementById('done').onclick=()=>closeModal(true);
+  document.getElementById('skip').onclick=()=>closeModal(false);
+  render();
+})();
+</script>
+</body>
+</html>
+```

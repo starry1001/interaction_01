@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Booking.com | Official site</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;color:#262626}
+  body{background:#fff;font-size:14px}
+  button,input{font:inherit}
+  button{cursor:pointer}
+  .btn{cursor:pointer}
+  .topbar{height:131px;background:#003b8f;color:#fff}
+  .top-inner{width:1114px;margin:auto;height:100%;position:relative}
+  .header-main{height:66px;display:flex;align-items:center;justify-content:space-between;padding:0 12px}
+  .brand{width:163px;height:34px;display:flex;align-items:center}
+  .brand img{width:150px;height:32px;object-fit:contain}
+  .account{display:flex;align-items:center;gap:10px;font-weight:600}
+  .account .plain{border:0;color:#fff;background:transparent;padding:8px 10px;font-weight:600}
+  .account .flag{width:24px;height:24px;object-fit:cover;border-radius:50%;margin:0 8px}
+  .help{font-size:19px;border:1px solid #d5e4fa;border-radius:50%;width:21px;height:21px;text-align:center;line-height:19px;margin:0 16px}
+  .account .white-btn{height:37px;padding:0 12px;background:#fff;color:#006ce4;border:1px solid #b6d4f4;border-radius:3px;font-weight:600}
+  .nav{height:65px;display:flex;align-items:flex-start;gap:7px;padding-top:5px}
+  .nav-item{height:47px;color:#fff;background:transparent;border:1px solid transparent;border-radius:25px;padding:0 14px;display:flex;align-items:center;gap:8px;font-weight:600}
+  .nav-item.active{border-color:#b2d1f7;background:rgba(255,255,255,.1)}
+  .nav-icon{font-size:20px;line-height:1;color:#e8f2ff}
+  .hero{height:422px;background:#050505;position:relative}
+  .hero-image{position:absolute;inset:0;max-width:1440px;width:100%;margin:auto;background-image:linear-gradient(90deg,rgba(0,0,0,.38),transparent 22%,transparent 82%,rgba(0,0,0,.35)),url("../../../data/data/5/assets/005.jpg");background-size:cover;background-position:center}
+  .hero-inner{width:1114px;margin:auto;height:100%;position:relative;color:#fff}
+  .hero-copy{position:absolute;left:0;top:55px;width:620px}
+  .hero-copy h1{font-size:48px;line-height:1.34;margin:0 0 7px;font-weight:700;letter-spacing:-.6px}
+  .hero-copy p{font-size:25px;line-height:1.35;margin:0;max-width:610px}
+  .learn{margin-top:33px;background:#0071e8;border:0;color:white;font-weight:700;height:52px;padding:0 17px;border-radius:3px}
+  .search-area{position:absolute;z-index:5;left:0;right:0;top:391px}
+  .search-form{height:62px;border:4px solid #febb02;border-radius:8px;display:flex;background:#fff;box-shadow:0 2px 5px #0002}
+  .field{height:54px;background:#fff;color:#262626;border:0;border-right:4px solid #febb02;display:flex;align-items:center;position:relative;text-align:left;padding:0 14px;min-width:0}
+  .field .field-icon{font-size:25px;color:#666;width:34px;flex:none}
+  .dest-field{width:35.5%;border-radius:4px 0 0 4px}
+  .date-field{width:27.4%}
+  .guest-field{width:27.4%;border-right:0}
+  .search-submit{flex:1;min-width:108px;background:#0071e8;color:#fff;border:0;border-radius:4px;font-size:20px;font-weight:700;margin:0 0 0 3px}
+  .field-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .clear{margin-left:auto;background:none;border:0;font-size:22px;color:#666;padding:0 3px}
+  .chev{margin-left:auto;font-size:18px;padding-left:9px}
+  .checks{display:flex;align-items:center;gap:17px;margin-top:14px;color:#333}
+  .check-label{display:flex;align-items:center;gap:7px}
+  .check-label input{width:21px;height:21px;margin:0;accent-color:#0071e8}
+  .offers{width:1114px;margin:145px auto 60px}
+  .offers h2{font-size:24px;margin:0 0 9px}
+  .subheading{color:#666;font-size:16px;margin:0 0 12px}
+  .offer-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .offer-card{height:174px;border-radius:7px;overflow:hidden;border:1px solid #e5e5e5;position:relative;background:#fff}
+  .vacation-card{color:#fff;background:#765a43}
+  .vacation-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .vacation-card:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.62),rgba(0,0,0,.08))}
+  .offer-copy{position:relative;z-index:1;padding:18px 16px}
+  .offer-kicker{font-size:12px;margin-bottom:7px}
+  .offer-copy h3{font-size:20px;margin:0 0 8px}
+  .offer-copy p{margin:0;font-size:14px}
+  .small-blue{background:#0071e8;color:#fff;border:0;border-radius:3px;padding:10px 13px;margin-top:12px;font-weight:700}
+  .quick-card{padding:20px 16px}
+  .quick-card h3{font-size:20px;margin:0 0 8px}
+  .quick-card p{margin:0;color:#555}
+  .quick-card img{position:absolute;right:14px;top:17px;width:105px;height:120px;object-fit:cover;border-radius:4px}
+  .quick-card .quick-text{max-width:340px}
+  .popup{position:absolute;z-index:20;background:#fff;color:#262626;border-radius:8px;box-shadow:0 4px 18px #0003;border:1px solid #e4e4e4;display:none}
+  .popup.open{display:block}
+  .destination-popup{top:68px;left:2px;width:432px;padding:0;overflow:hidden}
+  .popup-title{font-weight:700;padding:15px 14px 12px}
+  .destination-row{height:59px;border-top:1px solid #e8e8e8;display:flex;align-items:center;padding:0 16px;gap:14px;cursor:pointer}
+  .destination-row:hover{background:#f3f3f3}
+  .pin{font-size:25px;color:#666}
+  .destination-row strong{display:block;font-size:14px;margin-bottom:4px}
+  .destination-row small{color:#555;font-size:12px}
+  .calendar-popup{top:68px;left:64px;width:642px;padding:0 16px 16px}
+  .calendar-tabs{display:flex;height:55px;border-bottom:1px solid #ddd}
+  .calendar-tabs button{flex:1;background:white;border:0;color:#444}
+  .calendar-tabs .selected{color:#0071ce;border-bottom:2px solid #0071ce}
+  .calendar-heading{display:grid;grid-template-columns:1fr 1fr;position:relative;text-align:center;padding:17px 0 11px;font-size:16px;font-weight:700}
+  .month-arrow{position:absolute;top:11px;background:transparent;border:0;font-size:24px;color:#555}
+  .month-arrow.left{left:3px}.month-arrow.right{right:3px}
+  .cal-months{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .month{min-width:0}
+  .weekdays,.days{display:grid;grid-template-columns:repeat(7,1fr);text-align:center}
+  .weekdays span{height:31px;color:#666;font-size:13px;display:flex;align-items:center;justify-content:center}
+  .day{height:47px;border:0;background:transparent;color:#333;border-radius:3px}
+  .day:hover{background:#eaf3ff}
+  .day.muted{color:#bbb}
+  .day.chosen{background:#0071ce;color:#fff}
+  .day.range{background:#e8f2fc}
+  .guests-popup{top:68px;right:116px;width:350px;padding:22px 31px 18px}
+  .guest-row{height:49px;display:flex;align-items:center;justify-content:space-between}
+  .guest-row strong{font-size:14px}
+  .counter{height:44px;width:126px;border:1px solid #aaa;border-radius:4px;display:flex;align-items:center;justify-content:space-between}
+  .counter button{height:42px;width:35px;border:0;background:#fff;color:#0071ce;font-size:22px}
+  .counter button:disabled{color:#c7c7c7}
+  .counter span{min-width:30px;text-align:center}
+  .pet-setting{border-top:1px solid #e5e5e5;margin-top:13px;padding-top:17px;font-size:14px}
+  .pet-line{display:flex;justify-content:space-between;align-items:center}
+  .switch{width:37px;height:21px;border:0;border-radius:12px;background:#888;padding:3px}
+  .switch:after{content:"";display:block;width:15px;height:15px;border-radius:50%;background:#fff}
+  .switch.on{background:#0071ce}.switch.on:after{margin-left:16px}
+  .pet-setting small{display:block;color:#555;line-height:1.5;margin-top:12px}
+  .pet-setting a{color:#0071ce}
+  @media(max-width:1150px){
+    .top-inner,.hero-inner,.offers{width:94%}
+    .hero-copy{left:1%}
+    .search-form{width:100%}
+    .offers{margin-top:145px}
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="top-inner">
+    <div class="header-main">
+      <div class="brand"><img src="../../../data/data/5/assets/006.svg" width="150" height="32" alt="Booking.com"></div>
+      <div class="account">
+        <button class="plain btn">USD</button>
+        <img class="flag" src="../../../data/data/5/assets/007.png" width="24" height="24" alt="United States">
+        <span class="help btn">?</span>
+        <button class="plain btn">List your property</button>
+        <button class="white-btn btn">Register</button>
+        <button class="white-btn btn">Sign in</button>
+      </div>
+    </div>
+    <nav class="nav">
+      <button class="nav-item active btn"><span class="nav-icon">▱</span>Stays</button>
+      <button class="nav-item btn"><span class="nav-icon">✈</span>Flights</button>
+      <button class="nav-item btn"><span class="nav-icon">♧</span>Flight + Hotel</button>
+      <button class="nav-item btn"><span class="nav-icon">▱</span>Car rental</button>
+      <button class="nav-item btn"><span class="nav-icon">♧</span>Cruises</button>
+      <button class="nav-item btn"><span class="nav-icon">♙</span>Attractions</button>
+      <button class="nav-item btn"><span class="nav-icon">▤</span>Airport taxis</button>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-image"></div>
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <h1>Meet the card that<br>travels with you</h1>
+      <p>Earn 5% in Travel Credits on Booking.com with the<br>Genius Rewards Visa<sup>®</sup>. Terms apply.</p>
+      <button class="learn btn">Learn more</button>
+    </div>
+    <div class="search-area">
+      <div class="search-form">
+        <button class="field dest-field btn" id="destButton">
+          <span class="field-icon">▱</span><span class="field-text" id="destinationText">Where are you going?</span>
+          <span class="clear btn" id="clearDestination" style="display:none">×</span>
+        </button>
+        <button class="field date-field btn" id="dateButton">
+          <span class="field-icon">▦</span><span class="field-text" id="dateText">Check-in date&nbsp; — &nbsp;Check-out date</span>
+        </button>
+        <button class="field guest-field btn" id="guestButton">
+          <span class="field-icon">♙</span><span class="field-text" id="guestText">2 adults · 0 children · 1 room</span><span class="chev">⌄</span>
+        </button>
+        <button class="search-submit btn">Search</button>
+      </div>
+      <div class="checks">
+        <label class="check-label"><input type="checkbox"> I'm looking for an entire home or apartment</label>
+        <label class="check-label"><input type="checkbox"> I'm looking for flights</label>
+      </div>
+
+      <div class="popup destination-popup" id="destinationPopup">
+        <div class="popup-title">Trending destinations</div>
+        <div class="destination-row btn" data-place="Los Angeles, United States"><span class="pin">♧</span><span><strong>Los Angeles</strong><small>United States</small></span></div>
+        <div class="destination-row btn" data-place="Las Vegas, United States"><span class="pin">♧</span><span><strong>Las Vegas</strong><small>United States</small></span></div>
+        <div class="destination-row btn" data-place="San Francisco, United States"><span class="pin">♧</span><span><strong>San Francisco</strong><small>United States</small></span></div>
+        <div class="destination-row btn" data-place="San Diego, United States"><span class="pin">♧</span><span><strong>San Diego</strong><small>United States</small></span></div>
+      </div>
+
+      <div class="popup calendar-popup" id="calendarPopup">
+        <div class="calendar-tabs"><button class="selected btn">Calendar</button><button class="btn">I'm flexible</button></div>
+        <div class="calendar-heading">
+          <button class="month-arrow left btn" id="prevMonth">‹</button>
+          <span id="monthTitle1">August 2025</span><span id="monthTitle2">September 2025</span>
+          <button class="month-arrow right btn" id="nextMonth">›</button>
+        </div>
+        <div class="cal-months" id="calendarMonths"></div>
+      </div>
+
+      <div class="popup guests-popup" id="guestsPopup">
+        <div class="guest-row"><strong>Adults</strong><div class="counter"><button class="btn" data-counter="adults" data-delta="-1">−</button><span id="adultCount">2</span><button class="btn" data-counter="adults" data-delta="1">+</button></div></div>
+        <div class="guest-row"><strong>Children</strong><div class="counter"><button class="btn" data-counter="children" data-delta="-1">−</button><span id="childCount">0</span><button class="btn" data-counter="children" data-delta="1">+</button></div></div>
+        <div class="guest-row"><strong>Rooms</strong><div class="counter"><button class="btn" data-counter="rooms" data-delta="-1">−</button><span id="roomCount">1</span><button class="btn" data-counter="rooms" data-delta="1">+</button></div></div>
+        <div class="pet-setting">
+          <div class="pet-line"><span>Traveling with pets?</span><button class="switch btn" id="petSwitch"></button></div>
+          <small>Assistance animals aren’t considered pets.<br><a href="#" class="btn">Read more about traveling with assistance animals</a></small>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="offers">
+  <h2>Offers</h2>
+  <p class="subheading">Promotions, deals, and special offers for you</p>
+  <div class="offer-grid">
+    <article class="offer-card vacation-card">
+      <img src="../../../data/data/5/assets/035.jpg" width="540" height="174" alt="Vacation home">
+      <div class="offer-copy">
+        <div class="offer-kicker">Vacation rentals</div>
+        <h3>Live the dream in a vacation home</h3>
+        <p>Choose from houses, villas, cabins, and more</p>
+        <button class="small-blue btn">Book your stay</button>
+      </div>
+    </article>
+    <article class="offer-card quick-card">
+      <div class="quick-text">
+        <h3>Quick escape, quality time</h3>
+        <p>Save up to 20% with a Getaway Deal</p>
+        <button class="small-blue btn">Save on stays</button>
+      </div>
+      <img src="../../../data/data/5/assets/036.jpg" width="105" height="120" alt="Travelers enjoying a getaway">
+    </article>
+  </div>
+</section>
+
+<script>
+(() => {
+  const destinationPopup=document.getElementById('destinationPopup');
+  const calendarPopup=document.getElementById('calendarPopup');
+  const guestsPopup=document.getElementById('guestsPopup');
+  const destText=document.getElementById('destinationText');
+  const dateText=document.getElementById('dateText');
+  const clearDest=document.getElementById('clearDestination');
+  const guestText=document.getElementById('guestText');
+  const popups=[destinationPopup,calendarPopup,guestsPopup];
+  function closePopups(except){popups.forEach(p=>{if(p!==except)p.classList.remove('open')})}
+  document.getElementById('destButton').addEventListener('click',e=>{
+    e.stopPropagation(); const open=!destinationPopup.classList.contains('open');closePopups(destinationPopup);destinationPopup.classList.toggle('open',open);
+  });
+  document.getElementById('dateButton').addEventListener('click',e=>{
+    e.stopPropagation(); const open=!calendarPopup.classList.contains('open');closePopups(calendarPopup);calendarPopup.classList.toggle('open',open);
+  });
+  document.getElementById('guestButton').addEventListener('click',e=>{
+    e.stopPropagation(); const open=!guestsPopup.classList.contains('open');closePopups(guestsPopup);guestsPopup.classList.toggle('open',open);
+  });
+  document.querySelectorAll('.destination-row').forEach(row=>row.addEventListener('click',()=>{
+    destText.textContent=row.dataset.place;clearDest.style.display='inline-block';destinationPopup.classList.remove('open');
+  }));
+  clearDest.addEventListener('click',e=>{e.stopPropagation();destText.textContent='Where are you going?';clearDest.style.display='none'});
+  let adults=2,children=0,rooms=1;
+  function refreshGuests(){document.getElementById('adultCount').textContent=adults;document.getElementById('childCount').textContent=children;document.getElementById('roomCount').textContent=rooms;guestText.textContent=`${adults} adults · ${children} children · ${rooms} room${rooms===1?'':'s'}`}
+  document.querySelectorAll('[data-counter]').forEach(b=>b.addEventListener('click',e=>{
+    e.stopPropagation();const key=b.dataset.counter,delta=Number(b.dataset.delta);
+    if(key==='adults')adults=Math.max(1,adults+delta);
+    if(key==='children')children=Math.max(0,children+delta);
+    if(key==='rooms')rooms=Math.max(1,rooms+delta);
+    refreshGuests();
+  }));
+  document.getElementById('petSwitch').addEventListener('click',e=>e.currentTarget.classList.toggle('on'));
+
+  let year=2025,month=7,checkIn=null,checkOut=null;
+  const names=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const weekdays=['Su','Mo','Tu','We','Th','Fr','Sa'];
+  function monthMarkup(y,m,side){
+    const first=new Date(y,m,1).getDay(),total=new Date(y,m+1,0).getDate(),prevTotal=new Date(y,m,0).getDate();
+    let html='<div class="month"><div class="weekdays">'+weekdays.map(w=>`<span>${w}</span>`).join('')+'</div><div class="days">';
+    for(let i=0;i<42;i++){
+      let n,cl='day',date;
+      if(i<first){n=prevTotal-first+i+1;cl+=' muted';date=new Date(y,m-1,n)}
+      else if(i>=first+total){n=i-first-total+1;cl+=' muted';date=new Date(y,m+1,n)}
+      else {n=i-first+1;date=new Date(y,m,n)}
+      const key=`${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+      const inKey=checkIn&&`${checkIn.getFullYear()}-${checkIn.getMonth()}-${checkIn.getDate()}`;
+      const outKey=checkOut&&`${checkOut.getFullYear()}-${checkOut.getMonth()}-${checkOut.getDate()}`;
+      if(key===inKey||key===outKey)cl+=' chosen';
+      else if(checkIn&&checkOut&&date>checkIn&&date<checkOut)cl+=' range';
+      html+=`<button class="${cl} btn" data-date="${date.toISOString()}">${n}</button>`;
+    }
+    return html+'</div></div>';
+  }
+  function drawCalendar(){
+    let y2=year,m2=month+1;if(m2>11){m2=0;y2++}
+    document.getElementById('monthTitle1').textContent=`${names[month]} ${year}`;
+    document.getElementById('monthTitle2').textContent=`${names[m2]} ${y2}`;
+    document.getElementById('calendarMonths').innerHTML=monthMarkup(year,month,0)+monthMarkup(y2,m2,1);
+    document.querySelectorAll('.day').forEach(b=>b.addEventListener('click',()=>{
+      const d=new Date(b.dataset.date+'');
+      if(!checkIn||checkOut||d<checkIn){checkIn=d;checkOut=null}
+      else checkOut=d;
+      drawCalendar();
+      if(checkIn&&!checkOut)dateText.textContent=`${checkIn.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})} — Check-out date`;
+      if(checkIn&&checkOut){
+        const a=checkIn.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+        const z=checkOut.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+        dateText.textContent=`${a} — ${z}`;
+      }
+    }));
+  }
+  document.getElementById('prevMonth').addEventListener('click',()=>{month--;if(month<0){month=11;year--}drawCalendar()});
+  document.getElementById('nextMonth').addEventListener('click',()=>{month++;if(month>11){month=0;year++}drawCalendar()});
+  drawCalendar();
+  document.addEventListener('click',e=>{if(!e.target.closest('.search-area'))closePopups()});
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+{
+  "setting": 2,
+  "unit": "estimated image input tokens",
+  "profile": {
+    "reference_model": "gpt-5.6-luna",
+    "assumed_for": "gpt-6-luna",
+    "assumption_not_officially_verified": true,
+    "detail": "original",
+    "patch_size": 32,
+    "token_multiplier": 1.2,
+    "max_dimension": 65535,
+    "max_patches": 30000
+  },
+  "target_retained_fraction": 0.6,
+  "baseline": "sum of original screenshot token estimates in each group, excluding added labels and padding",
+  "reference_estimated_tokens": 15360,
+  "source_estimated_tokens": 15552,
+  "output_estimated_tokens": 9077,
+  "retained_token_fraction": 0.5909505208333333,
+  "retained_vs_unscaled_image_fraction": 0.5836548353909465,
+  "source_pixels": 13230080,
+  "output_pixels": 7694784,
+  "allocations": [
+    {
+      "source_size": [
+        2560,
+        5168
+      ],
+      "source_pixels": 13230080,
+      "source_patches": 12960,
+      "source_estimated_tokens": 15552,
+      "reference_estimated_tokens": 15360,
+      "target_estimated_tokens": 9216,
+      "effective_target_estimated_tokens": 9216,
+      "minimum_patch_limited": false,
+      "profile_cap_limited": false,
+      "output_size": [
+        1952,
+        3942
+      ],
+      "output_pixels": 7694784,
+      "output_patches": 7564,
+      "output_estimated_tokens": 9077,
+      "retained_token_fraction": 0.5909505208333333,
+      "retained_vs_unscaled_image_fraction": 0.5836548353909465,
+      "rounding_shortfall_tokens": 139,
+      "output": "screenshot_sheet_0.png",
+      "screenshot_count": 4,
+      "source_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "layout": "vertical",
+      "source_regions": [
+        {
+          "index": 0,
+          "source_size": [
+            2560,
+            1260
+          ],
+          "source_sheet_box": [
+            0,
+            0,
+            2560,
+            1260
+          ],
+          "output_sheet_box": [
+            0,
+            0,
+            1952,
+            962
+          ]
+        },
+        {
+          "index": 1,
+          "source_size": [
+            2560,
+            1260
+          ],
+          "source_sheet_box": [
+            0,
+            1292,
+            2560,
+            2552
+          ],
+          "output_sheet_box": [
+            0,
+            985,
+            1952,
+            1947
+          ]
+        },
+        {
+          "index": 2,
+          "source_size": [
+            2560,
+            1260
+          ],
+          "source_sheet_box": [
+            0,
+            2584,
+            2560,
+            3844
+          ],
+          "output_sheet_box": [
+            0,
+            1971,
+            1952,
+            2933
+          ]
+        },
+        {
+          "index": 3,
+          "source_size": [
+            2560,
+            1260
+          ],
+          "source_sheet_box": [
+            0,
+            3876,
+            2560,
+            5136
+          ],
+          "output_sheet_box": [
+            0,
+            2956,
+            1952,
+            3918
+          ]
+        }
+      ],
+      "original_screenshot_pixels": 12902400
+    }
+  ]
+}

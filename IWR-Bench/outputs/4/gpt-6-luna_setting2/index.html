@@ -1,0 +1,217 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amazon.com: Computers & Tablets</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;color:#0f1111;background:#fff}
+button,input,select{font-family:inherit}
+button,.btn{cursor:pointer}
+a{color:#007185;text-decoration:none}
+.topbar{height:56px;background:#131921;color:#fff;display:flex;align-items:center;padding:0 20px;gap:18px;white-space:nowrap}
+.logo{font-weight:bold;font-size:29px;letter-spacing:-1.8px;color:white;position:relative;width:93px;flex:none}
+.logo:after{content:"";position:absolute;left:16px;bottom:-3px;width:48px;height:10px;border-bottom:3px solid #ff9900;border-radius:0 0 50% 50%;transform:rotate(-3deg)}
+.deliver{font-size:12px;line-height:14px;color:#ddd;min-width:105px}
+.deliver b{font-size:14px;color:white}
+.search{display:flex;flex:1;height:42px;min-width:280px;border-radius:5px;overflow:hidden}
+.search select{width:145px;border:0;background:#e6e6e6;color:#333;padding:0 12px;font-size:13px}
+.search input{border:0;flex:1;padding:0 12px;font-size:16px;outline:0}
+.search button{width:48px;border:0;background:#febd69;font-size:23px;color:#222}
+.head-link{font-size:12px;line-height:15px;color:#fff}
+.head-link b{display:block;font-size:14px}
+.cart-link{font-size:17px;font-weight:bold}
+.nav{height:40px;background:#232f3e;color:#fff;display:flex;align-items:center;padding:0 22px;gap:27px;font-size:14px}
+.nav a{color:#fff}
+.results-bar{height:46px;border-bottom:1px solid #ddd;box-shadow:0 2px 4px #00000012;display:flex;align-items:center;padding:0 max(calc((100% - 1780px)/2),28px);font-size:14px;color:#333;justify-content:space-between}
+.sort-wrap{position:relative}
+.sort-trigger{border:1px solid #d5d9d9;border-radius:7px;background:#f0f2f2;padding:6px 12px;font-size:13px;color:#333}
+.sort-menu{position:absolute;z-index:20;right:0;top:31px;width:200px;background:white;border:1px solid #aaa;box-shadow:0 2px 7px #0003;border-radius:4px;padding:4px 0}
+.sort-menu button{display:block;width:100%;border:0;background:white;text-align:left;padding:8px 12px;font-size:14px}
+.sort-menu button:hover{background:#eaf4f8}
+.page{max-width:1780px;margin:20px auto;display:grid;grid-template-columns:270px 1fr;gap:32px;padding:0 0 60px}
+.sidebar{font-size:14px;padding-top:5px}
+.side-section{margin:0 0 17px}
+.side-section h3{font-size:15px;margin:0 0 6px}
+.side-section label{display:block;line-height:21px;cursor:pointer}
+.side-section input{vertical-align:middle;margin:0 6px 0 0}
+.side-section a{font-size:13px}
+.results h1{font-size:23px;margin:3px 0 5px}
+.results-sub{font-size:14px;color:#565959;margin:0 0 8px}
+.grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.card{border:1px solid #f1f1f1;border-radius:3px;padding:0 10px 12px;min-width:0;min-height:650px;display:flex;flex-direction:column}
+.card-img{height:290px;background:#f7f7f7;display:flex;align-items:center;justify-content:center;margin:0 -10px 8px;overflow:hidden}
+.card-img img{width:94%;height:94%;object-fit:contain}
+.card-title{font-size:16px;line-height:21px;height:83px;overflow:hidden;color:#0f1111}
+.stars{font-size:15px;color:#de7921;margin:6px 0 2px}
+.rating{font-size:13px;color:#007185}
+.bought{font-size:13px;color:#565959;margin:3px 0 7px}
+.price{font-size:22px;margin:3px 0}
+.price sup{font-size:12px;vertical-align:top}
+.delivery{font-size:13px;line-height:18px;margin:3px 0}
+.stock{font-size:13px;color:#b12704;margin:3px 0}
+.yellow{background:#ffd814;border:1px solid #fcd200;border-radius:20px;padding:8px 18px;font-size:14px;align-self:flex-start;margin:5px 0}
+.more{font-size:13px;color:#565959;line-height:18px;margin-top:3px}
+.more a{color:#007185}
+.page-product{max-width:1710px;margin:30px auto;display:grid;grid-template-columns:65px 540px minmax(500px,1fr) 280px;gap:22px}
+.thumbs{display:flex;flex-direction:column;gap:12px}
+.thumb{border:1px solid #aaa;border-radius:5px;width:56px;height:56px;display:flex;align-items:center;justify-content:center}
+.thumb img{width:95%;height:95%;object-fit:contain}
+.hero{height:600px;display:flex;justify-content:center;align-items:flex-start}
+.hero img{width:100%;height:560px;object-fit:contain}
+.detail h1{font-size:25px;line-height:32px;font-weight:400;margin:0 0 8px}
+.detail .store{font-size:14px}
+.detail .ratingline{font-size:14px;border-bottom:1px solid #ddd;padding:8px 0}
+.detail .big-price{font-size:28px;margin:15px 0 5px}
+.specs{border-bottom:1px solid #ddd;padding:13px 0;font-size:14px;line-height:25px}
+.specs b{display:inline-block;width:160px}
+.about{font-size:15px;line-height:22px;margin-top:15px}
+.buybox{border:1px solid #ddd;border-radius:8px;padding:17px;font-size:14px;height:max-content}
+.buybox .amount{font-size:25px;margin:8px 0}
+.buybox p{line-height:20px}
+.buybox select{width:100%;padding:8px;border-radius:6px;border:1px solid #aaa;margin:10px 0}
+.buybox .yellow{width:100%;text-align:center}
+.buy-now{background:#ffa41c;border:1px solid #ff8f00;border-radius:20px;padding:9px;width:100%;margin:2px 0 12px}
+.cart-page{background:#eaeded;min-height:calc(100vh - 96px);padding:28px 24px}
+.cart-layout{display:grid;grid-template-columns:1fr 320px;gap:20px;max-width:2300px;margin:auto}
+.cart-main{background:#fff;padding:28px}
+.cart-main h1{font-size:29px;font-weight:400;margin:0 0 20px}
+.cart-product{border-top:1px solid #ddd;border-bottom:1px solid #ddd;padding:18px 0;display:flex;align-items:center;gap:22px}
+.cart-product img{width:180px;height:135px;object-fit:contain}
+.cart-product-title{font-size:18px;line-height:25px;max-width:650px}
+.cart-side{background:#fff;padding:20px;height:max-content}
+.cart-side .yellow{width:100%;text-align:center}
+.recommend{background:white;margin:18px auto;padding:22px;max-width:2300px}
+.recommend h2{font-size:20px;font-weight:500;margin:0 0 20px}
+.reco-row{display:grid;grid-template-columns:repeat(10,1fr);gap:20px}
+.reco-item{text-align:center;font-size:13px;color:#007185}
+.reco-item img{width:100%;height:130px;object-fit:contain}
+.reco-item .yellow{font-size:12px;padding:6px 12px}
+.hidden{display:none!important}
+@media(max-width:1900px){.page{margin-left:30px;margin-right:30px}.page-product{margin-left:28px;margin-right:28px}.card{min-height:620px}.card-img{height:260px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="topbar">
+    <div class="logo">amazon</div>
+    <div class="deliver">Deliver to<br><b>⌖ Singapore</b></div>
+    <div class="search">
+      <select class="btn" aria-label="Search category"><option>Computers &amp; Tablets</option><option>All</option></select>
+      <input id="searchInput" placeholder="Search Amazon" aria-label="Search Amazon">
+      <button class="btn" aria-label="Search">⌕</button>
+    </div>
+    <div class="head-link">🇺🇸 EN</div>
+    <div class="head-link">Hello, sign in<b>Account &amp; Lists⌄</b></div>
+    <div class="head-link">Returns<b>&amp; Orders</b></div>
+    <div class="cart-link btn" id="headerCart">🛒 <span id="cartCount">0</span> Cart</div>
+  </div>
+  <nav class="nav">
+    <a href="#" class="btn">☰ All</a><a href="#" class="btn">Today's Deals</a><a href="#" class="btn">Prime Video</a><a href="#" class="btn">Registry</a><a href="#" class="btn">Customer Service</a><a href="#" class="btn">Gift Cards</a><a href="#" class="btn">Sell</a>
+  </nav>
+</header>
+<div id="resultsView">
+  <div class="results-bar"><span id="resultCount">1-24 of over 6,000 results</span>
+    <div class="sort-wrap">
+      <button class="sort-trigger btn" id="sortTrigger">Sort by: <b id="sortText">Featured</b> ▾</button>
+      <div class="sort-menu hidden" id="sortMenu">
+        <button class="btn" data-sort="Featured">Featured</button>
+        <button class="btn" data-sort="Price: Low to High">Price: Low to High</button>
+        <button class="btn" data-sort="Price: High to Low">Price: High to Low</button>
+        <button class="btn" data-sort="Avg. Customer Review">Avg. Customer Review</button>
+        <button class="btn" data-sort="Newest Arrivals">Newest Arrivals</button>
+        <button class="btn" data-sort="Best Sellers">Best Sellers</button>
+      </div>
+    </div>
+  </div>
+  <main class="page">
+    <aside class="sidebar">
+      <section class="side-section"><h3>Department</h3>Computers<br>‹ Electronics<br><b style="margin-left:12px">Computers &amp; Tablets</b></section>
+      <section class="side-section"><h3>Brands</h3>
+        <label><input class="brand btn" type="checkbox" value="Lenovo">Lenovo</label>
+        <label><input class="brand btn" type="checkbox" value="Apple">Apple</label>
+        <label><input class="brand btn" type="checkbox" value="Samsung">Samsung</label>
+        <label><input class="brand btn" type="checkbox" value="HP">HP</label>
+        <label><input class="brand btn" type="checkbox" value="ASUS">ASUS</label>
+        <label><input class="brand btn" type="checkbox" value="Dell">Dell</label>
+        <label><input class="brand btn" type="checkbox" value="Acer">acer</label><a class="btn" href="#">⌄ See more</a>
+      </section>
+      <section class="side-section"><h3>Deals &amp; Discounts</h3>All Discounts<br>Today's Deals</section>
+      <section class="side-section"><h3>Top Brands in Electronics</h3><label><input class="btn" type="checkbox">Top Brands</label></section>
+      <section class="side-section"><h3>Premium Brands</h3><label><input class="btn" type="checkbox">Premium Brands</label></section>
+    </aside>
+    <section class="results">
+      <h1>Results</h1><div class="results-sub">Check each product page for other buying options.</div>
+      <div class="grid" id="productGrid"></div>
+    </section>
+  </main>
+</div>
+<div id="productView" class="hidden"></div>
+<div id="cartView" class="hidden"></div>
+<script>
+const ASSET='../../../data/data/4/assets/';
+const products=[
+ {id:1,brand:'Samsung',image:'023.jpg',title:'Samsung Galaxy Tab A9+ Tablet 11” 64GB Android Tablet, Big Screen, 90Hz Display, Upgraded Chipset, Multi Window Display, Slim, Light',rating:'15,824',price:'159',delivery:'Thu, Aug 28',bought:'10K+ bought in past month'},
+ {id:2,brand:'HP',image:'202.jpg',title:'HP 14 Laptop, Intel Celeron N4020, 4 GB RAM, 64 GB Storage, 14-inch Micro-edge HD Display, Windows 11 Home, Thin & Portable, 4K Graphics',rating:'3,806',price:'172',delivery:'Sat, Aug 30',bought:'1K+ bought in past month'},
+ {id:3,brand:'HP',image:'218.jpg',title:'HP Chromebook 14 Laptop, Intel Celeron N4120, 4 GB RAM, 64 GB eMMC, 14” HD Display, Chrome OS, Thin Design, 4K Graphics',rating:'2,196',price:'174',delivery:'Sat, Aug 30',bought:'5K+ bought in past month'},
+ {id:4,brand:'Other',image:'228.jpg',title:'reMarkable Paper Pro Bundle – Includes 11.8” reMarkable Paper Tablet, Marker Plus Pen with Eraser',rating:'972',price:'679',delivery:'Tue, Aug 26',bought:'2K+ bought in past month'},
+ {id:5,brand:'Acer',image:'232.jpg',title:'Acer Aspire 3 A315-24P-R7VH Slim Laptop | 15.6” Full HD | AMD Ryzen 3 7320U Quad Core | AMD Radeon Graphics | 8GB LPDDR5 | 128GB',rating:'4,192',price:'319',delivery:'Tue, Aug 26',bought:'2K+ bought in past month'},
+ {id:6,brand:'HP',image:'241.jpg',title:'HP Pavilion 15.6” HD Touchscreen Anti-Glare Laptop, 16GB RAM, 1TB Storage',rating:'518',price:'289',delivery:'Thu, Aug 28',bought:'500+ bought in past month'},
+ {id:7,brand:'Dell',image:'237.jpg',title:'Dell Inspiron Touchscreen Laptop, 15.6” Business & Student Laptop Computer, Windows 11 Pro',rating:'1,275',price:'399',delivery:'Fri, Aug 29',bought:'700+ bought in past month'},
+ {id:8,brand:'Lenovo',image:'021.jpg',title:'Lenovo IdeaPad 3i Chromebook, 15.6” FHD Display, Intel Celeron N4500, 8GB RAM, 64GB eMMC, 1920x1080 px, 720p Camera',rating:'969',price:'209',delivery:'Mon, Sep 1',bought:'3K+ bought in past month'},
+ {id:9,brand:'Lenovo',image:'026.jpg',title:'Lenovo IdeaPad 1 Student Laptop, 15.6” FHD Display, Intel Dual Core Processor, 12GB RAM, 512GB SSD + 128GB eMMC, 1 Year Office 365',rating:'801',price:'349',delivery:'Tue, Aug 26',bought:'1K+ bought in past month'},
+ {id:10,brand:'Dell',image:'035.jpg',title:'Dell Optiplex 3060 Desktop Computer | Intel i5-8500 (3.2) | 32GB DDR4 RAM | 1TB SSD | Solid State | Built in WiFi',rating:'3,006',price:'229',delivery:'Tue, Aug 26',bought:'800+ bought in past month'},
+ {id:11,brand:'Lenovo',image:'025.jpg',title:'Lenovo V-Series V15 Business Laptop, 15.6” FHD Display, AMD Ryzen 7 7730U, 40GB RAM, 1TB SSD, Numeric Keypad',rating:'377',price:'569',delivery:'Mon, Sep 1',bought:'1K+ bought in past month'},
+ {id:12,brand:'Lenovo',image:'011.jpg',title:'Lenovo Flagship Chromebook, 14” FHD Touchscreen Slim Thin Light Laptop Computer, 8-Core MediaTek Kompanio Processor',rating:'924',price:'203',delivery:'Aug 29 - Sep 6',bought:'1K+ bought in past month'},
+ {id:13,brand:'Lenovo',image:'039.jpg',title:'Lenovo Tab M11, 11” Display, MediaTek Helio G88 Octa-Core, 4GB RAM, 128GB SSD, 1920x1200 px',rating:'762',price:'187',delivery:'Thu, Aug 28',bought:'1K+ bought in past month'},
+ {id:14,brand:'Lenovo',image:'025.jpg',title:'Lenovo ThinkPad X1 Carbon Gen 12 Business Laptop, 14” Display, Intel Core Ultra',rating:'1,842',price:'799',delivery:'Fri, Aug 29',bought:'500+ bought in past month'},
+ {id:15,brand:'Lenovo',image:'010.jpg',title:'Lenovo IdeaPad Slim 3 Chromebook, 14” FHD Display, Intel Celeron, 8GB RAM, 128GB Storage',rating:'687',price:'189',delivery:'Sat, Aug 30',bought:'1K+ bought in past month'},
+ {id:16,brand:'Lenovo',image:'087.jpg',title:'Lenovo ThinkCentre M700, 6th Generation Tiny Business Computer Micro PC (Intel Quad Core i3-6100T, 8GB Ram, 120GB Solid State SSD, WiFi, VGA) Win 10 Pro (Renewed)',rating:'96',price:'66',delivery:'Sep 1 - 5',bought:'100+ bought in past month'},
+ {id:17,brand:'Lenovo',image:'262.png',title:'Lenovo Tab M8 Gen 4-2024 - Family Tablet - Google Kids Space - 8” HD Touch Display - 2 GB Memory - 32 GB Storage',rating:'188',price:'80',delivery:'Sat, Aug 30',bought:'100+ bought in past month'},
+ {id:18,brand:'Lenovo',image:'038.jpg',title:'Lenovo Tab M8 (4th Gen) - 2023 - Long Battery Life - 8” HD - Front 2MP & Rear 5MP Camera',rating:'856',price:'84',delivery:'Sat, Aug 30',bought:'200+ bought in past month'},
+ {id:19,brand:'Lenovo',image:'263.png',title:'Lenovo ThinkStation P300-SFF i5 Desktop PC, Intel Core i5, 8GB Memory, 128GB Solid State Drive',rating:'1',price:'84',delivery:'Fri, Aug 29',bought:'100+ bought in past month'},
+ {id:20,brand:'Lenovo',image:'264.png',title:'Lenovo ThinkCentre M625q Tiny Business Desktop Computer PC, AMD A9-9420e, 256GB SSD, 8GB DDR4 RAM',rating:'72',price:'89',delivery:'Sun, Aug 31',bought:'100+ bought in past month'}
+];
+let sortMode='Featured',filterLenovo=false,cartProduct=null;
+function img(file,w=300,h=260,alt=''){return `<img src="${ASSET}${file}" width="${w}" height="${h}" alt="${alt}">`}
+function visibleProducts(){
+ let list=products.slice();
+ if(filterLenovo) list=list.filter(p=>p.brand==='Lenovo');
+ if(sortMode==='Price: Low to High')list.sort((a,b)=>Number(a.price)-Number(b.price));
+ if(sortMode==='Price: High to Low')list.sort((a,b)=>Number(b.price)-Number(a.price));
+ return list;
+}
+function renderGrid(){
+ const grid=document.getElementById('productGrid'); if(!grid)return;
+ const list=visibleProducts();
+ document.getElementById('resultCount').textContent=filterLenovo?'1-24 of 764 results':'1-24 of over 6,000 results';
+ grid.innerHTML=list.map(p=>`<article class="card">
+   <div class="card-img btn" data-open="${p.id}">${img(p.image,280,270,p.title)}</div>
+   <div class="card-title btn" data-open="${p.id}">${p.title}</div>
+   <div class="stars">★★★★★ <span class="rating">⌄ ${p.rating}</span></div>
+   <div class="bought">${p.bought}</div>
+   <div class="price">$${p.price}<sup>00</sup></div>
+   <div class="delivery"><b>Delivery ${p.delivery}</b><br>Ships to Singapore</div>
+   ${p.id===16?'<div class="stock">Only 3 left in stock - order soon.</div>':''}
+   <button class="yellow btn" data-add="${p.id}">Add to cart</button>
+   <div class="more">More Buying Choices<br>$${Math.max(55,Number(p.price)-18)}.00 <a href="#" class="btn">(11+ used &amp; new offers)</a></div>
+ </article>`).join('');
+}
+function showProduct(id){
+ const p=products.find(x=>x.id===id)||products[15];
+ document.getElementById('resultsView').classList.add('hidden');
+ document.getElementById('cartView').classList.add('hidden');
+ const v=document.getElementById('productView');v.classList.remove('hidden');
+ v.innerHTML=`<div style="max-width:1780px;margin:24px auto 12px;font-size:13px;color:#565959">Electronics › Computers &amp; Accessories › Computers &amp; Tablets › Desktops › Minis</div>
+ <main class="page-product">
+  <div class="thumbs">${[p.image,'089.jpg','093.jpg','097.jpg','101.jpg'].map(f=>`<div class="thumb btn">${img(f,50,50)}</div>`).join('')}</div>
+  <div class="hero">${img(p.image,540,560,p.title)}</div>
+  <section class="detail">
+   <h1>${p.title}</h1><a class="store btn" href="#">Visit the Amazon Renewed Store</a>
+   <div class="ratingline">4.3 <span class="stars">★★★★★</span>⌄ &nbsp; 96 ratings<br><b>100+ bought in past month</b></div>
+   <div class="big-price">$<small>${p.price}</small><sup>94</sup></div>
+   <div>No Import Fees Deposit &amp; $17.39 Shipping to Singapore <a href="#" class="btn">Details</a></div>
+   <div class="specs"><div><b>Brand</b> Lenovo</div><div><b>Operating System</b> Windows 10</div><div><b>CPU Model</b> Intel Core i3</div><div><b>CPU Speed</b> 3.2 GHz</div><div><b>Cache Size</b> 3 MB</div><div><b>Graphics Card Description</b> Integrated</div><a href="#" class="btn">⌄ See more</a></div>
+   <div class="about"><h3>About this item</h3><ul><li>This machine does not support Windows 11 upgrade.</li><li>This Certified Refurbished product is tested and certified to look and work like new. The refurbishing process includes functionality testing, basic cleaning, inspection, and rep

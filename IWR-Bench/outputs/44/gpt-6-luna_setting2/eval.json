@@ -1,0 +1,59 @@
+{
+  "total_step": 3,
+  "success_step": 0,
+  "screenshot_paths_to_eval": [
+    "outputs/44/gpt-6-luna_setting2/evalpoints/0.png"
+  ],
+  "all_mllm_scores": [
+    0.95
+  ],
+  "all_dino_scores": [
+    0.96875
+  ],
+  "all_ocr_scores": [
+    0.7107438016528926
+  ],
+  "all_avg_scores": [
+    0.8764979338842975
+  ],
+  "mllm_score": 0.95,
+  "dino_score": 0.96875,
+  "ocr_score": 0.7107438016528926,
+  "avg_score": 0.8764979338842975,
+  "all_mllm_res": [
+    "Comments:\n- **Layout (9/10):** Overall structure and positioning are highly consistent: top announcement bar, navigation toolbar, centered editor column, left promotional area, right readability panel, and bottom tutorial card all appear in the correct locations. Minor differences exist in vertical spacing and the left promotional graphic placement.\n- **Elements (14/15):** Nearly all interface elements are present, including the Hemingway logo, toolbar controls, mode tabs, readability statistics, colored issue cards, promotional button, and tutorial panel. The left-side Plus promotion/arrow graphic differs slightly between the two versions.\n- **Content and Text (39/40):** Text content is essentially identical throughout the editor and sidebar. Highlight colors, headings, paragraphs, statistics, and promotional copy match closely. There are only slight differences in line wrapping and text positioning.\n- **Style (14/15):** Colors, typography, borders, spacing, and overall minimalist Hemingway styling are very well matched. Small rendering differences appear in font metrics, toolbar positioning, and the promotional illustration.\n- **Overall (19/20):** The generated webpage is an extremely close reproduction of the reference, with only minor discrepancies in responsive spacing, text wrapping, and the left-side promotional graphic.\n\n**Score: 95/100**"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "Hemingway'$ classic desktop app: Savelload files and work offline: No Al: Lulmoe Hemingwey File Plus ~Fix Grammar PPlus Rewrite' Plus} Paragraph How t0 use Hemingway Menu Write Edit Feedback Al Tools Try Free Hemingway App makes your writing Readability concise and correct: Grade 8 Good: The app highlights lengthy, complex sentences and COImon errors; if you see a yellow Hemingway Editor Plus check sentence; shorten or split it Iyou see a red highliglt,your sentence is s0 dense and Fix Iighillghted issuCS, Words: 185 graminar and adjust tone complicated that your readers will get lost trying t0 follow its meandering; convoluted logic Ftec weck Irial ty editing this sentence t0 remove tle red highlight Show More st3l5 You can utilize simnpler word instead of a purple one: Click on highlights to fix them of 13 sentences Is very hard t0 read: Adverbs; passive voice; and other weakening phrases are marked in blue Ibelieve you should replace them with more forcelul language: 0/ 13 sentences IS hard t0 read Our Hemingway Editor Plus service uses Al to fix these highlights for you: It also features an advanced granar checker that marks issues in green: lt goes far beyond other grammar tools Find grammar and spelllng t0 catch even the trickiest errors. You Can also change the tone or style of your writing by (ssues with Edllor Plus selecting text and the \"Al tools\" button atthe top. Upgrade weakeners_ To get started, paste in sorething youre working On and edit away: Or; click the Write button to hide highlights and compose 'somerhing new; Veldelalls word wit simpler alternalive: 201n- ?025 38 Uc Want t0 Iearn how L0 use Hemingway Editor? Open Tutorial using (ano",
+      "screenshot_text": "Hemingways classic desktop app Savelload files and work offline No Al: Leam more Hemingway File Plus Fix Grammar Plus Rewrite  Plus Paragraph ~ How t0 use Hemingwav Menii Wnte Edit Feedback Al Tools Try Free Hemingway makes your writing concise and correct: Readability 887 Grade 8 Good. The app highlights lengthy; complex sentences and common errors: if you see yellow sentence; shorten or split it: If you see red highlight, your sentence is s0 dense and complicated that your readers will get lost follow its meandering, convoluted logic ~try editing this sentence t0 Words: 185 Hemingway Editor Plus remove the red highlight: Show more stats Fix highlighted issues check grammar; and adjust tone 2-weck trial: You can utilize simpler word instead of a purple one. Click on highlights to fix them: Free of 13 sentences is Adverbs, passive voice, and other weakening phrases are marked in blue believe you should hard to read_ replace them with more forceful language: of 13 sentences is Our Hemingway Editor Plus service uses Al to fix these highlights for you. It also features an hard t0 read: advanced grammar checker that marks issues in green. It goes far beyond other grammar tools to Find grammar and catch even the trickiest errors. You can also change the tone Or style of your writing by selecting text spelling and using the Al tools\" button at the top. issues with Editor Plus. Upgrade To get started; paste in something youre working on and edit away: Or; click the Write button to hide highlights and compose something new: weakeners_ Vew details word with a simpler alternative _ 2013-2025 .38 Long LLC Want to learn how t0 use Hemingway Editor? Open Tutorial App trying very",
+      "similarity": 0.7107438016528926
+    }
+  ],
+  "assertion_results": [
+    {
+      "result": "No",
+      "prev_img_path": "outputs/44/gpt-6-luna_setting2/evalpoints/0.png",
+      "curr_img_path": "outputs/44/gpt-6-luna_setting2/evalpoints/1.png",
+      "response": "{\n  \"think\": \"The two screenshots appear unchanged. The eye icon does not show a new selected/closed state, and the red highlight remains on the second half of the first paragraph.\",\n  \"result\": \"No\"\n}",
+      "assertion": "The eye icon is selected and becomes closed, and the red mark on the second half of the first paragraph of the middle article disappears.",
+      "thinking": "The two screenshots appear unchanged. The eye icon does not show a new selected/closed state, and the red highlight remains on the second half of the first paragraph."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/44/gpt-6-luna_setting2/evalpoints/1.png",
+      "curr_img_path": "outputs/44/gpt-6-luna_setting2/evalpoints/2.png",
+      "response": "{\n  \"think\": \"The red highlight is visible on the latter half of the first paragraph in the middle article in the current screenshot, just as in the previous screenshot.\",\n  \"result\": \"Yes\"\n}",
+      "assertion": "The red mark on the second half of the first paragraph of the middle article appears.",
+      "thinking": "The red highlight is visible on the latter half of the first paragraph in the middle article in the current screenshot, just as in the previous screenshot."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/44/gpt-6-luna_setting2/evalpoints/2.png",
+      "curr_img_path": "outputs/44/gpt-6-luna_setting2/evalpoints/3.png",
+      "response": "{\n  \"think\": \"The current screenshot shows additional statistics expanded on the right, including letters, characters, words, sentences, paragraphs, and reading time. The previous screenshot displayed only the word count and a \\\"Show more stats\\\" option.\",\n  \"result\": \"Yes\"\n}",
+      "assertion": "Expand the corresponding content",
+      "thinking": "The current screenshot shows additional statistics expanded on the right, including letters, characters, words, sentences, paragraphs, and reading time. The previous screenshot displayed only the word count and a \"Show more stats\" option."
+    }
+  ]
+}

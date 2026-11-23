@@ -1,0 +1,251 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Goodreads Choice Awards</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:#fff;color:#382f2b;font-family:Arial,Helvetica,sans-serif;font-size:14px}
+  body{min-width:1000px}
+  a{text-decoration:none;color:inherit}
+  .btn{cursor:pointer}
+  .top-strip{
+    height:34px;background:#61765a;color:#fff;display:flex;align-items:center;
+    justify-content:center;font-size:13px;letter-spacing:.1px
+  }
+  .top-strip .strip-inner{width:1200px;text-align:center}
+  .top-strip .book-icon{font-size:17px;margin-right:8px;vertical-align:-1px}
+  .top-strip .small{font-size:12px;margin-left:13px;opacity:.9}
+  .nav{
+    height:52px;border-bottom:1px solid #d5d0c9;background:#fff;
+    display:flex;align-items:center;justify-content:center
+  }
+  .nav-inner{width:1200px;display:flex;align-items:center;height:100%;gap:27px}
+  .logo{font-family:Georgia,serif;font-size:27px;color:#382f2b;margin-right:6px;letter-spacing:-1.5px}
+  .nav-item{font-size:14px;color:#4a4540;white-space:nowrap}
+  .search{height:31px;border:1px solid #c9c7c4;border-radius:2px;display:flex;align-items:center;width:365px;margin-left:auto}
+  .search input{border:0;outline:0;padding:0 10px;width:330px;font-size:13px;color:#777}
+  .search span{font-size:21px;color:#302d2a;line-height:1}
+  .account{font-size:14px;white-space:nowrap}
+  .hero{height:294px;position:relative;overflow:hidden}
+  .hero.awards2024{background:#2d402a;color:white}
+  .hero.awards2022{background:#f5e9bd;color:#bd9221}
+  .hero-inner{width:1200px;height:100%;margin:auto;position:relative;display:flex;align-items:center}
+  .hero-copy{margin-left:355px;position:relative;z-index:2}
+  .hero h1{font-family:Georgia,serif;font-weight:normal;font-style:italic;font-size:39px;margin:0 0 12px;white-space:nowrap}
+  .awards2022 .hero h1{
+    font-family:Arial,Helvetica,sans-serif;font-style:normal;text-transform:uppercase;
+    font-weight:bold;font-size:39px;line-height:1.02;text-align:center;color:#c59b28
+  }
+  .hero p{font-size:16px;line-height:1.35;margin:0 0 20px;color:inherit}
+  .hero .votes{font-size:13px;margin-top:11px}
+  .yellow-btn{display:inline-block;background:#fbd64b;color:#241e16;border:1px solid #e2b52a;padding:8px 21px;font-size:14px;font-weight:bold;border-radius:2px}
+  .awards2024 .yellow-btn{background:#f8d34b}
+  .badge{
+    position:absolute;left:130px;top:37px;width:155px;height:192px;
+    background:#e7b851;color:#6a542d;border-radius:8px 8px 8px 0;
+    padding:31px 14px 10px;text-align:center;font-size:22px;
+    box-shadow:0 0 0 5px rgba(255,224,133,.7)
+  }
+  .badge:after{content:"";position:absolute;bottom:-23px;left:0;border-style:solid;border-width:23px 25px 0 0;border-color:#e7b851 transparent transparent transparent}
+  .badge .gr{font-family:Georgia,serif;font-size:18px;display:block;margin-bottom:4px}
+  .badge strong{display:block;font-size:21px;line-height:1.08;letter-spacing:2px;font-weight:normal}
+  .badge .year{display:block;font-size:38px;line-height:1.1;margin-top:7px}
+  .decor{position:absolute;opacity:.9}
+  .decor.star{font-size:75px;color:#eeb546}
+  .decor.star.one{left:35px;bottom:37px;transform:rotate(15deg)}
+  .decor.star.two{right:325px;bottom:22px;font-size:92px;color:#f0ae58}
+  .decor.star.three{right:370px;top:-18px;font-size:94px;color:#b45b16}
+  .decor.hand{left:0;top:-35px;width:130px;height:150px;background:#ba875d;border-radius:55% 40% 20% 45%;transform:rotate(17deg)}
+  .decor.book{right:42px;top:74px;width:170px;height:130px;background:#b9d6ab;transform:rotate(-27deg);border:14px solid #dfebd0;border-left-width:25px}
+  .decor.cup{left:175px;top:62px;width:105px;height:78px;border:17px solid #ebce7f;border-top:0;border-radius:0 0 55px 55px;transform:rotate(23deg)}
+  .awards2022 .badge{left:170px;top:42px}
+  .awards2022 .hero-inner{justify-content:center}
+  .awards2022 .hero-copy{margin:0 0 0 100px;text-align:center}
+  .awards2022 .hero p{color:#817b6e}
+  .awards2022 .decor{opacity:.16}
+  .content{width:1200px;margin:28px auto 80px;display:flex;align-items:flex-start;gap:20px}
+  .sidebar{width:230px;flex:none}
+  .schedule{border:4px solid #f0d35c;padding:14px 15px 12px;margin-bottom:18px}
+  .schedule h3{font-size:14px;margin:0 0 17px;text-transform:uppercase}
+  .schedule-row{display:grid;grid-template-columns:1fr 58px;gap:5px;font-size:12px;margin:0 0 13px;line-height:1.15}
+  .schedule a{display:block;color:#428477;font-size:12px;margin-top:17px}
+  .years h3{font-size:13px;margin:0 0 12px;text-transform:uppercase}
+  .years a{display:block;font-size:13px;line-height:24px;color:#4e4a47}
+  .years a.active{text-decoration:underline;font-weight:bold}
+  .main{width:730px}
+  .category-title{font-size:14px;font-weight:bold;text-transform:uppercase;margin:8px 0 10px}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+  .card{background:#f1f1f1;min-height:340px;padding:8px 10px 11px;text-align:center}
+  .card h3{font-size:12px;margin:0 0 9px;font-weight:bold;height:14px}
+  .cover{width:150px;height:235px;object-fit:cover;display:block;margin:0 auto 7px}
+  .want{width:100%;height:28px;background:#42a96b;color:#fff;border:0;border-radius:2px;font-size:12px;font-weight:bold;position:relative;text-align:left;padding-left:10px}
+  .want:after{content:"▾";position:absolute;right:8px;top:5px}
+  .rate{font-size:11px;color:#aaa;margin-top:5px}
+  .stars{font-size:15px;color:#d7d7d7;letter-spacing:-2px;margin-top:-2px}
+  .right{width:240px;flex:none}
+  .right h3{font-size:14px;font-weight:normal;margin:8px 0 14px}
+  .right .social{position:absolute}
+  .feature-title{font-family:Georgia,serif;font-size:13px;color:#287d6d;font-weight:bold;line-height:1.2;margin-bottom:8px}
+  .feature-img{width:230px;height:130px;object-fit:cover;display:block;margin-bottom:8px}
+  .likes{font-size:11px;color:#888;margin-bottom:25px}
+  .lists-title{font-size:14px;margin-bottom:9px}
+  .list-row{display:flex;align-items:center;border-bottom:1px solid #eee;padding:5px 0;color:#388476;font-size:12px;line-height:1.1}
+  .list-row span{width:145px}
+  .mini-covers{display:flex;gap:3px}
+  .mini-covers img{width:25px;height:34px;object-fit:cover}
+  .more{font-size:12px;color:#388476;margin:14px 0 27px}
+  .author-title{font-size:15px;margin-bottom:12px}
+  .author-copy{font-size:12px;line-height:1.35;margin-bottom:13px}
+  .small-button{font-size:11px;padding:5px 10px;border:1px solid #ccc;background:#f7f7f5;border-radius:2px;margin-right:6px}
+  @media(max-width:1100px){
+    .nav-inner,.hero-inner,.content{width:950px}
+    .main{width:650px}.right{display:none}.hero-copy{margin-left:300px}
+    .badge{left:70px}
+  }
+</style>
+</head>
+<body>
+  <div class="top-strip">
+    <div class="strip-inner"><span class="book-icon">▣</span> The Most Anticipated Fall Books <span class="small">The season's biggest titles according to readers&nbsp; ›</span></div>
+  </div>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="logo">goodreads</div>
+      <a class="nav-item btn" href="#">Home</a>
+      <a class="nav-item btn" href="#">My Books</a>
+      <a class="nav-item btn" href="#">Browse⌄</a>
+      <a class="nav-item btn" href="#">Community⌄</a>
+      <div class="search"><input aria-label="Search books" placeholder="Search books"><span class="btn">⌕</span></div>
+      <a class="account btn" href="#">Sign In</a>
+      <a class="account btn" href="#">Join</a>
+    </div>
+  </nav>
+
+  <section id="hero" class="hero awards2024">
+    <div class="hero-inner">
+      <div class="decor hand"></div>
+      <div class="decor cup"></div>
+      <div class="decor star one">✦</div>
+      <div class="decor star two">✦</div>
+      <div class="decor star three">✦</div>
+      <div class="decor book"></div>
+      <div class="badge">
+        <span class="gr">goodreads</span>
+        <strong>CHOICE<br>AWARDS</strong>
+        <span class="year" id="badgeYear">2024</span>
+      </div>
+      <div class="hero-copy">
+        <h1 id="heroTitle">Readers’ Favorite Books of 2024</h1>
+        <p id="heroSubtitle">Announcing readers' favorite books of 2024! Congratulations to the winners<br>of the 16th annual Goodreads Choice Awards.</p>
+        <a class="yellow-btn btn" href="#">View results</a>
+        <div class="votes" id="votes">6,261,936 Votes Cast</div>
+        <div style="font-size:12px">New to Goodreads? Get great book recommendations! <span style="color:#d3ac38">Start Now</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="content">
+    <aside class="sidebar">
+      <div class="schedule">
+        <h3>Voting Schedule</h3>
+        <div class="schedule-row"><span>Opening Round</span><span id="opening">Nov. 12 -<br>24</span></div>
+        <div class="schedule-row"><span>Final Round</span><span id="final">Nov. 26 -<br>Dec. 1</span></div>
+        <div class="schedule-row"><span>Winners<br>Announced</span><span id="winner">Dec. 5</span></div>
+        <a class="btn" href="#">Rules &amp; Eligibility</a>
+      </div>
+      <div class="years">
+        <h3 id="yearsHeading">Previous Years</h3>
+        <a class="btn" href="#" data-year="2024">2024 AWARDS</a>
+        <a class="btn" href="#" data-year="2023">2023 AWARDS</a>
+        <a class="btn" href="#" data-year="2022">2022 AWARDS</a>
+        <a class="btn" href="#" data-year="2021">2021 AWARDS</a>
+        <a class="btn" href="#" data-year="2020">2020 AWARDS</a>
+        <a class="btn" href="#" data-year="2019">2019 AWARDS</a>
+        <a class="btn" href="#" data-year="2018">2018 AWARDS</a>
+        <a class="btn" href="#" data-year="2017">2017 AWARDS</a>
+        <a class="btn" href="#" data-year="2016">2016 AWARDS</a>
+        <a class="btn" href="#" data-year="2015">2015 AWARDS</a>
+        <a class="btn" href="#" data-year="2014">2014 AWARDS</a>
+        <a class="btn" href="#" data-year="2013">2013 AWARDS</a>
+        <a class="btn" href="#" data-year="2012">2012 AWARDS</a>
+        <a class="btn" href="#" data-year="2011">2011 AWARDS</a>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="category-title">Categories</div>
+      <div id="bookGrid" class="grid"></div>
+    </main>
+
+    <aside class="right">
+      <h3>News &amp; Interviews</h3>
+      <div class="feature-title">Your Guide to New Fall Romance and Romantasy</div>
+      <img class="feature-img" src="__PLACEHOLDER_ASSETS_BASE_DIR__/065.jpg" width="230" height="130" alt="Book news">
+      <div class="likes">323 likes</div>
+      <div class="lists-title">Love lists?</div>
+      <div class="list-row"><span>Best Books of the 20th Century<br><small>7,789 books | 49,728 voters</small></span><div class="mini-covers"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/018.jpg" width="25" height="34"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/007.jpg" width="25" height="34"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/004.jpg" width="25" height="34"></div></div>
+      <div class="list-row"><span>Best Crime &amp; Mystery Books<br><small>7,258 books | 15,344 voters</small></span><div class="mini-covers"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/013.jpg" width="25" height="34"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/078.jpg" width="25" height="34"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/104.jpg" width="25" height="34"></div></div>
+      <div class="list-row"><span>Best for Book Clubs<br><small>14,404 books | 18,193 voters</small></span><div class="mini-covers"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/014.jpg" width="25" height="34"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/011.jpg" width="25" height="34"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/019.jpg" width="25" height="34"></div></div>
+      <div class="more btn">More book lists</div>
+      <div class="author-title">Are you an author or a publisher?</div>
+      <div class="author-copy">Gain access to a massive audience of book lovers. Goodreads is a great place to promote your books.</div>
+      <button class="small-button btn">Author program</button><button class="small-button btn">Advertise</button>
+    </aside>
+  </div>
+
+<script>
+const base="__PLACEHOLDER_ASSETS_BASE_DIR__/";
+const datasets={
+  2024:[
+    ["Fiction","102.jpg"],["Historical Fiction","106.jpg"],["Mystery & Thriller","001.jpg"],["Romance","004.jpg"],
+    ["Romantasy","007.jpg"],["Fantasy","010.jpg"],["Science Fiction","013.jpg"],["Horror","016.jpg"]
+  ],
+  2022:[
+    ["Fiction","099.jpg"],["Mystery & Thriller","104.jpg"],["Historical Fiction","107.jpg"],["Fantasy","002.jpg"],
+    ["Romance","005.jpg"],["Science Fiction","008.jpg"],["Horror","011.jpg"],["Humor","014.jpg"]
+  ]
+};
+const settings={
+  2024:{title:"Readers’ Favorite Books of 2024",sub:"Announcing readers' favorite books of 2024! Congratulations to the winners<br>of the 16th annual Goodreads Choice Awards.",votes:"6,261,936 Votes Cast",opening:"Nov. 12 -<br>24",final:"Nov. 26 -<br>Dec. 1",winner:"Dec. 5"},
+  2022:{title:"READERS' FAVORITE BOOKS OF<br>2022",sub:"Announcing the winners of the Annual Goodreads Choice Awards.",votes:"Votes Cast:<br>5,779,854",opening:"Nov. 15 -<br>27",final:"Nov. 29 -<br>Dec. 4",winner:"Dec. 8"}
+};
+function render(year){
+  const data=datasets[year]||datasets[2024], s=settings[year]||settings[2024];
+  const hero=document.getElementById("hero");
+  hero.className="hero "+(year===2022?"awards2022":"awards2024");
+  document.getElementById("badgeYear").textContent=year;
+  document.getElementById("heroTitle").innerHTML=s.title;
+  document.getElementById("heroSubtitle").innerHTML=s.sub;
+  document.getElementById("votes").innerHTML=s.votes;
+  document.getElementById("opening").innerHTML=s.opening;
+  document.getElementById("final").innerHTML=s.final;
+  document.getElementById("winner").innerHTML=s.winner;
+  document.getElementById("yearsHeading").textContent=year===2022?"Other Years":"Previous Years";
+  document.querySelectorAll(".years a").forEach(a=>{
+    a.classList.toggle("active",a.dataset.year==year);
+  });
+  document.getElementById("bookGrid").innerHTML=data.map(item=>`
+    <article class="card">
+      <h3>${item[0]}</h3>
+      <img class="cover" src="${base}${item[1]}" width="150" height="235" alt="${item[0]} book">
+      <button class="want btn">Want to Read</button>
+      <div class="rate">Rate this book</div>
+      <div class="stars">★★★★★</div>
+    </article>`).join("");
+}
+document.querySelectorAll(".years a").forEach(a=>{
+  a.addEventListener("click",e=>{
+    e.preventDefault();
+    const y=Number(a.dataset.year);
+    if(y===2024||y===2022) render(y);
+  });
+});
+render(2024);
+</script>
+</body>
+</html>
+```

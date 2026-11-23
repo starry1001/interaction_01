@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Two Sum - LeetCode</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:Arial,Helvetica,sans-serif;color:#262626;background:#f3f3f3}
+  button{font:inherit;color:inherit}
+  .btn{cursor:pointer}
+  .topbar{height:50px;background:#f2f2f2;border-bottom:1px solid #ddd;display:flex;align-items:center;position:absolute;top:0;left:0;right:0;padding:0 18px;gap:12px;font-size:16px;z-index:5}
+  .brand{width:24px;height:24px;display:flex;align-items:center;justify-content:center;margin-right:4px}
+  .brand img{width:21px;height:21px;object-fit:contain}
+  .top-item{height:50px;display:flex;align-items:center;padding:0 4px;white-space:nowrap}
+  .top-item.muted{color:#777}
+  .top-item.premium{color:#e99c34;background:#fff4e2;border-radius:16px;height:32px;padding:0 15px;margin-left:4px}
+  .top-spacer{flex:1}
+  .top-icon{color:#888;font-size:19px;padding:0 3px}
+  .user-circle{width:25px;height:25px;border-radius:50%;background:#d5d5d5;color:#fff;text-align:center;line-height:25px}
+  .center-tools{position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:6px}
+  .tool{height:34px;min-width:34px;border:0;border-radius:5px;background:#e8e8e8;color:#777;padding:0 10px}
+  .tool.run{background:#e8e8e8;font-size:19px}
+  .tool.submit{color:#28b35c;background:transparent;font-weight:bold}
+  .workarea{position:absolute;top:50px;bottom:10px;left:8px;right:8px;display:grid;grid-template-columns:1fr 1fr;gap:7px}
+  .pane{background:white;border:1px solid #e5e5e5;border-radius:8px;overflow:hidden;position:relative}
+  .left-pane{display:flex;flex-direction:column}
+  .tabs{height:37px;flex:0 0 37px;border-bottom:1px solid #ededed;display:flex;align-items:center;padding:0 10px;gap:15px;color:#999;font-size:14px}
+  .tab{height:37px;display:flex;align-items:center;gap:5px;white-space:nowrap}
+  .tab.active{color:#242424;font-weight:600}
+  .tab.active.blue{color:#208bd7}
+  .tab .ico{font-size:15px;color:#8ca5b8}
+  .tab.active.blue .ico{color:#168ce2}
+  .tab-spacer{flex:1}
+  .small-icon{color:#777;padding:3px 4px}
+  .article-scroll{flex:1;overflow:auto;scrollbar-width:thin;scrollbar-color:#929292 transparent}
+  .article-scroll::-webkit-scrollbar{width:9px}
+  .article-scroll::-webkit-scrollbar-thumb{background:#999;border-radius:8px}
+  .article{width:min(930px,calc(100% - 170px));margin:0 auto;padding:0 0 70px;font-size:16px;line-height:1.48;color:#303030}
+  .article .backline{height:36px;display:flex;align-items:center;color:#888;font-size:15px}
+  .article h1{font-size:24px;line-height:1.25;margin:5px 0 13px;font-weight:600;color:#222}
+  .author{display:flex;align-items:center;gap:12px;font-size:14px;color:#555;margin:6px 0 14px}
+  .avatar{width:31px;height:31px;border-radius:50%;background:#132a3c;color:#fff;display:flex;align-items:center;justify-content:center;font-size:17px}
+  .meta{color:#999;font-size:13px;margin-top:3px}
+  .tags{display:flex;gap:7px;margin:10px 0 22px}
+  .tag{background:#f3f3f3;border-radius:14px;padding:4px 12px;font-size:13px;color:#777}
+  .article h2{font-size:23px;margin:20px 0 12px;color:#222}
+  .article h3{font-size:19px;margin:22px 0 10px;color:#222}
+  .article p{margin:8px 0}
+  .article ol{padding-left:32px;margin:8px 0 13px}
+  .article li{padding-left:1px;margin:4px 0}
+  .code-card{border:1px solid #ddd;border-radius:7px;overflow:hidden;margin:10px 0 25px;width:100%}
+  .code-tabs{height:42px;border-bottom:1px solid #e5e5e5;display:flex;align-items:center;gap:18px;padding:0 12px;color:#aaa;font-size:14px}
+  .code-tabs span:first-child{color:#555}
+  .codeblock{margin:0;padding:14px 12px;background:#f5f4f6;color:#587e8c;font:14px/1.75 Consolas,"Courier New",monospace;white-space:pre;overflow:hidden}
+  .copy{float:right;border:0;background:transparent;color:#777;font-size:16px}
+  .bottom-left{position:absolute;bottom:0;left:0;right:0;height:31px;background:rgba(255,255,255,.96);border-top:1px solid #eee;display:flex;align-items:center;padding:0 10px;gap:13px;color:#777;font-size:13px;z-index:2}
+  .bottom-left .online{margin-left:auto;color:#777}
+  .right-pane{display:flex;flex-direction:column;gap:5px;background:#f2f2f2;border:0}
+  .editor{height:calc(50% - 1px);min-height:220px;border:1px solid #e5e5e5;border-radius:8px;background:#fff;display:flex;flex-direction:column;overflow:hidden}
+  .editor-heading{height:38px;flex:0 0 38px;display:flex;align-items:center;border-bottom:1px solid #eee;padding:0 12px;font-size:15px;color:#24a75b;font-weight:600}
+  .editor-options{height:34px;flex:0 0 34px;border-bottom:1px solid #e8e8e8;display:flex;align-items:center;padding:0 12px;gap:14px;font-size:14px;color:#777}
+  .editor-options .spacer{flex:1}
+  .editor-content{flex:1;overflow:auto;font:13px/19px Consolas,"Courier New",monospace;color:#222;padding-top:5px;position:relative}
+  .code-lines{display:grid;grid-template-columns:42px 1fr;white-space:pre}
+  .nums{text-align:right;padding-right:12px;color:#277293;user-select:none}
+  .source{padding-left:11px;border-left:1px solid #eee;color:#222}
+  .kw{color:#2239ad}.type{color:#176eaa}.fn{color:#b00055}.comment{color:#288238}
+  .editor-status{height:22px;flex:0 0 22px;color:#aaa;font-size:12px;padding:3px 12px;display:flex;justify-content:space-between}
+  .resizebar{height:6px;flex:0 0 6px;background:#e9e9e9;border-radius:3px;margin:0 45%}
+  .result{flex:1;min-height:220px;border:1px solid #e5e5e5;border-radius:8px;background:#fff;overflow:hidden}
+  .result-heading{height:39px;display:flex;align-items:center;padding:0 12px;border-bottom:1px solid #eee;color:#666;font-size:14px;gap:10px}
+  .result-heading .selected{color:#252525;font-weight:600}
+  .green{color:#29b962}
+  .result-body{padding:15px 20px;font-size:14px}
+  .accepted{font-size:20px;color:#33bd69;font-weight:600;margin-bottom:16px}
+  .accepted small{font-size:13px;color:#999;font-weight:400;margin-left:10px}
+  .cases{display:flex;gap:15px;margin:0 0 17px}
+  .case{border:0;background:transparent;color:#777;padding:5px 13px;border-radius:15px;font-size:14px}
+  .case.active{background:#f0f0f0;color:#333;font-weight:600}
+  .case .dot{color:#32bd70;margin-right:5px}
+  .field-label{font-size:13px;color:#888;margin:12px 0 6px}
+  .field{background:#f5f5f5;border-radius:6px;padding:12px 14px;font:14px/1.3 Consolas,"Courier New",monospace;min-height:48px}
+  .contribute{text-align:center;color:#aaa;margin-top:24px;font-size:14px}
+  .result.focused{outline:2px solid #2b92ed;outline-offset:-2px}
+  .click-notice{position:absolute;right:20px;top:12px;background:#fff;padding:5px 10px;border-radius:5px;box-shadow:0 2px 8px #ccc;color:#777;opacity:0;pointer-events:none}
+  @media(max-width:1100px){
+    .workarea{grid-template-columns:1fr 1fr}
+    .article{width:calc(100% - 36px)}
+    .tabs{gap:8px;font-size:12px}
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand btn" title="LeetCode"><img src="../../../data/data/25/assets/001.png" width="21" height="21" alt="LeetCode"></div>
+  <div class="top-item muted btn">☷ &nbsp;Problem List</div>
+  <div class="top-item muted btn">‹</div><div class="top-item muted btn">›</div><div class="top-item muted btn">⤨</div>
+  <div class="center-tools">
+    <button class="tool btn" title="Hints">🎓</button><button class="tool run btn" title="Run">▶</button><button class="tool submit btn">☁ &nbsp;Submit</button><button class="tool btn">▣</button>
+  </div>
+  <div class="top-spacer"></div>
+  <span class="top-icon btn">▦</span><span class="top-icon btn">⚙</span><span class="top-icon btn">♨</span><span class="top-icon btn">♧</span><span class="user-circle btn">●</span><span class="top-item premium btn">Premium</span>
+</header>
+
+<main class="workarea">
+  <section class="pane left-pane">
+    <nav class="tabs">
+      <div class="tab btn"><span class="ico">▤</span>Description</div>
+      <div class="tab btn"><span class="ico" style="color:#e3b54a">▣</span>Editorial</div>
+      <div class="tab active blue btn" data-tab="solutions"><span class="ico">♟</span>Solutions</div>
+      <div class="tab btn"><span class="ico">◴</span>Submissions</div>
+      <div class="tab-spacer"></div><span class="small-icon btn">⛶</span><span class="small-icon btn">‹</span>
+    </nav>
+    <div class="article-scroll" id="articleScroll">
+      <article class="article">
+        <div class="backline"><span class="btn">‹ &nbsp; All Solutions</span><span style="margin-left:auto" class="btn">↗ &nbsp;▣</span></div>
+        <h1>✅ 3 Method's || C++ || JAVA || PYTHON || Beginner Friendly🔥🔥🔥</h1>
+        <div class="author"><div class="avatar">◉</div><div>Rahul Varma 🟡<div class="meta">◉ 2056674 &nbsp; ▦ Jun 10, 2023</div></div></div>
+        <div class="tags"><span class="tag">Array</span><span class="tag">Hash Table</span><span class="tag">C++</span><span class="tag">Java</span><span class="tag">1+</span></div>
+        <h2>Intuition</h2>
+        <p>The Two Sum problem asks us to find two numbers in an array that sum up to a given target value. We need to return the indices of these two numbers.</p>
+        <h2>Approach</h2>
+        <ol>
+          <li>One brute force approach is to consider every pair of elements and check if their sum equals the target. This can be done using nested loops, where the outer loop iterates from the first element to the second-to-last element, and the inner loop iterates from the next element to the last element. However, this approach has a time complexity of O(n^2).</li>
+          <li>A more efficient approach is to use a hash table (unordered_map in C++). We can iterate through the array once, and for each element, check if the target minus the current element exists in the hash table. If it does, we have found a valid pair of numbers. If not, we add the current element to the hash table.</li>
+        </ol>
+        <p><strong>Approach using a hash table:</strong></p>
+        <ol>
+          <li>Create an empty hash table to store elements and their indices.</li>
+          <li>Iterate through the array from left to right.</li>
+          <li>For each element nums[i], calculate the complement by subtracting it from the target: complement = target - nums[i].</li>
+          <li>Check if the complement exists in the hash table. If it does, we have found a solution.</li>
+          <li>If the complement does not exist in the hash table, add the current element nums[i] to the hash table with its index as the value.</li>
+          <li>Repeat steps 3-5 until we find a solution or reach the end of the array.</li>
+          <li>If no solution is found, return an empty array or an appropriate indicator.</li>
+        </ol>
+        <p>This approach has a time complexity of O(n) since hash table lookups take constant time on average. It allows us to solve the Two Sum problem efficiently by making just one pass through the array.</p>
+        <h2>Code</h2>
+        <h2>Solution 1: (Brute Force)</h2>
+        <div class="code-card">
+          <div class="code-tabs"><span>C++</span><span>Java</span><span>Python3</span><button class="copy btn" title="Copy code">▢</button></div>
+          <pre class="codeblock">class Solution {
+public:
+    vector&lt;int&gt; twoSum(vector&lt;int&gt;&amp; nums, int target) {
+        int n = nums.size();
+        for (int i = 0; i &lt; n - 1; i++) {
+            for (int j = i + 1; j &lt; n; j++) {
+                if (nums[i] + nums[j] == target) {
+                    return {i, j};
+                }
+            }
+        }
+        return {}; // No solution found
+    }
+};</pre>
+        </div>
+        <h2>Solution 2: (Two-pass Hash Table)</h2>
+        <div class="code-card"><div class="code-tabs"><span>C++</span><span>Java</span><span>Python3</span></div><pre class="codeblock">class Solution {
+public:
+    vector&lt;int&gt; twoSum(vector&lt;int&gt;&amp; nums, int target) {
+        unordered_map&lt;int, int&gt; seen;
+        for (int i = 0; i &lt; nums.size(); i++) {
+            int complement = target - nums[i];
+            if (seen.count(complement)) return {seen[complement], i};
+            seen[nums[i]] = i;
+        }
+        return {};
+    }
+};</pre></div>
+      </article>
+    </div>
+    <div class="bottom-left"><span class="btn">♧ 10.7K</span><span class="btn">▣</span><span class="btn">◌ 263</span><span class="btn">☆</span><span class="btn">⋯</span><span class="online">● 2025 Online</span></div>
+  </section>
+
+  <section class="right-pane">
+    <div class="editor">
+      <div class="editor-heading"><span>‹/› &nbsp;Code</span><span class="spacer"></span><span class="btn" style="color:#888">⛶ &nbsp;⌃</span></div>
+      <div class="editor-options"><span class="btn">C++⌄</span><span>♙</span><span class="btn">Auto</span><span class="spacer"></span><span class="btn">☷</span><span class="btn">♧</span><span class="btn">{}</span><span class="btn">↶</span><span class="btn">⛶</span></div>
+      <div class="editor-content">
+        <div class="code-lines">
+          <div class="nums">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14</div>
+          <div class="source"><span class="kw">class</span> <span class="type">Solution</span> {<br>
+public:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;vector&lt;int&gt; <span class="fn">twoSum</span>(vector&lt;int&gt;&amp; nums, int target) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int n = nums.size();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">for</span> (int i = 0; i &lt; n - 1; i++) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">for</span> (int j = i + 1; j &lt; n; j++) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">if</span> (nums[i] + nums[j] == target) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return</span> {i, j};<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return</span> {}; <span class="comment">// No solution found</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+};</div>
+        </div>
+      </div>
+      <div class="editor-status"><span>Saved</span><span>Ln 14, Col 3</span></div>
+    </div>
+    <div class="resizebar"></div>
+    <div class="result" id="resultPanel">
+      <div class="result-heading"><span class="green">☑</span><span>Testcase</span><span class="green">›_</span><span class="selected">Test Result</span><span style="margin-left:auto;color:#888" class="btn">⛶ &nbsp;⌃</span></div>
+      <div class="result-body">
+        <div class="accepted">Accepted <small>Runtime: 0 ms</small></div>
+        <div class="cases">
+          <button class="case btn" data-case="1"><span class="dot">•</span>Case 1</button>
+          <button class="case active btn" data-case="2"><span class="dot">•</span>Case 2</button>
+          <button class="case btn" data-case="3"><span class="dot">•</span>Case 3</button>
+        </div>
+        <div class="field-label">Input</div>
+        <div class="field" id="numsField"><span style="color:#999;font:12px Arial">nums =</span><br>[3,2,4]</div>
+        <div class="field" id="targetField" style="margin-top:8px"><span style="color:#999;font:12px Arial">target =</span><br>6</div>
+        <div class="field-label">Output</div><div class="field" id="outputField">[1,2]</div>
+        <div class="field-label">Expected</div><div class="field" id="expectedField">[1,2]</div>
+        <div class="contribute">♡ &nbsp;Contribute a testcase</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="click-notice" id="notice">Copied!</div>
+<script>
+  const caseData = {
+    1: {nums:"[2,7,11,15]", target:"9", result:"[0,1]"},
+    2: {nums:"[3,2,4]", target:"6", result:"[1,2]"},
+    3: {nums:"[3,3]", target:"6", result:"[0,1]"}
+  };
+  document.querySelectorAll(".case").forEach(button => {
+    button.addEventListener("click", () => {
+      document.querySelectorAll(".case").forEach(item => item.classList.remove("active"));
+      button.classList.add("active");
+      const data = caseData[button.dataset.case];
+      document.getElementById("numsField").innerHTML = '<span style="color:#999;font:12px Arial">nums =</span><br>' + data.nums;
+      document.getElementById("targetField").innerHTML = '<span style="color:#999;font:12px Arial">target =</span><br>' + data.target;
+      document.getElementById("outputField").textContent = data.result;
+      document.getElementById("expectedField").textContent = data.result;
+    });
+  });
+  document.querySelectorAll(".tab").forEach(tab => {
+    tab.addEventListener("click", () => {
+      document.querySelectorAll(".tab").forEach(item => item.classList.remove("active","blue"));
+      tab.classList.add("active","blue");
+    });
+  });
+  document.querySelectorAll(".copy").forEach(button => {
+    button.addEventListener("click", () => {
+      const notice = document.getElementById("notice");
+      notice.style.opacity = "1";
+      setTimeout(() => notice.style.opacity = "0", 1100);
+    });
+  });
+  document.querySelectorAll(".tool.run,.tool.submit").forEach(button => {
+    button.addEventListener("click", () => {
+      document.getElementById("resultPanel").classList.add("focused");
+      setTimeout(() => document.getElementById("resultPanel").classList.remove("focused"), 700);
+    });
+  });
+  document.getElementById("articleScroll").scrollTop = 0;
+</script>
+</body>
+</html>

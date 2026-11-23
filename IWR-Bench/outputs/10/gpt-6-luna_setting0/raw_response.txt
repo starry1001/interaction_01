@@ -1,0 +1,199 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minesweeper.Online</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;color:#666;background:#fafafa;font-size:16px}
+body{overflow-y:auto}
+.topbar{height:62px;background:#f1f2f3;border-bottom:1px solid #ddd;box-shadow:0 1px 3px #ddd}
+.topinner{width:1100px;height:62px;margin:auto;display:flex;align-items:center}
+.brand{display:flex;align-items:center;color:#596067;font-family:Georgia,serif;font-size:31px;font-weight:bold;letter-spacing:-1px}
+.brand .gear{font-family:Arial;font-size:45px;line-height:1;margin-right:10px;color:#60666b}
+.account{margin-left:auto;display:flex;align-items:center;gap:10px}
+.btn{cursor:pointer}
+.account button,.lang,.smallgear{height:40px;border:1px solid #d1d1d1;background:#fff;color:#666;font-size:16px;padding:0 14px}
+.account .signup{background:#58bd66;color:#fff;border-color:#51b660}
+.account .login{background:#55bdd1;color:#fff;border-color:#49b4ca}
+.smallgear{font-size:21px;padding:0;width:40px}
+.lang{padding:0 12px}
+.flag{font-size:14px;margin-right:5px}
+
+.shell{width:1100px;margin:17px auto 0;border:1px solid #ddd;background:#fff;min-height:697px;padding:20px 24px 38px;position:relative}
+.workspace{display:flex;align-items:flex-start}
+.sidebar{width:205px;flex:none;border-right:1px solid #e6e6e6;min-height:630px;padding:0 18px 0 0}
+.menu{margin:0;padding:0;list-style:none;font-size:18px;line-height:26px}
+.menu li{white-space:nowrap}
+.menu li:before{content:"»";font-weight:bold;color:#78a2b3;margin-right:10px}
+.menu li:nth-child(n+8):before{color:#b67c85}
+.menu .section{margin-top:20px}
+.menu .active{font-weight:bold;color:#4c5358}
+
+.main{padding-left:24px;flex:1;min-width:0}
+.tabs{height:32px;display:flex;align-items:center;gap:28px;font-size:18px;color:#53809b}
+.tabs button{border:0;background:none;padding:0;color:#53809b;font-size:18px;font-family:inherit}
+.tabs button.active{font-weight:bold;color:#30353a}
+.controls{height:53px;display:flex;align-items:center;gap:18px;font-size:17px}
+.controls label{font-weight:bold;color:#30353a}
+.controls input{width:52px;height:31px;border:1px solid #ccc;padding:4px;font-size:16px;color:#666}
+.controls .wide{width:55px}
+.update{height:34px;padding:0 14px;border:1px solid #c7c7c7;background:linear-gradient(#fff,#eee);font-size:16px;color:#555}
+.info{font-weight:bold;color:#999;font-size:18px}
+
+.gamearea{display:flex;justify-content:flex-start;position:relative}
+.game-wrap{display:inline-block}
+.game{background:#c4c4c4;border:8px solid #bcbcbc;border-top-color:#f5f5f5;border-left-color:#f5f5f5;box-shadow:2px 2px 0 #777,-2px -2px 0 #999;padding:10px;display:inline-block}
+.panel{height:58px;border:4px solid #eee;border-right-color:#888;border-bottom-color:#888;background:#bbb;display:flex;align-items:center;justify-content:space-between;padding:5px 7px;margin-bottom:10px}
+.counter{height:37px;width:60px;background:#160000;border:2px solid #888;color:#f00000;font-family:"Courier New",monospace;font-size:27px;font-weight:bold;line-height:31px;text-align:center;letter-spacing:-3px;text-shadow:1px 0 #f00}
+.face{width:38px;height:38px;border:3px solid #888;border-top-color:#fff;border-left-color:#fff;background:#eee;display:flex;align-items:center;justify-content:center;font-size:25px;line-height:1}
+.grid{display:grid;gap:2px;background:#888;border:3px solid #999}
+.cell{width:23px;height:23px;background:#c8c8c8;border:2px solid #eee;border-right-color:#888;border-bottom-color:#888;display:flex;justify-content:center;align-items:center;font-weight:bold;font-size:18px;color:#164ac5;user-select:none}
+.cell.open{background:#c8c8c8;border:1px solid #aaa}
+.cell.n2{color:#148a2a}
+.cell.n3{color:#d00}
+.cell.mine{color:#000;font-size:17px}
+.cell.hit{background:#f00;color:#000}
+.bottomline{height:25px;background:#bbb;border:3px solid #eee;border-right-color:#888;border-bottom-color:#888;margin-top:9px}
+.tools{display:flex;justify-content:center;gap:8px;margin-top:14px}
+.tool{width:35px;height:35px;border:1px solid #bbb;background:linear-gradient(#fff,#ddd);font-size:19px;color:#444}
+.game.small .cell{width:23px;height:23px}
+.game.medium .cell{width:23px;height:23px}
+.game.large .cell{width:21px;height:21px;font-size:16px}
+.game.custom .cell{width:21px;height:21px;font-size:15px}
+.game.large .panel,.game.custom .panel{height:58px}
+.game.large .counter,.game.custom .counter{width:61px}
+.game.large{padding:10px}
+.game.custom{padding:10px}
+.stats{position:absolute;left:785px;top:245px;width:205px;background:#fff;border:1px solid #ccc;box-shadow:0 2px 4px #bbb;padding:16px;color:#666;font-size:16px;line-height:24px}
+.footer{position:absolute;right:0;bottom:-38px;color:#aaa;font-size:17px}
+.footer span{margin:0 14px}
+.hidden{display:none}
+
+@media(max-width:1150px){
+ .topinner,.shell{width:96%}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topinner">
+    <div class="brand"><span class="gear">⚙</span>Minesweeper.Online</div>
+    <div class="account">
+      <button class="btn signup">Sign up</button>
+      <button class="btn login">Log in</button>
+      <button class="btn smallgear">⚙</button>
+      <button class="btn lang"><span class="flag">🇺🇸</span>English⌄</button>
+    </div>
+  </div>
+</header>
+
+<div class="shell">
+  <div class="workspace">
+    <aside class="sidebar">
+      <ul class="menu">
+        <li class="active">Standard mode</li>
+        <li>No guessing mode</li><li>Multiplayer</li><li>Ranking</li><li>My games</li>
+        <li class="section">Best players</li><li>Season leaders</li>
+        <li class="section">Quests (0)</li><li>Arena</li><li>Equipment</li><li>Marketplace</li><li>Events</li><li>Event quests (0)</li><li>Championship</li>
+        <li class="section">Players online (891)</li><li>News</li><li>Statistics</li><li>My profile</li>
+        <li class="section">Chat (1)</li><li>Help</li><li>Premium account</li><li>Shop</li><li>MSWCH 2025</li>
+      </ul>
+    </aside>
+
+    <main class="main">
+      <nav class="tabs">
+        <button class="btn" data-mode="beginner">Beginner</button>
+        <button class="btn" data-mode="intermediate">Intermediate</button>
+        <button class="btn" data-mode="expert">Expert</button>
+        <button class="btn" data-mode="custom">Custom</button>
+      </nav>
+
+      <div class="controls hidden" id="customControls">
+        <label>Width:</label><input id="width" value="30">
+        <label>Height:</label><input id="height" value="20">
+        <label>Mines:</label><input id="mines" value="100" class="wide">
+        <button class="btn update" id="update">Update</button><span class="info">●</span>
+      </div>
+
+      <div class="gamearea">
+        <div class="game-wrap" id="gameWrap"></div>
+        <div class="stats hidden" id="stats">
+          Time: 2.243 sec<br>
+          3BV: 0 / 140<br>
+          Clicks: 2<hr>
+          Experience: 0
+        </div>
+      </div>
+    </main>
+  </div>
+  <div class="footer">▣ Download application <span>|</span> Privacy Policy</div>
+</div>
+
+<script>
+const modes={
+ beginner:{w:9,h:9,mines:10,cls:'small'},
+ intermediate:{w:16,h:16,mines:40,cls:'medium'},
+ expert:{w:30,h:16,mines:99,cls:'large'},
+ custom:{w:30,h:20,mines:100,cls:'custom'}
+};
+let current='beginner', gameState='new', revealed={};
+
+function makeBoard(){
+ const d=modes[current];
+ const wrap=document.getElementById('gameWrap');
+ wrap.innerHTML='';
+ const game=document.createElement('div');
+ game.className='game '+d.cls;
+ const panel=document.createElement('div'); panel.className='panel';
+ panel.innerHTML='<div class="counter">'+String(d.mines).padStart(3,'0')+'</div><div class="face btn">🙂</div><div class="counter">000</div>';
+ game.appendChild(panel);
+ const grid=document.createElement('div');grid.className='grid';
+ grid.style.gridTemplateColumns=`repeat(${d.w},${d.cls==='small'||d.cls==='medium'?'23px':'21px'})`;
+ const opened=[[0,0,'1'],[1,0,'2'],[2,0,'2'],[3,0,'2'],[4,0,'2'],[5,0,'1']];
+ for(let y=0;y<d.h;y++) for(let x=0;x<d.w;x++){
+   const c=document.createElement('div');c.className='cell btn';c.dataset.x=x;c.dataset.y=y;
+   const found=opened.find(a=>a[0]===x&&a[1]===y);
+   if(current==='beginner' && found){c.classList.add('open',found[2]==='2'?'n2':'');c.textContent=found[2]}
+   c.addEventListener('click',()=>reveal(c));
+   c.addEventListener('contextmenu',e=>{e.preventDefault();c.textContent=c.textContent==='⚑'?'':'⚑'});
+   grid.appendChild(c);
+ }
+ game.appendChild(grid);
+ if(current==='beginner') {const b=document.createElement('div');b.className='bottomline';game.appendChild(b)}
+ const tools=document.createElement('div');tools.className='tools';
+ ['↗','♧','⚒','▣'].forEach(t=>{let q=document.createElement('button');q.className='btn tool';q.textContent=t;tools.appendChild(q)});
+ wrap.appendChild(game);wrap.appendChild(tools);
+ document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('active',b.dataset.mode===current));
+}
+function reveal(c){
+ if(c.classList.contains('open'))return;
+ c.classList.add('open');
+ if(Math.random()<.08){c.textContent='✹';c.classList.add('mine')}
+ else {let n=Math.ceil(Math.random()*3);c.textContent=n;c.classList.add(n===2?'n2':n===3?'n3':'')}
+}
+document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',()=>{
+ current=b.dataset.mode;
+ document.getElementById('customControls').classList.toggle('hidden',current!=='custom');
+ document.getElementById('stats').classList.add('hidden');
+ if(current==='custom'){
+   modes.custom.w=parseInt(width.value)||30;modes.custom.h=parseInt(height.value)||20;modes.custom.mines=parseInt(mines.value)||100;
+ }
+ makeBoard();
+}));
+document.getElementById('update').addEventListener('click',()=>{
+ modes.custom.w=Math.max(5,parseInt(width.value)||30);
+ modes.custom.h=Math.max(5,parseInt(height.value)||20);
+ modes.custom.mines=Math.max(1,parseInt(mines.value)||100);
+ makeBoard();
+});
+document.addEventListener('click',e=>{
+ if(e.target.classList.contains('face')){makeBoard()}
+});
+makeBoard();
+</script>
+</body>
+</html>
+```

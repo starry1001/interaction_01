@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>GeoGebra Graphing Calculator</title>
+<style>
+:root{--purple:#6550d2;--ink:#454545;--gray:#888;--line:#e4e4e4;--soft:#f4f3f7}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;overflow:hidden;font-family:Arial,Helvetica,sans-serif;color:#333;background:#fff}
+button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:pointer}
+.btn{touch-action:manipulation}
+#app{height:100dvh;width:100vw;position:relative;background:#fff;overflow:hidden}
+header{height:11.2vw;max-height:74px;min-height:52px;display:flex;align-items:center;gap:5vw;padding:0 6vw;border-bottom:1px solid #ccc;box-shadow:0 1px 3px #bbb;position:absolute;top:0;left:0;right:0;z-index:5;background:#fff}
+.menu{font-size:6vw;color:#777;width:5vw;line-height:1}
+.logo{width:29vw;height:8vw;max-height:42px;object-fit:contain;object-position:left center}
+.assign{margin-left:auto;background:#6650cf;color:white;border-radius:5px;height:8.5vw;max-height:54px;width:22.5vw;font-size:3.5vw;letter-spacing:.2px}
+.exit{font-size:6vw;color:#777;width:7vw}
+#graph{position:absolute;left:0;right:0;top:11.2vw;height:65vh;max-height:calc(100% - 120px);overflow:hidden;background:#fff;touch-action:none}
+#plot{width:100%;height:100%;display:block}
+.graph-controls{position:absolute;left:5.5vw;top:3.4vw;display:flex;gap:4vw;color:#aaa;font-size:6vw;line-height:1}
+.gear{position:absolute;right:4vw;top:3.6vw;width:6vw;height:6vw;object-fit:contain;opacity:.58}
+#workarea{position:absolute;top:calc(11.2vw + 65vh);bottom:6vw;left:0;right:0;border-top:1px solid #e5e5e5;box-shadow:0 -2px 5px #ddd;background:#fff;transition:height .18s}
+.grab{height:15px;width:40px;border-radius:4px;background:#ddd;margin:10px auto 0}
+.inputrow{height:58px;display:flex;align-items:center;border-bottom:1px solid #e8e8e8;margin-top:1px;font-size:18px}
+.plus{width:68px;min-width:68px;height:100%;border-right:1px solid #e5e5e5;font-size:32px;color:#888}
+.inputwrap{padding-left:14px;flex:1;height:100%;display:flex;align-items:center}
+#expression{font-size:18px;width:100%;outline:none;border:0;background:transparent;color:#333;caret-color:var(--purple)}
+#expression::placeholder{color:#888}
+.input-alert{width:68px;min-width:68px;height:100%;border-right:1px solid #e5e5e5;display:none;align-items:center;justify-content:center;color:#888;font-size:28px}
+.more{width:48px;color:#888;font-size:26px;display:none}
+#panelcontent{height:calc(100% - 84px);overflow:auto;position:relative}
+.brandline{position:absolute;top:43%;width:100%;display:flex;align-items:center;justify-content:center;gap:12px;color:#b9b9b9;font-size:18px}
+.brandline img{width:30px;height:30px;object-fit:contain;opacity:.35}
+.bottomnav{position:absolute;bottom:0;left:0;right:0;height:6vw;min-height:58px;max-height:86px;display:flex;background:#fff;border-top:1px solid #e6e6e6;box-shadow:0 -1px 5px #ddd;z-index:4}
+.navitem{flex:1;color:#888;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;font-size:12px}
+.navitem img{width:28px;height:28px;object-fit:contain;opacity:.53}
+.navitem.active{color:var(--purple)}
+.navitem.active img{opacity:1}
+.tooltitle{font-size:17px;margin:24px 24px 20px}
+.toolsgrid{display:grid;grid-template-columns:repeat(4,1fr);row-gap:27px;padding:0 18px 24px}
+.tool{display:flex;flex-direction:column;align-items:center;gap:8px;font-size:14px;color:#888}
+.tool img{width:34px;height:34px;object-fit:contain}
+.tool.selected{color:#6150b8;font-weight:bold}
+.tableblank{height:100%;padding-top:0}
+.tabletop{height:56px;background:#f5f4f8;display:flex;align-items:center;padding-left:19%;font-weight:bold}
+.tabletop span{padding:0 6px}
+.sheet{width:100%;border-collapse:collapse;table-layout:fixed;font-size:16px}
+.sheet th,.sheet td{height:42px;border:1px solid #e2e2e2;text-align:center;font-weight:normal}
+.sheet th,.sheet td:first-child{background:#f5f4f8}
+.sheet th:first-child{width:12%}
+.sheet td:first-child{width:12%}
+body.keyboard-open #graph{height:52vh}
+body.keyboard-open #workarea{top:calc(11.2vw + 52vh);bottom:0;height:auto}
+body.keyboard-open .bottomnav{display:none}
+body.keyboard-open #panelcontent{height:0}
+body.keyboard-open .inputrow{height:58px}
+body.keyboard-open .grab{margin-top:10px}
+.keyboard{position:absolute;z-index:8;bottom:0;left:0;right:0;height:255px;background:#f1f0f5;border-top:1px solid #d8d6de;padding:5px 8px 7px;display:none}
+body.keyboard-open .keyboard{display:block}
+.khead{height:42px;display:flex;align-items:center;gap:4px;margin-bottom:4px}
+.kcat{height:32px;padding:0 12px;border-radius:22px;font-size:17px;white-space:nowrap}
+.kcat.active{background:#a38bea;color:#181329}
+.kspacer{flex:1}
+.kclose{font-size:24px;color:#777;padding:0 8px}
+.keygrid{display:grid;grid-template-columns:repeat(10,1fr);grid-auto-rows:46px;gap:5px}
+.key{background:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;color:#333;box-shadow:0 1px 1px #e0dfe4}
+.key.dark{background:#d2d1d9}
+.key.wide{grid-column:span 2}
+.key.double{grid-column:span 2}
+.fxgrid{grid-template-columns:repeat(8,1fr);grid-auto-rows:46px;gap:5px}
+.fxgrid .key{font-size:19px}
+.abckeys{grid-template-columns:repeat(10,1fr);grid-auto-rows:46px}
+.abckeys .key{font-size:21px}
+body.keyboard-open #workarea{box-shadow:0 -2px 5px #ddd}
+#expression:focus{caret-color:var(--purple)}
+body.keyboard-open .inputrow{border-bottom:2px solid #9a7cf0}
+@media(min-width:700px){
+ .keyboard{height:32vh;padding:8px 12px}
+ .keygrid{grid-auto-rows:minmax(42px,1fr)}
+ .fxgrid,.abckeys{grid-auto-rows:minmax(42px,1fr)}
+}
+</style>
+</head>
+<body>
+<div id="app">
+<header>
+ <button class="btn menu" aria-label="Menu">☰</button>
+ <img class="logo" src="../../../data/data/26/assets/021.svg" width="150" height="42" alt="GeoGebra">
+ <button class="btn assign">ASSIGN</button>
+ <button class="btn exit" aria-label="Exit">⇥</button>
+</header>
+
+<div id="graph">
+ <canvas id="plot"></canvas>
+ <div class="graph-controls">
+   <button class="btn" id="undo" aria-label="Undo">↶</button>
+   <button class="btn" id="redo" aria-label="Redo">↷</button>
+ </div>
+ <button class="btn" id="settings" aria-label="Settings"><img class="gear" src="../../../data/data/26/assets/003.svg" width="28" height="28" alt=""></button>
+</div>
+
+<section id="workarea">
+ <div class="grab"></div>
+ <div class="inputrow">
+   <button class="btn plus" id="plus">+</button>
+   <button class="btn input-alert" id="alert">⚠</button>
+   <div class="inputwrap"><input id="expression" placeholder="Input..." autocomplete="off" autocapitalize="off"></div>
+   <button class="btn more" id="more">⋮</button>
+ </div>
+ <div id="panelcontent"></div>
+</section>
+
+<nav class="bottomnav">
+ <button class="btn navitem active" data-tab="Algebra"><img src="../../../data/data/26/assets/018.svg" width="28" height="28" alt=""><span>Algebra</span></button>
+ <button class="btn navitem" data-tab="Tools"><img src="../../../data/data/26/assets/019.svg" width="28" height="28" alt=""><span>Tools</span></button>
+ <button class="btn navitem" data-tab="Table"><img src="../../../data/data/26/assets/020.svg" width="28" height="28" alt=""><span>Table</span></button>
+ <button class="btn navitem" data-tab="Spreadsheet"><img src="../../../data/data/26/assets/022.svg" width="28" height="28" alt=""><span>Spreadsheet</span></button>
+</nav>
+
+<div class="keyboard" id="keyboard"></div>
+</div>
+<script>
+const canvas=document.getElementById('plot'),ctx=canvas.getContext('2d');
+const graph=document.getElementById('graph'),input=document.getElementById('expression');
+let tab='Algebra', keyboardMode='', expr='', zoomY=1, zoomX=1, panY=0, caret=0;
+const asset=n=>'../../../data/data/26/assets/'+n;
+function resize(){let r=graph.getBoundingClientRect(),d=window.devicePixelRatio||1;canvas.width=r.width*d;canvas.height=r.height*d;canvas.style.width=r.width+'px';canvas.style.height=r.height+'px';ctx.setTransform(d,0,0,d,0,0);drawGraph()}
+function drawGraph(){
+ const w=graph.clientWidth,h=graph.clientHeight;if(!w||!h)return;
+ ctx.clearRect(0,0,w,h);let unit=w/8.6*zoomX,cx=w/2,cy=h/2+panY;
+ // background minor and major graph-paper lines
+ ctx.lineWidth=1;
+ for(let i=-80;i<=80;i++){
+  let x=cx+i*unit/4;
+  if(x>=0&&x<=w){ctx.strokeStyle=i%4===0?'#c8c8c8':'#e8e8e8';ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke()}
+ }
+ for(let i=-100;i<=100;i++){
+  let y=cy+i*unit/4;
+  if(y>=0&&y<=h){ctx.strokeStyle=i%4===0?'#c8c8c8':'#e8e8e8';ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke()}
+ }
+ // axes and arrowheads
+ ctx.strokeStyle='#444';ctx.lineWidth=1.45;ctx.beginPath();ctx.moveTo(0,cy);ctx.lineTo(w-4,cy);ctx.moveTo(cx,0);ctx.lineTo(cx,h);ctx.stroke();
+ ctx.fillStyle='#444';ctx.beginPath();ctx.moveTo(w-1,cy);ctx.lineTo(w-8,cy-4);ctx.lineTo(w-8,cy+4);ctx.fill();
+ ctx.beginPath();ctx.moveTo(cx,1);ctx.lineTo(cx-4,8);ctx.lineTo(cx+4,8);ctx.fill();
+ ctx.font='14px Arial';ctx.fillStyle='#444';ctx.textAlign='center';
+ for(let i=-10;i<=10;i++){let x=cx+i*unit;if(x>8&&x<w-8){if(i!==0)ctx.fillText(i,x,cy+19)}}
+ ctx.textAlign='right';let yr=unit/zoomY;
+ // y grid scale supports independent vertical zoom
+ for(let i=-30;i<=30;i++){let y=cy-i*unit*zoomY;if(y>14&&y<h-5&&i!==0)ctx.fillText(i,cx-8,y+5)}
+ ctx.textAlign='center';ctx.fillText('0',cx-13,cy+19);
+ if(expr){
+  let mode=expr.replace(/\s/g,'').toLowerCase();
+  let fn=null,domainStart=-4.35;
+  if(mode==='sin(x)')fn=x=>Math.sin(x);
+  else if(mode==='sin(xln(x))'||mode==='sin(x*ln(x))'){fn=x=>Math.sin(x*Math.log(x));domainStart=.05}
+  else if(mode==='cos(x)')fn=x=>Math.cos(x);
+  if(fn){
+   ctx.beginPath();let active=false;
+   for(let px=0;px<=w;px+=1.5){let x=(px-cx)/unit;if(x<domainStart){active=false;continue}let y=fn(x);let py=cy-y*unit*zoomY;
+    if(py<-h||py>h){active=false;continue}
+    if(!active){ctx.moveTo(px,py);active=true}else ctx.lineTo(px,py)
+   }
+   ctx.strokeStyle='#438f7d';ctx.lineWidth=3;ctx.stroke();
+   for(let x=Math.ceil(domainStart);x<4.5;x+=Math.PI/2){let y=fn(x),px=cx+x*unit,py=cy-y*unit*zoomY;if(px>=0&&px<=w&&py>=0&&py<=h){ctx.fillStyle='#777';ctx.beginPath();ctx.arc(px,py,5.5,0,Math.PI*2);ctx.fill()}}
+  }
+ }
+}
+function renderPanel(){
+ const c=document.getElementById('panelcontent'); c.innerHTML='';
+ if(tab==='Algebra'){
+  c.innerHTML='<div class="brandline"><img src="'+asset('025.svg')+'" width="30" height="30" alt=""><span>GeoGebra Graphing Calculator</span></div>';
+ }else if(tab==='Tools'){
+  c.innerHTML='<div class="tooltitle">Basic Tools</div><div class="toolsgrid">'+[
+   ['002.svg','Move'],['027.svg','Point'],['028.svg','Slider'],['029.svg','Intersect'],
+   ['030.svg','Extremum'],['031.svg','Roots'],['033.svg','Best Fit Line']
+  ].map((t,i)=>'<button class="btn tool '+(i===0?'selected':'')+'"><img src="'+asset(t[0])+'" width="34" height="34" alt=""><span>'+t[1]+'</span></button>').join('')+'</div>';
+  c.querySelectorAll('.tool').forEach(el=>el.onclick=()=>{c.querySelectorAll('.tool').forEach(t=>t.classList.remove('selected'));el.classList.add('selected')});
+ }else if(tab==='Table'){
+  c.innerHTML='<div class="tableblank"><div class="tabletop"><span>x</span><span>⋮</span></div></div>';
+ }else{
+  let html='<table class="sheet"><thead><tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th></tr></thead><tbody>';
+  for(let i=1;i<=12;i++)html+='<tr><td>'+i+'</td><td></td><td></td><td></td><td></td></tr>';
+  c.innerHTML=html+'</tbody></table>';
+ }
+ document.querySelectorAll('.navitem').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));
+}
+document.querySelectorAll('.navitem').forEach(b=>b.addEventListener('click',()=>{tab=b.dataset.tab;renderPanel();if(tab==='Algebra')document.body.classList.remove('keyboard-open')}));
+function keyboardHTML(mode){
+ const k=document.getElementById('keyboard');
+ let cats='<div class="khead"><button class="btn kcat '+(mode==='123'?'active':'')+'" data-mode="123">123</button><button class="btn kcat '+(mode==='fx'?'active':'')+'" data-mode="fx">f(x)</button><button class="btn kcat '+(mode==='ABC'?'active':'')+'" data-mode="ABC">ABC</button><button class="btn kcat '+(mode==='sym'?'active':'')+'" data-mode="sym">#&¬</button><span class="kspacer"></span><button class="btn kcat" id="dots">•••</button><button class="btn kclose" id="closekey">×</button></div>';
+ let keys='';
+ if(mode==='fx'){
+  let rows=[['sin','cos','tan','%','!','$','°'],['sin⁻¹','cos⁻¹','tan⁻¹','{','}','≤','≥'],['ln','log₁₀','logₐ','d/dx','∫','i','⌫'],['eˣ','10ˣ','√','▦','‹','›','↵']];
+  keys='<div class="keygrid fxgrid">'+rows.flat().map((x,i)=>'<button class="btn key '+((x==='⌫'||x==='↵'||x==='‹'||x==='›')?'dark':'')+'" data-key="'+x+'">'+x+'</button>').join('')+'</div>';
+ }else if(mode==='ABC'){
+  let rows=['qwertyuiop','asdfghjkl','⇧zxcvbnm⌫'];
+  keys='<div class="keygrid abckeys">'+rows.map(row=>[...row].map(ch=>'<button class="btn key '+('⇧⌫'.includes(ch)?'dark':'')+'" data-key="'+ch+'">'+ch+'</button>').join('')).join('')+
+  '<button class="btn key dark" data-key="αβγ" style="grid-column:span 1">αβγ</button><button class="btn key" data-key="," style="grid-column:span 1">,</button><button class="btn key" data-key="(">(</button><button class="btn key" data-key=")">)</button><button class="btn key" data-key=" " style="grid-column:span 3"></button><button class="btn key dark" data-key="‹">‹</button><button class="btn key dark" data-key="›">›</button><button class="btn key dark" data-key="↵">↵</button></div>';
+ }else{
+  let rows=[['x','y','π','e','7','8','9','×','÷'],['▦²','▦','√','▤','4','5','6','+','−'],['<','>','▧','▦','1','2','3','=','⌫'],['ans',',','(',' )','0','.','‹','›','↵']];
+  keys='<div class="keygrid">'+rows.flat().map(x=>'<button class="btn key '+(('⌫↵‹›ans').includes(x)?'dark':'')+'" data-key="'+x.trim()+'">'+x+'</button>').join('')+'</div>';
+ }
+ k.innerHTML=cats+keys;
+ k.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>{keyboardMode=b.dataset.mode;keyboardHTML(keyboardMode)});
+ k.querySelector('#closekey').onclick=()=>closeKeyboard();
+ k.querySelectorAll('[data-key]').forEach(b=>b.onclick=()=>press(b.dataset.key));
+}
+function openKeyboard(mode='123'){keyboardMode=mode;document.body.classList.add('keyboard-open');keyboardHTML(mode);setTimeout(resize,40);input.focus()}
+function closeKeyboard(){document.body.classList.remove('keyboard-open');keyboardMode='';input.blur();setTimeout(resize,40)}
+function press(key){
+ let start=input.selectionStart??input.value.length,end=input.selectionEnd??start,v=input.value;
+ if(key==='↵'){evaluate();return}
+ if(key==='⌫'){if(start===end&&start>0)start--;input.value=v.slice(0,start)+v.slice(end);input.setSelectionRange(start,start)}
+ else if(key==='‹'){input.setSelectionRange(Math.max(0,start-1),Math.max(0,start-1))}
+ else if(key==='›'){input.setSelectionRange(Math.min(v.length,end+1),Math.min(v.length,end+1))}
+ else if(key==='⇧'||key==='αβγ'||key==='▦'||key==='▦²'||key==='▤'||key==='▧'||key==='ans')return;
+ else{
+  let insert=key;
+  if(['sin','cos','tan','ln','log₁₀','logₐ'].includes(key)){insert=(key==='log₁₀'?'log(':key==='logₐ'?'log(':key+'(')+')';}
+  if(key==='√')insert='sqrt()';
+  if(key==='d/dx')insert='Derivative()';
+  if(key==='∫')insert='Integral()';
+  if(key==='×')insert='*';if(key==='÷')insert='/';if(key==='−')insert='-';
+  if(insert==='x'&&v.endsWith('ln(')){} 
+  input.value=v.slice(0,start)+insert+v.slice(end);
+  let pos=start+insert.length;
+  if(['sin()','cos()','tan()','ln()','log()','sqrt()'].includes(insert))pos=start+insert.length-1;
+  input.setSelectionRange(pos,pos);
+ }
+ input.dispatchEvent(new Event('input'));input.focus();validate();
+}
+function validate(){
+ const v=input.value.trim();let alert=document.getElementById('alert');
+ let invalid=/sin\(\)|cos\(\)|tan\(\)|ln\(\)/i.test(v);
+ alert.style.display=invalid?'flex':'none';document.getElementById('plus').style.display=invalid?'none':'block';
+ document.getElementById('more').style.display=v?'block':'none';
+}
+function evaluate(){
+ expr=input.value.trim().replace(/\s/g,'');
+ if(/^sin\(x\)$/i.test(expr)||/^sin\(xln\(x\)\)$/i.test(expr)||/^sin\(x\*ln\(x\)\)$/i.test(expr)||/^cos\(x\)$/i.test(expr)){
+  expr=expr.toLowerCase();if(expr==='sin(xln(x))')expr='sin(xln(x))';
+ }else if(expr){expr='';}
+ drawGraph();validate();
+}
+input.addEventListener('focus',()=>{if(!document.body.classList.contains('keyboard-open'))openKeyboard('123')});
+input.addEventListener('input',()=>{validate();let v=input.value;if(v.includes('sin(x)')){expr='sin(x)';drawGraph()}});
+input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();evaluate()}});
+document.getElementById('plus').onclick=()=>openKeyboard('123');
+document.getElementById('alert').onclick=()=>openKeyboard('fx');
+document.getElementById('more').onclick=()=>{};
+document.getElementById('settings').onclick=()=>{};
+document.querySelector('.assign').onclick=()=>{};
+document.querySelector('.menu').onclick=()=>{};
+document.querySelector('.exit').onclick=()=>{};
+document.getElementById('undo').onclick=()=>{expr='';input.value='';drawGraph();validate()};
+document.getElementById('redo').onclick=()=>{};
+let startY=0;
+graph.addEventListener('touchstart',e=>{startY=e.touches[0].clientY},{passive:true});
+graph.addEventListener('touchend',e=>{let dy=e.changedTouches[0].clientY-startY;if(Math.abs(dy)>80){zoomY=Math.max(.55,Math.min(2.2,zoomY*(dy<0?1.45:.72)));drawGraph()}},{passive:true});
+graph.addEventListener('wheel',e=>{zoomY=Math.max(.5,Math.min(2.4,zoomY*(e.deltaY<0?1.1:.9)));drawGraph()},{passive:true});
+renderPanel();resize();window.addEventListener('resize',resize);
+</script>
+</body>
+</html>

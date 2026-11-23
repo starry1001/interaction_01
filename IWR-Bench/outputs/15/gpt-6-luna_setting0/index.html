@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Booking.com Activities</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;background:#fff;color:#1f1f1f;font-family:Arial,Helvetica,sans-serif;font-size:16px}
+  body{min-height:100vh}
+  .btn{cursor:pointer}
+  .header{
+    height:131px;background:#003b95;color:#fff;
+  }
+  .header-inner{
+    width:1094px;height:131px;margin:0 auto;position:relative;
+  }
+  .brand{
+    position:absolute;left:0;top:21px;font-size:26px;font-weight:700;letter-spacing:-1.1px;
+  }
+  .top-actions{
+    position:absolute;right:0;top:20px;height:38px;display:flex;align-items:center;gap:10px;
+    font-size:14px;
+  }
+  .currency{font-weight:bold;margin-right:20px}
+  .flag-top{
+    width:26px;height:26px;object-fit:cover;border-radius:50%;margin-right:20px;
+  }
+  .help{
+    width:21px;height:21px;border:1.6px solid #d7e5fa;border-radius:50%;display:flex;
+    justify-content:center;align-items:center;font-size:14px;margin-right:12px;
+  }
+  .top-btn{
+    height:38px;padding:0 12px;border:1px solid #b8d2f2;background:#fff;color:#006ce4;
+    font-size:14px;margin-left:0;
+  }
+  .nav{
+    position:absolute;left:0;bottom:12px;height:48px;display:flex;align-items:center;gap:28px;
+    color:#e9f2ff;font-size:14px;
+  }
+  .nav-item{height:48px;display:flex;align-items:center;gap:8px;white-space:nowrap}
+  .nav-icon{font-size:22px;line-height:1;color:#e3efff;font-weight:normal}
+  .nav-item.active{
+    border:1px solid #c5dcf8;border-radius:28px;padding:0 17px;margin-left:-2px;margin-right:-2px;
+  }
+  .taxi-icon{font-size:13px;font-weight:bold;border:1px solid #dbeaff;padding:0 2px}
+  .page{
+    width:1094px;margin:0 auto;position:relative;padding-top:26px;
+  }
+  .back{
+    height:30px;display:flex;align-items:center;color:#555;font-size:14px;margin-bottom:20px;
+  }
+  .back-arrow{font-size:31px;font-weight:300;line-height:20px;margin-right:13px;color:#444}
+  .columns{display:flex;gap:30px}
+  .main{width:690px}
+  .side{width:355px;margin-left:0;padding-top:134px}
+  .skeleton{height:52px;background:#f3f3f5;margin-bottom:15px}
+  .step{font-size:14px;margin-bottom:21px}
+  h1{font-size:25px;line-height:30px;margin:0 0 18px;font-weight:700;letter-spacing:-.2px}
+  .warning{
+    color:#c8465a;font-size:14px;display:flex;align-items:center;margin-bottom:22px;
+  }
+  .warning-icon{
+    width:17px;height:17px;border:2px solid #db7180;border-radius:50%;display:inline-flex;
+    align-items:center;justify-content:center;font-size:12px;font-weight:bold;margin-right:8px;
+  }
+  .host{font-size:16px;margin-bottom:21px}
+  a{color:#006ce4;text-decoration:none}
+  .section-title{font-size:20px;margin:0 0 17px;font-weight:700}
+  .signin{
+    color:#2677c9;font-size:14px;display:flex;align-items:center;margin-bottom:25px;
+  }
+  .user-icon{
+    width:25px;height:25px;border:2px solid #5c9fe2;border-radius:50%;margin-right:7px;
+    position:relative;
+  }
+  .user-icon:before{content:"";position:absolute;width:7px;height:7px;border:2px solid #5c9fe2;border-radius:50%;left:7px;top:4px}
+  .user-icon:after{content:"";position:absolute;width:13px;height:7px;border:2px solid #5c9fe2;border-radius:10px 10px 0 0;border-bottom:0;left:4px;bottom:3px}
+  .row{display:flex;gap:15px}
+  .field{margin-bottom:10px}
+  .field.half{width:215px}
+  .field.full{width:445px}
+  label{display:block;font-weight:700;font-size:14px;margin-bottom:6px}
+  label .required{color:#c13b53}
+  input{
+    display:block;width:100%;height:39px;border:2px solid #b9b9b9;border-radius:4px;
+    padding:0 9px;font-size:14px;color:#333;outline:none;background:white;
+  }
+  input:focus{border-color:#1976d2;box-shadow:0 0 0 1px #1976d2}
+  .valid input{border-color:#b6b6b6}
+  .input-wrap{position:relative}
+  .check{
+    display:none;position:absolute;right:8px;top:9px;width:21px;height:21px;border:2px solid #68b98b;
+    color:#43a56d;border-radius:50%;font-size:14px;align-items:center;justify-content:center;font-weight:bold;
+  }
+  .valid .check{display:flex}
+  .email-error input{border-color:#d35d73}
+  .error-icon{
+    display:none;position:absolute;right:8px;top:8px;width:21px;height:21px;border:2px solid #d35d73;
+    color:#d35d73;border-radius:50%;align-items:center;justify-content:center;font-weight:bold;
+  }
+  .email-error .error-icon{display:flex}
+  .hint,.error-text{font-size:13px;margin-top:7px;color:#6b6b6b}
+  .error-text{color:#c8465a}
+  .phone-label{margin-top:0}
+  .phone-row{display:flex;width:445px}
+  .country{
+    height:39px;width:73px;border:2px solid #b9b9b9;border-radius:4px 0 0 4px;display:flex;
+    align-items:center;padding-left:7px;gap:9px;background:#fff;
+  }
+  .country img{width:25px;height:25px;object-fit:cover;border-radius:50%}
+  .chevron{font-size:19px;line-height:1;margin-top:-5px}
+  .phone-input{border-radius:0 4px 4px 0;border-left:0;width:372px}
+  .reservation{margin-top:18px}
+  .reservation h2{font-size:20px;margin:0 0 9px}
+  .spinner{
+    width:24px;height:24px;border:3px solid #d6e9f9;border-top-color:#0874ce;border-right-color:#0874ce;
+    border-radius:50%;animation:spin 1s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .legal{
+    width:690px;border-top:1px solid #e4e4e4;margin-top:26px;padding-top:19px;font-size:16px;line-height:24px;
+  }
+  .legal p{margin:0 0 10px}
+  .legal a{text-decoration:underline}
+  .privacy{display:block;text-decoration:none!important}
+  @media(max-width:900px){
+    .header-inner,.page{width:calc(100% - 30px)}
+    .nav{gap:10px}.nav-item:nth-child(n+4){display:none}
+    .side{display:none}.main{width:100%}.legal{width:100%}
+  }
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="header-inner">
+    <div class="brand">Booking.com</div>
+    <div class="top-actions">
+      <span class="currency">USD</span>
+      <img class="flag-top" src="../../../data/data/15/assets/011.png" width="26" height="26" alt="US">
+      <span class="help btn">?</span>
+      <button class="top-btn btn">Register</button>
+      <button class="top-btn btn">Sign in</button>
+    </div>
+    <nav class="nav">
+      <div class="nav-item btn"><span class="nav-icon">▱</span>Stays</div>
+      <div class="nav-item btn"><span class="nav-icon">✈</span>Flights</div>
+      <div class="nav-item btn"><span class="nav-icon">♧</span>Flight + Hotel</div>
+      <div class="nav-item btn"><span class="nav-icon">▱</span>Car rental</div>
+      <div class="nav-item btn"><span class="nav-icon">♙</span>Cruises</div>
+      <div class="nav-item active btn"><span class="nav-icon">♧</span>Activities</div>
+      <div class="nav-item btn"><span class="taxi-icon">TAXI</span>Airport taxis</div>
+    </nav>
+  </div>
+</header>
+
+<main class="page">
+  <div class="back btn"><span class="back-arrow">‹</span><span>Ticket options</span></div>
+  <div class="columns">
+    <section class="main">
+      <div class="step">Step 1 of 2</div>
+      <h1>General Admission to Universal Studios Hollywood</h1>
+      <div class="warning"><span class="warning-icon">!</span>Your selected date is unavailable – choose another</div>
+      <div class="host">This experience is hosted by a <a href="#" class="btn">business</a></div>
+
+      <h2 class="section-title">Your details</h2>
+      <div class="signin btn"><span class="user-icon"></span>Sign in to use your saved details</div>
+
+      <form id="bookingForm" novalidate>
+        <div class="row">
+          <div class="field half" id="firstField">
+            <label for="first">First name <span class="required">*</span></label>
+            <div class="input-wrap">
+              <input id="first" class="btn" type="text" autocomplete="off">
+              <span class="check">✓</span>
+            </div>
+          </div>
+          <div class="field half" id="lastField">
+            <label for="last">Last name <span class="required">*</span></label>
+            <div class="input-wrap">
+              <input id="last" class="btn" type="text" autocomplete="off">
+              <span class="check">✓</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="field full" id="emailField">
+          <label for="email">Email Address <span class="required">*</span></label>
+          <div class="input-wrap">
+            <input id="email" class="btn" type="text" autocomplete="off">
+            <span class="error-icon">!</span>
+          </div>
+          <div class="hint" id="emailHint" style="display:none">We'll send your confirmation details to <b id="emailValue"></b></div>
+          <div class="error-text" id="emailError" style="display:none">Enter a valid email address</div>
+        </div>
+
+        <div class="field full">
+          <label class="phone-label" for="phone">Phone (mobile number preferred) <span class="required">*</span></label>
+          <div class="phone-row">
+            <div class="country btn">
+              <img src="../../../data/data/15/assets/011.png" width="25" height="25" alt="US">
+              <span class="chevron">⌄</span>
+            </div>
+            <input id="phone" class="phone-input btn" type="text" placeholder="+1 " autocomplete="off">
+          </div>
+        </div>
+      </form>
+
+      <div class="reservation">
+        <h2>Reservation details</h2>
+        <div class="spinner"></div>
+      </div>
+
+      <div class="legal">
+        <p>By clicking "Next: Payment details" and completing a booking, you agree with the <a href="#" class="btn">terms and conditions</a> of Booking.com and the privacy policy of Musement.</p>
+        <p>Please see our Privacy Statement to understand how we use and protect your personal information.<br>
+        <a href="#" class="privacy btn">Privacy Statement</a></p>
+      </div>
+    </section>
+    <aside class="side">
+      <div class="skeleton"></div>
+      <div class="skeleton"></div>
+    </aside>
+  </div>
+</main>
+
+<script>
+  const first=document.getElementById('first'), last=document.getElementById('last');
+  const email=document.getElementById('email'), phone=document.getElementById('phone');
+  const firstField=document.getElementById('firstField'), lastField=document.getElementById('lastField');
+  const emailField=document.getElementById('emailField'), hint=document.getElementById('emailHint');
+  const error=document.getElementById('emailError'), emailValue=document.getElementById('emailValue');
+
+  function markName(input, box){
+    if(input.value.trim()) box.classList.add('valid'); else box.classList.remove('valid');
+  }
+  first.addEventListener('input',()=>markName(first,firstField));
+  last.addEventListener('input',()=>markName(last,lastField));
+
+  email.addEventListener('focus',()=>{
+    if(email.value.trim() && !email.value.includes('@')){
+      hint.style.display='block'; error.style.display='none'; emailField.classList.remove('email-error');
+      emailValue.textContent=email.value;
+    }
+  });
+  email.addEventListener('input',()=>{
+    const v=email.value.trim();
+    if(v && !v.includes('@')){
+      hint.style.display='block'; error.style.display='none'; emailField.classList.remove('email-error'); emailValue.textContent=v;
+    } else {
+      hint.style.display='none';
+    }
+  });
+  email.addEventListener('blur',()=>{
+    const v=email.value.trim();
+    if(v && !v.includes('@')){
+      hint.style.display='none'; error.style.display='block'; emailField.classList.add('email-error');
+    }
+  });
+  phone.addEventListener('focus',()=>{
+    const v=email.value.trim();
+    if(v && !v.includes('@')){
+      hint.style.display='none'; error.style.display='block'; emailField.classList.add('email-error');
+    }
+  });
+</script>
+</body>
+</html>

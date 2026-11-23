@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Booking.com Activities</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;color:#1f1f1f;background:#fff}
+  body{font-size:14px}
+  .btn{cursor:pointer}
+  .topbar{height:101px;background:#003b95;color:#fff}
+  .header-inner{width:1286px;margin:0 auto;height:101px;position:relative}
+  .brand{position:absolute;left:0;top:18px;font-size:20px;font-weight:700;letter-spacing:-.7px}
+  .account{position:absolute;right:0;top:15px;height:30px;display:flex;align-items:center;gap:18px;font-size:12px}
+  .currency{font-weight:700}
+  .flag-small{width:20px;height:20px;border-radius:50%;object-fit:cover}
+  .help{border:1px solid #b8d2f5;border-radius:50%;width:17px;height:17px;text-align:center;line-height:16px;font-size:12px}
+  .account button{height:29px;padding:0 10px;border:1px solid #b5c9e8;background:#fff;color:#006ce4;font-size:12px}
+  .nav{position:absolute;left:0;bottom:9px;height:38px;display:flex;align-items:center;gap:24px}
+  .nav-item{height:38px;display:flex;align-items:center;gap:7px;color:white;font-size:12px;white-space:nowrap}
+  .nav-icon{font-size:17px;opacity:.9}
+  .nav-item.active{border:1px solid #c7dcf8;border-radius:22px;padding:0 14px;margin-left:-5px;margin-right:-5px}
+  .main{width:1286px;margin:0 auto;display:grid;grid-template-columns:824px 272px;column-gap:48px;padding-top:20px}
+  .content{width:824px}
+  .back{height:27px;display:flex;align-items:center;gap:12px;color:#666;font-size:12px}
+  .back-arrow{font-size:25px;line-height:1;color:#333;font-weight:300}
+  .step{font-size:12px;margin-top:17px;margin-bottom:14px}
+  h1{font-size:20px;line-height:24px;margin:0 0 14px;font-weight:700;color:#171717}
+  .warning{color:#d54b68;font-size:12px;margin-bottom:17px;display:flex;align-items:center;gap:6px}
+  .warning-icon{border:1.5px solid #e0637e;border-radius:50%;width:14px;height:14px;line-height:12px;text-align:center;font-weight:bold}
+  .hosted{font-size:13px;margin-bottom:16px}
+  a{color:#006ce4;text-decoration:underline}
+  h2{font-size:17px;margin:0 0 12px;font-weight:700}
+  .signin{height:26px;display:flex;align-items:center;color:#4b92dd;font-size:12px;margin-bottom:13px}
+  .person{width:19px;height:19px;border:2px solid #5da0e8;border-radius:50%;margin-right:8px;position:relative}
+  .person:before{content:"";position:absolute;width:6px;height:6px;border:1.5px solid #5da0e8;border-radius:50%;left:4.5px;top:2px}
+  .person:after{content:"";position:absolute;width:10px;height:5px;border:1.5px solid #5da0e8;border-radius:8px 8px 5px 5px;left:2.5px;bottom:2px}
+  .form{width:542px}
+  .row{display:flex;gap:12px}
+  .field{margin-bottom:8px;position:relative}
+  .field.half{width:166px}
+  .field.full{width:342px}
+  label{display:block;font-size:12px;font-weight:700;margin-bottom:4px}
+  .req{color:#c8224c}
+  input,select{font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#222;background:#fff;border:1px solid #999;border-radius:4px;height:30px;outline:none}
+  input{width:100%;padding:0 8px}
+  input:focus,select:focus{border:2px solid #2684d9;padding-left:7px}
+  .valid input{padding-right:28px}
+  .valid:after{content:"✓";position:absolute;right:8px;top:26px;color:#45a879;border:1.5px solid #57b184;border-radius:50%;font-size:12px;width:16px;height:16px;line-height:14px;text-align:center}
+  .email-error input{border-color:#db5e76}
+  .email-error input:focus{border:2px solid #db5e76}
+  .email-error:after{content:"!";position:absolute;right:8px;top:26px;color:#d85d75;border:1.5px solid #d85d75;border-radius:50%;font-size:12px;width:16px;height:16px;line-height:14px;text-align:center}
+  .helper{font-size:11px;color:#666;margin-top:5px}
+  .helper.error{color:#c8485d;font-weight:700}
+  .phone-label{margin-bottom:4px}
+  .phone-row{display:flex;gap:5px}
+  .country{width:56px;height:30px;padding:0 4px;font-size:13px}
+  .phone-input{width:282px}
+  .prefix{position:absolute;left:64px;top:29px;height:28px;border-right:1px solid #ddd;padding:7px 10px 0 3px;color:#777;pointer-events:none}
+  .phone-input{padding-left:32px}
+  .reservation{margin-top:15px}
+  .spinner{width:19px;height:19px;border:2px solid #dceaf5;border-top-color:#1683d8;border-right-color:#1683d8;border-radius:50%;margin-top:4px;margin-bottom:18px}
+  .legal{border-top:1px solid #e5e5e5;padding-top:16px;width:528px;font-size:12px;line-height:19px}
+  .legal p{margin:0 0 7px}
+  .skeletons{padding-top:102px}
+  .skel{height:40px;background:#f3f3f3;margin-bottom:13px}
+  @media(max-width:900px){
+    .header-inner,.main{width:92%}
+    .main{display:block}
+    .skeletons{display:none}
+    .content{width:100%}
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="header-inner">
+    <div class="brand">Booking.com</div>
+    <div class="account">
+      <span class="currency">USD</span>
+      <img class="flag-small" src="../../../data/data/15/assets/011.png" width="20" height="20" alt="United States">
+      <span class="help btn">?</span>
+      <button class="btn">Register</button>
+      <button class="btn">Sign in</button>
+    </div>
+    <nav class="nav">
+      <div class="nav-item btn"><span class="nav-icon">▤</span>Stays</div>
+      <div class="nav-item btn"><span class="nav-icon">✈</span>Flights</div>
+      <div class="nav-item btn"><span class="nav-icon">♧</span>Flight + Hotel</div>
+      <div class="nav-item btn"><span class="nav-icon">▰</span>Car rental</div>
+      <div class="nav-item btn"><span class="nav-icon">♜</span>Cruises</div>
+      <div class="nav-item active btn"><span class="nav-icon">⚙</span>Activities</div>
+      <div class="nav-item btn"><span class="nav-icon">▱</span>Airport taxis</div>
+    </nav>
+  </div>
+</header>
+
+<main class="main">
+  <section class="content">
+    <div class="back btn"><span class="back-arrow">‹</span><span>Ticket options</span></div>
+    <div class="step">Step 1 of 2</div>
+    <h1>General Admission to Universal Studios Hollywood</h1>
+    <div class="warning"><span class="warning-icon">!</span><span>Your selected date is unavailable – choose another</span></div>
+    <div class="hosted">This experience is hosted by a <a class="btn" href="#">business</a></div>
+
+    <h2>Your details</h2>
+    <div class="signin btn"><span class="person"></span><span>Sign in to use your saved details</span></div>
+
+    <form class="form" autocomplete="off">
+      <div class="row">
+        <div class="field half" id="firstField">
+          <label for="first">First Name <span class="req">*</span></label>
+          <input id="first" class="btn" type="text">
+        </div>
+        <div class="field half" id="lastField">
+          <label for="last">Last name <span class="req">*</span></label>
+          <input id="last" class="btn" type="text">
+        </div>
+      </div>
+
+      <div class="field full" id="emailField">
+        <label for="email">Email Address <span class="req">*</span></label>
+        <input id="email" class="btn" type="text">
+        <div id="emailHelper" class="helper" style="display:none"></div>
+      </div>
+
+      <div class="field full">
+        <label class="phone-label" for="phone">Phone (mobile number preferred) <span class="req">*</span></label>
+        <div class="phone-row">
+          <select class="country btn" aria-label="Country">
+            <option>🇺🇸</option>
+          </select>
+          <div style="position:relative">
+            <span class="prefix">+1</span>
+            <input id="phone" class="phone-input btn" type="text">
+          </div>
+        </div>
+      </div>
+
+      <div class="reservation">
+        <h2>Reservation details</h2>
+        <div class="spinner"></div>
+      </div>
+
+      <div class="legal">
+        <p>By clicking 'Next: Payment details' and completing a booking, you agree with the <a class="btn" href="#">terms and conditions</a> of Booking.com and the privacy policy of Musement.</p>
+        <p>Please see our Privacy Statement to understand how we use and protect your personal information.<br><a class="btn" href="#">Privacy Statement</a></p>
+      </div>
+    </form>
+  </section>
+  <aside class="skeletons">
+    <div class="skel"></div>
+    <div class="skel"></div>
+  </aside>
+</main>
+
+<script>
+  const first=document.getElementById('first');
+  const last=document.getElementById('last');
+  const email=document.getElementById('email');
+  const phone=document.getElementById('phone');
+  const firstField=document.getElementById('firstField');
+  const lastField=document.getElementById('lastField');
+  const emailField=document.getElementById('emailField');
+  const helper=document.getElementById('emailHelper');
+
+  function validMark(input, box){
+    if(input.value.trim()) box.classList.add('valid');
+    else box.classList.remove('valid');
+  }
+  first.addEventListener('blur',()=>validMark(first,firstField));
+  last.addEventListener('blur',()=>validMark(last,lastField));
+  first.addEventListener('input',()=>{if(firstField.classList.contains('valid')) validMark(first,firstField)});
+  last.addEventListener('input',()=>{if(lastField.classList.contains('valid')) validMark(last,lastField)});
+
+  email.addEventListener('input',()=>{
+    emailField.classList.remove('email-error');
+    if(email.value.trim()){
+      helper.style.display='block';
+      helper.className='helper';
+      helper.textContent="We'll send your confirmation details to " + email.value.trim();
+    }else helper.style.display='none';
+  });
+  email.addEventListener('blur',()=>{
+    if(email.value.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())){
+      emailField.classList.add('email-error');
+      helper.style.display='block';
+      helper.className='helper error';
+      helper.textContent='Enter a valid email address';
+    }
+  });
+</script>
+</body>
+</html>

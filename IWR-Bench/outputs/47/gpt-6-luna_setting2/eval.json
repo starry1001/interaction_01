@@ -1,0 +1,78 @@
+{
+  "total_step": 4,
+  "success_step": 1,
+  "screenshot_paths_to_eval": [
+    "outputs/47/gpt-6-luna_setting2/evalpoints/0.png",
+    "outputs/47/gpt-6-luna_setting2/evalpoints/0.png"
+  ],
+  "all_mllm_scores": [
+    0.77,
+    0.49
+  ],
+  "all_dino_scores": [
+    0.92626953125,
+    0.9580078125
+  ],
+  "all_ocr_scores": [
+    0.6772486772486772,
+    0.5319371727748692
+  ],
+  "all_avg_scores": [
+    0.7911727361662257,
+    0.6599816617582898
+  ],
+  "mllm_score": 0.63,
+  "dino_score": 0.942138671875,
+  "ocr_score": 0.6045929250117732,
+  "avg_score": 0.7255771989622577,
+  "all_mllm_res": [
+    "Comments:\n-Layout (8/10): The overall TradingView structure is closely reproduced: top toolbar, left drawing toolbar, large central chart, right watchlist/details panel, and bottom tabs are all positioned similarly. However, spacing, panel widths, toolbar density, and some vertical alignments differ from the reference.\n-Elements (12/15): Most major UI components are present, including the candlestick chart, buy/sell buttons, watchlist categories, DXY quote panel, performance cards, seasonal chart, and TradingView branding. Some icons, controls, and sidebar details are simplified or missing.\n-Content and Text (30/40): Key labels and values such as “U.S. Dollar Index,” “DXY,” “97.846,” watchlist symbols, performance figures, and bottom navigation labels are largely accurate. The major issue is the chart content: the generated candlestick pattern and price movement differ substantially from the reference, including the timeline trend and plotted values.\n-Style (13/15): Typography, colors, borders, green/red market indicators, light grid, and overall TradingView visual language are very similar. Minor differences appear in icon styling, font sizing, line weights, and panel shading.\n-Overall (14/20): The page is a strong structural and visual recreation of the reference TradingView interface, but the central chart—the dominant visual element—does not match the reference’s data or shape closely enough, reducing the overall similarity.\n\nScore: 77/100",
+    "Comments:\n-Layout (10 points): Overall TradingView layout is closely reproduced, with a top navigation bar, left drawing toolbar, central chart area, right watchlist/details sidebar, and bottom tabs. However, panel widths, chart proportions, and some spacing differ. **8/10**\n-Elements (15 points): Most major interface components are present, including candlesticks, watchlist, symbol information, chart controls, time-range selector, and seasonal/performance panels. Several icons, controls, and sidebar sections do not match the reference exactly. **10/15**\n-Content and Text (40 points): The generated page shows the **DXY / U.S. Dollar Index**, while the reference shows the **VIX / Volatility S&P 500 Index**. The ticker values, chart history, labels, header text, and right-side instrument details are therefore substantially different. **9/40**\n-Style (15 points): The clean white TradingView visual style, typography, gridlines, green/red market colors, and general icon treatment are well matched. Some iconography and text sizing differ. **12/15**\n-Overall (20 points): The page is recognizable as the same TradingView interface and has a similar structural composition, but the primary financial instrument and nearly all chart content differ from the reference, limiting visual similarity. **10/20**\n\nScore: **49/100**"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "= DXY 0p 4 Indicators 88 Alert 0 Replay Save Publish U.S. Dollar Index - 1D - TVC 097.725 H97.966 L97.714 C97.846 -0.114 (+0.123) Watchlist + 97.846 97.846 I11.000 0.0Co SELL BUY Symbol Last Chg Chg% 110.0O0 INDICES = 10?.000 SPX @ 6,466.92 96.74 1.5290 NDQ e 23,498.12 355.53 1.543 108.000 DJI e 45,631.74 846.24 8990 D 107.000 ViX 14.22 ~2.38 214.340 DXY 97.846 0.144 0.129 0 106.000 StocKs 105.000 AAPL 227.76 2.86 1.2790 TSLA 340.0 | 19.90 6.229 104.000 0) NFLX e 1,204.65 =1.56 ~0.1350 103.000 futurES @ Ticom Nncr 102.000 DXY 98 CG 101.000 U.S. Dollar Index L TVC Indcy Ctd 10o.000 97.846 USD +0.114 +0.12% 99.000 Market open 21 minutes a80 Why' matters for rallies, and rate cuts 97.846 18308313 97.000 Performance 0.0693 0.41% -1.11% 96.000 1Y TradingView -7.8490 -9.83% -3.55%6 YTD Nov Dec 2025 Feb Mar Apr Jun Aug Sep Seasonals 5D IM 3m 6M YTD TY   5Y All 9 04:51.47 Pine Editor Strategy Tester Replay Trading Trading Panel The May UTC",
+      "screenshot_text": "= DXY Indicators Alent Replay Save ~ Publish U.S_ Dollar Index 1D . TVC 097.725 H97.966 L97.714 C97.846 +0.114 (+0.1296) Watchlist ~ 97.846 97.846 11L.000 Symbol Last Chg Chg% SELL BUY INDICES 110.000 SPX 466.92 96.74 1.5296 NDQ 23.498.12 355.53 1.5496 109.000 DJI 45,631.74 846.24 8990 VIX 14.22 2.38-14.3406 108.000 DXY 97.846 0.114 0.1296 107.000 STOCKS AAPL 227.76 2.86 1.2700 97.846 106.000 TSLA 340.01 19.90 6.2296 NFLX 1,204.65 -1.56 -0.1390 105.000 FUTURES GC1! 3 ? 0.00 0.0016 104.000 DXY 103.000 U.S. Dollar Index TVC Index 97.846 usD 102.000 +0.114 +0-120/0 Market open 101.000 21 minutes ag0 The 'Why' matters for rallies, and rate cuts 100.000 Performance 0.0690 0.4190 -1.1196 1W TradingView 99.000 -7.8496 -9.8396 -3.5590 YTD Seasonals 98.000 Nov Dec 2025 Mar May Jun Aug Sep 1M 3M 6M YTD 04-51.47 UTC Pine Editor Strategy Tester Replay Trading Trading Panel FCD",
+      "similarity": 0.6772486772486772
+    },
+    {
+      "checkpoint_text": "= VIX Qp Indicators 88 Alert 4 Replay Save Publish Volatility S&P 500 Index 1D - CBOE 023.94 H25.18 L23.30 C24.60 -0.10 (-0.405| 65.00 Watchlist + 14.22 0.00 14.22 62.50 SELL BuY Symbol Last Chg Chg% 60.00 indICES 57.50 E 55.00 SPX e 6,466.92 96.74 0.5290 NDQ e 23,498.12 355.53 0.5458 52.50 DJI 45,631.74 846.24 8950 5 50.00 ViX 14.22 -2.38 -14.349 47.50 DXY 97.846 0.114 0.1200 0 45.00 StoCKS 42.50 AAPL 227.76 2.86 1.2790 40.85 TSLA 340.01 09.90 6.2296 Q 37.50 NFLX e 1,204.65 -1.56 ~0.1390 35.00 FuTuRES @ Tcom nnc 32.50 Vix 98 [ J0.00 Volatility SaP 500 Index L CBOE 27.50 Index 25.00 14.22 POINT -2.38 -14.34% 22.50 Markel closed Last update at Aug 23, 04:15 GMT-8 20.00 21 minutes a8o The Why' matters 17.50 for rallies, and rate cuts 1422 Seasonals 12.50 1 TradingView 10.00 Oct Nov Dec 2025 Feb Mar Apr Thu 01 May 25 Jun Au? Sep 5D IM 3M 6M YTD 1Y   5Y   All 5 04.51:50 UTC 4 Pine Editor Strategy Tester Replay Trading Trading Panel C Jan May Sep",
+      "screenshot_text": "= DXY Indicators Alent Replay Save ~ Publish U.S_ Dollar Index 1D . TVC 097.725 H97.966 L97.714 C97.846 +0.114 (+0.1296) Watchlist ~ 97.846 97.846 11L.000 Symbol Last Chg Chg% SELL BUY INDICES 110.000 SPX 466.92 96.74 1.5296 NDQ 23.498.12 355.53 1.5496 109.000 DJI 45,631.74 846.24 8990 VIX 14.22 2.38-14.3406 108.000 DXY 97.846 0.114 0.1296 107.000 STOCKS AAPL 227.76 2.86 1.2700 97.846 106.000 TSLA 340.01 19.90 6.2296 NFLX 1,204.65 -1.56 -0.1390 105.000 FUTURES GC1! 3 ? 0.00 0.0016 104.000 DXY 103.000 U.S. Dollar Index TVC Index 97.846 usD 102.000 +0.114 +0-120/0 Market open 101.000 21 minutes ag0 The 'Why' matters for rallies, and rate cuts 100.000 Performance 0.0690 0.4190 -1.1196 1W TradingView 99.000 -7.8496 -9.8396 -3.5590 YTD Seasonals 98.000 Nov Dec 2025 Mar May Jun Aug Sep 1M 3M 6M YTD 04-51.47 UTC Pine Editor Strategy Tester Replay Trading Trading Panel FCD",
+      "similarity": 0.5319371727748692
+    }
+  ],
+  "assertion_results": [
+    {
+      "result": "Error",
+      "prev_img_path": "outputs/47/gpt-6-luna_setting2/evalpoints/0.png",
+      "curr_img_path": "outputs/47/gpt-6-luna_setting2/evalpoints/1.png",
+      "response": "Error: Error code: 400 - Unsupported value: 'temperature' does not support 0.0 with this model. Only the default (1) value is supported.",
+      "assertion": "The panel on the lower right shows the VIX information, with an index of 14.22.",
+      "thinking": ""
+    },
+    {
+      "result": "No",
+      "prev_img_path": "outputs/47/gpt-6-luna_setting2/evalpoints/1.png",
+      "curr_img_path": "outputs/47/gpt-6-luna_setting2/evalpoints/2.png",
+      "response": "{\"think\":\"The lower-right detailed panel displays DXY information with a value of 97.846. Although the watchlist above includes DJI at 45,631.74, the lower-right panel itself does not show DJI information.\",\"result\":\"No\"}",
+      "assertion": "The panel on the lower right shows the DJI information, with an number of 45631.74.",
+      "thinking": "The lower-right detailed panel displays DXY information with a value of 97.846. Although the watchlist above includes DJI at 45,631.74, the lower-right panel itself does not show DJI information."
+    },
+    {
+      "result": "No",
+      "prev_img_path": "outputs/47/gpt-6-luna_setting2/evalpoints/2.png",
+      "curr_img_path": "outputs/47/gpt-6-luna_setting2/evalpoints/3.png",
+      "response": "{\n  \"think\": \"The lower-right panel displays DXY information with a value of 97.846. Although NDQ appears in the upper watchlist with 23,498.12, it is not shown in the lower-right panel.\",\n  \"result\": \"No\"\n}",
+      "assertion": "The panel on the lower right shows the NDQ information, with an number of 23498.12.",
+      "thinking": "The lower-right panel displays DXY information with a value of 97.846. Although NDQ appears in the upper watchlist with 23,498.12, it is not shown in the lower-right panel."
+    },
+    {
+      "result": "No",
+      "prev_img_path": "outputs/47/gpt-6-luna_setting2/evalpoints/3.png",
+      "curr_img_path": "outputs/47/gpt-6-luna_setting2/evalpoints/4.png",
+      "response": "{\"think\":\"The lower-right panel is displaying DXY information with a value of 97.846. The DJI entry appears in the upper-right watchlist, showing 45,631.74, not in the lower-right panel. Therefore, the assertion is false.\",\"result\":\"No\"}",
+      "assertion": "The panel on the lower right shows the DJI information, with an number of 45631.74.",
+      "thinking": "The lower-right panel is displaying DXY information with a value of 97.846. The DJI entry appears in the upper-right watchlist, showing 45,631.74, not in the lower-right panel. Therefore, the assertion is false."
+    }
+  ]
+}

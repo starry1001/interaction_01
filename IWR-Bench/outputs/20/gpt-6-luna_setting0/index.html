@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>YouTube Shorts</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #fff; color: #0f0f0f; font-family: Arial, "Microsoft YaHei", sans-serif; }
+  button { color: inherit; font: inherit; border: 0; cursor: pointer; }
+  .btn { cursor: pointer; }
+  .topbar { height: 64px; position: fixed; z-index: 10; inset: 0 0 auto; background: #fff; display: flex; align-items: center; justify-content: space-between; padding: 0 28px 0 24px; }
+  .brand { height: 42px; display:flex; align-items:center; gap: 26px; }
+  .hamb { width: 22px; height: 20px; position: relative; }
+  .hamb:before, .hamb:after, .hamb i { content:""; height:1.5px; width:19px; background:#111; position:absolute; left:1px; }
+  .hamb:before {top:3px}.hamb i {top:9px}.hamb:after {top:15px}
+  .ytlogo { display:flex; align-items:center; gap:4px; font-weight:700; font-size:20px; letter-spacing:-1.2px; }
+  .ytmark { width:28px; height:19px; border-radius:6px; background:#f03; display:inline-flex; align-items:center; justify-content:center; }
+  .ytmark:after { content:""; border-left:9px solid white; border-top:5.5px solid transparent; border-bottom:5.5px solid transparent; margin-left:2px; }
+  .country { font-size:10px; color:#777; align-self:flex-start; margin:8px 0 0 0; }
+  .searchbox { position:absolute; width:600px; left:50%; transform:translateX(-50%); top:8px; height:42px; display:flex; }
+  .searchbox input { width:536px; height:42px; border:1px solid #c6c6c6; box-shadow: inset 0 1px 2px #eee; border-radius:24px 0 0 24px; padding:0 16px; outline:none; font-size:16px; }
+  .searchbox input::placeholder { color:#777; }
+  .searchbutton { height:42px; width:64px; border:1px solid #c6c6c6; border-left:0; border-radius:0 24px 24px 0; background:#f8f8f8; display:grid; place-items:center; }
+  .searchbutton svg { width:21px;height:21px }
+  .mic { margin-left:16px; width:42px;height:42px;border-radius:50%;background:#f8f8f8; display:grid;place-items:center; }
+  .mic svg { width:19px;height:19px; }
+  .righttop { margin-left:auto; display:flex;align-items:center;gap:21px; }
+  .create { height:38px;padding:0 14px;border-radius:24px;background:#f8f8f8;display:flex;align-items:center;gap:8px;font-size:14px; }
+  .create b {font-size:24px;font-weight:300;line-height:1}
+  .bell { width:28px;height:32px;background:transparent;display:grid;place-items:center; }
+  .bell svg {width:22px;height:22px}
+  .profile { width:32px;height:32px;border-radius:50%;background:#b10b62;color:#fff;display:grid;place-items:center;font-size:16px; }
+  .sidebar { position:fixed; z-index:8; top:64px; bottom:0; left:0; width:240px; background:white; overflow:hidden; padding:8px 12px 20px; }
+  .navgroup { border-bottom:1px solid #e5e5e5; padding:0 0 10px; margin-bottom:12px; }
+  .navrow { height:42px; border-radius:10px; display:flex;align-items:center; gap:24px;padding:0 12px;font-size:14px;white-space:nowrap; }
+  .navrow.active { background:#f2f2f2;font-weight:600; }
+  .navrow svg { flex:none;width:22px;height:22px;stroke:#111;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round; }
+  .navtitle { height:38px; padding:10px 12px 0; font-size:15px; }
+  .navrow .ytmini { width:20px;height:14px;border-radius:4px;background:#f03;position:relative; }
+  .ytmini:after {content:"";position:absolute;left:8px;top:4px;border-left:6px solid white;border-top:3px solid transparent;border-bottom:3px solid transparent;}
+  .navrow .musicmini { color:#f03;font-size:20px; width:22px; text-align:center; }
+  .foot { font-size:12px; color:#606060; line-height:1.5; padding:4px 12px; }
+  .main { position:fixed; top:64px; left:240px; right:0; bottom:0; overflow:hidden; }
+  .shorts-stage { position:absolute; inset:0; }
+  .video-card { position:absolute; top:3px; left:calc(50% - 365px); width:632px; height:calc(100% - 36px); max-height:1170px; border-radius:12px; overflow:hidden; background:#222; transition:left .25s ease; }
+  .video-card video { height:100%; width:100%; object-fit:cover; display:block; background:#222; }
+  .video-scrim { position:absolute; inset:0; pointer-events:none; background:linear-gradient(to bottom,rgba(0,0,0,.12),transparent 22%,transparent 72%,rgba(0,0,0,.36)); }
+  .player-controls { position:absolute; top:16px; left:16px; right:16px; display:flex; align-items:center; gap:14px; }
+  .control-circle { width:48px;height:48px;border-radius:50%;background:rgba(0,0,0,.36);color:#fff;display:grid;place-items:center; }
+  .control-circle svg {width:21px;height:21px;fill:white;stroke:white;stroke-width:1.5}
+  .control-circle.full { margin-left:auto; }
+  .subtitles { position:absolute; left:21%; top:8.2%; width:58%; text-align:center; color:#fff; font-size:21px; line-height:1.12; font-weight:600; text-shadow:0 1px 3px #222; pointer-events:none; }
+  .subtitles span { background:rgba(0,0,0,.72); padding:1px 5px; box-decoration-break:clone; }
+  .channel-info { position:absolute; left:16px; right:14px; bottom:25px; color:#fff; font-size:14px; text-shadow:0 1px 3px #000; }
+  .author { display:flex; align-items:center; gap:8px; margin-bottom:16px; font-weight:600; }
+  .author img { width:32px;height:32px;border-radius:50%;object-fit:cover; }
+  .subscribe { background:#fff;color:#111;border-radius:20px;padding:7px 13px;font-size:13px;margin-left:2px; }
+  .captionline { font-weight:600; margin:0 0 10px; font-size:14px; }
+  .captionline.small {font-weight:500; font-size:13px;}
+  .actions { position:absolute; top:calc(50% + 106px); left:calc(50% + 276px); width:62px; display:flex; flex-direction:column; align-items:center; gap:15px; transition:left .25s ease; }
+  .action { display:flex; flex-direction:column; align-items:center; gap:5px; font-size:14px; }
+  .action .bubble { width:48px;height:48px;border-radius:50%;background:#f7f7f7;display:grid;place-items:center; }
+  .action svg {width:22px;height:22px;fill:#111;stroke:#111;stroke-width:1.5;stroke-linejoin:round;stroke-linecap:round}
+  .action .count {font-size:14px;white-space:nowrap;}
+  .action.avatar img {width:42px;height:42px;object-fit:cover;border-radius:9px;}
+  .more { position:absolute; top:18px; left:calc(50% + 326px); width:48px;height:48px;border-radius:50%;background:#f8f8f8;display:grid;place-items:center; }
+  .more svg {width:21px;height:21px}
+  .nextbuttons { position:fixed; right:23px; top:calc(50% - 4px); display:flex; flex-direction:column; gap:14px; }
+  .nextbuttons button { width:56px;height:56px;border-radius:50%;background:#f8f8f8;display:grid;place-items:center; }
+  .nextbuttons svg { width:23px;height:23px;stroke:#111;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round; }
+  .comments { position:absolute; right:96px;top:2px;bottom:30px;width:482px;border:1px solid #e5e5e5;border-radius:12px;background:#fff;display:none;overflow:hidden; }
+  .comments.open {display:block;}
+  .comments-head {height:60px;border-bottom:1px solid #e5e5e5;display:flex;align-items:center;padding:0 16px;font-size:20px;font-weight:600;}
+  .comments-head small {font-size:14px;font-weight:400;color:#606060;margin-left:8px;}
+  .comments-head .spacer {flex:1}
+  .comments-head button {width:36px;height:36px;background:white;border-radius:50%;font-size:22px;}
+  .comment-list {height:calc(100% - 132px);overflow:hidden;padding:4px 16px;}
+  .comment { display:flex;gap:14px;padding:12px 0 15px;font-size:14px;line-height:1.45; }
+  .avatar {flex:none;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;color:white;font-size:20px;}
+  .comment-content {flex:1;min-width:0;}
+  .comment-meta {font-size:12px;color:#606060;margin-bottom:3px;}
+  .comment-text {font-size:14px;line-height:1.45;color:#111;}
+  .translated {font-size:12px;color:#606060;margin-top:6px;}
+  .comment-tools {display:flex;gap:16px;align-items:center;margin-top:8px;color:#444;font-size:12px;}
+  .comment-tools button {background:transparent;padding:0;font-size:12px;}
+  .reply {color:#3976be!important;font-size:13px!important;margin-top:7px;}
+  .comment-compose {height:71px;border-top:1px solid #e5e5e5;display:flex;align-items:center;gap:12px;padding:0 16px;}
+  .comment-compose .avatar {width:42px;height:42px;background:#b10b62;font-size:17px;}
+  .comment-compose input {border:0;border-bottom:1px solid #ddd;outline:0;flex:1;height:37px;font-size:14px;}
+  .comments-open .video-card {left:calc(50% - 685px);}
+  .comments-open .actions {left:calc(50% - 44px);}
+  .comments-open .more {left:calc(50% - 1px);}
+  @media(max-width:1100px) {
+    .sidebar {width:72px;padding-left:4px;padding-right:4px}
+    .sidebar .navrow {justify-content:center;padding:0}
+    .sidebar .navrow span,.sidebar .navtitle,.sidebar .foot,.sidebar .navgroup:not(:first-child) {display:none}
+    .main {left:72px}
+    .searchbox {width: min(48vw,600px)}
+    .searchbox input {width:calc(100% - 64px)}
+    .video-card {left:calc(50% - 330px);width:min(58vw,632px)}
+    .comments {right:10px;width: min(42vw,482px)}
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <button class="hamb btn" aria-label="菜单"><i></i></button>
+    <div class="ytlogo"><span class="ytmark"></span><span>YouTube</span><span class="country">SG</span></div>
+  </div>
+  <div class="searchbox">
+    <input placeholder="搜索" aria-label="搜索">
+    <button class="searchbutton btn" aria-label="搜索"><svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.7"><circle cx="10.8" cy="10.8" r="7.2"/><path d="m16.2 16.2 5 5"/></svg></button>
+    <button class="mic btn" aria-label="语音搜索"><svg viewBox="0 0 24 24"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3Zm-5-3a5 5 0 0 0 10 0M12 16v4m-3 0h6" fill="none" stroke="#111" stroke-width="1.7" stroke-linecap="round"/></svg></button>
+  </div>
+  <div class="righttop">
+    <button class="create btn"><b>＋</b>创建</button>
+    <button class="bell btn" aria-label="通知"><svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.7"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg></button>
+    <button class="profile btn">Pp</button>
+  </div>
+</header>
+<aside class="sidebar">
+  <div class="navgroup">
+    <div class="navrow btn"><svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10h-6v-7H9v7H3z"/></svg><span>首页</span></div>
+    <div class="navrow active btn"><svg viewBox="0 0 24 24" fill="#111"><path d="M8 3.5a3 3 0 0 0-3 3v11a3 3 0 0 0 4.5 2.6l9-5.2a3 3 0 0 0 .1-5.1L16.8 8l1.7-1a2.6 2.6 0 0 0-2.7-4.5L8 7V3.5Zm1 7.1 6.5-3.8-2.9 4.7 3.5 2.1L9 17.4v-6.8Z"/></svg><span>Shorts</span></div>
+    <div class="navrow btn"><svg viewBox="0 0 24 24"><path d="M3 6h18v14H3zM7 3h10M10 10l5 3-5 3z"/></svg><span>订阅</span></div>
+  </div>
+  <div class="navgroup">
+    <div class="navtitle">我　›</div>
+    <div class="navrow btn"><svg viewBox="0 0 24 24"><path d="M4 7a9 9 0 1 1-1 7M4 3v5h5M12 7v5l4 2"/></svg><span>历史记录</span></div>
+    <div class="navrow btn"><svg viewBox="0 0 24 24"><path d="M3 5h18M3 10h13M3 15h10M3 20h7"/><path d="m17 13 5 3-5 3z"/></svg><span>播放列表</span></div>
+    <div class="navrow btn"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 3"/></svg><span>稍后观看</span></div>
+    <div class="navrow btn"><svg viewBox="0 0 24 24"><path d="M7 10V4c0-2 3-2 3 0v6h7a2 2 0 0 1 2 2l-1 7a2 2 0 0 1-2 2H7zM3 10h4v11H3z"/></svg><span>赞过的视频</span></div>
+  </div>
+  <div class="navgroup">
+    <div class="navtitle">探索</div>
+    <div class="navrow btn"><span class="musicmini">♫</span><span>音乐</span></div>
+    <div class="navrow btn"><svg viewBox="0 0 24 24"><path d="M3 5h18v15H3zM3 9h18M7 3v4m5-4v4m5-4v4"/></svg><span>电影</span></div>
+    <div class="navrow btn"><svg viewBox="0 0 24 24"><path d="m3 8 5-3 4 2 4-2 5 3v9l-5 3-4-2-4 2-5-3z"/><path d="M8 11h.1M16 11h.1M10 15h4"/></svg><span>游戏</span></div>
+    <div class="navrow btn"><svg viewBox="0 0 24 24"><path d="M4 5h16v15H4zM4 9h16M8 3v4m4-4v4m4-4v4"/></svg><span>新闻</span></div>
+    <div class="navrow btn"><svg viewBox="0 0 24 24"><path d="M8 4h8v3c0 4-2 6-4 6S8 11 8 7zM8 6H4v2c0 3 2 4 5 4m7-6h4v2c0 3-2 4-5 4m-3 1v4m-4 2h8"/></svg><span>体育</span></div>
+    <div class="navrow btn"><svg viewBox="0 0 24 24"><path d="M12 3c3 3 1 5-1 6 4-1 7 2 7 6v5H6v-5c0-3 1-5 4-6M9 20v-4m6 4v-4"/></svg><span>时尚美妆</span></div>
+    <div class="navrow btn"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l2 2m10 10 2 2m0-14-2 2M7 17l-2 2M8 12a4 4 0 1 1 8 0c0 3-4 3-4 7"/></svg><span>播客</span></div>
+  </div>
+  <div class="navgroup">
+    <div class="navtitle">更多 YouTube 产品与功能</div>
+    <div class="navrow btn"><span class="ytmini"></span><span>YouTube Premium</span></div>
+    <div class="navrow btn"><span class="musicmini">◉</span><span>YouTube Music</span></div>
+    <div class="navrow btn"><span class="ytmini"></span><span>YouTube Kids</span></div>
+  </div>
+  <div class="navgroup">
+    <div class="navrow btn"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="m19 13 2 1-2 4-2-1-2 2v2H9v-2l-2-2-2 1-2-4 2-1v-3l-2-1 2-4 2 1 2-2V2h6v2l2 2 2-1 2 4-2 1z"/></svg><span>设置</span></div>
+    <div class="navrow btn"><svg viewBox="0 0 24 24"><path d="M5 3h14v18H5zM8 7h8M8 11h8"/></svg><span>举报记录</span></div>
+    <div class="navrow btn"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 4.7 1.2c-.7 1-2.2 1.2-2.2 3M12 17h.1"/></svg><span>帮助</span></div>
+    <div class="navrow btn"><svg viewBox="0 0 24 24"><path d="M4 3h16v15H8l-4 3zM8 8h8m-8 4h6"/></svg><span>发送反馈</span></div>
+  </div>
+  <div class="foot">关于　新闻　版权　联系我们<br>创作者　广告　开发者<br><br>条款　隐私权　政策与安全<br>YouTube 的运作方式</div>
+</aside>
+
+<main class="main" id="main">
+  <div class="shorts-stage">
+    <div class="video-card">
+      <video id="shortVideo" autoplay muted playsinline loop preload="auto" src="../../../data/data/20/assets/089.mp4"></video>
+      <div class="video-scrim"></div>
+      <div class="player-controls">
+        <button class="control-circle btn" id="pauseBtn" aria-label="暂停"><svg viewBox="0 0 24 24"><path d="M7 5h4v14H7zM15 5h4v14h-4z"/></svg></button>
+        <button class="control-circle btn" id="volumeBtn" aria-label="音量"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 4V5L7 9H3zm12-1a5 5 0 0 1 0 8m2-11a9 9 0 0 1 0 14"/></svg></button>
+        <button class="control-circle full btn" aria-label="全屏"><svg viewBox="0 0 24 24" fill="none"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></button>
+      </div>
+      <div class="subtitles" id="subtitles"><span>I don't know. I'm not sure. I have no idea.</span></div>
+      <div class="channel-info">
+        <div class="author"><img id="creatorAvatar" src="../../../data/data/20/assets/062.jpg" width="32" height="32" alt=""><span id="creatorName">@ariannitalagringa</span><button class="subscribe btn">订阅</button></div>
+        <div class="captionline" id="captionLine">▶ Advanced English Conversation Lesson</div>
+        <div class="captionline small" id="captionDesc">Subscribe for more 🔵 #ariannitalagringa #easyenglish #englishlanguage #learnenglish</div>
+      </div>
+    </div>
+    <button class="more btn" aria-label="更多"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="12" cy="19" r="1.6"/></svg></button>
+    <div class="actions">
+      <div class="action"><button class="bubble btn"><svg viewBox="0 0 24 24"><path d="M7 10V4c0-2 3-2 3 0v6h7a2 2 0 0 1 2 2l-1 7a2 2 0 0 1-2 2H7zM3 10h4v11H3z"/></svg></button><span class="count" id="likes">1.1万</span></div>
+      <div class="action"><button class="bubble btn"><svg viewBox="0 0 24 24"><path d="M7 14v6c0 2 3 2 3 0v-6h7a2 2 0 0 0 2-2l-1-7a2 2 0 0 0-2-2H7zM3 3h4v11H3z"/></svg></button><span class="count">不喜欢</span></div>
+      <div class="action"><button class="bubble btn" id="commentButton"><svg viewBox="0 0 24 24"><path d="M4 4h16v15H8l-4 3zM8 9h8M8 13h6"/></svg></button><span class="count" id="commentCount">157</span></div>
+      <div class="action"><button class="bubble btn"><svg viewBox="0 0 24 24"><path d="M14 4 21 11l-7 7v-4c-5 0-8 2-11 5 1-7 4-11 11-11z"/></svg></button><span class="count">分享</span></div>
+      <div class="action"><button class="bubble btn"><svg viewBox="0 0 24 24"><path d="M12 2v5l4-4-4-3M12 22v-5l-4 4 4 3M5 8a8 8 0 0 1 13-2l-2 2M19 16a8 8 0 0 1-13 2l2-2"/></svg></button><span class="count">2</span></div>
+      <div class="action avatar"><img id="actionAvatar" src="../../../data/data/20/assets/062.jpg" width="42" height="42" alt=""></div>
+    </div>
+    <div class="comments" id="comments">
+      <div class="comments-head"><span>评论</span><small id="commentHeaderCount">2169</small><span class="spacer"></span><button class="btn" aria-label="排序">☷</button><button class="btn" id="closeComments" aria-label="关闭">×</button></div>
+      <div class="comment-list">
+        <div class="comment"><div class="avatar" style="background:#159e8b">b</div><div class="comment-content"><div class="comment-meta">@borimioi 8个月前</div><div class="comment-text">문장이 아닌 동작으로 직접 보여주니 이해가 잘되네요. 감사합니다</div><div class="translated">翻译成英语</div><div class="comment-tools"><button class="btn">♧　685</button><button class="btn">♧</button><button class="btn">回复</button></div><button class="reply btn">⌄　16 条回复</button></div></div>
+        <div class="comment"><div class="avatar" style="background:#323c7b">◉</div><div class="comment-content"><div class="comment-meta">@divalarose 8个月前</div><div class="comment-text">Magnifique démonstration pour mieux comprendre<br>🎉 félicitations je vous remercie 🥰🙌🌹</div><div class="translated">翻译成英语</div><div class="comment-tools"><button class="btn">♧　27</button><button class="btn">♧</button><button class="btn">回复</button></div></div></div>
+        <div class="comment"><div class="avatar" style="background:#a52bab">S</div><div class="comment-content"><div class="comment-meta">@shincymohan 7个月前</div><div class="comment-text">Excellent method of teaching phrasal verbs 👌👌👌 ❤️</div><div class="comment-tools"><button class="btn">♧　320</button><button class="btn">♧</button><button class="btn">回复</button></div><button class="reply btn">⌄　4 条回复</button></div></div>
+        <div class="comment"><div class="avatar" style="background:#1676a8">t</div><div class="comment-content"><div class="comment-meta">@toufikel yemni6472 4个月前</div><div class="comment-text">❤️ ❤️ wonderful teaching methods with beautiful lady</div><div class="comment-tools"><button class="btn">♧　52</button><button class="btn">♧</button><button class="btn">回复</button></div><button class="reply btn">⌄　10 条回复</button></div></div>
+        <div class="comment"><div class="avatar" style="background:#53636c">N</div><div class="comment-content"><div class="comment-meta">@nasirmaqbool5936 2个月前</div><div class="comment-text">Superb teaching</div><div class="comment-tools"><button class="btn">♧　17</button><button class="btn">♧</button><button class="btn">回复</button></div><button class="reply btn">⌄　2 条回复</button></div></div>
+        <div class="comment"><div class="avatar" style="background:#8544bb">学</div><div class="comment-content"><div class="comment-meta">@数学-d9t 7个月前</div><div class="comment-text">分かりやすい。ありがとう。好き。</div><div class="translated">翻译成英语</div><div class="comment-tools"><button class="btn">♧　84</button><button class="btn">♧</button><button class="btn">回复</button></div><button class="reply btn">⌄　4 条回复</button></div></div>
+        <div class="comment"><div class="avatar" style="background:#5725ae">N</div><div class="comment-content"><div class="comment-meta">@NaeimehBerdinjad 7个月前</div><div class="comment-text">Hello dear teacher. The best way teaching. Learning English with ears and eyes is strong. Thanks a lot. 🙏🌹😊❤️</div></div></div>
+      </div>
+      <div class="comment-compose"><div class="avatar">Pp</div><input placeholder="添加评论..." aria-label="添加评论"></div>
+    </div>
+  </div>
+  <div class="nextbuttons">
+    <button class="btn" id="previousBtn" aria-label="上一个"><svg viewBox="0 0 24 24"><path d="m6 14 6-6 6 6M12 8v12"/></svg></button>
+    <button class="btn" id="nextBtn" aria-label="下一个"><svg viewBox="0 0 24 24"><path d="m6 10 6 6 6-6M12 16V4"/></svg></button>
+  </div>
+</main>
+<script>
+(() => {
+  const videos = [
+    {
+      src: "../../../data/data/20/assets/089.mp4",
+      subtitle: "I don't know. I'm not sure. I have no idea.",
+      author: "@ariannitalagringa",
+      caption: "▶ Advanced English Conversation Lesson",
+      desc: "Subscribe for more 🔵 #ariannitalagringa #easyenglish #englishlanguage #learnenglish",
+      likes: "1.1万", comments: "157", commentTotal: "2169", avatar: "../../../data/data/20/assets/062.jpg",
+      start: 3
+    },
+    {
+      src: "../../../data/data/20/assets/091.mp4",
+      subtitle: "take off",
+      author: "@ariannitalagringa",
+      caption: "▶ 和你的英语老师一起去买东西",
+      desc: "Phrasal verbs in English #gringa #english #ariannitalagringa #american",
+      likes: "32万", comments: "2,169", commentTotal: "2169", avatar: "../../../data/data/20/assets/087.jpg",
+      start: 1
+    },
+    {
+      src: "../../../data/data/20/assets/093.mp4",
+      subtitle: "",
+      author: "@badmintonun",
+      caption: "Can you do it? #badminton #badmintonlovers",
+      desc: "",
+      likes: "55万", comments: "4,434", commentTotal: "4434", avatar: "../../../data/data/20/assets/007.jpg",
+      start: 2
+    },
+    {
+      src: "../../../data/data/20/assets/091.mp4",
+      subtitle: "down pick up",
+      author: "@ariannitalagringa",
+      caption: "▶ 和你的英语老师一起去买东西",
+      desc: "Phrasal verbs in English #gringa #english #ariannitalagringa #american",
+      likes: "32万", comments: "2,169", commentTotal: "2169", avatar: "../../../data/data/20/assets/087.jpg",
+      start: 4
+    }
+  ];
+  const video = document.getElementById("shortVideo");
+  const card = document.querySelector(".video-card");
+  const stage = document.querySelector(".shorts-stage");
+  let active = 0;
+  let muted = true;
+  let scrolling = false;
+  function setVideo(index) {
+    active = (index + videos.length) % videos.length;
+    const item = videos[active];
+    video.pause();
+    video.src = item.src;
+    video.load();
+    video.muted = muted;
+    video.onloadedmetadata = () => {
+      try { video.currentTime = item.start; } catch(e) {}
+      video.play().catch(() => {});
+    };
+    document.getElementById("subtitles").innerHTML = item.subtitle ? "<span>" + item.subtitle + "</span>" : "";
+    document.getElementById("creatorName").textContent = item.author;
+    document.getElementById("captionLine").textContent = item.caption;
+    document.getElementById("captionDesc").textContent = item.desc;
+    document.getElementById("likes").textContent = item.likes;
+    document.getElementById("commentCount").textContent = item.comments;
+    document.getElementById("commentHeaderCount").textContent = item.commentTotal;
+    document.getElementById("creatorAvatar").src = item.avatar;
+    document.getElementById("actionAvatar").src = item.avatar;
+  }
+  document.getElementById("nextBtn").addEventListener("click", () => setVideo(active + 1));
+  document.getElementById("previousBtn").addEventListener("click", () => setVideo(active - 1));
+  document.getElementById("commentButton").addEventListener("click", () => {
+    document.getElementById("comments").classList.add("open");
+    document.getElementById("main").classList.add("comments-open");
+  });
+  document.getElementById("closeComments").addEventListener("click", () => {
+    document.getElementById("comments").classList.remove("open");
+    document.getElementById("main").classList.remove("comments-open");
+  });
+  document.getElementById("pauseBtn").addEventListener("click", e => {
+    if (video.paused) { video.play(); e.currentTarget.innerHTML = '<svg viewBox="0 0 24 24"><path d="M7 5h4v14H7zM15 5h4v14h-4z"/></svg>'; }
+    else { video.pause(); e.currentTarget.innerHTML = '<svg viewBox="0 0 24 24"><path d="m8 5 11 7-11 7z"/></svg>'; }
+  });
+  document.getElementById("volumeBtn").addEventListener("click", () => { muted = !muted; video.muted = muted; });
+  function nextByWheel(e) {
+    if (document.getElementById("comments").classList.contains("open")) return;
+    if (Math.abs(e.deltaY) < 15 || scrolling) return;
+    scrolling = true;
+    setVideo(active + (e.deltaY > 0 ? 1 : -1));
+    setTimeout(() => scrolling = false, 650);
+  }
+  stage.addEventListener("wheel", nextByWheel, {passive:true});
+  document.addEventListener("keydown", e => {
+    if (e.key === "ArrowDown") setVideo(active + 1);
+    if (e.key === "ArrowUp") setVideo(active - 1);
+    if (e.key === "Escape") {
+      document.getElementById("comments").classList.remove("open");
+      document.getElementById("main").classList.remove("comments-open");
+    }
+  });
+  let touchY = 0;
+  stage.addEventListener("touchstart", e => touchY = e.touches[0].clientY, {passive:true});
+  stage.addEventListener("touchend", e => {
+    const diff = touchY - e.changedTouches[0].clientY;
+    if (Math.abs(diff) > 55) setVideo(active + (diff > 0 ? 1 : -1));
+  }, {passive:true});
+  document.querySelector(".control-circle.full").addEventListener("click", () => {
+    if (document.fullscreenElement) document.exitFullscreen?.(); else card.requestFullscreen?.();
+  });
+})();
+</script>
+</body>
+</html>

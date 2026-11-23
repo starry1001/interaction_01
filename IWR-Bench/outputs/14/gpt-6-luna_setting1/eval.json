@@ -1,0 +1,50 @@
+{
+  "total_step": 4,
+  "success_step": 4,
+  "screenshot_paths_to_eval": [
+    "outputs/14/gpt-6-luna_setting1/evalpoints/0.png",
+    "outputs/14/gpt-6-luna_setting1/evalpoints/0.png"
+  ],
+  "all_mllm_scores": [
+    0.78,
+    0.73
+  ],
+  "all_dino_scores": [
+    0.8662109375,
+    0.53564453125
+  ],
+  "all_ocr_scores": [
+    0.7215384615384615,
+    0.24515585509688287
+  ],
+  "all_avg_scores": [
+    0.7892497996794873,
+    0.5036001287822943
+  ],
+  "mllm_score": 0.755,
+  "dino_score": 0.700927734375,
+  "ocr_score": 0.48334715831767217,
+  "avg_score": 0.6464249642308908,
+  "all_mllm_res": [
+    "Comments:\n- **Layout (7/10):** The overall Airbnb structure, centered content width, header, title area, gallery, details section, and right-side booking card are well aligned. However, the generated page places the title and gallery noticeably higher and uses a different gallery layout with fewer visible panels.\n- **Elements (10/15):** Most key elements are present, including the Airbnb header, search controls, sharing actions, property title, location details, “Rare find” notice, rating card, and pricing/booking panel. The reference includes additional photo tiles and a “Show all photos” button that are missing or not visible in the generated version.\n- **Content and Text (34/40):** Text content is highly similar, including the listing title, location, room description, price, dates, rating, review count, and booking notice. Some supporting content is cropped or omitted, and the image composition differs substantially from the reference.\n- **Style (12/15):** Typography, colors, borders, spacing, rounded corners, and overall Airbnb visual language are closely reproduced. Minor differences appear in iconography, logo treatment, header spacing, and image cropping.\n- **Overall (15/20):** This is a strong reproduction of the page’s structure and textual content, but the photo gallery arrangement and vertical positioning are notably different, reducing visual fidelity.\n\n**Score: 78/100**",
+    "Comments:\n- **Layout (10 points): 6/10** — The two-column Airbnb layout is generally preserved, with the main listing content on the left and reservation card on the right. However, the evaluated page is positioned much farther down the page, so the header, title area, gallery, and map are largely missing from view.\n- **Elements (15 points): 9/15** — Matching elements include the “Rare find” notice, pricing/reservation card, guest-favourite panel, host information, listing details, and report link. The gallery, map, navigation header, share/save controls, and host profile image are absent or not visible.\n- **Content and Text (40 points): 34/40** — Most visible text matches closely, including the location, bed/bathroom description, rating, review count, host details, booking dates, price, and listing description. Some text/icon presentation differs slightly, and portions of the reference content are outside the visible viewport.\n- **Style (15 points): 11/15** — The typography, spacing, borders, cards, Airbnb-like visual language, and pink accent color are substantially similar. Differences appear in iconography, image/avatar treatment, card dimensions, and some font sizing/weight.\n- **Overall (20 points): 13/20** — The page appears to represent the same listing and retains the major functional sections, but the viewport/scroll position creates a significant visual mismatch and omits several prominent reference elements.\n\n**Score: 73/100**"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "airbnb Anywhere Any week Add guests Become host Sunset Hollywood Private Room Share Save HOLLYWIOOD SIGH HOLLYWOOD BEACHWOOD HILLS CanYON OHollywood Bowl The Magic Castle HOLLYWOOD Paramount Show all photos Room in Burbank; California; United States Rare find! This place is usually booked 1double bed . Private attached bathroom Guest One of the most loved homes on 4.98 41 S284SGD for 2 nights favourite Airbnb, according to guests 00t Reviews CHECK-IN CHECKOUT 21/11/2025 23/11/2025 EtPY Aacd",
+      "screenshot_text": "airbnb Anywhere Any week Add guests Become host Sunset Hollywood Private Room Share Save JLUCA LAKE Universal OStudios Hollywood THE HOLLYWOOD SIGN place HOLLYWOOD BEACHWOOD HILLS CANYON OHollywood Bowl The Magic Castle HOLLYWOOD 5 Paramount ood Pictures Studio Tour FAIRFAX 2 )ISTRICT LARCHMONT #Maps Room in Burbank, California, United States Rare findl This place is usually booked double bed Private attached bathroom Guest One of the most loved homes on 4.98 41 S284SGD for 2 nights favourite Airbnb; according to guests ttttt Reviews CHECK-IN CHECKOUT 2111/2025 23/11/2025 Stay with Aubrey Superhost 5 years hosting GUESTSL guest ~FOREST ! Larr",
+      "similarity": 0.7215384615384615
+    },
+    {
+      "checkpoint_text": "Show all photos Room in Burbank; California; United States double bed . Private attached bathroom Rare findl This place is usually booked Guest One of the most loved homes on 4.98 41 favourite Airbnb, according to guests #tttt Reviews S284SGD for 2 nights CHECK-IN CHECKOUT Stay with Aubrey 21/11/2025 23/11/2025 Superhost . 5 years hosting GUESTS guest Self check-in Check yourself in with the smartlock: Reserve Room ina townhouse You be charged yet Your own room in a home; plus access t0 shared spaces: Free cancellation before 16 Nov Report this listing Get a full refund if you change your mind: Some info has been automatically translated: Showoriginal About this place NOTE: is 4 miles from the\" pinl We are located in HOLLYWOOD The cross streets are Sunset Boulevard and Highland Avenue. Within walking distance to the Hollywood Walk of Fame;the Chinese Theatre, and many other popular tourist destinations. Universal Studios, Griffith Park; & Hollywood Bowl all minutes awayl This is a room in a newly constructed multi-room Townhome with attached private full bathroom: Totally safe, secure; quiet and clean! Flexible hostl It's fun to live like a local The space wontt This \"",
+      "screenshot_text": "airbnb Anywhere Any week Add guests Become host Sunset Hollywood Private Room Share Save JLUCA LAKE Universal OStudios Hollywood THE HOLLYWOOD SIGN place HOLLYWOOD BEACHWOOD HILLS CANYON OHollywood Bowl The Magic Castle HOLLYWOOD 5 Paramount ood Pictures Studio Tour FAIRFAX 2 )ISTRICT LARCHMONT #Maps Room in Burbank, California, United States Rare findl This place is usually booked double bed Private attached bathroom Guest One of the most loved homes on 4.98 41 S284SGD for 2 nights favourite Airbnb; according to guests ttttt Reviews CHECK-IN CHECKOUT 2111/2025 23/11/2025 Stay with Aubrey Superhost 5 years hosting GUESTSL guest ~FOREST ! Larr",
+      "similarity": 0.24515585509688287
+    }
+  ],
+  "assertion_results": [
+    null,
+    null,
+    null,
+    null
+  ]
+}

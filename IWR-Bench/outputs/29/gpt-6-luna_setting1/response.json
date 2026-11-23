@@ -1,0 +1,111 @@
+{
+  "id": "chatcmpl-EmMDeR6RFSf7rJtV2c90V7GynHtHX",
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "logprobs": null,
+      "message": {
+        "content": "```html\n<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>1Password Plans</title>\n<style>\n  :root {\n    --ink: #20294f;\n    --blue: #116aca;\n    --light-blue: #86a3e3;\n    --border: #1f376e;\n    --muted: #555762;\n  }\n  * { box-sizing: border-box; }\n  html, body { margin: 0; min-height: 100%; }\n  body {\n    color: var(--ink);\n    background: #fff;\n    font-family: Arial, Helvetica, sans-serif;\n    -webkit-font-smoothing: antialiased;\n  }\n  button, select { font: inherit; }\n  .btn { cursor: pointer; }\n  .promo {\n    height: 68px;\n    background: #fbf6ef;\n    color: #10131a;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    position: relative;\n    font-size: 15px;\n    font-weight: 700;\n  }\n  .promo a { color: #1267bd; text-decoration: none; margin-left: 15px; }\n  .promo-close {\n    border: 0;\n    background: transparent;\n    color: #353535;\n    font-size: 24px;\n    font-weight: 300;\n    position: absolute;\n    right: 26px;\n    top: 14px;\n    width: 40px;\n    height: 40px;\n    line-height: 1;\n  }\n  .site-header {\n    height: 104px;\n  }\n  .nav {\n    height: 100%;\n    max-width: 1256px;\n    margin: 0 auto;\n    display: flex;\n    align-items: center;\n    gap: 20px;\n  }\n  .brand {\n    display: inline-flex;\n    align-items: center;\n    color: #111827;\n    text-decoration: none;\n    font-weight: 700;\n    font-size: 23px;\n    letter-spacing: -.8px;\n    white-space: nowrap;\n    margin-right: 1px;\n  }\n  .brand-mark {\n    width: 27px;\n    height: 27px;\n    display: inline-flex;\n    align-items: center;\n    justify-content: center;\n    margin-right: 5px;\n    border-radius: 50%;\n    background: #101725;\n    color: white;\n    font-size: 17px;\n    font-family: Georgia, serif;\n    font-weight: 700;\n    position: relative;\n  }\n  .brand-mark:after {\n    content: \"\";\n    position: absolute;\n    width: 4px;\n    height: 9px;\n    left: 12px;\n    top: 10px;\n    border-radius: 3px;\n    background: #101725;\n  }\n  .nav-link {\n    border: 0;\n    background: transparent;\n    color: #383c5b;\n    font-size: 15px;\n    padding: 12px 2px;\n    white-space: nowrap;\n  }\n  .chevron {\n    display: inline-block;\n    width: 7px;\n    height: 7px;\n    border-right: 1px solid currentColor;\n    border-bottom: 1px solid currentColor;\n    transform: rotate(45deg);\n    margin-left: 9px;\n    vertical-align: 3px;\n  }\n  .signin {\n    margin-left: auto;\n    width: 202px;\n    height: 48px;\n    border: 1px solid #555d79;\n    background: #fff;\n    border-radius: 28px;\n    color: #252c4e;\n    font-size: 15px;\n    font-weight: 600;\n  }\n  main {\n    max-width: 1256px;\n    margin: 0 auto;\n  }\n  h1 {\n    margin: 39px 0 0;\n    font-size: 62px;\n    line-height: 1.1;\n    letter-spacing: -1.8px;\n    font-weight: 400;\n    color: #20294f;\n  }\n  .controls {\n    margin-top: 109px;\n    height: 81px;\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n  }\n  .plan-switch {\n    height: 81px;\n    padding: 8px;\n    display: inline-flex;\n    align-items: center;\n    gap: 6px;\n    border-radius: 17px;\n    background: #d8d8dc;\n  }\n  .plan-switch button {\n    height: 65px;\n    border: 0;\n    border-radius: 11px;\n    padding: 0 16px;\n    color: #141820;\n    font-weight: 700;\n    font-size: 17px;\n    background: transparent;\n    white-space: nowrap;\n  }\n  .plan-switch button.active {\n    background: white;\n    box-shadow: 0 1px 4px rgba(0,0,0,.08);\n  }\n  .right-controls {\n    display: flex;\n    align-items: center;\n    gap: 24px;\n    padding-right: 0;\n  }\n  .billing-choice {\n    display: flex;\n    align-items: center;\n    gap: 25px;\n    color: #555762;\n    font-size: 23px;\n    white-space: nowrap;\n  }\n  .billing-choice label {\n    display: inline-flex;\n    align-items: center;\n    gap: 9px;\n    cursor: pointer;\n  }\n  .billing-choice input {\n    appearance: none;\n    -webkit-appearance: none;\n    width: 25px;\n    height: 25px;\n    border: 2px solid #c7c8cb;\n    border-radius: 50%;\n    background: white;\n    margin: 0;\n    position: relative;\n  }\n  .billing-choice input:checked { border-color: #1874d1; }\n  .billing-choice input:checked:after {\n    content: \"\";\n    position: absolute;\n    inset: 5px;\n    border-radius: 50%;\n    background: #1874d1;\n  }\n  .currency-wrap { position: relative; }\n  .currency-toggle {\n    height: 47px;\n    min-width: 134px;\n    padding: 0 10px;\n    display: flex;\n    align-items: center;\n    gap: 7px;\n    border: 2px solid #969696;\n    border-radius: 5px;\n    background: white;\n    color: #262626;\n    font-size: 15px;\n  }\n  .flag { font-size: 25px; line-height: 1; }\n  .currency-toggle .code { font-size: 15px; }\n  .currency-toggle .chevron { margin-left: auto; }\n  .info {\n    width: 17px;\n    height: 17px;\n    border: 1.5px solid #858585;\n    color: #777;\n    border-radius: 50%;\n    background: white;\n    font-size: 11px;\n    font-weight: 700;\n    line-height: 14px;\n    padding: 0;\n    margin-left: -17px;\n  }\n  .currency-menu {\n    position: absolute;\n    z-index: 5;\n    right: 0;\n    top: 61px;\n    width: 134px;\n    padding: 3px;\n    background: #fff;\n    border: 1px solid #e4e4e4;\n    box-shadow: 0 3px 8px rgba(0,0,0,.08);\n    border-radius: 4px;\n  }\n  .currency-menu[hidden] { display: none; }\n  .currency-option {\n    height: 56px;\n    width: 100%;\n    display: flex;\n    align-items: center;\n    gap: 8px;\n    padding: 0 7px;\n    background: white;\n    border: 1px solid transparent;\n    color: #555;\n    font-size: 15px;\n    text-align: left;\n  }\n  .currency-option.selected {\n    border: 2px solid #6e8bd1;\n    border-radius: 5px;\n  }\n  .currency-option .tick { margin-left: auto; color: #4f6db5; }\n  .cards {\n    margin-top: 34px;\n    display: grid;\n    grid-template-columns: repeat(4, 1fr);\n    gap: 16px;\n  }\n  .card {\n    min-height: 440px;\n    border: 4px solid var(--border);\n    border-radius: 17px;\n    padding: 45px 32px 28px;\n    color: #171a20;\n    background: white;\n  }\n  .card.personal { border-color: #83a1e2; }\n  .card h2 {\n    margin: 0 0 9px;\n    color: #244274;\n    font-size: 22px;\n    line-height: 1.2;\n    letter-spacing: -.2px;\n    font-weight: 600;\n  }\n  .card .description {\n    font-size: 15px;\n    line-height: 1.55;\n    color: #45464d;\n    min-height: 54px;\n    margin: 0 0 12px;\n  }\n  .price-line {\n    display: flex;\n    align-items: baseline;\n    white-space: nowrap;\n    color: #26272b;\n    margin: 0 0 2px;\n  }\n  .price {\n    font-size: 37px;\n    line-height: 1.15;\n    letter-spacing: -1.4px;\n    font-weight: 400;\n  }\n  .currency-label {\n    font-size: 15px;\n    margin-left: 5px;\n    color: #41434a;\n  }\n  .billing-note {\n    min-height: 40px;\n    margin: 0;\n    color: #45464d;\n    font-size: 14px;\n    line-height: 1.45;\n  }\n  .trial {\n    display: block;\n    width: 204px;\n    height: 48px;\n    margin: 10px auto 22px;\n    border: 0;\n    border-radius: 28px;\n    color: #fff;\n    background: #116aca;\n    font-weight: 700;\n    font-size: 15px;\n  }\n  .trial:hover { background: #095eb8; }\n  .card ul {\n    padding: 0;\n    margin: 22px 0 0;\n    list-style: none;\n    color: #45464d;\n    font-size: 15px;\n    line-height: 1.8;\n  }\n  .card li:before { content: \"✓\"; color: #1770c8; margin-right: 9px; }\n  .below { height: 220px; }\n  @media (max-width: 1350px) {\n    main, .nav { width: calc(100% - 48px); }\n    .card { padding-left: 22px; padding-right: 22px; }\n    .trial { width: 100%; }\n  }\n  @media (max-width: 900px) {\n    .promo { font-size: 12px; padding: 0 40px; text-align: center; }\n    .nav { gap: 10px; }\n    .nav-link { display: none; }\n    .signin { width: 120px; }\n    h1 { font-size: 42px; margin-top: 35px; }\n    .controls { height: auto; align-items: flex-start; gap: 20px; flex-direction: column; margin-top: 48px; }\n    .right-controls { flex-wrap: wrap; }\n    .billing-choice { font-size: 17px; }\n    .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }\n    .card { padding-top: 28px; }\n  }\n  @media (max-width: 560px) {\n    main, .nav { width: calc(100% - 32px); }\n    .site-header { height: 75px; }\n    .signin { height: 40px; width: 90px; }\n    h1 { font-size: 35px; }\n    .plan-switch { max-width: 100%; height: 62px; padding: 5px; }\n    .plan-switch button { font-size: 12px; padding: 0 8px; height: 50px; }\n    .billing-choice { gap: 12px; font-size: 15px; }\n    .cards { grid-template-columns: 1fr; }\n    .currency-toggle { min-width: 112px; }\n  }\n</style>\n</head>\n<body>\n  <div class=\"promo\" id=\"promo\">\n    <span>Ready for a new password manager? We'll credit you for the time left on your current bill.</span>\n    <a class=\"btn\" href=\"#\">Let's talk →</a>\n    <button class=\"promo-close btn\" aria-label=\"Close announcement\">×</button>\n  </div>\n\n  <header class=\"site-header\">\n    <nav class=\"nav\" aria-label=\"Main navigation\">\n      <a class=\"brand btn\" href=\"#\" aria-label=\"1Password home\">\n        <span class=\"brand-mark\">1</span><span>1Password</span>\n      </a>\n      <button class=\"nav-link btn\">Why 1Password<span class=\"chevron\"></span></button>\n      <button class=\"nav-link btn\">Products<span class=\"chevron\"></span></button>\n      <button class=\"nav-link btn\">Resources<span class=\"chevron\"></span></button>\n      <button class=\"nav-link btn\">Pricing</button>\n      <button class=\"signin btn\">Sign in</button>\n    </nav>\n  </header>\n\n  <main>\n    <h1>Choose your 1Password<br>Password Manager Plan</h1>\n\n    <section class=\"controls\" aria-label=\"Plan options\">\n      <div class=\"plan-switch\" role=\"tablist\" aria-label=\"Product\">\n        <button class=\"btn\" role=\"tab\">Extended Access Management</button>\n        <button class=\"btn active\" role=\"tab\" aria-selected=\"true\">Password Manager</button>\n      </div>\n\n      <div class=\"right-controls\">\n        <div class=\"billing-choice\">\n          <label><input class=\"btn\" type=\"radio\" name=\"billing\" value=\"annual\" checked><span>Annually</span></label>\n          <label><input class=\"btn\" type=\"radio\" name=\"billing\" value=\"monthly\"><span>Monthly</span></label>\n        </div>\n        <div class=\"currency-wrap\">\n          <button class=\"currency-toggle btn\" id=\"currencyToggle\" aria-expanded=\"false\">\n            <span class=\"flag\" id=\"currentFlag\">🇺🇸</span><span class=\"code\" id=\"currentCode\">USD</span><span class=\"chevron\"></span>\n          </button>\n          <div class=\"currency-menu\" id=\"currencyMenu\" hidden>\n            <button class=\"currency-option btn selected\" data-currency=\"USD\"><span class=\"flag\">🇺🇸</span><span>USD</span><span class=\"tick\">✓</span></button>\n            <button class=\"currency-option btn\" data-currency=\"CAD\"><span class=\"flag\">🇨🇦</span><span>CAD</span><span class=\"tick\"></span></button>\n            <button class=\"currency-option btn\" data-currency=\"EUR\"><span class=\"flag\">🇪🇺</span><span>EUR</span><span class=\"tick\"></span></button>\n          </div>\n        </div>\n        <button class=\"info btn\" aria-label=\"Currency information\" title=\"Prices shown in your selected currency\">i</button>\n      </div>\n    </section>\n\n    <section class=\"cards\" aria-label=\"Password Manager plans\">\n      <article class=\"card personal\">\n        <h2>Individual</h2>\n        <p class=\"description\">Take control of your online<br>security.</p>\n        <div class=\"price-line\"><span class=\"price\" data-plan=\"individual\">$2.99</span><span class=\"currency-label\">USD</span></div>\n        <p class=\"billing-note\">Per month. Paid annually.</p>\n        <button class=\"trial btn\">Try FREE for 14 days</button>\n        <ul><li>Unlimited passwords</li><li>Secure sharing</li><li>1 GB document storage</li></ul>\n      </article>\n      <article class=\"card personal\">\n        <h2>Families</h2>\n        <p class=\"description\">Peace of mind for your entire<br>family.</p>\n        <div class=\"price-line\"><span class=\"price\" data-plan=\"families\">$4.99</span><span class=\"currency-label\">USD</span></div>\n        <p class=\"billing-note\">Per month. Paid annually.</p>\n        <button class=\"trial btn\">Try FREE for 14 days</button>\n        <ul><li>Up to 5 family members</li><li>Share securely with family</li><li>Manage family accounts</li></ul>\n      </article>\n      <article class=\"card\">\n        <h2>Teams Starter Pack</h2>\n        <p class=\"description\">Secure your small team.</p>\n        <div class=\"price-line\"><span class=\"price\" data-plan=\"teams\">$19.95</span><span class=\"currency-label\">USD</span></div>\n        <p class=\"billing-note\">Up to 10 users/month. Paid annually.</p>\n        <button class=\"trial btn\">Try FREE for 14 days</button>\n        <ul><li>Business-class security</li><li>Admin controls</li><li>Shared vaults</li></ul>\n      </article>\n      <article class=\"card\">\n        <h2>Business</h2>\n        <p class=\"description\">Security that adapts to your<br>business.</p>\n        <div class=\"price-line\"><span class=\"price\" data-plan=\"business\">$7.99</span><span class=\"currency-label\">USD</span></div>\n        <p class=\"billing-note\">Per user, per month. Paid annually.</p>\n        <button class=\"trial btn\">Try FREE for 14 days</button>\n        <ul><li>Advanced protection</li><li>Priority support</li><li>Custom reporting</li></ul>\n      </article>\n    </section>\n    <div class=\"below\"></div>\n  </main>\n\n<script>\n  const prices = {\n    USD: {\n      annual: ['$2.99', '$4.99', '$19.95', '$7.99'],\n      monthly: ['$3.99', '$6.95', '$24.95', '$9.99']\n    },\n    CAD: {\n      annual: ['$3.99', '$6.95', '$24.95', '$9.99'],\n      monthly: ['$4.99', '$7.95', '$29.95', '$11.99']\n    },\n    EUR: {\n      annual: ['€2.99', '€4.99', '€17.95', '€6.99'],\n      monthly: ['€3.39', '€5.95', '€20.95', '€8.99']\n    }\n  };\n  const flags = { USD: '🇺🇸', CAD: '🇨🇦', EUR: '🇪🇺' };\n  let currency = 'USD';\n  let billing = 'annual';\n\n  function updatePrices() {\n    const values = prices[currency][billing];\n    document.querySelectorAll('.price').forEach((el, i) => el.textContent = values[i]);\n    document.querySelectorAll('.currency-label').forEach(el => el.textContent = currency);\n    document.querySelectorAll('.billing-note').forEach((el, i) => {\n      const regular = [\n        billing === 'annual' ? 'Per month. Paid annually.' : 'Per month.',\n        billing === 'annual' ? 'Per month. Paid annually.' : 'Per month.',\n        billing === 'annual' ? 'Up to 10 users/month. Paid annually.' : 'Up to 10 users per month.',\n        billing === 'annual' ? 'Per user, per month. Paid annually.' : 'Per user, per month.'\n      ];\n      el.textContent = regular[i];\n    });\n  }\n  document.querySelectorAll('input[name=\"billing\"]').forEach(input => {\n    input.addEventListener('change', () => {\n      billing = input.value;\n      updatePrices();\n    });\n  });\n\n  const toggle = document.getElementById('currencyToggle');\n  const menu = document.getElementById('currencyMenu');\n  toggle.addEventListener('click', () => {\n    const open = menu.hidden;\n    menu.hidden = !open;\n    toggle.setAttribute('aria-expanded', String(open));\n  });\n  document.querySelectorAll('.currency-option').forEach(option => {\n    option.addEventListener('click', () => {\n      currency = option.dataset.currency;\n      document.getElementById('currentCode').textContent = currency;\n      document.getElementById('currentFlag').textContent = flags[currency];\n      document.querySelectorAll('.currency-option').forEach(item => {\n        const selected = item.dataset.currency === currency;\n        item.classList.toggle('selected', selected);\n        item.querySelector('.tick').textContent = selected ? '✓' : '';\n      });\n      menu.hidden = true;\n      toggle.setAttribute('aria-expanded', 'false');\n      updatePrices();\n    });\n  });\n  document.querySelector('.promo-close').addEventListener('click', () => {\n    document.getElementById('promo').style.display = 'none';\n  });\n  document.querySelectorAll('.trial, .signin, .nav-link, .plan-switch button, .promo a, .brand').forEach(el => {\n    el.addEventListener('click', event => {\n      if (el.tagName === 'A') event.preventDefault();\n    });\n  });\n</script>\n</body>\n</html>\n```",
+        "refusal": null,
+        "role": "assistant",
+        "annotations": [],
+        "audio": null,
+        "function_call": null,
+        "tool_calls": null
+      },
+      "content_filter_results": {
+        "hate": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "protected_material_code": {
+          "detected": false,
+          "filtered": false
+        },
+        "protected_material_text": {
+          "detected": false,
+          "filtered": false
+        },
+        "self_harm": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "sexual": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "violence": {
+          "filtered": false,
+          "severity": "safe"
+        }
+      }
+    }
+  ],
+  "created": 1795193862,
+  "model": "gpt-6-luna-2026-09-22",
+  "object": "chat.completion",
+  "metadata": null,
+  "moderation": null,
+  "service_tier": "default",
+  "system_fingerprint": null,
+  "usage": {
+    "completion_tokens": 6951,
+    "prompt_tokens": 12820,
+    "total_tokens": 19771,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": 0,
+      "audio_tokens": 0,
+      "reasoning_tokens": 2068,
+      "rejected_prediction_tokens": 0,
+      "text_tokens": null
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cache_write_tokens": null,
+      "cached_tokens": 0,
+      "image_tokens": null,
+      "text_tokens": null
+    },
+    "latency_checkpoint": {
+      "engine_tbt_ms": 8,
+      "engine_ttft_ms": 292,
+      "engine_ttlt_ms": 56703,
+      "pre_inference_ms": 612,
+      "service_tbt_ms": 8,
+      "service_ttft_ms": 970,
+      "service_ttlt_ms": 57377,
+      "user_visible_ttft_ms": 358
+    }
+  },
+  "prompt_filter_results": [
+    {
+      "prompt_index": 0,
+      "content_filter_results": {
+        "hate": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "jailbreak": {
+          "detected": false,
+          "filtered": false
+        },
+        "self_harm": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "sexual": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "violence": {
+          "filtered": false,
+          "severity": "safe"
+        }
+      }
+    }
+  ],
+  "routing": {
+    "serving_pipereplica": "d20261112164451-b479ec45-prefill-r5-dp0-prefill"
+  }
+}

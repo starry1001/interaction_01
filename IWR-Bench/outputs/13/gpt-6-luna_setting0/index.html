@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Best Buy Product Page</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;font-family:Arial,Helvetica,sans-serif;color:#111;background:#fff;font-size:14px}
+  body{overflow-y:scroll}
+  .btn{cursor:pointer}
+  .header{
+    height:76px;background:#0649b8;color:#fff;display:flex;align-items:center;
+    padding:0 calc((100% - 1540px)/2);gap:30px;position:sticky;top:0;z-index:20;
+    min-width:1100px
+  }
+  .brand{font-weight:900;font-size:21px;line-height:17px;width:74px;letter-spacing:-1px}
+  .brand span{display:block}
+  .brand i{display:inline-block;background:#fff200;width:16px;height:10px;margin-left:3px;vertical-align:middle}
+  .menu{font-size:20px;white-space:nowrap}
+  .menu b{font-size:27px;font-weight:normal;vertical-align:-2px;margin-right:4px}
+  .search{height:42px;background:#fff;border-radius:8px;display:flex;align-items:center;color:#777;flex:1;max-width:995px;padding:0 16px;font-size:14px}
+  .search .glass{margin-left:auto;width:20px;height:20px;border:2px solid #111;border-radius:50%;position:relative}
+  .search .glass:after{content:"";position:absolute;width:9px;height:2px;background:#111;right:-7px;bottom:-4px;transform:rotate(48deg)}
+  .headlink{font-size:20px;white-space:nowrap}
+  .headicon{font-size:28px;vertical-align:-3px;margin-right:7px}
+  .page{max-width:1500px;margin:auto}
+  .product-grid{display:grid;grid-template-columns:1015px 480px;gap:25px;padding-top:0}
+  .gallery{display:grid;grid-template-columns:75px 1fr;gap:25px;min-height:650px}
+  .thumbs{padding-top:0;display:flex;flex-direction:column;align-items:center;gap:9px}
+  .thumb{
+    width:65px;height:65px;border:1px solid #ddd;border-radius:5px;padding:4px;background:#fff;
+    display:flex;align-items:center;justify-content:center
+  }
+  .thumb.active{border:2px solid #1256bb}
+  .thumb img{max-width:100%;max-height:100%;object-fit:contain}
+  .more,.media{
+    width:65px;height:65px;border-radius:5px;background:#555;color:#fff;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-weight:bold
+  }
+  .more{font-size:17px;line-height:18px}
+  .more small,.media small{font-size:11px;font-weight:normal}
+  .media{font-size:28px;line-height:22px}
+  .hero{height:645px;display:flex;align-items:flex-start;justify-content:center;overflow:hidden}
+  .hero img{width:650px;height:650px;object-fit:contain}
+  .details{padding-top:5px}
+  h1{font-size:27px;line-height:31px;margin:0 0 16px;font-weight:700}
+  .rating{color:#f1c400;font-size:18px;margin-bottom:28px}
+  .rating small{color:#1859a7;font-size:12px;margin-left:6px}
+  .price-row{display:flex;align-items:center;gap:13px;margin-bottom:25px}
+  .price{font-size:28px;font-weight:bold}
+  .or{font-size:13px;border-left:1px solid #999;padding-left:13px}
+  .monthly strong{font-size:17px}
+  .monthly{font-size:11px;color:#555}
+  .offer-list{border-bottom:1px solid #eee;padding-bottom:20px}
+  .offer{height:38px;display:flex;align-items:center;gap:8px;font-size:14px}
+  .offer .arrow{margin-left:auto;font-size:22px}
+  .trade-title{margin-top:29px;margin-bottom:5px;color:#555}
+  .trade{border:1px solid #ccc;height:81px;padding:16px;display:flex;align-items:center;gap:13px}
+  .trade-icon{color:#1260c7;font-size:27px}
+  .trade strong{font-size:16px}
+  .trade small{display:block;margin-top:5px}
+  .availability{margin-top:42px;font-weight:bold;font-size:16px}
+  .availability-cards{display:flex;gap:10px;margin-top:12px}
+  .avail{width:123px;height:147px;border:1px solid #ccc;padding:15px;font-size:15px}
+  .avail.selected{border:2px solid #222}
+  .avail .ico{font-size:20px}
+  .avail strong{display:block;margin-top:4px}
+  .avail p{margin-top:35px;line-height:18px}
+  .pickup{margin-top:20px;font-size:14px}
+  .pickup a{color:#0759b8;font-weight:bold}
+  .red{color:#b64161;margin-top:12px}
+  .sold{margin-top:18px}
+  .actions{display:flex;gap:15px;margin-top:18px}
+  .cart{background:#ffe500;border:0;height:51px;flex:1;font-weight:bold;font-size:16px;border-radius:6px}
+  .save{height:51px;width:115px;background:#fff;border:1px solid #bbb;border-radius:6px;font-size:16px}
+  .save span{font-size:25px;vertical-align:-3px;margin-right:6px}
+  .highlights{grid-column:1/2;margin-top:0;padding-left:0}
+  .highlights h2{font-size:21px;margin:0 0 35px}
+  .highlight-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:34px}
+  .highlight{display:flex;align-items:flex-start;gap:10px;min-height:62px;position:relative}
+  .highlight:after{content:"›";position:absolute;right:4px;top:15px;font-size:24px;color:#666}
+  .hi-icon{font-size:27px;line-height:30px}
+  .highlight label{display:block;color:#555;font-size:12px;margin-bottom:3px}
+  .highlight strong{font-size:14px;line-height:17px}
+  .storage{grid-column:1/2;margin-top:24px;border-top:1px solid #ddd;padding-top:19px;font-size:17px;font-weight:bold}
+  .chat{position:fixed;right:30px;bottom:20px;width:75px;height:75px;border-radius:50%;border:3px solid #0759b8;background:#fff;overflow:hidden;z-index:10}
+  .chat img{width:100%;height:100%;object-fit:cover}
+  .overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:30;display:none}
+  .overlay.open{display:block}
+  .modal{
+    position:absolute;right:0;top:0;height:100%;width:50%;min-width:800px;background:#fff;
+    box-shadow:-3px 0 12px rgba(0,0,0,.15);display:flex;flex-direction:column
+  }
+  .modal-head{height:94px;padding:21px 44px 0;flex:none;background:#fff;position:relative;z-index:2}
+  .modal-head h2{font-size:23px;margin:0 0 17px}
+  .close{position:absolute;right:28px;top:25px;font-size:30px;font-weight:200;background:none;border:0}
+  .tabs{display:flex;gap:17px;white-space:nowrap}
+  .tab{font-weight:bold;color:#0750a8;font-size:13px;border:0;background:none;padding:0 0 5px}
+  .tab.active{color:#111;text-decoration:underline;text-underline-offset:3px}
+  .modal-body{overflow-y:auto;padding:0 44px 60px}
+  .section{padding-top:12px;margin-bottom:26px}
+  .section h3{font-size:17px;margin:0 0 17px}
+  .section>p{font-size:14px;line-height:18px;margin:0 0 26px;color:#333}
+  .level{margin:0 0 34px;position:relative;padding-left:41px}
+  .level .symbol{position:absolute;left:0;top:0;font-size:27px;line-height:28px}
+  .level h4{font-size:15px;font-weight:normal;margin:2px 0 14px}
+  .level strong{font-weight:bold}
+  ul{margin:0;padding-left:25px;line-height:18px}
+  .product-tag{background:#eef7ff;color:#0759b8;font-weight:bold;padding:4px 8px;margin-left:10px}
+  @media(max-width:1200px){
+    .header{padding:0 20px;gap:18px}.page{padding:0 20px}.product-grid{grid-template-columns:minmax(650px,1fr) 420px}
+    .modal{min-width:680px}.modal-head,.modal-body{padding-left:32px;padding-right:32px}
+  }
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="brand"><span>BEST</span><span>BUY<i></i></span></div>
+  <div class="menu btn"><b>☰</b>Menu</div>
+  <div class="search"><span>Search Best Buy</span><span class="glass"></span></div>
+  <div class="headlink"><span class="headicon">♧</span>Store Locator</div>
+  <div class="headlink"><span class="headicon">🛒</span>Cart</div>
+</header>
+
+<main class="page">
+  <div class="product-grid">
+    <section class="gallery">
+      <div class="thumbs">
+        <button class="thumb active btn" data-image="024.jpg"><img src="../../../data/data/13/assets/024.jpg" width="56" height="56"></button>
+        <button class="thumb btn" data-image="025.jpg"><img src="../../../data/data/13/assets/025.jpg" width="56" height="56"></button>
+        <button class="thumb btn" data-image="026.jpg"><img src="../../../data/data/13/assets/026.jpg" width="56" height="56"></button>
+        <button class="thumb btn" data-image="025.jpg"><img src="../../../data/data/13/assets/025.jpg" width="56" height="56"></button>
+        <div class="more btn">+2<small>more</small></div>
+        <div class="media btn">▷<small>1 Video</small></div>
+        <div class="media btn">▣<small>Customer<br>Images</small></div>
+      </div>
+      <div class="hero"><img id="heroImage" src="../../../data/data/13/assets/024.jpg" width="650" height="650"></div>
+    </section>
+
+    <section class="details">
+      <h1>32GB Memory - NVIDIA RTX<br>GeForce 5070 - 2TB NVMe SSD -<br>White</h1>
+      <div class="rating">★★★★★ <small>4.7 (66 reviews)</small></div>
+      <div class="price-row">
+        <div class="price">$1,879.99</div>
+        <div class="or">or</div>
+        <div class="monthly"><strong>$104.45<small>/mo.</small></strong><br>suggested payment with<br>18-Month Financing</div>
+      </div>
+      <div class="offer-list">
+        <div class="offer">▤ <b>Finance Options</b> <span>View your offers</span><span class="arrow">›</span></div>
+        <div class="offer">⚙ <b>Get it for less</b> <span>Ways to save on this item</span><span class="arrow">›</span></div>
+        <div class="offer">♧ <b>Special Offers</b> <span>On related products</span><span class="arrow">›</span></div>
+      </div>
+      <div class="trade-title">Trade in and save</div>
+      <div class="trade btn"><div class="trade-icon">▣</div><div><strong>Check your trade-in value.</strong><small>Save when you trade in a similar device.</small></div><span class="arrow" style="margin-left:auto;font-size:25px;color:#1761b7">›</span></div>
+      <div class="availability">Availability</div>
+      <div class="availability-cards">
+        <div class="avail selected"><div class="ico">♧</div><strong>Pickup</strong><p>Ready<br><b>Today</b></p></div>
+        <div class="avail"><div class="ico">◇</div><strong>Shipping</strong><p>Get it by<br><b>Tue, Aug 26</b></p></div>
+      </div>
+      <div class="pickup">Pickup at <a>Roseville</a></div>
+      <div class="red">Act fast - Only 2 left at your store!</div>
+      <div class="sold">Sold By Best Buy</div>
+      <div class="actions">
+        <button class="cart btn">Add to cart</button>
+        <button class="save btn"><span>♡</span>Save</button>
+      </div>
+    </section>
+
+    <section class="highlights">
+      <h2>Highlights</h2>
+      <div class="highlight-grid">
+        <div class="highlight btn" data-section="processor"><div class="hi-icon">▦</div><div><label>Processor Model</label><strong>AMD Ryzen 7 9000<br>Series</strong></div></div>
+        <div class="highlight btn" data-section="memory"><div class="hi-icon">▤</div><div><label>System Memory (RAM)</label><strong>32 gigabytes</strong></div></div>
+        <div class="highlight btn" data-section="graphics"><div class="hi-icon">▧</div><div><label>Graphics</label><strong>NVIDIA GeForce RTX<br>5070</strong></div></div>
+        <div class="highlight btn" data-section="storage"><div class="hi-icon">▥</div><div><label>Storage Type</label><strong>SSD</strong></div></div>
+        <div class="highlight btn" data-section="capacity"><div class="hi-icon">▤</div><div><label>Total Storage Capacity</label><strong>2000 gigabytes</strong></div></div>
+      </div>
+      <div class="storage">Specifications <span style="float:right">›</span></div>
+    </section>
+  </div>
+</main>
+
+<div class="chat"><img src="../../../data/data/13/assets/043.png" width="75" height="75"></div>
+
+<div class="overlay" id="overlay">
+  <aside class="modal">
+    <div class="modal-head">
+      <h2>Highlights</h2>
+      <button class="close btn" id="close">×</button>
+      <nav class="tabs">
+        <button class="tab btn" data-section="processor">Processor Model</button>
+        <button class="tab btn" data-section="memory">System Memory (RAM)</button>
+        <button class="tab btn" data-section="graphics">Graphics</button>
+        <button class="tab btn" data-section="storage">Storage Type</button>
+        <button class="tab btn" data-section="capacity">Total Storage Capacity</button>
+      </nav>
+    </div>
+    <div class="modal-body" id="modalBody">
+      <div class="section" id="processor">
+        <h3>Processor Model</h3>
+        <p>The processor is the central component that performs calculations and allows your computer to run applications smoothly.</p>
+        <div class="level"><span class="symbol">▦</span><h4>Low</h4><ul><li>Entry level processor</li><li>Good for everyday tasks</li><li>Supports music and video play</li></ul></div>
+        <div class="level"><span class="symbol">▦</span><h4>Medium</h4><ul><li>Mid-grade processor</li><li>Multitasks well</li><li>Easily manages music and video</li></ul></div>
+        <div class="level"><span class="symbol">▦</span><h4><strong>High</strong><span class="product-tag">This Product</span></h4><ul><li><strong>Excels at multitasking</strong></li><li><strong>Power users and multimedia creation</strong></li></ul></div>
+      </div>
+
+      <div class="section" id="memory">
+        <h3>System Memory (RAM)</h3>
+        <p>Random-access memory (RAM) or simply “memory,” is what allows your computer to multitask. More RAM means more applications can be running simultaneously without slowdowns.</p>
+        <div class="level"><span class="symbol">▤</span><h4>Low</h4><ul><li>Great for basic tasks</li><li>Good for web browsing and streaming</li></ul></div>
+        <div class="level"><span class="symbol">▤</span><h4>Medium</h4><ul><li>Handles heavy applications</li><li>Great for advanced gaming</li></ul></div>
+        <div class="level"><span class="symbol">▤</span><h4><strong>High</strong><span class="product-tag">This Product</span></h4><ul><li><strong>Manages multiple heavy apps simultaneously</strong></li><li><strong>Great for professional A/V editing</strong></li><li><strong>Ideal for serious gaming</strong></li></ul></div>
+      </div>
+
+      <div class="section" id="graphics">
+        <h3>Graphics</h3>
+        <p>The GPU (graphics processing unit), or “graphics card,” is what displays images, animations and graphics on the computer’s screen. A more powerful GPU makes games run faster and look better.</p>
+        <div class="level"><span class="symbol">▧</span><h4>Entry-Level</h4><ul><li>Budget friendly</li><li>Basic gaming</li></ul></div>
+        <div class="level"><span class="symbol">▧</span><h4>Mid-Range</h4><ul><li>Most common GPU</li><li>Fast display</li><li>High performance gaming</li></ul></div>
+        <div class="level"><span class="symbol">▧</span><h4><strong>High-End</strong><span class="product-tag">This Product</span></h4><ul><li><strong>Offers gameplay at max settings</strong></li><li><strong>Powerful and efficient</strong></li><li><strong>Ideal for gaming enthusiasts</strong></li></ul></div>
+      </div>
+
+      <div class="section" id="storage">
+        <h3>Storage Type</h3>
+        <p>Storage type is one of the most important factors to consider as you decide which new computer to purchase. The right storage type for you will depend on your budget, the amount of storage space you’ll need and the types of programs you’ll use.</p>
+        <div class="level"><span class="symbol">▣</span><h4>HDD</h4><ul><li>Large file and content capacity</li><li>Costs less per gigabyte than SSD</li><li>Great for everyday use</li></ul></div>
+        <div class="level"><span class="symbol">▥</span><h4><strong>SSD</strong><span class="product-tag">This Product</span></h4><ul><li><strong>Some capacity for HD files</strong></li><li><strong>Apps and games run faster than with HDD</strong></li><li><strong>Optimal gaming performance</strong></li></ul></div>
+        <div class="level"><span class="symbol">▥</span><h4>HDD+SSD</h4><ul><li>SSD speed + HDD capacity</li><li>Fast startup; generous storage</li><li>Optimal gaming performance</li></ul></div>
+      </div>
+
+      <div class="section" id="capacity">
+        <h3>Total Storage Capacity</h3>
+        <p>Storage capacity determines how much data you can store on your computer. If you typically store small files (word documents and spreadsheets) and run basic programs, you can get by with a lower storage capacity. You’ll want to consider higher storage capacity if you do a lot of photo or video editing, or if you use your computer for large gaming installs.</p>
+        <div class="level"><span class="symbol">━</span><h4>Small</h4><ul><li>Great for working with small files</li><li>Runs basic programs</li><li>Add cloud storage for extra space</li></ul></div>
+        <div class="level"><span class="symbol">▤</span><h4>Medium</h4><ul><li>Great for most uses</li><li>Starting point for gaming or high-res video</li><li>Some photo/video editing</li></ul></div>
+        <div class="level"><span class="symbol">▤</span><h4><strong>Large</strong><span class="product-tag">This Product</span></h4><ul><li><strong>High resolution video</strong></li><li><strong>Higher cost gives more storage</strong></li><li><strong>Great for large game installs</strong></li></ul></div>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<script>
+  const hero=document.getElementById('heroImage');
+  document.querySelectorAll('.thumb').forEach(t=>{
+    t.addEventListener('click',()=>{
+      document.querySelectorAll('.thumb').forEach(x=>x.classList.remove('active'));
+      t.classList.add('active');
+      hero.src='../../../data/data/13/assets/'+t.dataset.image;
+    });
+  });
+  const overlay=document.getElementById('overlay');
+  const body=document.getElementById('modalBody');
+  const tabs=document.querySelectorAll('.tab');
+  function openSection(id){
+    overlay.classList.add('open');
+    tabs.forEach(t=>t.classList.toggle('active',t.dataset.section===id));
+    const target=document.getElementById(id);
+    if(target) body.scrollTo({top:target.offsetTop-8,behavior:'instant'});
+  }
+  document.querySelectorAll('[data-section]').forEach(el=>{
+    el.addEventListener('click',()=>openSection(el.dataset.section));
+  });
+  document.getElementById('close').addEventListener('click',()=>overlay.classList.remove('open'));
+  overlay.addEventListener('click',e=>{if(e.target===overlay)overlay.classList.remove('open')});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')overlay.classList.remove('open')});
+</script>
+</body>
+</html>

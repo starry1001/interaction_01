@@ -1,0 +1,50 @@
+{
+  "total_step": 4,
+  "success_step": 0,
+  "screenshot_paths_to_eval": [
+    "outputs/20/gpt-6-luna_setting0/evalpoints/0.png",
+    "outputs/20/gpt-6-luna_setting0/evalpoints/0.png"
+  ],
+  "all_mllm_scores": [
+    0.77,
+    0.53
+  ],
+  "all_dino_scores": [
+    0.1778564453125,
+    0.1280517578125
+  ],
+  "all_ocr_scores": [
+    0.5765957446808511,
+    0.40371229698375866
+  ],
+  "all_avg_scores": [
+    0.5081507299977837,
+    0.35392135159875293
+  ],
+  "mllm_score": 0.65,
+  "dino_score": 0.1529541015625,
+  "ocr_score": 0.49015402083230486,
+  "avg_score": 0.4310360407982683,
+  "all_mllm_res": [
+    "Comments:\n- **Layout (10 points): 9/10** — The overall YouTube Shorts layout is highly consistent: left navigation sidebar, top search/header bar, centered vertical video area, right-side interaction controls, and floating scroll buttons are all positioned similarly. Minor differences exist in spacing and video panel dimensions.\n- **Elements (15 points): 13/15** — Most major UI elements are present, including the YouTube logo, menu, search, microphone, create button, profile icon, sidebar sections, video controls, engagement buttons, and creator information. The generated version lacks the visible video imagery and some visual details from the reference.\n- **Content and Text (40 points): 28/40** — The text content is largely matched, including “I don't know. I'm not sure. I have no idea.”, the creator handle, title, hashtags, engagement counts, and Chinese navigation labels. However, the generated page displays a black video area rather than the woman, outdoor background, subtitles, and large “Level B1 / I have no idea” overlay shown in the reference.\n- **Style (15 points): 12/15** — Typography, white background, black/gray controls, rounded buttons, and general YouTube styling are well reproduced. The missing video artwork and associated colors significantly reduce visual fidelity.\n- **Overall (20 points): 15/20** — The page is structurally and functionally very similar, but the central Shorts content is a major visual component and is absent in the generated version. This creates a noticeable difference despite the strong surrounding UI match.\n\n**Score: 77/100**",
+    "Comments:\n-Layout (8/10): The overall YouTube Shorts layout is closely reproduced, including the left navigation sidebar, top search/header bar, centered vertical video area, right-side interaction controls, and floating navigation arrows. The generated page is slightly different in spacing and video positioning.\n-Elements (11/15): Most major UI elements are present and arranged correctly: logo, hamburger menu, search, microphone, create button, profile icon, sidebar sections, video controls, engagement buttons, and creator information. Some icons and visual details differ from the reference.\n-Content and Text (16/40): The largest discrepancy is the main video content. The reference shows a woman outdoors with prominent “Take off” text, while the generated page displays a nearly black video with different subtitle text. Engagement counts, description text, and some labels also do not match the reference.\n-Style (8/15): The general YouTube visual language, typography, white background, rounded controls, and spacing are reasonably similar. However, the video imagery, brightness, overlays, and text presentation differ substantially.\n-Overall (10/20): The page structure and interaction layout are recognizable and fairly faithful, but the central Shorts content—the most visually dominant component—is incorrect, significantly reducing overall similarity.\n\nScore: 53/100"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "ouTube + @a Pp { Ad 8 Shorts 0 JJA Idont know Im not sure Thave no idea. T 0 ipizr 5 inm)IR 0 TAEMZ 6 EiaiWem 65 : Jaxk E #hp 4G Level B7 AJmjselo have no idea 1 1.15 0g YouTube 7*5 Sthat YouTube Premium 41 YouTube Music YouTube Kids 7 157 135 4 F #R12R 53 #AJ @arannitalagringa @ RIRE Advanced English Convergation Lesson 6p Subscribe for more Tarianmitalagringa #easyenglisheveryday #F # FRtl Fata] #englishlanguage #learnenglish @MA r= FZA 43 Fatitl 1e554 VouTuhe Aii",
+      "screenshot_text": "YouTube sG j47 0J4 0 Pp Ad Shorts 0 itia don't know: Im not sure. have no idea # 9 Feizz 5 #mbiz 0 ThAIA 6 #iteanMW Ax ; #% 2 : 0 Btigeet 0: #7 Eg YouTube 758 SrhaZ 117 YouTube Premium P YouTube Music TrX YouTube Kids 157 ##Ricz #B @ariannitalagringa #iEtR Advanced English Conversation esson RF MA FEtr HKIRJEAI] Subscribe for more #ariannitalagringa #easyenglish #englishlanguage #learnenglish EIFs CS #RS sJt [BNtlx655R2 YonTune",
+      "similarity": 0.5765957446808511
+    },
+    {
+      "checkpoint_text": "YouTube + @ (Pp { Ad 8 Shorts 0 JJA take off T 0 ipizx 5 tnm)IR 0 TAEMZ 6 EiAjiWeM 35 : Take off Jaxk E #hl M7 MJrselo 1 326 0g YouTube 7*6 Sthab YouTube Premium TeX YouTube Music YouTube Kids D 2,169 135 F #i2R ##aba #AJ @ariannitalagringa WJe 0 RIRE Mtajeeia Eli 12+44Fp4 #F #] FRtl FEta] Phrasal verbs in English #gringa #english #ariannitalagringa #american @na r=#rA 43 Fatitl 1e554 VouTuhe A7i-",
+      "screenshot_text": "YouTube sG j47 0J4 0 Pp Ad Shorts 0 itia don't know: Im not sure. have no idea # 9 Feizz 5 #mbiz 0 ThAIA 6 #iteanMW Ax ; #% 2 : 0 Btigeet 0: #7 Eg YouTube 758 SrhaZ 117 YouTube Premium P YouTube Music TrX YouTube Kids 157 ##Ricz #B @ariannitalagringa #iEtR Advanced English Conversation esson RF MA FEtr HKIRJEAI] Subscribe for more #ariannitalagringa #easyenglish #englishlanguage #learnenglish EIFs CS #RS sJt [BNtlx655R2 YonTune",
+      "similarity": 0.40371229698375866
+    }
+  ],
+  "assertion_results": [
+    null,
+    null,
+    null,
+    null
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "total_step": 11,
+  "success_step": 4,
+  "screenshot_paths_to_eval": [
+    "outputs/45/gpt-6-luna_setting1/evalpoints/0.png",
+    "outputs/45/gpt-6-luna_setting1/evalpoints/2.png",
+    "outputs/45/gpt-6-luna_setting1/evalpoints/3.png",
+    "outputs/45/gpt-6-luna_setting1/evalpoints/4.png"
+  ],
+  "all_mllm_scores": [
+    0.9,
+    0.85,
+    0.68,
+    0.79
+  ],
+  "all_dino_scores": [
+    0.87841796875,
+    0.88134765625,
+    0.888671875,
+    0.82763671875
+  ],
+  "all_ocr_scores": [
+    0.6781437125748503,
+    0.6263565891472869,
+    0.5360983102918586,
+    0.19040479760119944
+  ],
+  "all_avg_scores": [
+    0.81885389377495,
+    0.785901415132429,
+    0.7015900617639529,
+    0.6026805054503998
+  ],
+  "mllm_score": 0.805,
+  "dino_score": 0.8690185546875,
+  "ocr_score": 0.5077508524037988,
+  "avg_score": 0.7272564690304328,
+  "all_mllm_res": [
+    "Comments:\n- **Layout (10 points): 9/10** — Overall structure is highly consistent: top navigation, green promotional banner, centered WolframAlpha search/results column, and right-side advertising column are all present in the same arrangement. Minor vertical spacing and sizing differences are visible, especially around the logo, search field, and result panels.\n- **Elements (15 points): 13/15** — Most major elements match closely, including navigation links, promotional banner, logo, search controls, input/result cards, graphs, and sidebar ads. The sidebar advertisement sequence differs somewhat, with different lower ads visible between the screenshots.\n- **Content and Text (40 points): 36/40** — The primary text and query content are very similar, including the WolframAlpha branding, Chinese-language support notice, interpretation text, mathematical expression, and graph/result labels. Some text positioning, rendering, and visible lower-page content differ slightly.\n- **Style (15 points): 14/15** — Colors, typography, borders, shadows, button treatments, and overall visual identity closely match. Differences are mainly due to slight scaling, image/ad variations, and responsive rendering.\n- **Overall (20 points): 18/20** — The screenshots clearly represent the same webpage and state, with strong visual correspondence. The main deviations are modest layout offsets, different ad content, and slightly different vertical proportions.\n\n**Score: 90/100**",
+    "Comments:\n-Layout (8/10): The overall structure is highly similar, including the top navigation, green promotional banner, centered Wolfram|Alpha content column, results panel, and right-hand advertisement rail. Minor differences appear in vertical spacing and the positioning/size of some result sections.\n-Elements (13/15): Nearly all major elements are present and correctly arranged: branding, search field, input controls, language notice, interpretation panel, graphs, alternate form section, and sidebar ads. Some lower sidebar advertisements differ between the two screenshots.\n-Content and Text (34/40): Most text and mathematical result content match closely, including the Wolfram|Alpha branding, Chinese-language notice, interpreted expression, graphs, and alternate form. The main mismatch is the search field state: one screenshot shows an empty placeholder while the other contains “Partial fraction decomposition of 1/(x^2 + 4x + 3).” Some ad text/content also differs.\n-Style (13/15): Colors, typography, borders, shadows, spacing style, and the green promotional banner are closely reproduced. There are small differences in font rendering, image scaling, and sidebar ad artwork.\n-Overall (17/20): This is a strong visual match with the same page identity, layout, and primary content. Differences are mainly due to page state, dynamic advertisements, and modest spacing/rendering variations.\n\nScore: 85/100",
+    "Comments:\n- **Layout (8/10 points):** Overall structure is highly similar: top navigation, green promotional banner, centered WolframAlpha content area, two-column main/results layout, and right-side advertisements are all present. The generated page is slightly wider and its main content begins at a somewhat different horizontal position.\n- **Elements (11/15 points):** Most major UI elements are reproduced, including the logo, query input, mode buttons, result panels, graphs, sidebar ads, and navigation links. However, the generated page includes an unsupported-language notification and interpretation panel that are not present in the reference, while the reference’s prominent mathematical result section is missing or replaced.\n- **Content and Text (23/40 points):** The query text is nearly identical: “Partial fraction decomposition of 1/(x^2 + 4x + 3).” The branding and promotional text are also close. However, the generated page shows “Wolfram|Alpha does not yet support Chinese” and an “Interpreting as” message, whereas the reference displays the actual partial-fraction result with the decomposition into \\(1/[2(x+1)] + 1/[2(x+3)]\\). Sidebar advertising content also differs below the first ad.\n- **Style (12/15 points):** Colors, typography, borders, spacing, green banner, orange search styling, and general WolframAlpha visual language are well matched. Some panel heights, text sizing, ad crops, and spacing differ modestly.\n- **Overall (14/20 points):** The page is visually recognizable and structurally close to the reference, but the central result content is substantially different. The incorrect language warning and missing mathematical answer reduce functional and semantic similarity.\n\n**Score: 68/100**",
+    "Comments:\n- **Layout (10 points): 7/10** — The main two-column structure is preserved, with the Wolfram result panel centered and advertisements on the right. However, the screenshots show substantially different scroll positions: the reference includes the top navigation, promotional banner, logo, and search area, while the comparison view begins partway through the result content and includes the footer.\n- **Elements (15 points): 11/15** — Core components are present, including the input/result sections, plots, alternate form, sidebar advertisements, download link, and footer links. Some elements differ or are missing from the visible viewport, notably the top header/search controls and several sidebar ad creatives.\n- **Content and Text (40 points): 35/40** — The mathematical query, partial-fraction result, graph sections, alternate forms, Wolfram branding, and footer content are highly consistent. Minor differences appear in ad text/images and some footer or support wording.\n- **Style (15 points): 12/15** — Typography, light gray section headers, white content cards, orange/red accents, spacing, and overall Wolfram visual styling are closely matched. Differences in ad artwork, sizing, and some spacing reduce the score.\n- **Overall (20 points): 14/20** — The page is clearly the same WolframAlpha result page and retains its principal visual identity and content, but the different viewport/scroll state and changed advertising imagery prevent a closer visual match.\n\n**Score: 79/100**"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "UPGRADE TO PRO APPS TOUR Sign in Use WolframgAlpha Pro for reality-checked results Go Now FROm THE MAKERS OFWOLFRAM LANGUAGE AND MATHEMATICA WolframAlpha Enter what you want t0 calculate or know about NATURAL LANGUAGE MATH INPUT EXTENDED KEYDOARD EXAMPLES UPLOAD 7RANDOM WolframlAlpha does not yet support Chinese: WolframiAlpha 7 #tAT DISCOVER WHAT'S Interpreting as: 1/(x\"2 + 4x + 3) POSSIBLE WolframlAlpha Inpul Take the Tour 1 +4x+3 Plot from -%,1 t0 - 0,91 Enlarge Data Customize (x from -7,J to 3.31 SVSTEM MODELER VIRTUAL LABS HIGH SCHOOL PHYSICS Alterate torm Step-by-step solution Free notebooks Complete labs & (x + 3)(x+ 1) experiments Download Pro [ with '",
+      "screenshot_text": "UPGRADE TO PRO - APPS TOUR Sign in Use WolframIAlpha Pro for reality-checked results Go Pro Now FROM THE MAKERS OF WOLFRAM LANGUAGE AND MATHEMATICA Wolfram Alpha Enter what you want t0 calculate or know about NATURAL LANGUAGE 5 MATH INPUT EXTENDED KEYBOARD EXAMPLES UPLOAD RANDOM WolframIAlpha does not yet support Chinese_ Wolfram AIpha Tz##r. DISCOVER WHAT'S Interpreting as: Ll(xn2 + Ax + 3) POSSIBLE with WolframgAlpha input Take the Tour x2 + 4x + 3 Plot Answet; Ju) SP ? Eet Alternate form 2 Step-by-step solution Powering",
+      "similarity": 0.6781437125748503
+    },
+    {
+      "checkpoint_text": "UPGRADE TO PRO APPS TOUR Sign in Use WolframgAlpha Pro for reality-checked results Go Now FROm THE MAKERS OFWOLFRAM LANGUAGE AND MATHEMATICA WolframAlpha Enter what you want to @ late or know about NATURAL LANGUAGE MATH INPUT EXTENDED KEYBOARD EXAMPLES UPLOAD 3RANDOM WolframlAlpha does rot yet support Chinese: WolframlAlpha T Zk+R. DISCOVER WHAT'S Interpreting as: 1/(x\"2 + 4x + 3) POSSIBLE WolframlAlpha Inpul Take the Tour 1 +4x+3 Plot ~25 from -%,1 t0 - 0,91 Kx from 7,Jto 1.31 SVSTEM MODELER VIRTUAL LABS HIGH SCHOOL PHYSICS Alterate tomm Step-by-step solution Free notebooks Complete labs & (x + 3)(x+ 1) experiments Download Pro ( with '",
+      "screenshot_text": "UPGRADE TO PRO - APPS TOUR Sign in Use WolframIAlpha Pro for reality-checked results Go Pro Now FROM THE MAKERS OF WOLFRAM LANGUAGE AND MATHEMATICA Wolfram Alpha Partial fraction decomposition of Ll(x 2 + 4x + 3) NATURAL LANGUAGE 5 MATH INPUT EXTENDED KEYBOARD EXAMPLES UPLOAD RANDOM WolframIAlpha does not yet support Chinese_ WolframjAlpha Txitrx. DISCOVER WHAT'S Interpreting as: Ll(xnz 4x POSSIBLE with WolframgAlpha input Take the Tour x2 + 4x + 3 Plot Answet; Ju) SP ? Eet Alternate form 0 Step-by-step solution Powering",
+      "similarity": 0.6263565891472869
+    },
+    {
+      "checkpoint_text": "UPGRADE TO PRO APPS TOUR Sign in Use WolframgAlpha Pro for reality-checked results Go Now FROM THE MAKERS OF WOLFRAM LANGUAGE AND MATHEMATICA WolframAlpha Partial fraction decompps pn of 1/(x\"2 + 4x + 31 NATURAL LANGUAGE MATH INPUT EXTENDED KEYBOARD EXAMPLES UPLOAD 3RANDOM WolframlAlpha does rot yet support Chinese: WolframlAlpha T Zk+R. DISCOVER WHAT'S Interpreting as: 1/(x\"2 + 4x + 3) POSSIBLE WolframlAlpha Inpul Take the Tour 1 +4x+3 Plot ~25 from -%,1 t0 - 0,91 Kx from 7,Jto 1.31 SVSTEM MODELER VIRTUAL LABS HIGH SCHOOL PHYSICS Alterate tomm Step-by-step solution Free notebooks Complete labs & (x + 3)(x+ 1) experiments Download Pro ( with '",
+      "screenshot_text": "UPGRADE TO PRO - APPS TOUR Sign in Use WolframIAlpha Pro for reality-checked results Go Pro Now FROM THE MAKERS OF WOLFRAM LANGUAGE AND MATHEMATICA Wolfram Alpha Partial fraction decomposition of Ll(x 2 + 4x + 3) NATURAL LANGUAGE 5 MATH INPUT EXTENDED KEYBOARD EXAMPLES UPLOAD RANDOM Input partial fractions DISCOVER X- + 4x + 3 WHAT'S POSSIBLE Result 2 Step-by-step solution with Wolfram/Alpha x2 + 4x + 3 2(+1) 2 (x+3) Take the Tour Plot Answet; Ju) SP ? Eet Alternate form X2 _ 4x + 3 Powering",
+      "similarity": 0.5360983102918586
+    },
+    {
+      "checkpoint_text": "UPGRADE TO PRO APPS TOUR Sign in Use WolframgAlpha Pro for reality-checked results Go FROM THE MAKERS OFWOLFRAM LANGUAGE AND MATHEMATICA WolframAlpha Partial fraction decomposition of 1/(x\"2 + 4x + 3) NATURAL LANGUAGE MATH INPUT EXTENDED KEYBOARD EXAMPLES UPLOAD 3RANDOM Input fractions 12 +4x+3 DISCOVER WHAT'S Result Step by-step solution POSSIBLE 1+41 +3 2( + H) 2(1 + 31 with WolframlAlpha Plot Take the Tour Ee M (X Irom 3,1 t0 -0,9) WolframgAlpha Pro: Accurate Step-by-Step Math Answers KX from 7.J t0 J.J1 G0 Pro Now Alternate form Answer;: J) 1+4r+3 STEP 2 Dide (x + 1)(x +3) Download Page POWERED BY THE WOLFRAM LANGUAGE Pro [ Now partial Dur",
+      "screenshot_text": "input DISCOVER partial fractions r2 + 4x + 3 WHAT'S POSSIBLE Result 2 Step-by-step solution with Wolfram[Alpha x2 + 4x + 3 2 (x + 1) 2 (x + 3) Take the Tour Plot Answed; SIO ? Alternate form X- + 4x + 3 Powering Innovation in (x + 1) (x + 3) Optimization Win naeral Download Page POWERED BY THE WOLFRAM LANGUAGE Have question about using Wolfram]Alpha? Give uS your feedback * Contact Pro Premium Expert Support % Pro Mobile Apps Products Business Developer Solutions LLM Solutions Resources Tools About Contact Connect @2025 Wolfram Terms Privacy Learn More WOLFRAM wolfram com Wolfram Language Mathematica Wolfram Demonstrations Wolfram for Education MathWorld JW =",
+      "similarity": 0.19040479760119944
+    }
+  ],
+  "assertion_results": [
+    null,
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/45/gpt-6-luna_setting1/evalpoints/1.png",
+      "curr_img_path": "outputs/45/gpt-6-luna_setting1/evalpoints/2.png",
+      "response": "{\n  \"think\": \"The current screenshot's input field contains the text 'Partial fraction decomposition of 1/(x^2 + 4x + 3)', matching the assertion.\",\n  \"result\": \"Yes\"\n}",
+      "assertion": "The 'Partial fraction decomposition of 1/(x^2 + 4x + 3)' is typed into the input field.",
+      "thinking": "The current screenshot's input field contains the text 'Partial fraction decomposition of 1/(x^2 + 4x + 3)', matching the assertion."
+    },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ]
+}

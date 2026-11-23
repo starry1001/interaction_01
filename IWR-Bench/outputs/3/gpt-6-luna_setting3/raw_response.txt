@@ -1,0 +1,536 @@
+```html
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pomofocus</title>
+<style>
+  * { box-sizing: border-box; }
+  :root {
+    --red: #ad394a;
+    --card: #b34d5b;
+    --white: #fff;
+    --muted: rgba(255,255,255,.66);
+    --dark: #37383c;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    background: var(--red);
+  }
+  button, input, textarea { font: inherit; }
+  button { cursor: pointer; }
+  .btn { -webkit-tap-highlight-color: transparent; }
+  .app {
+    min-height: 1398px;
+    padding: 0 18px 60px;
+    background: var(--red);
+    transition: background .25s;
+  }
+  .app.break { background: #508f91; }
+  .app.break .timer-card { background: rgba(255,255,255,.12); }
+  .app.break .start-button { color: #508f91; }
+  .topbar {
+    height: 92px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(90,18,29,.22);
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 29px;
+    font-weight: 700;
+    letter-spacing: -.7px;
+    white-space: nowrap;
+  }
+  .brand-mark {
+    width: 29px; height: 29px;
+    background: white;
+    color: var(--red);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    line-height: 1;
+    font-weight: 900;
+  }
+  .top-actions { display: flex; gap: 13px; }
+  .icon-btn {
+    width: 52px; height: 51px;
+    border: 0; border-radius: 7px;
+    background: rgba(255,255,255,.18);
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .icon-btn svg { width: 28px; height: 28px; fill: currentColor; }
+  .timer-card {
+    height: 432px;
+    margin-top: 60px;
+    background: var(--card);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    padding: 30px 12px 35px;
+    transition: background .25s;
+  }
+  .modes {
+    width: min(100%, 500px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .mode {
+    border: 0;
+    color: white;
+    background: transparent;
+    font-size: 22px;
+    line-height: 1.2;
+    padding: 8px 17px;
+    border-radius: 6px;
+    white-space: nowrap;
+  }
+  .mode.active { background: rgba(117,31,45,.38); font-weight: 700; }
+  .time {
+    margin-top: 45px;
+    font-size: 145px;
+    line-height: 1.02;
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-variant-numeric: tabular-nums;
+  }
+  .timer-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 34px;
+    margin-top: 42px;
+    width: 100%;
+  }
+  .start-button {
+    width: 300px;
+    height: 92px;
+    background: #fff;
+    color: #a94351;
+    border: 0;
+    border-radius: 6px;
+    box-shadow: 0 9px 0 rgba(255,255,255,.72);
+    font-size: 32px;
+    font-weight: 700;
+  }
+  .skip-button {
+    border: 0;
+    color: rgba(255,255,255,.8);
+    background: none;
+    display: none;
+    padding: 6px;
+  }
+  .skip-button svg { width: 36px; height: 36px; fill: currentColor; }
+  .running .skip-button { display: inline-flex; }
+  .session {
+    text-align: center;
+    margin-top: 29px;
+    min-height: 69px;
+  }
+  .session-number {
+    color: rgba(255,255,255,.67);
+    font-size: 23px;
+    font-weight: 700;
+    margin-bottom: 7px;
+  }
+  .session-name { font-size: 26px; line-height: 1.2; }
+  .tasks { margin-top: 20px; }
+  .tasks-head {
+    min-height: 81px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 3px solid rgba(255,255,255,.62);
+  }
+  .tasks-head h2 { margin: 0; font-size: 25px; }
+  .more-btn {
+    width: 51px; height: 51px;
+    color: white;
+    background: rgba(255,255,255,.18);
+    border: 0; border-radius: 7px;
+    font-size: 35px;
+    line-height: 20px;
+    font-weight: bold;
+  }
+  .task-list { display: flex; flex-direction: column; gap: 15px; margin-top: 30px; }
+  .task-row {
+    min-height: 92px;
+    background: #fff;
+    color: #596065;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    padding: 0 22px;
+    border-left: 8px solid #29292c;
+    box-shadow: 0 2px 3px rgba(0,0,0,.06);
+  }
+  .task-check {
+    flex: 0 0 39px;
+    width: 39px; height: 39px;
+    border-radius: 50%;
+    border: 0;
+    color: white;
+    background: #dedfe0;
+    font-size: 25px;
+    font-weight: 700;
+    margin-right: 16px;
+  }
+  .task-title { font-size: 24px; font-weight: 700; flex: 1; }
+  .task-count { color: #9da2a5; font-size: 24px; font-weight: 700; margin-right: 24px; }
+  .task-menu {
+    width: 45px; height: 45px;
+    color: #9da2a5; background: white;
+    border: 1px solid #ddd; border-radius: 6px;
+    font-size: 30px; font-weight: bold;
+  }
+  .task-row.done .task-check { background: #d58b91; }
+  .task-row.done .task-title { text-decoration: line-through; color: #aeb1b3; }
+  .add-task {
+    width: 100%;
+    height: 97px;
+    border: 3px dashed rgba(255,255,255,.33);
+    color: rgba(255,255,255,.7);
+    border-radius: 11px;
+    background: transparent;
+    font-weight: 700;
+    font-size: 24px;
+  }
+  .add-circle {
+    display: inline-flex;
+    vertical-align: -3px;
+    align-items: center;
+    justify-content: center;
+    width: 27px; height: 27px;
+    border-radius: 50%;
+    color: var(--red);
+    background: rgba(255,255,255,.74);
+    font-size: 23px;
+    margin-right: 7px;
+    font-weight: 700;
+  }
+  .editor {
+    display: none;
+    margin-top: 22px;
+    color: #555b60;
+    background: white;
+    border-radius: 11px;
+    overflow: hidden;
+    min-height: 480px;
+    box-shadow: 0 3px 10px rgba(0,0,0,.1);
+  }
+  .editor.open { display: block; }
+  .editor-main { padding: 36px 30px 26px; }
+  .task-input {
+    width: 100%;
+    height: 68px;
+    border: 0;
+    outline: 0;
+    color: #555b60;
+    font-size: 29px;
+    font-weight: 700;
+  }
+  .task-input::placeholder { color: #d8d9da; font-style: italic; }
+  .estimate-label { font-size: 23px; font-weight: 700; margin: 20px 0 16px; }
+  .estimate-controls { display: flex; gap: 14px; align-items: center; }
+  .estimate {
+    height: 58px;
+    width: 113px;
+    background: #eee;
+    border-radius: 9px;
+    border: 0;
+    padding: 0 15px;
+    font-size: 22px;
+    color: #555;
+  }
+  .step-btn {
+    width: 58px; height: 58px;
+    border: 1px solid #ddd;
+    background: #fff;
+    border-radius: 17px;
+    color: #888;
+    box-shadow: 0 2px 3px #ddd;
+    font-size: 18px;
+  }
+  .editor-links { display: flex; gap: 18px; margin-top: 27px; }
+  .editor-link {
+    border: 0; padding: 0; background: none;
+    color: #aaa; text-decoration: underline;
+    font-size: 21px; font-weight: 700;
+  }
+  .editor-footer {
+    height: 99px;
+    background: #f5f5f5;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 38px;
+    padding: 0 30px;
+  }
+  .cancel-btn { border: 0; background: none; color: #999; font-weight: 700; font-size: 20px; }
+  .save-btn {
+    background: #414247; color: white; border: 0;
+    border-radius: 15px; height: 58px; min-width: 114px;
+    font-size: 20px; font-weight: 700;
+    box-shadow: 0 2px 3px #bbb;
+  }
+  .summary {
+    display: none;
+    margin-top: 40px;
+    height: 110px;
+    border-top: 1px solid rgba(255,255,255,.45);
+    background: rgba(255,255,255,.12);
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    font-size: 22px;
+    color: rgba(255,255,255,.75);
+  }
+  .summary strong { color: white; font-size: 34px; }
+  .finished {
+    display: none;
+    margin: 80px 3px 0;
+    background: white;
+    color: #222;
+    border-radius: 12px;
+    padding: 25px 30px;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 21px;
+  }
+  .finished.show { display: flex; }
+  .clear-btn { border: 0; border-radius: 6px; padding: 17px 25px; background: #4da88f; color: white; font-size: 20px; }
+  .article {
+    background: white;
+    color: #563237;
+    padding: 48px 18px 80px;
+    line-height: 1.7;
+  }
+  .article h1 { font-size: 34px; line-height: 1.45; margin: 0 0 50px; }
+  .article h2 { font-size: 28px; margin: 0 0 30px; }
+  .article h2:after { content:""; display:block; width:36px; height:5px; background:#e58f9a; margin-top:12px; }
+  .article p { font-size: 23px; color: #777174; line-height: 1.7; }
+  .article a { color: #c65462; font-weight: 700; }
+  @media (max-width: 520px) {
+    .app { padding-left: 12px; padding-right: 12px; }
+    .brand { font-size: 22px; }
+    .top-actions { gap: 6px; }
+    .icon-btn { width: 42px; height: 43px; }
+    .mode { padding: 8px 7px; font-size: 16px; }
+    .time { font-size: clamp(82px, 22vw, 125px); }
+    .start-button { width: min(300px, 65vw); }
+    .task-title, .task-count { font-size: 20px; }
+    .summary { font-size: 17px; gap: 10px; }
+    .summary strong { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">✓</span><span>Pomofocus</span></div>
+    <nav class="top-actions" aria-label="Tools">
+      <button class="btn icon-btn" aria-label="Statistics"><svg viewBox="0 0 24 24"><path d="M3 3h2v17h17v2H3zM7 13h3v5H7zm5-5h3v10h-3zm5 3h3v7h-3zM7 5h13v2H7z"/></svg></button>
+      <button class="btn icon-btn" aria-label="Settings"><svg viewBox="0 0 24 24"><path d="M19.4 13a7.8 7.8 0 0 0 0-2l2-1.5-2-3.5-2.3.9a8 8 0 0 0-1.7-1L15 3h-6l-.4 2.9a8 8 0 0 0-1.7 1l-2.3-.9-2 3.5 2 1.5a7.8 7.8 0 0 0 0 2l-2 1.5 2 3.5 2.3-.9a8 8 0 0 0 1.7 1L9 21h6l.4-2.9a8 8 0 0 0 1.7-1l2.3.9 2-3.5zM12 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7"/></svg></button>
+      <button class="btn icon-btn" aria-label="Account"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 4a3.2 3.2 0 1 1 0 6.4A3.2 3.2 0 0 1 12 6zm0 13a7 7 0 0 1-5.6-2.8c.1-2 3.7-3.1 5.6-3.1s5.5 1.1 5.6 3.1A7 7 0 0 1 12 19z"/></svg></button>
+      <button class="btn icon-btn" aria-label="More options"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2.2"/><circle cx="12" cy="12" r="2.2"/><circle cx="12" cy="19" r="2.2"/></svg></button>
+    </nav>
+  </header>
+
+  <section class="timer-card" aria-label="Pomodoro timer">
+    <div class="modes">
+      <button class="btn mode active" data-mode="pomodoro">Pomodoro</button>
+      <button class="btn mode" data-mode="short">Short Break</button>
+      <button class="btn mode" data-mode="long">Long Break</button>
+    </div>
+    <div class="time" id="time">25:00</div>
+    <div class="timer-actions">
+      <button class="btn start-button" id="start">START</button>
+      <button class="btn skip-button" id="skip" aria-label="Skip timer"><svg viewBox="0 0 24 24"><path d="M3 4.5c0-1.2 1.3-1.8 2.2-1.1l11 7.6c.8.6.8 1.7 0 2.2l-11 7.5C4.3 21.5 3 20.9 3 19.7zM19 3h2v18h-2z"/></svg></button>
+    </div>
+  </section>
+
+  <div class="session">
+    <div class="session-number">#<span id="sessionNum">1</span></div>
+    <div class="session-name" id="sessionName">Time to focus!</div>
+  </div>
+
+  <section class="tasks">
+    <div class="tasks-head">
+      <h2>Tasks</h2>
+      <button class="btn more-btn" aria-label="Task options">⋮</button>
+    </div>
+    <div class="task-list" id="taskList">
+      <button class="btn add-task" id="addTask"><span class="add-circle">+</span>Add Task</button>
+    </div>
+    <div class="editor" id="editor">
+      <div class="editor-main">
+        <input class="task-input" id="taskInput" placeholder="What are you working on?" autocomplete="off">
+        <div class="estimate-label">Est Pomodoros</div>
+        <div class="estimate-controls">
+          <input class="estimate" id="estimate" type="number" value="1" min="1">
+          <button class="btn step-btn" id="up" aria-label="Increase estimate">▲</button>
+          <button class="btn step-btn" id="down" aria-label="Decrease estimate">▼</button>
+        </div>
+        <div class="editor-links">
+          <button class="btn editor-link">+ Add Note</button>
+          <button class="btn editor-link">+ Add Project　🔒</button>
+        </div>
+      </div>
+      <div class="editor-footer">
+        <button class="btn cancel-btn" id="cancel">Cancel</button>
+        <button class="btn save-btn" id="save">Save</button>
+      </div>
+    </div>
+    <div class="summary" id="summary">
+      <span>Pomos: <strong id="pomos">0 / 0</strong></span>
+      <span>Finish At: <strong>14:57</strong> (0.4h)</span>
+    </div>
+    <div class="finished" id="finished">
+      <span>You've finished all your tasks for today 🎉</span>
+      <button class="btn clear-btn" id="clear">Clear Tasks</button>
+    </div>
+  </section>
+</div>
+
+<section class="article">
+  <h1>An online Pomodoro Timer to boost your productivity</h1>
+  <h2>What is Pomofocus?</h2>
+  <p>Pomofocus is a customizable pomodoro timer that works on desktop &amp; mobile browser. The aim of this app is to help you focus on any task you are working on, such as study, writing, or coding. This app is inspired by <a href="#" class="btn">Pomodoro Technique</a> which is a time management method developed by Francesco Cirillo.</p>
+</section>
+
+<script>
+(() => {
+  const app = document.getElementById('app');
+  const timeEl = document.getElementById('time');
+  const start = document.getElementById('start');
+  const modes = [...document.querySelectorAll('.mode')];
+  const sessionName = document.getElementById('sessionName');
+  const editor = document.getElementById('editor');
+  const input = document.getElementById('taskInput');
+  const estimate = document.getElementById('estimate');
+  const addTask = document.getElementById('addTask');
+  const taskList = document.getElementById('taskList');
+  const summary = document.getElementById('summary');
+  const finished = document.getElementById('finished');
+  let selected = 'pomodoro', running = false, seconds = 1500, ticker = null;
+  let tasks = [];
+
+  const durations = { pomodoro: 25, short: 5, long: 15 };
+  const sessionLabels = { pomodoro: 'Time to focus!', short: 'Time for a break!', long: 'Time for a break!' };
+  function format() {
+    timeEl.textContent = `${String(Math.floor(seconds / 60)).padStart(2,'0')}:${String(seconds % 60).padStart(2,'0')}`;
+  }
+  function chooseMode(mode) {
+    selected = mode;
+    modes.forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
+    app.classList.toggle('break', mode !== 'pomodoro');
+    seconds = durations[mode] * 60;
+    sessionName.textContent = sessionLabels[mode];
+    stopTimer();
+    format();
+  }
+  function stopTimer() {
+    running = false;
+    clearInterval(ticker);
+    app.classList.remove('running');
+    start.textContent = 'START';
+  }
+  modes.forEach(b => b.addEventListener('click', () => chooseMode(b.dataset.mode)));
+  start.addEventListener('click', () => {
+    if (running) { stopTimer(); return; }
+    running = true;
+    app.classList.add('running');
+    start.textContent = 'PAUSE';
+    ticker = setInterval(() => {
+      if (seconds > 0) { seconds--; format(); }
+      else stopTimer();
+    }, 1000);
+  });
+  document.getElementById('skip').addEventListener('click', () => {
+    stopTimer();
+    seconds = durations[selected] * 60;
+    format();
+  });
+
+  function openEditor() {
+    editor.classList.add('open');
+    addTask.style.display = 'none';
+    input.value = '';
+    estimate.value = 1;
+    setTimeout(() => input.focus(), 30);
+  }
+  function closeEditor() {
+    editor.classList.remove('open');
+    addTask.style.display = '';
+  }
+  addTask.addEventListener('click', openEditor);
+  document.getElementById('cancel').addEventListener('click', closeEditor);
+  document.getElementById('up').addEventListener('click', () => estimate.value = Math.max(1, (+estimate.value || 1) + 1));
+  document.getElementById('down').addEventListener('click', () => estimate.value = Math.max(1, (+estimate.value || 1) - 1));
+
+  function updateSummary() {
+    if (!tasks.length) {
+      summary.style.display = 'none';
+      finished.classList.remove('show');
+      return;
+    }
+    summary.style.display = 'flex';
+    const total = tasks.reduce((n, t) => n + t.est, 0);
+    const done = tasks.filter(t => t.done).length;
+    document.getElementById('pomos').textContent = `${done} / ${total}`;
+    finished.classList.toggle('show', tasks.every(t => t.done));
+  }
+  function renderTasks() {
+    taskList.innerHTML = '';
+    tasks.forEach((task, i) => {
+      const row = document.createElement('div');
+      row.className = 'task-row' + (task.done ? ' done' : '');
+      row.innerHTML = `<button class="btn task-check" aria-label="Complete task">${task.done ? '✓' : '✓'}</button>
+        <span class="task-title"></span><span class="task-count">0 / ${task.est}</span>
+        <button class="btn task-menu" aria-label="Task options">⋮</button>`;
+      row.querySelector('.task-title').textContent = task.title;
+      row.querySelector('.task-check').addEventListener('click', () => {
+        task.done = !task.done; renderTasks(); updateSummary();
+      });
+      row.querySelector('.task-menu').addEventListener('click', () => {
+        if (confirm('Delete this task?')) { tasks.splice(i, 1); renderTasks(); updateSummary(); }
+      });
+      taskList.appendChild(row);
+    });
+    taskList.appendChild(addTask);
+    addTask.style.display = editor.classList.contains('open') ? 'none' : '';
+  }
+  document.getElementById('save').addEventListener('click', () => {
+    const value = input.value.trim();
+    if (!value) { input.focus(); return; }
+    tasks.push({ title: value, est: Math.max(1, +estimate.value || 1), done: false });
+    renderTasks();
+    updateSummary();
+    openEditor();
+  });
+  document.getElementById('clear').addEventListener('click', () => {
+    tasks = [];
+    renderTasks();
+    updateSummary();
+  });
+})();
+</script>
+</body>
+</html>
+```

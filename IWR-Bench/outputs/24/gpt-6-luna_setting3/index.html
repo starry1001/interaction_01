@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Geo3k-augmentation · Hugging Face</title>
+<style>
+  *{box-sizing:border-box}
+  :root{--border:#e5e5e9;--muted:#8b909b;--text:#252833;--purple:#f7f4ff;--blue:#2563eb}
+  body{margin:0;color:var(--text);font-family:Arial,Helvetica,sans-serif;font-size:14px;background:#fff}
+  button,input,textarea{font:inherit;color:inherit}
+  button{cursor:pointer}
+  .btn{cursor:pointer}
+  .topbar{height:68px;border-bottom:1px solid #eee;display:flex;align-items:center;justify-content:center;background:#fff}
+  .topinner{width:min(1500px,96%);display:flex;align-items:center;gap:22px;height:100%}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:18px;white-space:nowrap}
+  .brand .face{font-size:23px}
+  .search{height:40px;width:390px;border:1px solid #ddd;border-radius:9px;display:flex;align-items:center;padding:0 13px;color:#9aa0aa;box-shadow:0 1px 3px #0000000c}
+  .search input{border:0;outline:0;width:100%;padding-left:9px}
+  .globalnav{display:flex;align-items:center;gap:24px;margin-left:auto;white-space:nowrap}
+  .globalnav button{border:0;background:none;padding:8px 0}
+  .avatar{width:25px;height:25px;border-radius:50%;background:#f7d91b;border:2px solid #d9d9e2}
+  .notice{height:54px;background:#fff8d5;display:flex;align-items:center}
+  .noticeinner{width:min(1500px,96%);margin:auto;display:flex;align-items:center;justify-content:space-between}
+  .notice button,.soft{border:1px solid #dedee3;border-radius:8px;background:linear-gradient(#fff,#f5f5f7);padding:8px 15px}
+  .datasethead{background:linear-gradient(#fff,#f7f3ff);height:180px}
+  .datasetinner{width:min(1500px,96%);height:100%;margin:auto;display:flex;flex-direction:column;justify-content:flex-end}
+  .dataset-title{font-size:21px;font-weight:600;margin:0 0 16px 4px}
+  .dataset-title .muted{color:#9598a3;font-weight:400}
+  .dataset-title .dot{color:#d34d9e}
+  .tags{display:flex;align-items:center;gap:10px;color:#858995;margin:0 0 26px 4px}
+  .tag{padding:7px 10px;border:1px solid #e5e4eb;border-radius:9px;background:white;color:#525660;white-space:nowrap}
+  .tabs{height:50px;display:flex;align-items:stretch;gap:22px;border-bottom:1px solid #e4e1ec}
+  .tabs button{background:transparent;border:0;padding:0 12px;color:#6d7280}
+  .tabs button.active{font-weight:bold;color:#252833;border-bottom:2px solid #343746}
+  .content{min-height:650px}
+  .card-page{max-width:1500px;margin:32px auto 60px}
+  .overview-row{display:grid;grid-template-columns:minmax(0,1fr) 390px;gap:36px}
+  .viewer{border:1px solid var(--border);border-radius:8px;overflow:hidden;box-shadow:0 1px 3px #00000008}
+  .viewer-title{height:45px;padding:12px 15px;border-bottom:1px solid var(--border);font-weight:bold}
+  .view-tools{float:right;color:#9aa0a8;font-weight:normal}
+  .split{height:58px;border-bottom:1px solid var(--border);display:flex;align-items:center;padding:8px 14px;position:relative}
+  .split button{height:100%;width:100%;text-align:left;border:0;background:white}
+  .split small{display:block;color:#8b9099;margin-top:4px}
+  .split-menu{display:none;position:absolute;top:51px;left:10px;width:220px;background:white;border:1px solid #ddd;border-radius:8px;box-shadow:0 6px 18px #0002;z-index:8}
+  .split-menu button{display:block;padding:12px;text-align:left}
+  .table-search{height:42px;border-bottom:1px solid var(--border);padding:10px 14px;color:#979ba5}
+  .preview-table{width:100%;border-collapse:collapse;table-layout:fixed}
+  .preview-table th{height:94px;text-align:left;padding:8px;border-bottom:1px solid var(--border);vertical-align:top;color:#31343b}
+  .preview-table th small{display:block;color:#9ba0aa;font-weight:normal;margin-top:4px}
+  .preview-table td{padding:8px;border-bottom:1px solid var(--border);height:64px;font-family:monospace;font-size:12px}
+  .preview-table tr:nth-child(even){background:#faf9fc}
+  .preview-table .image-col{width:22%}
+  .preview-table .problem-col{width:50%}
+  .preview-table .answer-col{width:28%}
+  .thumbset{display:flex;align-items:center;gap:5px}
+  .thumbset img{object-fit:contain;width:56px;height:44px}
+  .preview-table tr{cursor:pointer}
+  .preview-table tr.selected{background:#e6efff!important}
+  .side{padding:6px 0}
+  .side h4{font-size:15px;margin:8px 0 18px}
+  .side p{color:#818692;font-size:13px}
+  .side .use{background:#111;color:white;border:0;border-radius:8px;padding:10px 16px;margin:14px 0 25px}
+  .side-list{line-height:2.4;color:#4a4d56;margin-top:25px}
+  .markdown{margin-top:60px;border-top:1px solid #eee;padding-top:34px;max-width:1000px;line-height:1.65}
+  .markdown h3{font-size:18px;margin-top:30px}
+  .markdown p{color:#555d68}
+  .studio{height:calc(100vh - 356px);min-height:680px;padding:16px;display:grid;grid-template-columns:minmax(0,1fr) 475px;gap:14px}
+  body.studio-mode{overflow:hidden}
+  body.studio-mode .content{height:calc(100vh - 302px);min-height:0}
+  body.studio-mode .studio{height:100%;min-height:0;padding-top:16px}
+  .studio-main{min-width:0;display:flex;flex-direction:column}
+  .studio-split{height:60px;flex:none;border:1px solid var(--border);border-radius:8px;display:flex;align-items:center;padding:8px 12px;margin-bottom:16px}
+  .studio-split .split-control{border:0;background:white;width:50%;height:100%;text-align:left}
+  .studio-split .blank{height:100%;border-left:1px solid #eee;flex:1}
+  .studio-search{height:40px;border:1px solid var(--border);border-radius:8px 8px 0 0;padding:10px;color:#969ba5}
+  .studio-table-wrap{overflow:auto;border:1px solid var(--border);flex:1}
+  .studio-table{width:100%;border-collapse:collapse;table-layout:fixed}
+  .studio-table th{text-align:left;padding:8px;border-bottom:1px solid #ddd;background:#fff;height:88px;vertical-align:top}
+  .studio-table th small{display:block;color:#9aa0aa;font-weight:normal;margin-top:4px}
+  .studio-table td{border-bottom:1px solid #e8e8ec;padding:7px 9px;height:68px;font:12px/1.4 monospace;overflow:hidden}
+  .studio-table tbody tr:nth-child(even){background:#faf9fc}
+  .studio-table tbody tr{cursor:pointer}
+  .studio-table tbody tr.selected{background:#e6efff}
+  .studio-table .cimg{width:20%}.studio-table .cproblem{width:50%}.studio-table .canswer{width:30%}
+  .studio-table td img{width:74px;height:50px;object-fit:contain}
+  .raw{white-space:nowrap;text-overflow:ellipsis}
+  .right-panel{border:1px solid var(--border);border-radius:9px;padding:13px;display:flex;flex-direction:column;min-height:0}
+  .ai{height:53px;border:1px solid #e6e6eb;border-radius:9px;box-shadow:0 2px 5px #00000012;display:flex;align-items:center;padding:10px 14px;color:#969ba5}
+  .ai span{font-size:20px;margin-right:14px;color:#48566a}
+  .console{height:220px;background:#f0f1f4;border-radius:7px;margin-top:15px;padding:15px 12px;color:#845532;font:12px/1.6 monospace;overflow:auto}
+  .console .sql{color:#6f3580}
+  .subsets{margin-top:16px;font-weight:bold}
+  .pills{margin:10px 0}
+  .pills button{border:1px solid #ddd;border-radius:6px;background:#f7f7fa;padding:4px 9px;color:#697386;margin-right:4px}
+  .run{width:100%;height:48px;background:linear-gradient(#fff,#f3f3f5);border:1px solid #ddd;border-radius:9px;font-weight:bold}
+  .saved{margin-top:auto}
+  .saved-tabs{font-size:13px;margin-bottom:10px;color:#737986}
+  .saved-tabs strong{background:#111;color:#fff;border-radius:7px;padding:4px 8px;margin-right:10px}
+  .empty{border:1px solid #e5e4e9;background:#faf9fc;border-radius:7px;height:170px;display:flex;align-items:center;justify-content:center;text-align:center;color:#626a77;font-size:13px}
+  .files-content{max-width:1500px;margin:32px auto}
+  .file-controls{height:54px;display:flex;align-items:center;gap:14px}
+  .file-controls .spacer{flex:1}
+  .file-list{border:1px solid var(--border);border-radius:9px;overflow:hidden}
+  .file-row{height:52px;display:grid;grid-template-columns:minmax(300px,1fr) 130px 1fr 150px;align-items:center;padding:0 14px;border-top:1px solid var(--border)}
+  .file-row:first-child{height:50px;background:#faf9fc;border-top:0;color:#767c87}
+  .file-row button{background:none;border:0;text-align:left}
+  .file-name{font-weight:500}
+  .safe{font-size:11px;color:#8b909a;border:1px solid #ddd;padding:2px 5px;border-radius:5px}
+  .community{display:grid;grid-template-columns:330px 1fr;gap:50px;max-width:1500px;margin:30px auto}
+  .community-left button{display:block;margin-bottom:10px}
+  .community-main{min-width:0}
+  .filters{display:flex;align-items:center;gap:22px;margin-bottom:28px}
+  .filters input{border:1px solid #ddd;border-radius:22px;padding:10px 15px;width:250px}
+  .issue{height:84px;border:1px solid var(--border);border-radius:10px;display:flex;align-items:center}
+  .issue-icon{height:84px;width:82px;background:#f3f6ff;display:flex;align-items:center;justify-content:center;font-size:20px;margin-right:18px}
+  .issue button{border:0;background:none;font-weight:bold;font-size:16px}
+  .issue small{display:block;color:#858b96;margin-top:8px}
+  .discussion{max-width:1900px;margin:34px 48px 70px}
+  .discussion-title{padding:12px 0 24px;border-bottom:1px solid #eee}
+  .discussion-title h2{font-size:21px;margin:0 0 8px}
+  .post{border:1px solid var(--border);border-radius:9px;margin-top:36px;max-width:1860px;overflow:hidden}
+  .post-head{height:52px;background:#faf9fc;border-bottom:1px solid var(--border);padding:16px;font-weight:bold}
+  .post-body{padding:10px 18px 20px;line-height:1.7;color:#59616b;font-size:16px}
+  .post-body h3{color:#313744;font-size:18px;margin:32px 0 12px}
+  .post-body code{background:#f1f2f4;padding:2px 5px;border-radius:4px;color:#303744}
+  .comment-box{max-width:1860px;border:1px solid var(--border);border-radius:9px;margin-top:30px;overflow:hidden}
+  .comment-tabs{height:48px;border-bottom:1px solid var(--border);display:flex}
+  .comment-tabs button{padding:0 20px;border:0;border-right:1px solid var(--border);background:#f8f8fa}
+  .comment-tabs button.active{background:white;font-weight:bold}
+  .comment-box textarea{width:calc(100% - 36px);height:175px;margin:18px;border:1px solid #e3e3e7;border-radius:7px;padding:16px;resize:vertical}
+  .preview-empty{height:150px;padding:24px;color:#999}
+  .comment-foot{border-top:1px solid var(--border);padding:20px}
+  .comment-foot button{margin-top:12px}
+  footer{border-top:1px solid #eee;margin-top:70px;height:75px;display:flex;align-items:center;justify-content:space-around;color:#777}
+  .toast{position:fixed;bottom:20px;right:24px;background:#222;color:white;padding:12px 18px;border-radius:8px;display:none;z-index:20}
+  @media(max-width:900px){
+    .globalnav{gap:8px}.globalnav button:nth-child(n+4){display:none}
+    .tags{overflow:auto}.overview-row{grid-template-columns:1fr}.side{display:none}
+    .studio{grid-template-columns:1fr}.right-panel{display:none}
+    .community{grid-template-columns:1fr;margin:20px}.community-left{display:none}
+    .files-content{margin:20px}.discussion{margin:20px}
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topinner">
+    <div class="brand"><span class="face">🤗</span> Hugging Face</div>
+    <label class="search">⌕ <input aria-label="Search" placeholder="Search models, datasets, users..."></label>
+    <nav class="globalnav">
+      <button class="btn">◈ Models</button><button class="btn">▤ Datasets</button><button class="btn">▦ Spaces</button><button class="btn">🟡 Community</button><button class="btn">▣ Docs</button><button class="btn">▰ Enterprise</button><button class="btn">Pricing</button><button class="btn">☰</button><span class="avatar"></span>
+    </nav>
+  </div>
+</header>
+<div class="notice"><div class="noticeinner"><span>Please check your email address for a confirmation link</span><button class="btn" id="resend">Resend confirmation email</button></div></div>
+
+<section class="datasethead">
+  <div class="datasetinner">
+    <div class="dataset-title"><span class="muted">▤ Datasets:</span> <span class="dot">●</span> <span class="muted">Yuting6 /</span> Geo3k-augmentation <span style="font-size:14px;color:#9aa0a8">▢</span> <span class="tag" style="font-size:13px;padding:4px 9px">♡ like&nbsp; 0</span></div>
+    <div class="tags"><span>Modalities:</span><span class="tag">🟩 Image</span><span class="tag">🟥 Text</span><span>Formats:</span><span class="tag">◈ parquet</span><span>Size:</span><span class="tag">1K - 10K</span><span>ArXiv:</span><span class="tag">▣ arxiv:2506.09736</span><span>Libraries:</span><span class="tag">🤗 Datasets</span><span class="tag">▥ pandas</span><span class="tag">🥐 Croissant</span><span>+ 1</span></div>
+    <nav class="tabs">
+      <button class="btn active" data-page="card">◈ Dataset card</button>
+      <button class="btn" data-page="studio">▦ Data Studio</button>
+      <button class="btn" data-page="files">▤ Files and versions <span class="tag" style="padding:2px 5px;font-size:11px">✕et</span></button>
+      <button class="btn" data-page="community">🟡 Community <span style="background:#111;color:#fff;border-radius:4px;padding:2px 5px;font-size:11px">1</span></button>
+    </nav>
+  </div>
+</section>
+<main id="content" class="content"></main>
+<div class="toast" id="toast"></div>
+
+<script>
+const rowsTrain=[
+  ['001.jpg|065.jpg','<image>Find x. Round to the nearest tenth, if necessary. Choices: 8 9 10 11','11'],
+  ['067.jpg|069.jpg','<image>In the figure, the vertices of quadrilateral ABCD intersect square EFGH and divide its sides into segments with measures that have a ratio of 1:2. Find the ratio between the areas of ABCD and EFGH. Choices: 1:4 1:2 5:9 1:√2','5:9'],
+  ['074.jpg|080.jpg','<image>Find the value of $f$ in the parallelogram Choices: 14 18 36 56','14'],
+  ['082.jpg|086.jpg','<image>Find the value of the variable $y$ in the figure. Choices: 55 115 125 135','125'],
+  ['084.jpg|085.jpg','<image>Find m∠angle SS Choices: 68 80 123 125','123'],
+  ['091.jpg|092.jpg','<image>Find $x$ so that $m \\parallel n$. Choices: 10 11 12 13','13'],
+  ['093.jpg|094.jpg','<image>Find m∠RSU so that $m \\parallel n$. Choices: 114 116 120 124','124'],
+  ['095.jpg|096.jpg','<image>Find $x$. Choices: 6 9 12 15','12'],
+  ['012.jpg|072.jpg','<image>Find the perimeter of the triangle A B C, if △ABC ~ △CBD, A D=5, CD=12, and SB=31.2 Choices: 32.5 72 78 187.2','78'],
+  ['105.jpg|107.jpg','<image>AB is a diameter, AC=8 inches, and BC=15 inches. Find the diameter of the circle. Choices: 8 8.5 15 17','17'],
+  ['026.jpg|072.jpg','<image>Find ∠angle 10$ Choices: 50 80 100 160','50'],
+  ['027.jpg|032.jpg','<image>Find the measure of ∠S angle 7 if S AB ⟂ BC. Choices: 110 120 130 140','140'],
+  ['028.jpg|029.jpg','<image>Find m ∠ CF. Choices: 40 49 80 98','80'],
+  ['040.jpg|041.jpg','<image>Find x Choices: 3 4 5 6','6']
+];
+const rowsTest=[
+  ['026.jpg','<image>In the figure, $\\overline{AD}$ is perpendicular to $\\overline{BC}$ and $\\overline{AB}$ is perpendicular to $\\overline{AC}$. What is $BC$? Choices: 5 √2 5 √3 20 25','20'],
+  ['065.jpg','<image>In ⊙M, $FL=24,HJ=48$, and m∠HP=65. Find m∠P. Choices: 37.5 65 85 130','65'],
+  ['081.jpg','<image>Find SG if SG H=9, G K=6, and SK J=4. Choices: 6 9 12 15','15'],
+  ['113.jpg','<image>In △XYZ, S is the centroid, KP=3, and SXJ=8. Find YS. Choices: 3 6 8 9','8'],
+  ['080.jpg','<image>A regular pentagon and a square share a mutual vertex S. How many sides does this polygon have? Choices: 19 20 28 32','20'],
+  ['115.jpg','<image>Use parallelogram SJKLM to find m∠KJLS. Choices: 30 40 50 60','30'],
+  ['097.jpg','<image>Find x. Choices: 17/2 √2 √3 17','√17/2'],
+  ['109.jpg','<image>Find x. Assume that segments that appear to be tangent are tangent. Choices: 1 2 4 8','2'],
+  ['121.jpg','<image>Find x to the nearest tenth. Assume that segments that appear to be tangent are tangent. Choices: 9.2 10.2 11.2 12.2','11.2'],
+  ['129.jpg','<image>Find m∠CAMS Choices: 14 28 36 90','28'],
+  ['101.jpg','<image>Sa=14, b=48, and Sc=505 find SinAS Choices: 0.14 0.28 0.48 0.5','0.28'],
+  ['027.jpg','<image>Refer to the triangle shown below. Find $y$ to the nearest tenth. Choices: 6 8 10 2√41','2√41'],
+  ['108.jpg','<image>In rhombus ABCD, A=2x+3$ and $B C=5$. Find AD. Choices: 1 2 4 5','5'],
+  ['089.jpg','<image>Find x Choices: 3 4 5 6','4']
+];
+let currentPage='card', splitName='train', rawMode=false, selected=-1, discussionDetail=false, commentPreview=false;
+function imageMarkup(files,raw=false){
+  if(raw)return '<div class="raw">[{"bytes":[255,216,255,224,0,16,74,70,73,70,0,1,0,1,0,0,255,219,0,67,0,8,6,6,7,6,5,8,7,7,7,9,8,10,1…</div>';
+  return '<div class="thumbset">'+files.split('|').map(f=>`<img src="../../../data/data/24/assets/${f}" width="56" height="44" alt="Geometry diagram">`).join('')+'</div>';
+}
+function makeRows(list, cls='preview-table', raw=false){
+ return list.map((r,i)=>`<tr class="${selected===i?'selected':''}" data-row="${i}"><td>${imageMarkup(r[0],raw)}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('');
+}
+function tableHTML(list, cls='preview-table', raw=false){
+ return `<table class="${cls}"><thead><tr><th class="${cls==='studio-table'?'cimg':'image-col'}">images<small>images list · lengths</small><div style="height:22px;background:#ececf1;margin-top:10px"></div></th><th class="${cls==='studio-table'?'cproblem':'problem-col'}">problem<small>string · lengths</small><div style="height:22px;background:#f5f5f7;margin-top:10px"></div></th><th class="${cls==='studio-table'?'canswer':'answer-col'}">answer<small>string · classes</small><div style="height:22px;background:#f7f6fa;margin-top:10px"></div></th></tr></thead><tbody>${makeRows(list,cls,raw)}</tbody></table>`;
+}
+function cardPage(){
+ const list=rowsTrain.slice(0,4);
+ return `<div class="card-page"><div class="overview-row"><section class="viewer"><div class="viewer-title">▦ Dataset Viewer <span class="view-tools">◌ Auto-converted to Parquet　　<span class="tag">〈/〉 API</span>　<span class="tag">▣ Embed</span>　<span class="tag">▦ Data Studio</span></span></div><div class="split"><button class="btn" id="splitSelect">Split (2)<small>${splitName} · ${splitName==='train'?'4.2k':'1.6k'} rows　⌄</small></button><div class="split-menu" id="splitMenu"><button class="btn" data-split="train">train · 4.2k rows</button><button class="btn" data-split="test">test · 1.6k rows</button></div></div><div class="table-search">⌕　Search this dataset</div>${tableHTML(list)}</section><aside class="side"><p>Downloads last month <b style="float:right;color:#252833">32</b></p><button class="use btn">〈/〉 Use this dataset　⌄</button><p>Size of downloaded dataset files:<br><b>224 MB</b></p><p>Size of the auto-converted Parquet files: <b>224 MB</b><br>Number of rows: <b>5,803</b></p><div class="side-list"><b>◉ Models trained or fine-tuned on Yuting6/Geo3k-...</b><br>🟣 Yuting6/Vision-Matters-7B<br>🟣 mradermacher/Vision-Matters-7B-GGUF<br>🟣 Yuting6/Vision-Matters-Evaluation<br><br><b>▦ Collection including Yuting6/Geo3k-augmentati...</b><br>Vision-Matters</div></aside></div>
+ <article class="markdown"><p><b>license: mit datasets:</b> - Yuting6/geoqa-r1v-augmentation - Yuting6/math-8k-augmentation - Yuting6/m3cot-augmentation - Yuting6/TQA-augmentation - Yuting6/Geo3k-augmentation - Yuting6/geoqa-r1v-noise</p><h3>Vision Matters: Simple Visual Perturbations Can Boost Multimodal Math Reasoning</h3><h3>Paper Title and Link</h3><p>The model was presented in the paper Vision Matters: Simple Visual Perturbations Can Boost Multimodal Math Reasoning.</p></article></div>`;
+}
+function studioPage(){
+ let list=splitName==='train'?rowsTrain:rowsTest;
+ return `<div class="studio"><section class="studio-main"><div class="studio-split"><button id="splitSelect" class="split-control btn">Split (2)<small style="display:block;color:#8b9099;margin-top:4px">${splitName} · ${splitName==='train'?'4.2k':'1.6k'} rows　⌄</small></button><span class="blank"></span></div><div class="split-menu" id="splitMenu" style="top:72px;left:22px"><button class="btn" data-split="train">train · 4.2k rows</button><button class="btn" data-split="test">test · 1.6k rows</button></div><div class="studio-search">⌕　Search this dataset</div><div class="studio-table-wrap" id="tableWrap">${tableHTML(list,'studio-table',rawMode)}</div></section><aside class="right-panel"><div class="ai"><span>✣</span>Ask AI to help write your query... <small style="margin-left:auto;border:1px solid #ddd;padding:2px 5px;border-radius:4px">Ctrl+K</small></div><div class="console">-- The SQL console is powered by DuckDB WASM and runs entirely in your browser.<br>-- Get started by typing a query or selecting a view from the<br><span class="sql">SELECT * FROM ${splitName} LIMIT 10;</span></div><div class="subsets">Subsets and Splits <span style="color:#999">ⓘ</span></div><div class="pills"><button class="btn" data-split="train">train</button><button class="btn" data-split="test">test ⇩</button></div><button class="run btn" id="runQuery">Run Query</button><div class="saved"><div class="saved-tabs"><strong>Saved Queries</strong> Top Community Queries</div><div class="empty"><div><b>No saved queries yet</b><br><small>Save your SQL queries to embed, download, and access them<br> later. Queries will appear here once saved.</small></div></div></div></aside></div>`;
+}
+function filesPage(){
+ return `<div class="files-content"><div class="file-controls"><button class="soft btn">⑂ main ⌄</button><span>Geo3k-augmentation</span><span class="spacer"></span><span>🟣 1 contributor</span><button class="soft btn">◷ History: 3 commits</button><button class="soft btn">＋ Contribute⌄</button></div><div class="file-list"><div class="file-row"><span>🟣 Yuting6　 <span style="color:#8c929d">Update README.md</span>　<span class="safe">a540385　 VERIFIED</span></span><span></span><span>Upload dataset</span><span>2 months ago</span></div><div class="file-row"><button class="btn file-name" data-folder="data">📁 data</button><span></span><span>Upload dataset</span><span>5 months ago</span></div><div class="file-row"><span>♧ .gitattributes <span class="safe">Safe</span></span><span>2.46 kB　⇩</span><span>initial commit</span><span>5 months ago</span></div><div class="file-row"><span>♧ README.md <span class="safe">Safe</span></span><span>1.8 kB　⇩</span><span>Update README.md</span><span>2 months ago</span></div></div></div>`;
+}
+function dataFolderPage(){
+ return `<div class="files-content"><div class="file-controls"><button class="soft btn">⑂ main ⌄</button><span><button class="btn" id="backFiles" style="border:0;background:none">Geo3k-augmentation</button> / data　▢</span><span class="spacer"></span><span>🟣 1 contributor</span><button class="soft btn">◷ History: 1 commit</button><button class="soft btn">＋ Contribute⌄</button></div><div class="file-list"><div class="file-row"><span>🟣 Yuting6　 <span style="color:#8c929d">Upload dataset</span>　<span class="safe">f6c9d1c　 VERIFIED</span></span><span></span><span></span><span>5 months ago</span></div><div class="file-row"><span class="file-name">♧ test-00000-of-00001.parquet <span class="safe">Safe</span></span><span>147 MB　✕et　⇩</span><span>Upload dataset</span><span>5 months ago</span></div><div class="file-row"><span class="file-name">♧ train-00000-of-00001.parquet <span class="safe">Safe</span></span><span>77.2 MB　✕et　⇩</span><span>Upload dataset</span><span>5 months ago</span></div></div></div>`;
+}
+function communityPage(){
+ if(discussionDetail)return discussionPage();
+ return `<div class="community"><aside class="community-left"><button class="soft btn">▣　New discussion</button><button class="soft btn">♧　New pull request</button><h3>Resources</h3><p>♢　PR & discussions documentation</p><p>♢　Code of Conduct</p><p>♢　Hub documentation</p></aside><section class="community-main"><div class="filters"><button class="btn" style="background:#111;color:white;border:0;border-radius:9px;padding:8px 14px">All</button><button class="btn" style="border:0;background:none">Discussions</button><button class="btn" style="border:0;background:none">Pull requests</button><input placeholder="⌕  Filter by title"><span style="margin-left:auto;color:#777">□ Watch all activity　 □ View closed (0)</span><button class="soft btn">↕ Sort: Recently created</button></div><div class="issue"><div class="issue-icon">▣</div><div><button class="btn" id="openIssue">[bot] Conversion to Parquet</button><small>#1 opened 5 months ago by ⚙ parquet-converter</small></div></div></section></div>`;
+}
+function discussionPage(){
+ return `<section class="discussion"><div class="discussion-title"><h2>▣　[bot] Conversion to Parquet <span style="color:#9297a1">#1</span></h2><span style="color:#89909b">by parquet-converter · opened Apr 9</span></div><div style="padding:18px 0;border-bottom:1px solid #eee"><b>▤ Discussion</b></div><article class="post"><div class="post-head">🐻　parquet-converter <span style="color:#999;font-weight:normal">Apr 9</span></div><div class="post-body"><p>The parquet-converter bot has created a version of this dataset in the Parquet format in the <a href="#">refs/convert/parquet</a> branch.</p><h3>What is Parquet?</h3><p>Apache Parquet is a popular columnar storage format known for:</p><ul><li>reduced memory requirement,</li><li>fast data retrieval and filtering,</li><li>efficient storage.</li></ul><p><b>This is what powers the dataset viewer</b> on each dataset page and every dataset on the Hub can be accessed with the same code (you can use HF Datasets, ClickHouse, DuckDB, Pandas, PostgreSQL, or Polars, <a href="#">up to you</a>).</p><p>You can learn more about the advantages associated with Parquet in the <a href="#">documentation</a>.</p><h3>How to access the Parquet version of the dataset?</h3><p>You can access the Parquet version of the dataset by following this link: <a href="#">refs/convert/parquet</a></p><h3>What if my dataset was already in Parquet?</h3><p>When the dataset is already in Parquet format, the data are not converted and the files in <code>refs/convert/parquet</code> are links to the original files. This rule has an exception to ensure the dataset viewer API to stay fast: if the row group size of the original Parquet files is too big, new Parquet files are generated.</p><h3>What should I do?</h3><p>You don't need to do anything. The Parquet version of the dataset is available for you to use. Refer to the <a href="#">documentation</a> for examples and code snippets on how to query the Parquet files with ClickHouse, DuckDB, Pandas or Polars.</p><p>If you have any questions or concerns, feel free to ask in the discussion below. You can also close the discussion if you don't have any questions.</p></div></article><div class="comment-box"><div class="comment-tabs"><button class="btn ${commentPreview?'':'active'}" id="editComment">Edit</button><button class="btn ${commentPreview?'active':''}" id="previewComment">Preview</button></div>${commentPreview?'<div class="preview-empty">Nothing to preview</div>':'<textarea placeholder="Leave a comment"></textarea><div style="padding:0 18px 16px;color:#aaa">▣ Upload images, audio, and videos by dragging in the text input, pasting, or clicking here.</div>'}<div class="comment-foot">Your need to confirm your account before you can post a new comment.<br><button class="soft btn" disabled style="color:#aaa">◉ Comment</button></div></div></section>`;
+}
+function render(page=currentPage){
+ currentPage=page;
+ document.body.classList.toggle('studio-mode',page==='studio');
+ document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));
+ const c=document.getElementById('content');
+ if(page==='card')c.innerHTML=cardPage();
+ else if(page==='studio')c.innerHTML=studioPage();
+ else if(page==='files')c.innerHTML=filesPage();
+ else c.innerHTML=communityPage();
+ bindPage();
+}
+function showToast(msg){let t=document.getElementById('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',1800)}
+function bindPage(){
+ const split=document.getElementById('splitSelect');
+ if(split)split.onclick=()=>{let m=document.getElementById('splitMenu');m.style.display=m.style.display==='block'?'none':'block'};
+ document.querySelectorAll('[data-split]').forEach(b=>b.onclick=()=>{splitName=b.dataset.split;selected=-1;render(currentPage)});
+ document.querySelectorAll('tbody tr').forEach(tr=>tr.onclick=()=>{selected=Number(tr.dataset.row);tr.classList.toggle('selected');});
+ const issue=document.getElementById('openIssue');if(issue)issue.onclick=()=>{discussionDetail=true;render('community')};
+ const folder=document.querySelector('[data-folder]');if(folder)folder.onclick=()=>{document.querySelector('.files-content').innerHTML=dataFolderPage();bindPage()};
+ const back=document.getElementById('backFiles');if(back)back.onclick=()=>render('files');
+ const run=document.getElementById('runQuery');if(run)run.onclick=()=>{run.textContent='Loading...';setTimeout(()=>run.textContent='Run Query',900)};
+ const prev=document.getElementById('previewComment');if(prev)prev.onclick=()=>{commentPreview=true;render('community')};
+ const edit=document.getElementById('editComment');if(edit)edit.onclick=()=>{commentPreview=false;render('community')};
+}
+document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',()=>{discussionDetail=false;render(b.dataset.page)}));
+document.getElementById('resend').onclick=()=>showToast('Confirmation email sent');
+render('card');
+</script>
+</body>
+</html>

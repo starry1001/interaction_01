@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Internet Archive Search</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;color:#333;background:#f8f8fa}
+body{font-size:14px}
+button,input{font:inherit}
+.btn{cursor:pointer}
+.topbar{height:40px;background:#202020;color:#aaa;display:flex;align-items:center;padding:0 10px;gap:18px;font-size:12px}
+.brand{color:#eee;font-family:Georgia,serif;font-size:17px;line-height:14px;letter-spacing:1px;width:100px}
+.brand span{font-size:10px;display:block;letter-spacing:2px}
+.toplink{display:flex;align-items:center;gap:6px;color:#aaa}
+.toplink b{font-size:20px;color:#aaa}
+.topright{margin-left:auto;display:flex;align-items:center;gap:14px}
+.topright input{height:26px;width:130px;border:0;border-radius:3px;padding:3px 8px}
+.subnav{height:28px;background:#2d2d2d;color:#aaa;display:flex;justify-content:center;align-items:center;gap:30px;font-size:11px}
+.search-area{height:202px;background:#d5d5d5;display:flex;justify-content:center;padding-top:61px}
+.search-box{width:690px;position:relative}
+.search-line{display:flex;align-items:center;gap:10px}
+.search-label{font-size:24px;font-weight:bold;color:#222}
+.search-input{height:29px;width:555px;border:1px solid #ddd;border-radius:18px;padding:4px 15px;color:#777}
+.go{background:#222;color:#fff;border:0;border-radius:20px;height:29px;width:51px;font-weight:bold;font-size:12px}
+.search-options{margin-left:106px;margin-top:8px;line-height:22px;color:#444}
+.search-options label{display:block}
+.search-options input{margin:0 5px 0 0;vertical-align:-1px}
+.advanced{position:absolute;right:0;top:45px;color:#6969d8}
+.search-tools{position:absolute;right:-82px;top:4px;line-height:25px}
+.main{display:flex;width:100%;max-width:1420px;margin:0 auto;background:#fff;min-height:1020px}
+.filters{width:210px;flex:none;padding:26px 14px 30px 0;border-right:1px solid #ddd;background:#fff}
+.result-count{font-size:20px;margin-bottom:9px;text-align:left}
+.result-count small{font-size:12px}
+.clear{color:#6767d5;font-size:12px;margin-bottom:34px}
+.filter-section{border-top:1px solid #eee;padding-top:12px;margin-top:14px}
+.filter-section h3{font-size:13px;margin:0 0 10px;font-weight:bold}
+.filter-row{display:flex;align-items:flex-start;line-height:21px;font-size:12px}
+.filter-row input{appearance:none;width:14px;height:14px;border:1px solid #aaa;border-radius:2px;margin:3px 7px 0 0;background:white;flex:none}
+.filter-row input:checked{background:#222;position:relative}
+.filter-row input:checked:after{content:"✓";color:white;font-size:11px;position:absolute;left:2px;top:-4px}
+.filter-row .eye{color:#999;margin-right:4px}
+.filter-row .num{margin-left:auto;color:#666}
+.histogram{height:43px;background:#d9d9ff;border-left:7px solid #5555e8;border-right:7px solid #5555e8;position:relative;margin:12px 0 6px}
+.histogram:after{content:"";position:absolute;left:14px;right:10px;bottom:0;height:27px;background:repeating-linear-gradient(90deg,transparent 0 4px,#555 5px 7px,transparent 8px 12px);opacity:.6}
+.range{display:flex;justify-content:center;gap:4px}.range span{border:1px solid #888;width:34px;text-align:center;font-size:11px}
+.results{flex:1;padding:18px 10px}
+.sortbar{height:38px;border-bottom:1px solid #555;display:flex;align-items:center;gap:18px;font-size:12px;padding-left:6px}
+.sortbar b{font-weight:bold}
+.viewicons{margin-left:auto;font-size:22px;letter-spacing:5px}
+.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-top:28px}
+.card{height:290px;border:1px solid #bbb;border-radius:4px;background:linear-gradient(#f8f8f8,#fff);padding:5px;position:relative;overflow:hidden;box-shadow:0 1px 2px #bbb}
+.card .thumb{height:165px;background:#f4f4f6;display:flex;align-items:center;justify-content:center;margin-bottom:7px}
+.card img{max-width:100%;max-height:160px;width:auto;height:auto;object-fit:contain}
+.card-title{font-size:13px;line-height:15px;height:46px;overflow:hidden}
+.snippet{font-size:11px;line-height:14px;height:45px;overflow:hidden;border-left:3px solid #174e86;padding-left:5px;margin-top:4px}
+.snippet mark{background:#b8a1ec}
+.card-bottom{position:absolute;bottom:4px;left:7px;right:7px;border-top:1px solid #ddd;padding-top:5px;font-size:11px;color:#555;display:flex;justify-content:space-between}
+.bookmark{color:#efae3a;font-size:17px}
+@media(max-width:1200px){.grid{grid-template-columns:repeat(5,1fr)}}
+.reader{display:none;background:#000;min-height:100vh;color:#fff}
+.reader-head{height:40px;background:#202020;display:flex;align-items:center;padding:0 10px;color:#aaa}
+.reader-layout{display:flex;height:830px}
+.reader-sidebar{width:315px;background:#303030;padding:12px 12px;color:#eee;font-size:12px;overflow:hidden}
+.reader-sidebar h3{margin:0 0 14px;font-size:14px}
+.inside-search{height:28px;border:1px solid #aaa;border-radius:18px;width:100%;background:transparent;color:#fff;padding:4px 12px;margin-bottom:14px}
+.side-item{margin:16px 0;line-height:15px}
+.side-item strong{display:block;margin-bottom:3px}
+.highlight{background:#6658ad;color:#fff}
+.viewer{flex:1;position:relative;background:#000;display:flex;align-items:center;justify-content:center;padding:10px 30px 67px}
+.page-image{height:760px;width:1050px;object-fit:contain;background:#fff}
+.viewer-controls{height:60px;background:#292929;position:absolute;bottom:0;left:0;right:0;border-top:1px solid #555;display:flex;align-items:center;padding:0 14px;gap:22px}
+.progress{height:6px;background:#aaa;border-radius:4px;flex:1;position:relative}.progress i{position:absolute;left:29%;top:-7px;width:20px;height:20px;background:#eee;border-radius:50%}
+.reader-info{height:430px;background:white;color:#222;padding:20px calc((100% - 1040px)/2);position:relative}
+.info-title{font-size:26px;margin:0 0 5px}.author{color:#5a67c8}.info-columns{display:grid;grid-template-columns:1fr 360px;gap:35px;margin-top:18px}.description{font-size:14px;line-height:19px}.download{background:#f1f1f1;padding:20px}.download h3{font-size:13px}.download div{border-top:1px solid #ccc;padding:8px;color:#6470ce}
+.action-buttons{position:absolute;right:calc((100% - 1040px)/2);top:18px;display:flex;gap:8px}.action-buttons button{background:#fff;border:1px solid #555;padding:8px 11px}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:20;align-items:flex-start;justify-content:center;padding-top:31px}
+.modal{width:790px;background:#fff;border-radius:5px;padding:25px 12px 15px;box-shadow:0 2px 8px #111;color:#222}
+.modal-head{font-size:20px;border-bottom:1px solid #ddd;padding:0 12px 21px}.modal-close{float:right;font-size:18px;color:#777}
+.social{text-align:center;font-size:30px;padding:37px 0 28px;letter-spacing:4px}
+.modal label{font-size:12px;font-weight:bold;display:block;margin-top:8px}
+.modal textarea{width:100%;height:77px;background:#4b494b;color:#fff;border:0;padding:9px;font-size:12px;resize:none}
+</style>
+</head>
+<body>
+<div id="searchPage">
+  <div class="topbar">
+    <div class="brand">▥ INTERNET<span>ARCHIVE</span></div>
+    <div class="toplink"><b>▱</b> WEB</div><div class="toplink"><b>▥</b> TEXTS</div><div class="toplink"><b>▤</b> VIDEO</div><div class="toplink"><b>●</b> AUDIO</div><div class="toplink"><b>▣</b> SOFTWARE</div><div class="toplink"><b>▧</b> IMAGES</div>
+    <div class="topright">♟ SIGN UP | LOG IN　⬆ UPLOAD <input placeholder="🔍 Search"></div>
+  </div>
+  <div class="subnav"><span>ABOUT</span><span>BLOG</span><span>PROJECTS</span><span>HELP</span><span>DONATE <b style="color:red">♥</b></span><span>CONTACT</span><span>JOBS</span><span>VOLUNTEER</span><span>PEOPLE</span></div>
+  <section class="search-area">
+    <div class="search-box">
+      <div class="search-line"><span class="search-label">Search</span><input class="search-input" value="artificial intelligence"><button class="go btn" id="goBtn">GO</button></div>
+      <div class="advanced">Advanced Search</div>
+      <div class="search-tools">↗ Share<br>☆ Favorite</div>
+      <div class="search-options">
+        <label><input type="radio" name="mode">Search metadata</label>
+        <label><input type="radio" name="mode" checked>Search text contents</label>
+        <label><input type="radio" name="mode">Search TV news captions</label>
+        <label><input type="radio" name="mode">Search radio transcripts</label>
+        <label><input type="radio" name="mode">Search archived web sites</label>
+      </div>
+    </div>
+  </section>
+  <div class="main">
+    <aside class="filters">
+      <div class="result-count"><span id="count">326,798</span> <small>Results</small></div>
+      <div class="clear">Clear all filters</div>
+      <div class="filter-section">
+        <h3>Year Published　↗</h3>
+        <div class="histogram"></div><div class="range"><span>0</span><span>3020</span></div>
+      </div>
+      <div class="filter-section">
+        <h3>Media Type</h3>
+        <label class="filter-row"><input id="textFilter" type="checkbox"><span class="eye">◉</span>texts <span class="num" id="textNum">322,333</span></label>
+        <label class="filter-row"><input type="checkbox"><span class="eye">◉</span>movies <span class="num">2,010</span></label>
+        <label class="filter-row"><input type="checkbox"><span class="eye">◉</span>audio <span class="num">953</span></label>
+        <label class="filter-row"><input type="checkbox"><span class="eye">◉</span>data <span class="num">619</span></label>
+        <label class="filter-row"><input type="checkbox"><span class="eye">◉</span>software <span class="num">554</span></label>
+        <label class="filter-row"><input type="checkbox"><span class="eye">◉</span>image <span class="num">329</span></label>
+      </div>
+      <div class="filter-section"><h3>Year</h3>
+        <label class="filter-row"><input type="checkbox">◉ 2024 <span class="num">7,142</span></label>
+        <label class="filter-row"><input type="checkbox">◉ 1990 <span class="num">6,779</span></label>
+        <label class="filter-row"><input type="checkbox">◉ 1989 <span class="num">6,578</span></label>
+        <label class="filter-row"><input type="checkbox">◉ 1988 <span class="num">6,336</span></label>
+        <label class="filter-row"><input type="checkbox">◉ 1991 <span class="num">6,325</span></label>
+        <label class="filter-row"><input type="checkbox">◉ 2000 <span class="num">6,030</span></label>
+      </div>
+      <div class="filter-section"><h3>Subject</h3>
+        <label class="filter-row"><input type="checkbox">◉ DTIC Archive <span class="num">22,887</span></label>
+        <label class="filter-row"><input type="checkbox">◉ microfilm <span class="num">9,983</span></label>
+        <label class="filter-row"><input type="checkbox">◉ ERIC Archive <span class="num">7,573</span></label>
+        <label class="filter-row"><input type="checkbox">◉ NASA Technical Reports Server <span class="num">5,855</span></label>
+        <label class="filter-row"><input type="checkbox">◉ manuals <span class="num">4,717</span></label>
+        <label class="filter-row"><input type="checkbox">◉ book <span class="num">4,474</span></label>
+      </div>
+      <div class="filter-section"><h3>Collection</h3>
+        <label class="filter-row"><input type="checkbox">◉ <span style="color:#6871c9">Internet Archive Books</span> <span class="num">120,998</span></label>
+        <label class="filter-row"><input type="checkbox">◉ <span style="color:#6871c9">Additional Collections</span> <span class="num">85,518</span></label>
+        <label class="filter-row"><input type="checkbox">◉ <span style="color:#6871c9">Community Texts</span> <span class="num">38,069</span></label>
+      </div>
+    </aside>
+    <main class="results">
+      <div class="sortbar"><b>↕ Sort by:</b><b>Relevance</b><span>Weekly views⌄</span><span>Title</span><span>Date published⌄</span><span>Creator</span><div class="viewicons">▦ ▤ ≡</div></div>
+      <div class="grid" id="grid"></div>
+    </main>
+  </div>
+</div>
+
+<div class="reader" id="readerPage">
+  <div class="reader-head">
+    <div class="brand">▥ INTERNET<span>ARCHIVE</span></div>
+    <div class="toplink">▱ WEB</div><div class="toplink">▥ TEXTS</div><div class="toplink">▤ VIDEO</div><div class="toplink">● AUDIO</div><div class="toplink">▣ SOFTWARE</div><div class="toplink">▧ IMAGES</div>
+    <div class="topright">♟ SIGN UP | LOG IN　⬆ UPLOAD <input placeholder="🔍 Search"></div>
+  </div>
+  <div class="reader-layout">
+    <aside class="reader-sidebar">
+      <h3>◉　Search inside (3 results)</h3>
+      <input class="inside-search" value="artificial intelligence">
+      <div class="side-item"><strong>🔖　Page p1</strong>› What exactly is <span class="highlight">artificial intelligence</span> (AI)? [6]</div>
+      <div class="side-item"><strong>⇩　Page p2</strong>The next feature of popular science texts is the use of nouns in the common case as prepositive attributes. Thanks to the use of a multicomponent phrase, the authors of scientific works can convey more information with a small number of grammatical means.</div>
+      <div class="side-item"><strong>◐　Page p3</strong>6. Cade P., Getty P. What exactly is <span class="highlight">artificial intelligence</span> (AI)? Электронный ресурс / New Scientist—2020.</div>
+    </aside>
+    <section class="viewer">
+      <img class="page-image" src="../../../data/data/18/assets/021.jpg" width="1035" height="760" alt="Scanned article page">
+      <div class="viewer-controls"><span style="font-size:20px">⌕</span><span>Results</span><div class="progress"><i></i></div><span>‹　 2 / 3　 ›</span><span>Page — (2/4)　 ◀ ▶　▯ ▯ ▦ ♧ ◌ ⛶</span></div>
+    </section>
+  </div>
+  <section class="reader-info">
+    <div class="action-buttons"><button class="btn" id="favBtn">☆<br>Favorite</button><button class="btn" id="shareBtn">⇧<br>Share</button><button class="btn">⚑<br>Flag</button></div>
+    <h1 class="info-title">▥　Linguostylistical Features of Scientific-Popular Texts</h1>
+    <div class="author">by Shakhnoza Bakhtiyor qizi Sattorova</div>
+    <div class="info-columns">
+      <div class="description">
+        <p><b>Topics</b>　　　　　　　　 <span style="color:#6871c9">language, style, scientific-popular, texts, lexical meaning, grammatical meaning, expressive language</span></p>
+        <p><b>Collection</b>　　　　　　 <span style="color:#6871c9">journals_contributions; journals</span><br><b>Item Size</b>　　　　　　　 4.0M</p>
+        <p>The development of the modern world is impossible without the development of the scientific sphere. This indicates the need to consolidate and provide it not only to specialists in various fields of scientific life who have knowledge in these areas, but also to a wide range of readers in order to allow them to have an idea of what changes are taking place in the world. Since not all scientific style texts can be understood by a wide range of readers, scientists have identified a popular science substyle of scientific functional style.</p>
+        <p>Addeddate　　　　　　　　 2022-09-12 08:29:26<br>Identifier　　　　　　　 httpsopenaccessjournals.euindex.phpijdiasarticleview1335</p>
+      </div>
+      <div class="download"><h3>50 Views</h3><h3>DOWNLOAD OPTIONS</h3><div>CHOCR　　　　　　　　 1 file</div><div>DAISY　　　　　　　　 <button class="btn">Generate</button></div><div>EPUB　　　　　　　　 <button class="btn">Generate</button></div><div>FULL TEXT　　　　　　 1 file</div><div>OCR PAGE INDEX　　　　 1 file</div><div>OCR SEARCH TEXT　　　 1 file</div></div>
+    </div>
+  </section>
+</div>
+
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-head">Share or Embed This Item <span class="modal-close btn" id="closeModal">×</span></div>
+    <div class="social">▣　f　◉　t　℘　✉　🔗</div>
+    <label>EMBED</label>
+    <textarea readonly>&lt;iframe src="https://archive.org/embed/httpsopenaccessjournals.euindex.phpijdiasarticleview1335/51-54 Linguostylistical Features of Scientific-Popular Texts" width="560" height="384" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen&gt;&lt;/iframe&gt;</textarea>
+    <label>EMBED (for Archive.org item Description fields)</label>
+    <textarea readonly>[archiveorg httpsopenaccessjournals.euindex.phpijdiasarticleview1335/51-54 Linguostylistical Features of Scientific-Popular Texts width=560 height=384 frameborder=0 webkitallowfullscreen=true mozallowfullscreen=true]</textarea>
+    <div style="margin-top:14px;font-size:12px">Want more? <span style="color:#5d6ed0">Advanced embedding details, examples, and help!</span></div>
+  </div>
+</div>
+
+<script>
+const base="../../../data/data/18/assets/";
+const items=[
+ ["076.jpg","Natural language interfaces : interfaces to databases, to Expert... by Sabourin, Conrad, 1943-","... word problems = artificial intelligence memorandum 45)..."],
+ ["090.jpg","The Role Of Artificial Intelligence In Education A Systemati... by Jurnal Iqra' : Kajian Ilmu Pendidikan","... issues of Artificial Intelligence in Education ..."],
+ ["092.jpg","Growing The Artificial Intelligence Industry In The UK","... Growing the Artificial Intelligence industry in the UK SECTION ONE..."],
+ ["093.jpg","Computers that think? : the search for artificial intelligence by Hyde, Margaret O.","... humans. 1. Artificial intelligence. 2. Artificial..."],
+ ["096.jpg","Artificial intelligence and Turbo Pascal by Chabris, Christopher F","Artificial Intelligence and Turbo Pascal Artificial Intelligence and Turbo..."],
+ ["088.jpg","TheLeakingTruth.BlogSpot.com Posts in PDF by Keen...","&lt;DELETED&gt; (3) Artificial intelligence --The term ..."],
+ ["002.jpg","AI Governance in the Financial Industry","... the actions of artificial intelligence in the financial space."],
+ ["003.jpg","Applications of artificial intelligence X : machine vision and robotics ...","... for Optical Engineering Applications of Artificial Intelligence Machine Visio..."],
+ ["004.jpg","New Trends in the Use of Artificial Intelligence for the Industry 4.0","... an artificial intelligence point of view."],
+ ["006.jpg","معلم مقرر ICT لطلاب المرحلة الإعدادية","... types of artificial intelligence 2. Review some practical applications..."],
+ ["008.jpg","AI Magazine 1980 - 1991: Vol 1-12 Index","45-55. Artificial Intelligence and Marine Design..."],
+ ["011.jpg","NATURE & SCIENCE by Azerbaijan Science Center","... innovation of artificial intelligence technology..."],
+ ["012.jpg","WWAI :: 1986 Who's Who in AI","... pounds. Who's Who in Artificial Intelligence..."],
+ ["016.jpg","Exploring the competence of artificial intelligence programs...","... asked in all three artificial intelligence programs."],
+ ["019.jpg","Artificial intelligence in manufacturing","Proceedings of the International Conference on Artificial Intelligence..."],
+ ["022.jpg","Artificial intelligence by Engdahl, Sylvia","Chapter 1: Artificial Intelligence Today..."],
+ ["027.jpg","KATALOG POSTHUMAN# 2","public, namely emergence of Artificial Intelligence..."],
+ ["100.png","ROBOTS, ALL AND OTHERS CHIPS","Robotics and artificial intelligence."],
+ ["025.jpg","Artificial Intelligence","A science at the edge."],
+ ["087.jpg","artificial intelligence : a beginner's guide","A beginner's guide to robotics and man-made minds."]
+];
+function render(){
+ const grid=document.getElementById("grid");
+ grid.innerHTML=items.map((x,i)=>`<article class="card btn" data-open="${i}"><div class="thumb"><img src="${base+x[0]}" width="130" height="160" alt=""></div><div class="card-title">${x[1]}</div><div class="snippet">${x[2]}</div><div class="card-bottom"><span class="bookmark">▥</span><span>◉ ${i?i*11+13:37}</span><span>☆ 0</span><span>▰ 0</span></div></article>`).join("");
+ document.querySelectorAll(".card").forEach(c=>c.addEventListener("click",openReader));
+}
+function openReader(){document.getElementById("searchPage").style.display="none";document.getElementById("readerPage").style.display="block";window.scrollTo(0,0)}
+document.getElementById("textFilter").addEventListener("change",function(){
+ document.getElementById("count").textContent=this.checked?"322,333":"326,798";
+});
+document.getElementById("shareBtn").addEventListener("click",()=>document.getElementById("modal").style.display="flex");
+document.getElementById("closeModal").addEventListener("click",()=>document.getElementById("modal").style.display="none");
+document.getElementById("modal").addEventListener("click",e=>{if(e.target.id==="modal")e.currentTarget.style.display="none"});
+document.getElementById("favBtn").addEventListener("click",function(){this.innerHTML="★<br>Favorite"});
+render();
+</script>
+</body>
+</html>

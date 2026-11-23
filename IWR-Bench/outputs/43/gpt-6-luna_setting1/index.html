@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EdgeStar Built-In Ice Maker</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;color:#292929}
+  body{background:#f2f2f2}
+  .page{width:min(1444px,94%);margin:18px auto 0;background:#fff;min-height:1500px}
+  .detail{display:grid;grid-template-columns:835px 590px;gap:19px;align-items:start}
+  .gallery{height:944px;background:#fff;position:relative;padding:44px 12px 16px}
+  .product-brand{font-size:16px;margin:0 0 4px}
+  h1{font-size:22px;line-height:1.14;margin:0;font-weight:700;max-width:690px}
+  .rating{height:42px;display:flex;align-items:center;gap:6px;font-size:14px;color:#4b4b4b}
+  .stars{font-size:20px;letter-spacing:-2px;color:#e65a00}
+  .stars .dim{color:#c7c7c7}
+  .gallery-heart{position:absolute;top:28px;right:28px;font-size:22px}
+  .gallery-content{display:flex;align-items:flex-start;position:relative}
+  .thumbs{width:94px;flex:0 0 94px;display:flex;flex-direction:column;gap:13px;padding-top:2px}
+  .thumb{width:94px;height:100px;border:1px solid #eee;background:#fff;display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer}
+  .thumb.selected{border:2px solid #ef5b00}
+  .thumb img{width:78px;height:88px;object-fit:contain}
+  .thumb.video{font-size:45px;color:#777}
+  .thumb.more{background:#888;color:white;font-size:23px}
+  .main-image-wrap{height:650px;flex:1;display:flex;align-items:center;justify-content:center;padding:5px 8px 0}
+  .main-image{width:450px;height:640px;object-fit:contain;cursor:zoom-in}
+  .share-print{position:absolute;right:6px;bottom:11px;font-size:16px;display:flex;gap:12px}
+  .share-print span{cursor:pointer}
+  .right{padding-top:0}
+  .card{background:#fff;margin-bottom:11px;padding:15px 12px}
+  .price-card{height:112px;padding-top:10px}
+  .price-line{display:flex;align-items:baseline;gap:10px}
+  .price{font-weight:bold;font-size:38px;letter-spacing:-2px}
+  .price sup{font-size:16px;letter-spacing:0;vertical-align:top}
+  .was{font-size:14px;color:#888}
+  .save{font-size:16px;color:#43875e}
+  .finance{margin-top:9px;font-size:14px;white-space:nowrap}
+  .finance img{width:42px;height:26px;object-fit:contain;vertical-align:middle;margin-right:6px}
+  .link{color:#547b91;text-decoration:underline;cursor:pointer}
+  .features{height:124px;font-size:16px;line-height:1.45;padding-top:13px}
+  .features ul{padding-left:24px;margin:0}
+  .color-card{height:112px;padding-top:18px;font-size:14px}
+  .swatches{display:flex;gap:10px;margin-top:10px}
+  .swatch{width:42px;height:42px;border:1px solid #bbb;position:relative;cursor:pointer}
+  .swatch.white{background:#fff;border:2px solid #ef5b00}
+  .swatch.steel{background:linear-gradient(110deg,#eee,#999,#eee)}
+  .swatch.black{background:linear-gradient(45deg,#333 48%,#fff 49%,#fff 52%,#333 53%)}
+  .fulfillment{height:274px;padding:13px 12px 10px}
+  .pickup-title{font-size:16px;margin-bottom:5px}
+  .pickup-labels{display:flex;gap:12px;font-size:16px;margin-bottom:9px}
+  .pickup-labels span{width:185px}
+  .pickup-labels u{cursor:pointer}
+  .options{display:flex;gap:12px}
+  .option{width:185px;height:156px;border:2px solid #bcbcbc;padding:24px 9px 8px;position:relative;cursor:pointer}
+  .option.selected{border-color:#ef5b00}
+  .option strong{font-size:21px}
+  .option .date{font-size:16px;font-weight:bold;margin-top:7px}
+  .option .avail{font-size:16px;color:#498568;margin-top:8px}
+  .option .free{font-size:16px;color:#258452;font-weight:bold;margin-top:8px}
+  .checkmark{display:none;position:absolute;right:6px;top:6px;background:#ed5b00;color:#fff;border-radius:50%;width:18px;height:18px;text-align:center;line-height:18px;font-weight:bold}
+  .option.selected .checkmark{display:block}
+  .fulfill-links{display:flex;gap:36px;margin-top:15px;font-size:15px}
+  .fulfill-links a{color:#333;text-decoration:underline;cursor:pointer}
+  .warranty{height:213px;padding:13px 15px 8px}
+  .warranty-head{font-size:22px;font-weight:bold;display:flex;align-items:center;gap:12px;margin-bottom:8px}
+  .shield{font-size:28px}
+  .warranty p{font-size:16px;margin:0 0 8px 43px}
+  .radio-row{font-size:16px;margin:8px 0 0 44px;display:flex;align-items:center;gap:8px;cursor:pointer}
+  .radio{width:21px;height:21px;border:2px solid #888;border-radius:50%;display:inline-block;position:relative}
+  .radio.active{border-color:#e95b00}
+  .radio.active:after{content:"";position:absolute;inset:4px;background:#e95b00;border-radius:50%}
+  .expect{margin:12px 0 0 44px;font-size:16px;text-decoration:underline;cursor:pointer}
+  .buy{height:132px;padding:9px 12px;display:flex;align-items:flex-start;gap:16px}
+  .quantity{display:flex;height:46px}
+  .quantity button,.quantity output{border:1px solid #aaa;background:#fff;width:45px;height:46px;display:flex;align-items:center;justify-content:center;font-size:18px}
+  .quantity output{width:75px;font-size:16px}
+  .quantity button{cursor:pointer}
+  .buy-actions{width:272px}
+  .add-cart,.paypal{width:100%;height:46px;border:0;border-radius:2px;cursor:pointer;font-size:16px;font-weight:bold}
+  .add-cart{background:#f25a00;color:white}
+  .paypal{margin-top:8px;background:#ffc439;color:#1265a8;font-weight:bold;font-style:italic;font-size:19px}
+  .paypal-note{font-size:12px;color:#555;text-align:center;margin-top:8px;white-space:nowrap}
+  .cart-message{font-size:13px;color:#33845a;margin-top:4px;min-height:14px}
+  .side-tabs{position:fixed;right:0;top:245px;z-index:5;display:flex;flex-direction:column;gap:5px}
+  .side-tabs .tab{background:white;color:#ee5b00;border:2px solid #ee5b00;writing-mode:vertical-rl;transform:rotate(180deg);padding:10px 5px;font-weight:bold;font-size:14px;cursor:pointer}
+  .frequently{padding:24px 10px 80px;background:#fff;min-height:520px}
+  .frequently h2{font-size:29px;margin:0 0 18px}
+  .products{display:flex;gap:24px;align-items:flex-start}
+  .item{width:178px;min-height:390px;background:#f4f4f4;position:relative;padding:0 14px 14px;font-size:15px}
+  .current{height:26px;background:#ccc;text-align:center;font-size:12px;line-height:26px;font-weight:bold;margin:0 -14px 8px}
+  .selectline{font-size:15px}
+  .selectline input{accent-color:#ef5b00;vertical-align:middle}
+  .item-heart{position:absolute;right:13px;top:75px;font-size:21px}
+  .item img{display:block;width:145px;height:165px;object-fit:contain;margin:14px auto 8px;background:white}
+  .item .item-name{font-weight:bold;line-height:1.35;height:44px;overflow:hidden}
+  .item .small-stars{color:#e65a00;font-size:16px;margin:9px 0}
+  .item .item-price{font-size:25px;font-weight:bold}
+  .plus{font-size:38px;margin-top:120px}
+  .btn{cursor:pointer}
+  @media(max-width:1200px){
+    .page{width:100%;margin-top:0}
+    .detail{grid-template-columns:minmax(0,1.4fr) minmax(400px,1fr);gap:12px}
+    .gallery{height:900px}
+    .main-image{max-width:100%}
+  }
+  @media(max-width:850px){
+    .detail{display:block}
+    .gallery{height:800px}
+    .right{padding:0 10px}
+    .frequently{overflow:hidden}
+    .side-tabs{display:none}
+  }
+</style>
+</head>
+<body>
+<main class="page">
+  <section class="detail">
+    <div class="gallery">
+      <div class="gallery-heart btn" aria-label="Add to favorites">♡</div>
+      <p class="product-brand">EdgeStar</p>
+      <h1>15 in. Wide 20 lbs. Built-In Ice Maker in White with upto 25 lbs.<br>Daily Ice Production</h1>
+      <div class="rating"><span class="stars">★★★★<span class="dim">★</span></span><span>(103)</span><span>⌄</span><span>Questions &amp; Answers (36)</span></div>
+      <div class="gallery-content">
+        <div class="thumbs">
+          <div class="thumb selected btn" data-image="029.jpg"><img src="../../../data/data/43/assets/029.jpg" width="78" height="88" alt="White ice maker"></div>
+          <div class="thumb btn" data-image="035.jpg"><img src="../../../data/data/43/assets/035.jpg" width="78" height="88" alt="Product dimensions"></div>
+          <div class="thumb video btn" aria-label="Play video">▶</div>
+          <div class="thumb btn" data-image="055.jpg"><img src="../../../data/data/43/assets/055.jpg" width="78" height="88" alt="Ice maker view"></div>
+          <div class="thumb btn" data-image="057.jpg"><img src="../../../data/data/43/assets/057.jpg" width="78" height="88" alt="Ice maker with door open"></div>
+          <div class="thumb more btn" data-image="065.png"><img src="../../../data/data/43/assets/065.png" width="78" height="88" alt="More product photos"><span>+6</span></div>
+        </div>
+        <div class="main-image-wrap">
+          <img class="main-image" src="../../../data/data/43/assets/029.jpg" width="450" height="640" alt="EdgeStar white built-in ice maker">
+        </div>
+      </div>
+      <div class="share-print"><span class="btn">➦ Share</span><span class="btn">▣ Print</span></div>
+    </div>
+
+    <aside class="right">
+      <div class="card price-card">
+        <div class="price-line"><span class="price">$969<sup>00</sup></span><span class="was">Was <s>$1,049.00</s><br><span class="save">Save $80.00 (8%)</span></span></div>
+        <div class="finance"><img src="../../../data/data/43/assets/064.png" width="42" height="26" alt="Financing">$162.00/mo** suggested payments with 6 months** financing <span class="link">Apply Now ⓘ</span></div>
+      </div>
+      <div class="card features">
+        <ul>
+          <li>White front and reversible door ensure stylish and convenient use</li>
+          <li>Crescent-shaped ice maker produces long-lasting ice</li>
+          <li>Self-contained design allows easy installation</li>
+          <li><u class="btn">View More Details</u></li>
+        </ul>
+      </div>
+      <div class="card color-card">
+        <div>Color/Finish: <strong>White</strong></div>
+        <div class="swatches">
+          <div class="swatch white btn" title="White"></div>
+          <div class="swatch steel btn" title="Stainless steel"></div>
+          <div class="swatch black btn" title="Black"></div>
+        </div>
+      </div>
+      <div class="card fulfillment">
+        <div class="pickup-title">Pickup at</div>
+        <div class="pickup-labels"><span><u class="btn">Huntington Park</u></span><span>Delivering to <u class="btn">90255</u></span></div>
+        <div class="options">
+          <div class="option selected btn" data-fulfillment="store">
+            <span class="checkmark">✓</span><strong>Ship to Store</strong>
+            <div class="date">Aug 28 - Sep 3</div><div class="avail">131 available</div><div class="free">FREE</div>
+          </div>
+          <div class="option btn" data-fulfillment="delivery">
+            <span class="checkmark">✓</span><strong>Delivery</strong>
+            <div class="date">Aug 28 - Sep 2</div><div class="avail">131 available</div>
+          </div>
+        </div>
+        <div class="fulfill-links"><a class="btn">Check Nearby Stores</a><a class="btn">Delivery Details</a></div>
+      </div>
+      <div class="card warranty">
+        <div class="warranty-head"><span class="shield">⛨</span>Protect This Item</div>
+        <p>Select a Home Depot Protection Plan by Allstate for:</p>
+        <div class="radio-row btn" data-plan="yes"><span class="radio"></span><span>3 Year / <b>$150.00</b></span></div>
+        <div class="radio-row btn" data-plan="no"><span class="radio active"></span><span>No thanks</span></div>
+        <div class="expect btn">ⓘ What to Expect</div>
+      </div>
+      <div class="card buy">
+        <div class="quantity">
+          <button class="btn" id="minus" aria-label="Decrease quantity">−</button>
+          <output id="qty">1</output>
+          <button class="btn" id="plus" aria-label="Increase quantity">+</button>
+        </div>
+        <div class="buy-actions">
+          <button class="add-cart btn" id="addCart">🛒 Add to Cart</button>
+          <button class="paypal btn">PayPal</button>
+          <div class="paypal-note">As low as <span id="monthly">$60.29</span>/mo with <b style="color:#1265a8">PayPal</b>. <u class="btn">Learn more</u></div>
+          <div class="cart-message" id="cartMessage"></div>
+        </div>
+      </div>
+    </aside>
+  </section>
+
+  <section class="frequently">
+    <h2>Frequently Bought Together</h2>
+    <div class="products">
+      <article class="item">
+        <div class="current">CURRENT ITEM</div>
+        <label class="selectline btn"><input type="checkbox" checked> Select</label>
+        <span class="item-heart btn">♡</span>
+        <img src="../../../data/data/43/assets/029.jpg" width="145" height="165" alt="EdgeStar ice maker">
+        <div class="item-name">EdgeStar 15 in. Wide 20 lbs. Built-In Ice...</div>
+        <div class="small-stars">★★★<span style="color:#bbb">★★</span> <small style="color:#777">(103)</small></div>
+        <div class="item-price">$969<sup style="font-size:11px">00</sup></div>
+        <small>Was $1,049.00</small>
+      </article>
+      <div class="plus">＋</div>
+      <article class="item">
+        <label class="selectline btn"><input type="checkbox" checked> Select</label>
+        <span class="item-heart btn">♡</span>
+        <img src="../../../data/data/43/assets/017.jpg" width="145" height="165" alt="EdgeStar ice maker">
+        <div class="item-name">EdgeStar 15 in. 50 lbs. Built-In Ice Maker in...</div>
+        <div class="small-stars">★★★<span style="color:#bbb">★★</span> <small style="color:#777">(29)</small></div>
+        <div class="item-price">$1,489<sup style="font-size:11px">00</sup></div>
+      </article>
+    </div>
+  </section>
+</main>
+
+<div class="side-tabs">
+  <div class="tab btn">Live Chat ▣</div>
+  <div class="tab btn">Feedback ▧</div>
+</div>
+
+<script>
+  let quantity = 1;
+  const qty = document.getElementById('qty');
+  const monthly = document.getElementById('monthly');
+  function updateQuantity(){
+    qty.textContent = quantity;
+    monthly.textContent = '$' + (60.29 + (quantity - 1) * 52.20).toFixed(2);
+  }
+  document.getElementById('plus').addEventListener('click',()=>{quantity++;updateQuantity()});
+  document.getElementById('minus').addEventListener('click',()=>{quantity=Math.max(1,quantity-1);updateQuantity()});
+  document.getElementById('addCart').addEventListener('click',()=>{
+    document.getElementById('cartMessage').textContent = quantity + (quantity === 1 ? ' item added to cart' : ' items added to cart');
+  });
+  document.querySelectorAll('.option').forEach(option=>option.addEventListener('click',()=>{
+    document.querySelectorAll('.option').forEach(o=>o.classList.remove('selected'));
+    option.classList.add('selected');
+  }));
+  document.querySelectorAll('.radio-row').forEach(row=>row.addEventListener('click',()=>{
+    document.querySelectorAll('.radio-row .radio').forEach(r=>r.classList.remove('active'));
+    row.querySelector('.radio').classList.add('active');
+  }));
+  document.querySelectorAll('.thumb[data-image]').forEach(thumb=>thumb.addEventListener('click',()=>{
+    document.querySelectorAll('.thumb').forEach(t=>t.classList.remove('selected'));
+    thumb.classList.add('selected');
+    document.querySelector('.main-image').src='../../../data/data/43/assets/'+thumb.dataset.image;
+  }));
+  document.querySelectorAll('.gallery-heart,.item-heart').forEach(el=>el.addEventListener('click',()=>{
+    el.textContent = el.textContent.trim()==='♡' ? '♥' : '♡';
+    el.style.color = el.textContent==='♥' ? '#e65b00' : '';
+  }));
+</script>
+</body>
+</html>

@@ -1,0 +1,414 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chess Game Replica</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;width:100%;height:100%;overflow:hidden}
+  body{
+    background:#f1f2f5;
+    color:#1e2025;
+    font-family:Arial,Helvetica,sans-serif;
+  }
+  .page{
+    width:980px;
+    min-height:100vh;
+    margin:0 auto;
+    background:#fafafd;
+    border-left:1px solid #e4e5e8;
+    border-right:1px solid #e4e5e8;
+    box-shadow:0 0 4px rgba(0,0,0,.03);
+  }
+  .topbar{
+    height:61px;
+    background:#f4f5f7;
+    border-bottom:1px solid #dedfe2;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .top-inner{
+    width:570px;
+    height:61px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .left-tools,.right-tools{
+    width:110px;
+    display:flex;
+    align-items:center;
+    gap:13px;
+    color:#20242b;
+  }
+  .right-tools{justify-content:flex-end}
+  .tiny-gem{
+    width:18px;height:25px;
+    background:#ed1763;
+    clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
+    color:white;
+    font-size:11px;
+    font-weight:bold;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+  }
+  .horse-icon{
+    font-size:20px;
+    line-height:1;
+    color:#090b0f;
+  }
+  .flag{
+    font-size:15px;
+    line-height:1;
+  }
+  .players{
+    width:350px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+  }
+  .player{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    height:58px;
+  }
+  .player-name{
+    font-size:15px;
+    white-space:nowrap;
+    text-align:center;
+  }
+  .player-name small{
+    display:block;
+    color:#ca3e8c;
+    font-size:11px;
+    margin-top:2px;
+  }
+  .player.right .player-name small{color:#ca3e8c}
+  .avatar{
+    width:53px;height:53px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:29px;
+    border:5px solid #18bfa3;
+    background:#d8df40;
+    color:#344946;
+  }
+  .avatar.bot{
+    border-color:#29c4ad;
+    background:#36404e;
+    color:white;
+    font-size:27px;
+  }
+  .score{
+    font-size:19px;
+    color:#42464e;
+    margin:0 1px;
+    letter-spacing:1px;
+  }
+  .content{
+    position:relative;
+    min-height:907px;
+    padding-top:43px;
+  }
+  .ad{
+    position:fixed;
+    top:370px;
+    color:#92969d;
+    font-size:12px;
+    text-decoration:underline;
+  }
+  .ad.left{left:90px}
+  .ad.right{right:90px}
+  .board-wrap{
+    width:576px;
+    height:576px;
+    margin:0 auto;
+    position:relative;
+  }
+  .board{
+    width:576px;
+    height:576px;
+    display:grid;
+    grid-template-columns:repeat(8,72px);
+    grid-template-rows:repeat(8,72px);
+    overflow:hidden;
+  }
+  .square{
+    position:relative;
+    width:72px;
+    height:72px;
+    border:0;
+    padding:0;
+    margin:0;
+    cursor:pointer;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:"Times New Roman",Georgia,serif;
+    font-size:58px;
+    line-height:1;
+    user-select:none;
+  }
+  .square.light{background:#a9f1df}
+  .square.dark{background:#20c99e}
+  .square.last{background:#cbbb9e}
+  .square.selected{
+    box-shadow:inset 0 0 0 4px rgba(0,91,77,.62);
+  }
+  .square.possible:after{
+    content:"";
+    width:25px;height:25px;
+    border-radius:50%;
+    background:rgba(0,124,100,.68);
+    position:absolute;
+    left:24px;top:24px;
+  }
+  .piece{
+    position:relative;
+    z-index:2;
+    transform:translateY(-1px);
+  }
+  .white{
+    color:#fff;
+    text-shadow:
+      -2px -2px 0 #111,
+       2px -2px 0 #111,
+      -2px  2px 0 #111,
+       2px  2px 0 #111,
+       0 2px 0 #111,
+       0 -2px 0 #111;
+  }
+  .black{
+    color:#050505;
+    text-shadow:0 1px 1px rgba(0,0,0,.5);
+  }
+  .rank,.file{
+    position:absolute;
+    z-index:3;
+    color:#159d81;
+    font-family:Arial,sans-serif;
+    font-size:16px;
+    font-weight:400;
+    line-height:1;
+    pointer-events:none;
+  }
+  .rank{left:4px;top:3px}
+  .file{right:4px;bottom:3px}
+  .under-board{
+    position:absolute;
+    top:582px;
+    left:0;
+    width:576px;
+    text-align:center;
+    font-size:22px;
+    color:#222;
+    height:28px;
+    opacity:.95;
+  }
+  .capture-note{
+    position:absolute;
+    top:-35px;
+    left:0;
+    width:576px;
+    text-align:center;
+    font-family:"Times New Roman",serif;
+    font-size:21px;
+    color:#111;
+    height:25px;
+  }
+  @media(max-width:1100px){
+    .ad{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="topbar">
+    <div class="top-inner">
+      <div class="left-tools">
+        <span class="tiny-gem">3</span>
+        <span class="horse-icon">♞</span>
+        <span class="flag">🇺🇸</span>
+      </div>
+
+      <div class="players">
+        <div class="player">
+          <div class="player-name">ROXY<small id="whiteTime">6.9s</small></div>
+          <div class="avatar">◉</div>
+        </div>
+        <div class="score">0&nbsp; 0</div>
+        <div class="player right">
+          <div class="avatar bot">♙</div>
+          <div class="player-name">Julien Song<small id="blackTime">1.0s</small></div>
+        </div>
+      </div>
+
+      <div class="right-tools">
+        <span class="flag">🇫🇷</span>
+        <span style="font-size:19px">♘</span>
+        <span class="tiny-gem">133</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <a class="ad left btn" href="javascript:void(0)">Remove ads</a>
+    <a class="ad right btn" href="javascript:void(0)">Remove ads</a>
+
+    <div class="board-wrap">
+      <div id="captureNote" class="capture-note"></div>
+      <div id="board" class="board"></div>
+      <div id="underBoard" class="under-board"></div>
+    </div>
+  </main>
+</div>
+
+<script>
+(() => {
+  const board = document.getElementById('board');
+  const underBoard = document.getElementById('underBoard');
+  const captureNote = document.getElementById('captureNote');
+
+  const symbols = {
+    wK:'♔', wQ:'♕', wR:'♖', wB:'♗', wN:'♘', wP:'♙',
+    bK:'♚', bQ:'♛', bR:'♜', bB:'♝', bN:'♞', bP:'♟'
+  };
+
+  // Display orientation exactly matches the screenshots:
+  // white pieces at the top, black pieces at the bottom, files reversed.
+  let state = [
+    ['wR',null,'wB','wK','wQ','wB','wN','wR'],
+    ['wP','wP','wP','wP','wP','wP','wP','wP'],
+    [null,null,null,null,null,null,null,null],
+    [null,null,null,null,null,null,null,null],
+    [null,null,null,null,null,null,null,null],
+    [null,null,null,null,null,null,null,null],
+    ['bP','bP','bP','bP','bP','bP','bP','bP'],
+    ['bR','bN','bB','bK','bQ','bB','bN','bR']
+  ];
+
+  let selected = null;
+  let lastMove = null;
+  let captured = null;
+  let moveCount = 0;
+
+  function isWhite(p){ return p && p[0] === 'w'; }
+  function isBlack(p){ return p && p[0] === 'b'; }
+
+  function render(){
+    board.innerHTML = '';
+    for(let r=0;r<8;r++){
+      for(let c=0;c<8;c++){
+        const sq = document.createElement('button');
+        sq.className = 'square btn ' + (((r+c)%2===0)?'light':'dark');
+        sq.dataset.r = r;
+        sq.dataset.c = c;
+
+        if(lastMove && (
+          (lastMove.from.r===r && lastMove.from.c===c) ||
+          (lastMove.to.r===r && lastMove.to.c===c)
+        )) sq.classList.add('last');
+
+        if(selected && selected.r===r && selected.c===c) sq.classList.add('selected');
+
+        if(selected && !(selected.r===r && selected.c===c)){
+          const target = state[r][c];
+          if(!target || isWhite(target)!==isWhite(state[selected.r][selected.c])){
+            if(Math.abs(selected.r-r)<=2 && Math.abs(selected.c-c)<=2)
+              sq.classList.add('possible');
+          }
+        }
+
+        if(c===0){
+          const rank = document.createElement('span');
+          rank.className='rank';
+          rank.textContent = String(r+1);
+          sq.appendChild(rank);
+        }
+        if(r===7){
+          const file = document.createElement('span');
+          file.className='file';
+          file.textContent = 'hgfedcba'[c];
+          sq.appendChild(file);
+        }
+
+        const p = state[r][c];
+        if(p){
+          const piece = document.createElement('span');
+          piece.className = 'piece ' + (p[0]==='w'?'white':'black');
+          piece.textContent = symbols[p];
+          sq.appendChild(piece);
+        }
+
+        sq.addEventListener('click', handleClick);
+        board.appendChild(sq);
+      }
+    }
+
+    if(captured){
+      captureNote.textContent = captured === 'bQ' ? '♛ +6' :
+                                captured === 'bP' ? '♟♛ +7' :
+                                captured === 'wP' ? '♙ +1' : '';
+    } else captureNote.textContent='';
+
+    underBoard.textContent = moveCount >= 7 ? '♙♙' : (moveCount >= 5 ? '♙ +1' : '');
+  }
+
+  function handleClick(e){
+    const sq = e.currentTarget;
+    const r = Number(sq.dataset.r), c = Number(sq.dataset.c);
+    const p = state[r][c];
+
+    if(!selected){
+      if(p) {
+        selected = {r,c};
+        render();
+      }
+      return;
+    }
+
+    if(selected.r===r && selected.c===c){
+      selected=null;
+      render();
+      return;
+    }
+
+    const moving = state[selected.r][selected.c];
+
+    // Clicking another same-side piece changes selection.
+    if(p && isWhite(p)===isWhite(moving)){
+      selected={r,c};
+      render();
+      return;
+    }
+
+    captured = p || null;
+    state[r][c] = moving;
+    state[selected.r][selected.c] = null;
+    lastMove = {from:{...selected},to:{r,c}};
+    selected = null;
+    moveCount++;
+
+    // Small visual timing changes matching the progression in the screenshots.
+    const wt = (6.9 + moveCount * 1.15).toFixed(1);
+    const bt = (1.0 + Math.max(0,moveCount-1) * 1.35).toFixed(1);
+    document.getElementById('whiteTime').textContent = wt + 's';
+    document.getElementById('blackTime').textContent = bt + 's';
+
+    render();
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>
+```

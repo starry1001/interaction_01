@@ -1,0 +1,296 @@
+```html
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reddit - Dive into anything</title>
+<style>
+*{box-sizing:border-box}
+:root{--orange:#d93900;--line:#e5e5e5;--muted:#667078;--soft:#f6f7f8;--blue:#1b6fdc}
+html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;color:#1a1a1b;background:#fff;font-size:14px}
+button,input{font:inherit}
+button{cursor:pointer}
+.btn{cursor:pointer}
+.header{height:60px;position:fixed;inset:0 0 auto 0;z-index:10;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 20px;gap:24px}
+.brand{width:270px;display:flex;align-items:center;gap:7px;flex-shrink:0;color:var(--orange);font-size:25px;font-weight:750;letter-spacing:-1.4px}
+.brand img{width:32px;height:32px;object-fit:contain}
+.search{height:42px;width:min(560px,38vw);border-radius:24px;background:#eef1f3;display:flex;align-items:center;padding:0 18px;color:#606970;gap:12px}
+.search input{border:0;outline:0;background:transparent;width:100%;font-size:14px}
+.header-spacer{flex:1}
+.get-app,.login,.more{border:0;border-radius:22px;height:40px;padding:0 20px;font-weight:600;background:#f4f5f6;color:#2d3338}
+.login{color:#fff;background:var(--orange);padding:0 24px}
+.more{font-size:20px;padding:0 12px;background:#fff}
+.sidebar{position:fixed;left:0;top:60px;bottom:0;width:274px;border-right:1px solid var(--line);overflow:auto;padding:14px 14px 30px}
+.nav-row{height:42px;padding:0 14px;display:flex;align-items:center;gap:13px;border-radius:8px;color:#282c2f;font-size:14px}
+.nav-row.active{background:#eef0f2;font-weight:650}
+.nav-row .ico{font-size:17px;width:18px;text-align:center;color:#42494e}
+.nav-row:hover{background:#f4f5f6}
+.side-heading{font-size:11px;color:#73808a;letter-spacing:.08em;margin:27px 12px 10px;display:flex;justify-content:space-between}
+.side-rule{border-top:1px solid var(--line);margin:15px 0}
+.beta{font-size:9px;color:#df4326;margin-left:-8px}
+.main{margin-left:274px;padding-top:60px;min-height:100vh}
+.page-wrap{width:min(1120px,calc(100% - 48px));margin:16px auto 60px;display:grid;grid-template-columns:minmax(0,740px) 320px;gap:32px;align-items:start}
+.feed{min-width:0}
+.carousel{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:0 0 18px}
+.story{height:225px;position:relative;border-radius:15px;overflow:hidden;background:#333;cursor:pointer;color:#fff}
+.story img{height:100%;width:100%;object-fit:cover;opacity:.75}
+.story:after{content:"";position:absolute;inset:30% 0 0;background:linear-gradient(transparent,rgba(0,0,0,.9))}
+.story-copy{position:absolute;z-index:1;left:13px;right:10px;bottom:12px}
+.story-copy strong{display:block;font-size:17px;line-height:1.15;margin-bottom:6px}
+.story-copy small{font-size:12px;color:#e5e5e5}
+.story-sub{font-size:11px;margin-top:10px;color:#eee}
+.sortbar{height:42px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:22px;color:#59636b;font-size:13px}
+.sortbar button{border:0;background:none;color:inherit;padding:6px 0}
+.post{border-bottom:1px solid var(--line);padding:16px 0 12px}
+.post-head{display:flex;align-items:center;gap:9px;font-size:12px;color:#667078}
+.community-icon{width:28px;height:28px;border-radius:50%;background:#ff4500;color:#fff;font-weight:bold;font-size:18px;display:flex;align-items:center;justify-content:center}
+.post-title{font-size:20px;line-height:1.28;font-weight:650;margin:10px 0 12px;color:#1a1a1b;cursor:pointer}
+.tag{display:inline-block;background:#fff0c2;color:#9a5b00;border-radius:12px;padding:3px 8px;font-size:11px;margin:0 0 8px}
+.post-media{height:430px;width:100%;border-radius:14px;overflow:hidden;background:#111;position:relative;cursor:pointer}
+.post-media img{display:block;width:100%;height:100%;object-fit:cover}
+.play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);height:58px;width:58px;border-radius:50%;background:rgba(0,0,0,.62);color:white;font-size:25px;display:flex;align-items:center;justify-content:center;padding-left:4px}
+.player-controls{position:absolute;bottom:0;left:0;right:0;height:45px;background:linear-gradient(transparent,rgba(0,0,0,.85));display:flex;align-items:flex-end;padding:0 13px 9px;color:white;font-size:12px}
+.player-controls .time{margin-left:auto}
+.player-line{position:absolute;height:3px;background:#fff;bottom:36px;left:12px;right:12px}
+.player-line:before{content:"";display:block;width:42%;height:100%;background:#ff4500}
+.actions{display:flex;align-items:center;gap:10px;margin-top:10px}
+.pill{border:0;border-radius:20px;background:#f1f3f5;padding:8px 12px;color:#343a40;font-size:13px;font-weight:600}
+.pill:hover{background:#e5e8eb}
+.right-panel{position:sticky;top:78px}
+.panel{background:#f7f8fa;border-radius:14px;padding:18px;margin-bottom:16px}
+.panel-title{font-size:12px;color:#606a70;font-weight:700;margin:2px 0 18px}
+.community{display:flex;align-items:center;gap:11px;padding:10px 0}
+.comm-avatar{width:33px;height:33px;border-radius:50%;display:grid;place-items:center;background:#23272b;color:#fff;font-weight:bold}
+.comm-name{font-size:13px;font-weight:600}
+.comm-members{font-size:11px;color:#74808a;margin-top:3px}
+.see-more{font-weight:650;font-size:12px;margin-top:9px}
+.detail-layout{width:min(1120px,calc(100% - 48px));margin:16px auto 60px;display:grid;grid-template-columns:minmax(0,740px) 320px;gap:32px}
+.detail-post{padding-top:6px}
+.detail-post .post-title{font-size:23px;margin:12px 0 10px}
+.joinbox{padding:18px;background:#f7f8fa;border-radius:15px;margin-bottom:18px}
+.joinbox h3{margin:0 0 7px;font-size:17px}
+.joinbox p{font-size:13px;color:#657078;line-height:1.4;margin:0 0 14px}
+.outline-btn{width:100%;height:40px;border:1px solid #b9bec2;background:white;border-radius:22px;margin:5px 0;color:#343a40;font-size:13px;font-weight:600}
+.comments-top{padding-top:20px}
+.comment-tools{display:flex;gap:14px;align-items:center;border-bottom:1px solid var(--line);padding:12px 0;color:#667078;font-size:12px}
+.comment-search{border:1px solid #e0e3e5;border-radius:20px;padding:8px 14px;min-width:180px}
+.comment{position:relative;margin:18px 0 0 15px;padding:0 0 13px 24px;border-left:2px solid #e8e9eb}
+.comment:before{content:"";position:absolute;left:-7px;top:0;width:12px;height:12px;border-radius:50%;background:#8ab3ca;border:2px solid white}
+.comment-head{font-size:12px;color:#68737a;display:flex;align-items:center;gap:7px;margin-bottom:8px}
+.user{font-weight:700;color:#343a40}
+.comment-text{font-size:14px;line-height:1.48;color:#33383b;max-width:680px}
+.comment-actions{display:flex;gap:15px;color:#727b80;font-size:12px;margin-top:9px}
+.comment-actions span{cursor:pointer}
+.comment .comment{margin-top:13px}
+.comment.highlight{background:#fff9eb;border-radius:8px;padding-top:10px}
+.ad{border-bottom:1px solid var(--line);padding:16px 0 24px}
+.ad-top{display:flex;gap:8px;align-items:center;font-size:12px;color:#6a747c}
+.ad-body{font-size:13px;line-height:1.5;margin:10px 0}
+.learn{border:1px solid #aeb3b7;background:white;border-radius:20px;padding:7px 14px;font-weight:600;font-size:12px}
+.side-post{border-top:1px solid #e4e6e8;padding:13px 0;font-size:13px;line-height:1.35}
+.side-post small{display:block;color:#73808a;margin-top:7px}
+.hidden{display:none!important}
+@media(max-width:1000px){
+ .sidebar{width:215px}.main{margin-left:215px}.brand{width:215px}
+ .page-wrap,.detail-layout{grid-template-columns:minmax(0,1fr);width:calc(100% - 32px)}
+ .right-panel{display:none}.carousel{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:650px){
+ .sidebar{display:none}.main{margin-left:0}.header{padding:0 10px;gap:10px}.brand{width:auto;font-size:0}.brand img{width:31px}
+ .search{width:auto;flex:1}.get-app{display:none}.page-wrap,.detail-layout{width:calc(100% - 20px)}
+ .post-media{height:58vw}.story{height:170px}.carousel{gap:8px}
+}
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="brand btn" onclick="showHome()"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/093.svg" width="32" height="32" alt="Reddit"><span>reddit</span></div>
+  <label class="search"><span>⌕</span><input aria-label="Search Reddit" placeholder="Search Reddit"></label>
+  <div class="header-spacer"></div>
+  <button class="get-app btn">▦ &nbsp; Get App</button>
+  <button class="login btn">Log In</button>
+  <button class="more btn">···</button>
+</header>
+
+<aside class="sidebar">
+  <div class="nav-row btn" onclick="showHome()"><span class="ico">⌂</span>Home</div>
+  <div class="nav-row active btn" onclick="showHome()"><span class="ico">◉</span>Popular</div>
+  <div class="nav-row btn"><span class="ico">♧</span>Answers <span class="beta">BETA</span></div>
+  <div class="side-rule"></div>
+  <div class="side-heading">TOPICS <span>⌃</span></div>
+  <div class="nav-row btn"><span class="ico">♧</span>Internet Culture<br>(Viral) <span style="margin-left:auto">⌄</span></div>
+  <div class="nav-row btn"><span class="ico">🎮</span>Games <span style="margin-left:auto">⌄</span></div>
+  <div class="nav-row btn"><span class="ico">☷</span>Q&As <span style="margin-left:auto">⌄</span></div>
+  <div class="nav-row btn"><span class="ico">▦</span>Technology <span style="margin-left:auto">⌄</span></div>
+  <div class="nav-row btn"><span class="ico">☆</span>Pop Culture <span style="margin-left:auto">⌄</span></div>
+  <div class="nav-row btn"><span class="ico">▤</span>Movies &amp; TV <span style="margin-left:auto">⌄</span></div>
+  <div class="nav-row btn" style="font-size:12px">See more</div>
+  <div class="side-rule"></div>
+  <div class="side-heading">RESOURCES <span>⌃</span></div>
+  <div class="nav-row btn"><span class="ico">♧</span>About Reddit</div>
+  <div class="nav-row btn"><span class="ico">⚑</span>Advertise</div>
+  <div class="nav-row btn"><span class="ico">▥</span>Reddit Pro <span class="beta">BETA</span></div>
+  <div class="nav-row btn"><span class="ico">ⓘ</span>Help</div>
+  <div class="nav-row btn"><span class="ico">▣</span>Blog</div>
+  <div class="nav-row btn"><span class="ico">♢</span>Careers</div>
+  <div class="nav-row btn"><span class="ico">♢</span>Press</div>
+</aside>
+
+<main class="main">
+  <section id="homeView" class="page-wrap">
+    <div class="feed">
+      <div class="carousel">
+        <div class="story btn" onclick="showDetail()"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/177.png" width="260" height="225" alt=""><div class="story-copy"><strong>Clarke loses libel case</strong><small>Noel Clarke has lost his libel case again...</small><div class="story-sub">🇬🇧 r/unitedkingdom and more</div></div></div>
+        <div class="story btn" onclick="showDetail()"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/136.jpg" width="260" height="225" alt=""><div class="story-copy"><strong>Beasley cleared, free to sign</strong><small>Malik Beasley has been cleared of any...</small><div class="story-sub">🏀 r/NYPOSTauto and more</div></div></div>
+        <div class="story btn" onclick="showDetail()"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/144.jpg" width="260" height="225" alt=""><div class="story-copy"><strong>Weapons hits $100M milestone</strong><small>Warner Bros. original horror film...</small><div class="story-sub">🎬 r/boxoffice and more</div></div></div>
+        <div class="story btn" onclick="showDetail()"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/156.jpg" width="260" height="225" alt=""><div class="story-copy"><strong>MGS Delta reviews are in</strong><small>Metal Gear Solid Delta: Snake Eater...</small><div class="story-sub">🎮 r/pcgaming and more</div></div></div>
+      </div>
+      <div class="sortbar"><button class="btn">Best⌄</button><button class="btn">Everywhere⌄</button><button class="btn">▤⌄</button></div>
+      <article class="post">
+        <div class="post-head"><span class="community-icon">r/</span><span><b>r/law</b> · 15 hr. ago</span><button class="pill btn" style="margin-left:auto;background:#2368b5;color:white;padding:6px 15px">Join</button><span class="btn">···</span></div>
+        <h1 class="post-title btn" onclick="showDetail()">Trump threatens to deploy the U.S. military into Chicago - signaling the start of a nationwide crackdown.</h1>
+        <div class="tag">Trump News</div>
+        <div class="post-media btn" onclick="showDetail()">
+          <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/120.png" width="740" height="430" alt="Donald Trump speaking on a Fox News broadcast">
+          <div class="play">▶</div><div class="player-line"></div>
+          <div class="player-controls"><span>Ⅱ &nbsp; 🔊</span><span class="time">0:26 / 0:47 &nbsp; ⚙ ⛶</span></div>
+        </div>
+        <div class="actions">
+          <button class="pill btn">⬆ &nbsp;60K&nbsp; ⬇</button>
+          <button class="pill btn" onclick="showDetail()">▢ &nbsp;12K</button>
+          <button class="pill btn">🔥 &nbsp;3</button>
+          <button class="pill btn">↗ &nbsp;Share</button>
+        </div>
+      </article>
+      <div class="ad">
+        <div class="ad-top"><span style="color:#7254d3;font-size:21px">◉</span><b>figure</b> · Promoted <span style="margin-left:auto">···</span></div>
+        <div class="ad-body">💸 Get up to $750K with Figure's 100% online Home Equity Line of Credit. Fast funding, easy process - no need to leave home!</div>
+        <button class="learn btn">Learn More</button>
+      </div>
+      <article class="post">
+        <div class="post-head"><span class="community-icon">r/</span><span><b>r/AskReddit</b> · 7 mo. ago</span></div>
+        <h2 class="post-title btn" onclick="showDetail()">What do you think about the latest news?</h2>
+      </article>
+    </div>
+    <aside class="right-panel">
+      <div class="panel">
+        <div class="panel-title">POPULAR COMMUNITIES</div>
+        <div class="community"><span class="comm-avatar">r/</span><div><div class="comm-name">r/explainlikeimfive</div><div class="comm-members">23,272,108 members</div></div></div>
+        <div class="community"><span class="comm-avatar">A</span><div><div class="comm-name">r/IAmA</div><div class="comm-members">22,441,949 members</div></div></div>
+        <div class="community"><span class="comm-avatar" style="background:#f4bc28">W</span><div><div class="comm-name">r/classicwow</div><div class="comm-members">687,100 members</div></div></div>
+        <div class="community"><span class="comm-avatar" style="background:#5082aa">◎</span><div><div class="comm-name">r/Instagram</div><div class="comm-members">988,137 members</div></div></div>
+        <div class="community"><span class="comm-avatar" style="background:#e3273a">▣</span><div><div class="comm-name">r/NintendoSwitch</div><div class="comm-members">7,880,362 members</div></div></div>
+        <div class="see-more btn">See more</div>
+      </div>
+    </aside>
+  </section>
+
+  <section id="detailView" class="detail-layout hidden">
+    <div class="feed">
+      <article class="detail-post">
+        <div class="post-head"><button class="pill btn" onclick="showHome()">←</button><span class="community-icon">r/</span><span><b>r/law</b> · 15 hr. ago<br><span style="font-size:11px">BreakfastTop6899 · Top 1% Commenter</span></span><span class="btn" style="margin-left:auto">···</span></div>
+        <h1 class="post-title">Trump threatens to deploy the U.S. military into Chicago - signaling the start of a nationwide crackdown.</h1>
+        <div class="tag">Trump News</div>
+        <div class="post-media">
+          <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/120.png" width="740" height="430" alt="Donald Trump on Fox News">
+          <div class="player-controls"><span>Ⅱ &nbsp; 🔊</span><span class="time">0:00 / 0:47 &nbsp; ⚙ ⛶</span></div>
+          <div class="player-line"></div>
+        </div>
+        <div class="actions">
+          <button class="pill btn">⬆ &nbsp;60K&nbsp; ⬇</button><button class="pill btn">▢ &nbsp;12K</button><button class="pill btn">🔥 &nbsp;3</button><button class="pill btn">↗ &nbsp;Share</button>
+        </div>
+      </article>
+      <div class="ad">
+        <div class="ad-top"><span style="color:#7254d3;font-size:21px">◉</span><b>figure</b> · Promoted <span style="margin-left:auto">···</span></div>
+        <div class="ad-body">💸 Get up to $750K with Figure's 100% online Home Equity Line of Credit. Fast funding, easy process - no need to leave home!</div>
+        <button class="learn btn">Learn More</button>
+      </div>
+      <div class="comments-top">
+        <input class="comment-search" placeholder="Join the conversation" aria-label="Join the conversation" style="width:100%;height:42px">
+        <div class="comment-tools"><span>Sort by: &nbsp; <b>Best⌄</b></span><span class="comment-search">⌕ &nbsp; Search Comments</span></div>
+        <div class="comment-head" style="margin-top:18px">⊕ &nbsp; <b>AutoModerator</b> <span style="color:#55a761">MOD</span> · 15 hr. ago · 📌 Stickied comment</div>
+        <div class="comment">
+          <div class="comment-head"><span style="color:#d36c8e">●</span><span class="user">BitterFuture</span> · 15h ago <span>🏅 Top 1% Commenter</span></div>
+          <div class="comment-text">It’s not a coincidence that he is wearing a hat proclaiming that he's the most brilliant man to have ever lived while declaring he's going to ignore laws and order our military to attack our own citizens.</div>
+          <div class="comment-actions"><span>⬆ 8K</span><span>♡</span><span>Reply</span><span>Award</span><span>Share</span>···</div>
+          <div class="comment">
+            <div class="comment-head"><span>◉</span><span class="user">Scarbanе</span> · 15h ago</div>
+            <div class="comment-text">The emperor has no brain.</div>
+            <div class="comment-actions"><span>⬆ 2.8K</span><span>Reply</span><span>Award</span><span>Share</span>···</div>
+            <div class="comment-actions">⊕ &nbsp;253 more replies</div>
+          </div>
+          <div class="comment">
+            <div class="comment-head"><span>◉</span><span class="user">RetroCasket</span> · 15h ago</div>
+            <div class="comment-text">Sincerely, that is beyond the pale idiotic. And the fact that it doesn't sound any alarms or make more than half the country say this man is an idiot is mind blowing to me.<br><br>I just never saw this country reaching this point. I remember when the smallest thing would disqualify someone from respected office of presidency.<br><br>Just feels like a dream.</div>
+            <div class="comment-actions"><span>⬆ 729</span><span>Reply</span><span>Award</span><span>Share</span>···</div>
+            <div class="comment-actions">⊕ &nbsp;238 more replies</div>
+          </div>
+          <div class="comment">
+            <div class="comment-head"><span>◉</span><span class="user">BlackMesaRyan</span> · 15h ago</div>
+            <div class="comment-text">The hat is so pathetic and cringe.</div>
+            <div class="comment-actions"><span>⬆ 2.2K</span><span>Reply</span><span>Award</span><span>Share</span>···</div>
+            <div class="comment-actions">⊕ &nbsp;306 more replies</div>
+          </div>
+          <div class="comment-actions">⊕ &nbsp;488 more replies</div>
+        </div>
+        <div class="comment">
+          <div class="comment-head"><span>🔵</span><span class="user">ForcedEntry420</span> · 15h ago <span>🏅 Top 1% Commenter</span></div>
+          <div class="comment-text">It's a definite escalation, but at what point do Governor's mobilize the State Guard to keep the Guard from Red States from invading?</div>
+          <div class="comment-actions"><span>⬆ 2.9K</span><span>Reply</span><span>Award</span><span>Share</span>···</div>
+          <div class="comment-actions">⊕ &nbsp;664 more replies</div>
+        </div>
+        <div class="comment">
+          <div class="comment-head"><span>🟠</span><span class="user">alejo699</span> · 15h ago <span>🏅 Top 1% Commenter</span></div>
+          <div class="comment-text">Crackdown on fucking what? Freedom? Life?</div>
+          <div class="comment-actions"><span>⬆ 2.9K</span><span>Reply</span><span>Award</span><span>Share</span>···</div>
+          <div class="comment">
+            <div class="comment-head"><span>◉</span><span class="user">Admiral_obvious13</span> · 14h ago</div>
+            <div class="comment-text">Yeah idk man. I've been living in or commuting to Chicago most of my life. There is nothing the military can accomplish here other than wasting a fuckton of money.</div>
+            <div class="comment-actions"><span>⬆ 1.3K</span><span>Reply</span><span>Award</span><span>Share</span></div>
+            <div class="comment-actions">⊕ &nbsp;129 more replies</div>
+          </div>
+          <div class="comment-actions">⊕ &nbsp;274 more replies</div>
+        </div>
+        <div class="comment">
+          <div class="comment-head">⊕ &nbsp;[deleted] · 15h ago · Edited 14h ago</div>
+        </div>
+        <div class="comment highlight">
+          <div class="comment-head"><span>◉</span><span class="user">Comfortable_Fill9081</span> · 14h ago · Edited 12h ago</div>
+          <div class="comment-text">“We African American ladies, beautiful ladies” are NOT saying “please come to Chicago” and he did not “do great with the Black vote.”<br><br>Black women were demographically the least likely of all voters to vote for Trump. Black men the second least likely.</div>
+          <div class="comment-actions"><span>⬆ 1.8K</span><span>Reply</span><span>Award</span><span>Share</span></div>
+        </div>
+      </div>
+    </div>
+    <aside class="right-panel">
+      <div class="joinbox">
+        <h3>New to Reddit?</h3><p>Create your account and connect with a world of communities.</p>
+        <button class="outline-btn btn">🌐 &nbsp; Continue with Google</button>
+        <button class="outline-btn btn">✉ &nbsp; Continue with Email</button>
+        <button class="outline-btn btn">▣ &nbsp; Continue With Phone Number</button>
+        <p style="font-size:11px;margin:10px 0 0">By continuing, you agree to our <a>User Agreement</a> and acknowledge that you understand the <a>Privacy Policy</a>.</p>
+      </div>
+      <div class="side-post">🔴 &nbsp; r/law · 11 days ago<br><br>President Trump is now open to deploying US Military in cities like...<small>51K upvotes · 7.6K comments</small></div>
+      <div class="side-post">🌐 &nbsp; r/AskReddit · 7 mo. ago<br><br>Trump has already started making enemies out of major American allies. How do you see the...<small>36K upvotes · 9.4K comments</small></div>
+      <div class="side-post">🌐 &nbsp; r/AskReddit · 4 mo. ago<br><br>Donald Trump is coming to the end of his first 100 days in office, how do you think he has...<small>22K upvotes · 17K comments</small></div>
+      <div class="side-post">🔴 &nbsp; r/AskCanada · 7 mo. ago<br><br>Let it be clear, if you are a Conservative and you support Trump right now, you are a traitor.<small>87K upvotes · 9.2K comments</small></div>
+      <div class="side-post">🌐 &nbsp; r/GlobalNews · 3 mo. ago<br><br>Trump orders National Guard to LA riots after immigration raids<small>64K upvotes · 6.3K comments</small></div>
+    </aside>
+  </section>
+</main>
+<script>
+function showDetail(){
+  document.getElementById('homeView').classList.add('hidden');
+  document.getElementById('detailView').classList.remove('hidden');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function showHome(){
+  document.getElementById('detailView').classList.add('hidden');
+  document.getElementById('homeView').classList.remove('hidden');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')showHome()});
+</script>
+</body>
+</html>
+```

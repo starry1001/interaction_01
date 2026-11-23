@@ -1,0 +1,64 @@
+{
+  "total_step": 8,
+  "success_step": 2,
+  "screenshot_paths_to_eval": [
+    "outputs/46/gpt-6-luna_setting3/evalpoints/0.png"
+  ],
+  "all_mllm_scores": [
+    0.89
+  ],
+  "all_dino_scores": [
+    0.97998046875
+  ],
+  "all_ocr_scores": [
+    0.8161209068010076
+  ],
+  "all_avg_scores": [
+    0.8953671251836693
+  ],
+  "mllm_score": 0.89,
+  "dino_score": 0.97998046875,
+  "ocr_score": 0.8161209068010076,
+  "avg_score": 0.8953671251836693,
+  "all_mllm_res": [
+    "---\nComments:\n-Layout (8/10): The chart and main workspace are positioned almost identically. The main layout differences are the blue sidebar extending to the bottom of the workspace in the generated page, whereas the reference switches to white below it, and the bottom data table begins slightly higher.\n-Elements (12/15): Nearly all major elements are present, including the chart, settings panel, promo button, Microsoft badge, and data table. The generated page clips the sidebar logo at the top and omits the visible DATA tab and extra blank table rows seen in the reference.\n-Content and Text (39/40): Chart values, month labels, series names, menu items, and settings labels closely match the reference. Text is generally accurate and legible.\n-Style (13/15): Colors, typography, chart fills, and panel styling are very similar. Minor differences include the clipped logo, sidebar background extent, and small spacing and sizing variations.\n-Overall (17/20): A close recreation with the central chart and most interface details faithfully reproduced; differences are concentrated in the sidebar and lower data area.\n\nScore: 89/100\n---"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "FILE EDIT DATA VIEW LANGUAGE HELP SIGN IN [ca] Chart Title Chart Add SubTitle Here 100 Colors inGraph Data Legend DataSet Point Dot Janualy Februaly March April May June July Scale 2024 2023 Made with Livegap Charts Axis Try code livegap.com Grid Text Annotations Animation Freehand Pro Get it from Microsoft DATA January February March April May June July 2023 65 90 56 55 40 2024 48 40 19 96 27",
+      "screenshot_text": "FILE EDIT DATA VIEW LANGUAGE HELP SIGN IN WZ Charts Chart Title Chart Add SubTitle Here Colors 100 inGraph Data Legend DataSet Point Dot January February March April May June Scale 2024 2023 Axis Made with Livegap Charts Grid Try code.livegap com New Text Annotations Animation Freehand Pro Get it from Microsoft January February March April June 2023 65 90 56 40 2024 40 19 96 27 99 July May July",
+      "similarity": 0.8161209068010076
+    }
+  ],
+  "assertion_results": [
+    null,
+    null,
+    {
+      "result": "No",
+      "prev_img_path": "outputs/46/gpt-6-luna_setting3/evalpoints/2.png",
+      "curr_img_path": "outputs/46/gpt-6-luna_setting3/evalpoints/3.png",
+      "response": "{\"think\":\"In the current screenshot, the 2023 February cell shows 0, and the blue chart value for February is also 0—not 80.\",\"result\":\"No\"}",
+      "assertion": "The cell in the '2023' row of the 'February' column displays '80', and the blue line value of the horizontal axis 'February' in the above chart becomes 80.",
+      "thinking": "In the current screenshot, the 2023 February cell shows 0, and the blue chart value for February is also 0—not 80."
+    },
+    null,
+    null,
+    null,
+    {
+      "result": "No",
+      "prev_img_path": "outputs/46/gpt-6-luna_setting3/evalpoints/6.png",
+      "curr_img_path": "outputs/46/gpt-6-luna_setting3/evalpoints/7.png",
+      "response": "{\n  \"think\": \"The value 16 appears in the 2024 row under April, not May. The chart’s April value changes to 16; the May values remain unchanged.\",\n  \"result\": \"No\"\n}",
+      "assertion": "The cell in the '2024' row of the 'May' column displays '16', and the blue line value of the horizontal axis 'May' in the above chart becomes 16.",
+      "thinking": "The value 16 appears in the 2024 row under April, not May. The chart’s April value changes to 16; the May values remain unchanged."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/46/gpt-6-luna_setting3/evalpoints/7.png",
+      "curr_img_path": "outputs/46/gpt-6-luna_setting3/evalpoints/8.png",
+      "response": "{\"think\":\"In Image 1, Point Dot is a single collapsed row. In Image 2, it is open and shows its toggle and shape, radius, and stroke controls.\",\"result\":\"Yes\"}",
+      "assertion": "The 'Point Dot' panel expanded.",
+      "thinking": "In Image 1, Point Dot is a single collapsed row. In Image 2, it is open and shows its toggle and shape, radius, and stroke controls."
+    }
+  ]
+}

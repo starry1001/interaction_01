@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Two Sum - LeetCode</title>
+<style>
+*{box-sizing:border-box}
+:root{--line:#e5e5e5;--muted:#858b93;--text:#262626;--green:#2db55d;--blue:#1683e8}
+html,body{height:100%;margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--text);font-size:14px;background:#f0f0f0}
+button{font:inherit;color:inherit}
+.btn{cursor:pointer}
+.topbar{height:48px;background:#f0f0f0;border-bottom:1px solid #dedede;display:flex;align-items:center;justify-content:space-between;padding:0 18px;white-space:nowrap}
+.top-left,.top-right,.top-center{display:flex;align-items:center;gap:17px}
+.brand{font-size:24px;color:#eea31a;font-weight:bold;line-height:1}
+.small-icon{font-size:17px;color:#70757a}
+.problem-link{font-size:14px;color:#222}
+.top-center{position:absolute;left:50%;transform:translateX(-50%);gap:13px}
+.top-center button{border:0;background:transparent;padding:5px 9px;border-radius:5px;color:#6d747c}
+.top-center .submit{color:#16ad4a;font-weight:bold}
+.premium{background:#fff0d9;color:#ed9f34!important;border-radius:12px;padding:6px 12px!important}
+.workspace{height:calc(100% - 48px);display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:0 8px 8px}
+.pane{background:#fff;border:1px solid #dedede;border-radius:7px;min-width:0;min-height:0;overflow:hidden;display:flex;flex-direction:column}
+.left-tabs{height:42px;border-bottom:1px solid #e8e8e8;display:flex;align-items:center;padding:0 12px;gap:18px;flex:none;color:#92979d}
+.tab{height:100%;display:flex;align-items:center;gap:5px;border-bottom:2px solid transparent;padding:0 1px}
+.tab.active{color:#242424;border-color:#1683e8;font-weight:600}
+.tab .ico{font-size:14px;color:#8997a2}
+.left-actions{margin-left:auto;display:flex;gap:12px;color:#777}
+.content-scroll{overflow:auto;flex:1;scrollbar-width:thin;scrollbar-color:#9a9a9a transparent}
+.description{padding:24px 26px 20px 25px;font-size:14px;line-height:1.48}
+.description h1{font-size:24px;margin:8px 0 22px}
+.description h2{font-size:18px;margin:25px 0 12px}
+.description h3{font-size:15px;margin:22px 0 10px}
+.description p{margin:10px 0}
+.description code{background:#f5f5f6;border:1px solid #eee;border-radius:4px;padding:2px 5px;font-family:Consolas,monospace;color:#555}
+.examples{margin-top:12px}
+.example{margin:17px 0 22px}
+.example strong{display:block;margin-bottom:9px}
+pre.example-code{font-family:Consolas,monospace;background:#fafafa;border-left:2px solid #ececec;padding:10px 14px;margin:6px 0;white-space:pre-wrap;color:#565b62}
+.description ul{padding-left:21px}
+.description li{margin:7px 0}
+.question-meta{border-top:1px solid #eee;margin-top:42px;padding:19px 0 16px;color:#777}
+.yesno{margin-top:9px;display:flex;gap:8px}
+.pill{background:#f3f4f5;border-radius:12px;padding:4px 10px;font-size:12px}
+.stats{border-bottom:1px solid #eee;padding:10px 0 20px;color:#73777b}
+.stats b{color:#262626;font-size:16px;margin-left:5px}
+.accordions{margin-top:0}
+.accordion{border-bottom:1px solid #e7e7e7}
+.acc-head{height:50px;display:flex;align-items:center;gap:10px;padding:0 3px;cursor:pointer}
+.acc-head .acc-icon{width:17px;text-align:center;font-size:15px}
+.acc-head .arrow{margin-left:auto;color:#9ca1a5}
+.acc-content{display:none;padding:0 16px 16px 29px;line-height:1.5;color:#333;font-size:13px}
+.accordion.open .acc-content{display:block}
+.copyright{color:#858585;font-size:12px;margin:44px 0 16px}
+.bottom-actions{height:36px;border-top:1px solid #eee;display:flex;align-items:center;padding:0 12px;gap:13px;color:#747b80;flex:none;font-size:13px}
+.bottom-actions button{border:0;background:#f6f6f6;border-radius:5px;padding:4px 8px}
+.online{margin-left:auto;color:#49b85c;font-size:12px}
+.right-pane{position:relative}
+.editor-top{height:49%;min-height:260px;border-bottom:5px solid #f0f0f0;display:flex;flex-direction:column}
+.code-head{height:40px;display:flex;align-items:center;padding:0 12px;gap:9px;border-bottom:1px solid #eee;flex:none}
+.code-title{font-weight:600;color:#259554}
+.code-tools{margin-left:auto;display:flex;gap:14px;color:#777}
+.editor-options{height:33px;border-bottom:1px solid #eee;display:flex;align-items:center;padding:0 12px;gap:12px;color:#777;font-size:13px;flex:none}
+.editor{flex:1;overflow:auto;padding:12px 20px 10px 28px;position:relative}
+.code-area{width:100%;height:100%;resize:none;border:0;outline:0;font:13px/1.55 Consolas,Monaco,monospace;color:#242424;white-space:pre;tab-size:4}
+.code-line-numbers{position:absolute;top:13px;left:8px;color:#3491aa;font:12px/20px Consolas,monospace;text-align:right;pointer-events:none}
+.editor-status{height:25px;display:flex;align-items:center;padding:0 12px;color:#999;font-size:12px;flex:none}
+.editor-status span:last-child{margin-left:auto}
+.test-area{flex:1;min-height:0;display:flex;flex-direction:column}
+.test-head{height:40px;display:flex;align-items:center;padding:0 13px;border-bottom:1px solid #eee;gap:12px;flex:none}
+.test-tab{color:#9a9a9a;cursor:pointer}
+.test-tab.active{color:#222;font-weight:600}
+.test-body{padding:17px 22px;overflow:auto;flex:1}
+.accepted{color:#2db55d;font-weight:bold;font-size:18px;margin:3px 0 18px}
+.runtime{font-size:12px;color:#888;font-weight:normal;margin-left:9px}
+.case-tabs{display:flex;gap:16px;align-items:center;margin:0 0 20px}
+.case{border:0;background:transparent;border-radius:6px;padding:7px 12px;color:#777}
+.case.active{background:#f1f1f3;color:#333;font-weight:600}
+.field-label{font-size:12px;color:#888;margin:13px 0 5px}
+.field-value{height:52px;background:#f5f5f6;border-radius:7px;padding:16px 14px;font:14px Consolas,monospace;color:#30343a}
+.output-value{height:44px}
+.contribute{text-align:center;color:#aaa;margin:24px 0;font-size:12px}
+.sol-list{padding:8px 24px 20px}
+.sol-toolbar{display:flex;align-items:center;border-bottom:1px solid #eee;padding:7px 4px 13px;color:#888;gap:14px}
+.sol-search{height:34px;border:1px solid #eee;border-radius:18px;padding:7px 12px;min-width:220px;color:#999}
+.tag-row{display:flex;gap:8px;overflow:hidden;padding:12px 0 9px}
+.tag{background:#f3f3f3;border-radius:14px;padding:5px 10px;color:#777;font-size:12px;white-space:nowrap}
+.sol-item{padding:20px 8px 17px;border-bottom:1px solid #e8e8e8;cursor:pointer}
+.sol-user{font-size:13px;color:#858585;margin-bottom:8px}
+.sol-title{font-weight:600;font-size:16px;color:#242424;margin-bottom:8px}
+.sol-stats{color:#888;font-size:13px;margin-top:11px}
+.article{max-width:1040px;margin:0 auto;padding:20px 18px 35px;font-size:15px;line-height:1.55}
+.back-link{color:#888;margin:0 0 20px;cursor:pointer}
+.article h1{font-size:24px;margin:15px 0 8px}
+.author{color:#888;font-size:13px;margin:8px 0 20px}
+.article h2{font-size:22px;margin:28px 0 10px}
+.article h3{font-size:19px;margin:23px 0 10px}
+.article ol{padding-left:28px}
+.article li{padding-left:3px;margin:6px 0}
+.article-code{background:#f5f5f7;border:1px solid #e7e7e7;border-radius:6px;padding:16px;margin:8px 0 25px;white-space:pre;overflow:auto;font:13px/1.55 Consolas,monospace;color:#447b8a}
+.article-footer{position:absolute;bottom:0;left:0;right:0;height:34px;background:#fff;border-top:1px solid #eee;display:flex;align-items:center;padding:0 14px;gap:16px;color:#888}
+.hidden{display:none!important}
+@media(max-width:900px){.workspace{grid-template-columns:1fr}.right-pane{display:none}.top-center{display:none}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="top-left">
+    <span class="brand btn">‹</span>
+    <span class="small-icon btn">☷</span>
+    <span class="problem-link btn">Problem List</span>
+    <span class="small-icon btn">‹</span><span class="small-icon btn">›</span><span class="small-icon btn">⤨</span>
+  </div>
+  <div class="top-center">
+    <button class="btn" title="Daily challenge">🏅</button>
+    <button class="btn">▶</button>
+    <button class="btn submit" id="submitBtn">☁ Submit</button>
+    <button class="btn">▣</button>
+  </div>
+  <div class="top-right">
+    <span class="small-icon btn">▦</span><span class="small-icon btn">⚙</span><span class="small-icon btn">♨</span>
+    <span class="small-icon btn">◴</span><span class="small-icon btn">♙</span>
+    <span class="small-icon btn">●</span><button class="btn premium">Premium</button>
+  </div>
+</header>
+
+<main class="workspace">
+  <section class="pane left-pane">
+    <div class="left-tabs">
+      <div class="tab active btn" data-view="description"><span class="ico">▤</span>Description</div>
+      <div class="tab btn" data-view="editorial"><span class="ico">▧</span>Editorial</div>
+      <div class="tab btn" data-view="solutions"><span class="ico">⚗</span>Solutions</div>
+      <div class="tab btn" data-view="submissions"><span class="ico">◴</span>Submissions</div>
+      <div class="left-actions"><span class="btn">⛶</span><span class="btn">⌃</span></div>
+    </div>
+
+    <div class="content-scroll" id="descriptionView">
+      <article class="description">
+        <h1>1. Two Sum</h1>
+        <p>Given an array of integers <code>nums</code> and an integer <code>target</code>, return <em>indices of the two numbers such that they add up to <code>target</code></em>.</p>
+        <p>You may assume that each input would have <strong>exactly one solution</strong>, and you may not use the same element twice.</p>
+        <p>You can return the answer in any order.</p>
+        <div class="examples">
+          <div class="example"><strong>Example 1:</strong><pre class="example-code">Input: nums = [2,7,11,15], target = 9
+Output: [0,1]
+Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].</pre></div>
+          <div class="example"><strong>Example 2:</strong><pre class="example-code">Input: nums = [3,2,4], target = 6
+Output: [1,2]</pre></div>
+          <div class="example"><strong>Example 3:</strong><pre class="example-code">Input: nums = [3,3], target = 6
+Output: [0,1]</pre></div>
+        </div>
+        <h3>Constraints:</h3>
+        <ul>
+          <li><code>2 ≤ nums.length ≤ 10<sup>4</sup></code></li>
+          <li><code>-10<sup>9</sup> ≤ nums[i] ≤ 10<sup>9</sup></code></li>
+          <li><code>-10<sup>9</sup> ≤ target ≤ 10<sup>9</sup></code></li>
+          <li><strong>Only one valid answer exists.</strong></li>
+        </ul>
+        <p><strong>Follow-up:</strong> Can you come up with an algorithm that is less than <code>O(n²)</code> time complexity?</p>
+        <div class="question-meta">Seen this question in a real interview before? &nbsp; 1/5
+          <div class="yesno"><button class="btn pill">Yes</button><button class="btn pill">No</button></div>
+        </div>
+        <div class="stats">Accepted <b>18,483,320</b><small>/32.9M</small> &nbsp; | &nbsp; Acceptance Rate <b>56.2%</b></div>
+        <div class="accordions">
+          <div class="accordion"><div class="acc-head btn"><span class="acc-icon">◇</span>Topics<span class="arrow">⌄</span></div><div class="acc-content"><span class="pill">Array</span> <span class="pill">Hash Table</span></div></div>
+          <div class="accordion"><div class="acc-head btn"><span class="acc-icon" style="color:#e4a73b">♙</span><span style="color:#c9953d">Companies</span><span class="arrow">⌄</span></div><div class="acc-content">Google &nbsp; Amazon &nbsp; Adobe &nbsp; Bloomberg</div></div>
+          <div class="accordion"><div class="acc-head btn"><span class="acc-icon">♧</span>Hint 1<span class="arrow">⌄</span></div><div class="acc-content">A really brute force way would be to search for all possible pairs of numbers but that would be too slow. Again, it's best to try out brute force solutions just for completeness. It is from these brute force solutions that you can come up with optimizations.</div></div>
+          <div class="accordion"><div class="acc-head btn"><span class="acc-icon">♧</span>Hint 2<span class="arrow">⌄</span></div><div class="acc-content">So, if we fix one of the numbers, say <code>x</code>, we have to scan the entire array to find the next number <code>y</code> which is <code>value - x</code> where value is the input parameter. Can we change our array somehow so that this search becomes faster?</div></div>
+          <div class="accordion"><div class="acc-head btn"><span class="acc-icon">♧</span>Hint 3<span class="arrow">⌄</span></div><div class="acc-content">The second train of thought is, without changing the array, can we use additional space somehow? Like maybe a hash map to speed up the search?</div></div>
+          <div class="accordion"><div class="acc-head btn"><span class="acc-icon">☷</span>Similar Questions<span class="arrow">⌄</span></div><div class="acc-content">3Sum &nbsp; 4Sum &nbsp; Two Sum II - Input Array Is Sorted</div></div>
+          <div class="accordion"><div class="acc-head btn"><span class="acc-icon">▱</span>Discussion (1.5K)<span class="arrow">⌄</span></div><div class="acc-content">Join the discussion about this problem.</div></div>
+        </div>
+        <div class="copyright">Copyright © 2025 LeetCode. All rights reserved.</div>
+      </article>
+    </div>
+
+    <div class="content-scroll hidden" id="solutionsView">
+      <div class="sol-list" id="solutionsList">
+        <div class="sol-toolbar"><span class="btn">‹ All Solutions</span><span style="margin-left:auto">↗ &nbsp;▣</span></div>
+        <div class="sol-search">⌕ &nbsp; Search...</div>
+        <div class="tag-row"><span class="tag">All</span><span class="tag">My Solution</span><span class="tag">C++</span><span class="tag">Java</span><span class="tag">Python3</span><span class="tag">Array</span><span class="tag">Hash Table</span><span class="tag">Two Pointers</span><span class="tag">Math</span><span class="tag">Sorting</span></div>
+        <p style="color:#888;font-size:13px">＋ &nbsp;Submit at least 1 AC to publish a solution.</p>
+        <div class="sol-item btn" data-article><div class="sol-user">● &nbsp;LeetCode 🔵 · Open</div><div class="sol-title">Two Sum</div><span class="tag">Editorial</span><div class="sol-stats">♧ 4.6K &nbsp; ◉ 11.3M &nbsp; ▢ 2.6K</div></div>
+        <div class="sol-item btn" data-article><div class="sol-user">● &nbsp;niits · Open</div><div class="sol-title">[Video] Step by Step Easy Solution</div><span class="tag">Array</span> <span class="tag">Hash Table</span> <span class="tag">C++</span><div class="sol-stats">♧ 1.3K &nbsp; ◉ 106.5K &nbsp; ▢ 5</div></div>
+        <div class="sol-item btn" data-article><div class="sol-user">● &nbsp;Rahul Varma · Open</div><div class="sol-title">✅ 3 Method's || C++ || JAVA || PYTHON || Beginner Friendly🔥🔥🔥</div><span class="tag">Array</span> <span class="tag">Hash Table</span> <span class="tag">C++</span><div class="sol-stats">♧ 10.6K &nbsp; ◉ 2M &nbsp; ▢ 263</div></div>
+        <div class="sol-item btn" data-article><div class="sol-user">● &nbsp;niits · Open</div><div class="sol-title">[Video] Step by Step Easy Solution</div><span class="tag">Array</span> <span class="tag">Hash Table</span> <span class="tag">Math</span><div class="sol-stats">♧ 1.5K &nbsp; ◉ 167K &nbsp; ▢ 24</div></div>
+        <div class="sol-item btn" data-article><div class="sol-user">● &nbsp;Otabek · Open</div><div class="sol-title">✅ Hash Table | Python | C++ | Java | JS | C# | Go | Rust | Swift | Kotlin | PHP | Dart</div><div class="sol-stats">♧ 386 &nbsp; ◉ 69.3K &nbsp; ▢ 20</div></div>
+        <div class="sol-item btn" data-article><div class="sol-user">● &nbsp;Kunal Tajne · Open</div><div class="sol-title">✅ Easiest Detailed Explanation With Image and Commented Code 🔥</div><div class="sol-stats">♧ 636 &nbsp; ◉ 140K &nbsp; ▢ 33</div></div>
+        <div class="sol-item btn" data-article><div class="sol-user">● &nbsp;Riya_1905 · Open</div><div class="sol-title">100 % Beats | HashMap | O(n) TC</div></div>
+        <div class="sol-item btn" data-article><div class="sol-user">● &nbsp;Ashok Varma · Open</div><div class="sol-title">✅ 2 Method's || JAVA || C++ || PYTHON ||</div></div>
+      </div>
+      <article class="article hidden" id="articleView">
+        <div class="back-link btn" id="backSolutions">‹ &nbsp;All Solutions</div>
+        <h1>✅ 3 Method's || C++ || JAVA || PYTHON || Beginner Friendly🔥🔥🔥</h1>
+        <div class="author">● &nbsp; Rahul Varma &nbsp; · &nbsp; 2056674 &nbsp; · &nbsp; Jun 10, 2023</div>
+        <div><span class="tag">Array</span> <span class="tag">Hash Table</span> <span class="tag">C++</span> <span class="tag">Java</span></div>
+        <h2>Intuition</h2>
+        <p>The Two Sum problem asks us to find two numbers in an array that sum up to a given target value. We need to return the indices of these two numbers.</p>
+        <h2>Approach</h2>
+        <ol>
+          <li>One brute force approach is to consider every pair of elements and check if their sum equals the target. This can be done using nested loops, where the outer loop iterates from the first element to the second-to-last element, and the inner loop iterates from the next element to the last element. However, this approach has a time complexity of O(n^2).</li>
+          <li>A more efficient approach is to use a hash table (unordered_map in C++). We can iterate through the array once, and for each element, check if the target minus the current element exists in the hash table. If it does, we have found a valid pair of numbers. If not, we add the current element to the hash table.</li>
+        </ol>
+        <h3>Approach using a hash table:</h3>
+        <ol>
+          <li>Create an empty hash table to store elements and their indices.</li>
+          <li>Iterate through the array from left to right.</li>
+          <li>For each element nums[i], calculate the complement by subtracting it from the target: complement = target - nums[i].</li>
+          <li>Check if the complement exists in the hash table. If it does, we have found a solution.</li>
+          <li>If the complement does not exist in the hash table, add the current element nums[i] to the hash table with its index as the value.</li>
+          <li>Repeat steps 3-5 until we find a solution or reach the end of the array.</li>
+          <li>If no solution is found, return an empty array or an appropriate indicator.</li>
+        </ol>
+        <p>This approach has a time complexity of O(n) since hash table lookups take constant time on average. It allows us to solve the Two Sum problem efficiently by making just one pass through the array.</p>
+        <h2>Code</h2>
+        <h3>Solution 1: (Brute Force)</h3>
+        <div class="article-code">class Solution {
+public:
+    vector&lt;int&gt; twoSum(vector&lt;int&gt;&amp; nums, int target) {
+        int n = nums.size();
+        for (int i = 0; i &lt; n - 1; i++) {
+            for (int j = i + 1; j &lt; n; j++) {
+                if (nums[i] + nums[j] == target) {
+                    return {i, j};
+                }
+            }
+        }
+        return {}; // No solution found
+    }
+};</div>
+        <h3>Solution 2: (Two-pass Hash Table)</h3>
+        <div class="article-code">class Solution {
+public:
+    vector&lt;int&gt; twoSum(vector&lt;int&gt;&amp; nums, int target) {
+        unordered_map&lt;int, int&gt; map;
+        for (int i = 0; i &lt; nums.size(); i++) {
+            int complement = target - nums[i];
+            if (map.count(complement)) return {map[complement], i};
+            map[nums[i]] = i;
+        }
+        return {};
+    }
+};</div>
+      </article>
+    </div>
+    <div class="content-scroll hidden" id="otherView"><div class="description"><h2>Submissions</h2></div></div>
+    <div class="bottom-actions"><button class="btn">♧ 63.7K</button><button class="btn">▢ 1.5K</button><button class="btn">☆</button><button class="btn">↗</button><button class="btn">ⓘ</button><span class="online">● 2025 Online</span></div>
+  </section>
+
+  <section class="pane right-pane">
+    <div class="editor-top">
+      <div class="code-head"><span class="code-title">‹/› Code</span><span class="code-tools"><span class="btn">⛶</span><span class="btn">⌃</span></span></div>
+      <div class="editor-options"><span class="btn">C++⌄</span><span>♙</span><span class="btn">Auto</span><span class="code-tools"><span class="btn">☰</span><span class="btn">♧</span><span class="btn">{ }</span><span class="btn">↶</span><span class="btn">⛶</span></span></div>
+      <div class="editor">
+        <div class="code-line-numbers" id="lineNumbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14</div>
+        <textarea class="code-area" id="codeArea" spellcheck="false">class Solution {
+public:
+    vector&lt;int&gt; twoSum(vector&lt;int&gt;&amp; nums, int target) {
+        int n = nums.size();
+        for (int i = 0; i &lt; n - 1; i++) {
+            for (int j = i + 1; j &lt; n; j++) {
+                if (nums[i] + nums[j] == target) {
+                    return {i, j};
+                }
+            }
+        }
+        return {}; // No solution found
+    }
+};</textarea>
+      </div>
+      <div class="editor-status"><span id="saveState">Saved</span><span>Ln 1, Col 1</span></div>
+    </div>
+    <div class="test-area">
+      <div class="test-head"><span class="test-tab btn">▣ Testcase</span><span class="test-tab active btn" id="testResultTab">›_ Test Result</span><span style="margin-left:auto;color:#888" class="btn">⛶</span><span style="color:#888" class="btn">⌃</span></div>
+      <div class="test-body" id="testBody">
+        <div class="accepted">Accepted <span class="runtime">Runtime: 0 ms</span></div>
+        <div class="case-tabs"><button class="case active btn" data-case="0">• Case 1</button><button class="case btn" data-case="1">• Case 2</button><button class="case btn" data-case="2">• Case 3</button></div>
+        <div class="field-label">Input</div>
+        <div class="field-label">nums =</div><div class="field-value" id="numsValue">[2,7,11,15]</div>
+        <div class="field-label">target =</div><div class="field-value" id="targetValue">9</div>
+        <div class="field-label">Output</div><div class="field-value output-value" id="outputValue">[0,1]</div>
+        <div class="field-label">Expected</div><div class="field-value output-value" id="expectedValue">[0,1]</div>
+        <div class="contribute btn">♡ &nbsp;Contribute a testcase</div>
+      </div>
+    </div>
+  </section>
+</main>
+<script>
+const tabs=[...document.querySelectorAll('.left-tabs .tab')];
+const desc=document.getElementById('descriptionView');
+const solutions=document.getElementById('solutionsView');
+const other=document.getElementById('otherView');
+const list=document.getElementById('solutionsList');
+const article=document.getElementById('articleView');
+function showTab(name){
+  tabs.forEach(t=>t.classList.toggle('active',t.dataset.view===name));
+  desc.classList.toggle('hidden',name!=='description');
+  solutions.classList.toggle('hidden',name!=='solutions');
+  other.classList.toggle('hidden',!['editorial','submissions'].includes(name));
+  if(name!=='solutions'){list.classList.remove('hidden');article.classList.add('hidden')}
+}
+tabs.forEach(t=>t.addEventListener('click',()=>showTab(t.dataset.view)));
+document.querySelectorAll('.acc-head').forEach(head=>head.addEventListener('click',()=>head.parentElement.classList.toggle('open')));
+document.querySelectorAll('[data-article]').forEach(item=>item.addEventListener('click',()=>{
+  list.classList.add('hidden');article.classList.remove('hidden');
+}));
+document.getElementById('backSolutions').addEventListener('click',()=>{article.classList.add('hidden');list.classList.remove('hidden')});
+const cases=[
+ {nums:'[2,7,11,15]',target:'9',out:'[0,1]'},
+ {nums:'[3,2,4]',target:'6',out:'[1,2]'},
+ {nums:'[3,3]',target:'6',out:'[0,1]'}
+];
+document.querySelectorAll('.case').forEach(btn=>btn.addEventListener('click',()=>{
+ document.querySelectorAll('.case').forEach(b=>b.classList.remove('active'));
+ btn.classList.add('active');
+ const c=cases[+btn.dataset.case];
+ document.getElementById('numsValue').textContent=c.nums;
+ document.getElementById('targetValue').textContent=c.target;
+ document.getElementById('outputValue').textContent=c.out;
+ document.getElementById('expectedValue').textContent=c.out;
+}));
+document.getElementById('submitBtn').addEventListener('click',()=>{
+ document.querySelector('.accepted').innerHTML='Accepted <span class="runtime">Runtime: 0 ms</span>';
+ document.getElementById('testResultTab').classList.add('active');
+});
+document.getElementById('codeArea').addEventListener('input',()=>{document.getElementById('saveState').textContent='Saved'});
+// The reference view opens with the description positioned near its examples and constraints.
+window.addEventListener('load',()=>{
+ const scroller=document.getElementById('descriptionView');
+ scroller.scrollTop=345;
+});
+</script>
+</body>
+</html>

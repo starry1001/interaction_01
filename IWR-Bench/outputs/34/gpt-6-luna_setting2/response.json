@@ -1,0 +1,111 @@
+{
+  "id": "chatcmpl-EmMVh1mKjj5f0pjQsoFl0YbStEgLg",
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "logprobs": null,
+      "message": {
+        "content": "```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>The Middle Ages — The Pudding</title>\n<style>\n  * { box-sizing: border-box; }\n  html { scroll-behavior: smooth; }\n  body {\n    margin: 0;\n    background: #1b071a;\n    color: #f6eaf4;\n    font-family: Georgia, \"Times New Roman\", serif;\n  }\n  .scene {\n    height: 100vh;\n    min-height: 650px;\n    position: relative;\n    overflow: hidden;\n    scroll-snap-align: start;\n    border-bottom: 3px solid #f7f5f5;\n  }\n  .story { scroll-snap-type: y proximity; }\n  img { display: block; }\n  .brand {\n    position: absolute;\n    top: 28px;\n    left: 50%;\n    transform: translateX(-50%);\n    width: 210px;\n    height: 56px;\n    object-fit: contain;\n  }\n  .intro-title {\n    position: absolute;\n    top: 30%;\n    left: 0;\n    width: 100%;\n    text-align: center;\n    font-size: 20px;\n    font-weight: bold;\n  }\n  .byline {\n    position: absolute;\n    top: calc(30% + 30px);\n    left: 0;\n    width: 100%;\n    text-align: center;\n    font-size: 14px;\n    color: #c889d6;\n  }\n  .byline a { color: inherit; }\n  .face-wrap {\n    position: absolute;\n    left: 50%;\n    top: 43%;\n    transform: translate(-50%, -50%);\n    width: 300px;\n    height: 165px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n  }\n  .face-wrap img {\n    width: 300px;\n    height: 165px;\n    object-fit: contain;\n  }\n  .face-wrap.warm { background: #ffdc72; }\n  .cta {\n    position: absolute;\n    bottom: 24px;\n    left: 50%;\n    transform: translateX(-50%);\n    min-width: 500px;\n    padding: 14px 20px;\n    background: #080609;\n    color: #eee;\n    border: 0;\n    font: 14px Georgia, serif;\n  }\n  .cta span { color: #ed34c4; }\n  .btn {\n    cursor: pointer;\n    transition: filter .15s ease, transform .15s ease;\n  }\n  .btn:hover { filter: brightness(1.12); }\n  .btn:active { transform: scale(.98); }\n  .bubble {\n    position: absolute;\n    left: 20px;\n    top: 53%;\n    max-width: 330px;\n    min-width: 300px;\n    padding: 13px 16px;\n    background: #fff;\n    color: #20151e;\n    border: 0;\n    border-radius: 9px;\n    text-align: left;\n    font: 14px/1.25 Georgia, serif;\n    box-shadow: 0 2px 4px #090309;\n  }\n  .bubble:before {\n    content: \"\";\n    position: absolute;\n    left: -9px;\n    top: 16px;\n    border-top: 9px solid transparent;\n    border-bottom: 9px solid transparent;\n    border-right: 11px solid #fff;\n  }\n  .bubble.center {\n    left: 50%;\n    top: calc(43% + 105px);\n    transform: translateX(-50%);\n    min-width: 300px;\n  }\n  .bubble.center:before {\n    left: 20px;\n    top: -9px;\n    border: 0;\n    border-left: 9px solid transparent;\n    border-right: 9px solid transparent;\n    border-bottom: 11px solid #fff;\n  }\n  .bubble mark {\n    background: #ffe070;\n    color: #171017;\n    padding: 0 2px;\n  }\n  .grid-wrap {\n    position: absolute;\n    left: 50%;\n    top: 48%;\n    transform: translate(-50%, -50%);\n    text-align: center;\n  }\n  .grid-wrap img {\n    width: 820px;\n    height: 1087px;\n    object-fit: contain;\n  }\n  .grade-label {\n    margin-top: 7px;\n    font-size: 16px;\n    font-weight: bold;\n  }\n  .grade-label small {\n    display: block;\n    margin-top: 2px;\n    font-size: 12px;\n    font-weight: normal;\n  }\n  .result {\n    position: absolute;\n    top: 7%;\n    left: 0;\n    width: 100%;\n    text-align: center;\n    line-height: 1.3;\n    font-size: 17px;\n  }\n  .result strong { color: #ffdc70; font-size: 23px; }\n  .bubble.rightish {\n    left: auto;\n    right: 20px;\n  }\n  @media (max-width: 900px) {\n    .scene { min-height: 540px; }\n    .grid-wrap { top: 47%; width: 100%; }\n    .grid-wrap img { width: min(78vw, 580px); height: auto; }\n    .bubble { left: 12px; min-width: 0; max-width: 250px; font-size: 12px; }\n    .bubble.rightish { left: auto; right: 12px; }\n    .face-wrap, .face-wrap img { width: 250px; height: 138px; }\n    .cta { min-width: 0; width: 85%; }\n  }\n</style>\n</head>\n<body>\n<main class=\"story\">\n  <section class=\"scene\" id=\"scene-0\">\n    <img class=\"brand\" src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/059.svg\" width=\"210\" height=\"56\" alt=\"The Pudding\">\n    <div class=\"intro-title\">the middle ages</div>\n    <div class=\"byline\">by <a href=\"#\" class=\"btn\">lila shrews</a></div>\n    <div class=\"face-wrap\">\n      <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/065.png\" width=\"300\" height=\"165\" alt=\"A student peeking over a desk\">\n    </div>\n    <button class=\"cta btn\" onclick=\"goTo(1)\">Don't like scrolling? <span>Click here to interact</span></button>\n  </section>\n\n  <section class=\"scene\" id=\"scene-1\">\n    <div class=\"face-wrap\"><img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/065.png\" width=\"300\" height=\"165\" alt=\"A student peeking over a desk\"></div>\n    <button class=\"bubble btn\" onclick=\"goTo(2)\">Hey, what grade are you in?</button>\n  </section>\n\n  <section class=\"scene\" id=\"scene-2\">\n    <div class=\"face-wrap\"><img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/065.png\" width=\"300\" height=\"165\" alt=\"A student peeking over a desk\"></div>\n    <button class=\"bubble center btn\" onclick=\"goTo(3)\">Fourth grade!</button>\n  </section>\n\n  <section class=\"scene\" id=\"scene-3\">\n    <div class=\"face-wrap\"><img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/065.png\" width=\"300\" height=\"165\" alt=\"A student peeking over a desk\"></div>\n    <button class=\"bubble center btn\" onclick=\"goTo(4)\">Fourth grade!</button>\n  </section>\n\n  <section class=\"scene\" id=\"scene-4\">\n    <div class=\"face-wrap warm\"><img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/065.png\" width=\"300\" height=\"165\" alt=\"A student peeking over a desk\"></div>\n    <button class=\"bubble center btn\" onclick=\"goTo(5)\"><mark>Wow!</mark> Wanna meet my classmates?</button>\n  </section>\n\n  <section class=\"scene\" id=\"scene-5\">\n    <div class=\"face-wrap warm\"><img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/065.png\" width=\"300\" height=\"165\" alt=\"A student peeking over a desk\"></div>\n    <button class=\"bubble btn\" onclick=\"goTo(6)\">I mean, I guess...</button>\n  </section>\n\n  <section class=\"scene\" id=\"scene-6\">\n    <div class=\"grid-wrap\">\n      <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/066.png\" width=\"820\" height=\"1087\" alt=\"A grid of elementary school students\">\n      <div class=\"grade-label\">4th<small>Elementary</small></div>\n    </div>\n    <button class=\"bubble btn\" onclick=\"goTo(7)\">I mean, I guess...</button>\n  </section>\n\n  <section class=\"scene\" id=\"scene-7\">\n    <div class=\"grid-wrap\">\n      <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/066.png\" width=\"820\" height=\"1087\" alt=\"A grid of elementary school students\">\n      <div class=\"grade-label\">4th<small>Elementary</small></div>\n    </div>\n    <button class=\"bubble btn\" onclick=\"goTo(8)\">Wow. Thanks, kid! Mind if I ask your class a question?</button>\n  </section>\n\n  <section class=\"scene\" id=\"scene-8\">\n    <div class=\"grid-wrap\">\n      <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/066.png\" width=\"820\" height=\"1087\" alt=\"A grid of elementary school students\">\n      <div class=\"grade-label\">4th<small>Elementary</small></div>\n    </div>\n    <button class=\"bubble btn\" onclick=\"goTo(9)\">Sure! But hurry up. Recess starts soon.</button>\n  </section>\n\n  <section class=\"scene\" id=\"scene-9\">\n    <div class=\"grid-wrap\">\n      <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/066.png\" width=\"820\" height=\"1087\" alt=\"A grid of elementary school students\">\n      <div class=\"grade-label\">4th<small>Elementary</small></div>\n    </div>\n    <button class=\"bubble btn\" onclick=\"goTo(10)\">Who feels like they <mark>belong</mark> at the school?<br>So, like, feeling respected by other students and supported by adults?</button>\n  </section>\n\n  <section class=\"scene\" id=\"scene-10\">\n    <div class=\"result\">Belonging<br><strong>9%</strong></div>\n    <div class=\"grid-wrap\">\n      <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/067.png\" width=\"820\" height=\"1087\" alt=\"Students who feel they belong at school are highlighted\">\n      <div class=\"grade-label\">4th<small>Elementary</small></div>\n    </div>\n    <button class=\"bubble btn\" onclick=\"goTo(11)\">Those of us in <mark>yellow</mark> feel like we belong. Why do you ask?</button>\n  </section>\n\n  <section class=\"scene\" id=\"scene-11\">\n    <div class=\"result\">Belonging<br><strong>73%</strong></div>\n    <div class=\"grid-wrap\">\n      <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/067.png\" width=\"820\" height=\"1087\" alt=\"Students who feel they belong at school are highlighted\">\n      <div class=\"grade-label\">4th<small>Elementary</small></div>\n    </div>\n    <button class=\"bubble btn\" onclick=\"goTo(0)\">Well, feeling like you belong is <mark>really important.</mark></button>\n  </section>\n</main>\n<script>\n  function goTo(number) {\n    var target = document.getElementById(\"scene-\" + number);\n    if (target) target.scrollIntoView({ behavior: \"smooth\", block: \"start\" });\n  }\n</script>\n</body>\n</html>\n```",
+        "refusal": null,
+        "role": "assistant",
+        "annotations": [],
+        "audio": null,
+        "function_call": null,
+        "tool_calls": null
+      },
+      "content_filter_results": {
+        "hate": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "protected_material_code": {
+          "detected": false,
+          "filtered": false
+        },
+        "protected_material_text": {
+          "detected": false,
+          "filtered": false
+        },
+        "self_harm": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "sexual": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "violence": {
+          "filtered": false,
+          "severity": "safe"
+        }
+      }
+    }
+  ],
+  "created": 1795194981,
+  "model": "gpt-6-luna-2026-09-22",
+  "object": "chat.completion",
+  "metadata": null,
+  "moderation": null,
+  "service_tier": "default",
+  "system_fingerprint": null,
+  "usage": {
+    "completion_tokens": 4779,
+    "prompt_tokens": 8337,
+    "total_tokens": 13116,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": 0,
+      "audio_tokens": 0,
+      "reasoning_tokens": 2041,
+      "rejected_prediction_tokens": 0,
+      "text_tokens": null
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cache_write_tokens": null,
+      "cached_tokens": 0,
+      "image_tokens": null,
+      "text_tokens": null
+    },
+    "latency_checkpoint": {
+      "engine_tbt_ms": 9,
+      "engine_ttft_ms": 1075,
+      "engine_ttlt_ms": 45431,
+      "pre_inference_ms": 1352,
+      "service_tbt_ms": 9,
+      "service_ttft_ms": 2787,
+      "service_ttlt_ms": 47137,
+      "user_visible_ttft_ms": 1435
+    }
+  },
+  "prompt_filter_results": [
+    {
+      "prompt_index": 0,
+      "content_filter_results": {
+        "hate": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "jailbreak": {
+          "detected": false,
+          "filtered": false
+        },
+        "self_harm": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "sexual": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "violence": {
+          "filtered": false,
+          "severity": "safe"
+        }
+      }
+    }
+  ],
+  "routing": {
+    "serving_pipereplica": "d20261116094030-d331fbef-prefill-r1-dp0-prefill"
+  }
+}

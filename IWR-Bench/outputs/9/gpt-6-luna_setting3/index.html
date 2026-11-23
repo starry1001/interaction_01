@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iPhone</title>
+<style>
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    color:#1d1d1f;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#fff;
+    overflow-x:hidden;
+  }
+  .btn{cursor:pointer}
+  .global-nav{
+    height:54px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:30px;
+    font-size:13px;
+    white-space:nowrap;
+    background:#fff;
+    position:relative;
+    z-index:5;
+  }
+  .global-nav a,.promo a,.sub-item,.product a{
+    color:inherit;
+    text-decoration:none;
+  }
+  .apple-mark{
+    width:18px;
+    height:22px;
+    position:relative;
+    margin-right:2px;
+  }
+  .apple-mark:before{
+    content:"";
+    position:absolute;
+    width:16px;height:16px;
+    background:#171717;
+    border-radius:48% 48% 45% 45%;
+    left:1px;top:6px;
+    clip-path:polygon(50% 0,63% 13%,79% 10%,95% 25%,100% 48%,91% 76%,74% 96%,55% 100%,39% 94%,21% 98%,7% 81%,0 56%,4% 31%,20% 13%,38% 14%);
+  }
+  .apple-mark:after{
+    content:"";
+    position:absolute;
+    width:7px;height:4px;
+    background:#171717;
+    border-radius:100% 0;
+    transform:rotate(-35deg);
+    left:10px;top:0;
+  }
+  .nav-link{opacity:.9}
+  .nav-link:hover{color:#06c}
+  .nav-icon{
+    font-size:23px;
+    line-height:1;
+    margin-left:5px;
+  }
+  .subnav{
+    height:128px;
+    background:#fafafa;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    gap:25px;
+    padding-top:16px;
+    border-bottom:1px solid #f0f0f2;
+  }
+  .sub-item{
+    width:83px;
+    text-align:center;
+    font-size:12px;
+    line-height:16px;
+    color:#222;
+  }
+  .sub-item img{
+    display:block;
+    width:48px;
+    height:58px;
+    object-fit:contain;
+    margin:0 auto 4px;
+  }
+  .sub-item.small img{width:42px}
+  .sub-item em{
+    display:block;
+    font-style:normal;
+    color:#d34b36;
+    font-size:10px;
+  }
+  .promo{
+    height:36px;
+    background:#f5f5f7;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:12px;
+    color:#333;
+  }
+  .promo a{color:#2677bd}
+  .titlebar{
+    height:252px;
+    padding:85px 6%;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    background:#fff;
+  }
+  .titlebar h1{
+    margin:0;
+    font-size:80px;
+    letter-spacing:-5px;
+    font-weight:700;
+  }
+  .titlebar h2{
+    margin:48px 0 0;
+    font-size:29px;
+    letter-spacing:-1.5px;
+  }
+  .hero{
+    width:100%;
+    height:680px;
+    background:#08060b;
+    overflow:hidden;
+    position:relative;
+  }
+  .hero video{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .pause{
+    position:absolute;
+    right:44px;
+    bottom:35px;
+    width:36px;height:36px;
+    border:0;
+    background:rgba(255,255,255,.82);
+    border-radius:50%;
+    font-size:18px;
+    color:#555;
+  }
+  .know{
+    padding:112px 38px 0;
+    height:790px;
+    background:#fff;
+  }
+  .know h2,.lineup h2{
+    font-size:56px;
+    letter-spacing:-3px;
+    margin:0 0 76px;
+  }
+  .cards{
+    display:flex;
+    gap:22px;
+    overflow:hidden;
+    padding:0 8px;
+  }
+  .feature-card{
+    flex:0 0 402px;
+    height:760px;
+    border-radius:27px;
+    overflow:hidden;
+    position:relative;
+    background:#111;
+  }
+  .feature-card img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .feature-card .copy{
+    position:absolute;
+    top:35px;left:32px;right:24px;
+    color:#fff;
+  }
+  .feature-card.light .copy{color:#1d1d1f}
+  .copy small{font-size:17px;font-weight:bold}
+  .copy strong{
+    display:block;
+    font-size:28px;
+    line-height:1.15;
+    margin-top:14px;
+    letter-spacing:-.8px;
+  }
+  .plus{
+    position:absolute;
+    right:18px;bottom:18px;
+    width:36px;height:36px;
+    background:#555;color:#fff;
+    border-radius:50%;
+    text-align:center;
+    line-height:34px;
+    font-size:27px;
+  }
+  .lineup{
+    background:#f5f5f7;
+    min-height:1050px;
+    padding:140px 38px 100px;
+  }
+  .lineup-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:80px;
+  }
+  .lineup h2{margin:0}
+  .compare{
+    color:#2779be;
+    font-size:17px;
+    margin-right:115px;
+  }
+  .products{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:38px;
+    max-width:1700px;
+    margin:auto;
+  }
+  .product{text-align:center}
+  .product-image{
+    width:100%;
+    height:310px;
+    object-fit:contain;
+    margin-bottom:28px;
+  }
+  .swatches{height:18px;margin-bottom:22px}
+  .swatches i{
+    display:inline-block;
+    width:13px;height:13px;border-radius:50%;
+    margin:0 3px;border:1px solid #bbb;
+  }
+  .product h3{font-size:27px;margin:0 0 27px}
+  .product p{font-size:17px;line-height:1.5;margin:10px 0}
+  .product .price{font-weight:bold}
+  .actions{margin-top:38px;display:flex;justify-content:center;align-items:center;gap:34px}
+  .learn{
+    background:#087edb;
+    color:#fff;
+    border-radius:25px;
+    padding:13px 22px;
+    font-size:17px;
+  }
+  .buy{color:#2677bd;font-size:17px}
+  .specs{
+    margin-top:56px;
+    border-top:1px solid #d4d4d7;
+    padding-top:60px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    text-align:center;
+    gap:30px;
+  }
+  .spec{min-height:160px;font-size:14px}
+  .spec .symbol{
+    height:60px;
+    font-size:34px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .ai{
+    font-size:34px;
+    background:linear-gradient(135deg,#f15,#f90,#65f);
+    -webkit-background-clip:text;
+    color:transparent;
+  }
+  .chip{
+    border:2px solid #222;
+    border-radius:7px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:38px;height:38px;
+    font-size:11px;
+    font-weight:bold;
+  }
+  @media(max-width:1100px){
+    .global-nav{gap:15px;font-size:11px}
+    .subnav{gap:5px}
+    .titlebar h1{font-size:58px}
+    .titlebar h2{font-size:22px}
+    .feature-card{flex-basis:340px}
+    .products{grid-template-columns:repeat(2,1fr)}
+    .specs{grid-template-columns:repeat(2,1fr)}
+  }
+</style>
+</head>
+<body>
+  <header class="global-nav">
+    <a class="btn apple-mark" href="#top" aria-label="Apple"></a>
+    <a class="btn nav-link" href="#store">Store</a>
+    <a class="btn nav-link" href="#mac">Mac</a>
+    <a class="btn nav-link" href="#ipad">iPad</a>
+    <a class="btn nav-link" href="#iphone">iPhone</a>
+    <a class="btn nav-link" href="#watch">Watch</a>
+    <a class="btn nav-link" href="#vision">Vision</a>
+    <a class="btn nav-link" href="#airpods">AirPods</a>
+    <a class="btn nav-link" href="#tv">TV & Home</a>
+    <a class="btn nav-link" href="#entertainment">Entertainment</a>
+    <a class="btn nav-link" href="#accessories">Accessories</a>
+    <a class="btn nav-link" href="#support">Support</a>
+    <a class="btn nav-icon" href="#search">⌕</a>
+    <a class="btn nav-icon" href="#bag">▢</a>
+  </header>
+
+  <nav class="subnav">
+    <a class="btn sub-item" href="#pro"><img src="../../../data/data/9/assets/065.svg" width="65" height="65">iPhone 16 Pro</a>
+    <a class="btn sub-item" href="#iphone16"><img src="../../../data/data/9/assets/064.svg" width="65" height="65">iPhone 16</a>
+    <a class="btn sub-item" href="#iphone16e"><img src="../../../data/data/9/assets/063.svg" width="65" height="65">iPhone 16e</a>
+    <a class="btn sub-item" href="#iphone15"><img src="../../../data/data/9/assets/062.svg" width="65" height="65">iPhone 15</a>
+    <a class="btn sub-item" href="#compare"><img src="../../../data/data/9/assets/065.svg" width="65" height="65">Compare</a>
+    <a class="btn sub-item" href="#airpods"><img src="../../../data/data/9/assets/066.svg" width="65" height="65">AirPods</a>
+    <a class="btn sub-item" href="#airtag"><img src="../../../data/data/9/assets/068.svg" width="65" height="65">AirTag</a>
+    <a class="btn sub-item" href="#accessories"><img src="../../../data/data/9/assets/069.svg" width="65" height="65">Accessories</a>
+    <a class="btn sub-item" href="#card"><img src="../../../data/data/9/assets/070.svg" width="65" height="65">Apple Card</a>
+    <a class="btn sub-item" href="#ios"><img src="../../../data/data/9/assets/071.svg" width="65" height="65">iOS 26<em>Preview</em></a>
+    <a class="btn sub-item" href="#shop"><img src="../../../data/data/9/assets/072.svg" width="65" height="65">Shop iPhone</a>
+  </nav>
+
+  <div class="promo">
+    Get $160–$600 in credit toward iPhone 16 or iPhone 16 Pro when you trade in iPhone 12 or higher. <a class="btn" href="#shop">&nbsp;Shop iPhone ›</a>
+  </div>
+
+  <main id="top">
+    <section class="titlebar" id="iphone">
+      <h1>iPhone</h1>
+      <h2>Designed to be loved.</h2>
+    </section>
+
+    <section class="hero">
+      <video autoplay muted loop playsinline poster="../../../data/data/9/assets/106.jpg">
+        <source src="../../../data/data/9/assets/139.mp4" type="video/mp4">
+      </video>
+      <button class="btn pause" id="pauseBtn" aria-label="Pause video">Ⅱ</button>
+    </section>
+
+    <section class="know">
+      <h2>Get to know iPhone.</h2>
+      <div class="cards">
+        <article class="feature-card">
+          <img src="../../../data/data/9/assets/100.jpg" width="402" height="760" alt="">
+          <div class="copy"><small>Apple Intelligence</small><strong>AI-opening possibilities.<sup>1</sup></strong></div>
+          <div class="plus">+</div>
+        </article>
+        <article class="feature-card">
+          <img src="../../../data/data/9/assets/111.jpg" width="402" height="760" alt="">
+          <div class="copy"><small>Cutting-Edge Cameras</small><strong>Picture your best<br>photos and videos.</strong></div>
+          <div class="plus">+</div>
+        </article>
+        <article class="feature-card">
+          <img src="../../../data/data/9/assets/121.jpg" width="402" height="760" alt="">
+          <div class="copy"><small>Chip and Battery Life</small><strong>Fast that lasts.</strong></div>
+          <div class="plus">+</div>
+        </article>
+        <article class="feature-card light">
+          <img src="../../../data/data/9/assets/132.jpg" width="402" height="760" alt="">
+          <div class="copy"><small>Innovation</small><strong>Beautiful and durable,<br>by design.</strong></div>
+          <div class="plus">+</div>
+        </article>
+        <article class="feature-card light">
+          <img src="../../../data/data/9/assets/110.jpg" width="402" height="760" alt="">
+          <div class="copy"><small>Environment</small><strong>Recycle. Reuse.<br>Repeat.</strong></div>
+          <div class="plus">+</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="lineup" id="compare">
+      <div class="lineup-top">
+        <h2>Explore the lineup.</h2>
+        <a class="btn compare" href="#compare">Compare all models ›</a>
+      </div>
+      <div class="products">
+        <article class="product">
+          <img class="product-image" src="../../../data/data/9/assets/006.png" width="430" height="310" alt="iPhone 16 Pro">
+          <div class="swatches"><i style="background:#cfc4b6"></i><i style="background:#e0ded9"></i><i style="background:#f6f3ed"></i><i style="background:#303033"></i></div>
+          <h3>iPhone 16 Pro</h3><p>The ultimate iPhone.</p><p class="price">From $999 or $41.62/mo. for 24 mo.***</p>
+          <div class="actions"><a class="btn learn" href="#pro">Learn more</a><a class="btn buy" href="#shop">Buy ›</a></div>
+        </article>
+        <article class="product">
+          <img class="product-image" src="../../../data/data/9/assets/013.png" width="430" height="310" alt="iPhone 16">
+          <div class="swatches"><i style="background:#8296ed"></i><i style="background:#b3ddd7"></i><i style="background:#e996d7"></i><i style="background:#eee"></i><i style="background:#222"></i></div>
+          <h3>iPhone 16</h3><p>A total powerhouse.</p><p class="price">From $799 or $33.29/mo. for 24 mo.***</p>
+          <div class="actions"><a class="btn learn" href="#iphone16">Learn more</a><a class="btn buy" href="#shop">Buy ›</a></div>
+        </article>
+        <article class="product">
+          <img class="product-image" src="../../../data/data/9/assets/016.png" width="430" height="310" alt="iPhone 16e">
+          <div class="swatches"><i style="background:#fff"></i><i style="background:#222"></i></div>
+          <h3>iPhone 16e</h3><p>Latest iPhone. Greatest price.</p><p class="price">From $599 or $24.95/mo. for 24 mo.***</p>
+          <div class="actions"><a class="btn learn" href="#iphone16e">Learn more</a><a class="btn buy" href="#shop">Buy ›</a></div>
+        </article>
+        <article class="product">
+          <img class="product-image" src="../../../data/data/9/assets/018.png" width="430" height="310" alt="iPhone 15">
+          <div class="swatches"><i style="background:#f2d9dc"></i><i style="background:#eae4c6"></i><i style="background:#dfe3dd"></i><i style="background:#c6ced0"></i><i style="background:#333"></i></div>
+          <h3>iPhone 15</h3><p>As amazing as ever.</p><p class="price">From $699 or $29.12/mo. for 24 mo.***</p>
+          <div class="actions"><a class="btn learn" href="#iphone15">Learn more</a><a class="btn buy" href="#shop">Buy ›</a></div>
+        </article>
+      </div>
+      <div class="specs">
+        <div class="spec"><div class="symbol ai">✳</div>Apple Intelligence<sup>1</sup></div>
+        <div class="spec"><div class="symbol"><span class="chip">A18<br>PRO</span></div>A18 Pro chip with 6-core GPU</div>
+        <div class="spec"><div class="symbol">▣</div>Camera Control</div>
+        <div class="spec"><div class="symbol">◉</div>Advanced camera system</div>
+      </div>
+    </section>
+  </main>
+
+<script>
+  const video=document.querySelector('video');
+  const pause=document.getElementById('pauseBtn');
+  pause.addEventListener('click',()=>{
+    if(video.paused){video.play();pause.textContent='Ⅱ'}
+    else{video.pause();pause.textContent='▶'}
+  });
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click',e=>{
+      const target=document.querySelector(a.getAttribute('href'));
+      if(target){e.preventDefault();target.scrollIntoView({behavior:'smooth'})}
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EdgeStar Built-In Ice Maker</title>
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: auto; }
+  body {
+    margin: 0;
+    background: #f3f3f3;
+    color: #222;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+  }
+  button, input { font: inherit; }
+  button { cursor: pointer; }
+  .page {
+    width: 1437px;
+    max-width: calc(100% - 36px);
+    margin: 18px auto 60px;
+  }
+  .product-grid {
+    display: grid;
+    grid-template-columns: 830px 587px;
+    gap: 20px;
+    align-items: start;
+  }
+  .gallery, .panel {
+    background: #fff;
+  }
+  .gallery {
+    height: 920px;
+    position: relative;
+    padding: 46px 10px 16px;
+  }
+  .brand {
+    font-size: 16px;
+    margin-bottom: 3px;
+  }
+  .title {
+    width: 720px;
+    margin: 0;
+    font-size: 22px;
+    line-height: 27px;
+    font-weight: 700;
+  }
+  .favorite {
+    position: absolute;
+    top: 31px;
+    right: 15px;
+    width: 43px;
+    height: 44px;
+    border: 0;
+    background: transparent;
+    font-size: 25px;
+    color: #333;
+  }
+  .rating {
+    margin-top: 7px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+  }
+  .stars { color: #e65b12; font-size: 21px; letter-spacing: -2px; line-height: 1; }
+  .stars .muted { color: #aaa; }
+  .rating a, .text-link { color: #333; text-decoration: underline; cursor: pointer; }
+  .gallery-body {
+    display: flex;
+    height: 675px;
+    margin-top: 15px;
+  }
+  .thumbnails {
+    width: 100px;
+    flex: 0 0 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding-left: 2px;
+  }
+  .thumb {
+    width: 90px;
+    height: 99px;
+    border: 1px solid #ededed;
+    background: #fff;
+    padding: 4px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .thumb.active { border: 3px solid #e65b12; padding: 2px; }
+  .thumb img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  .thumb .play {
+    height: 48px; width: 48px; border-radius: 50%;
+    background: #777; color: white; font-size: 25px; line-height: 48px;
+    text-align: center; padding-left: 4px;
+  }
+  .thumb.more { background: #999; color: #fff; font-size: 24px; font-weight: bold; }
+  .hero-wrap {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 2px;
+    position: relative;
+  }
+  .hero-image {
+    width: 380px;
+    height: 620px;
+    object-fit: contain;
+    display: block;
+  }
+  .gallery-actions {
+    position: absolute;
+    right: 10px;
+    bottom: 1px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    font-size: 16px;
+  }
+  .gallery-actions button {
+    border: 0;
+    background: transparent;
+    color: #333;
+    padding: 4px;
+  }
+  .gallery-actions span { font-size: 23px; vertical-align: -2px; }
+  .right-col { display: flex; flex-direction: column; gap: 10px; }
+  .panel { padding: 12px; }
+  .price-panel { height: 112px; padding: 9px 12px; }
+  .price-row { display: flex; align-items: baseline; gap: 8px; }
+  .price {
+    font-size: 43px;
+    line-height: 44px;
+    font-weight: 700;
+    letter-spacing: -2px;
+  }
+  .price sup { font-size: 18px; vertical-align: 18px; letter-spacing: 0; }
+  .was { color: #777; font-size: 15px; }
+  .saving { color: #4c9b70; font-size: 15px; margin-top: -4px; }
+  .finance {
+    margin-top: 7px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+  }
+  .finance img { width: 42px; height: 27px; object-fit: contain; }
+  .finance a { color: #426c7c; text-decoration: none; }
+  .bullets { height: 124px; padding: 12px 15px; }
+  .bullets ul { margin: 0; padding-left: 19px; line-height: 25px; }
+  .bullets a { display: inline-block; margin-left: 19px; color: #333; text-decoration: underline; }
+  .color-panel { height: 111px; padding: 25px 12px 12px; }
+  .color-label { font-size: 14px; margin-bottom: 10px; }
+  .swatches { display: flex; gap: 10px; }
+  .swatch {
+    width: 39px; height: 42px; padding: 3px; background: #fff;
+    border: 1px solid #ddd;
+  }
+  .swatch.selected { border: 2px solid #e65b12; }
+  .swatch span { display: block; width: 100%; height: 100%; background: #f6f6f6; border: 1px solid #ddd; }
+  .swatch:nth-child(2) span { background: linear-gradient(135deg,#ddd,#888); }
+  .swatch:nth-child(3) span { background: linear-gradient(45deg,#111 48%,#aaa 49%,#fff 52%); }
+  .fulfillment { height: 269px; padding: 13px 10px 10px; }
+  .fulfillment-heading { display: flex; gap: 74px; line-height: 22px; }
+  .fulfillment-heading a { text-decoration: underline; color: #333; }
+  .delivery-options { display: flex; gap: 12px; margin-top: 8px; }
+  .delivery-card {
+    width: 177px; height: 158px; text-align: left;
+    background: #fff; border: 1px solid #aaa; padding: 10px 9px;
+    position: relative; color: #222;
+  }
+  .delivery-card.selected { border: 2px solid #e65b12; padding: 9px 8px; }
+  .checkmark {
+    display: none; position: absolute; right: 8px; top: 8px;
+    width: 17px; height: 17px; border-radius: 50%;
+    background: #e65b12; color: white; text-align: center;
+    font-size: 12px; line-height: 17px; font-weight: bold;
+  }
+  .delivery-card.selected .checkmark { display: block; }
+  .delivery-card strong { display: block; font-size: 22px; margin: 15px 0 9px; white-space: nowrap; }
+  .delivery-card b { display: block; margin-bottom: 8px; }
+  .available { color: #4a9972; }
+  .free { color: #34845c; font-weight: bold; margin-top: 10px; }
+  .fulfillment-links { margin-top: 15px; display: flex; gap: 36px; }
+  .fulfillment-links a { color: #333; text-decoration: underline; }
+  .protect { height: 209px; padding: 12px 13px; }
+  .protect-title { display: flex; align-items: center; gap: 10px; font-weight: bold; font-size: 21px; }
+  .shield { font-size: 30px; line-height: 31px; }
+  .protect-copy { margin: 10px 0 8px 44px; }
+  .radio-line { margin: 8px 0 0 44px; display: flex; align-items: center; gap: 8px; }
+  .radio-line input { appearance: none; border: 2px solid #999; width: 20px; height: 20px; border-radius: 50%; margin: 0; cursor: pointer; position: relative; }
+  .radio-line input:checked { border-color: #e65b12; }
+  .radio-line input:checked::after { content: ""; position: absolute; background: #e65b12; inset: 4px; border-radius: 50%; }
+  .expect { margin: 14px 0 0 44px; color: #333; text-decoration: underline; cursor: pointer; }
+  .cart-panel { min-height: 143px; padding: 8px 10px; display: flex; gap: 16px; }
+  .qty { display: flex; height: 46px; flex: 0 0 160px; }
+  .qty button, .qty input {
+    border: 1px solid #bbb; background: #fff; height: 46px;
+    text-align: center; color: #333;
+  }
+  .qty button { width: 44px; font-size: 24px; }
+  .qty button:disabled { color: #ccc; }
+  .qty input { width: 73px; font-size: 16px; }
+  .purchase-buttons { width: 273px; }
+  .add-cart, .paypal {
+    width: 100%; height: 46px; border: 0; border-radius: 3px;
+    font-weight: bold; font-size: 17px;
+  }
+  .add-cart { color: white; background: #f56600; }
+  .paypal { margin-top: 8px; height: 42px; background: #ffc439; color: #073b78; font-size: 20px; font-style: italic; }
+  .cart-note { color: #777; font-size: 12px; margin-top: 10px; white-space: nowrap; }
+  .cart-note b { color: #164c81; font-style: italic; }
+  .fb-section {
+    margin-top: 13px;
+    background: #fff;
+    min-height: 520px;
+    padding: 27px 10px 35px;
+  }
+  .fb-section h2 { font-size: 29px; margin: 0 0 20px; }
+  .fb-items { display: flex; gap: 10px; align-items: flex-start; }
+  .fb-item {
+    width: 177px; min-height: 390px; padding: 0 8px 12px;
+    background: #f4f4f4; position: relative;
+  }
+  .fb-item.current { padding-top: 26px; }
+  .current-tag {
+    background: #ccc; height: 26px; text-align: center; line-height: 26px;
+    font-size: 12px; position: absolute; top: 0; left: 0; right: 0;
+  }
+  .select-row { display: flex; align-items: center; gap: 8px; margin: 7px 0 18px; }
+  .select-row input { accent-color: #e65b12; width: 20px; height: 20px; }
+  .fb-heart { position: absolute; right: 18px; top: 69px; font-size: 20px; }
+  .fb-product {
+    width: 145px; height: 150px; background: #fff; display: flex;
+    justify-content: center; align-items: center; margin: 0 auto 8px;
+  }
+  .fb-product img { width: 100%; height: 100%; object-fit: contain; }
+  .fb-name { line-height: 22px; min-height: 48px; }
+  .fb-stars { margin-top: 10px; color: #e65b12; }
+  .fb-price { font-size: 23px; font-weight: bold; margin-top: 8px; }
+  .plus-sign { font-size: 40px; margin-top: 115px; }
+  .side-tabs {
+    position: fixed; right: 16px; top: 234px; z-index: 5;
+    display: flex; flex-direction: column; gap: 5px;
+  }
+  .side-tabs button {
+    writing-mode: vertical-rl; transform: rotate(180deg);
+    border: 2px solid #e65b12; color: #e65b12; background: white;
+    font-weight: bold; padding: 7px 4px; height: 111px;
+  }
+  @media (max-width: 1100px) {
+    .page { max-width: 100%; width: 100%; margin-top: 0; }
+    .product-grid { display: block; }
+    .gallery { height: auto; min-height: 850px; }
+    .right-col { margin-top: 12px; }
+    .fb-section { margin-top: 12px; }
+    .side-tabs { display: none; }
+  }
+</style>
+</head>
+<body>
+<main class="page">
+  <section class="product-grid">
+    <div class="gallery">
+      <button class="favorite btn" aria-label="Add to favorites">♡</button>
+      <div class="brand">EdgeStar</div>
+      <h1 class="title">15 in. Wide 20 lbs. Built-In Ice Maker in White with upto 25 lbs.<br>Daily Ice Production</h1>
+      <div class="rating">
+        <span class="stars">★★★★<span class="muted">★</span></span>
+        <span>(103)</span><span>⌄</span>
+        <a class="btn" href="#questions">Questions &amp; Answers (36)</a>
+      </div>
+      <div class="gallery-body">
+        <div class="thumbnails">
+          <button class="thumb active btn" data-image="029.jpg" aria-label="Front view">
+            <img src="../../../data/data/43/assets/029.jpg" width="80" height="89" alt="Ice maker front">
+          </button>
+          <button class="thumb btn" data-image="035.jpg" aria-label="Product dimensions">
+            <img src="../../../data/data/43/assets/035.jpg" width="80" height="89" alt="Product dimensions">
+          </button>
+          <button class="thumb btn" data-image="029.jpg" aria-label="Play product video"><span class="play">▶</span></button>
+          <button class="thumb btn" data-image="017.jpg" aria-label="Alternate view">
+            <img src="../../../data/data/43/assets/017.jpg" width="80" height="89" alt="Alternate ice maker view">
+          </button>
+          <button class="thumb btn" data-image="065.png" aria-label="Interior view">
+            <img src="../../../data/data/43/assets/065.png" width="80" height="89" alt="Ice maker with door open">
+          </button>
+          <button class="thumb more btn" data-image="065.png" aria-label="More images">+6</button>
+        </div>
+        <div class="hero-wrap">
+          <img id="heroImage" class="hero-image" src="../../../data/data/43/assets/029.jpg" width="380" height="620" alt="EdgeStar white built-in ice maker">
+          <div class="gallery-actions">
+            <button class="btn" aria-label="Share"><span>↗</span> Share</button>
+            <button class="btn" aria-label="Print"><span>▣</span> Print</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <aside class="right-col">
+      <section class="panel price-panel">
+        <div class="price-row">
+          <div class="price">$969<sup>00</sup></div>
+          <div><div class="was">Was <s>$1,049.00</s></div><div class="saving">Save $80.00 (8%)</div></div>
+        </div>
+        <div class="finance">
+          <img src="../../../data/data/43/assets/064.png" width="42" height="27" alt="Home Depot card">
+          <span><b>$162.00/mo**</b> suggested payments with 6 months** financing <a class="btn" href="#finance">Apply Now ⓘ</a></span>
+        </div>
+      </section>
+      <section class="panel bullets">
+        <ul>
+          <li>White front and reversible door ensure stylish and convenient use</li>
+          <li>Crescent-shaped ice maker produces long-lasting ice</li>
+          <li>Self-contained design allows easy installation</li>
+        </ul>
+        <a class="btn" href="#details">View More Details</a>
+      </section>
+      <section class="panel color-panel">
+        <div class="color-label">Color/Finish: <b id="colorName">White</b></div>
+        <div class="swatches">
+          <button class="swatch selected btn" data-color="White" aria-label="White finish"><span></span></button>
+          <button class="swatch btn" data-color="Stainless Steel" aria-label="Stainless steel finish"><span></span></button>
+          <button class="swatch btn" data-color="Black" aria-label="Black finish"><span></span></button>
+        </div>
+      </section>
+      <section class="panel fulfillment">
+        <div class="fulfillment-heading">
+          <div>Pickup at<br><a class="btn" href="#store">Huntington Park</a></div>
+          <div>Delivering to <a class="btn" href="#zip">90255</a></div>
+        </div>
+        <div class="delivery-options">
+          <button class="delivery-card selected btn" data-delivery="store">
+            <span class="checkmark">✓</span>
+            <strong>Ship to Store</strong>
+            <b>Aug 28 - Sep 3</b>
+            <span class="available">131 available</span>
+            <div class="free">FREE</div>
+          </button>
+          <button class="delivery-card btn" data-delivery="delivery">
+            <span class="checkmark">✓</span>
+            <strong>Delivery</strong>
+            <b>Aug 28 - Sep 2</b>
+            <span class="available">131 available</span>
+          </button>
+        </div>
+        <div class="fulfillment-links">
+          <a class="btn" href="#stores">Check Nearby Stores</a>
+          <a class="btn" href="#delivery-details">Delivery Details</a>
+        </div>
+      </section>
+      <section class="panel protect">
+        <div class="protect-title"><span class="shield">♧</span> Protect This Item</div>
+        <div class="protect-copy">Select a Home Depot Protection Plan by Allstate for:</div>
+        <label class="radio-line"><input type="radio" name="protection" value="plan"><span>3 Year / <b>$150.00</b></span></label>
+        <label class="radio-line"><input type="radio" name="protection" value="none" checked><span>No thanks</span></label>
+        <div class="expect btn" role="button" tabindex="0">ⓘ What to Expect</div>
+      </section>
+      <section class="panel cart-panel">
+        <div class="qty">
+          <button id="minus" class="btn" aria-label="Decrease quantity">−</button>
+          <input id="quantity" aria-label="Quantity" value="1" readonly>
+          <button id="plus" class="btn" aria-label="Increase quantity">＋</button>
+        </div>
+        <div class="purchase-buttons">
+          <button class="add-cart btn">🛒 &nbsp;Add to Cart</button>
+          <button class="paypal btn">PayPal</button>
+          <div class="cart-note">As low as <span id="monthly">$60.29</span>/mo with <b>PayPal</b>. <a class="btn" href="#learn">Learn more</a></div>
+        </div>
+      </section>
+    </aside>
+  </section>
+
+  <section class="fb-section">
+    <h2>Frequently Bought Together</h2>
+    <div class="fb-items">
+      <div class="fb-item current">
+        <div class="current-tag">CURRENT ITEM</div>
+        <label class="select-row"><input type="checkbox" checked> Select</label>
+        <span class="fb-heart">♡</span>
+        <div class="fb-product"><img src="../../../data/data/43/assets/029.jpg" width="145" height="150" alt="Current ice maker"></div>
+        <div class="fb-name">EdgeStar 15 in. Wide 20 lbs. Built-In Ice...</div>
+        <div class="fb-stars">★★★<span style="color:#aaa">★★</span> <small>(103)</small></div>
+        <div class="fb-price">$969<sup style="font-size:11px">00</sup></div>
+        <small>Was $1,049.00</small>
+      </div>
+      <div class="plus-sign">＋</div>
+      <div class="fb-item">
+        <label class="select-row"><input type="checkbox" checked> Select</label>
+        <span class="fb-heart">♡</span>
+        <div class="fb-product"><img src="../../../data/data/43/assets/017.jpg" width="145" height="150" alt="Additional ice maker"></div>
+        <div class="fb-name">EdgeStar 15 in. 50 lbs. Built-In Ice Maker in...</div>
+        <div class="fb-stars">★★★<span style="color:#aaa">★★</span> <small>(29)</small></div>
+        <div class="fb-price">$1,489<sup style="font-size:11px">00</sup></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="side-tabs">
+  <button class="btn">Live Chat ▣</button>
+  <button class="btn">Feedback ▧</button>
+</div>
+
+<script>
+  const hero = document.getElementById('heroImage');
+  document.querySelectorAll('.thumb').forEach(button => {
+    button.addEventListener('click', () => {
+      document.querySelectorAll('.thumb').forEach(item => item.classList.remove('active'));
+      button.classList.add('active');
+      const image = button.dataset.image;
+      if (image) hero.src = '../../../data/data/43/assets/' + image;
+    });
+  });
+
+  document.querySelectorAll('.delivery-card').forEach(button => {
+    button.addEventListener('click', () => {
+      document.querySelectorAll('.delivery-card').forEach(item => item.classList.remove('selected'));
+      button.classList.add('selected');
+    });
+  });
+
+  document.querySelectorAll('.swatch').forEach(button => {
+    button.addEventListener('click', () => {
+      document.querySelectorAll('.swatch').forEach(item => item.classList.remove('selected'));
+      button.classList.add('selected');
+      document.getElementById('colorName').textContent = button.dataset.color;
+    });
+  });
+
+  const qty = document.getElementById('quantity');
+  const monthly = document.getElementById('monthly');
+  const monthlyValues = {1:'60.29', 2:'86.39', 3:'112.49', 4:'164.70', 5:'269.10'};
+  function updateQuantity(value) {
+    value = Math.max(1, Math.min(99, value));
+    qty.value = value;
+    monthly.textContent = monthlyValues[value] || (60.29 * value).toFixed(2);
+    document.getElementById('minus').disabled = value === 1;
+  }
+  document.getElementById('plus').addEventListener('click', () => updateQuantity(Number(qty.value) + 1));
+  document.getElementById('minus').addEventListener('click', () => updateQuantity(Number(qty.value) - 1));
+  updateQuantity(1);
+
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', event => event.preventDefault());
+  });
+</script>
+</body>
+</html>

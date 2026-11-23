@@ -1,0 +1,225 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Goodreads</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;color:#333;background:#fff;font-size:14px}
+a{color:#287867;text-decoration:none;cursor:pointer}
+a:hover{text-decoration:underline}
+button{font-family:inherit;cursor:pointer}
+.btn{cursor:pointer}
+#landing{display:block}
+.top-logo{height:88px;background:#faf9f7;display:flex;align-items:center;justify-content:center}
+.top-logo img{width:200px;height:53px;object-fit:contain}
+.summer-hero{height:296px;background:#ffdf70;position:relative;border-top:1px solid #f5d358;border-bottom:1px solid #f2d15e}
+.summer-inner{width:970px;height:100%;margin:auto;position:relative}
+.summer-art{width:970px;height:205px;position:absolute;top:18px;left:0;object-fit:fill}
+.signup{position:absolute;z-index:2;left:665px;top:-64px;width:300px;padding:26px 24px 20px;background:#fff;border:1px solid #ddd;border-radius:9px;box-shadow:0 1px 3px #ddd;text-align:center}
+.signup h3{font:18px Georgia,serif;color:#222;margin:0 0 20px}
+.signup button{height:48px;width:100%;margin-bottom:13px;border-radius:3px;border:1px solid #aaa;background:#fff;color:#222;font-size:14px}
+.signup .amazon{background:#f5df80;border-color:#c7a942}
+.signup .email{background:#38200f;color:#fff;border-color:#38200f}
+.signup .terms{font-size:12px;line-height:17px;color:#888;margin:3px 0 22px}
+.signup .signin{border-top:1px solid #eee;padding-top:18px;margin:0;color:#555;font-size:14px}
+.landing-wrap{width:970px;margin:0 auto}
+.intro-row{display:grid;grid-template-columns:310px 310px;gap:12px;padding:12px 0 29px}
+.intro-row h3{font-size:18px;font-weight:normal;margin:0 0 18px;color:#222}
+.intro-row p{font-size:14px;line-height:18px;margin:0;color:#444}
+.landing-columns{display:grid;grid-template-columns:630px 310px;gap:30px}
+.discover{background:#f4f3e9;border-radius:10px;overflow:hidden;margin:0 0 24px}
+.discover h2{font-size:20px;font-weight:normal;padding:16px 18px 5px;margin:0;color:#222}
+.discover-row{height:202px;display:grid;grid-template-columns:1fr 1fr;padding:14px 18px 15px;position:relative}
+.discover-row:first-of-type:after,.discover-row:last-child:after{content:"";height:25px;position:absolute;left:0;right:0;bottom:0;background:linear-gradient(#bdbba2aa,#d7d5c5);z-index:0}
+.discover-row+.discover-row{border-top:1px solid #ddd}
+.row-half{position:relative;z-index:1}
+.row-caption{font-size:14px;margin:0 0 13px}
+.bookline{display:flex;align-items:center;gap:12px;height:145px}
+.bookline img{height:146px;width:100px;object-fit:cover;box-shadow:0 1px 3px #aaa}
+.bookline.compact{gap:8px}
+.bookline.compact img{width:100px;height:146px}
+.arrow{font-size:32px;color:#b8bf91;padding:0 8px}
+.discovery-result{display:flex;align-items:flex-start;gap:12px}
+.discovery-result img{height:146px;width:100px;object-fit:cover}
+.discovery-result span{width:130px;font-size:14px;line-height:19px;color:#111}
+.browse h2,.quotes h2,.awards-index h2{font-weight:normal;font-size:20px;margin:0 0 14px;color:#222}
+.searchbox{width:394px;height:39px;border:1px solid #aaa;border-radius:5px;padding:8px 12px;font-size:14px;color:#777;display:block;margin-bottom:14px}
+.genre-grid{display:grid;grid-template-columns:repeat(4,1fr);line-height:27px}
+.genre-grid a{font-size:16px}
+.quotes{margin-top:33px}
+.quote-content{display:grid;grid-template-columns:84px 1fr 250px;gap:8px;align-items:start}
+.quote-content img{width:72px;height:72px;object-fit:cover;border-radius:50%}
+.quote-content blockquote{font:20px/29px Georgia,serif;margin:0;color:#222}
+.quote-content .quote-links{line-height:27px;font-size:16px}
+.awards-index{margin-top:32px;padding-bottom:60px}
+.awards-index h2{margin-bottom:14px}
+.awards-index-inner{display:flex;gap:25px}
+.awards-index-inner img{width:140px;height:180px;object-fit:contain}
+.award-links{display:grid;grid-template-columns:320px 320px;gap:13px 45px;line-height:25px;font-size:16px}
+.right h3{font-size:18px;font-weight:normal;margin:0 0 15px}
+.right .news-title{font-family:Georgia,serif;font-weight:bold;margin:18px 0 12px}
+.right .news-img{width:378px;height:207px;object-fit:cover;max-width:100%}
+.likes{font-size:14px;color:#888;margin:8px 0 45px}
+.lists-title{margin:0 0 12px}
+.list-item{display:grid;grid-template-columns:1fr 145px;align-items:center;border-bottom:1px solid #eee;padding:8px 0}
+.list-item .thumbs{display:flex;gap:4px}
+.list-item img{width:34px;height:58px;object-fit:cover}
+.list-item small{color:#999;display:block}
+.authorbox{margin-top:28px}
+.authorbox p{line-height:20px}
+.smallbtn{background:#f5f4ef;border:1px solid #ccc;border-radius:3px;padding:5px 12px;color:#555;margin:8px 9px 0 0}
+#awards{display:none}
+.promo-strip{height:46px;background:#607250;color:#fff;text-align:center;font-family:Georgia,serif;line-height:46px;font-size:16px}
+.nav{height:52px;background:#faf9f7;border-bottom:1px solid #ddd}
+.nav-inner{width:1180px;height:100%;margin:auto;display:flex;align-items:center;gap:28px}
+.nav-logo{width:132px;height:40px;object-fit:contain;margin-right:8px}
+.nav a{color:#403a35;font-size:15px}
+.nav-search{height:34px;width:480px;border:1px solid #ccc;border-radius:4px;padding:7px 12px;margin-left:4px}
+.award-hero{height:386px;background:#30412e;position:relative;color:#fff}
+.award-hero.year22{height:386px;background:#f4e9c2}
+.award-hero-inner{width:1180px;height:100%;margin:auto;position:relative;display:flex;align-items:center;gap:28px}
+.award-badge{width:176px;height:236px;object-fit:contain}
+.award-copy{max-width:650px}
+.award-copy h1{font:italic 44px Georgia,serif;margin:0 0 14px;color:#f8f6ed}
+.award-copy p{font-size:18px;line-height:24px;margin:0 0 20px}
+.award-copy .votes{font-size:14px;margin-top:17px}
+.year22 .award-copy h1{font: bold 44px Arial,sans-serif;text-align:center;color:#c49e35;text-transform:uppercase}
+.year22 .award-copy p{color:#777;text-align:center}
+.year22 .award-copy{width:730px}
+.year22 .award-badge{width:170px}
+.yellow-btn{background:#ffdf68;border:1px solid #e3c44e;border-radius:3px;padding:10px 22px;color:#17140c;font-size:16px;font-weight:bold}
+.award-main{width:1180px;margin:36px auto 60px;display:grid;grid-template-columns:230px 740px;gap:20px}
+.schedule{border:4px solid #f5d85d;padding:14px 16px;margin-bottom:18px;font-size:14px}
+.schedule h3,.category-area h3{font-size:14px;margin:0 0 14px}
+.schedule p{margin:8px 0;line-height:18px}
+.schedule a{font-size:13px}
+.previous h3{font-size:14px;margin:0 0 10px}
+.previous a{display:block;color:#333;font-size:14px;line-height:28px;text-transform:uppercase}
+.category-area>h3{margin:10px 0 12px}
+.book-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+.award-card{height:366px;background:#f4f4f4;text-align:center;padding:9px 10px 8px}
+.award-card h4{font-size:14px;margin:0 0 10px;height:18px}
+.award-card img{width:154px;height:240px;object-fit:cover;display:block;margin:0 auto 7px}
+.want{width:100%;height:29px;background:#42a66e;color:#fff;border:1px solid #368d5d;border-radius:3px;font-weight:bold;font-size:14px}
+.rate{color:#aaa;font-size:12px;margin-top:5px}
+.stars{color:#ccc;font-size:17px;letter-spacing:-2px}
+@media(max-width:1050px){
+ .landing-wrap,.summer-inner{width:96%}
+ .summer-art{width:100%}
+ .signup{left:auto;right:0}
+ .landing-columns{grid-template-columns:minmax(0,2fr) minmax(250px,1fr);gap:20px}
+ .nav-inner,.award-hero-inner,.award-main{width:96%}
+ .award-main{grid-template-columns:220px minmax(0,740px)}
+ .award-grid img{max-width:100%}
+}
+</style>
+</head>
+<body>
+<div id="landing">
+  <header class="top-logo"><img src="../../../data/data/21/assets/032.svg" width="200" height="53" alt="goodreads"></header>
+  <section class="summer-hero">
+    <div class="summer-inner">
+      <img class="summer-art" src="../../../data/data/21/assets/093.png" width="970" height="205" alt="Goodreads Summer Reading">
+      <div class="signup">
+        <h3>Discover &amp; read more</h3>
+        <button class="btn amazon">Continue with Amazon</button>
+        <button class="btn">Continue with Apple</button>
+        <button class="btn email">Sign up with email</button>
+        <p class="terms">By creating an account, you agree to the<br> Goodreads <a class="btn">Terms of Service</a> and <a class="btn">Privacy Policy</a></p>
+        <p class="signin">Already a member? <a class="btn">Sign In</a></p>
+      </div>
+    </div>
+  </section>
+  <main class="landing-wrap">
+    <div class="intro-row">
+      <section><h3>Deciding what to read next?</h3><p>You're in the right place. Tell us what titles or genres you've enjoyed in the past, and we'll give you surprisingly insightful recommendations.</p></section>
+      <section><h3>What are your friends reading?</h3><p>Chances are your friends are discussing their favorite (and least favorite) books on Goodreads.</p></section>
+    </div>
+    <div class="landing-columns">
+      <div class="left">
+        <section class="discover">
+          <h2>What will you discover?</h2>
+          <div class="discover-row">
+            <div class="row-half">
+              <p class="row-caption">Because Deborah liked...</p>
+              <div class="bookline compact">
+                <img src="../../../data/data/21/assets/105.jpg" width="100" height="146" alt="The First Days">
+                <img src="../../../data/data/21/assets/108.jpg" width="100" height="146" alt="Feed">
+                <img src="../../../data/data/21/assets/003.jpg" width="100" height="146" alt="Rot and Ruin">
+                <img src="../../../data/data/21/assets/006.jpg" width="100" height="146" alt="Married with Zombies">
+              </div>
+            </div>
+            <div class="row-half">
+              <p class="row-caption">She discovered:</p>
+              <div class="discovery-result"><span class="arrow">➜</span><img src="../../../data/data/21/assets/009.jpg" width="100" height="146" alt="The Reapers Are the Angels"><span>Zombies, Post Apocalyptic, Dystopia, Urban Fantasy</span></div>
+            </div>
+          </div>
+          <div class="discover-row">
+            <div class="row-half">
+              <p class="row-caption">Because Shomeret liked...</p>
+              <div class="bookline compact">
+                <img src="../../../data/data/21/assets/109.jpg" width="100" height="146" alt="Animals in Translation">
+                <img src="../../../data/data/21/assets/110.jpg" width="100" height="146" alt="Animals Make Us Human">
+                <img src="../../../data/data/21/assets/111.jpg" width="100" height="146" alt="Some We Love, Some We Hate">
+              </div>
+            </div>
+            <div class="row-half">
+              <p class="row-caption">She discovered:</p>
+              <div class="discovery-result"><span class="arrow">➜</span><img src="../../../data/data/21/assets/112.png" width="100" height="146" alt="Next of Kin"><span>Psychology, Animals, Science, Nature</span></div>
+            </div>
+          </div>
+        </section>
+        <section class="browse">
+          <h2>Search and browse books</h2>
+          <input class="searchbox" type="search" placeholder="Title / Author / ISBN">
+          <div class="genre-grid">
+            <div><a class="btn">Art</a><br><a class="btn">Biography</a><br><a class="btn">Business</a><br><a class="btn">Children's</a><br><a class="btn">Christian</a><br><a class="btn">Classics</a><br><a class="btn">Comics</a><br><a class="btn">Cookbooks</a></div>
+            <div><a class="btn">Ebooks</a><br><a class="btn">Fantasy</a><br><a class="btn">Fiction</a><br><a class="btn">Graphic Novels</a><br><a class="btn">Historical Fiction</a><br><a class="btn">History</a><br><a class="btn">Horror</a><br><a class="btn">Memoir</a></div>
+            <div><a class="btn">Music</a><br><a class="btn">Mystery</a><br><a class="btn">Nonfiction</a><br><a class="btn">Poetry</a><br><a class="btn">Psychology</a><br><a class="btn">Romance</a><br><a class="btn">Science</a><br><a class="btn">Science Fiction</a></div>
+            <div><a class="btn">Self Help</a><br><a class="btn">Sports</a><br><a class="btn">Thriller</a><br><a class="btn">Travel</a><br><a class="btn">Young Adult</a><br><a class="btn">More genres</a></div>
+          </div>
+        </section>
+        <section class="quotes">
+          <h2>Quotes</h2>
+          <div class="quote-content">
+            <img src="../../../data/data/21/assets/091.jpg" width="72" height="72" alt="Marilyn Monroe">
+            <blockquote>"I'm selfish, impatient and a little insecure. I make mistakes, I am out of control and at times hard to handle. But if you can't handle me at my worst, then you sure as hell don't deserve me at my best."<br><b>– Marilyn Monroe</b></blockquote>
+            <div class="quote-links"><a class="btn">Best quotes</a><br><a class="btn">Love quotes</a><br><a class="btn">Inspirational quotes</a><br><a class="btn">Funny quotes</a><br><a class="btn">Motivational quotes</a><br><a class="btn">Life quotes</a><br><a class="btn">Friends quotes</a><br><a class="btn">Positive quotes</a><br><a class="btn">More quotes</a></div>
+          </div>
+        </section>
+        <section class="awards-index">
+          <h2>Goodreads Choice Awards: Readers' Favorite Books 2024</h2>
+          <div class="awards-index-inner">
+            <img src="../../../data/data/21/assets/063.png" width="140" height="180" alt="Goodreads Choice Awards 2024">
+            <div class="award-links">
+              <div><a class="btn award-link" data-year="2024">Readers' Favorite 2024</a><br><a class="btn">Readers' Favorite Fiction</a><br><a class="btn">Readers' Favorite Historical Fiction</a><br><a class="btn">Readers' Favorite Mystery &amp; Thriller</a><br><a class="btn">Readers' Favorite Romance</a><br><a class="btn">Readers' Favorite Romantasy</a><br><a class="btn">Readers' Favorite Fantasy</a></div>
+              <div><a class="btn">Readers' Favorite Horror</a><br><a class="btn">Readers' Favorite Debut Novel</a><br><a class="btn">Readers' Favorite Audiobook</a><br><a class="btn">Readers' Favorite Young Adult Fantasy</a><br><a class="btn">Readers' Favorite Young Adult Fiction</a><br><a class="btn">Readers' Favorite Nonfiction</a><br><a class="btn">Readers' Favorite Memoir</a></div>
+            </div>
+          </div>
+          <p><a class="btn award-link" data-year="2024">See the Goodreads Choice Awards</a></p>
+        </section>
+      </div>
+      <aside class="right">
+        <h3>News &amp; Interviews</h3>
+        <p class="news-title"><a class="btn">Your Guide to New Fall Romance and Romantasy</a></p>
+        <img class="news-img" src="../../../data/data/21/assets/065.jpg" width="378" height="207" alt="Your Guide to New Fall Romance and Romantasy">
+        <p class="likes">323 likes</p>
+        <h3 class="lists-title">Love lists?</h3>
+        <div class="list-item"><div><a class="btn">Best Books of the 20th Century</a><small>7,789 books | 49,728 voters</small></div><div class="thumbs"><img src="../../../data/data/21/assets/066.jpg" width="34" height="58" alt=""><img src="../../../data/data/21/assets/068.jpg" width="34" height="58" alt=""><img src="../../../data/data/21/assets/070.jpg" width="34" height="58" alt=""><img src="../../../data/data/21/assets/073.jpg" width="34" height="58" alt=""></div></div>
+        <div class="list-item"><div><a class="btn">Best Crime &amp; Mystery Books</a><small>7,258 books | 15,344 voters</small></div><div class="thumbs"><img src="../../../data/data/21/assets/076.jpg" width="34" height="58" alt=""><img src="../../../data/data/21/assets/078.jpg" width="34" height="58" alt=""><img src="../../../data/data/21/assets/082.jpg" width="34" height="58" alt=""><img src="../../../data/data/21/assets/086.jpg" width="34" height="58" alt=""></div></div>
+        <div class="list-item"><div><a class="btn">Best for Book Clubs</a><small>14,404 books | 18,193 voters</small></div><div class="thumbs"><img src="../../../data/data/21/assets/085.jpg" width="34" height="58" alt=""><img src="../../../data/data/21/assets/087.jpg" width="34" height="58" alt=""><img src="../../../data/data/21/assets/088.jpg" width="34" height="58" alt=""><img src="../../../data/data/21/assets/089.jpg" width="34" height="58" alt=""></div></div>
+        <p style="margin-top:22px"><a class="btn">More book lists</a></p>
+        <div class="authorbox"><h3>Are you an author or a publisher?</h3><p>Gain access to a massive audience of book lovers. Goodreads is a great place to promote your books.</p><button class="btn smallbtn">Author program</button><button class="btn smallbtn">Advertise</button></div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<div id="awards">
+  <div class="promo-strip">▣ &nbsp; The Most Anticipated Fall Books &nbsp; <small>The season's biggest titles according to readers　›</small></div>
+  <nav class="nav"><div class="nav-inner">
+    <img class="nav-logo" src="../../../data/data/21/assets/032.svg" width="132" height="40" alt="goodreads">
+    <a class="btn" id="home-link">Home</a><a class="

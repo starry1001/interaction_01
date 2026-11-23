@@ -1,0 +1,125 @@
+{
+  "total_step": 11,
+  "success_step": 8,
+  "screenshot_paths_to_eval": [
+    "outputs/3/gpt-6-luna_setting0/evalpoints/0.png",
+    "outputs/3/gpt-6-luna_setting0/evalpoints/0.png",
+    "outputs/3/gpt-6-luna_setting0/evalpoints/1.png",
+    "outputs/3/gpt-6-luna_setting0/evalpoints/3.png",
+    "outputs/3/gpt-6-luna_setting0/evalpoints/7.png"
+  ],
+  "all_mllm_scores": [
+    0.74,
+    0.63,
+    0.64,
+    0.81,
+    0.45
+  ],
+  "all_dino_scores": [
+    0.9609375,
+    0.9111328125,
+    0.88037109375,
+    0.9052734375,
+    0.8359375
+  ],
+  "all_ocr_scores": [
+    0.22702702702702704,
+    0.23513513513513518,
+    0.22520107238605902,
+    0.22972972972972971,
+    0.2222222222222222
+  ],
+  "all_avg_scores": [
+    0.6426548423423424,
+    0.5920893158783783,
+    0.5818573887120198,
+    0.6483343890765766,
+    0.5027199074074074
+  ],
+  "mllm_score": 0.654,
+  "dino_score": 0.89873046875,
+  "ocr_score": 0.22786303730003463,
+  "avg_score": 0.5935311686833449,
+  "all_mllm_res": [
+    "Comments:\n- **Layout (7/10):** The overall structure is similar, with the header, timer card, task section, and controls in the correct order. However, the generated page has slightly different card heights, vertical spacing, and content extends into a white informational section that is not present in the reference viewport.\n- **Elements (10/15):** Major elements are present, including the Pomofocus header, navigation buttons, timer modes, countdown, Start button, task heading, overflow menu, and Add Task area. Several icons differ noticeably from the reference, including the logo, statistics icon, profile icon, and Add Task symbol.\n- **Content and Text (32/40):** Most visible text matches closely: “Pomofocus,” “Pomodoro,” “Short Break,” “Long Break,” “25:00,” “START,” “Tasks,” and “Add Task.” The generated page additionally shows the informational text beginning with “An online Pomodoro Timer to boost your productivity,” which is absent from the reference image.\n- **Style (11/15):** The red/pink color palette, white typography, button treatment, and general visual language are well matched. Differences include font sizing and weight, icon styling, timer positioning, card opacity/color, and the generated page’s white lower content section.\n- **Overall (14/20):** This is a strong reproduction of the primary Pomodoro interface, but it is not pixel-close. The main discrepancies are iconography, spacing, sizing, and the extra lower-page content.\n\n**Score: 74/100**",
+    "Comments:\n- **Layout (8/10):** The primary structure is very similar: header/navigation, timer panel, task section, and add-task area are positioned consistently. However, the generated page omits the informational content section visible below the task area.\n- **Elements (11/15):** Most major components are present, including the logo, header icons, timer controls, start button, task menu, divider, and add-task box. Some icons differ in appearance, and the lower-page content is missing.\n- **Content and Text (25/40):** Core labels such as “Pomofocus,” “Tasks,” “Add Task,” and “START” are retained. However, the timer mode, timer value, and supporting message differ (“Short Break”/“05:00” versus “Pomodoro”/“25:00”), and the descriptive content below is absent.\n- **Style (7/15):** Typography and general visual hierarchy are similar, but the generated page uses a muted/dimmed color palette instead of the brighter red/pink reference styling. Button, icon, and selected-tab styling also vary.\n- **Overall (12/20):** The page is recognizably the same Pomofocus interface with a strong structural match, but differences in state, colors, text, and missing lower-page content reduce fidelity.\n\n**Score: 63/100**",
+    "Comments:\n- **Layout (10 points): 7/10** — The main structure is highly similar: header, navigation controls, timer card, task status, and task section are arranged in the same order. However, the generated page uses a taller full-screen layout and omits the visible informational content below the task area that appears in the reference.\n- **Elements (15 points): 10/15** — Most major elements are present, including the Pomofocus branding, four header buttons, timer tabs, countdown, Start button, task heading, overflow button, and Add Task area. Some icons differ noticeably, and the reference includes a scrollbar and lower-page content that are absent from the generated view.\n- **Content and Text (40 points): 27/40** — Text labels are largely reproduced accurately, including “Pomofocus,” “Pomodoro,” “Short Break,” “Long Break,” “START,” “Tasks,” and “Add Task.” However, the active tab differs: the reference selects “Short Break,” while the generated page selects “Long Break.” The timer also differs, showing “05:00” in the reference versus “15:00” in the generated page. The lower explanatory headings and paragraph text are missing.\n- **Style (15 points): 8/15** — Typography, spacing, rounded cards, button treatment, and general visual styling are broadly similar. The dominant color palette is substantially different: the reference uses a muted mauve/pink theme, while the generated page uses teal. Icon styling and some contrast relationships also differ.\n- **Overall (20 points): 12/20** — The generated page clearly represents the same Pomofocus timer interface and matches the overall composition, but the incorrect theme, selected timer state, countdown value, iconography, and missing lower content reduce visual and functional similarity.\n\n**Score: 64/100**",
+    "Comments:\n- **Layout (10 points): 8/10** — The overall structure is highly similar: header, timer card, session information, and task section appear in the same order and with comparable spacing. The generated version is slightly narrower due to the scrollbar, and the timer/task sections are vertically shifted. It also includes an additional white informational section below the task area.\n- **Elements (15 points): 11/15** — Major elements are present and correctly positioned, including navigation buttons, timer tabs, countdown, start button, task menu, divider, and add-task area. Several icons differ from the reference, including the logo/checkmark, chart icon, profile icon, and add-task symbol.\n- **Content and Text (40 points): 35/40** — Primary text content matches closely: “Pomofocus,” “Pomodoro,” “Short Break,” “Long Break,” “25:00,” “START,” “#1,” “Time to focus!,” “Tasks,” and “Add Task.” The generated page adds explanatory content below the main interface that is not visible in the reference.\n- **Style (15 points): 11/15** — Typography, rounded cards, button styling, red/pink color palette, and white text are broadly consistent. However, the exact background colors, icon styling, panel tones, and some font sizing/weight differ noticeably.\n- **Overall (20 points): 16/20** — The generated webpage is a strong reproduction of the main Pomofocus interface, with the same overall visual hierarchy and functionality. Differences in icons, colors, vertical spacing, and the additional content section prevent it from being pixel-level identical.\n\n**Score: 81/100**",
+    "Comments:\n- **Layout (10 points): 3/10** — The reference begins with the task-focused view and an open task editor near the top, followed by an informational content section. The generated page instead includes a full navigation bar, timer panel, task list, and places the editor much lower on the page, resulting in a substantially different vertical structure.\n- **Elements (15 points): 6/15** — Several shared elements are present, including the “#1 / Time to focus!” heading, Tasks section, task editor, Pomodoro count controls, note/project links, and menu buttons. However, the generated page adds prominent timer and task-list components that are not present in the reference and omits the reference’s explanatory content section.\n- **Content and Text (40 points): 20/40** — The task-editor text is reasonably similar, including “What are you working on?”, “Est Pomodoros,” “+ Add Note,” and “+ Add Project.” The reference’s main informational text—“An online Pomodoro Timer to boost your productivity,” “What is Pomofocus?”, and the descriptive paragraph—is missing. The generated page also contains extra task and timer text.\n- **Style (15 points): 9/15** — The red/maroon and white color palette, rounded cards, bold headings, and general Pomofocus visual language are similar. Differences in spacing, component sizing, button treatments, borders, and typography reduce the match.\n- **Overall (20 points): 7/20** — Although the generated page appears to be the same general application and shares some text and styling, the visible state and page composition differ significantly from the reference.\n\n**Score: 45/100**"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "Pomofocus Pomodoro Short Break Long Break 25.00 START #1 Time to focusl Tasks Add Task",
+      "screenshot_text": "Pomofocus Pomodoro Short Break Long Break 25:00 START #1 Time to focus! Tasks Add Task An online Pomodoro Timer to boost your productivity What is Pomofocus? Pomofocus is a customizable pomodoro timer that works on desktop & mobile browser: The aim of this app is to help you focus on any task you are working such as studv writina or codina. This app is inspired bv on;",
+      "similarity": 0.22702702702702704
+    },
+    {
+      "checkpoint_text": "Pomofocus Pomodoro Short Break Long Break 05:00 START #1 Time for a breakl Tasks Add Task",
+      "screenshot_text": "Pomofocus Pomodoro Short Break Long Break 25:00 START #1 Time to focus! Tasks Add Task An online Pomodoro Timer to boost your productivity What is Pomofocus? Pomofocus is a customizable pomodoro timer that works on desktop & mobile browser: The aim of this app is to help you focus on any task you are working such as studv writina or codina. This app is inspired bv on;",
+      "similarity": 0.23513513513513518
+    },
+    {
+      "checkpoint_text": "Pomofocus Pomodoro Short Break Long Break 15.00 START Time for a breakl Tasks Add Task",
+      "screenshot_text": "Pomofocus Pomodoro Short Break Long Break 05:00 START #1 Time for a breakl Tasks Add Task An online Pomodoro Timer to boost your productivity What is Pomofocus? Pomofocus is a customizable pomodoro timer that works on desktop & mobile browser: The aim of this app is to help you focus on any task you are working such as studv writina or codina. This app is inspired bv on;",
+      "similarity": 0.22520107238605902
+    },
+    {
+      "checkpoint_text": "Pomofocus Pomodoro Short Break Long Break 25.00 START #1 Time to focus! Tasks Add Task",
+      "screenshot_text": "Pomofocus Pomodoro Short Break Long Break 25:00 START #1 Time to focus! Tasks Add Task An online Pomodoro Timer to boost your productivity What is Pomofocus? Pomofocus is a customizable pomodoro timer that works on desktop & mobile browser: The aim of this app is to help you focus on any task you are working such as studv writina or codina. This app is inspired bv on;",
+      "similarity": 0.22972972972972971
+    },
+    {
+      "checkpoint_text": "#1 Time to focus! Tasks Iwhat are you working on? Est Pomodoros #Add Note #Add Project Cancel Save An online Pomodoro Timer to boost your productivity What is Pomofocus? Pomofocus is a customizable pomodoro timer that works on desktop & mobile browser The aim of this app is to help you focus on any task you are working on, such a8 study; writing; or coding: This app is inspired by Pomodoro Technique which is a time management method developed Francesco Cirillo. by",
+      "screenshot_text": "Pomofocus Pomodoro Short Break Long Break 25:00 START #1 Time to focus! Tasks Add Task 123 0 / 1 What are you working on? Est Pomodoros Add Note Add Project",
+      "similarity": 0.2222222222222222
+    }
+  ],
+  "assertion_results": [
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/3/gpt-6-luna_setting0/evalpoints/0.png",
+      "curr_img_path": "outputs/3/gpt-6-luna_setting0/evalpoints/1.png",
+      "response": "{\n  \"think\": \"Image 2 shows the countdown display reading 05:00.\",\n  \"result\": \"Yes\"\n}",
+      "assertion": "The countdown below shows '05:00'",
+      "thinking": "Image 2 shows the countdown display reading 05:00."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/3/gpt-6-luna_setting0/evalpoints/1.png",
+      "curr_img_path": "outputs/3/gpt-6-luna_setting0/evalpoints/2.png",
+      "response": "{\n  \"think\": \"The current screenshot shows the countdown timer displaying 15:00 under the selected Long Break tab.\",\n  \"result\": \"Yes\"\n}",
+      "assertion": "The countdown below shows '15:00'",
+      "thinking": "The current screenshot shows the countdown timer displaying 15:00 under the selected Long Break tab."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/3/gpt-6-luna_setting0/evalpoints/2.png",
+      "curr_img_path": "outputs/3/gpt-6-luna_setting0/evalpoints/3.png",
+      "response": "{\n  \"think\": \"The current screenshot shows the countdown reading '25:00', matching the assertion.\",\n  \"result\": \"Yes\"\n}",
+      "assertion": "The countdown below shows '25:00'",
+      "thinking": "The current screenshot shows the countdown reading '25:00', matching the assertion."
+    },
+    null,
+    null,
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/3/gpt-6-luna_setting0/evalpoints/5.png",
+      "curr_img_path": "outputs/3/gpt-6-luna_setting0/evalpoints/6.png",
+      "response": "{\n  \"think\": \"In Image 1, the input field is empty and shows the placeholder text. In Image 2, the input field visibly contains the text '123', indicating that it was typed into the field.\",\n  \"result\": \"Yes\"\n}",
+      "assertion": "The '123' is typed into the input field.",
+      "thinking": "In Image 1, the input field is empty and shows the placeholder text. In Image 2, the input field visibly contains the text '123', indicating that it was typed into the field."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/3/gpt-6-luna_setting0/evalpoints/6.png",
+      "curr_img_path": "outputs/3/gpt-6-luna_setting0/evalpoints/7.png",
+      "response": "{\n  \"think\": \"Image 1 shows the task creation form with the name '123' entered. Image 2 shows a saved task labeled '123' under the 'Tasks' section, confirming the new item was added.\",\n  \"result\": \"Yes\"\n}",
+      "assertion": "Add a new item named '123' under 'Tasks'",
+      "thinking": "Image 1 shows the task creation form with the name '123' entered. Image 2 shows a saved task labeled '123' under the 'Tasks' section, confirming the new item was added."
+    },
+    null,
+    null,
+    null,
+    null
+  ]
+}

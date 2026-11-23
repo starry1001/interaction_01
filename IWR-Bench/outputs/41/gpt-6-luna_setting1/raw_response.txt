@@ -1,0 +1,201 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reddit Replica</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;background:#fff;color:#1a1a1b;font-family:Arial,Helvetica,sans-serif;font-size:14px}
+  body{overflow-y:scroll}
+  button,.btn{font:inherit;cursor:pointer}
+  .topbar{height:58px;border-bottom:1px solid #e5e5e5;display:flex;align-items:center;padding:0 18px;gap:20px;position:fixed;z-index:20;top:0;left:0;right:0;background:#fff}
+  .brand{display:flex;align-items:center;gap:6px;width:290px;color:#ff4500;font-size:24px;font-weight:bold}
+  .brand img{width:31px;height:31px;object-fit:contain}
+  .search{height:40px;background:#f1f3f5;border-radius:22px;width:575px;display:flex;align-items:center;padding:0 16px;color:#777;gap:10px}
+  .search span{font-size:18px;color:#555}
+  .top-actions{margin-left:auto;display:flex;align-items:center;gap:14px}
+  .getapp{background:#f5f6f7;border:0;border-radius:20px;padding:11px 18px}
+  .login{background:#d93900;color:#fff;border:0;border-radius:20px;padding:11px 21px;font-weight:bold}
+  .dots{font-size:23px;padding:4px 8px;border:0;background:transparent}
+  .sidebar{position:fixed;top:58px;bottom:0;left:0;width:276px;border-right:1px solid #e5e5e5;padding:20px 15px;overflow:hidden;background:#fff}
+  .side-item{height:43px;border-radius:7px;padding:0 17px;display:flex;align-items:center;gap:15px;color:#444}
+  .side-item:hover,.side-item.active{background:#eef0f1}
+  .side-icon{font-size:20px;width:22px;text-align:center}
+  .side-section{border-top:1px solid #e6e6e6;margin-top:17px;padding-top:17px}
+  .side-title{font-size:12px;color:#777;letter-spacing:1px;padding:0 17px 9px}
+  .side-small{height:42px;font-size:13px}
+  .side-small .chev{margin-left:auto}
+  .main{margin-left:276px;padding-top:58px;min-height:100vh}
+  .feed-layout{width:1080px;margin:0 auto;display:grid;grid-template-columns:700px 280px;gap:30px;padding-top:18px}
+  .story-row{display:flex;gap:13px;overflow:hidden;margin-bottom:18px}
+  .story{width:174px;height:172px;border-radius:12px;overflow:hidden;position:relative;background:#222;flex:none;color:#fff}
+  .story img{width:100%;height:100%;object-fit:cover;opacity:.8}
+  .story:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 35%,rgba(0,0,0,.8))}
+  .story-text{position:absolute;z-index:2;bottom:12px;left:12px;right:8px;font-weight:bold;font-size:15px}
+  .story-sub{font-size:11px;font-weight:normal;margin-top:4px;white-space:nowrap;overflow:hidden}
+  .feed-toolbar{height:48px;border-bottom:1px solid #eee;border-top:1px solid #eee;display:flex;align-items:center;gap:24px;color:#666}
+  .feed-toolbar button{border:0;background:none;color:#555}
+  .post{border-bottom:1px solid #e5e5e5;padding:18px 10px 14px 10px;background:#fff}
+  .post:hover{background:#fafafa}
+  .post-head{display:flex;align-items:center;gap:8px;font-size:12px;color:#777;margin-bottom:8px}
+  .avatar{width:24px;height:24px;border-radius:50%;object-fit:cover;background:#ff4500}
+  .community{font-weight:bold;color:#333}
+  .post-title{font-size:20px;font-weight:600;line-height:1.25;margin:5px 0 11px}
+  .post-media{width:100%;height:380px;object-fit:cover;border-radius:9px;background:#111;display:block}
+  .post-actions{display:flex;gap:7px;margin-top:10px}
+  .action{border:0;background:#f6f7f8;border-radius:18px;padding:8px 13px;color:#555;font-size:12px}
+  .action:hover{background:#e5e7e8}
+  .right-card{background:#f7f8f9;border-radius:8px;padding:16px;margin-top:216px}
+  .right-card h3{margin:0 0 15px;font-size:15px}
+  .community-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #e5e5e5;font-size:12px}
+  .community-row img{width:29px;height:29px;border-radius:50%;object-fit:cover}
+  .right-link{margin-top:14px;font-weight:bold;font-size:12px}
+  .detail-layout{width:1060px;margin:0 auto;display:grid;grid-template-columns:700px 300px;gap:32px;padding-top:25px}
+  .detail-main{padding-bottom:100px}
+  .detail-post{padding:0 0 18px;border-bottom:1px solid #ddd}
+  .back{border:0;background:#f2f3f4;border-radius:50%;width:34px;height:34px;font-size:20px;margin-bottom:13px}
+  .detail-title{font-size:22px;font-weight:600;line-height:1.22;margin:8px 0 15px}
+  .tag{display:inline-block;background:#ffd635;border-radius:10px;padding:4px 9px;font-size:11px;font-weight:bold;margin-bottom:8px}
+  .detail-video{width:100%;height:450px;object-fit:cover;background:#111;border-radius:10px;display:block}
+  .detail-actions{display:flex;gap:8px;margin-top:14px}
+  .joinbox{border:1px solid #ddd;border-radius:8px;padding:16px;margin-bottom:16px}
+  .joinbox h3{margin:0 0 6px}
+  .joinbox p{color:#666;font-size:12px;line-height:1.4}
+  .joinbox button{width:100%;border:1px solid #0079d3;color:#0079d3;background:#fff;border-radius:18px;padding:9px}
+  .comment-bar{height:48px;border:1px solid #ddd;border-radius:24px;margin:20px 0 14px;padding:0 20px;display:flex;align-items:center;color:#888}
+  .sort{display:flex;gap:20px;font-size:12px;color:#777;margin-bottom:20px}
+  .comment{border-left:1px solid #ddd;padding:0 0 20px 18px;margin-left:8px;position:relative}
+  .comment:before{content:"";position:absolute;left:-7px;top:4px;width:13px;height:13px;border-radius:50%;background:#f4517b;border:3px solid #fff}
+  .comment.nested{margin-left:30px}
+  .comment-user{font-weight:bold;font-size:12px;margin-bottom:8px}
+  .comment-user span{font-weight:normal;color:#888}
+  .comment p{font-size:13px;line-height:1.45;color:#444;margin:4px 0 12px}
+  .comment-tools{display:flex;gap:22px;color:#777;font-size:12px}
+  .right-detail{padding-top:0}
+  .side-news{border-bottom:1px solid #eee;padding:13px 0;display:flex;gap:10px}
+  .side-news img{width:62px;height:62px;object-fit:cover;border-radius:7px}
+  .side-news b{font-size:12px;line-height:1.3}
+  .side-news small{display:block;color:#888;margin-top:6px}
+  @media(max-width:1100px){
+    .feed-layout,.detail-layout{width:calc(100% - 40px);grid-template-columns:minmax(0,700px) 260px}
+    .brand{width:210px}.search{width:40%;}.sidebar{width:220px}.main{margin-left:220px}
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/094.svg" width="31" height="31" alt="reddit">
+    <span>reddit</span>
+  </div>
+  <div class="search"><span>⌕</span><span>Search Reddit</span></div>
+  <div class="top-actions">
+    <button class="getapp btn">▦ &nbsp; Get App</button>
+    <button class="login btn" onclick="showLogin()">Log In</button>
+    <button class="dots btn">•••</button>
+  </div>
+</header>
+
+<aside class="sidebar">
+  <div class="side-item"><span class="side-icon">⌂</span>Home</div>
+  <div class="side-item active btn" onclick="showFeed()"><span class="side-icon">↗</span>Popular</div>
+  <div class="side-item"><span class="side-icon">♧</span>Answers <small style="color:#d93900">BETA</small></div>
+  <div class="side-section">
+    <div class="side-title">TOPICS <span style="float:right">⌃</span></div>
+    <div class="side-item side-small"><span class="side-icon">◉</span>Internet Culture (Viral)<span class="chev">⌄</span></div>
+    <div class="side-item side-small"><span class="side-icon">⌘</span>Games<span class="chev">⌄</span></div>
+    <div class="side-item side-small"><span class="side-icon">?</span>Q&As<span class="chev">⌄</span></div>
+    <div class="side-item side-small"><span class="side-icon">▣</span>Technology<span class="chev">⌄</span></div>
+    <div class="side-item side-small"><span class="side-icon">☆</span>Pop Culture<span class="chev">⌄</span></div>
+    <div class="side-item side-small"><span class="side-icon">▤</span>Movies & TV<span class="chev">⌄</span></div>
+    <div class="side-item side-small" style="font-weight:bold;font-size:12px">See more</div>
+  </div>
+  <div class="side-section">
+    <div class="side-title">RESOURCES <span style="float:right">⌃</span></div>
+    <div class="side-item side-small"><span class="side-icon">♧</span>About Reddit</div>
+    <div class="side-item side-small"><span class="side-icon">⚑</span>Advertise</div>
+    <div class="side-item side-small"><span class="side-icon">▥</span>Reddit Pro <small style="color:#d93900">BETA</small></div>
+    <div class="side-item side-small"><span class="side-icon">?</span>Help</div>
+    <div class="side-item side-small"><span class="side-icon">▤</span>Blog</div>
+    <div class="side-item side-small"><span class="side-icon">⌕</span>Careers</div>
+    <div class="side-item side-small"><span class="side-icon">⌁</span>Press</div>
+  </div>
+</aside>
+
+<main class="main" id="app"></main>
+
+<script>
+const A="__PLACEHOLDER_ASSETS_BASE_DIR__/";
+const stories=[
+  ["177.jpg","Clarke loses libel case","r/unitedkingdom"],
+  ["136.jpg","Beasley cleared, free to sign","r/NYPOSAuto"],
+  ["144.jpg","Weapons hits $100M milestone","r/boxoffice"],
+  ["156.jpg","MGS Delta reviews are in","r/pcgaming"]
+];
+function storyRow(){
+ return `<div class="story-row">${stories.map(x=>`<div class="story btn" onclick="showDetail()"><img src="${A+x[0]}" width="174" height="172"><div class="story-text">${x[1]}<div class="story-sub">${x[2]} and more</div></div></div>`).join("")}</div>`;
+}
+function feed(){
+ document.getElementById("app").innerHTML=`<div class="feed-layout">
+ <section>
+ ${storyRow()}
+ <div class="feed-toolbar"><button class="btn">Best⌄</button><button class="btn">Everywhere⌄</button><button class="btn">▤</button></div>
+ <article class="post btn" onclick="showDetail()">
+  <div class="post-head"><img class="avatar" src="${A}102.png" width="24" height="24"><span class="community">r/law</span><span>• 15 hr. ago</span><span style="margin-left:auto">•••</span></div>
+  <div class="post-title">Trump threatens to deploy the U.S. military into Chicago - signaling the start of a nationwide crackdown.</div>
+  <img class="post-media" src="${A}177.jpg" width="680" height="380">
+  <div class="post-actions"><button class="action btn">⇧ 60K</button><button class="action btn">◯ 12K</button><button class="action btn">🔥 3</button><button class="action btn">↗ Share</button></div>
+ </article>
+ <article class="post"><div class="post-head"><img class="avatar" src="${A}170.png" width="24" height="24"><span class="community">r/technology</span><span>• 4 hr. ago</span></div><div class="post-title">The latest stories people are talking about today</div><img class="post-media" src="${A}169.jpg" width="680" height="380"></article>
+ </section>
+ <aside class="right-card"><h3>POPULAR COMMUNITIES</h3>
+ ${[["051.png","r/explainlikeimfive","23,272,108 members"],["049.png","r/IAmA","22,441,949 members"],["050.png","r/classicwow","687,100 members"],["055.png","r/Instagram","988,137 members"],["052.jpg","r/NintendoSwitch","7,880,362 members"]].map(x=>`<div class="community-row"><img src="${A+x[0]}" width="29" height="29"><div><b>${x[1]}</b><br><span>${x[2]}</span></div></div>`).join("")}<div class="right-link">See more</div></aside>
+ </div>`;
+}
+function detail(){
+ document.getElementById("app").innerHTML=`<div class="detail-layout">
+ <section class="detail-main">
+  <button class="back btn" onclick="showFeed()">‹</button>
+  <div class="detail-post">
+   <div class="post-head"><img class="avatar" src="${A}102.png" width="24" height="24"><span class="community">r/law</span><span>• 15 hr. ago</span><span style="margin-left:auto">•••</span></div>
+   <div class="detail-title">Trump threatens to deploy the U.S. military into Chicago - signaling the start of a nationwide crackdown.</div>
+   <div class="tag">Trump News</div>
+   <video class="detail-video" controls poster="${A}177.jpg" width="700" height="450"><source src="${A}175.mp4" type="video/mp4"></video>
+   <div class="detail-actions"><button class="action btn">⇧ 60K</button><button class="action btn">◯ 12K</button><button class="action btn">🔥 3</button><button class="action btn">↗ Share</button></div>
+  </div>
+  <div class="comment-bar">Join the conversation</div>
+  <div class="sort">Sort by: <b>Best⌄</b><span>⌕ Search Comments</span></div>
+  ${comments()}
+ </section>
+ <aside class="right-detail">
+  <div class="joinbox"><h3>New to Reddit?</h3><p>Create your account and connect with a world of communities.</p><button class="btn">🌈 &nbsp; Continue with Google</button><br><br><button class="btn">✉ &nbsp; Continue with Email</button><br><br><button class="btn">▣ &nbsp; Continue With Phone Number</button></div>
+  ${news()}
+ </aside>
+ </div>`;
+}
+function comments(){
+ let data=[
+ ["BitterFuture","It's not a coincidence that he is wearing a hat proclaiming that he's the most brilliant man to have ever lived while declaring he's going to ignore laws and order our military to attack our own citizens.","8K"],
+ ["Scarbane","The emperor has no brain.","2.8K"],
+ ["RetroCasket","Sincerely, that hat is beyond the pale idiotic. And the fact that it doesnt sound any alarms or make more than half the country say this man is an idiot is mind blowing to me.<br><br>I just never saw this country reaching this point.","729"],
+ ["BlackMesaRyan","The hat is so pathetic and cringe.","2.2K"],
+ ["ForcedEntry420","It's a definite escalation, but at what point do Governor's mobilize the State Guard to keep the Guard from Red States invading?","2.9K"],
+ ["alejo699","Crackdown on fucking what? Freedom? Life?","2.9K"],
+ ["Admiral_obvious13","Yeah idk man. I've been living in or commuting to Chicago most of my life. There is nothing the military can accomplish here other than wasting a fuckton of money.","1.3K"],
+ ["Comfortable_Fill9081","We “African American ladies, beautiful ladies” are NOT saying “please come to Chicago” and he did not “do great with the Black vote.”","1.8K"]
+ ];
+ return data.map((c,i)=>`<div class="comment ${i==1||i==2||i==6?'nested':''}"><div class="comment-user">${c[0]} <span>• ${i+14}h ago</span></div><p>${c[1]}</p><div class="comment-tools"><span>⇧ ${c[2]}</span><span>◯ Reply</span><span>♧ Award</span><span>↗ Share</span></div></div>`).join("");
+}
+function news(){
+ return ["President Trump is now open to deploying US Military in cities","Trump has already started making enemies out of major Americans","America will regret its decision to reelect Donald Trump","Trump orders National Guard to LA riots after immigration raids","Would you fight the U.S. if it came to it?","Detroit was flooded and it froze overnight"].map((x,i)=>`<div class="side-news"><img src="${A}${[178,179,180,181,182,183][i]}.png" width="62" height="62"><div><b>${x}</b><small>${(51-i*7)}K upvotes · ${(7+i)}K comments</small></div></div>`).join("");
+}
+function showFeed(){window.scrollTo(0,0);feed()}
+function showDetail(){window.scrollTo(0,0);detail()}
+function showLogin(){alert("Log in to continue")}
+feed();
+</script>
+</body>
+</html>
+```

@@ -1,0 +1,111 @@
+{
+  "id": "chatcmpl-EmMCRIA8kPbpV8z9KeTRnt4E7Ki8M",
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "logprobs": null,
+      "message": {
+        "content": "```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>Chess Game</title>\n<style>\n  * { box-sizing: border-box; }\n  html, body { margin: 0; min-height: 100%; }\n  body {\n    background: #f0f1f4;\n    color: #161c23;\n    font-family: Arial, Helvetica, sans-serif;\n  }\n  .site {\n    position: relative;\n    width: 100%;\n    max-width: 1280px;\n    min-height: 968px;\n    margin: 0 auto;\n    background: #faf9fc;\n    border-left: 1px solid #e4e5e8;\n    border-right: 1px solid #e4e5e8;\n  }\n  .topbar {\n    height: 80px;\n    width: 100%;\n    background: #f0f1f4;\n    border-bottom: 1px solid #dedfe3;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    position: relative;\n  }\n  .top-left, .top-right {\n    position: absolute;\n    top: 0;\n    height: 79px;\n    display: flex;\n    align-items: center;\n    gap: 14px;\n    color: #111820;\n  }\n  .top-left { left: 40px; }\n  .top-right { right: 40px; }\n  .badge {\n    width: 27px;\n    height: 33px;\n    display: inline-flex;\n    align-items: center;\n    justify-content: center;\n    color: white;\n    font-weight: bold;\n    font-size: 13px;\n    background: #ec0757;\n    clip-path: polygon(50% 0, 95% 25%, 95% 76%, 50% 100%, 5% 76%, 5% 25%);\n    text-shadow: 0 1px 1px #92103c;\n  }\n  .tiny-knight { font-size: 24px; color: #080d12; line-height: 1; }\n  .flag { font-size: 18px; }\n  .players {\n    display: flex;\n    align-items: center;\n    height: 76px;\n    gap: 8px;\n  }\n  .player {\n    display: flex;\n    align-items: center;\n    gap: 8px;\n    white-space: nowrap;\n  }\n  .player:first-child { flex-direction: row-reverse; text-align: right; }\n  .player-name { font-size: 20px; line-height: 24px; }\n  .clock { font-size: 14px; color: #535a62; margin-top: 2px; }\n  .clock.pink { color: #bd3d75; }\n  .avatar {\n    width: 68px;\n    height: 68px;\n    border-radius: 50%;\n    border: 7px solid #21c69e;\n    overflow: hidden;\n    background: #26363d;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n  }\n  .avatar img { display: block; width: 100%; height: 100%; object-fit: cover; }\n  .avatar.bot { border-color: #20c79f; background: #243844; }\n  .avatar.bot img { object-fit: contain; padding: 3px; }\n  .score {\n    font-size: 27px;\n    font-weight: bold;\n    color: #48525a;\n    letter-spacing: 2px;\n    margin: 0 0 1px;\n  }\n  .game { position: relative; min-height: 888px; padding-top: 56px; }\n  .capture-note {\n    position: absolute;\n    top: 10px;\n    width: 100%;\n    text-align: center;\n    height: 36px;\n    font-size: 17px;\n    color: #111820;\n  }\n  .capture-note span { vertical-align: middle; }\n  .mini-piece {\n    font-family: \"DejaVu Sans\", \"Segoe UI Symbol\", serif;\n    font-size: 30px;\n    vertical-align: -3px;\n  }\n  .board {\n    width: min(746px, calc(100vw - 80px));\n    aspect-ratio: 1;\n    margin: 0 auto;\n    display: grid;\n    grid-template-columns: repeat(8, 1fr);\n    grid-template-rows: repeat(8, 1fr);\n    user-select: none;\n    touch-action: none;\n    overflow: hidden;\n  }\n  .square {\n    position: relative;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    cursor: pointer;\n    overflow: hidden;\n  }\n  .light { background: #adf4df; }\n  .dark { background: #20c69d; }\n  .square.last { background: #cdbb9f; }\n  .square.selected { background: #a99a7d; }\n  .square.legal::after {\n    content: \"\";\n    position: absolute;\n    width: 34%;\n    height: 34%;\n    border-radius: 50%;\n    background: rgba(0, 87, 70, .36);\n    pointer-events: none;\n  }\n  .square.legal.occupied::after {\n    width: 84%;\n    height: 84%;\n    background: transparent;\n    border: 5px solid rgba(0, 87, 70, .38);\n  }\n  .piece {\n    position: relative;\n    z-index: 1;\n    font-family: \"DejaVu Sans\", \"Segoe UI Symbol\", \"Arial Unicode MS\", serif;\n    line-height: 1;\n    font-size: clamp(45px, 7.1vw, 77px);\n    transform: translateY(-1px);\n    cursor: grab;\n  }\n  .piece.white {\n    color: #fff;\n    -webkit-text-stroke: 1.8px #050505;\n    text-shadow: 1px 2px 0 #050505, -1px -1px 0 #050505;\n  }\n  .piece.black { color: #050505; }\n  .rank, .file {\n    position: absolute;\n    z-index: 2;\n    pointer-events: none;\n    color: rgba(0, 127, 99, .66);\n    font-family: Georgia, serif;\n    font-size: 20px;\n    line-height: 1;\n  }\n  .rank { left: 5px; top: 3px; }\n  .file { right: 5px; bottom: 3px; }\n  .game-footer {\n    height: 55px;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    font-size: 16px;\n    gap: 1px;\n    color: #15191d;\n  }\n  .footer-piece {\n    font-family: \"DejaVu Sans\", \"Segoe UI Symbol\", serif;\n    font-size: 27px;\n    line-height: 1;\n  }\n  .remove-ads {\n    position: fixed;\n    top: 49.5%;\n    color: #929292;\n    text-decoration: underline;\n    font-family: Georgia, serif;\n    font-size: 16px;\n    cursor: pointer;\n  }\n  .remove-ads.left { left: max(20px, calc((100vw - 1684px) / 2)); }\n  .remove-ads.right { right: max(20px, calc((100vw - 1684px) / 2)); }\n  .btn { cursor: pointer; }\n  @media (max-width: 760px) {\n    .site { min-height: 100vh; }\n    .top-left { left: 8px; gap: 6px; }\n    .top-right { right: 8px; gap: 6px; }\n    .top-left .badge, .top-right .badge { width: 21px; height: 27px; font-size: 11px; }\n    .players { gap: 4px; }\n    .player { gap: 4px; }\n    .player-name { font-size: 17px; }\n    .clock { font-size: 12px; }\n    .avatar { width: 58px; height: 58px; border-width: 6px; }\n    .score { font-size: 22px; letter-spacing: 1px; }\n    .top-left .flag, .top-right .flag { font-size: 14px; }\n    .tiny-knight { font-size: 19px; }\n    .game { padding-top: 56px; }\n    .remove-ads { display: none; }\n  }\n</style>\n</head>\n<body>\n<div class=\"site\">\n  <header class=\"topbar\">\n    <div class=\"top-left\">\n      <span class=\"badge btn\" title=\"Level\">3</span>\n      <span class=\"tiny-knight btn\" title=\"Chess\">♞</span>\n      <span class=\"flag btn\" title=\"United States\">🇺🇸</span>\n    </div>\n    <div class=\"players\">\n      <div class=\"player\">\n        <div class=\"avatar btn\" title=\"Roxy\">\n          <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/011.svg\" width=\"54\" height=\"54\" alt=\"Roxy avatar\">\n        </div>\n        <div>\n          <div class=\"player-name\">ROXY</div>\n          <div class=\"clock pink\" id=\"whiteClock\">6.9s</div>\n        </div>\n      </div>\n      <div class=\"score\">0 0</div>\n      <div class=\"player\">\n        <div class=\"avatar bot btn\" title=\"Julien Song\">\n          <img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/024.png\" width=\"48\" height=\"48\" alt=\"Bot avatar\">\n        </div>\n        <div>\n          <div class=\"player-name\">Julien Song</div>\n          <div class=\"clock\" id=\"blackClock\">1.0s</div>\n        </div>\n      </div>\n    </div>\n    <div class=\"top-right\">\n      <span class=\"flag btn\" title=\"France\">🇫🇷</span>\n      <span class=\"tiny-knight btn\" title=\"Chess\">♘</span>\n      <span class=\"badge btn\" title=\"Rating\">133</span>\n    </div>\n  </header>\n  <main class=\"game\">\n    <div class=\"capture-note\" id=\"captureNote\"></div>\n    <div class=\"board\" id=\"board\" aria-label=\"Chess board\"></div>\n    <div class=\"game-footer\" id=\"gameFooter\"></div>\n  </main>\n</div>\n<a class=\"remove-ads left btn\">Remove ads</a>\n<a class=\"remove-ads right btn\">Remove ads</a>\n<script>\n(() => {\n  const boardEl = document.getElementById('board');\n  const note = document.getElementById('captureNote');\n  const footer = document.getElementById('gameFooter');\n  const files = ['h','g','f','e','d','c','b','a'];\n  const glyph = {\n    wk:'♔', wq:'♕', wr:'♖', wb:'♗', wn:'♘', wp:'♙',\n    bk:'♚', bq:'♛', br:'♜', bb:'♝', bn:'♞', bp:'♟'\n  };\n  const board = Array.from({length:8}, () => Array(8).fill(null));\n  // White's knight has already developed to the third rank.\n  ['wr',null,'wb','wk','wq','wb',null,'wr'].forEach((p,c) => board[0][c]=p);\n  ['wp','wp','wp','wp','wp','wp','wp','wp'].forEach((p,c) => board[1][c]=p);\n  board[2][2] = 'wn';\n  ['bp','bp','bp','bp','bp','bp','bp','bp'].forEach((p,c) => board[6][c]=p);\n  ['br','bn','bb','bk','bq','bb','bn','br'].forEach((p,c) => board[7][c]=p);\n\n  let selected = null;\n  let previous = [[2,2],[2,2]];\n  let legal = [];\n  let captures = 0;\n  let moveCount = 0;\n\n  function squareClass(r,c) {\n    let cls = 'square ' + ((r+c)%2 ? 'dark' : 'light');\n    if (previous.some(([pr,pc]) => pr===r && pc===c) && moveCount) cls += ' last';\n    if (selected && selected[0]===r && selected[1]===c) cls += ' selected';\n    if (legal.some(([lr,lc]) => lr===r && lc===c)) cls += ' legal' + (board[r][c] ? ' occupied' : '');\n    return cls;\n  }\n  function render() {\n    boardEl.innerHTML = '';\n    for (let r=0; r<8; r++) {\n      for (let c=0; c<8; c++) {\n        const sq = document.createElement('div');\n        sq.className = squareClass(r,c);\n        sq.dataset.r = r; sq.dataset.c = c;\n        if (c===0) {\n          const rank = document.createElement('span');\n          rank.className = 'rank';\n          rank.textContent = String(r+1);\n          sq.appendChild(rank);\n        }\n        const p = board[r][c];\n        if (p) {\n          const piece = document.createElement('span');\n          piece.className = 'piece ' + (p[0]==='w' ? 'white' : 'black');\n          piece.textContent = glyph[p];\n          piece.draggable = true;\n          piece.addEventListener('dragstart', e => {\n            selected = [r,c]; legal = [];\n            e.dataTransfer.setData('text/plain', `${r},${c}`);\n            setTimeout(render, 0);\n          });\n          sq.appendChild(piece);\n        }\n        if (r===7) {\n          const file = document.createElement('span');\n          file.className = 'file';\n          file.textContent = files[c];\n          sq.appendChild(file);\n        }\n        sq.addEventListener('click', () => clickSquare(r,c));\n        sq.addEventListener('dragover', e => e.preventDefault());\n        sq.addEventListener('drop', e => {\n          e.preventDefault();\n          const from = (e.dataTransfer.getData('text/plain') || '').split(',').map(Number);\n          if (from.length===2 && !Number.isNaN(from[0])) makeMove(from[0],from[1],r,c);\n        });\n        boardEl.appendChild(sq);\n      }\n    }\n  }\n  function clickSquare(r,c) {\n    if (selected && selected[0]===r && selected[1]===c) {\n      selected = null; legal=[]; render(); return;\n    }\n    if (selected && board[selected[0]][selected[1]]) {\n      if (board[r][c] && board[r][c][0]===board[selected[0]][selected[1]][0]) {\n        selected=[r,c]; legal=[]; render(); return;\n      }\n      makeMove(selected[0],selected[1],r,c);\n      return;\n    }\n    if (board[r][c]) {\n      selected=[r,c];\n      legal = [[Math.max(0,r-1),c],[Math.min(7,r+1),c],[r,Math.max(0,c-1)],[r,Math.min(7,c+1)]]\n        .filter(([rr,cc]) => rr!==r || cc!==c);\n      render();\n    }\n  }\n  function makeMove(fr,fc,tr,tc) {\n    if (!board[fr][fc] || (fr===tr && fc===tc)) return;\n    const taken = board[tr][tc];\n    board[tr][tc] = board[fr][fc];\n    board[fr][fc] = null;\n    previous = [[fr,fc],[tr,tc]];\n    moveCount++;\n    if (taken) {\n      captures++;\n      note.innerHTML = `<span class=\"mini-piece\">${glyph[taken]}</span> +${captures}`;\n      footer.innerHTML = `<span class=\"footer-piece\">♙</span> +${captures}`;\n    } else {\n      note.innerHTML = '';\n      footer.innerHTML = captures ? `<span class=\"footer-piece\">♙</span> ${captures}` : '';\n    }\n    selected=null; legal=[];\n    render();\n  }\n  render();\n})();\n</script>\n</body>\n</html>\n```",
+        "refusal": null,
+        "role": "assistant",
+        "annotations": [],
+        "audio": null,
+        "function_call": null,
+        "tool_calls": null
+      },
+      "content_filter_results": {
+        "hate": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "protected_material_code": {
+          "detected": false,
+          "filtered": false
+        },
+        "protected_material_text": {
+          "detected": false,
+          "filtered": false
+        },
+        "self_harm": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "sexual": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "violence": {
+          "filtered": false,
+          "severity": "safe"
+        }
+      }
+    }
+  ],
+  "created": 1795193787,
+  "model": "gpt-6-luna-2026-09-22",
+  "object": "chat.completion",
+  "metadata": null,
+  "moderation": null,
+  "service_tier": "default",
+  "system_fingerprint": null,
+  "usage": {
+    "completion_tokens": 5484,
+    "prompt_tokens": 21106,
+    "total_tokens": 26590,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": 0,
+      "audio_tokens": 0,
+      "reasoning_tokens": 1767,
+      "rejected_prediction_tokens": 0,
+      "text_tokens": null
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cache_write_tokens": null,
+      "cached_tokens": 0,
+      "image_tokens": null,
+      "text_tokens": null
+    },
+    "latency_checkpoint": {
+      "engine_tbt_ms": 8,
+      "engine_ttft_ms": 564,
+      "engine_ttlt_ms": 46856,
+      "pre_inference_ms": 1542,
+      "service_tbt_ms": 8,
+      "service_ttft_ms": 2233,
+      "service_ttlt_ms": 48508,
+      "user_visible_ttft_ms": 691
+    }
+  },
+  "prompt_filter_results": [
+    {
+      "prompt_index": 0,
+      "content_filter_results": {
+        "hate": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "jailbreak": {
+          "detected": false,
+          "filtered": false
+        },
+        "self_harm": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "sexual": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "violence": {
+          "filtered": false,
+          "severity": "safe"
+        }
+      }
+    }
+  ],
+  "routing": {
+    "serving_pipereplica": "d20261112164451-70532c8c-prefill-r5-dp0-prefill"
+  }
+}

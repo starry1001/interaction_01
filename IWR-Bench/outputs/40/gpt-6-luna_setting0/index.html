@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CliffsNotes</title>
+<style>
+:root{--yellow:#fff22d;--black:#050505;--ink:#242424;--pale:#efeded;--gray:#d6d6d6}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--ink);font-family:Arial,Helvetica,sans-serif;background:#fff}
+button,input{font:inherit}
+.btn{cursor:pointer}
+header{height:155px;background:#000;color:#fff;display:flex;align-items:center;padding:0 18px;position:relative;z-index:5}
+.brand{font-size:58px;letter-spacing:-3.5px;font-weight:700;white-space:nowrap;color:#fff;line-height:1}
+.brand span{color:#fff200}
+.brand sup{font-size:12px;vertical-align:top;letter-spacing:0;margin-left:4px}
+.head-actions{margin-left:auto;display:flex;align-items:center;gap:27px}
+.icon-search{width:42px;height:42px;border:4px solid var(--yellow);border-radius:50%;position:relative}
+.icon-search:after{content:"";position:absolute;width:20px;height:4px;background:var(--yellow);right:-15px;bottom:-7px;transform:rotate(48deg);border-radius:2px}
+.hamb{border:0;background:none;width:47px;height:40px;padding:3px 0;display:flex;flex-direction:column;justify-content:space-between}
+.hamb i{display:block;height:6px;background:var(--yellow);width:43px}
+.hero{height:456px;background:#000;color:white;text-align:center;padding:88px 20px 50px}
+.hero h1{font-size:46px;line-height:1.15;margin:0 0 35px;font-weight:700}
+.hero p{font-size:30px;line-height:1.5;margin:0 auto 25px;max-width:590px}
+.searchbox{width:min(430px,90%);height:60px;margin:auto;border-radius:34px;background:#f5f3f3;color:#222;display:flex;align-items:center;padding:0 18px;gap:15px}
+.searchbox .icon-search{width:26px;height:26px;border:3px solid #161616;flex:none}
+.searchbox .icon-search:after{width:14px;height:3px;background:#161616;right:-10px;bottom:-5px}
+.searchbox input{border:0;outline:0;background:transparent;min-width:0;flex:1;font-size:23px;color:#222}
+.searchbox .go{font-size:39px;color:#999;border:0;background:none;line-height:1}
+.section-title{text-align:center;font-size:49px;margin:0;padding:82px 0 62px}
+.home-cards{padding:0 24px 55px;display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.home-card{box-shadow:0 8px 20px #ddd;border-radius:6px;overflow:hidden;color:#111}
+.home-card img{width:100%;height:auto;aspect-ratio:250/350;object-fit:cover;display:block}
+.home-card .caption{padding:15px 13px;background:white;font-size:23px}
+.caption small{display:block;color:#666;font-size:18px;margin-top:6px}
+.help{position:fixed;z-index:8;right:24px;bottom:16px;background:#000;color:#fff;border-radius:23px;padding:17px 23px;display:flex;align-items:center;gap:18px;box-shadow:0 2px 12px #bbb;min-width:360px}
+.help strong{font-size:21px}.help small{display:block;font-size:16px;margin-top:5px}
+.help .qa{background:#dbe9ff;color:#111;font-weight:bold;padding:9px;border-radius:4px}
+.help button{background:none;border:0;color:white;font-size:25px;margin-left:auto}
+.stripe{height:25px;background:repeating-linear-gradient(130deg,var(--yellow) 0 48px,#000 48px 91px)}
+.page-title{height:131px;background:var(--yellow);display:flex;align-items:center;justify-content:center;font-size:43px}
+.alphabet{height:123px;background:#000;color:#eee;padding:8px 15px 10px;display:flex;align-content:center;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.alphabet button{background:none;border:0;color:#eee;font-size:23px;min-width:34px;height:39px;padding:0 5px}
+.alphabet button.active{background:var(--yellow);color:#111}
+.alphabet button.dim{color:#444}
+.main{padding:44px 23px 35px}
+.sort-tabs{height:83px;display:flex;background:#000;margin-bottom:80px;border-bottom:10px solid #000}
+.sort-tabs button{width:50%;border:0;background:#000;color:#fff;font-size:31px}
+.sort-tabs button.active{background:var(--yellow);color:#111}
+.author-group{font-size:31px;background:#000;color:white;padding:27px 36px;margin:0 0 47px}
+.author-group span{color:var(--yellow)}
+.book-row{display:flex;min-height:149px;background:var(--pale);margin-bottom:30px;position:relative;align-items:stretch}
+.book-icon{width:100px;flex:none;background:#d6d6d6;display:flex;align-items:center;justify-content:center;font-size:35px;color:#111}
+.book-info{padding:16px 44px 15px 10px;display:flex;flex-direction:column;justify-content:space-between;flex:1}
+.book-info strong{font-size:35px;line-height:1.35;font-weight:500}
+.book-info span{font-size:23px;color:#111;margin-left:12px}
+.chev{position:absolute;right:20px;top:50%;width:22px;height:22px;border-top:3px solid #222;border-right:3px solid #222;transform:translateY(-50%) rotate(45deg)}
+.study-list{padding:60px 23px 45px}
+.study-row{height:auto;min-height:92px;margin-bottom:29px;padding:20px 33px;background:linear-gradient(130deg,#eee 0%,#f3f1f1 68%,#e9e7e7 100%);display:flex;align-items:center;justify-content:space-between;color:#111;font-size:27px;position:relative}
+.study-row .chev{right:23px}
+.study-row span{padding-right:35px}
+.course-title{height:129px;background:var(--yellow);font-size:39px;display:flex;align-items:center;padding:0 23px}
+.chapter{height:101px;background:#000;color:var(--yellow);display:flex;align-items:center;padding:0 30px;font-size:29px;justify-content:space-between}
+.down{width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-top:17px solid var(--yellow)}
+.article{padding:48px 23px 24px;font-size:23px;line-height:1.66;color:#111}
+.article h2{font-size:34px;line-height:1.25;margin:25px 0 48px;color:#282828}
+.article p{margin:0 0 30px}
+.article ul{padding-left:24px;margin:32px 0}
+.article li{padding-left:0;margin:0 0 31px}
+.pager{display:flex;justify-content:space-between;gap:44px;margin:35px 0 0}
+.pager button{height:78px;border:0;background:#eee;flex:1;text-align:left;font-size:24px;color:#999;padding:0 20px;position:relative}
+.pager button:last-child{text-align:right;color:#111}
+.pager b{background:#000;color:var(--yellow);position:absolute;right:0;top:0;height:78px;width:53px;display:grid;place-items:center;font-size:38px}
+.pager button:first-child b{left:0;right:auto;background:#999}
+footer{background:#000;color:#eee;text-align:center;padding:20px 25px 0}
+.footer-top{padding:0 0 48px;font-size:22px;line-height:1.55}
+.footer-logo{font-weight:bold;font-size:76px;letter-spacing:-5px;margin:0 auto 12px}
+.footer-logo span{color:#fff200}
+.footer-links{background:#3c3c3c;padding:25px 30px;font-size:20px;line-height:1.8}
+.footer-bottom{background:#ccc;color:#111;margin:0 -25px;padding:25px 35px;font-size:18px;line-height:2.4}
+.footer-bottom a{color:#111;text-decoration:underline;margin:0 15px}
+.topbtn{position:fixed;bottom:20px;left:0;background:#000;color:#fff;border:0;padding:8px 12px;z-index:4}
+.overlay{display:none;position:fixed;inset:0;background:#0009;z-index:20}
+.overlay.show{display:block}
+.home-menu{position:absolute;right:24px;top:95px;background:#fff;border-radius:5px;width:249px;padding:12px 24px;color:#222;box-shadow:0 8px 28px #555}
+.home-menu a{display:block;text-decoration:none;color:#222;font-size:21px;padding:12px 0}
+.home-menu button{width:100%;height:48px;background:#000;color:#fff;border:0;border-radius:5px;font-weight:bold;font-size:19px;margin-top:8px}
+.drawer{position:absolute;right:0;top:0;height:100%;width:57%;background:#000;color:white;border-left:9px solid var(--yellow);padding-top:0}
+.drawer a{height:105px;border-bottom:1px solid #888;display:flex;align-items:center;justify-content:space-between;padding:0 23px;text-decoration:none;color:white;font-size:23px}
+.drawer .arr{font-size:44px;font-weight:200}
+.drawer button{margin:30px;width:calc(100% - 60px);height:57px;border:0;background:var(--yellow);border-radius:7px;font-size:22px}
+@media(max-width:600px){
+ header{height:124px;padding:0 17px}.brand{font-size:43px;letter-spacing:-2.5px}.head-actions{gap:22px}
+ .hero{height:487px;padding-top:117px}.hero h1{font-size:36px;margin-bottom:34px}.hero p{font-size:27px}
+ .section-title{font-size:39px;padding:78px 0 62px}
+ .home-cards{padding-left:24px;padding-right:24px;gap:24px}
+ .page-title{font-size:40px}.alphabet{height:123px}
+ .alphabet button{font-size:20px;min-width:29px}
+ .main{padding-left:23px;padding-right:23px}
+ .book-info strong{font-size:31px}.book-info span{font-size:22px}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">Cliffs<span>Notes</span><sup>®</sup></div>
+  <div class="head-actions">
+    <button class="btn icon-search" aria-label="Search" onclick="toggleSearch()"></button>
+    <button class="btn hamb" aria-label="Menu" onclick="openMenu()"><i></i><i></i><i></i></button>
+  </div>
+</header>
+<div id="searchDrop" style="display:none;background:#111;padding:14px 22px">
+  <div class="searchbox"><span class="icon-search"></span><input placeholder="Search CliffsNotes"><button class="btn go">➜</button></div>
+</div>
+<main id="app"></main>
+<div class="overlay" id="overlay" onclick="closeMenu(event)">
+  <div class="home-menu" id="homeMenu" style="display:none">
+    <a class="btn" onclick="go('literature')">Literature Notes</a>
+    <a class="btn" onclick="go('study')">Study Guides</a>
+    <a class="btn" onclick="go('literature')">Documents</a>
+    <a class="btn" onclick="go('study')">Homework Questions</a>
+    <a class="btn" onclick="go('study')">Chat PDF</a>
+    <a class="btn" onclick="go('literature')">Log In</a>
+    <button class="btn" onclick="go('literature')">Sign Up</button>
+  </div>
+  <div class="drawer" id="drawer" style="display:none">
+    <a class="btn" onclick="go('literature')">Literature Notes <span class="arr">›</span></a>
+    <a class="btn" onclick="go('study')">Study Guides <span class="arr">›</span></a>
+    <a class="btn" onclick="go('study')">Documents <span class="arr">›</span></a>
+    <a class="btn" onclick="go('study')">Homework Questions <span class="arr">›</span></a>
+    <a class="btn" onclick="go('literature')">Log in <span class="arr">›</span></a>
+    <button class="btn" onclick="go('literature')">Sign Up</button>
+  </div>
+</div>
+<script>
+const books=[
+ {title:"1984",author:"George Orwell",img:"027.jpg",letter:"A"},
+ {title:"Absalom, Absalom!",author:"William Faulkner",img:"035.jpg",letter:"A"},
+ {title:"The Absolutely True Diary of a Part-Time Indian",author:"Sherman Alexie",img:"036.jpg",letter:"A"},
+ {title:"Adam Bede",author:"George Eliot",img:"037.jpg",letter:"A"},
+ {title:"The Adventures of Huckleberry Finn",author:"Mark Twain",img:"038.jpg",letter:"A"},
+ {title:"The Adventures of Tom Sawyer",author:"Mark Twain",img:"039.jpg",letter:"A"},
+ {title:"The Aeneid",author:"Virgil",img:"041.jpg",letter:"A"},
+ {title:"Daisy Miller",author:"Henry James",letter:"D"},
+ {title:"David Copperfield",author:"Charles Dickens",letter:"D"},
+ {title:"The Day of the Locust",author:"Nathanael West",letter:"D"},
+ {title:"Death and the King's Horseman",author:"Wole Soyinka",letter:"D"},
+ {title:"Fahrenheit 451",author:"Ray Bradbury",letter:"F"},
+ {title:"A Farewell to Arms",author:"Ernest Hemingway",letter:"F"},
+ {title:"Farewell to Manzanar",author:"Jeanne W. Houston and James D. Houston",letter:"F"},
+ {title:"Far from the Madding Crowd",author:"Thomas Hardy",letter:"F"},
+ {title:"Things Fall Apart",author:"Chinua Achebe",letter:"A"},
+ {title:"The Education of Henry Adams",author:"Henry Adams",letter:"A"}
+];
+const studyTitles=["Accounting Principles I","Accounting Principles II","Algebra I","Algebra II","American Government","Anatomy and Physiology","Astronomy","Basic Math & Pre-Algebra","Biochemistry I","Biology"];
+let page="home",letter="A",sort="Title",detail=false;
+function img(name,w,h,alt=""){return `<img src="../../../data/data/40/assets/${name}" width="${w}" height="${h}" alt="${alt}">`}
+function home(){return `<section class="hero"><h1>Explore, Study, Review</h1><p>The original (and the most widely imitated)<br> study guide</p><div class="searchbox"><span class="icon-search"></span><input placeholder="Search CliffsNotes"><button class="btn go" onclick="go('literature')">➜</button></div></section><h2 class="section-title">Literature Notes</h2><section class="home-cards">${books.slice(0,7).map(b=>`<div class="home-card btn" onclick="go('literature')">${img(b.img,250,350,b.title)}<div class="caption">${b.title}<small>${b.author}</small></div></div>`).join("")}</section><div class="help"><span class="qa">Q+A</span><div><strong>AI homework help</strong><small>Explanations instantly</small></div><button class="btn" onclick="this.parentElement.remove()">×</button></div>`}
+function alphabet(){let letters="ABCDEFGHIJKLMNOP".split("").concat(["Q","R","S","T","U","V","W","X","Y","Z"]);return `<div class="alphabet"><button class="btn ${letter==='All'?'active':''}" onclick="setLetter('All')">All</button>${letters.map(x=>`<button class="btn ${letter===x?'active':''} ${'QWXZ'.includes(x)?'dim':''}" onclick="setLetter('${x}')">${x}</button>`).join("")}</div>`}
+function row(b){return `<div class="book-row btn" onclick="go('article')"><div class="book-icon">▣</div><div class="book-info"><strong>${b.title.toUpperCase()}</strong><span>${b.author}</span></div><i class="chev"></i></div>`}
+function literature(){let filtered=books.filter(b=>letter==='All'||b.letter===letter);if(sort==="Author")filtered=filtered.sort((a,b)=>a.author.localeCompare(b.author));return `<div class="stripe"></div><div class="page-title">Literature</div>${alphabet()}<section class="main"><div class="sort-tabs"><button class="btn ${sort==='Title'?'active':''}" onclick="setSort('Title')">Title</button><button class="btn ${sort==='Author'?'active':''}" onclick="setSort('Author')">Author</button></div>${sort==="Author"?groupByAuthor(filtered):filtered.map(row).join("")}</section>`}
+function groupByAuthor(arr){let groups={};arr.forEach(b=>(groups[b.author]??=[]).push(b));return Object.entries(groups).map(([author,items])=>`<div class="author-group">${author.split(" ").slice(0,-1).join(" ")} <span>${author.split(" ").slice(-1)}</span></div>${items.map(row).join("")}`).join("")}
+function study(){return `<div class="stripe"></div><div class="page-title">Study Guides</div><section class="study-list">${studyTitles.map(t=>`<div class="study-row btn" onclick="go('article')"><span>${t}</span><i class="chev"></i></div>`).join("")}</section>`}
+const intro=`Accounting is the language of business. It is the system of recording, summarizing, and analyzing an economic entity's financial transactions. Effectively communicating this information is key to the success of every business. Those who rely on financial information include internal users, such as a company's managers and employees, and external users, such as banks, investors, governmental agencies, financial analysts, and labor unions. These users depend upon data supplied by accountants to answer the following types of questions:`;
+function article(){if(detail)return `<div class="stripe"></div><div class="course-title">Accounting Principles I</div><div class="chapter">Understanding Financial Statements <span class="down"></span></div><section class="article"><h2>Understanding Financial Statements</h2><p>The financial statements shown on the next several pages are for a <b>sole proprietorship</b>, which is a business owned by an individual. Corporate financial statements are slightly different. The four basic financial statements are the income statement, statement of owner's equity, balance sheet, and statement of cash flows. The income statement, statement of owner's equity, and statement of cash flows report activity for a specific period of time, usually a month, quarter, or year. The balance sheet reports balances of certain elements at a specific time. All four statements have a three-line heading in the following format:</p><p style="height:500px"></p><p><b>Income statement.</b> The <b>income statement</b>, which is sometimes called the statement of earnings or statement of operations, is prepared first. It lists revenues and expenses and calculates the company's net income or net loss for a period of time.</p></section>`;return `<div class="stripe"></div><div class="course-title">Accounting Principles I</div><div class="chapter">Introduction to Accounting <span class="down"></span></div><section class="article"><h2>Introduction to Accounting</h2><p>${intro}</p><ul><li>Is the company profitable?</li><li>Is there enough cash to meet payroll needs?</li><li>How much debt does the company have?</li><li>How does the company's net income compare to its budget?</li><li>What is the balance owed by customers?</li><li>Has the company consistently paid cash dividends?</li><li>How much income does each division generate?</li><li>Should the company invest money to expand?</li></ul><p>Accountants must present an organization's financial information in clear, concise reports that help make questions like these easy to answer. The most common accounting reports are called financial statements.</p><div class="pager"><button class="btn"><b>‹</b> PREVIOUS</button><button class="btn" onclick="nextArticle()">NEXT <b>›</b></button></div></section>${footer()}`}
+function footer(){return `<footer><div class="footer-top"><div class="footer-logo">Cliffs<span>Notes</span><sup style="font-size:14px">®</sup></div>CliffsNotes study guides are written by real teachers and professors, so no matter what you're studying, CliffsNotes can ease your homework headaches and help you score high on exams.</div><div class="footer-links">About CliffsNotes　　Advertise with Us　　Contact Us<br>Copyright, Community Guidelines, DSA &amp; other Legal Resources<br>Honor Code<br>Follow us:　●　●　●　●</div><div class="footer-bottom">CliffsNotes, a Learneo, Inc. business　　<a>Terms of Service</a><br><a>Privacy Policy</a>　<a>Do Not Sell My Personal Information</a><br><a>Disclaimer</a>　<a>Questions Sitemap</a>　<a>Document Sitemap</a></div></footer>`}
+function render(){document.getElementById("app").innerHTML=page==="home"?home():page==="literature"?literature():page==="study"?study():article();window.scrollTo(0,0)}
+function go(p){page=p;detail=false;closeMenu();render()}
+function setLetter(l){letter=l;render()}
+function setSort(s){sort=s;render()}
+function nextArticle(){detail=true;render()}
+function openMenu(){let overlay=document.getElementById("overlay");overlay.classList.add("show");document.getElementById("homeMenu").style.display=page==="home"?"block":"none";document.getElementById("drawer").style.display=page==="home"?"none":"block"}
+function closeMenu(e){if(!e||e.target===document.getElementById("overlay"))document.getElementById("overlay").classList.remove("show")}
+function toggleSearch(){let s=document.getElementById("searchDrop");s.style.display=s.style.display==="none"?"block":"none"}
+render();
+</script>
+</body>
+</html>

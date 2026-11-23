@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apple Music Beta</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;color:#222}
+button{font:inherit;border:0;background:none;cursor:pointer}
+.btn{cursor:pointer}
+.app{width:100vw;height:100vh;background:#fff}
+.sidebar{position:absolute;left:0;top:0;bottom:0;width:260px;background:#fafafa;border-right:1px solid #d7d7d7;z-index:3}
+.brand{height:57px;padding:17px 29px;font-size:24px;font-weight:600;letter-spacing:-1.5px;color:#111}
+.brand .apple{font-size:25px;margin-right:2px}
+.beta{font-size:11px;background:#aaa;color:#fff;border-radius:5px;padding:2px 5px;vertical-align:middle;margin-left:5px;letter-spacing:0}
+.search{margin:13px 26px 20px;height:34px;border:1px solid #d3d3d3;background:#fff;border-radius:2px;display:flex;align-items:center;padding:0 9px;color:#777;font-size:14px}
+.search span{color:#c9003b;font-size:19px;margin-right:7px;line-height:0}
+.nav{padding:0 25px}
+.nav-item{height:34px;border-radius:6px;display:flex;align-items:center;padding:0 8px;margin-bottom:2px;font-size:16px;color:#333}
+.nav-item.active{background:#e4e4e4;font-weight:600}
+.nav-icon{width:20px;color:#cf003a;font-size:19px;margin-right:7px;text-align:center}
+.bottom{position:absolute;bottom:0;left:0;right:0;border-top:1px solid #e5e5e5;padding:16px 29px 18px;color:#777;font-size:14px}
+.bottom div{margin:0 0 28px}
+.bottom div:last-child{margin-bottom:4px}
+.content{position:absolute;left:260px;right:0;top:0;bottom:0;background:#ed003d}
+.topbar{height:57px;background:#f8f0f2;border-bottom:1px solid #d5cdd0;display:flex;align-items:center;position:relative;color:#666}
+.transport{margin-left:166px;display:flex;gap:14px;align-items:center;font-size:19px}
+.transport button{color:#666;padding:0;font-size:18px}
+.transport .play-small{font-size:22px}
+.now-playing{position:absolute;left:480px;top:5px;width:652px;height:46px;background:white;border:1px solid #e0dadd;display:flex;align-items:center}
+.now-playing img{width:45px;height:45px;object-fit:cover}
+.track-info{flex:1;text-align:center;line-height:15px;font-size:13px;color:#888}
+.track-info strong{display:block;color:#222;font-weight:600}
+.preview{font-size:11px;color:#fff;background:#bd0034;border-radius:3px;padding:1px 5px;font-weight:bold;margin-right:10px}
+.volume{position:absolute;right:138px;display:flex;align-items:center;gap:8px;color:#777}
+.volume .line{width:42px;height:2px;background:#999;position:relative}
+.volume .line:after{content:"";position:absolute;width:10px;height:10px;border-radius:50%;background:#fff;border:1px solid #aaa;left:28px;top:-4px}
+.menu{position:absolute;right:58px;font-size:19px}
+.account{position:absolute;right:17px;color:#c9003b;font-size:23px}
+.hero{position:absolute;top:57px;left:0;right:0;bottom:0;background:linear-gradient(110deg,#f20a43 0%,#ed003d 55%,#df1444 100%);color:#fff;text-align:center;overflow:hidden}
+.music-logo{font-size:25px;font-weight:500;margin-top:20px;letter-spacing:-1px}
+.hero h1{font-size:63px;line-height:1.15;margin:16px auto 0;font-weight:700;letter-spacing:-2.5px}
+.note{display:block;width:290px;height:360px;object-fit:contain;margin:32px auto 8px;filter:drop-shadow(17px 20px 8px rgba(88,0,20,.35))}
+.description{font-size:18px;line-height:25px;margin-top:-5px}
+.get-started{margin-top:35px;background:#fff;color:#222;border-radius:4px;width:150px;height:39px;font-size:16px;font-weight:600;box-shadow:0 1px 2px #a0002b}
+.student{display:block;color:#ffdbe4;margin-top:23px;font-size:14px}
+.player-overlay{display:none;position:absolute;inset:0;background:linear-gradient(115deg,#86116b,#97005b 55%,#780050);z-index:10;color:#f7d8e9}
+.player-overlay.open{display:block}
+.close{position:absolute;left:18px;top:12px;color:#e8b5d1;font-size:35px;font-weight:200;line-height:25px}
+.player-card{position:absolute;width:600px;left:50%;top:59px;transform:translateX(-50%)}
+.album{width:600px;height:635px;object-fit:cover;border-radius:12px;display:block}
+.player-title{font-size:18px;font-weight:700;margin-top:19px;color:#fff}
+.player-artist{font-size:18px;font-weight:600;color:#e4bcd7;margin-top:3px}
+.round-controls{position:absolute;right:0;top:660px;display:flex;gap:15px}
+.round-controls button{width:31px;height:31px;border-radius:50%;background:rgba(255,255,255,.1);color:#f3d5e9;font-size:18px}
+.progress{margin-top:18px;height:4px;background:#f2d8e7;border-radius:5px;position:relative}
+.progress:before{content:"";position:absolute;left:0;top:0;width:14%;height:100%;background:#fff;border-radius:4px}
+.progress:after{content:"";position:absolute;left:14%;top:-5px;width:12px;height:12px;border-radius:50%;background:#fff}
+.times{display:flex;justify-content:space-between;font-size:12px;margin-top:8px;color:#e6c2d9}
+.controls{height:67px;display:flex;justify-content:center;align-items:center;gap:27px;font-size:23px;color:#fae4f0}
+.controls button{color:#fae4f0}
+.controls .pause{font-size:34px}
+.volume-large{display:flex;align-items:center;gap:8px;margin-top:3px}
+.volume-large .speaker{font-size:13px}
+.volume-large .vline{height:4px;background:#eed9e6;flex:1;border-radius:4px;position:relative}
+.volume-large .vline:after{content:"";position:absolute;left:57%;top:-5px;width:13px;height:13px;border-radius:50%;background:#fff}
+.hidden{display:none!important}
+@media(max-width:1000px){
+.sidebar{width:220px}.content{left:220px}.transport{margin-left:30px}.now-playing{left:250px;width:470px}.hero h1{font-size:48px}.player-card{transform:translateX(-50%) scale(.8);transform-origin:top center;top:45px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><span class="apple"></span>Music <span class="beta">Beta</span></div>
+    <div class="search"><span>⌕</span>Search</div>
+    <nav class="nav">
+      <button class="nav-item active btn"><span class="nav-icon">⌂</span>Home</button>
+      <button class="nav-item btn"><span class="nav-icon">⊞</span>New</button>
+      <button class="nav-item btn"><span class="nav-icon">◉</span>Radio</button>
+    </nav>
+    <div class="bottom">
+      <div>◉ &nbsp;Open in Music ↗</div>
+      <div>Exit Beta ↗</div>
+    </div>
+  </aside>
+
+  <main class="content">
+    <header class="topbar">
+      <div class="transport">
+        <button class="btn">⤨</button>
+        <button class="btn">◀</button>
+        <button class="btn play-top">▶</button>
+        <button class="btn">▶</button>
+        <button class="btn">⤻</button>
+      </div>
+      <button class="now-playing btn" id="miniPlayer">
+        <img src="../../../data/data/2/assets/017.jpg" width="45" height="45" alt="Sacrifice album art">
+        <div class="track-info"><strong>Sacrifice</strong>Mariah the Scientist — HEARTS SOLD SEPARATELY</div>
+        <span class="preview">PREVIEW</span>
+      </button>
+      <div class="volume">◖ <span class="line"></span></div>
+      <button class="menu btn">☷</button>
+      <button class="account btn">◉</button>
+    </header>
+    <section class="hero">
+      <div class="music-logo">Music</div>
+      <h1>Discover new music<br>every day.</h1>
+      <img class="note" src="../../../data/data/2/assets/013.webp" width="290" height="360" alt="Music note">
+      <div class="description">Get playlists and albums inspired by the artists and genres<br>you’re listening to.</div>
+      <button class="get-started btn">Get Started</button>
+      <button class="student btn">See Student Plan ›</button>
+    </section>
+  </main>
+
+  <section class="player-overlay" id="player">
+    <button class="close btn" id="closePlayer">×</button>
+    <div class="player-card">
+      <img class="album" src="../../../data/data/2/assets/017.jpg" width="600" height="635" alt="Sacrifice album art">
+      <div class="player-title">Sacrifice</div>
+      <div class="player-artist">Mariah the Scientist — HEARTS SOLD SEPARATELY</div>
+      <div class="round-controls">
+        <button class="btn">☆</button><button class="btn">•••</button>
+      </div>
+      <div class="progress"></div>
+      <div class="times"><span class="elapsed">0:11</span><span>-1:19</span></div>
+      <div class="controls">
+        <button class="btn">⤨</button>
+        <button class="btn">◀◀</button>
+        <button class="pause btn" id="pauseBtn">Ⅱ</button>
+        <button class="btn">▶▶</button>
+        <button class="btn">⤻</button>
+      </div>
+      <div class="volume-large"><span class="speaker">◖</span><div class="vline"></div></div>
+    </div>
+  </section>
+</div>
+<script>
+const player=document.getElementById('player');
+const mini=document.getElementById('miniPlayer');
+const close=document.getElementById('closePlayer');
+const pause=document.getElementById('pauseBtn');
+const topPlay=document.querySelector('.play-top');
+let playing=false;
+mini.addEventListener('click',()=>player.classList.add('open'));
+close.addEventListener('click',()=>player.classList.remove('open'));
+function togglePlay(){
+ playing=!playing;
+ pause.textContent=playing?'Ⅱ':'▶';
+ topPlay.textContent=playing?'Ⅱ':'▶';
+}
+pause.addEventListener('click',togglePlay);
+topPlay.addEventListener('click',togglePlay);
+document.querySelector('.get-started').addEventListener('click',()=>{});
+document.querySelectorAll('.nav-item').forEach(item=>{
+ item.addEventListener('click',()=>{
+  document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));
+  item.classList.add('active');
+ });
+});
+</script>
+</body>
+</html>

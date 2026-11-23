@@ -1,0 +1,67 @@
+{
+  "total_step": 3,
+  "success_step": 2,
+  "screenshot_paths_to_eval": [
+    "outputs/41/gpt-6-luna_setting0/evalpoints/0.png",
+    "outputs/41/gpt-6-luna_setting0/evalpoints/1.png",
+    "outputs/41/gpt-6-luna_setting0/evalpoints/2.png"
+  ],
+  "all_mllm_scores": [
+    0.77,
+    0.63,
+    0.19
+  ],
+  "all_dino_scores": [
+    0.9091796875,
+    0.86328125,
+    0.36083984375
+  ],
+  "all_ocr_scores": [
+    0.7070063694267517,
+    0.26776649746192893,
+    0.27194399569197636
+  ],
+  "all_avg_scores": [
+    0.7953953523089172,
+    0.5870159158206429,
+    0.2742612798139921
+  ],
+  "mllm_score": 0.53,
+  "dino_score": 0.7111002604166666,
+  "ocr_score": 0.41557228752688563,
+  "avg_score": 0.5522241826478508,
+  "all_mllm_res": [
+    "---\nComments:\n-Layout (8/10): The overall three-column Reddit layout is close, with matching left navigation, center feed, and right communities panel. The generated page’s main feed and sidebar sit slightly lower and the post content is wider/taller than in the reference.\n-Elements (11/15): Most major components are present, including the topic cards, navigation controls, post actions, and community list. The header is missing the reference’s “Get App” control, and some icons and community avatars differ.\n-Content and Text (31/40): The feed headline and most navigation and community labels are reproduced accurately. The post video shows a similar scene, but its frame and on-screen captions differ; some topic-card text is truncated or mismatched.\n-Style (12/15): The page closely matches Reddit’s white background, red branding, rounded cards, and restrained typography. Some spacing, font weight, and icon treatments differ from the reference.\n-Overall (15/20): A convincing recreation with the main structure and content in place, though there are noticeable differences in post media, sizing, and a few header and card details.\n\nScore: 77/100\n---",
+    "---\nComments:\n-Layout (10 points): Both pages use Reddit’s three-column layout with a fixed left navigation rail, central post, and right-side content. The generated page adds a large trending carousel above the post and places the post lower on the page, unlike the reference’s direct post-detail layout. 6/10\n-Elements (15 points): The Reddit header and navigation, post title, video, engagement controls, and right-side panel are present. However, the reference’s sign-up card and list of related posts are replaced by popular communities, and the generated page adds carousel cards and a Join button. 9/15\n-Content and Text (40 points): The central post headline and video content closely match the reference, as do many sidebar labels. The reference shows the post in detail view, including the Trump News tag, author details, and promoted ad below; these are absent. The right-side content also differs substantially. 25/40\n-Style (15 points): The generated page captures Reddit’s white background, typography, branding, rounded cards, and general color palette. It differs in spacing and content density, and the carousel makes the page feel unlike the reference. 11/15\n-Overall (20 points): Strong match on the shared Reddit interface and featured post, but the differing page type and prominent carousel/sidebar content reduce the overall similarity. 12/20\n\nScore: 63/100\n---",
+    "Comments:\n- **Layout (3/10):** The Reddit header and left sidebar are similar, but the reference shows a comments page with a central comment thread and a right-hand list of related posts. The generated page instead has a story carousel, a main feed post, and a popular-communities panel.\n- **Elements (4/15):** The logo, search bar, login button, and navigation are present. The comment composer, threaded comments, voting and reply controls, and related-post cards from the reference are missing.\n- **Content and Text (2/40):** The generated page shows a different post and unrelated feed content; it does not reproduce the reference’s comments or related-post headlines.\n- **Style (7/15):** Both use Reddit’s familiar white interface and orange branding, but the generated page has larger, bolder feed cards and prominent imagery absent from the reference.\n- **Overall (3/20):** Some shared Reddit branding and navigation, but the page type, content, and central layout differ substantially.\n\n**Score: 19/100**"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "reddit Search Reddit 83 Get App Popular Answers   BETA Clarke loses libel case Beasley cleared, free to sign Weapons hits $10OM est MGS Delta reviews s topics Noel Clarke has lost his libel case again . Malik Beasley has been cleared of any Warner Bros '$ original horror film Wea Metal Gear Solid Delta: Snall Hunitedkingdom morc TNYPOSTauto and more rboxoffice and more rlpcgaming and more Internet Culture (Viral) Best Everyihere POPULAR COMMUNITIES Games #/law 15 hr 4g0 Join r/explainlikeimfive QUAs Trump threatens to deploy the U.S. military into Chicago signaling the start of a 23,272,108 members nationwide crackdown: Technology TMAmA 22,441,949 members Pop Culture CIvE K S rclassicwow Movies & TV 687,I00 Memders See more r/Instagram 988 137 Memders RESOURCES r/NintendoSivitch 7,880,362 members About Reddit See more Advertise Reddit Pro BETA BREAKINGNEWS DOWWAICH Help Ikox| TRUMP: HAVE TOTAL SAFETY , SECURITY IN DC 45,697.44 NEWSI Ewc JCDT 0.26/0.47 94 Careers 60k 0 12K Share Press Log Home mila 0 Blog",
+      "screenshot_text": "reddit Search Reddit Home Popular Answers BETA deinom Clarke loses libel case Clarke loses libel case Beasley cleared, free to sign Weapons hits S1OOM milestone MGS Delta review scd TOPICS agamn Noel Clarke has lost his libel case again __ Malik Beasley has been cleared of any _ Warner Bros: original horror film:_ Metal Gear Solid Delta: Snake Internet Culture rlunitedkingdom and more TINYPOSTauto and more rlboxoilice and more ripcgaming and more (Viral) Games Best ~ Everywhere POPULAR COMMUNITIES O&As rllaw 15 hr ago Join rlexplainlikeimfive Technology Trump threatens to deploy the U.S. military into Chicago signaling the start 23,272,108 members of a nationwide crackdown: TIIAMA Pop Culture 22,441,949 members LE Movies & TV riclassicwow 687,.100 members See more rlinstagram 988,137 members RESOURCES rINintendoSwitch 7,880,362 members About Reddit See more Advertise Reddit Pro BETA Help BREAKINGNEWS DOWWAIcH Fox| TRUMP: WorLD Cup WILL drive S30b For U.S, EConoMy 45,700.45 NEWS] KITtt Oc 804795 0.26 Careers Press 60K 012K 0 Share Log ! TRUMP [ WaS LuchT_ ABOUT NERY } TTHING COF Blog",
+      "similarity": 0.7070063694267517
+    },
+    {
+      "checkpoint_text": "reddit r/law Search in r/law Log In Home rflaw 15 hr: ag0 New to Reddit? Breakfast Top6899 Top 1% Commenter Create your account and connect wath world of Popular Trump threatens to deploy the U.S. military into Chicago communites Answers   BETA signaling the start of a nationwide crackdown: Continue with Google Trump News Continue with Email topics LIvE Internet Culture Continue With Phone Number (Viral) By continuing you agree t0 our User Agreement and Games acknowledge that you understand the Privacy Policy: QUAs fNaw 11days ag0 Technology President Trump is now open t0 Pop Culture deploying US Military in cities lik _ S51K upvotes 7,6k comments Movies & TV See more BREAKINGNEWS F/Ask Reddit mo: ag0 DOWWAICH Kox| TRUMP: WorLd Cup WILl drive S30b For U,S, ECOnOMy 45,700.45 Trump has already started making enemies out NEWS of major American allies: How do you see the: RESOURCES NEWC CdT 0.00 / 0.47 36K upvotes 9 AK comments About Reddit T/AskReddit mo ag0 60k 0 12K Share Advertise Donald Trump is coming to the end of his first 100 days in office; how do you think he has__. Reddit Pro   BETA figure Promoted 22K upvotes I7K comments Help Get up to S750K with Figure' 100% online Equity Line of Credit: Fast funding; easy process no need t0 leave homel One of the easiest T/AskCanada mo: 2g0 loans nave ever received: Let it be clear If you are Conservative and you Learn More figurecom 40o78 onlino support Trump right now: you are traitor Kttuanttruttteati Careers 87K upvotes 9,2K comments Wdeanan FIGURE Press ~TRUMP WaS AbOUT TNCHT RY TTHING 'OF\" Home Blog",
+      "screenshot_text": "reddit Search Reddit Home Popular Answers BETA deinom Clarke loses libel case Clarke loses libel case Beasley cleared, free to sign Weapons hits S1OOM milestone MGS Delta review scd TOPICS agamn Noel Clarke has lost his libel case again __ Malik Beasley has been cleared of any _ Warner Bros: original horror film:_ Metal Gear Solid Delta: Snake Internet Culture rlunitedkingdom and more TINYPOSTauto and more rlboxoilice and more ripcgaming and more (Viral) Games Best ~ Everywhere POPULAR COMMUNITIES O&As rllaw 15 hr ago Join rlexplainlikeimfive Technology Trump threatens to deploy the U.S. military into Chicago signaling the start 23,272,108 members of a nationwide crackdown: TIIAMA Pop Culture 22,441,949 members LE Movies & TV riclassicwow 687,.100 members See more rlinstagram 988,137 members RESOURCES rINintendoSwitch 7,880,362 members About Reddit See more Advertise Reddit Pro BETA Help BREAKINGNEWS DOWWAIcH Fox| TRUMP: WorLD Cup WILL drive S30b For U.S, EConoMy 45,700.45 NEWS] KITtt Oc 804795 0.26 Careers Press 60K 012K 0 Share Log ! TRUMP [ WaS LuchT_ ABOUT NERY } TTHING COF Blog",
+      "similarity": 0.26776649746192893
+    },
+    {
+      "checkpoint_text": "reddit r/law Search in r/law Waen FIgURe Home c politics 10 mo ag0 Join the conversation America will regret its decision to Popular reelect Donald Trump Answers   BETA Sort by: Best Search Comments 48K upvotes 18k comments T/Ask Reddit mo ag0 topics AutoModerator MOD TSh 8g0 Stickied conment US active and reserve duty membets; Internet Culture how are you feeling? What s the consensus: BitterFuture ISh ag0 (Viral) Top 1%2 Commenter 19K upvotes 8 5K comments It\"s not coincidence that he is wearing hat proclaiming that he's the most brilliant man t0 have ever lived Games while declaring he' $ going to ignore laws and order our military to attack our own citizens: e/Globalnews mo ag0 Q&As 8k Reply Award Share Trump orders National Guard t0 LA riots after immigration raids Scarbane ISh ag0 Technology 64K upvotes 6 3K comments The emperor has no brain: Pop Culture 0 2.8k Reply Award Share 6/Genz 6 mo ag0 Movies & TV 253 more replies Trump voters on here; where do you draw the line? See more RetroCasket TSh ag0 16K upvotes 15k commenis Sincerely: that hat is beyond the idiotic: And the fact that it doesnt sound any alarms Or make more than half the country say this man is an idiot is mind blowing to me F/AskReddit Zmo ag0 RESOURCES Ijust never saw this country reaching this point remember when the smallest thing would disqualify do you feel about 700 Marines being About Reddit someone from respected office of presidency; deployed to LA? Z0k upvotes T1k comments Advertise Just feels like dream Reddit Pro BETA 729 Reply Award Share #/AskCanada mo: 2g0 238 more replies Would you fight the US.if it came Help to it? BlackMesaRyan I5h ag0 17K upvotes 99K comments hat is s0 pathetic and cringe Careers 4 22k Reply Award Share rlmilalyinfunating 6 mo 290 Press 306 more replies Detroit was flooded and it froze Log military pale How Blog The",
+      "screenshot_text": "reddit Search Reddit Home Popular Answers BETA deinom Clarke loses libel case Clarke loses libel case Beasley cleared, free to sign Weapons hits S1OOM milestone MGS Delta review scd agamn TOPICS Noel Clarke has lost his libel case again __ Malik Beasley has been cleared of any: _ Warner Bros: original horror film__ Metal Gear Solid Delta: Snake rlunitedkingdom and more TINYPOSTauto and more rlboxoilice and more ripcgaming and more Internet Culture (Viral) Games Best ~ Everywhere POPULAR COMMUNITIES O&As rllaw 15 hr ago Join rlexplainlikeimfive Trump threatens to deploy the U.S. military into Chicago signaling the start 23,272,108 members Technology of a nationwide crackdown: TIIAMA 22,441,949 members Pop Culture LIVE riclassicwow Movies & TV 687,.100 members See more rlinstagram 988,137 members RESOURCES rINintendoSwitch 7,880,362 members About Reddit See more Advertise Reddit Pro BETA Help BREAKING NEWS DOWAIcH Fox| TRUMP: WorLD Cup WILL drive S30b For U.S, EConoMy 45,700.45 NEWS] ED 804795 0.26 Careers Press 60K 12K 0 Share Log ! TrUMP WaS ABOUT NGHT ERY TTHING COF Blog",
+      "similarity": 0.27194399569197636
+    }
+  ],
+  "assertion_results": [
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/41/gpt-6-luna_setting0/evalpoints/0.png",
+      "curr_img_path": "outputs/41/gpt-6-luna_setting0/evalpoints/1.png",
+      "response": "{\"think\":\"The video player shows a pause icon and a progress timestamp of 0:26 / 0:47, indicating playback is underway. The two screenshots appear unchanged, but the visible player controls show the video is playing.\",\"result\":\"Yes\"}",
+      "assertion": "A video is playing.",
+      "thinking": "The video player shows a pause icon and a progress timestamp of 0:26 / 0:47, indicating playback is underway. The two screenshots appear unchanged, but the visible player controls show the video is playing."
+    },
+    null,
+    null
+  ]
+}

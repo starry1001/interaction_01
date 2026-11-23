@@ -1,0 +1,111 @@
+{
+  "id": "chatcmpl-EmM60nGdBCeNQHCVam4YineNc8PG7",
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "logprobs": null,
+      "message": {
+        "content": "```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<title>eBay – Deals for you</title>\n<style>\n  * { box-sizing: border-box; }\n  html, body { margin: 0; min-height: 100%; font-family: Arial, Helvetica, sans-serif; color: #191919; }\n  body { background: #fff; overflow-x: hidden; }\n  button, a { font: inherit; color: inherit; }\n  .btn { cursor: pointer; }\n  .page-width { width: 1500px; max-width: calc(100% - 48px); margin: 0 auto; }\n  header { height: 180px; border-bottom: 1px solid #ddd; background: #fff; }\n  .topline { height: 32px; border-bottom: 1px solid #e5e5e5; font-size: 14px; }\n  .topline .page-width { height: 100%; display: flex; justify-content: space-between; align-items: center; }\n  .toplinks, .rightlinks { display: flex; align-items: center; gap: 38px; }\n  .topline a, .nav a { text-decoration: none; white-space: nowrap; }\n  .search-row { height: 86px; display: flex; align-items: center; gap: 20px; }\n  .logo { width: 115px; flex: 0 0 115px; font-size: 51px; line-height: 1; letter-spacing: -5px; font-weight: 500; text-decoration: none; }\n  .logo span:nth-child(1) { color: #e53238; }\n  .logo span:nth-child(2) { color: #0064d2; }\n  .logo span:nth-child(3) { color: #f5af02; }\n  .logo span:nth-child(4) { color: #86b817; }\n  .shop-category { width: 70px; font-size: 14px; line-height: 15px; color: #555; text-decoration: none; }\n  .searchbox { height: 48px; display: flex; align-items: center; flex: 1; border: 2px solid #333; border-radius: 28px; overflow: hidden; }\n  .search-icon { padding: 0 16px; font-size: 20px; color: #555; }\n  .searchbox input { border: 0; outline: 0; font-size: 17px; flex: 1; min-width: 50px; }\n  .category { height: 100%; min-width: 165px; display: flex; align-items: center; justify-content: center; border-left: 1px solid #ddd; color: #555; font-size: 14px; }\n  .search-button { height: 48px; width: 170px; border: 0; border-radius: 28px; background: #3669e8; color: #fff; font-size: 16px; font-weight: bold; }\n  .advanced { text-decoration: none; font-size: 13px; color: #555; margin-left: -12px; }\n  .nav { height: 61px; display: flex; align-items: center; gap: 28px; overflow: hidden; font-size: 14px; }\n  main { padding-top: 0; }\n  .hero { height: 377px; border-radius: 16px; overflow: hidden; position: relative; background: #f9b914; margin-top: 0; }\n  .hero-slide { position: absolute; inset: 0; display: none; }\n  .hero-slide.active { display: block; }\n  .hero.split { background: #f7b90d; color: #583500; }\n  .hero-copy { position: absolute; z-index: 2; left: 95px; top: 84px; width: 650px; }\n  .hero-copy h1 { margin: 0 0 10px; font-size: 38px; line-height: 1.13; letter-spacing: -.5px; }\n  .hero-copy p { margin: 0 0 26px; font-size: 18px; }\n  .pill { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 21px; border-radius: 26px; background: #fff; font-weight: bold; text-decoration: none; font-size: 17px; }\n  .split .pill { color: #fff; background: #684000; }\n  .hero-photo { position: absolute; right: 68px; top: 36px; width: 610px; height: 290px; object-fit: cover; border-radius: 15px; }\n  .hero .full-photo { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }\n  .hero .darken:after { content:\"\"; position:absolute; inset:0; background:linear-gradient(90deg,rgba(0,0,0,.48),rgba(0,0,0,.03) 78%); }\n  .hero .over-photo { color: white; left: 95px; top: 92px; width: 710px; }\n  .hero .over-photo h1 { font-size: 38px; }\n  .hero .over-photo p { font-size: 18px; }\n  .hero .over-photo .pill { color: #111; }\n  .hero-controls { position: absolute; z-index: 5; right: 34px; bottom: 16px; display: flex; gap: 9px; }\n  .round-control { border: 0; background: rgba(255,255,255,.94); border-radius: 50%; width: 36px; height: 36px; display: grid; place-items: center; font-size: 22px; line-height: 1; }\n  .dots { position: absolute; z-index: 5; bottom: 17px; left: 50%; display: flex; gap: 7px; }\n  .dot { width: 8px; height: 8px; padding: 0; border: 1px solid #694b00; border-radius: 50%; background: transparent; }\n  .dot.selected { background: #654300; }\n  .hero-photo-slide { position:absolute; inset:0; }\n  .hero-photo-slide img { width:100%; height:100%; object-fit:cover; }\n  .hero-photo-slide .hero-copy { color:#fff; left:95px; top:90px; }\n  .hero-photo-slide .pill { color:#111; }\n  .section-title { display: flex; align-items: center; justify-content: space-between; margin: 42px 0 25px; }\n  .section-title h2 { margin: 0; font-size: 23px; line-height: 1.2; }\n  .see-all { font-size: 14px; }\n  .deal-window { position: relative; overflow: hidden; }\n  .deal-row { display: flex; gap: 16px; width: max-content; transition: transform .35s ease; }\n  .deal-card { flex: 0 0 264px; width: 264px; }\n  .deal-image { height: 276px; width: 264px; border-radius: 17px; overflow: hidden; background: #f4f4f4; position: relative; }\n  .deal-image img { width: 100%; height: 100%; display: block; object-fit: cover; }\n  .heart { position: absolute; right: 9px; top: 9px; background: #fff; border: 0; border-radius: 50%; width: 34px; height: 34px; font-size: 23px; line-height: 1; }\n  .discount { display: inline-block; border: 1px solid #d83346; border-radius: 12px; padding: 2px 8px; color: #bc2434; font-size: 12px; font-weight: bold; margin-top: 8px; }\n  .deal-name { height: 45px; margin: 7px 0 4px; font-size: 15px; line-height: 19px; overflow: hidden; }\n  .price { font-weight: bold; font-size: 16px; }\n  .old-price { color: #777; font-size: 12px; text-decoration: line-through; margin-left: 5px; }\n  .edge-button { position: absolute; z-index: 3; top: 40%; background: #fff; border: 1px solid #ddd; border-radius: 50%; width: 38px; height: 38px; font-size: 24px; box-shadow: 0 1px 4px #aaa; }\n  .edge-button.left { left: -18px; }\n  .edge-button.right { right: -18px; }\n  .fake-scroll { height: 7px; background: #aaa; width: 50%; border-radius: 8px; margin-top: 16px; }\n  .live-section { margin-top: 48px; }\n  .live-section .section-title { margin-bottom: 25px; }\n  .live-sub { color: #777; font-size: 16px; margin-top: 3px; }\n  .live-row { display: flex; gap: 16px; overflow: hidden; }\n  .live-card { flex: 0 0 250px; height: 330px; border-radius: 18px; overflow: hidden; position: relative; background: #f4f4f4; }\n  .live-card img { width: 100%; height: 100%; object-fit: cover; }\n  .watchers { position: absolute; top: 9px; right: 8px; background: #e60000; color: #fff; border-radius: 20px; padding: 8px 13px; font-size: 14px; font-weight: bold; }\n  .more-section { margin-top: 60px; min-height: 600px; }\n  .help { position: fixed; right: 38px; bottom: 36px; width: 42px; height: 42px; border: 1px solid #ddd; border-radius: 50%; background: white; font-size: 23px; box-shadow: 0 1px 4px #ddd; }\n  .bottom-bar { position: fixed; z-index: 20; left: 0; right: 0; bottom: 0; height: 11px; background: #eee; border-top: 1px solid #bbb; }\n  .bottom-bar:before { content:\"\"; position:absolute; left:18px; right:20px; top:2px; height:7px; background:#999; border-radius:6px; }\n  @media (max-width: 900px) {\n    .page-width { max-width: calc(100% - 24px); }\n    header { height: auto; }\n    .topline, .nav { display:none; }\n    .search-row { height:80px; gap:8px; }\n    .logo { width:80px; flex-basis:80px; font-size:39px; }\n    .shop-category, .advanced, .category { display:none; }\n    .search-button { width:90px; }\n    .hero { height:290px; }\n    .hero-copy, .hero-photo-slide .hero-copy { left:24px; top:35px; width:55%; }\n    .hero-copy h1 { font-size:25px; }\n    .hero-copy p { font-size:14px; }\n    .hero-photo { right:15px; width:43%; height:220px; top:35px; }\n    .deal-card { flex-basis:190px; width:190px; }\n    .deal-image { width:190px; height:200px; }\n  }\n</style>\n</head>\n<body>\n<header>\n  <div class=\"topline\">\n    <div class=\"page-width\">\n      <div class=\"toplinks\">\n        <a class=\"btn\" href=\"#\">Hi Zhao!⌄</a><a class=\"btn\" href=\"#\">Daily Deals</a><a class=\"btn\" href=\"#\">Brand Outlet</a><a class=\"btn\" href=\"#\">Gift Cards</a><a class=\"btn\" href=\"#\">Help &amp; Contact</a>\n      </div>\n      <div class=\"rightlinks\">\n        <a class=\"btn\" href=\"#\">Sell</a><a class=\"btn\" href=\"#\">Watchlist⌄</a><a class=\"btn\" href=\"#\">My eBay⌄</a><a class=\"btn\" href=\"#\" aria-label=\"Notifications\">♧</a><a class=\"btn\" href=\"#\" aria-label=\"Cart\">🛒</a>\n      </div>\n    </div>\n  </div>\n  <div class=\"page-width search-row\">\n    <a class=\"logo btn\" href=\"#\" aria-label=\"eBay\"><span>e</span><span>b</span><span>a</span><span>y</span></a>\n    <a class=\"shop-category btn\" href=\"#\">Shop by<br>category⌄</a>\n    <div class=\"searchbox\"><span class=\"search-icon\">⌕</span><input aria-label=\"Search\" placeholder=\"Search for anything\"><div class=\"category\">All Categories　⌄</div></div>\n    <button class=\"search-button btn\">Search</button>\n    <a class=\"advanced btn\" href=\"#\">Advanced</a>\n  </div>\n  <nav class=\"page-width nav\">\n    <a class=\"btn\" href=\"#\">eBay Live</a><a class=\"btn\" href=\"#\">Saved</a><a class=\"btn\" href=\"#\">Motors</a><a class=\"btn\" href=\"#\">Electronics</a><a class=\"btn\" href=\"#\">Collectibles</a><a class=\"btn\" href=\"#\">Home &amp; Garden</a><a class=\"btn\" href=\"#\">Clothing, Shoes &amp; Accessories</a><a class=\"btn\" href=\"#\">Toys</a><a class=\"btn\" href=\"#\">Sporting Goods</a><a class=\"btn\" href=\"#\">Business &amp; Industrial</a><a class=\"btn\" href=\"#\">Jewelry &amp; Watches</a><a class=\"btn\" href=\"#\">Refurbished</a>\n  </nav>\n</header>\n\n<main class=\"page-width\">\n  <section class=\"hero split\" id=\"hero\">\n    <div class=\"hero-slide active\" data-slide=\"0\">\n      <div class=\"hero-copy\">\n        <h1>Style your alter ego this fall</h1>\n        <p>Bring them out with vintage curated by Emma Chamberlain.</p>\n        <a class=\"pill btn\" href=\"#\">Shop her collection</a>\n      </div>\n      <img class=\"hero-photo\" src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/005.webp\" width=\"610\" height=\"290\" alt=\"Fashion collection\">\n    </div>\n    <div class=\"hero-slide hero-photo-slide darken\" data-slide=\"1\">\n      <img class=\"full-photo\" src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/002.webp\" width=\"1500\" height=\"377\" alt=\"Automotive tools and accessories\">\n      <div class=\"hero-copy over-photo\">\n        <h1>Huge selection. Free returns.</h1>\n        <p>Refunds on select parts and accessories are now fast and easy.</p>\n        <a class=\"pill btn\" href=\"#\">Shop now</a>\n      </div>\n    </div>\n    <div class=\"hero-slide hero-photo-slide darken\" data-slide=\"2\">\n      <img class=\"full-photo\" src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/003.webp\" width=\"1500\" height=\"377\" alt=\"Streetwear collection\">\n      <div class=\"hero-copy over-photo\">\n        <h1>Legit 'fits that are legit fresh</h1>\n        <p>Get streetwear verified by experts with Authenticity Guarantee.</p>\n        <a class=\"pill btn\" href=\"#\">Shop streetwear</a>\n      </div>\n    </div>\n    <div class=\"hero-slide split\" data-slide=\"3\">\n      <div class=\"hero-copy\">\n        <h1>Trending this fall</h1>\n        <p>eBay Watchlist is here. Find must-haves, styled by Brie Welch.</p>\n        <a class=\"pill btn\" href=\"#\">Shop the looks</a>\n      </div>\n      <img class=\"hero-photo\" src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/001.webp\" width=\"610\" height=\"290\" alt=\"Fall fashion trends\">\n    </div>\n    <div class=\"dots\" aria-label=\"Choose banner\">\n      <button class=\"dot btn selected\" aria-label=\"Slide 1\"></button><button class=\"dot btn\" aria-label=\"Slide 2\"></button><button class=\"dot btn\" aria-label=\"Slide 3\"></button><button class=\"dot btn\" aria-label=\"Slide 4\"></button>\n    </div>\n    <div class=\"hero-controls\">\n      <button class=\"round-control btn\" id=\"heroPrev\" aria-label=\"Previous banner\">‹</button>\n      <button class=\"round-control btn\" id=\"heroNext\" aria-label=\"Next banner\">›</button>\n      <button class=\"round-control btn\" id=\"heroPause\" aria-label=\"Pause\">Ⅱ</button>\n    </div>\n  </section>\n\n  <section>\n    <div class=\"section-title\"><h2>Deals for you</h2><a class=\"see-all btn\" href=\"#\">See all</a></div>\n    <div class=\"deal-window\">\n      <button class=\"edge-button left btn\" id=\"dealPrev\" aria-label=\"Previous deals\">‹</button>\n      <div class=\"deal-row\" id=\"dealRow\">\n        <article class=\"deal-card\">\n          <div class=\"deal-image\"><img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/009.webp\" width=\"264\" height=\"276\" alt=\"Air Jordan sneaker\"><button class=\"heart btn\" aria-label=\"Save item\">♡</button></div>\n          <span class=\"discount\">10% OFF</span><p class=\"deal-name\">Size 12.5 - Awake NY x Jordan Air Ship PE SP University Red</p><div class=\"price\">$81.00<span class=\"old-price\">$90.00</span></div>\n        </article>\n        <article class=\"deal-card\">\n          <div class=\"deal-image\"><img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/010.webp\" width=\"264\" height=\"276\" alt=\"Jordan Air Ship sneaker\"><button class=\"heart btn\" aria-label=\"Save item\">♡</button></div>\n          <span class=\"discount\">10% OFF</span><p class=\"deal-name\">Jordan Air Ship x Awake NY \"Game Royal\" FN8675-104 Size 9</p><div class=\"price\">$143.99<span class=\"old-price\">$159.99</span></div>\n        </article>\n        <article class=\"deal-card\">\n          <div class=\"deal-image\"><img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/011.webp\" width=\"264\" height=\"276\" alt=\"Sliding compound miter saw\"><button class=\"heart btn\" aria-label=\"Save item\">♡</button></div>\n          <span class=\"discount\">45% OFF</span><p class=\"deal-name\">12-Inch Sliding Compound Miter Saw - 15 Amp Double Bevel with Extension...</p><div class=\"price\">$219.99<span class=\"old-price\">$399.99</span></div>\n        </article>\n        <article class=\"deal-card\">\n          <div class=\"deal-image\"><img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/012.webp\" width=\"264\" height=\"276\" alt=\"Air Jordan sneakers\"><button class=\"heart btn\" aria-label=\"Save item\">♡</button></div>\n          <span class=\"discount\">15% OFF</span><p class=\"deal-name\">Nike Jordan Awake NY Air Ship PE SP University Red Sz 8 M SNKRS IN HAND</p><div class=\"price\">$212.49<span class=\"old-price\">$249.99</span></div>\n        </article>\n        <article class=\"deal-card\">\n          <div class=\"deal-image\"><img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/013.webp\" width=\"264\" height=\"276\" alt=\"White and red sneakers\"><button class=\"heart btn\" aria-label=\"Save item\">♡</button></div>\n          <span class=\"discount\">12% OFF</span><p class=\"deal-name\">Nike Jordan Air Ship PE SP Awake NY (Size 10.5) Brand New/OG Box</p><div class=\"price\">$96.76<span class=\"old-price\">$109.95</span></div>\n        </article>\n        <article class=\"deal-card\">\n          <div class=\"deal-image\"><img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/014.webp\" width=\"264\" height=\"276\" alt=\"Miter saw\"><button class=\"heart btn\" aria-label=\"Save item\">♡</button></div>\n          <span class=\"discount\">10% OFF</span><p class=\"deal-name\">Sliding Compound Miter Saw with Laser Guide</p><div class=\"price\">$197.97<span class=\"old-price\">$219.99</span></div>\n        </article>\n        <article class=\"deal-card\">\n          <div class=\"deal-image\"><img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/015.webp\" width=\"264\" height=\"276\" alt=\"Compound miter saw\"><button class=\"heart btn\" aria-label=\"Save item\">♡</button></div>\n          <span class=\"discount\">20% OFF</span><p class=\"deal-name\">Dual bevel sliding compound miter saw</p><div class=\"price\">$189.99</div>\n        </article>\n      </div>\n      <button class=\"edge-button right btn\" id=\"dealNext\" aria-label=\"Next deals\">›</button>\n    </div>\n    <div class=\"fake-scroll\"></div>\n  </section>\n\n  <section class=\"live-section\">\n    <div class=\"section-title\">\n      <div><h2>eBay Live</h2><div class=\"live-sub\">Tune in and shop curated experiences</div></div>\n      <a class=\"see-all btn\" href=\"#\">See all</a>\n    </div>\n    <div class=\"live-row\">\n      <div class=\"live-card\"><img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/044.png\" width=\"250\" height=\"330\" alt=\"Coin and jewelry live\"><span class=\"watchers\">⌒ 2415</span></div>\n      <div class=\"live-card\"><img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/047.png\" width=\"250\" height=\"330\" alt=\"Football collectibles live\"><span class=\"watchers\">⌒ 1386</span></div>\n      <div class=\"live-card\"><img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/049.png\" width=\"250\" height=\"330\" alt=\"Lucky Vault live\"><span class=\"watchers\">⌒ 796</span></div>\n      <div class=\"live-card\"><img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/051.png\" width=\"250\" height=\"330\" alt=\"Luxury handbag auction\"><span class=\"watchers\">⌒ 1821</span></div>\n      <div class=\"live-card\"><img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/053.png\" width=\"250\" height=\"330\" alt=\"Sports cards live\"><span class=\"watchers\">⌒ 692</span></div>\n      <div class=\"live-card\"><img src=\"__PLACEHOLDER_ASSETS_BASE_DIR__/055.png\" width=\"250\" height=\"330\" alt=\"Pokemon collectibles live\"><span class=\"watchers\">⌒ 1240</span></div>\n    </div>\n  </section>\n  <section class=\"more-section\"></section>\n</main>\n<button class=\"help btn\" aria-label=\"Help\">?</button>\n<div class=\"bottom-bar\"></div>\n\n<script>\n  const slides = [...document.querySelectorAll('.hero-slide')];\n  const dots = [...document.querySelectorAll('.dot')];\n  let current = 0;\n  function showSlide(index) {\n    current = (index + slides.length) % slides.length;\n    slides.forEach((slide, i) => slide.classList.toggle('active', i === current));\n    dots.forEach((dot, i) => dot.classList.toggle('selected', i === current));\n  }\n  document.getElementById('heroNext').addEventListener('click', () => showSlide(current + 1));\n  document.getElementById('heroPrev').addEventListener('click', () => showSlide(current - 1));\n  dots.forEach((dot, i) => dot.addEventListener('click', () => showSlide(i)));\n\n  const row = document.getElementById('dealRow');\n  let offset = 0;\n  document.getElementById('dealNext').addEventListener('click', () => {\n    offset = Math.min(offset + 280, row.scrollWidth - row.parentElement.clientWidth);\n    row.style.transform = `translateX(-${offset}px)`;\n  });\n  document.getElementById('dealPrev').addEventListener('click', () => {\n    offset = Math.max(0, offset - 280);\n    row.style.transform = `translateX(-${offset}px)`;\n  });\n  document.querySelectorAll('.heart').forEach(button => button.addEventListener('click', () => {\n    button.textContent = button.textContent === '♡' ? '♥' : '♡';\n  }));\n  document.getElementById('heroPause').addEventListener('click', function () {\n    this.textContent = this.textContent === 'Ⅱ' ? '▶' : 'Ⅱ';\n  });\n</script>\n</body>\n</html>\n```",
+        "refusal": null,
+        "role": "assistant",
+        "annotations": [],
+        "audio": null,
+        "function_call": null,
+        "tool_calls": null
+      },
+      "content_filter_results": {
+        "hate": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "protected_material_code": {
+          "detected": false,
+          "filtered": false
+        },
+        "protected_material_text": {
+          "detected": false,
+          "filtered": false
+        },
+        "self_harm": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "sexual": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "violence": {
+          "filtered": false,
+          "severity": "safe"
+        }
+      }
+    }
+  ],
+  "created": 1795193388,
+  "model": "gpt-6-luna-2026-09-22",
+  "object": "chat.completion",
+  "metadata": null,
+  "moderation": null,
+  "service_tier": "default",
+  "system_fingerprint": null,
+  "usage": {
+    "completion_tokens": 6778,
+    "prompt_tokens": 17379,
+    "total_tokens": 24157,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": 0,
+      "audio_tokens": 0,
+      "reasoning_tokens": 1024,
+      "rejected_prediction_tokens": 0,
+      "text_tokens": null
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cache_write_tokens": null,
+      "cached_tokens": 0,
+      "image_tokens": null,
+      "text_tokens": null
+    },
+    "latency_checkpoint": {
+      "engine_tbt_ms": 7,
+      "engine_ttft_ms": 1618,
+      "engine_ttlt_ms": 50170,
+      "pre_inference_ms": 1503,
+      "service_tbt_ms": 7,
+      "service_ttft_ms": 3573,
+      "service_ttlt_ms": 52121,
+      "user_visible_ttft_ms": 2069
+    }
+  },
+  "prompt_filter_results": [
+    {
+      "prompt_index": 0,
+      "content_filter_results": {
+        "hate": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "jailbreak": {
+          "detected": false,
+          "filtered": false
+        },
+        "self_harm": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "sexual": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "violence": {
+          "filtered": false,
+          "severity": "safe"
+        }
+      }
+    }
+  ],
+  "routing": {
+    "serving_pipereplica": "d20261116094030-d331fbef-prefill-r1-dp0-prefill"
+  }
+}

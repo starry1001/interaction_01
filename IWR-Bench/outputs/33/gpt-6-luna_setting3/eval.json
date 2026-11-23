@@ -1,0 +1,138 @@
+{
+  "total_step": 20,
+  "success_step": 9,
+  "screenshot_paths_to_eval": [
+    "outputs/33/gpt-6-luna_setting3/evalpoints/0.png",
+    "outputs/33/gpt-6-luna_setting3/evalpoints/0.png",
+    "outputs/33/gpt-6-luna_setting3/evalpoints/4.png",
+    "outputs/33/gpt-6-luna_setting3/evalpoints/6.png",
+    "outputs/33/gpt-6-luna_setting3/evalpoints/7.png",
+    "outputs/33/gpt-6-luna_setting3/evalpoints/8.png"
+  ],
+  "all_mllm_scores": [
+    0.94,
+    0.12,
+    0.72,
+    0.47,
+    0.41,
+    0.4
+  ],
+  "all_dino_scores": [
+    0.96142578125,
+    0.49658203125,
+    0.97998046875,
+    0.9423828125,
+    0.90673828125,
+    0.6767578125
+  ],
+  "all_ocr_scores": [
+    0.8804713804713805,
+    0.2957264957264957,
+    0.7508417508417509,
+    0.6658270361041142,
+    0.3041280539174389,
+    0.389920424403183
+  ],
+  "all_avg_scores": [
+    0.9272990539071269,
+    0.30410284232549856,
+    0.8169407398639169,
+    0.6927366162013714,
+    0.5402887783891462,
+    0.4888927456343943
+  ],
+  "mllm_score": 0.51,
+  "dino_score": 0.8273111979166666,
+  "ocr_score": 0.5478191902440606,
+  "avg_score": 0.6283767960535757,
+  "all_mllm_res": [
+    "Comments:\n-Layout (10 points): The overall structure is highly consistent: dark header, “Today’s Top Stories” section, hero article, three secondary articles, large whitespace/ad area, and the “Living Healthy” card grid. Minor differences appear in container width, horizontal alignment, and vertical spacing, especially around the hero and lower card section. **9/10**\n-Elements (15 points): Nearly all major elements are present and in the correct order, including navigation items, hero image, supporting article thumbnails, advertisement spacing, “View All” link, and five category cards. Some header icons/details and exact thumbnail sizing differ slightly. **14/15**\n-Content and Text (40 points): Headlines, descriptions, navigation labels, section headings, supporting article titles, and category labels closely match the reference. Text wrapping is very similar, with only minor differences in line breaks and positioning. **38/40**\n-Style (15 points): Colors, typography, imagery, card treatments, dark blue header, divider lines, and overall WebMD visual language are closely reproduced. Small variations in font weight, image proportions, spacing, and background tone are visible. **14/15**\n-Overall (20 points): The page is an extremely close visual match with only modest layout offsets and sizing differences. The composition and visual hierarchy are essentially identical. **19/20**\n\nScore: **94/100**",
+    "---\nComments:\n- **Layout (2/10):** The dark-blue navigation bar is similar, but the page structure below it is entirely different. The reference has a large ad area, a centered symptom-checker panel, a right-side ad, and disclaimer text; the generated page has a news-story section and category cards.\n- **Elements (3/15):** The WebMD branding and navigation are shared. The symptom-checker tabs, age and sex fields, Continue button, ad labels, and disclaimer block are missing; instead, the generated page adds article images and lifestyle-category cards.\n- **Content and Text (0/40):** The reference is about using WebMD’s symptom checker. The generated page shows health-news headlines and living-healthy categories, with no matching symptom-checker content.\n- **Style (5/15):** Both use a white background, dark-blue WebMD header, and broadly similar navigation styling. The generated page’s image-heavy editorial layout and typography differ substantially from the reference’s pale, spacious tool interface.\n- **Overall (2/20):** Aside from the shared header and branding, the generated page does not resemble the reference page.\n\nScore: **12/100**\n---",
+    "---\nComments:\n-Layout (7/10): The overall two-column structure, top navigation, ad space, checker panel, and footer are similar. However, the checker heading sits above the panel in the generated page rather than inside it, and the right-side ad area has two boxes instead of one. The panel and footer also sit slightly lower.\n-Elements (10/15): Most key elements are present, including the navigation tabs, age and sex controls, Continue button, ads, and informational text. The generated page adds a duplicate checker heading and a second ad, while the reference has only one right-side ad.\n-Content and Text (31/40): The main instructions and most of the footer copy are close to the reference. The generated form shows age “25” and Male selected, whereas the reference has a blank age field and no sex selected; its Continue button is disabled. The generated disclaimer also omits the reference’s advice to seek urgent help and call 911 in an emergency.\n-Style (10/15): The navy header, pale-blue background, and general WebMD color palette are well matched. Some typography differs: the generated checker heading is serif-styled and duplicated, while the reference uses a more distinct WebMD logo treatment and cleaner heading hierarchy. Form selections and the active-looking Continue button also change the reference’s visual state.\n-Overall (14/20): The page is recognizably similar and preserves the main structure, but the changed form state, extra ad, heading placement, and shortened emergency disclaimer are noticeable differences.\n\nScore: 72/100\n---",
+    "Comments:\n- **Layout (6/10):** The header, top advertisement, pale background, and centered main content are in similar positions. The generated checker card is taller, its title sits above the card rather than inside it, and the right-side ad area has a different size and an extra ad. This also pushes the footer content lower.\n- **Elements (8/15):** Both pages share the WebMD navigation, checker tabs, advertisement boxes, and explanatory text below the checker. However, the main form elements differ substantially: the reference shows age and sex controls, while the generated page shows symptom search, an empty symptom list, a body-map silhouette, and Previous/Continue buttons.\n- **Content and Text (14/40):** The navigation and much of the explanatory copy are similar, but the checker is on a different step. The reference is the Info step with age set to 25 and sex options; the generated page is the Symptoms step. The reference also includes additional medical-emergency disclaimer text that is absent from the generated page.\n- **Style (9/15):** The navy header, blue accents, light gray-blue page background, and overall WebMD look are reasonably close. The checker’s title treatment, typography, card structure, and button styling differ noticeably.\n- **Overall (10/20):** The page has a recognizable shared template, but the central interactive content does not match the reference state, which is the most prominent part of the page.\n\nScore: 47/100",
+    "---\nComments:\n- **Layout (6/10):** The page retains the same centered checker area, top navigation, advertisement region, and right-hand ad column. However, the checker card is much taller, its title sits above the tabs rather than inside the card, and the footer content is pushed below the visible area.\n- **Elements (8/15):** The WebMD header, checker step navigation, and ad placeholders are present. The reference’s age and sex controls and single right-side ad are replaced by a symptom search dropdown, body-map silhouette, and two ad boxes.\n- **Content and Text (10/40):** Shared branding, navigation labels, and some checker step labels match, but the main content is a different step. The reference shows the introductory age-and-sex form; the generated page shows symptom search results for “head.”\n- **Style (9/15):** The navy header, pale blue background, and general WebMD color palette are close. Typography and component styling differ, particularly the large serif symptom prompt and the expanded search-results panel.\n- **Overall (8/20):** The generated page is recognizably the same WebMD symptom checker, but the different interface state and resulting content make it a limited match to the reference.\n\n**Score: 41/100**\n---",
+    "---\nComments:\n- **Layout (7/10):** The header, top advertisement, main symptom-checker column, and right-side ad area are arranged similarly. The generated page’s checker panel is taller, its columns are shifted slightly, and it shows an additional right-side ad.\n- **Elements (6/15):** The WebMD header, navigation, checker tabs, and general panel structure are present. However, the reference’s body-map figure and symptom-entry view are replaced by a results list and a centered refinement modal.\n- **Content and Text (13/40):** The page title and workflow labels broadly match, but the visible state differs substantially. The reference has an empty symptom field and “No symptoms added”; the generated page has “head” entered, headache suggestions, and a “What kind of headache?” dialog. Much of the reference’s explanatory text and footer is also absent from the visible area.\n- **Style (8/15):** The navy header and general WebMD color palette are recognizable, but the reference uses a pale-blue page background and a bright, unobscured interface. The generated screenshot is darkened by an overlay, and its title typography and panel styling differ.\n- **Overall (6/20):** The site and general symptom-checker layout are recognizable, but the modal, dimming overlay, and different interaction state make the generated page noticeably unlike the reference.\n\n**Score: 40/100**\n---"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "WebMD Conditions Drugs & Supplements Well-Being Symptom Checker Find a Doctor More Subscribe Log In 0 TODAY'S TOP STORIES Why Potatoes Deserve A Place On Your Plate Potatoes often a bad rap, but they offer more than just starch: Discover the nutrients contain and how to enjoy them as part of a balanced diet; Ulcerative Colitis and Daily Habits That Support Practical Tips for Mouth Sores: What' s the Better Mental Health Managing Thinning Hair Connection? adveMISEMENI LiviNG HEALTHY View All Diet & Welj Mental Health Management Healthy Aging Sex k Relatiorships Fitness & Exercise get they",
+      "screenshot_text": "WebMD Conditions Drugs & Supplements ~ Well-Being ~ Symptom Checker Find a Doctor More ~ 5 Subscribe TODAY'S TOP STORIES Why Potatoes Deserve A Place On Your Plate Potatoes often get a bad rap, but they offer more than just starch: Discover the nutrients they contain and how to them as part of a balanced diet: Ulcerative Colitis and Daily Habits That Support Practical Tips for Mouth Sores: What's the Better Mental Health Managing Thinning Hair Connection? ViewAI LIVING HEALTHY Diet & Weight Sex & Mental Health Management Healthy Aging Relationships Fitness & Exercise Log enjoy",
+      "similarity": 0.8804713804713805
+    },
+    {
+      "checkpoint_text": "WebMD Conditions Drugs & Supplements Well-Being Symptom Checker Find a Doctor More Subscribe Log In 0 AdvFRTISEMENT AdverTISEMENT UFC sniiptous cOVDIMON? DET L IRETMENi WebMD Symptom Checker With body MaP Identify possible conditions and treatment related to your symptoms This lool does nol plovide Medical advice See #uuiliorai Ilonation Age Sex Malf Female Continue NEW: This symptom checker now includes (he ability t0 select symploms by body localion. We hope this makes it easier for Vou t0 icentily your symptoms and possible conditions: tool also allows you to select mulllple symptoms qulckly Click to see FACs and tips for searching Tell Us What You Think This tool does nol provide medical advice. Il is intended for informational purposes only: This tool may leverage certain gerierative artificial intelllgence lools t0 generate resulls and is not substitule for professiona medical advice, dlagnosis or treatment: Never Ignore prolessiona medical advice in seeking treatment because of something you have read on the WebMD Site. If you Ihink YOu may have a medical emergency imnmediately call your doctor or dial 911. 2025 WebMD LLC All rlghts reserved The",
+      "screenshot_text": "WebMD Conditions Drugs & Supplements ~ Well-Being ~ Symptom Checker Find a Doctor More ~ 5 Subscribe TODAY'S TOP STORIES Why Potatoes Deserve A Place On Your Plate Potatoes often get a bad rap, but they offer more than just starch: Discover the nutrients they contain and how to them as part of a balanced diet: Ulcerative Colitis and Daily Habits That Support Practical Tips for Mouth Sores: What's the Better Mental Health Managing Thinning Hair Connection? ViewAI LIVING HEALTHY Diet & Weight Sex & Mental Health Management Healthy Aging Relationships Fitness & Exercise Log enjoy",
+      "similarity": 0.2957264957264957
+    },
+    {
+      "checkpoint_text": "WebMD Conditions Drugs & Supplements Well-Being Symptom Checker Find a Doctor More Subscribe Log In 0 ADVERTISEMENT ADVERTISEMENT INFO SYMPTOMS CONDITIONS DETAILS TREATMENT WebMD Symptom Checker WIth BODY MAP Identify possible conditions and treatment related to your symptoms: This tool does not provide medical advice . See additional information Age Sex Male Female Continue NEW: This symptom checker now includes the ability to select symptoms by body location: We hope this makes it easier for you to identify your symptoms and possible conditions: The tool also allows you to select multiple symptoms quickly: Click to see FAQs and tips for searching - Tell Us What You Think This tool does not provide medical advice: It is intended for informational purposes only: This tool may leverage certain generative artificial intelligence tools t0 generate results, and is not substitute for professional medical advice, diagnosis or treatment: Never ignore professional medical advice in seeking treatment because of something you have read on the WebMD Site. If you think yOu may have a medical emergency; immediately call your doctor or dial 911 . 2025 WebMD, LLC. All rights reserved.",
+      "screenshot_text": "WebMD Conditions ~ Drugs & Supplements ~ Well-Being_ Symptom Checker Find a Doctor More ~ 5 Subscribe ADVERTISEMENT WebMD Symptom Checker WITH BODY MAP ADVERTISEMENT INFO SYMPTOMS CONDITIONS DETAILS TREATMENT WebMD Symptom Checker WITH BODY MAP Identify possible conditions and treatment related to your symptoms: This tool does not provide medical advice. See additional information ~ Age Sex ADVERTISEMENT 25 Male Female Continue NEW: This symptom checker now includes the ability to select symptoms by body location. We hope this makes it easier for you to identify your symptoms and possible conditions_ The tool also allows to select multiple symptoms quickly: Click to see FAQs and tips for searching- Tell Us What You Think This tool does not provide medical advice It is intended for informational purposes only: This tool may leverage certain generative artificial intelligence tools to generate results, and is not a substitute for professional medical advice, diagnosis or treatment: 2025 WebMD, LLC. All rights reserved. Log\" you",
+      "similarity": 0.7508417508417509
+    },
+    {
+      "checkpoint_text": "WebMD Conditions Drugs & Supplements Well-Being Symptom Checker Find a Doctor More Subscribe Log In 0 ADVERTISEMENT ADVERTISEMENT INFO SYMPTOMS CONDITIONS DETAILS TREATMENT WebMD Symptom Checker WIth BODY MAP Identify possible conditions and treatment related to your symptoms: This tool does not provide medical advice . See additional information Age Sex 25 Male Female Continue NEW: This symptom checker now includes the ability to select symptoms by body location: We hope this makes it easier for you to identify your symptoms and possible conditions: The tool also allows you to select multiple symptoms quickly: Click to see FAQs and tips for searching - Tell Us What You Think This tool does not provide medical advice: It is intended for informational purposes only: This tool may leverage certain generative artificial intelligence tools t0 generate results, and is not substitute for professional medical advice, diagnosis or treatment: Never ignore professional medical advice in seeking treatment because of something you have read on the WebMD Site. If you think yOu may have a medical emergency; immediately call your doctor or dial 911 . 2025 WebMD, LLC. All rights reserved.",
+      "screenshot_text": "WebMD Conditions Drugs & Supplements ~ Well-Being - Symptom Checker Find a Doctor More ~ 5 Subscribe ADVERTISEMENT WebMD Symptom Checker WITH BODY MAP ADVERTISEMENT INFO SYMPTOMS CONDITIONS DETAILS TREATMENT What are your symptoms? Type your main symptom here ADVERTISEMENT No symptoms added Previous Continue NEW: This symptom checker now includes the ability to select symptoms by body location: We hope this makes it easier for you to identify your symptoms and possible conditions_ The tool also allows you to select multiple symptoms quickly: Click to see FAQs and tips for searching Tell Us What You Think This tool does not provide medical advice. It is intended for informational purposes only: This tool may leverage certain generative artificial intelligence tools to generate results; and is not a substitute for professional medical advice diagnosis or treatment: 2025 WebMD, LLC. AIl riahts reserved_ Log",
+      "similarity": 0.6658270361041142
+    },
+    {
+      "checkpoint_text": "WebMD Conditions Drugs & Supplements Well-Being Symptom Checker Find a Doctor More Subscribe Log In 0 ADVERTISEMENT ADVERTISEMENT INFO SYMPTOMS CONDITIONS DETAILS TREATMENT WebMD Symptom Checker WIth BODY MAP Identify possible conditions and treatment related to your symptoms: This tool does not provide medical advice . See additional information Age Sex Male Female continue NEW: This symptom checker includes the ability t0 select symptoms by body location. We hope this makes it easier for you t0 identily your symptoms and possible conditions: The tool also allows you to select multiple symptoms quickly: Click to see FAQs and tips for searching - Tell Us What You Think This tool does not provide medical advice: It is intended for informational purposes only: tool may leverage certain generative artificial intelligence tools t0 generate results, and is not substitute for professional medical advice, diagnosis or treatment: Never ignore professional medical advice in seeking treatment because of something you have read on the WebMD Site. If you think yOu may have a medical emergency; immediately call your doctor or dial 911. 2025 WebMD, LLC. All rights reserved. now This",
+      "screenshot_text": "WebMD Conditions Drugs & Supplements ~ Well-Being - Symptom Checker Find a Doctor More ~ 5 Subscribe ADVERTISEMENT WebMD Symptom Checker WITH BODY MAP ADVERTISEMENT INFO SYMPTOMS CONDITIONS DETAILS TREATMENT What are your symptoms? head headache in front of head ADD ADVERTISEMENT headache in back of head ADD headache on one side of head ADD headache ADD head edema ADD 6az4 FITO Ann No symptoms added Previous Continue NEW: This svmntom checker now includes the abilitv to select svmntoms bv bodv location.We hone this makes it easier Log inr",
+      "similarity": 0.3041280539174389
+    },
+    {
+      "checkpoint_text": "WebMD Conditions Drugs & Supplements Well-Being Symptom Checker Find a Doctor More Subscribe Log In 0 ADVERTISEMENT WebMD Symptom Checker wiTH BODy MAP ADVERTISEMENT INFO SYMPTOMS CONDITIONS DETAILS TREATMENT What are your symptoms? Type your main symptom here SkIN Click on the body t0 find and choose symptoms | Previous NEW: This symptom checker now includes the ability to select symptoms by body location. We hope this makes it easier for you t0 identify your symptoms and possible conditions: The tool also allows you to select multiple symptoms quickly: Click to see FAQs and tips for searching Tell Us What You Think This tool does not provide medical advice. It is intended for informational purposes only: This tool may leverage certain generative artificial intelligence tools to generate results, and is not substitute for professional medical advice , diagnosis or treatment: Never ignore professional medical advice in treatment because of something you have read on the WebMD Site. If you think you may have a medical emergency; immediately call your doctor or dial 911. 2025 WebMD, LLC. All rights reserved. seeking",
+      "screenshot_text": "WebMD Conditions Drugs & Supplements ~ Well-Being - Symptom Checker Find a Doctor More ~ @ Subscribe ADVERTISEMENT WebMD Symptom Checker WITH BODY MAP ADVERTISEMENT INFO SYMPTOMS CONDITIONS DETAILS TREATMENT What are your symptoms? REFINE YOUR SYMPTOMS What kind of headache? head pounding headache headache in front of head ADD dull headache ADVERTISEMENT headache in back of head ADD migraine headache headache on one side of head ADD severe headache headache ADD headache in back of head head edema ADD kaaA RaIn Done Skip NO symptoms added Previous Continue NEW: This svmntom checker now includes the abilitv to select svmntoms bv bodv location.We hone this makes it easier Log Alitn",
+      "similarity": 0.389920424403183
+    }
+  ],
+  "assertion_results": [
+    null,
+    null,
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/33/gpt-6-luna_setting3/evalpoints/2.png",
+      "curr_img_path": "outputs/33/gpt-6-luna_setting3/evalpoints/3.png",
+      "response": "{\"think\":\"The Age field is empty in Image 1 and displays “25” in Image 2, so the number was entered.\",\"result\":\"Yes\"}",
+      "assertion": "The '25' is typed into the Age text field.",
+      "thinking": "The Age field is empty in Image 1 and displays “25” in Image 2, so the number was entered."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/33/gpt-6-luna_setting3/evalpoints/3.png",
+      "curr_img_path": "outputs/33/gpt-6-luna_setting3/evalpoints/4.png",
+      "response": "{\"think\":\"In the current screenshot, the Male button is highlighted in teal while Female is not, indicating Male is selected.\",\"result\":\"Yes\"}",
+      "assertion": "The 'Male' button is selected.",
+      "thinking": "In the current screenshot, the Male button is highlighted in teal while Female is not, indicating Male is selected."
+    },
+    null,
+    null,
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/33/gpt-6-luna_setting3/evalpoints/6.png",
+      "curr_img_path": "outputs/33/gpt-6-luna_setting3/evalpoints/7.png",
+      "response": "{\"think\":\"The previous screenshot shows an empty symptom search box. The current screenshot has “head” entered and a dropdown of head-related symptoms, so the search was expanded to find them.\",\"result\":\"Yes\"}",
+      "assertion": "Expand the search box to find head-related symptoms.",
+      "thinking": "The previous screenshot shows an empty symptom search box. The current screenshot has “head” entered and a dropdown of head-related symptoms, so the search was expanded to find them."
+    },
+    null,
+    null,
+    {
+      "result": "No",
+      "prev_img_path": "outputs/33/gpt-6-luna_setting3/evalpoints/9.png",
+      "curr_img_path": "outputs/33/gpt-6-luna_setting3/evalpoints/10.png",
+      "response": "{\"think\":\"The selected checkbox in the current screenshot is next to “headache in back of head.” The “one sided headache” option is not checked.\",\"result\":\"No\"}",
+      "assertion": "The 'one sided headache' checkbox is selected.",
+      "thinking": "The selected checkbox in the current screenshot is next to “headache in back of head.” The “one sided headache” option is not checked."
+    },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "requested_model": "gpt-6-luna",
+  "returned_model": "gpt-6-luna",
+  "input_tokens": 28480,
+  "output_tokens": 5470,
+  "total_tokens": 33950,
+  "usage": {
+    "completion_tokens": 5470,
+    "prompt_tokens": 28480,
+    "total_tokens": 33950,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": null,
+      "audio_tokens": null,
+      "reasoning_tokens": 321,
+      "rejected_prediction_tokens": null,
+      "text_tokens": null
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": null,
+      "cache_write_tokens": null,
+      "cached_tokens": 28032,
+      "image_tokens": null,
+      "text_tokens": null,
+      "cached_creation_tokens": 0
+    }
+  }
+}

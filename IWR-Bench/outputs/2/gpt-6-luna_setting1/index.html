@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apple Music Beta</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:Arial,Helvetica,sans-serif;color:#222}
+button{font:inherit;border:0;background:none;cursor:pointer}
+.btn{cursor:pointer}
+.app{width:100vw;height:100vh;background:#fff;position:relative}
+.sidebar{
+  position:absolute;left:0;top:0;bottom:0;width:260px;background:#fbfbfb;
+  border-right:1px solid #d8d8d8;z-index:4
+}
+.brand{height:56px;display:flex;align-items:center;padding-left:29px;font-size:25px;font-weight:700;letter-spacing:-1.6px}
+.brand .apple{font-size:28px;margin-right:2px;line-height:1}
+.beta{font-size:11px;letter-spacing:-.2px;background:#aaa;color:white;border-radius:4px;padding:2px 5px;margin-left:7px;font-weight:700}
+.search{
+  margin:14px 25px 16px;width:209px;height:34px;border:1px solid #d7d7d7;border-radius:3px;
+  display:flex;align-items:center;padding:0 9px;color:#888;font-size:13px
+}
+.search span{color:#c90042;font-size:16px;margin-right:7px}
+.nav{padding:0 25px}
+.nav-item{
+  height:34px;border-radius:6px;display:flex;align-items:center;padding-left:7px;
+  font-size:14px;color:#333;margin-bottom:1px
+}
+.nav-item.active{background:#e3e3e3;font-weight:600}
+.nav-icon{width:22px;color:#d4144c;font-size:17px;margin-right:2px;text-align:center}
+.side-bottom{position:absolute;bottom:0;left:0;right:0;border-top:1px solid #ddd;padding:15px 29px 18px;color:#777;font-size:12px}
+.side-bottom div{height:43px;display:flex;align-items:center}
+.side-bottom .music-circle{font-size:19px;margin-right:8px}
+.topbar{
+  position:absolute;left:260px;right:0;top:0;height:56px;background:#fafafa;
+  border-bottom:1px solid #d7d7d7;z-index:3;display:flex;align-items:center
+}
+.transport{width:350px;display:flex;align-items:center;gap:15px;padding-left:166px;color:#777;font-size:16px}
+.transport .shuffle{font-size:15px}
+.transport .pause{font-size:18px}
+.mini-player{position:absolute;left:480px;top:5px;width:650px;height:46px;display:flex;align-items:center}
+.mini-cover{width:45px;height:45px;object-fit:cover}
+.mini-info{height:45px;flex:1;text-align:center;padding-top:2px;font-size:11px;color:#bf1747}
+.mini-title{font-weight:700;color:#333;font-size:12px;margin-bottom:3px}
+.mini-progress{height:3px;background:#aaa;margin:2px auto 0;width:330px;position:relative}
+.mini-progress i{display:block;height:3px;background:#777;width:14%;position:absolute;left:0}
+.preview{background:#df1747;color:#fff;border-radius:3px;padding:3px 8px;font-size:9px;font-weight:bold}
+.volume{position:absolute;right:30px;display:flex;align-items:center;color:#888;gap:9px}
+.volume-line{width:48px;height:2px;background:#888;position:relative}
+.volume-line:after{content:"";position:absolute;width:10px;height:10px;border-radius:50%;background:#fff;border:1px solid #aaa;left:20px;top:-4px}
+.account{position:absolute;right:15px;display:flex;gap:23px;font-size:19px;color:#777}
+.main{
+  position:absolute;left:260px;right:0;top:56px;bottom:0;
+  background:linear-gradient(116deg,#f3073c 0%,#ec003c 52%,#df0754 100%);
+  color:#fff;text-align:center;overflow:hidden
+}
+.main-logo{font-size:22px;font-weight:700;margin-top:20px;letter-spacing:-1.5px}
+.hero-title{font-size:52px;line-height:1.05;margin:17px auto 0;font-weight:700;letter-spacing:-2.5px}
+.note{
+  display:block;width:320px;height:320px;object-fit:contain;margin:25px auto 0;
+  filter:drop-shadow(13px 17px 7px rgba(85,0,25,.42))
+}
+.description{font-size:16px;line-height:1.35;margin-top:3px}
+.get-started{
+  margin-top:36px;background:#fff;color:#222;border-radius:4px;padding:11px 31px;
+  font-weight:600;font-size:14px
+}
+.student{display:block;margin:23px auto 0;color:white;font-size:13px}
+.fullscreen{
+  display:none;position:absolute;inset:0;z-index:10;
+  background:
+   radial-gradient(ellipse at 50% 48%,rgba(170,32,111,.78),rgba(104,0,73,.94) 72%),
+   linear-gradient(130deg,#8f0e6b,#710044);
+  color:#fff
+}
+.fullscreen.show{display:block}
+.close{position:absolute;left:19px;top:13px;color:#eee;font-size:29px;font-weight:200;line-height:20px}
+.player{
+  width:600px;position:absolute;left:50%;top:60px;transform:translateX(-50%)
+}
+.album{
+  display:block;width:600px;height:600px;object-fit:cover;border-radius:11px;
+  box-shadow:0 8px 20px rgba(0,0,0,.13)
+}
+.track-head{height:76px;padding-top:19px;position:relative;text-align:left}
+.track-name{font-size:16px;font-weight:700}
+.artist{font-size:15px;font-weight:600;color:#ddd;margin-top:3px}
+.track-actions{position:absolute;right:0;top:19px;display:flex;gap:14px}
+.track-actions button{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.17);color:#fff;font-size:17px}
+.seek{height:4px;background:rgba(255,255,255,.78);position:relative;border-radius:3px}
+.seek:before{content:"";position:absolute;left:12%;top:-5px;width:14px;height:14px;border-radius:50%;background:#fff}
+.times{display:flex;justify-content:space-between;font-size:11px;color:#ddd;margin-top:8px}
+.controls{height:70px;display:flex;justify-content:center;align-items:center;gap:30px;font-size:18px}
+.controls button{color:#fff}
+.controls .big{font-size:31px}
+.controls .center{font-size:31px}
+.volume-full{height:26px;display:flex;align-items:center;gap:8px}
+.speaker{font-size:12px}
+.vol-line{height:4px;background:rgba(255,255,255,.75);flex:1;border-radius:4px;position:relative}
+.vol-line:after{content:"";position:absolute;left:50%;top:-5px;width:14px;height:14px;border-radius:50%;background:#fff}
+@media(max-width:900px){
+ .sidebar{width:210px}.topbar,.main{left:210px}.transport{padding-left:30px}.mini-player{left:300px;width:420px}
+ .player,.album{width:480px}.album{height:480px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><span class="apple">●</span>Music <span class="beta">Beta</span></div>
+    <div class="search btn"><span>⌕</span>Search</div>
+    <nav class="nav">
+      <div class="nav-item active btn"><span class="nav-icon">⌂</span>Home</div>
+      <div class="nav-item btn"><span class="nav-icon">⊞</span>New</div>
+      <div class="nav-item btn"><span class="nav-icon">◉</span>Radio</div>
+    </nav>
+    <div class="side-bottom">
+      <div class="btn"><span class="music-circle">◉</span>Open in Music ↗</div>
+      <div class="btn">Exit Beta ↗</div>
+    </div>
+  </aside>
+
+  <header class="topbar">
+    <div class="transport">
+      <button class="btn shuffle">⌁</button>
+      <button class="btn">◀</button>
+      <button class="btn pause-top">▶</button>
+      <button class="btn">▶</button>
+      <button class="btn">↝</button>
+    </div>
+    <div class="mini-player btn" id="miniPlayer">
+      <img class="mini-cover" src="../../../data/data/2/assets/017.jpg" width="45" height="45" alt="">
+      <div class="mini-info">
+        <div class="mini-title">Sacrifice •••</div>
+        <div>Mariah the Scientist — HEARTS SOLD SEPARATELY</div>
+        <div class="mini-progress"><i></i></div>
+      </div>
+      <span class="preview">PREVIEW</span>
+    </div>
+    <div class="volume">◀ <span class="volume-line"></span></div>
+    <div class="account"><span>☷</span><span>◉</span></div>
+  </header>
+
+  <main class="main">
+    <div class="main-logo">Music</div>
+    <h1 class="hero-title">Discover new music<br>every day.</h1>
+    <img class="note btn" id="noteBtn" src="../../../data/data/2/assets/013.webp" width="320" height="320" alt="Music note">
+    <div class="description">Get playlists and albums inspired by the artists and genres<br>you’re listening to.</div>
+    <button class="get-started btn">Get Started</button>
+    <button class="student btn">See Student Plan ›</button>
+  </main>
+
+  <section class="fullscreen" id="fullscreen">
+    <button class="close btn" id="closeBtn">×</button>
+    <div class="player">
+      <img class="album btn" id="album" src="../../../data/data/2/assets/017.jpg" width="600" height="600" alt="Sacrifice album artwork">
+      <div class="track-head">
+        <div class="track-name">Sacrifice</div>
+        <div class="artist">Mariah the Scientist — HEARTS SOLD SEPARATELY</div>
+        <div class="track-actions">
+          <button class="btn">☆</button><button class="btn">•••</button>
+        </div>
+      </div>
+      <div class="seek"></div>
+      <div class="times"><span id="elapsed">0:11</span><span>-1:19</span></div>
+      <div class="controls">
+        <button class="btn">⌁</button>
+        <button class="btn big">◀</button>
+        <button class="btn center" id="playBtn">Ⅱ</button>
+        <button class="btn big">▶</button>
+        <button class="btn">↝</button>
+      </div>
+      <div class="volume-full"><span class="speaker">◀</span><div class="vol-line"></div></div>
+    </div>
+  </section>
+</div>
+<script>
+const fullscreen=document.getElementById('fullscreen');
+const openPlayer=()=>fullscreen.classList.add('show');
+document.getElementById('miniPlayer').addEventListener('click',openPlayer);
+document.getElementById('noteBtn').addEventListener('click',openPlayer);
+document.getElementById('album').addEventListener('click',()=>{});
+document.getElementById('closeBtn').addEventListener('click',()=>fullscreen.classList.remove('show'));
+let playing=true, seconds=11;
+document.getElementById('playBtn').addEventListener('click',function(){
+  playing=!playing;
+  this.textContent=playing?'Ⅱ':'▶';
+});
+setInterval(()=>{
+  if(playing && fullscreen.classList.contains('show')){
+    seconds++;
+    document.getElementById('elapsed').textContent='0:'+String(seconds).padStart(2,'0');
+  }
+},1000);
+</script>
+</body>
+</html>

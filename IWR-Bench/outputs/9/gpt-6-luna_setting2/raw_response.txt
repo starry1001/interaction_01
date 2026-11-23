@@ -1,0 +1,189 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iPhone</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;font-family:Arial,Helvetica,sans-serif;color:#1d1d1f;background:#fff}
+body{overflow-x:hidden}
+button,a{font:inherit}
+.btn{cursor:pointer}
+.topbar{height:48px;display:flex;align-items:center;justify-content:center;gap:27px;font-size:12px;white-space:nowrap;background:#fff}
+.topbar .apple{width:17px;height:20px;object-fit:contain}
+.topbar a{color:#262626;text-decoration:none}
+.search,.bag{width:17px;height:17px;object-fit:contain;margin-left:4px}
+.productbar{height:91px;background:#fafafd;border-bottom:1px solid #f1f1f3;display:flex;justify-content:center;align-items:center;gap:34px}
+.product-item{min-width:72px;text-align:center;color:#303034;font-size:11px;line-height:16px}
+.product-item img{display:block;width:35px;height:36px;object-fit:contain;margin:0 auto 4px}
+.product-item:nth-child(5) img{width:42px}
+.product-item:nth-child(6) img{width:33px}
+.product-item:nth-child(8) img{width:36px}
+.product-item:nth-child(10) img{width:45px}
+.product-item .red{color:#e65e5e}
+.promo{height:35px;display:flex;align-items:center;justify-content:center;background:#f7f7f9;font-size:12px}
+.promo a{color:#1671c9;text-decoration:none}
+.intro{height:192px;display:flex;align-items:center;justify-content:space-between;padding:0 116px}
+.intro h1{font-size:62px;letter-spacing:-3px;margin:0;font-weight:700}
+.intro h2{font-size:25px;margin:0;font-weight:700}
+.hero{height:500px;position:relative;overflow:hidden;background:#09070c}
+.hero video,.hero .hero-fallback{position:absolute;width:100%;height:100%;object-fit:cover;inset:0}
+.hero-fallback{background:linear-gradient(180deg,#0b080e,#171019 42%,#08070b 75%,#b06b3d 84%,#1b76d1 89%,#08070b 94%)}
+.hero-fallback:after{content:"";position:absolute;left:20%;right:0;top:22%;height:40%;border-radius:45px;background:linear-gradient(180deg,#7b6352,#2f2927 45%,#181719 72%);box-shadow:0 30px 40px #000}
+.pause{position:absolute;right:34px;bottom:33px;width:29px;height:29px;border:0;border-radius:50%;background:#eee;color:#555;font-size:14px;z-index:2}
+.camera-banner{width:88%;height:340px;margin:32px auto 0;border-radius:0 0 28px 28px;overflow:hidden;background:#e3eef0;position:relative}
+.camera-banner img{width:100%;height:100%;object-fit:cover}
+.camera-banner:after{content:"Ⅱ";position:absolute;right:42px;bottom:34px;color:#666;font-size:18px}
+.know{padding:98px 0 50px 6%;overflow:hidden}
+.know h2{font-size:40px;letter-spacing:-1.5px;margin:0 0 58px}
+.card-row{display:flex;gap:20px;width:max-content}
+.feature-card{width:305px;height:505px;border-radius:22px;overflow:hidden;position:relative;background:#eee;color:#fff}
+.feature-card img{width:100%;height:100%;object-fit:cover}
+.feature-card .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.6),transparent 32%,transparent 65%,rgba(0,0,0,.05))}
+.feature-card .copy{position:absolute;top:28px;left:30px;right:20px}
+.feature-card small{font-size:14px;font-weight:bold}
+.feature-card h3{font-size:24px;line-height:1.13;margin:10px 0;font-weight:700}
+.feature-card .plus{position:absolute;right:19px;bottom:18px;width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,.6);display:flex;justify-content:center;align-items:center;font-size:21px}
+.explore{margin-top:105px;background:#f5f5f7;padding:110px 6% 95px;position:relative}
+.explore-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:70px}
+.explore h2{font-size:42px;letter-spacing:-2px;margin:0}
+.compare{color:#4285c5;text-decoration:none;font-size:14px;margin-right:5%}
+.products{display:grid;grid-template-columns:repeat(4,1fr);gap:50px;border-bottom:1px solid #d7d7da;padding:0 3% 38px}
+.product{text-align:center;min-width:0}
+.product-image{height:255px;width:100%;object-fit:contain}
+.swatches{height:22px;display:flex;justify-content:center;gap:5px;margin:10px 0 13px}
+.swatches i{width:10px;height:10px;border-radius:50%;border:1px solid #ccc;display:block;background:#d1c2ad}
+.swatches i:nth-child(2){background:#d8d5cc}.swatches i:nth-child(3){background:#aaa}.swatches i:nth-child(4){background:#2f3036}
+.product h3{font-size:22px;margin:0 0 17px}
+.product p{font-size:14px;line-height:1.4;margin:7px 0;color:#454549}
+.product strong{font-size:14px;color:#202024}
+.actions{margin:28px 0 35px;display:flex;justify-content:center;gap:27px;align-items:center}
+.learn{background:#087ddd;color:white;border:0;border-radius:24px;padding:11px 20px;font-size:14px}
+.buy{color:#1476c9;text-decoration:none;font-size:14px}
+.specs{display:grid;grid-template-columns:repeat(4,1fr);gap:50px;padding:45px 3% 0;text-align:center}
+.spec{min-height:120px;font-size:12px;color:#515156}
+.spec img{width:35px;height:35px;object-fit:contain;display:block;margin:0 auto 15px}
+.spec .atom{width:31px;height:31px}
+.spec .dash{font-size:26px;color:#222;margin-top:5px}
+.spec p{margin:0;line-height:1.5}
+.footer-space{height:100px}
+@media(max-width:900px){
+ .topbar{gap:10px;font-size:10px}.productbar{gap:8px}.product-item{min-width:50px;font-size:8px}
+ .intro{padding:0 30px}.intro h1{font-size:40px}.intro h2{font-size:18px}
+ .products,.specs{gap:15px}.feature-card{width:260px}
+}
+</style>
+</head>
+<body>
+<header>
+  <nav class="topbar">
+    <a class="btn" href="#"><img class="apple" src="__PLACEHOLDER_ASSETS_BASE_DIR__/025.svg" width="17" height="20" alt="Apple"></a>
+    <a class="btn" href="#">Store</a><a class="btn" href="#">Mac</a><a class="btn" href="#">iPad</a>
+    <a class="btn" href="#">iPhone</a><a class="btn" href="#">Watch</a><a class="btn" href="#">Vision</a>
+    <a class="btn" href="#">AirPods</a><a class="btn" href="#">TV &amp; Home</a><a class="btn" href="#">Entertainment</a>
+    <a class="btn" href="#">Accessories</a><a class="btn" href="#">Support</a>
+    <a class="btn" href="#"><img class="search" src="__PLACEHOLDER_ASSETS_BASE_DIR__/042.svg" width="17" height="17" alt="Search"></a>
+    <a class="btn" href="#"><img class="bag" src="__PLACEHOLDER_ASSETS_BASE_DIR__/050.svg" width="17" height="17" alt="Bag"></a>
+  </nav>
+  <div class="productbar">
+    <a class="product-item btn" href="#"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/065.svg" width="35" height="36" alt="">iPhone 16 Pro</a>
+    <a class="product-item btn" href="#"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/064.svg" width="35" height="36" alt="">iPhone 16</a>
+    <a class="product-item btn" href="#"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/063.svg" width="35" height="36" alt="">iPhone 16e</a>
+    <a class="product-item btn" href="#"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/062.svg" width="35" height="36" alt="">iPhone 15</a>
+    <a class="product-item btn" href="#"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/065.svg" width="35" height="36" alt="">Compare</a>
+    <a class="product-item btn" href="#"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/066.svg" width="35" height="36" alt="">AirPods</a>
+    <a class="product-item btn" href="#"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/068.svg" width="35" height="36" alt="">AirTag</a>
+    <a class="product-item btn" href="#"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/069.svg" width="36" height="36" alt="">Accessories</a>
+    <a class="product-item btn" href="#"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/070.svg" width="36" height="36" alt="">Apple Card</a>
+    <a class="product-item btn" href="#"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/071.svg" width="36" height="36" alt="">iOS 26<br><span class="red">Preview</span></a>
+    <a class="product-item btn" href="#"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/072.svg" width="45" height="36" alt="">Shop iPhone</a>
+  </div>
+  <div class="promo">Get $160–$600 in credit toward iPhone 16 or iPhone 16 Pro when you trade in iPhone 12 or higher: <a class="btn" href="#lineup">&nbsp;Shop iPhone ›</a></div>
+</header>
+
+<section class="intro">
+  <h1>iPhone</h1>
+  <h2>Designed to be loved.</h2>
+</section>
+
+<section class="hero">
+  <div class="hero-fallback"></div>
+  <video autoplay muted loop playsinline poster="__PLACEHOLDER_ASSETS_BASE_DIR__/106.jpg">
+    <source src="__PLACEHOLDER_ASSETS_BASE_DIR__/139.mp4" type="video/mp4">
+  </video>
+  <button class="pause btn" onclick="toggleVideo(this)">Ⅱ</button>
+</section>
+
+<section class="camera-banner">
+  <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/137.jpg" width="1400" height="340" alt="iPhone camera">
+</section>
+
+<section class="know">
+  <h2>Get to know iPhone.</h2>
+  <div class="card-row">
+    <article class="feature-card btn">
+      <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/100.jpg" width="305" height="505" alt="Apple Intelligence">
+      <div class="shade"></div><div class="copy"><small>Apple Intelligence</small><h3>AI-opening possibilities.<sup>1</sup></h3></div><span class="plus">+</span>
+    </article>
+    <article class="feature-card btn">
+      <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/111.jpg" width="305" height="505" alt="Cameras">
+      <div class="shade"></div><div class="copy"><small>Cutting-Edge Cameras</small><h3>Picture your best photos and videos.</h3></div><span class="plus">+</span>
+    </article>
+    <article class="feature-card btn">
+      <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/121.jpg" width="305" height="505" alt="A18 Pro">
+      <div class="shade"></div><div class="copy"><small>Chip and Battery Life</small><h3>Fast that lasts.</h3></div><span class="plus">+</span>
+    </article>
+    <article class="feature-card btn">
+      <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/132.jpg" width="305" height="505" alt="Durable design">
+      <div class="shade"></div><div class="copy" style="color:#222"><small>Innovation</small><h3>Beautiful and durable, by design.</h3></div><span class="plus">+</span>
+    </article>
+    <article class="feature-card btn">
+      <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/110.jpg" width="305" height="505" alt="Environment">
+      <div class="shade"></div><div class="copy"><small>Environment</small><h3>Recycled. Recyclable.</h3></div><span class="plus">+</span>
+    </article>
+  </div>
+</section>
+
+<section class="explore" id="lineup">
+  <div class="explore-head"><h2>Explore the lineup.</h2><a class="compare btn" href="#">Compare all models ›</a></div>
+  <div class="products">
+    <article class="product">
+      <img class="product-image" src="__PLACEHOLDER_ASSETS_BASE_DIR__/006.png" width="300" height="255" alt="iPhone 16 Pro">
+      <div class="swatches"><i></i><i></i><i></i><i></i></div><h3>iPhone 16 Pro</h3><p>The ultimate iPhone.</p><strong>From $999 or $41.62/mo. for 24 mo.***</strong>
+      <div class="actions"><button class="learn btn">Learn more</button><a class="buy btn" href="#">Buy ›</a></div>
+    </article>
+    <article class="product">
+      <img class="product-image" src="__PLACEHOLDER_ASSETS_BASE_DIR__/013.png" width="300" height="255" alt="iPhone 16">
+      <div class="swatches"><i style="background:#93a8ef"></i><i style="background:#9dd8d2"></i><i style="background:#e7a5c3"></i><i style="background:#333"></i></div><h3>iPhone 16</h3><p>A total powerhouse.</p><strong>From $799 or $33.29/mo. for 24 mo.***</strong>
+      <div class="actions"><button class="learn btn">Learn more</button><a class="buy btn" href="#">Buy ›</a></div>
+    </article>
+    <article class="product">
+      <img class="product-image" src="__PLACEHOLDER_ASSETS_BASE_DIR__/016.png" width="300" height="255" alt="iPhone 16e">
+      <div class="swatches"><i style="background:#fff"></i><i style="background:#333"></i></div><h3>iPhone 16e</h3><p>Latest iPhone. Greatest price.</p><strong>From $599 or $24.95/mo. for 24 mo.***</strong>
+      <div class="actions"><button class="learn btn">Learn more</button><a class="buy btn" href="#">Buy ›</a></div>
+    </article>
+    <article class="product">
+      <img class="product-image" src="__PLACEHOLDER_ASSETS_BASE_DIR__/018.png" width="300" height="255" alt="iPhone 15">
+      <div class="swatches"><i style="background:#edb4bc"></i><i style="background:#ddd"></i><i style="background:#d8d8d0"></i><i style="background:#8e9d9c"></i><i style="background:#333"></i></div><h3>iPhone 15</h3><p>As amazing as ever.</p><strong>From $699 or $29.12/mo. for 24 mo.***</strong>
+      <div class="actions"><button class="learn btn">Learn more</button><a class="buy btn" href="#">Buy ›</a></div>
+    </article>
+  </div>
+  <div class="specs">
+    <div class="spec"><img class="atom" src="__PLACEHOLDER_ASSETS_BASE_DIR__/007.png" width="35" height="35" alt=""><p>Apple Intelligence<sup>‡</sup></p></div>
+    <div class="spec"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/008.png" width="35" height="35" alt=""><p>A18 Pro chip with 6-core GPU</p></div>
+    <div class="spec"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/009.png" width="35" height="35" alt=""><p>Camera Control</p></div>
+    <div class="spec"><span class="dash">—</span><p>A16 Bionic chip with 5-core GPU</p></div>
+  </div>
+</section>
+<div class="footer-space"></div>
+<script>
+function toggleVideo(btn){
+ const v=document.querySelector('.hero video');
+ if(v.paused){v.play();btn.textContent='Ⅱ'}else{v.pause();btn.textContent='▶'}
+}
+</script>
+</body>
+</html>
+```

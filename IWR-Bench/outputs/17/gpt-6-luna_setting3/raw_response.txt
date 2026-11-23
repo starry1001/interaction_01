@@ -1,0 +1,302 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Learning English | Towards advanced</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;font-family:Arial,Helvetica,sans-serif;color:#292d31;background:#fff}
+button{font-family:inherit}
+a{color:inherit;text-decoration:none}
+.btn{cursor:pointer}
+.bbc-bar{height:42px;background:#fff;border-bottom:1px solid #ddd}
+.bbc-inner{height:42px;max-width:992px;margin:auto;display:flex;align-items:center;gap:0;white-space:nowrap;font-size:13px;font-weight:bold}
+.bbc-logo{display:flex;gap:5px;margin-right:12px}
+.bbc-logo span{background:#050505;color:#fff;width:32px;height:33px;font-size:25px;line-height:33px;text-align:center;font-weight:bold}
+.signin{margin-right:38px;font-size:13px}
+.signin:before{content:"●";color:#1682c4;margin-right:6px;font-size:17px}
+.toplink{padding:0 13px;height:42px;display:flex;align-items:center;border-left:1px solid #eee}
+.search-bbc{background:#f3f3f3;padding:8px 12px;margin-left:6px}
+.brand-banner{height:156px;position:relative;overflow:hidden;background:#e8e5e2}
+.banner-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
+.banner-white{position:absolute;left:0;top:0;height:100%;width:61%;background:rgba(255,255,255,.96);clip-path:polygon(0 0,78% 0,100% 78%,92% 100%,0 100%)}
+.brand-logo{position:absolute;width:420px;height:70px;object-fit:contain;object-position:left center;left:max(calc((100% - 992px)/2),30px);top:35px}
+.language{position:absolute;top:8px;left:64%;background:#002d3b;color:#fff;border:0;padding:13px 15px;font-size:11px;font-weight:bold}
+.language:after{content:" ▼";margin-left:10px}
+.main-nav{height:46px;background:#fff;border-bottom:1px solid #ddd}
+.nav-inner{max-width:992px;height:46px;margin:auto;display:flex;align-items:center;gap:32px;font-size:16px;color:#253b43}
+.nav-inner a:after{content:" ▼";font-size:11px}
+.nav-search{margin-left:auto}
+.page-band{background:#002b39;color:#fff}
+.unit-top{height:146px;background:#003040}
+.unit-top-inner{max-width:992px;height:100%;margin:auto;display:flex;align-items:flex-start;padding-top:32px;position:relative}
+.unit-circle{width:68px;height:68px;border:4px solid #fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:31px;margin-right:14px;flex-shrink:0}
+.unit-heading{padding-top:8px;font-size:24px;line-height:1.25}
+.unit-heading strong{font-size:24px}
+.unit-heading span{display:block;font-size:24px}
+.close-selector{position:absolute;right:0;top:40px;background:#fff;border:1px solid #ccc;color:#132a34;padding:10px 14px;font-weight:bold;font-size:16px;min-width:196px;text-align:left}
+.close-selector .arrow{float:right;font-size:20px;line-height:15px}
+.selector{height:134px;background:#002631}
+.selector-inner{max-width:992px;margin:auto;padding-top:12px}
+.selector-label{font-size:11px;color:#cbd7d9;margin-bottom:12px}
+.units{display:grid;grid-template-columns:repeat(30,1fr);height:12px;gap:1px}
+.unit-button{border:0;border-right:1px solid #536167;background:#e1e4e5;padding:0;height:12px}
+.unit-button.active{background:#70c6b7}
+.unit-numbers{display:grid;grid-template-columns:repeat(30,1fr);font-size:12px;color:#e5eeee;margin-top:4px}
+.unit-numbers span{cursor:pointer}
+.tabs{height:44px;display:flex;align-items:stretch;gap:0;margin-top:27px}
+.tab{border:0;background:none;color:#6db9b0;padding:0 20px;font-size:16px}
+.tab.active{background:#fff;color:#142c36;font-weight:bold}
+.selector.closed{height:0;overflow:hidden}
+.tabs.closed{display:none}
+.sessions-wrap{max-width:992px;margin:0 auto;padding:30px 0 18px}
+.session{display:grid;grid-template-columns:315px 1fr;gap:16px;margin-bottom:42px;min-height:168px}
+.session-image-box{width:315px;height:168px;display:flex;align-items:center;justify-content:center}
+.session-image{max-width:315px;max-height:188px;width:315px;height:188px;object-fit:cover}
+.session-image.master{width:220px;height:168px;border-radius:8px}
+.session-info h2{font-size:29px;color:#17675f;margin:0 0 4px;line-height:1.1;display:inline-block}
+.activity{display:inline-block;vertical-align:top;background:#e0e1e3;color:#888;font-weight:bold;font-size:13px;padding:7px 11px;margin:1px 0 0 13px}
+.session-type{font-size:21px;color:#14655e;font-weight:bold;margin:0 0 9px}
+.date{font-size:14px;color:#777;font-weight:bold;margin:0 0 9px}
+.description{font-size:16px;line-height:1.32;margin:0;max-width:650px}
+.reference-wrap{max-width:992px;margin:0 auto;padding:32px 0 65px;display:grid;grid-template-columns:620px 314px;gap:30px;min-height:500px}
+.reference-main h1{font-size:30px;margin:0 0 45px}
+.reference-main h2{font-size:20px;margin:28px 0 12px}
+.reference-main h3{font-size:18px;margin:18px 0 7px}
+.reference-main p{font-size:16px;line-height:1.32;margin:0 0 15px}
+.reference-main .vocab-entry{margin-bottom:16px}
+.vocab-entry strong{display:block;margin-bottom:2px}
+.reference-side{padding-top:0}
+.side-card{background:#dedfe1;padding:16px;margin-bottom:16px;font-size:18px;font-weight:bold;min-height:52px}
+.side-card a{display:block;color:#176a61;font-size:16px;margin-top:13px}
+.download{background:#f0f0f0;display:flex;align-items:center;gap:15px;padding:13px 15px;color:#16665e;font-size:16px}
+.download .icon{font-size:35px;color:#74c5b8}
+.download small{display:block;color:#333;font-size:12px}
+.practice-button{display:inline-block;background:#70c5b6;padding:11px 15px;font-size:22px;font-weight:bold;margin-top:4px;color:#07313b}
+.footer-top{background:#f0f0f0;padding:38px 0}
+.footer-inner{max-width:992px;margin:auto;display:grid;grid-template-columns:1fr 1fr 1fr}
+.footer-column h2{font-size:22px;margin:0 0 8px;color:#111}
+.footer-column a{display:block;color:#22655d;font-weight:bold;line-height:1.5}
+.backtop{justify-self:end;color:#21665e;font-weight:bold}
+.bbc-footer{background:#4a4a4a;color:#fff;padding:28px 0 22px}
+.bbc-footer-inner{max-width:992px;margin:auto}
+.bbc-footer h2{font-size:22px;margin:0 0 28px}
+.explore{display:grid;grid-template-columns:repeat(6,1fr);font-size:13px;font-weight:bold;margin-bottom:18px}
+.explore span{border-right:1px solid #888;padding:0 16px;line-height:2.5}
+.legal{border-top:1px solid #888;padding-top:20px;font-size:13px;line-height:2}
+@media(max-width:1050px){
+ .bbc-inner,.nav-inner,.unit-top-inner,.selector-inner,.sessions-wrap,.reference-wrap,.footer-inner,.bbc-footer-inner{margin-left:4%;margin-right:4%}
+ .reference-wrap{grid-template-columns:minmax(0,2fr) minmax(240px,1fr)}
+ .nav-inner{gap:18px}
+}
+@media(max-width:700px){
+ .bbc-inner{overflow:hidden}.toplink{padding:0 7px}.signin{margin-right:8px}
+ .brand-logo{width:300px;left:20px}.language{left:auto;right:8px}
+ .nav-inner{gap:12px;overflow:hidden;font-size:13px}
+ .unit-heading,.unit-heading span,.unit-heading strong{font-size:19px}
+ .close-selector{right:0;top:100px}
+ .unit-top{height:170px}
+ .selector-inner{overflow:hidden}
+ .units,.unit-numbers{min-width:700px}
+ .sessions-wrap{padding-top:22px}
+ .session{grid-template-columns:38% 1fr;gap:10px}
+ .session-image-box{width:100%;height:145px}
+ .session-image{width:100%;height:auto}
+ .session-image.master{width:90%;height:auto}
+ .session-info h2{font-size:22px}.session-type{font-size:17px}
+ .reference-wrap{display:block}
+ .reference-side{margin-top:30px}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="bbc-bar">
+    <div class="bbc-inner">
+      <div class="bbc-logo"><span>B</span><span>B</span><span>C</span></div>
+      <a class="signin btn" href="#">Sign in</a>
+      <a class="toplink btn" href="#">Home</a><a class="toplink btn" href="#">News</a>
+      <a class="toplink btn" href="#">Sport</a><a class="toplink btn" href="#">Business</a>
+      <a class="toplink btn" href="#">Innovation</a><a class="toplink btn" href="#">Culture</a>
+      <a class="toplink btn" href="#">Travel</a><a class="toplink btn" href="#">···</a>
+      <a class="search-bbc btn" href="#">⌕ Search BBC</a>
+    </div>
+  </div>
+  <div class="brand-banner">
+    <img class="banner-image" src="__PLACEHOLDER_ASSETS_BASE_DIR__/014.png" width="1400" height="156" alt="">
+    <div class="banner-white"></div>
+    <img class="brand-logo" src="__PLACEHOLDER_ASSETS_BASE_DIR__/015.png" width="440" height="70" alt="Learning English — Inspiring language learning since 1943">
+    <button class="language btn">ENGLISH CHANGE LANGUAGE</button>
+  </div>
+  <nav class="main-nav">
+    <div class="nav-inner">
+      <a class="btn" href="#">Courses</a><a class="btn" href="#">Grammar</a>
+      <a class="btn" href="#">Pronunciation</a><a class="btn" href="#">Vocabulary</a>
+      <a class="btn" href="#">News</a><a class="btn" href="#">More...</a>
+      <a class="nav-search btn" href="#">⌕ Search</a>
+    </div>
+  </nav>
+</header>
+
+<section class="page-band">
+  <div class="unit-top">
+    <div class="unit-top-inner">
+      <div class="unit-circle" id="unitCircle">1</div>
+      <div class="unit-heading"><strong id="unitTitle">Unit 1: Towards advanced</strong><span id="unitSubtitle">Welcome to our new course</span></div>
+      <button id="toggleSelector" class="close-selector btn">Close unit selector <span class="arrow">⌃</span></button>
+    </div>
+  </div>
+  <div id="selector" class="selector">
+    <div class="selector-inner">
+      <div class="selector-label">SELECT A UNIT</div>
+      <div class="units" id="unitButtons"></div>
+      <div class="unit-numbers" id="unitNumbers"></div>
+      <div class="tabs" id="tabs">
+        <button class="tab active btn" data-tab="sessions">Sessions</button>
+        <button class="tab btn" data-tab="vocabulary">Vocabulary reference</button>
+        <button class="tab btn" data-tab="grammar">Grammar reference</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main id="mainContent"></main>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-inner">
+      <div class="footer-column"><h2>About</h2><a class="btn" href="#">About BBC Learning English</a><a class="btn" href="#">Courses</a><a class="btn" href="#">Course site maps</a><a class="btn" href="#">Learning FAQ</a><a class="btn" href="#">Contact BBC Learning English</a></div>
+      <div class="footer-column"><h2>Social</h2><a class="btn" href="#">TikTok</a><a class="btn" href="#">YouTube</a><a class="btn" href="#">Instagram</a><a class="btn" href="#">Facebook</a><a class="btn" href="#">Social media house rules</a></div>
+      <a class="backtop btn" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false">⌃ &nbsp;Back to top<br><br>◖ &nbsp;RSS</a>
+    </div>
+  </div>
+  <div class="bbc-footer"><div class="bbc-footer-inner">
+    <h2>Explore the BBC</h2>
+    <div class="explore"><span>Home<br>Travel</span><span>News<br>Earth</span><span>Sport<br>Video</span><span>Business<br>Live</span><span>Innovation</span><span>Culture</span></div>
+    <div class="legal">Terms of Use　 About the BBC　 Privacy Policy　 Cookies　 Accessibility Help　 Parental Guidance　 Contact the BBC　 BBC emails for you<br>
+    Advertise with us<br>Copyright © 2025 BBC. The BBC is not responsible for the content of external sites. <b>Read about our approach to external linking.</b></div>
+  </div></div>
+</footer>
+
+<script>
+const unitData={
+  1:{
+    subtitle:"Welcome to our new course",
+    masterTitle:"Non-defining relative clauses",
+    date1:"04 JUL 2016",
+    desc1:"Non-defining relative clauses are a speaker's friend. Dan teaches us five ways to use them in this bite-sized video.",
+    type2:"News Review",date2:"05 JUL 2016",
+    desc2:"NASA's Juno mission has arrived at Jupiter. Find out more with Neil and Sian as they look at how the world's media is reacting and the words you need to talk about the story.",
+    img2:"013.jpg"
+  },
+  4:{
+    subtitle:"Grammar, news, vocabulary and pronunciation",
+    masterTitle:"Linking words of contrast",date1:"25 JUL 2016",
+    desc1:"Dan uses linking words of contrast to destroy four myths about English people.",
+    type2:"News Review",date2:"26 JUL 2016",
+    desc2:"Can chickens stop you getting bitten by mosquitoes? Join Rob and Sian in News Review as they bring you this exciting story and the language you need to understand it.",
+    img2:"019.png"
+  },
+  7:{
+    subtitle:"Grammar, news, vocabulary and pronunciation",
+    masterTitle:"Mixed conditionals",date1:"15 AUG 2016",
+    desc1:"They say you shouldn't mix your drinks, but should you mix your conditionals? Find out in this Masterclass with Dan.",
+    type2:"News Review",date2:"16 AUG 2016",
+    desc2:"Brazil has won a gold medal in athletics in a shocking pole vault final. Join Sian and Neil in News Review as they bring you this exciting story and the language you need to understand it.",
+    img2:"020.png"
+  }
+};
+let currentUnit=1, currentTab="sessions";
+const main=document.getElementById("mainContent");
+function setUnit(n){
+ currentUnit=n;const d=unitData[n]||unitData[1];
+ document.getElementById("unitCircle").textContent=n;
+ document.getElementById("unitTitle").textContent=`Unit ${n}: Towards advanced`;
+ document.getElementById("unitSubtitle").textContent=n===1?d.subtitle:unitData[7].subtitle;
+ document.querySelectorAll(".unit-button").forEach((b,i)=>b.classList.toggle("active",i+1===n));
+ render();
+}
+const units=document.getElementById("unitButtons"), nums=document.getElementById("unitNumbers");
+for(let i=1;i<=30;i++){
+ const b=document.createElement("button");b.className="unit-button btn";b.setAttribute("aria-label","Unit "+i);b.onclick=()=>setUnit(i);units.appendChild(b);
+ const s=document.createElement("span");s.textContent=i;s.onclick=()=>setUnit(i);nums.appendChild(s);
+}
+function setTab(tab){
+ currentTab=tab;
+ document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t.dataset.tab===tab));
+ render();
+}
+document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>setTab(t.dataset.tab));
+document.getElementById("toggleSelector").onclick=()=>{
+ const closed=document.getElementById("selector").classList.toggle("closed");
+ const tabs=document.getElementById("tabs");tabs.classList.toggle("closed",closed);
+ document.getElementById("toggleSelector").innerHTML=closed?'Open unit selector <span class="arrow">⌄</span>':'Close unit selector <span class="arrow">⌃</span>';
+};
+function masterImage(d){
+ if(currentUnit===1) return `<img class="session-image master" src="__PLACEHOLDER_ASSETS_BASE_DIR__/010.jpg" width="220" height="168" alt="BBC Masterclass: ${d.masterTitle}">`;
+ return `<div class="session-image master custom-board" role="img" aria-label="BBC Masterclass: ${d.masterTitle}"><span class="board-label">BBC MASTERCLASS</span><span class="board-title">${d.masterTitle}</span></div>`;
+}
+function renderSessions(){
+ const d=unitData[currentUnit]||unitData[1];
+ main.innerHTML=`<div class="sessions-wrap">
+  <article class="session"><div class="session-image-box">${masterImage(d)}</div><div class="session-info">
+   <h2>Session 1</h2><span class="activity">1 ACTIVITY</span><div class="session-type">BBC Masterclass</div>
+   <p class="date">${d.date1}</p><p class="description">${d.desc1}</p></div></article>
+  <article class="session"><div class="session-image-box"><img class="session-image" src="__PLACEHOLDER_ASSETS_BASE_DIR__/${d.img2}" width="315" height="188" alt=""></div><div class="session-info">
+   <h2>Session 2</h2><span class="activity">1 ACTIVITY</span><div class="session-type">${d.type2}</div>
+   <p class="date">${d.date2}</p><p class="description">${d.desc2}</p></div></article>
+ </div>`;
+}
+function sideCards(grammar){
+ return `<aside class="reference-side">
+  <div class="side-card"><a class="btn" href="#" onclick="setTab('sessions');return false">View sessions in this unit &gt;</a></div>
+  <div class="side-card">Session ${grammar?"Vocabulary":"Grammar"}<a class="btn" href="#" onclick="setTab('${grammar?"vocabulary":"grammar"}');return false">Practise this ${grammar?"vocabulary":"grammar"} &gt;</a></div>
+  <div class="download btn"><span class="icon">⬇</span><span><small>DOWNLOAD CENTRE</small>Latest course content</span></div>
+ </aside>`;
+}
+function renderVocabulary(){
+ main.innerHTML=`<div class="reference-wrap"><div class="reference-main"><h1>Vocabulary Reference</h1>
+ <h2>Session 2 - News Review</h2>
+ <div class="vocab-entry"><strong>an upset</strong>when someone beats the team or player that was expected to win</div>
+ <div class="vocab-entry"><strong>pull something off</strong>to succeed in doing something that is difficult</div>
+ <div class="vocab-entry"><strong>egg somebody on</strong>encourage someone or urge someone to do something (especially something they shouldn't do)</div>
+ <div class="vocab-entry"><strong>pandemonium</strong>a situation in which there is a lot of noise or craziness because people are excited, angry, or frightened</div>
+ <h2>Session 3 - Lingohack</h2>
+ <div class="vocab-entry"><strong>medal tally</strong>number of medals won</div>
+ <div class="vocab-entry"><strong>feeds on</strong>eats, consumes (especially for animals)</div>
+ <div class="vocab-entry"><strong>cheating</strong>breaking the rules of a competition</div>
+ <h2>Session 4 - Pygmalion: 8 uses of 'round'</h2>
+ <div class="vocab-entry"><strong>driving him around the bend (C2)</strong>making him very annoyed</div>
+ <div class="vocab-entry"><strong>comes round (C2)</strong>begins to accept something previously rejected</div>
+ <div class="vocab-entry"><strong>round and round (B2)</strong>moving in a circular direction</div>
+ <div class="vocab-entry"><strong>round the clock (C1)</strong>all day and all night</div>
+ <div class="vocab-entry"><strong>round (A2)</strong>on all sides (of something)</div>
+ <div class="vocab-entry"><strong>goes round to (A2)</strong>visits</div>
+ <div class="vocab-entry"><strong>in a roundabout kind of way (C2)</strong>more or less; sort of</div>
+ <div class="vocab-entry"><strong>round off (B2)</strong>finish; complete (something)</div>
+ <a class="practice-button btn" href="#">Practise Vocabulary &nbsp;›</a></div>${sideCards(true)}</div>`;
+}
+function renderGrammar(){
+ main.innerHTML=`<div class="reference-wrap"><div class="reference-main"><h1>Grammar Reference</h1>
+ <h2>Conditionals review</h2><h3>Meaning and use</h3>
+ <p>Conditional sentences express a connection between two actions or states. One thing happens because of another. These connections can be general, specific, likely, unlikely, real or imagined.</p>
+ <p>Although there are quite a few different ways of forming conditional sentences there are common patterns known as zero, first, second and third conditionals.</p>
+ <p><b>Zero conditionals</b><br>Used to refer to general truths, scientific facts and the predictable results of particular actions. One thing happens and because of this something else happens. In zero conditionals <b>if</b> and <b>when</b> have the same meaning.</p>
+ <p><i>If you heat water enough, it boils.</i></p>
+ <h3>First conditionals</h3><p>We use the first conditional to talk about a possible situation and its result.</p>
+ <h3>Second conditionals</h3><p>We use the second conditional to talk about an imaginary or unlikely situation.</p>
+ </div>${sideCards(false)}</div>`;
+}
+function render(){if(currentTab==="sessions")renderSessions();else if(currentTab==="vocabulary")renderVocabulary();else renderGrammar()}
+setUnit(1);
+</script>
+<style>
+.custom-board{position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;background:#28292b;border:9px solid #9a7951;box-shadow:inset 0 0 0 3px #70583b;color:white;text-align:center;padding:14px;border-radius:9px;font-family:Arial,sans-serif}
+.board-label{font-size:18px;font-weight:bold;white-space:nowrap}
+.board-title{font-size:21px;font-style:italic;line-height:1.3;margin-top:12px}
+</style>
+</body>
+</html>
+```

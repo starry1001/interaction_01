@@ -1,0 +1,248 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wolfram|Alpha</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;background:#fff;color:#555;font-family:Arial,Helvetica,sans-serif;font-size:14px}
+body{min-width:760px}
+button,input{font:inherit}
+.btn{cursor:pointer}
+.topbar{height:48px;border-bottom:1px solid #eee;text-align:right;padding:9px 26px;color:#666;font-size:13px}
+.topbar span,.topbar button{margin-left:25px}
+.topbar button{background:#fff;border:1px solid #d77458;border-radius:3px;color:#c6533c;padding:7px 14px}
+.hero{height:180px;background:#3eaa68;position:relative;overflow:hidden;color:white}
+.hero-inner{width:760px;height:180px;margin:auto;position:relative}
+.hero img{position:absolute;left:0;bottom:-2px;width:315px;height:137px;object-fit:contain;object-position:center bottom}
+.hero-copy{position:absolute;left:405px;top:57px;text-align:center;line-height:1.25;font-size:24px}
+.hero-copy strong{font-weight:normal}
+.hero-copy .sub{font-size:21px}
+.hero-copy button{display:block;margin:9px auto 0;border:0;background:#f45d38;color:#fff;padding:12px 29px;font-weight:bold}
+
+.page{width:1080px;margin:0 auto;padding-top:62px}
+.brand{text-align:center;width:800px;margin-left:0;height:95px}
+.brand .tag{color:#bb453d;font-size:13px;font-style:italic;margin-bottom:8px}
+.brandline{display:flex;align-items:center;justify-content:center;gap:9px}
+.brandline img{width:43px;height:43px;object-fit:contain}
+.brandline span{font-size:43px;letter-spacing:-2px;color:#bd1f27}
+.brandline span em{font-style:normal;color:#e58617}
+
+.layout{display:grid;grid-template-columns:800px 205px;gap:22px;align-items:start}
+.searcharea{width:800px}
+.searchbox{height:46px;border:3px solid #f2b52d;border-radius:10px;box-shadow:0 0 3px #d38923 inset;display:flex;align-items:center;padding:0 10px;background:#fff}
+.searchbox input{border:0;outline:0;width:100%;font-size:17px;color:#444;background:transparent}
+.searchbox input::placeholder{font-style:italic;color:#999}
+.searchbox .clear{display:none;width:22px;height:22px;border:0;border-radius:50%;background:#999;color:#fff;padding:0;line-height:18px}
+.searchbox .go{border:0;background:#e85d3b;color:#fff;font-weight:bold;width:18px;height:18px;border-radius:2px;padding:0;margin-left:8px}
+.tools{height:49px;display:flex;align-items:center;justify-content:space-between;color:#999;font-size:11px;letter-spacing:1px}
+.tool-left,.tool-right{display:flex;gap:7px;align-items:center}
+.tool{padding:7px 10px;border:1px solid #e3e3e3;border-radius:5px;background:#fff}
+.tool.active{color:#d36b52;border-color:#f3c4b6}
+.tool-right button{border:0;background:white;color:#888;font-size:11px;letter-spacing:1px}
+
+.results{background:#f4f4f4;border-radius:10px;box-shadow:0 0 8px #ddd;overflow:hidden}
+.notice{margin:17px;background:white;border-radius:8px;min-height:95px;padding:33px 30px;box-shadow:0 1px 5px #ddd;color:#666}
+.notice b{display:inline-block;background:#ed6948;color:#fff;font-size:18px;padding:5px;margin-right:8px}
+.interpret{margin:20px 17px;border:1px solid #efcb72;background:#fffdf8;border-radius:7px;padding:20px;color:#555}
+.pod{background:#fff;margin-top:1px;border-top:1px solid #eee}
+.pod-title{height:36px;padding:12px 20px;background:#f1f1f1;color:#76929c}
+.pod-body{padding:18px 21px;color:#333;min-height:70px}
+.math-input{display:flex;width:300px;border:1px solid #ccc;height:64px;font-family:Georgia,serif;font-size:16px}
+.math-input .label{width:145px;padding:21px 12px;background:#f5f5f5;border-right:1px solid #ccc}
+.fraction{text-align:center;padding:8px 20px;font-size:18px}
+.frac-top{border-bottom:1px solid #333;padding:0 22px 4px}
+.frac-bottom{padding-top:4px}
+.result-equation{font-family:Georgia,serif;font-size:20px;display:flex;align-items:center;gap:13px}
+.result-equation .f{display:inline-block;text-align:center;line-height:1.15}
+.result-equation .top{border-bottom:1px solid #444;padding:0 10px 4px}
+.result-equation .bottom{padding-top:4px}
+.step{float:right;border:1px solid #e27d64;background:#fff;color:#d86c55;border-radius:4px;padding:5px 10px;font-size:12px}
+.plot{height:245px;padding:12px 20px;background:#fff}
+.plot img{width:400px;height:210px;object-fit:contain;object-position:left center}
+.alt{height:130px;background:#fff;padding:17px 22px;font-family:Georgia,serif;font-size:18px}
+.alt .smallfrac{display:inline-block;text-align:center;margin-bottom:14px}
+.alt .smallfrac div:first-child{border-bottom:1px solid #444;padding:0 20px 4px}
+.footerbar{padding:13px 20px;background:#f3f3f3;color:#777;font-size:12px}
+.footerbar span:last-child{float:right}
+
+.ads img{display:block;width:205px;height:auto;margin-bottom:20px;border-radius:10px}
+.ads img:first-child{height:320px;object-fit:cover}
+.ads img:nth-child(2){height:465px;object-fit:cover}
+
+.assumptions{background:#f5fbfd;border:1px solid #b9d4db;border-radius:7px;padding:18px 25px;line-height:2.1;margin-bottom:18px;color:#68777d}
+.assumptions a{color:#4d9bb6}
+.coffee .pod-body{padding:15px 20px}
+.coffee-table{border-collapse:collapse;width:600px;background:#fff;font-family:Georgia,serif;font-size:16px}
+.coffee-table td{border:1px solid #ccc;padding:10px 13px}
+.coffee-table td:first-child{width:170px}
+.coffee-table td:nth-child(2){width:200px}
+.unit{color:#888;font-family:Arial;font-size:13px}
+.nutrition{width:280px;border:1px solid #999;padding:8px;font-size:11px;line-height:1.65;background:#fff;font-family:Arial}
+.nutrition .line{border-bottom:1px solid #aaa;padding:2px 0}
+.related{background:#fff;border-radius:8px;padding:22px;margin-top:20px;box-shadow:0 1px 5px #ddd}
+.related h4{margin:0 0 12px;color:#78909b;font-weight:normal}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;line-height:1.8}
+.related-grid div:before{content:"=";color:#df6b54;font-weight:bold;margin-right:7px}
+
+.site-footer{width:1080px;margin:35px auto 25px;border-top:1px solid #eee;padding-top:25px;text-align:center;color:#777;font-size:12px;line-height:3}
+.contact{display:flex;justify-content:center;gap:75px;color:#d36c54;font-size:14px;margin-bottom:14px}
+.contact span{border-left:1px solid #ccc;padding-left:30px}
+.wolfram-foot{font-size:17px;font-weight:bold;color:#777}
+
+.coffee-view{display:none}
+body.coffee-mode .math-view{display:none}
+body.coffee-mode .coffee-view{display:block}
+body.coffee-mode .searchbox .clear{display:block}
+body.coffee-mode .brand{margin-bottom:0}
+
+@media(max-width:1100px){
+ body{min-width:0}
+ .topbar{display:none}
+ .hero{height:145px}
+ .hero-inner{width:700px;height:145px}
+ .hero img{width:300px;height:135px}
+ .hero-copy{left:390px;top:20px;font-size:23px}
+ .page{width:1010px;padding-top:45px}
+ .brand{width:800px}
+ .site-footer{width:1010px}
+}
+</style>
+</head>
+<body>
+<div class="topbar">
+  UPGRADE TO PRO⌄ <span>APPS⌄</span><span>TOUR</span>
+  <button class="btn">Sign in</button><span>◐⌄</span>
+</div>
+
+<header class="hero">
+  <div class="hero-inner">
+    <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/002.gif" width="315" height="137" alt="Wolfram mascot">
+    <div class="hero-copy"><strong>Use Wolfram|Alpha Pro</strong><br><span class="sub">for reality-checked results</span><button class="btn">Go Pro Now</button></div>
+  </div>
+</header>
+
+<main class="page">
+  <div class="brand">
+    <div class="tag">FROM THE MAKERS OF WOLFRAM LANGUAGE AND MATHEMATICA</div>
+    <div class="brandline">
+      <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/016.png" width="43" height="43" alt="">
+      <span>Wolfram<span>Alpha</span></span>
+    </div>
+  </div>
+
+  <div class="layout">
+    <section class="searcharea">
+      <form class="searchbox" id="queryForm">
+        <input id="query" autocomplete="off" placeholder="Enter what you want to calculate or know about">
+        <button type="button" class="clear btn" id="clearBtn">×</button>
+        <button type="submit" class="go btn">≡</button>
+      </form>
+      <div class="tools">
+        <div class="tool-left">
+          <button class="tool active btn">✹ NATURAL LANGUAGE</button>
+          <button class="tool btn">∫∑ MATH INPUT</button>
+        </div>
+        <div class="tool-right">
+          <button class="btn">▦ EXTENDED KEYBOARD</button>
+          <button class="btn">▦ EXAMPLES</button>
+          <button class="btn">↥ UPLOAD</button>
+          <button class="btn">⤨ RANDOM</button>
+        </div>
+      </div>
+
+      <div class="math-view results">
+        <div class="notice"><b>✹</b> Wolfram|Alpha does not yet support Chinese.<br><span style="margin-left:34px">Wolfram|Alpha 不支持中文。</span></div>
+        <div class="interpret">Interpreting as: <strong>1/(x^2 + 4x + 3)</strong></div>
+        <div class="pod">
+          <div class="pod-title">Input</div>
+          <div class="pod-body">
+            <div class="math-input"><div class="label">partial fractions</div><div class="fraction"><div class="frac-top">1</div><div class="frac-bottom">x² + 4x + 3</div></div></div>
+          </div>
+        </div>
+        <div class="pod">
+          <div class="pod-title">Result <button class="step btn">☑ Step-by-step solution</button></div>
+          <div class="pod-body result-equation">
+            <span class="f"><span class="top">1</span><br><span class="bottom">x² + 4x + 3</span></span><span>=</span>
+            <span class="f"><span class="top">1</span><br><span class="bottom">2(x + 1)</span></span><span>−</span>
+            <span class="f"><span class="top">1</span><br><span class="bottom">2(x + 3)</span></span>
+          </div>
+        </div>
+        <div class="pod"><div class="pod-title">Plot</div><div class="plot"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/014.png" width="400" height="210" alt="Function plot"></div><div class="plot"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/015.png" width="400" height="210" alt="Function plot"></div></div>
+        <div class="pod"><div class="pod-title">Alternate form</div><div class="alt"><div class="smallfrac"><div>1</div><div>x² + 4x + 3</div></div><br><div class="smallfrac"><div>1</div><div>(x + 1)(x + 3)</div></div></div></div>
+        <div class="footerbar">⇩ Download Page <span>POWERED BY THE WOLFRAM LANGUAGE</span></div>
+      </div>
+
+      <div class="coffee-view">
+        <div class="assumptions">
+          Assuming coffee | Use <a>Starbucks coffee of the week</a> instead<br>
+          Assuming any type of coffee | Use <a>coffee, brewed, espresso</a> or <button class="btn">more⌄</button> instead<br>
+          Assuming any type of carbonated beverage | Use <a>carbonated beverage, cream</a> or <button class="btn">more⌄</button> instead
+        </div>
+        <div class="results coffee">
+          <div class="pod"><div class="pod-title">Input interpretation</div><div class="pod-body">
+            <div style="display:flex;gap:0;flex-wrap:wrap">
+              <div class="math-input" style="width:355px"><div class="label">coffee</div><div class="fraction" style="font-family:Arial;color:#999">amount</div><div class="fraction">24 oz <small>(ounces)</small></div><div class="fraction">caffeine</div></div>
+              <div class="math-input" style="width:450px"><div class="label">carbonated beverage</div><div class="fraction" style="font-family:Arial;color:#999">amount</div><div class="fraction">24 oz <small>(ounces)</small></div><div class="fraction">caffeine</div></div>
+            </div>
+          </div></div>
+          <div class="pod"><div class="pod-title">Result <button class="step btn">☑ Step-by-step solution</button></div><div class="pod-body" style="font-size:18px">481 mg <span class="unit">(milligrams)</span></div></div>
+          <div class="pod"><div class="pod-title">Unit conversion</div><div class="pod-body" style="line-height:2.8">0.4815 grams<br>4.815×10<sup>−4</sup> kg <span class="unit">(kilograms)</span><br>7.431 grains</div></div>
+          <div class="pod"><div class="pod-title">Physical properties</div><div class="pod-body"><table class="coffee-table"><tr><td rowspan="3">mass</td><td>coffee</td><td>680 grams</td></tr><tr><td>carbonated beverage</td><td>680 grams</td></tr><tr><td>total</td><td>1.4 kg <span class="unit">(kilograms)</span></td></tr><tr><td rowspan="3">serving volume</td><td>coffee</td><td>671 mL <span class="unit">(milliliters)</span></td></tr><tr><td>carbonated beverage</td><td>649 mL <span class="unit">(milliliters)</span></td></tr><tr><td>total</td><td>1320 mL <span class="unit">(milliliters)</span></td></tr><tr><td rowspan="2">serving density</td><td>coffee</td><td>1 g/cm³</td></tr><tr><td>carbonated beverage</td><td>1.1 g/cm³</td></tr></table></div></div>
+          <div class="footerbar">▣ Sources　⇩ Download Page <span>POWERED BY THE WOLFRAM LANGUAGE</span></div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="ads">
+      <img class="btn" src="__PLACEHOLDER_ASSETS_BASE_DIR__/009.png" width="205" height="320" alt="Discover what's possible">
+      <img class="btn" src="__PLACEHOLDER_ASSETS_BASE_DIR__/018.png" width="205" height="465" alt="WolframAlpha Pro">
+    </aside>
+  </div>
+</main>
+
+<div class="related" style="width:800px;margin:24px auto">
+  <h4>Related Queries:</h4>
+  <div class="related-grid"><div>expand all 1/(x^2 + 4x + 3)</div><div>tell me about iterated linear fractional transformations</div><div>numerator of together 1/(x^2 + 4x + 3)</div><div>factor 1/(x^2 + 4x + 3) over C</div><div>factor 1/(x^2 + 4x + 3)</div></div>
+</div>
+
+<footer class="site-footer">
+  <div class="contact"><span>✉ 👤　Have a question about using Wolfram|Alpha?<br>Contact Pro Premium Expert Support »</span><span>▢　Give us your feedback »</span></div>
+  Pro　|　Mobile Apps　|　Products　|　Business　|　API & Developer Solutions　|　LLM Solutions<br>
+  Resources & Tools　|　About　|　Contact　|　Connect　▣　▣　▣<br>
+  ©2025 Wolfram　|　Terms　|　Privacy<br>
+  <span class="wolfram-foot">✹ WOLFRAM</span>　wolfram.com　| Wolfram Language　| Mathematica　| Wolfram Demonstrations　| MathWorld
+</footer>
+
+<script>
+const input=document.getElementById('query');
+const form=document.getElementById('queryForm');
+const clear=document.getElementById('clearBtn');
+form.addEventListener('submit',e=>{
+  e.preventDefault();
+  const value=input.value.toLowerCase();
+  if(value.includes('caffeine')||value.includes('coffee')||value.includes('soda')){
+    document.body.classList.add('coffee-mode');
+  }else{
+    document.body.classList.remove('coffee-mode');
+  }
+});
+clear.addEventListener('click',()=>{
+  input.value='';
+  document.body.classList.remove('coffee-mode');
+  input.focus();
+});
+input.addEventListener('input',()=>{
+  clear.style.display=input.value?'block':'none';
+});
+document.querySelectorAll('.btn').forEach(el=>{
+  el.addEventListener('click',()=>{
+    if(el.tagName==='BUTTON' && el.type!=='submit' && el.id!=='clearBtn') el.style.opacity='.82';
+  });
+});
+</script>
+</body>
+</html>
+```

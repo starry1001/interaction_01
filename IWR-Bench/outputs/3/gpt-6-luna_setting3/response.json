@@ -1,0 +1,111 @@
+{
+  "id": "chatcmpl-EmLxPZ27FfzEPLpy5slN3aTo32W5B",
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "logprobs": null,
+      "message": {
+        "content": "```html\n<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>Pomofocus</title>\n<style>\n  * { box-sizing: border-box; }\n  :root {\n    --red: #ad394a;\n    --card: #b34d5b;\n    --white: #fff;\n    --muted: rgba(255,255,255,.66);\n    --dark: #37383c;\n  }\n  html { scroll-behavior: smooth; }\n  body {\n    margin: 0;\n    font-family: Arial, Helvetica, sans-serif;\n    color: white;\n    background: var(--red);\n  }\n  button, input, textarea { font: inherit; }\n  button { cursor: pointer; }\n  .btn { -webkit-tap-highlight-color: transparent; }\n  .app {\n    min-height: 1398px;\n    padding: 0 18px 60px;\n    background: var(--red);\n    transition: background .25s;\n  }\n  .app.break { background: #508f91; }\n  .app.break .timer-card { background: rgba(255,255,255,.12); }\n  .app.break .start-button { color: #508f91; }\n  .topbar {\n    height: 92px;\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    border-bottom: 1px solid rgba(90,18,29,.22);\n  }\n  .brand {\n    display: flex;\n    align-items: center;\n    gap: 8px;\n    font-size: 29px;\n    font-weight: 700;\n    letter-spacing: -.7px;\n    white-space: nowrap;\n  }\n  .brand-mark {\n    width: 29px; height: 29px;\n    background: white;\n    color: var(--red);\n    border-radius: 50%;\n    display: inline-flex;\n    align-items: center;\n    justify-content: center;\n    font-size: 22px;\n    line-height: 1;\n    font-weight: 900;\n  }\n  .top-actions { display: flex; gap: 13px; }\n  .icon-btn {\n    width: 52px; height: 51px;\n    border: 0; border-radius: 7px;\n    background: rgba(255,255,255,.18);\n    color: white;\n    display: inline-flex;\n    align-items: center;\n    justify-content: center;\n  }\n  .icon-btn svg { width: 28px; height: 28px; fill: currentColor; }\n  .timer-card {\n    height: 432px;\n    margin-top: 60px;\n    background: var(--card);\n    border-radius: 8px;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    position: relative;\n    padding: 30px 12px 35px;\n    transition: background .25s;\n  }\n  .modes {\n    width: min(100%, 500px);\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n  }\n  .mode {\n    border: 0;\n    color: white;\n    background: transparent;\n    font-size: 22px;\n    line-height: 1.2;\n    padding: 8px 17px;\n    border-radius: 6px;\n    white-space: nowrap;\n  }\n  .mode.active { background: rgba(117,31,45,.38); font-weight: 700; }\n  .time {\n    margin-top: 45px;\n    font-size: 145px;\n    line-height: 1.02;\n    font-weight: 700;\n    letter-spacing: 1px;\n    font-variant-numeric: tabular-nums;\n  }\n  .timer-actions {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    gap: 34px;\n    margin-top: 42px;\n    width: 100%;\n  }\n  .start-button {\n    width: 300px;\n    height: 92px;\n    background: #fff;\n    color: #a94351;\n    border: 0;\n    border-radius: 6px;\n    box-shadow: 0 9px 0 rgba(255,255,255,.72);\n    font-size: 32px;\n    font-weight: 700;\n  }\n  .skip-button {\n    border: 0;\n    color: rgba(255,255,255,.8);\n    background: none;\n    display: none;\n    padding: 6px;\n  }\n  .skip-button svg { width: 36px; height: 36px; fill: currentColor; }\n  .running .skip-button { display: inline-flex; }\n  .session {\n    text-align: center;\n    margin-top: 29px;\n    min-height: 69px;\n  }\n  .session-number {\n    color: rgba(255,255,255,.67);\n    font-size: 23px;\n    font-weight: 700;\n    margin-bottom: 7px;\n  }\n  .session-name { font-size: 26px; line-height: 1.2; }\n  .tasks { margin-top: 20px; }\n  .tasks-head {\n    min-height: 81px;\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    border-bottom: 3px solid rgba(255,255,255,.62);\n  }\n  .tasks-head h2 { margin: 0; font-size: 25px; }\n  .more-btn {\n    width: 51px; height: 51px;\n    color: white;\n    background: rgba(255,255,255,.18);\n    border: 0; border-radius: 7px;\n    font-size: 35px;\n    line-height: 20px;\n    font-weight: bold;\n  }\n  .task-list { display: flex; flex-direction: column; gap: 15px; margin-top: 30px; }\n  .task-row {\n    min-height: 92px;\n    background: #fff;\n    color: #596065;\n    border-radius: 6px;\n    display: flex;\n    align-items: center;\n    padding: 0 22px;\n    border-left: 8px solid #29292c;\n    box-shadow: 0 2px 3px rgba(0,0,0,.06);\n  }\n  .task-check {\n    flex: 0 0 39px;\n    width: 39px; height: 39px;\n    border-radius: 50%;\n    border: 0;\n    color: white;\n    background: #dedfe0;\n    font-size: 25px;\n    font-weight: 700;\n    margin-right: 16px;\n  }\n  .task-title { font-size: 24px; font-weight: 700; flex: 1; }\n  .task-count { color: #9da2a5; font-size: 24px; font-weight: 700; margin-right: 24px; }\n  .task-menu {\n    width: 45px; height: 45px;\n    color: #9da2a5; background: white;\n    border: 1px solid #ddd; border-radius: 6px;\n    font-size: 30px; font-weight: bold;\n  }\n  .task-row.done .task-check { background: #d58b91; }\n  .task-row.done .task-title { text-decoration: line-through; color: #aeb1b3; }\n  .add-task {\n    width: 100%;\n    height: 97px;\n    border: 3px dashed rgba(255,255,255,.33);\n    color: rgba(255,255,255,.7);\n    border-radius: 11px;\n    background: transparent;\n    font-weight: 700;\n    font-size: 24px;\n  }\n  .add-circle {\n    display: inline-flex;\n    vertical-align: -3px;\n    align-items: center;\n    justify-content: center;\n    width: 27px; height: 27px;\n    border-radius: 50%;\n    color: var(--red);\n    background: rgba(255,255,255,.74);\n    font-size: 23px;\n    margin-right: 7px;\n    font-weight: 700;\n  }\n  .editor {\n    display: none;\n    margin-top: 22px;\n    color: #555b60;\n    background: white;\n    border-radius: 11px;\n    overflow: hidden;\n    min-height: 480px;\n    box-shadow: 0 3px 10px rgba(0,0,0,.1);\n  }\n  .editor.open { display: block; }\n  .editor-main { padding: 36px 30px 26px; }\n  .task-input {\n    width: 100%;\n    height: 68px;\n    border: 0;\n    outline: 0;\n    color: #555b60;\n    font-size: 29px;\n    font-weight: 700;\n  }\n  .task-input::placeholder { color: #d8d9da; font-style: italic; }\n  .estimate-label { font-size: 23px; font-weight: 700; margin: 20px 0 16px; }\n  .estimate-controls { display: flex; gap: 14px; align-items: center; }\n  .estimate {\n    height: 58px;\n    width: 113px;\n    background: #eee;\n    border-radius: 9px;\n    border: 0;\n    padding: 0 15px;\n    font-size: 22px;\n    color: #555;\n  }\n  .step-btn {\n    width: 58px; height: 58px;\n    border: 1px solid #ddd;\n    background: #fff;\n    border-radius: 17px;\n    color: #888;\n    box-shadow: 0 2px 3px #ddd;\n    font-size: 18px;\n  }\n  .editor-links { display: flex; gap: 18px; margin-top: 27px; }\n  .editor-link {\n    border: 0; padding: 0; background: none;\n    color: #aaa; text-decoration: underline;\n    font-size: 21px; font-weight: 700;\n  }\n  .editor-footer {\n    height: 99px;\n    background: #f5f5f5;\n    border-top: 1px solid #eee;\n    display: flex;\n    justify-content: flex-end;\n    align-items: center;\n    gap: 38px;\n    padding: 0 30px;\n  }\n  .cancel-btn { border: 0; background: none; color: #999; font-weight: 700; font-size: 20px; }\n  .save-btn {\n    background: #414247; color: white; border: 0;\n    border-radius: 15px; height: 58px; min-width: 114px;\n    font-size: 20px; font-weight: 700;\n    box-shadow: 0 2px 3px #bbb;\n  }\n  .summary {\n    display: none;\n    margin-top: 40px;\n    height: 110px;\n    border-top: 1px solid rgba(255,255,255,.45);\n    background: rgba(255,255,255,.12);\n    align-items: center;\n    justify-content: center;\n    gap: 20px;\n    font-size: 22px;\n    color: rgba(255,255,255,.75);\n  }\n  .summary strong { color: white; font-size: 34px; }\n  .finished {\n    display: none;\n    margin: 80px 3px 0;\n    background: white;\n    color: #222;\n    border-radius: 12px;\n    padding: 25px 30px;\n    align-items: center;\n    justify-content: space-between;\n    font-size: 21px;\n  }\n  .finished.show { display: flex; }\n  .clear-btn { border: 0; border-radius: 6px; padding: 17px 25px; background: #4da88f; color: white; font-size: 20px; }\n  .article {\n    background: white;\n    color: #563237;\n    padding: 48px 18px 80px;\n    line-height: 1.7;\n  }\n  .article h1 { font-size: 34px; line-height: 1.45; margin: 0 0 50px; }\n  .article h2 { font-size: 28px; margin: 0 0 30px; }\n  .article h2:after { content:\"\"; display:block; width:36px; height:5px; background:#e58f9a; margin-top:12px; }\n  .article p { font-size: 23px; color: #777174; line-height: 1.7; }\n  .article a { color: #c65462; font-weight: 700; }\n  @media (max-width: 520px) {\n    .app { padding-left: 12px; padding-right: 12px; }\n    .brand { font-size: 22px; }\n    .top-actions { gap: 6px; }\n    .icon-btn { width: 42px; height: 43px; }\n    .mode { padding: 8px 7px; font-size: 16px; }\n    .time { font-size: clamp(82px, 22vw, 125px); }\n    .start-button { width: min(300px, 65vw); }\n    .task-title, .task-count { font-size: 20px; }\n    .summary { font-size: 17px; gap: 10px; }\n    .summary strong { font-size: 26px; }\n  }\n</style>\n</head>\n<body>\n<div class=\"app\" id=\"app\">\n  <header class=\"topbar\">\n    <div class=\"brand\"><span class=\"brand-mark\">✓</span><span>Pomofocus</span></div>\n    <nav class=\"top-actions\" aria-label=\"Tools\">\n      <button class=\"btn icon-btn\" aria-label=\"Statistics\"><svg viewBox=\"0 0 24 24\"><path d=\"M3 3h2v17h17v2H3zM7 13h3v5H7zm5-5h3v10h-3zm5 3h3v7h-3zM7 5h13v2H7z\"/></svg></button>\n      <button class=\"btn icon-btn\" aria-label=\"Settings\"><svg viewBox=\"0 0 24 24\"><path d=\"M19.4 13a7.8 7.8 0 0 0 0-2l2-1.5-2-3.5-2.3.9a8 8 0 0 0-1.7-1L15 3h-6l-.4 2.9a8 8 0 0 0-1.7 1l-2.3-.9-2 3.5 2 1.5a7.8 7.8 0 0 0 0 2l-2 1.5 2 3.5 2.3-.9a8 8 0 0 0 1.7 1L9 21h6l.4-2.9a8 8 0 0 0 1.7-1l2.3.9 2-3.5zM12 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7\"/></svg></button>\n      <button class=\"btn icon-btn\" aria-label=\"Account\"><svg viewBox=\"0 0 24 24\"><path d=\"M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 4a3.2 3.2 0 1 1 0 6.4A3.2 3.2 0 0 1 12 6zm0 13a7 7 0 0 1-5.6-2.8c.1-2 3.7-3.1 5.6-3.1s5.5 1.1 5.6 3.1A7 7 0 0 1 12 19z\"/></svg></button>\n      <button class=\"btn icon-btn\" aria-label=\"More options\"><svg viewBox=\"0 0 24 24\"><circle cx=\"12\" cy=\"5\" r=\"2.2\"/><circle cx=\"12\" cy=\"12\" r=\"2.2\"/><circle cx=\"12\" cy=\"19\" r=\"2.2\"/></svg></button>\n    </nav>\n  </header>\n\n  <section class=\"timer-card\" aria-label=\"Pomodoro timer\">\n    <div class=\"modes\">\n      <button class=\"btn mode active\" data-mode=\"pomodoro\">Pomodoro</button>\n      <button class=\"btn mode\" data-mode=\"short\">Short Break</button>\n      <button class=\"btn mode\" data-mode=\"long\">Long Break</button>\n    </div>\n    <div class=\"time\" id=\"time\">25:00</div>\n    <div class=\"timer-actions\">\n      <button class=\"btn start-button\" id=\"start\">START</button>\n      <button class=\"btn skip-button\" id=\"skip\" aria-label=\"Skip timer\"><svg viewBox=\"0 0 24 24\"><path d=\"M3 4.5c0-1.2 1.3-1.8 2.2-1.1l11 7.6c.8.6.8 1.7 0 2.2l-11 7.5C4.3 21.5 3 20.9 3 19.7zM19 3h2v18h-2z\"/></svg></button>\n    </div>\n  </section>\n\n  <div class=\"session\">\n    <div class=\"session-number\">#<span id=\"sessionNum\">1</span></div>\n    <div class=\"session-name\" id=\"sessionName\">Time to focus!</div>\n  </div>\n\n  <section class=\"tasks\">\n    <div class=\"tasks-head\">\n      <h2>Tasks</h2>\n      <button class=\"btn more-btn\" aria-label=\"Task options\">⋮</button>\n    </div>\n    <div class=\"task-list\" id=\"taskList\">\n      <button class=\"btn add-task\" id=\"addTask\"><span class=\"add-circle\">+</span>Add Task</button>\n    </div>\n    <div class=\"editor\" id=\"editor\">\n      <div class=\"editor-main\">\n        <input class=\"task-input\" id=\"taskInput\" placeholder=\"What are you working on?\" autocomplete=\"off\">\n        <div class=\"estimate-label\">Est Pomodoros</div>\n        <div class=\"estimate-controls\">\n          <input class=\"estimate\" id=\"estimate\" type=\"number\" value=\"1\" min=\"1\">\n          <button class=\"btn step-btn\" id=\"up\" aria-label=\"Increase estimate\">▲</button>\n          <button class=\"btn step-btn\" id=\"down\" aria-label=\"Decrease estimate\">▼</button>\n        </div>\n        <div class=\"editor-links\">\n          <button class=\"btn editor-link\">+ Add Note</button>\n          <button class=\"btn editor-link\">+ Add Project　🔒</button>\n        </div>\n      </div>\n      <div class=\"editor-footer\">\n        <button class=\"btn cancel-btn\" id=\"cancel\">Cancel</button>\n        <button class=\"btn save-btn\" id=\"save\">Save</button>\n      </div>\n    </div>\n    <div class=\"summary\" id=\"summary\">\n      <span>Pomos: <strong id=\"pomos\">0 / 0</strong></span>\n      <span>Finish At: <strong>14:57</strong> (0.4h)</span>\n    </div>\n    <div class=\"finished\" id=\"finished\">\n      <span>You've finished all your tasks for today 🎉</span>\n      <button class=\"btn clear-btn\" id=\"clear\">Clear Tasks</button>\n    </div>\n  </section>\n</div>\n\n<section class=\"article\">\n  <h1>An online Pomodoro Timer to boost your productivity</h1>\n  <h2>What is Pomofocus?</h2>\n  <p>Pomofocus is a customizable pomodoro timer that works on desktop &amp; mobile browser. The aim of this app is to help you focus on any task you are working on, such as study, writing, or coding. This app is inspired by <a href=\"#\" class=\"btn\">Pomodoro Technique</a> which is a time management method developed by Francesco Cirillo.</p>\n</section>\n\n<script>\n(() => {\n  const app = document.getElementById('app');\n  const timeEl = document.getElementById('time');\n  const start = document.getElementById('start');\n  const modes = [...document.querySelectorAll('.mode')];\n  const sessionName = document.getElementById('sessionName');\n  const editor = document.getElementById('editor');\n  const input = document.getElementById('taskInput');\n  const estimate = document.getElementById('estimate');\n  const addTask = document.getElementById('addTask');\n  const taskList = document.getElementById('taskList');\n  const summary = document.getElementById('summary');\n  const finished = document.getElementById('finished');\n  let selected = 'pomodoro', running = false, seconds = 1500, ticker = null;\n  let tasks = [];\n\n  const durations = { pomodoro: 25, short: 5, long: 15 };\n  const sessionLabels = { pomodoro: 'Time to focus!', short: 'Time for a break!', long: 'Time for a break!' };\n  function format() {\n    timeEl.textContent = `${String(Math.floor(seconds / 60)).padStart(2,'0')}:${String(seconds % 60).padStart(2,'0')}`;\n  }\n  function chooseMode(mode) {\n    selected = mode;\n    modes.forEach(b => b.classList.toggle('active', b.dataset.mode === mode));\n    app.classList.toggle('break', mode !== 'pomodoro');\n    seconds = durations[mode] * 60;\n    sessionName.textContent = sessionLabels[mode];\n    stopTimer();\n    format();\n  }\n  function stopTimer() {\n    running = false;\n    clearInterval(ticker);\n    app.classList.remove('running');\n    start.textContent = 'START';\n  }\n  modes.forEach(b => b.addEventListener('click', () => chooseMode(b.dataset.mode)));\n  start.addEventListener('click', () => {\n    if (running) { stopTimer(); return; }\n    running = true;\n    app.classList.add('running');\n    start.textContent = 'PAUSE';\n    ticker = setInterval(() => {\n      if (seconds > 0) { seconds--; format(); }\n      else stopTimer();\n    }, 1000);\n  });\n  document.getElementById('skip').addEventListener('click', () => {\n    stopTimer();\n    seconds = durations[selected] * 60;\n    format();\n  });\n\n  function openEditor() {\n    editor.classList.add('open');\n    addTask.style.display = 'none';\n    input.value = '';\n    estimate.value = 1;\n    setTimeout(() => input.focus(), 30);\n  }\n  function closeEditor() {\n    editor.classList.remove('open');\n    addTask.style.display = '';\n  }\n  addTask.addEventListener('click', openEditor);\n  document.getElementById('cancel').addEventListener('click', closeEditor);\n  document.getElementById('up').addEventListener('click', () => estimate.value = Math.max(1, (+estimate.value || 1) + 1));\n  document.getElementById('down').addEventListener('click', () => estimate.value = Math.max(1, (+estimate.value || 1) - 1));\n\n  function updateSummary() {\n    if (!tasks.length) {\n      summary.style.display = 'none';\n      finished.classList.remove('show');\n      return;\n    }\n    summary.style.display = 'flex';\n    const total = tasks.reduce((n, t) => n + t.est, 0);\n    const done = tasks.filter(t => t.done).length;\n    document.getElementById('pomos').textContent = `${done} / ${total}`;\n    finished.classList.toggle('show', tasks.every(t => t.done));\n  }\n  function renderTasks() {\n    taskList.innerHTML = '';\n    tasks.forEach((task, i) => {\n      const row = document.createElement('div');\n      row.className = 'task-row' + (task.done ? ' done' : '');\n      row.innerHTML = `<button class=\"btn task-check\" aria-label=\"Complete task\">${task.done ? '✓' : '✓'}</button>\n        <span class=\"task-title\"></span><span class=\"task-count\">0 / ${task.est}</span>\n        <button class=\"btn task-menu\" aria-label=\"Task options\">⋮</button>`;\n      row.querySelector('.task-title').textContent = task.title;\n      row.querySelector('.task-check').addEventListener('click', () => {\n        task.done = !task.done; renderTasks(); updateSummary();\n      });\n      row.querySelector('.task-menu').addEventListener('click', () => {\n        if (confirm('Delete this task?')) { tasks.splice(i, 1); renderTasks(); updateSummary(); }\n      });\n      taskList.appendChild(row);\n    });\n    taskList.appendChild(addTask);\n    addTask.style.display = editor.classList.contains('open') ? 'none' : '';\n  }\n  document.getElementById('save').addEventListener('click', () => {\n    const value = input.value.trim();\n    if (!value) { input.focus(); return; }\n    tasks.push({ title: value, est: Math.max(1, +estimate.value || 1), done: false });\n    renderTasks();\n    updateSummary();\n    openEditor();\n  });\n  document.getElementById('clear').addEventListener('click', () => {\n    tasks = [];\n    renderTasks();\n    updateSummary();\n  });\n})();\n</script>\n</body>\n</html>\n```",
+        "refusal": null,
+        "role": "assistant",
+        "annotations": [],
+        "audio": null,
+        "function_call": null,
+        "tool_calls": null
+      },
+      "content_filter_results": {
+        "hate": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "protected_material_code": {
+          "detected": false,
+          "filtered": false
+        },
+        "protected_material_text": {
+          "detected": false,
+          "filtered": false
+        },
+        "self_harm": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "sexual": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "violence": {
+          "filtered": false,
+          "severity": "safe"
+        }
+      }
+    }
+  ],
+  "created": 1795192855,
+  "model": "gpt-6-luna-2026-09-22",
+  "object": "chat.completion",
+  "metadata": null,
+  "moderation": null,
+  "service_tier": "default",
+  "system_fingerprint": null,
+  "usage": {
+    "completion_tokens": 7364,
+    "prompt_tokens": 13177,
+    "total_tokens": 20541,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": 0,
+      "audio_tokens": 0,
+      "reasoning_tokens": 1505,
+      "rejected_prediction_tokens": 0,
+      "text_tokens": null
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cache_write_tokens": null,
+      "cached_tokens": 0,
+      "image_tokens": null,
+      "text_tokens": null
+    },
+    "latency_checkpoint": {
+      "engine_tbt_ms": 7,
+      "engine_ttft_ms": 350,
+      "engine_ttlt_ms": 53570,
+      "pre_inference_ms": 660,
+      "service_tbt_ms": 7,
+      "service_ttft_ms": 1072,
+      "service_ttlt_ms": 54284,
+      "user_visible_ttft_ms": 412
+    }
+  },
+  "prompt_filter_results": [
+    {
+      "prompt_index": 0,
+      "content_filter_results": {
+        "hate": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "jailbreak": {
+          "detected": false,
+          "filtered": false
+        },
+        "self_harm": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "sexual": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "violence": {
+          "filtered": false,
+          "severity": "safe"
+        }
+      }
+    }
+  ],
+  "routing": {
+    "serving_pipereplica": "d20261112172236-14c95af3-prefill-r7-dp0-prefill"
+  }
+}

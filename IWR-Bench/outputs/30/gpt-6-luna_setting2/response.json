@@ -1,0 +1,115 @@
+{
+  "id": "chatcmpl-EmMUSRhf6rAtQV0m3JTDgm60w3ECr",
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "logprobs": null,
+      "message": {
+        "content": "```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<title>Welcome file — StackEdit</title>\n<style>\n  * { box-sizing: border-box; }\n  html, body { height: 100%; margin: 0; overflow: hidden; }\n  body { font-family: Arial, Helvetica, sans-serif; color: #333; background: #fff; }\n  .topbar {\n    height: 45px; position: absolute; inset: 0 0 auto 0; z-index: 5;\n    background: #292929; color: #ddd; display: flex; align-items: center;\n    padding: 0 8px; box-shadow: 0 1px 2px #777;\n  }\n  .tools { display: flex; height: 100%; align-items: center; gap: 2px; }\n  .btn {\n    border: 0; border-radius: 2px; height: 34px; min-width: 31px;\n    padding: 0 6px; display: inline-flex; align-items: center; justify-content: center;\n    background: transparent; color: #d5d5d5; font: 600 16px Arial, sans-serif;\n    cursor: pointer; user-select: none; text-decoration: none;\n  }\n  .btn:hover, .btn.active { color: #fff; background: #454545; }\n  .btn.folder { font-size: 23px; color: #bbb; }\n  .btn.slim { min-width: 25px; font-size: 15px; }\n  .toolbar-sep { width: 8px; }\n  .right-tools { margin-left: auto; display: flex; align-items: center; height: 100%; gap: 7px; }\n  .filename { font-size: 18px; color: #c6c6c6; padding: 0 12px; cursor: pointer; }\n  .filename:hover { color: white; }\n  .quiet { color: #888; font-size: 18px; }\n  .badge {\n    background: #eff5ba; color: #555; width: 29px; height: 32px; border-radius: 6px;\n    border: 2px solid #dfc139; font-size: 17px; font-weight: bold;\n  }\n  .workspace {\n    position: absolute; inset: 45px 0 35px 0; display: grid;\n    grid-template-columns: minmax(0, 1fr) 8px minmax(0, 1fr);\n  }\n  .editor-pane { background: #fff; overflow: hidden; position: relative; }\n  #editor {\n    position: absolute; inset: 0; width: 100%; height: 100%; resize: none; border: 0;\n    outline: none; overflow: auto; padding: 9px 100px 45px 138px;\n    color: #333; background: transparent; font: 18px/1.55 Arial, Helvetica, sans-serif;\n    white-space: pre-wrap; overflow-wrap: break-word; tab-size: 2;\n  }\n  .splitter {\n    background: #bcbcbc; position: relative; cursor: col-resize; z-index: 2;\n    box-shadow: 1px 0 2px #aaa, -1px 0 2px #ddd;\n  }\n  .split-tools {\n    position: absolute; top: 8px; left: 1px; display: flex; flex-direction: column;\n    gap: 6px; color: #999; font-size: 16px; align-items: center;\n  }\n  .split-tools button {\n    cursor: pointer; color: #999; border: 0; background: transparent; padding: 0;\n    font-size: 16px; line-height: 20px;\n  }\n  .preview-pane { background: #f4f4f4; overflow: auto; }\n  #preview {\n    max-width: 100%; padding: 9px 145px 60px 163px; color: #454545;\n    font-size: 18px; line-height: 1.58;\n  }\n  #preview h1, #preview h2, #preview h3, #preview h4 {\n    color: #3e3e3e; font-weight: 700; line-height: 1.25;\n    border-bottom: 1px solid #d2d2d2; padding-bottom: 18px;\n  }\n  #preview h1 { font-size: 36px; margin: 0 0 50px; }\n  #preview h2 { font-size: 30px; margin: 68px 0 50px; }\n  #preview h3 { font-size: 24px; margin: 52px 0 38px; }\n  #preview h4 { font-size: 20px; margin: 42px 0 28px; }\n  #preview p { margin: 0 0 38px; }\n  #preview ul, #preview ol { padding-left: 32px; }\n  #preview hr { border: 0; border-top: 1px solid #ccc; margin: 38px 0; }\n  #preview blockquote { margin-left: 0; padding-left: 18px; border-left: 4px solid #ccc; }\n  #preview code { background: #e6e6e6; padding: 2px 5px; }\n  .status {\n    position: absolute; bottom: 0; left: 0; right: 0; height: 35px; z-index: 4;\n    background: #0788c6; color: white; font: 12px Arial, sans-serif;\n    display: flex; align-items: center; justify-content: space-between; padding: 0 9px;\n  }\n  .status strong { font-weight: 600; }\n  .toast {\n    position: absolute; z-index: 10; bottom: 42px; right: 16px; color: #fff;\n    background: #101010; border-radius: 3px; font: 12px Arial; padding: 10px 14px;\n    box-shadow: 0 1px 5px #555; display: none;\n  }\n  .file-menu {\n    position: absolute; display: none; z-index: 8; top: 45px; left: 0; width: 310px;\n    bottom: 35px; background: #333; color: #eee; box-shadow: 2px 0 8px #888;\n    padding: 18px; font-size: 16px;\n  }\n  .file-menu.open { display: block; }\n  .file-menu h3 { font-size: 19px; font-weight: 400; border-bottom: 1px solid #666; padding-bottom: 12px; }\n  .file-menu .item { padding: 10px 8px; cursor: pointer; }\n  .file-menu .item:hover { background: #4b4b4b; }\n  @media (max-width: 1000px) {\n    #editor { padding-left: 7vw; padding-right: 5vw; font-size: 15px; }\n    #preview { padding-left: 7vw; padding-right: 6vw; font-size: 15px; }\n    .filename { font-size: 14px; }\n  }\n</style>\n</head>\n<body>\n<header class=\"topbar\">\n  <div class=\"tools\">\n    <button class=\"btn folder\" id=\"explorerBtn\" title=\"File explorer\">▰</button>\n    <button class=\"btn slim\" title=\"Undo\" data-action=\"undo\">↶</button>\n    <button class=\"btn slim\" title=\"Redo\" data-action=\"redo\">↷</button>\n    <button class=\"btn\" title=\"Bold\" data-action=\"bold\"><b>B</b></button>\n    <button class=\"btn\" title=\"Italic\" data-action=\"italic\"><i>I</i></button>\n    <button class=\"btn\" title=\"Heading\" data-action=\"heading\">tT</button>\n    <button class=\"btn\" title=\"Strikethrough\" data-action=\"strike\"><span style=\"text-decoration:line-through\">S</span></button>\n    <span class=\"toolbar-sep\"></span>\n    <button class=\"btn\" title=\"Bulleted list\" data-action=\"ul\">☷</button>\n    <button class=\"btn\" title=\"Numbered list\" data-action=\"ol\">☷</button>\n    <button class=\"btn\" title=\"Checklist\" data-action=\"check\">☑</button>\n    <button class=\"btn\" title=\"Quote\" data-action=\"quote\">❞</button>\n    <button class=\"btn\" title=\"Code\" data-action=\"code\">‹›</button>\n    <button class=\"btn\" title=\"Table\" data-action=\"table\">▦</button>\n    <button class=\"btn\" title=\"Link\" data-action=\"link\">♧</button>\n    <button class=\"btn\" title=\"Image\" data-action=\"image\">▧</button>\n  </div>\n  <div class=\"right-tools\">\n    <span class=\"filename btn\" id=\"renameBtn\">Welcome file</span>\n    <button class=\"btn quiet\" title=\"Synchronize\">↻</button>\n    <button class=\"btn quiet\" title=\"Export\">⬆</button>\n    <button class=\"btn badge\" title=\"Achievements\">♜</button>\n  </div>\n</header>\n\n<div class=\"file-menu\" id=\"fileMenu\">\n  <h3>File explorer</h3>\n  <div class=\"item\">📄 &nbsp;Welcome file</div>\n  <div class=\"item\">＋ &nbsp;New file</div>\n  <div class=\"item\">▰ &nbsp;New folder</div>\n  <div class=\"item\">✎ &nbsp;Rename</div>\n  <div class=\"item\">▤ &nbsp;Remove</div>\n</div>\n\n<main class=\"workspace\" id=\"workspace\">\n  <section class=\"editor-pane\">\n    <textarea id=\"editor\" spellcheck=\"false\" aria-label=\"Markdown editor\"></textarea>\n  </section>\n  <div class=\"splitter\" id=\"splitter\">\n    <div class=\"split-tools\">\n      <button class=\"btn\" title=\"Toggle preview\">▱</button>\n      <button class=\"btn\" title=\"Split view\">◫</button>\n      <button class=\"btn\" title=\"Preview\">◉</button>\n    </div>\n  </div>\n  <section class=\"preview-pane\"><article id=\"preview\"></article></section>\n</main>\n\n<footer class=\"status\">\n  <span id=\"leftStatus\">Markdown &nbsp; 0 bytes &nbsp; 0 words &nbsp; 0 lines &nbsp; Ln 1, Col 1</span>\n  <span id=\"rightStatus\">HTML &nbsp; 0 characters &nbsp; 0 words &nbsp; 0 paragraphs</span>\n</footer>\n<div class=\"toast\" id=\"toast\">● &nbsp; You've earned a badge: “Formatter”.</div>\n\n<script>\nconst starter = `# Welcome to StackEdit!\n\nHi! I'm your first Markdown file in **StackEdit**. If you want to learn to use StackEdit, you can read me. If you want to play with Markdown, you can edit me. Once you have finished with me, you can create new files by opening the **file explorer** on the left corner of the navigation bar.\n\n## Files\n\nStackEdit stores your files in your browser, which means all your files are automatically saved locally and are accessible **offline!**\n\n## Create files and folders\n\nThe file explorer is accessible using the button in left corner of the navigation bar. You can create a new file by clicking the **New file** button in the file explorer. You can also create folders by clicking the **New folder** button.\n\n## Switch to another file\n\nAll your files and folders are presented as a tree in the file explorer. You can switch from one to another by clicking a file in the tree.\n\n## Rename a file\n\nYou can rename the current file by clicking the file name in the navigation bar or by clicking the **Rename** button in the file explorer.\n\n## Delete a file\n\nYou can delete the current file by clicking the **Remove** button in the file explorer. The file will be moved into the **Trash** folder and automatically deleted after 7 days of inactivity.\n\n## Export a file\n\nYou can export the current file by clicking **Export to disk** in the menu. You can choose to export the file as plain Markdown, as HTML using a Handlebars template or as a PDF.`;\n\nconst editor = document.getElementById('editor');\nconst preview = document.getElementById('preview');\nconst leftStatus = document.getElementById('leftStatus');\nconst rightStatus = document.getElementById('rightStatus');\nconst toast = document.getElementById('toast');\neditor.value = starter;\n\nfunction inlineMd(s) {\n  return s\n    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')\n    .replace(/!\\[([^\\]]*)\\]\\(([^)]+)\\)/g, '<img alt=\"$1\" src=\"$2\">')\n    .replace(/\\[([^\\]]+)\\]\\(([^)]+)\\)/g, '<a href=\"$2\">$1</a>')\n    .replace(/`([^`]+)`/g, '<code>$1</code>')\n    .replace(/\\*\\*\\*(.+?)\\*\\*\\*/g, '<strong><em>$1</em></strong>')\n    .replace(/\\*\\*(.+?)\\*\\*/g, '<strong>$1</strong>')\n    .replace(/\\*(.+?)\\*/g, '<em>$1</em>')\n    .replace(/~~(.+?)~~/g, '<del>$1</del>');\n}\nfunction renderMarkdown(src) {\n  const lines = src.split('\\n'), out = [];\n  let list = '';\n  const endList = () => { if (list) { out.push(`</${list}>`); list = ''; } };\n  for (const line of lines) {\n    const h = line.match(/^(#{1,6})\\s+(.*)$/);\n    const li = line.match(/^\\s*(?:[-*+]|\\d+\\.)\\s+(.*)$/);\n    if (li) {\n      const typ = /^\\s*\\d+\\./.test(line) ? 'ol' : 'ul';\n      if (list !== typ) { endList(); list = typ; out.push(`<${typ}>`); }\n      out.push(`<li>${inlineMd(li[1])}</li>`); continue;\n    }\n    endList();\n    if (!line.trim()) continue;\n    if (/^\\s*([-*_])\\s*\\1\\s*\\1\\s*$/.test(line)) { out.push('<hr>'); continue; }\n    if (h) { const n = h[1].length; out.push(`<h${n}>${inlineMd(h[2])}</h${n}>`); continue; }\n    if (/^>\\s?/.test(line)) { out.push(`<blockquote><p>${inlineMd(line.replace(/^>\\s?/, ''))}</p></blockquote>`); continue; }\n    out.push(`<p>${inlineMd(line)}</p>`);\n  }\n  endList();\n  return out.join('');\n}\nfunction update() {\n  preview.innerHTML = renderMarkdown(editor.value);\n  const value = editor.value;\n  const pos = editor.selectionStart;\n  const before = value.slice(0, pos).split('\\n');\n  const line = before.length, col = before[before.length - 1].length + 1;\n  const words = (value.match(/\\b[\\w'-]+\\b/g) || []).length;\n  const bytes = new TextEncoder().encode(value).length;\n  leftStatus.innerHTML = `Markdown &nbsp; ${bytes} bytes &nbsp; ${words} words &nbsp; ${value.split('\\n').length} lines &nbsp; Ln ${line}, Col ${col}`;\n  const plain = preview.innerText || '';\n  rightStatus.innerHTML = `HTML &nbsp; ${plain.length} characters &nbsp; ${(plain.match(/\\b[\\w'-]+\\b/g)||[]).length} words &nbsp; ${preview.children.length} paragraphs`;\n}\neditor.addEventListener('input', update);\neditor.addEventListener('click', update);\neditor.addEventListener('keyup', update);\nupdate();\n\nfunction wrapSelection(before, after = before, placeholder = '') {\n  const start = editor.selectionStart, end = editor.selectionEnd;\n  const text = editor.value.slice(start, end);\n  const selected = text || placeholder;\n  editor.setRangeText(before + selected + after, start, end, 'select');\n  if (!text) editor.setSelectionRange(start + before.length, start + before.length + selected.length);\n  editor.focus(); update();\n}\nfunction prefixLines(prefix) {\n  const start = editor.selectionStart, end = editor.selectionEnd;\n  const value = editor.value;\n  const lineStart = value.lastIndexOf('\\n', start - 1) + 1;\n  let lineEnd = value.indexOf('\\n', end);\n  if (lineEnd < 0) lineEnd = value.length;\n  const block = value.slice(lineStart, lineEnd);\n  const lines = block.split('\\n');\n  const transformed = lines.map(l => prefix + l).join('\\n');\n  editor.setRangeText(transformed, lineStart, lineEnd, 'select');\n  editor.focus(); update();\n}\nfunction headingSelection() {\n  const start = editor.selectionStart, value = editor.value;\n  const lineStart = value.lastIndexOf('\\n', start - 1) + 1;\n  let end = value.indexOf('\\n', start); if (end < 0) end = value.length;\n  const line = value.slice(lineStart, end);\n  const changed = line.match(/^#{1,6}\\s/) ? line.replace(/^#{1,6}\\s/, '') : '### ' + line;\n  editor.setRangeText(changed, lineStart, end, 'select');\n  editor.focus(); update();\n}\ndocument.querySelectorAll('[data-action]').forEach(btn => {\n  btn.addEventListener('mousedown', e => e.preventDefault());\n  btn.addEventListener('click', () => {\n    const action = btn.dataset.action;\n    if (action === 'bold') wrapSelection('**', '**', 'bold text');\n    else if (action === 'italic') wrapSelection('*', '*', 'italic text');\n    else if (action === 'strike') wrapSelection('~~', '~~', 'strikethrough');\n    else if (action === 'code') wrapSelection('`', '`', 'code');\n    else if (action === 'link') wrapSelection('[', '](url)', 'link text');\n    else if (action === 'image') wrapSelection('![', '](image-url)', 'alt text');\n    else if (action === 'quote') prefixLines('> ');\n    else if (action === 'ul') prefixLines('- ');\n    else if (action === 'ol') prefixLines('1. ');\n    else if (action === 'check') prefixLines('- [ ] ');\n    else if (action === 'heading') headingSelection();\n    else if (action === 'table') wrapSelection('| Column 1 | Column 2 |\\\\n| --- | --- |\\\\n| Cell | Cell |', '', '');\n    else if (action === 'undo') document.execCommand('undo');\n    else if (action === 'redo') document.execCommand('redo');\n  });\n});\ndocument.getElementById('explorerBtn').addEventListener('click', () => {\n  document.getElementById('fileMenu').classList.toggle('open');\n});\ndocument.getElementById('renameBtn').addEventListener('click', () => {\n  const name = prompt('Rename file', 'Welcome file');\n  if (name) document.getElementById('renameBtn').textContent = name;\n});\ndocument.querySelectorAll('.file-menu .item').forEach(item => item.addEventListener('click', () => {\n  if (item.textContent.includes('New file')) {\n    editor.value = '# New file\\\\n\\\\n'; update(); editor.focus();\n  }\n}));\ndocument.querySelector('.badge').addEventListener('click', () => {\n  toast.style.display = 'block'; setTimeout(() => toast.style.display = 'none', 2400);\n});\nlet dragging = false;\nconst splitter = document.getElementById('splitter');\nsplitter.addEventListener('mousedown', () => dragging = true);\nwindow.addEventListener('mouseup', () => dragging = false);\nwindow.addEventListener('mousemove', e => {\n  if (!dragging) return;\n  const workspace = document.getElementById('workspace');\n  const r = workspace.getBoundingClientRect();\n  const x = Math.max(250, Math.min(r.width - 250, e.clientX - r.left));\n  workspace.style.gridTemplateColumns = `${x}px 8px 1fr`;\n});\n</script>\n</body>\n</html>\n```",
+        "refusal": null,
+        "role": "assistant",
+        "annotations": [],
+        "audio": null,
+        "function_call": null,
+        "tool_calls": null
+      },
+      "content_filter_results": {
+        "hate": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "protected_material_code": {
+          "detected": true,
+          "filtered": false,
+          "citation": {
+            "URL": "https://github.com/joe-speedboat/workshop.ansible/tree/05557368ef9155f08e72181d6cdf44c4b3a6d075/Welcome%20file.md",
+            "license": "GPL_2_0"
+          }
+        },
+        "protected_material_text": {
+          "detected": false,
+          "filtered": false
+        },
+        "self_harm": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "sexual": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "violence": {
+          "filtered": false,
+          "severity": "safe"
+        }
+      }
+    }
+  ],
+  "created": 1795194904,
+  "model": "gpt-6-luna-2026-09-22",
+  "object": "chat.completion",
+  "metadata": null,
+  "moderation": null,
+  "service_tier": "default",
+  "system_fingerprint": null,
+  "usage": {
+    "completion_tokens": 6626,
+    "prompt_tokens": 18681,
+    "total_tokens": 25307,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": 0,
+      "audio_tokens": 0,
+      "reasoning_tokens": 2000,
+      "rejected_prediction_tokens": 0,
+      "text_tokens": null
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cache_write_tokens": null,
+      "cached_tokens": 0,
+      "image_tokens": null,
+      "text_tokens": null
+    },
+    "latency_checkpoint": {
+      "engine_tbt_ms": 11,
+      "engine_ttft_ms": 4085,
+      "engine_ttlt_ms": 77110,
+      "pre_inference_ms": 2239,
+      "service_tbt_ms": 11,
+      "service_ttft_ms": 6692,
+      "service_ttlt_ms": 79711,
+      "user_visible_ttft_ms": 4454
+    }
+  },
+  "prompt_filter_results": [
+    {
+      "prompt_index": 0,
+      "content_filter_results": {
+        "hate": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "jailbreak": {
+          "detected": false,
+          "filtered": false
+        },
+        "self_harm": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "sexual": {
+          "filtered": false,
+          "severity": "safe"
+        },
+        "violence": {
+          "filtered": false,
+          "severity": "safe"
+        }
+      }
+    }
+  ],
+  "routing": {
+    "serving_pipereplica": "d20261106191606-5ede2ffb-prefill-r8-dp0-prefill"
+  }
+}

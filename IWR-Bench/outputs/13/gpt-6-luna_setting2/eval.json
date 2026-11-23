@@ -1,0 +1,75 @@
+{
+  "total_step": 11,
+  "success_step": 2,
+  "screenshot_paths_to_eval": [
+    "outputs/13/gpt-6-luna_setting2/evalpoints/0.png",
+    "outputs/13/gpt-6-luna_setting2/evalpoints/1.png",
+    "outputs/13/gpt-6-luna_setting2/evalpoints/2.png"
+  ],
+  "all_mllm_scores": [
+    0.83,
+    0.5,
+    0.55
+  ],
+  "all_dino_scores": [
+    0.7724609375,
+    0.76123046875,
+    0.76123046875
+  ],
+  "all_ocr_scores": [
+    0.6694610778443113,
+    0.40376007162041183,
+    0.3470670391061452
+  ],
+  "all_avg_scores": [
+    0.7573073384481038,
+    0.5549968467901373,
+    0.5527658359520484
+  ],
+  "mllm_score": 0.6266666666666666,
+  "dino_score": 0.7649739583333334,
+  "ocr_score": 0.4734293961902895,
+  "avg_score": 0.6216900070634298,
+  "all_mllm_res": [
+    "Comments:\n-Layout (7/10): The page follows the same two-column product layout, with the gallery on the left and product details on the right. However, the generated page places the details column substantially farther left and has slightly different spacing and vertical alignment.\n-Elements (12/15): Most key elements are present, including the thumbnail rail, product image, rating, price, financing and offer rows, trade-in card, availability choices, purchase buttons, highlights, and specifications. Some small icons and details differ, and the product is shown from a different angle.\n-Content and Text (36/40): The product title, price, rating, major offers, availability information, and specifications closely match the reference. A few minor details are missing or arranged differently.\n-Style (12/15): The Best Buy blue header, white background, typography, yellow add-to-cart button, and general product-page styling are close. Some sizing, spacing, and icon treatments differ.\n-Overall (16/20): A strong match in content and overall page structure, with the main differences being the product-image view and the horizontal placement of the details column.\n\nScore: 83/100",
+    "Comments:\n-Layout (8/10): The half-screen details panel, dimmed product page, header, and gallery are arranged similarly. The product image and thumbnail column differ in size and position.\n-Elements (11/15): Both pages include a close button, category tabs, product gallery, highlights, and a scrollable panel. The panel’s visible content and some icons differ.\n-Content and Text (9/40): The product specs and panel heading are similar, but the reference is showing System Memory (RAM) and Graphics content, while the generated page shows Processor Model details. Most of the visible explanatory text and lists therefore do not match.\n-Style (11/15): The blue links, white panel, dark overlay, and general typography are close. Spacing and text density differ substantially, and the product photos use noticeably different colors and views.\n-Overall (11/20): The page structure is recognizable, but the wrong selected tab and mismatched panel content are major differences.\n\nScore: 50/100",
+    "---\nComments:\n- **Layout (7/10):** The overall composition is similar: a dimmed product page on the left and a large Highlights panel on the right. The panel is in a different content/scroll position, and the product gallery image and spacing do not match exactly.\n- **Elements (10/15):** Both pages show the Best Buy header, product thumbnails, Highlights section, tab navigation, and a close button. The selected tab and the information shown inside the panel differ; some underlying product-highlight details are also arranged differently.\n- **Content and Text (18/40):** The reference has **Processor Model** selected and shows processor tiers and their benefits. The generated page has **Storage Type** selected and shows storage-type and capacity information instead. Product details and tab labels overlap, but most visible panel text does not.\n- **Style (11/15):** The blue-and-white Best Buy styling, darkened backdrop, typography, and general drawer treatment are broadly similar. Differences in text density, spacing, and the displayed product image reduce fidelity.\n- **Overall (9/20):** The page captures the general product-page-plus-Highlights-panel structure, but the different active tab, scroll position, panel content, and gallery image make it a noticeable mismatch.\n\nScore: **55/100**\n---"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "BEST Menu Search Best Buy Store Locator Cart BUY 32GB Memory NVIDIA RTX Geforce 5070 2TB NVMe SSD White 47 (66 rewiewis) S104.45/ma. S1,879.99 auggeated Patmenta With ~Month Financing Shoxmehox Finance Optiong View your offers Gct it for leco Ways t0 save on this item Waam Special Oftcra On related products Mdco Trade in and save JEFORCE RTX Check your trade-in value Cuutomet Save when You trade in similar device. Imngeu Availability Pickup Shipping Highlights Ready Get it by Today Tue; Aug 26 Processor Model Graphics AMD Ryin 90oo ddD System Memory (RAM) NVIDIA GeForce RTX Storage Type Series 32 gigabytee 5070 SSD Pickup at Roseville Act fast - Only 2 left at your storel Total Storage Capacity 2000 gigabytes Sold By Best Buy Addto cart Save Specifications Items are covered under Best BUv $ Return & Exchange Promise Montect",
+      "screenshot_text": "BEST BUY Menu Search Best Store Locator Cart 32GB Memory NVIDIA RTX GeForce 5070 2TB NVMe SSD White Diy 66 reviews) S104.45 S1,879.99 Imo: suggested payments with 18-Month Financing Ding Finance Options View your offers Get it for less Ways t0 save on this item more Special Offers On related products Trade in and save Video FORCE RTX Check your trade-in value Save when You trade in similar device_ Customer Images Availability Pickup Shipping Ready Get it by Highlights Today Tue, Aug 26 Processor Model System Memory (RAM) Graphics Storage Type AMD Ryzen 9000 32 gigabytes NVIDIA GeForce SSD Pickup at Roseville Series RTX Act fast left at your storel 5070 Sold By Best Total Storage Capacity 2000 gigabytes Add to cart Save Items are covered under Best Buy s Retum Exchange Promise Specifications Buy Only Buy",
+      "similarity": 0.6694610778443113
+    },
+    {
+      "checkpoint_text": "BEST Menu Search Best Highlights BUY Proceseor Model System Memory_(RAM) Graphice Storage Type Total Storage Capacity CAEIS LaanY Power users and multimedia creation System Memory (RAM) Random-access memory (RAM) or simply \"memory;\" is what allows your computer t0 multitask. More RAM means more applications can be running simultaneously without slowdowns_ Low Great for basic tasks Good for web browsing and streaming Medium n Handles heavy applications Great for advanced gaming Vidto 'JEFORCE RTX High Thic Product Managcs multiplc hcavy apps simultancously Cunntoroer Grcat for professional _ Nviditing Ideal for serious gaming Graphics The GPU (graphics processing unit), or \"graphics card;\" is what displays images, animations and graphics on the computer's screen: more powerful GPU makes games run faster and look better: Highlights Entry-Level Budget friendly Processor Model Grapnics Basic gaming DoO System Memory (RAM) AMD Ryzen 9000 32 gigabytes NVIDIA GeForce RTX Seriee 5070 Mid-Range Total Storage Capacity 2000 gigabytes Most common GPU Fast display High performance gaming Specifications Buy Monted",
+      "screenshot_text": "BEST BUY Menu Search Best Highlights Processor Model System Memory (RAM) Graphics Storage Type Total Storage Capacity The processor the main component that manages your computer's tasks_ faster processor helps your computer programs smoothly and efficiently: Low Dly Entry level processor Good for everyday tasks Supports music and video play Medium Mid-grade processor Multitasks well Dla9 Easily manages music and video High This Product Excels at multitasking more Power users and multimedia creation Ideal for serious gaming Video FORCE RTX Customer Images Highlights Processor Model System Memory (RAM) Graphics Storage Type AMD Ryzen 9000 32 gigabytes NVIDIA GeForce SSD Series RTX 5070 Total Storage Capacity 2000 gigabytes Specifications Buy",
+      "similarity": 0.40376007162041183
+    },
+    {
+      "checkpoint_text": "BEST Menu Search Best Highlights BUY Proceseor Model System Memory (RAM) Graphice Storge Ixpe Total Storage Capacity Storage type one of the most important factors t0 consider as You decide which new computer t0 purchase: The right storage type for You will depend on your budget, the amount of storage space you\"Il need and the types of programs you'Il use: HDD Large file and content capacity Costs less per gigabyte than SSD Great for everyday use SSD Thic Product Some capacity for HD files Apps andgamcsrun fastcr than with HDD +2 Optimal gaming pcrformancc HDD+SSD Midro SSD speed HDD capacity 'jefoRcE RTX Fast startup; generous storage Optimal gaming performance Cuatomet Ienage Total Storage Capacity Storage capacity determines how much data you can store on your computer: If you typically store small files (word documents and spreadsheets) and run basic programs, yoU can get by with ower storage capacity: You'Il want t0 consider higher storage capacity if you do lot of photo or video editing or if you use your computer for large gaming installs: Small Highlights Great for working with small files Runs basic programs Add cloud storage for extra space Processor Model Grapnics System Memory (RAM) AMD Ryzen 9000 32 gigabytes NVIDIA GeForce RTX Seriee 5070 Medium Total Storage Capacity 2000 Great tor most uses gigabytes Starting point for gaming or high-res video Some photo/video editing Specifications Buy Kontec",
+      "screenshot_text": "BEST BUY Menu Search Best Buy Highlights Processor Model System Memory (RAM) Graphics Storage Type Total Storage Capacity Dli The processor the main component that manages your computer's tasks_ faster processor helps your computer programs smoothly and efficiently: Low Diy Entry level processor Good for everyday tasks Supports music and video play Medium Mid-grade processor Multitasks well Dli Easily manages music and video High This Product more Excels at multitasking Power users and multimedia creation Ideal for serious gaming Video FORCE RTX (ucomer mages Highlights Processor Model System Memory (RAM) Graphics Storage Type AMD Ryzen 9000 32 gigabytes NVIDIA GeForce SSD Series RTX 5070 Total Storage Capacity 2000 gigabytes Specifications",
+      "similarity": 0.3470670391061452
+    }
+  ],
+  "assertion_results": [
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/13/gpt-6-luna_setting2/evalpoints/0.png",
+      "curr_img_path": "outputs/13/gpt-6-luna_setting2/evalpoints/1.png",
+      "response": "{\"think\":\"The current screenshot shows a Highlights panel opened on the right, with the Processor Model tab selected and explanatory text about the processor.\",\"result\":\"Yes\"}",
+      "assertion": "A description of 'Processor Model' pops up on the right side of the page",
+      "thinking": "The current screenshot shows a Highlights panel opened on the right, with the Processor Model tab selected and explanatory text about the processor."
+    },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ]
+}

@@ -1,0 +1,198 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>16Personalities Replica</title>
+<style>
+  :root{
+    --ink:#273044;
+    --muted:#aeb1ba;
+    --teal:#4aa3b4;
+    --green:#43b77d;
+    --purple:#87519a;
+    --lav:#dfd0e5;
+    --bg:#fff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:#fff}
+  button,a{font:inherit}
+  .btn{cursor:pointer}
+  header{
+    height:92px;background:#fff;display:flex;align-items:center;
+    padding:0 30px;position:sticky;top:0;z-index:20;
+    box-shadow:0 1px 10px rgba(30,40,55,.08)
+  }
+  .brand{display:flex;align-items:center;gap:11px;min-width:360px;color:#3d3d4e}
+  .brand-mark{width:52px;height:52px;position:relative;border-radius:50%;
+    background:conic-gradient(from 20deg,#4aa3b4,#e3ae33,#42b980,#87519a,#4aa3b4)}
+  .brand-mark:after{content:"";position:absolute;inset:12px;background:#fff;border-radius:50%}
+  .brand strong{font-family:Georgia,serif;font-size:28px;font-weight:600}
+  nav{display:flex;align-items:center;justify-content:center;gap:34px;flex:1;height:100%;font-size:18px;color:#434652}
+  nav .active{height:100%;display:flex;align-items:center;border-top:4px solid var(--teal)}
+  .header-actions{display:flex;align-items:center;gap:22px;white-space:nowrap;color:#555b66;font-size:17px}
+  .search{font-size:25px}.globe{font-size:20px}
+  .top-test,.hero-btn,.next-btn{
+    border:0;background:#8954a0;color:#fff;border-radius:35px;font-weight:bold;
+    padding:19px 37px;box-shadow:0 4px 0 rgba(117,55,140,.12)
+  }
+
+  .landing{display:block}
+  .hero{
+    height:1212px;position:relative;overflow:hidden;background:#4ba1b3;
+    text-align:center;color:white;padding-top:120px
+  }
+  .hero:before{
+    content:"";position:absolute;left:-3%;right:-3%;top:-45px;height:100px;background:#fff;
+    clip-path:polygon(0 0,100% 0,100% 48%,80% 90%,59% 53%,39% 88%,17% 46%,0 72%)
+  }
+  .hero h1{position:relative;margin:0 auto;font-size:52px;line-height:1.1;font-weight:700}
+  .hero p{position:relative;font-size:22px;line-height:1.4;max-width:650px;margin:27px auto 32px}
+  .hero-btn{position:relative;font-size:20px;padding:25px 53px}
+  .hero-art{position:absolute;left:0;right:0;bottom:0;width:100%;height:760px;object-fit:cover;object-position:center bottom}
+  .stats{position:absolute;bottom:0;left:0;right:0;z-index:2;display:flex;justify-content:center;gap:170px;color:#fff;font-size:38px;font-weight:bold}
+  .stats span:nth-child(1){color:#54b2c1}.stats span:nth-child(2){color:#e2b532}.stats span:nth-child(3){color:#4db58b}.stats span:nth-child(4){color:#7d5897}
+
+  .test-page{display:none;background:#fff;min-height:2200px}
+  .test-heading{text-align:center;background:#f5f5f6;padding:65px 20px 54px;position:relative}
+  .test-heading:after{content:"";position:absolute;bottom:-34px;left:0;right:0;height:70px;background:#fff;clip-path:polygon(0 0,40% 55%,64% 25%,100% 0,100% 100%,0 100%)}
+  .mini-mark{margin:auto;width:74px;height:74px;border-radius:50%;background:conic-gradient(#4aa3b4,#e3ae33,#43b77d,#87519a,#4aa3b4);position:relative}
+  .mini-mark:after{content:"";position:absolute;inset:17px;background:#f5f5f6;border-radius:50%}
+  .test-heading h1{font-size:55px;margin:25px 0 22px}.test-heading p{font-size:21px;margin:0}
+  .cards{position:relative;z-index:2;display:flex;gap:22px;max-width:1300px;margin:-3px auto 80px}
+  .card{width:33.333%;height:307px;border-radius:9px;background:#fff;box-shadow:0 10px 25px rgba(35,40,55,.13);overflow:hidden;border-top:5px solid var(--teal)}
+  .card:nth-child(2){border-color:var(--green)}.card:nth-child(3){border-color:var(--purple)}
+  .card-img{height:170px;width:100%;object-fit:contain;background:#edf7f8}
+  .card:nth-child(2) .card-img{background:#edf8f1}.card:nth-child(3) .card-img{background:#f5edf7}
+  .card-content{padding:11px 23px}
+  .pill{display:inline-block;color:#fff;background:var(--teal);border-radius:15px;font-size:12px;font-weight:bold;padding:7px 12px}
+  .card:nth-child(2) .pill{background:var(--green)}.card:nth-child(3) .pill{background:var(--purple)}
+  .card h3{margin:10px 0 12px;font-size:22px}.card p{font-size:17px;line-height:1.4;margin:0}
+  .questions{width:1080px;margin:0 auto;padding-bottom:90px}
+  .question{padding:29px 0 36px;border-bottom:1px solid #ececf0;transition:.2s}
+  .question.dim{color:#b9bbc1}.question.active{color:var(--ink)}
+  .question h3{font-size:22px;margin:0 0 30px;font-weight:700}
+  .answer-row{display:flex;align-items:center;gap:30px}
+  .agree,.disagree{font-size:20px;min-width:95px}.agree{color:#55b989}.disagree{color:#805493}
+  .choices{display:flex;align-items:center;gap:28px;flex:1}
+  .choice{
+    width:58px;height:58px;border:3px solid #57bd91;border-radius:50%;background:#fff;
+    display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px;
+    flex:none
+  }
+  .choice:nth-child(2){width:48px;height:48px}.choice:nth-child(3){width:40px;height:40px}
+  .choice:nth-child(4){width:38px;height:38px;border-color:#b8bbc0}
+  .choice:nth-child(5){width:44px;height:44px;border-color:#87549a}
+  .choice:nth-child(6){width:54px;height:54px;border-color:#87549a}
+  .choice:nth-child(7){width:66px;height:66px;border-color:#87549a}
+  .choice.selected{background:var(--green);border-color:var(--green)}
+  .choice:nth-child(n+5).selected{background:var(--purple);border-color:var(--purple)}
+  .choice.selected:after{content:"✓";font-size:27px;font-weight:normal}
+  .next-wrap{padding-top:32px}.next-btn{font-size:20px;padding:18px 38px}
+  .stepbar{max-width:1300px;margin:35px auto 10px;border:1px solid #eee;padding:25px;display:flex;justify-content:space-between;align-items:center;color:#4da5b6}
+  .progress{width:300px;height:10px;background:#eee;border-radius:10px;overflow:hidden}.progress i{display:block;width:12%;height:100%;background:#4aa3b4}
+  footer{height:250px;background:#f6f6f7;display:flex;justify-content:center;align-items:center;gap:22px}
+  .social{width:62px;height:62px;border:1px solid #aaa;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;color:#555}
+
+  @media(max-width:900px){
+    header{padding:0 14px;height:70px}.brand{min-width:auto}.brand strong{font-size:18px}.brand-mark{width:38px;height:38px}
+    nav{gap:12px;font-size:12px}.header-actions{gap:8px;font-size:12px}.top-test{padding:10px 14px}
+    .hero{height:850px;padding-top:90px}.hero h1{font-size:34px}.hero p{font-size:17px;padding:0 20px}.hero-art{height:500px}.stats{gap:15px;font-size:17px}
+    .cards{margin:0 15px 45px;gap:10px}.card{height:260px}.card-img{height:120px}.card-content{padding:8px}.card h3{font-size:14px}.card p{font-size:12px}.pill{font-size:9px}
+    .questions{width:auto;margin:0 24px}.question h3{font-size:17px}.answer-row{gap:6px}.agree,.disagree{font-size:14px;min-width:55px}.choices{gap:8px}.choice{width:42px;height:42px}.choice:nth-child(2){width:36px;height:36px}.choice:nth-child(3){width:30px;height:30px}.choice:nth-child(7){width:48px;height:48px}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand btn" id="homeBtn"><div class="brand-mark"></div><strong>16Personalities</strong></div>
+  <nav>
+    <a class="active btn" id="navTest">Personality Test</a>
+    <a class="btn">Personality Types⌄</a>
+    <a class="btn">Career Suite</a>
+    <a class="btn">Teams &amp; Pros⌄</a>
+    <a class="btn">Resources⌄</a>
+  </nav>
+  <div class="header-actions"><span class="search">⌕</span><span class="globe">◉</span><span class="btn">Log In</span><button class="top-test btn" id="topTest">Take the Test</button></div>
+</header>
+
+<main class="landing" id="landing">
+  <section class="hero">
+    <h1>“It’s so incredible to finally be understood.”</h1>
+    <p>Only 10 minutes to get a “freakishly accurate” description of who<br>you are and why you do things the way you do.</p>
+    <button class="hero-btn btn" id="heroTest">Take the Test&nbsp; →</button>
+    <img class="hero-art" src="__PLACEHOLDER_ASSETS_BASE_DIR__/026.png" width="2560" height="1040" alt="Illustrated personality landscape">
+    <div class="stats"><span>108K+</span><span>184M+</span><span>1436M+</span><span>91.2%</span></div>
+  </section>
+</main>
+
+<main class="test-page" id="testPage">
+  <section class="test-heading" id="intro">
+    <div class="mini-mark"></div>
+    <h1>Free Personality Test</h1><p>NERIS Type Explorer<sup>®</sup></p>
+  </section>
+  <section class="cards">
+    <article class="card"><img class="card-img" src="__PLACEHOLDER_ASSETS_BASE_DIR__/025.png" width="420" height="170" alt="Complete the test"><div class="card-content"><span class="pill">STEP 1</span><h3>Complete the Test</h3><p>Be yourself and answer honestly to find out your personality type.</p></div></article>
+    <article class="card"><img class="card-img" src="__PLACEHOLDER_ASSETS_BASE_DIR__/027.png" width="420" height="170" alt="View detailed results"><div class="card-content"><span class="pill">STEP 2</span><h3>View Detailed Results</h3><p>Learn how your personality type influences many areas of your life.</p></div></article>
+    <article class="card"><img class="card-img" src="__PLACEHOLDER_ASSETS_BASE_DIR__/028.png" width="420" height="170" alt="Unlock your potential"><div class="card-content"><span class="pill">STEP 3</span><h3>Unlock Your Potential</h3><p>Find jobs that suit your personality and get career guidance that actually helps.</p></div></article>
+  </section>
+  <div class="stepbar" id="stepbar" style="display:none"><span class="btn">← PREVIOUS STEP</span><span>Step 2 of 10</span><div class="progress"><i></i></div></div>
+  <section class="questions" id="questions"></section>
+  <footer><div class="social btn">𝕏</div><div class="social btn">✉</div><div class="social btn">▦</div></footer>
+</main>
+
+<script>
+const q1=[
+ "You regularly make new friends.",
+ "Complex and novel ideas excite you more than simple and straightforward ones.",
+ "You usually feel more persuaded by what resonates emotionally with you than by factual arguments.",
+ "Your living and working spaces are clean and organized.",
+ "You usually stay calm, even under a lot of pressure.",
+ "You find the idea of networking or promoting yourself to strangers very daunting."
+];
+const q2=[
+ "You prioritize and plan tasks effectively, often completing them well before the deadline.",
+ "People’s stories and emotions speak louder to you than numbers or data.",
+ "You like to use organizing tools like schedules and lists.",
+ "Even a small mistake can cause you to doubt your overall abilities and knowledge.",
+ "You enjoy discussing unusual ideas and different points of view.",
+ "You prefer to work steadily rather than in sudden bursts of inspiration."
+];
+let answers={}, current=1;
+function renderQuestions(){
+  const list=current===1?q1:q2;
+  const box=document.getElementById('questions'); box.innerHTML='';
+  list.forEach((text,i)=>{
+    const row=document.createElement('article');
+    row.className='question '+(i===0?'active':'dim');
+    row.innerHTML='<h3>'+text+'</h3><div class="answer-row"><span class="agree">Agree</span><div class="choices">'+
+      [0,1,2,3,4,5,6].map(n=>'<button class="choice btn" data-q="'+i+'" data-v="'+n+'"></button>').join('')+
+      '</div><span class="disagree">Disagree</span></div>';
+    box.appendChild(row);
+  });
+  box.querySelectorAll('.choice').forEach(el=>{
+    el.addEventListener('click',()=>{
+      const q=+el.dataset.q,v=+el.dataset.v;answers[current+'-'+q]=v;
+      el.parentElement.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));
+      el.classList.add('selected');
+      el.closest('.question').classList.add('active');
+      if(box.children[q+1]) box.children[q+1].classList.add('active');
+    });
+  });
+  const next=document.createElement('div');next.className='next-wrap';
+  next.innerHTML='<button class="next-btn btn">Next&nbsp; →</button>';box.appendChild(next);
+  next.querySelector('button').onclick=()=>{
+    if(current===1){current=2;document.getElementById('intro').style.display='none';document.querySelector('.cards').style.marginTop='25px';document.getElementById('stepbar').style.display='flex';renderQuestions();window.scrollTo({top:0,behavior:'smooth'});}
+    else { alert('Your answers have been recorded.'); }
+  };
+}
+function openTest(){document.getElementById('landing').style.display='none';document.getElementById('testPage').style.display='block';renderQuestions();window.scrollTo(0,0)}
+document.getElementById('heroTest').onclick=openTest;
+document.getElementById('topTest').onclick=openTest;
+document.getElementById('navTest').onclick=openTest;
+document.getElementById('homeBtn').onclick=()=>{document.getElementById('landing').style.display='block';document.getElementById('testPage').style.display='none';window.scrollTo(0,0)};
+</script>
+</body>
+</html>
+```

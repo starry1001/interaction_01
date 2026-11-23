@@ -1,0 +1,26 @@
+{
+  "requested_model": "qwen3.5-27b",
+  "returned_model": "qwen3.5-27b",
+  "input_tokens": 15077,
+  "output_tokens": 6763,
+  "total_tokens": 21840,
+  "usage": {
+    "completion_tokens": 6763,
+    "prompt_tokens": 15077,
+    "total_tokens": 21840,
+    "completion_tokens_details": {
+      "accepted_prediction_tokens": null,
+      "audio_tokens": null,
+      "reasoning_tokens": null,
+      "rejected_prediction_tokens": null,
+      "text_tokens": 6763
+    },
+    "prompt_tokens_details": {
+      "audio_tokens": null,
+      "cache_write_tokens": null,
+      "cached_tokens": null,
+      "image_tokens": 14724,
+      "text_tokens": 353
+    }
+  }
+}

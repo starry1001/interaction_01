@@ -1,0 +1,279 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GitHub Replica</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;color:#1f2328;background:#fff;font-size:14px}
+  button,input,textarea{font:inherit}
+  .btn{cursor:pointer}
+  .topbar{
+    height:66px;background:#f6f8fa;border-bottom:1px solid #d8dee4;
+    display:flex;align-items:center;padding:0 16px;gap:14px;
+  }
+  .hamburger{width:32px;height:32px;border:1px solid #d0d7de;border-radius:6px;background:#fff;font-size:20px;line-height:20px;color:#57606a}
+  .github-mark{width:31px;height:31px;border-radius:50%;background:#24292f;color:white;display:flex;align-items:center;justify-content:center;font-size:21px;font-weight:bold}
+  .brand{font-weight:600;color:#24292f}
+  .header-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+  .search{height:34px;width:260px;border:1px solid #d0d7de;border-radius:7px;background:white;padding:0 12px;color:#57606a}
+  .icon-btn{height:34px;min-width:34px;padding:0 9px;border:1px solid #d0d7de;border-radius:6px;background:#fff;color:#57606a;font-size:17px}
+  .avatar{width:34px;height:34px;border-radius:50%;object-fit:cover;border:1px solid #d0d7de}
+  .app{display:flex;min-height:1238px}
+  .sidebar{width:335px;border-right:1px solid #d8dee4;padding:24px;background:#fff}
+  .side-title{font-weight:600;margin:10px 0 14px}
+  .new-side{float:right;background:#2da44e;color:#fff;border:0;border-radius:7px;padding:7px 12px;font-weight:600}
+  .repo-search{width:100%;height:34px;border:1px solid #d0d7de;border-radius:6px;padding:0 12px;margin-bottom:18px}
+  .repo-item{display:flex;align-items:center;gap:8px;color:#57606a}
+  .small-avatar{width:18px;height:18px;border-radius:50%;object-fit:cover}
+  .dashboard{flex:1;padding:46px 0 0 0}
+  .dash-inner{width:1295px;margin:0 auto;display:grid;grid-template-columns:900px 312px;gap:40px}
+  h1{font-size:27px;margin:0 0 10px}
+  .copilot{height:48px;border:1px solid #d0d7de;border-radius:12px;padding:0 16px;display:flex;align-items:center;color:#656d76;margin-bottom:17px}
+  .send{margin-left:auto;font-size:22px;color:#656d76}
+  .suggestions{display:flex;gap:10px;margin-bottom:35px}
+  .suggestion{border:1px solid #d0d7de;border-radius:22px;background:#fff;padding:11px 16px;color:#24292f}
+  .purple{color:#8250df}.green{color:#1a7f37}
+  .feed-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-weight:600}
+  .filter{border:1px solid #d0d7de;border-radius:7px;background:#fff;padding:8px 14px}
+  .feed-card{border:1px solid #d0d7de;border-radius:7px;overflow:hidden}
+  .trend{padding:21px 16px 12px;border-bottom:1px solid #d8dee4;color:#656d76}
+  .trend a{color:#0969da;text-decoration:underline}
+  .repo-row{padding:17px 16px;border-bottom:1px solid #d8dee4;min-height:137px}
+  .repo-row:last-child{border-bottom:0}
+  .repo-name{font-weight:600;margin-bottom:12px}
+  .repo-desc{max-width:790px;line-height:1.5;color:#24292f}
+  .repo-meta{margin-top:10px;color:#656d76}
+  .star{float:right;border:1px solid #d0d7de;border-radius:6px;padding:7px 16px;background:#fff}
+  .latest{border:1px solid #d0d7de;border-radius:7px;padding:22px 16px;height:388px}
+  .latest h3{margin:0 0 20px;font-size:14px}
+  .latest-item{border-left:2px solid #d8dee4;padding:0 0 17px 22px;line-height:1.45;position:relative}
+  .latest-item:before{content:"";position:absolute;width:8px;height:8px;border-radius:50%;background:#d0d7de;left:-5px;top:3px}
+  .muted{color:#656d76;font-size:12px}
+  .footer{margin-top:74px;text-align:center;color:#656d76;font-size:12px;padding-bottom:40px}
+  .create-menu{position:absolute;right:52px;top:55px;width:195px;background:#fff;border:1px solid #d0d7de;border-radius:9px;box-shadow:0 7px 18px #0002;z-index:5;overflow:hidden}
+  .menu-row{padding:13px 17px;border-bottom:1px solid #d8dee4}
+  .menu-row:last-child{border:0}
+  .menu-row:hover{background:#f6f8fa}
+  .hidden{display:none!important}
+
+  /* create repository */
+  .form-page{width:720px;margin:32px auto 0}
+  .form-page h1{font-size:21px;display:inline-block;margin-right:14px}
+  .preview{border:1px solid #1a7f37;color:#1a7f37;border-radius:14px;padding:3px 9px;font-size:12px}
+  .switch{color:#0969da;margin-left:15px}
+  .intro{color:#656d76;line-height:1.55}
+  .required{font-style:italic;color:#656d76;margin-top:3px}
+  .step{position:relative;border-left:2px solid #eaeef2;margin:27px 0 0 -23px;padding-left:23px}
+  .step-number{position:absolute;left:-18px;top:-3px;width:29px;height:29px;border-radius:50%;background:#f6f8fa;text-align:center;padding-top:7px;color:#656d76}
+  .step h2{font-size:16px;margin:0 0 20px}
+  .field-label{font-weight:600;margin:0 0 7px}
+  .field-row{display:flex;align-items:flex-start;gap:8px}
+  .owner{height:34px;border:1px solid #d0d7de;border-radius:6px;background:#f6f8fa;padding:0 12px;min-width:170px;text-align:left}
+  .slash{font-size:24px;color:#656d76;padding-top:3px}
+  .text-input,.description{height:35px;border:1px solid #d0d7de;border-radius:6px;padding:0 12px;outline:none}
+  .text-input{flex:1}
+  .text-input:focus,.description:focus,.license-search:focus{border-color:#0969da;box-shadow:0 0 0 3px #0969da33}
+  .available{color:#1a7f37;font-size:12px;font-weight:600;margin:5px 0 0 195px}
+  .hint{color:#656d76;margin:17px 0 22px}
+  .hint strong{color:#1a7f37}
+  .description{width:100%}
+  .counter{font-size:12px;color:#656d76;margin-top:6px}
+  .config-box{border:1px solid #d0d7de;border-radius:7px;overflow:visible}
+  .visibility{height:68px;border-bottom:1px solid #eaeef2;padding:15px 12px;display:flex;align-items:center}
+  .subtext{font-size:12px;color:#656d76;margin-top:5px}
+  .select-btn{margin-left:auto;border:1px solid #d0d7de;background:#f6f8fa;border-radius:6px;height:34px;padding:0 14px;color:#24292f}
+  .option-row{min-height:66px;margin:0 12px;border-bottom:1px solid #eaeef2;padding:15px 0;display:flex}
+  .option-row:last-child{border-bottom:0}
+  .toggle-label{margin-left:auto;display:flex;align-items:center;gap:8px;color:#656d76}
+  .toggle{width:48px;height:25px;border-radius:20px;border:1px solid #d0d7de;background:#eaeef2;padding:2px;display:flex}
+  .toggle span{width:19px;height:19px;border-radius:50%;background:#fff;box-shadow:0 1px 3px #0003}
+  .toggle.on{background:#0969da;justify-content:flex-end}
+  .dropdown-wrap{position:relative;margin-left:auto}
+  .license-menu,.visibility-menu{position:absolute;right:0;top:39px;width:325px;background:#fff;border:1px solid #d0d7de;border-radius:12px;box-shadow:0 8px 25px #0002;z-index:8;padding:12px}
+  .visibility-menu{width:320px;padding:0;top:39px}
+  .vis-option{padding:15px 15px;border-bottom:1px solid #eaeef2}
+  .vis-option:last-child{border:0}
+  .license-search{width:100%;height:35px;border:1px solid #d0d7de;border-radius:6px;padding:0 10px;margin:5px 0 9px}
+  .license-list{max-height:350px;overflow:auto}
+  .license-item{padding:8px 10px}
+  .license-item:hover{background:#f6f8fa}
+  .create-btn{display:block;margin:24px 0 0 auto;background:#2da44e;color:white;border:0;border-radius:7px;padding:9px 15px;font-weight:600}
+  .repo-page{width:1185px;margin:18px auto}
+  .repo-title{font-size:20px;border-bottom:1px solid #d8dee4;padding:0 0 18px}
+  .repo-content{display:grid;grid-template-columns:900px 300px;gap:24px;margin-top:24px}
+  .repo-actions{display:flex;gap:10px;margin-bottom:16px}
+  .plain-btn{border:1px solid #d0d7de;background:#f6f8fa;border-radius:6px;padding:8px 14px}
+  .green-btn{background:#2da44e;color:#fff;border:0;border-radius:6px;padding:8px 18px}
+  .file-box{border:1px solid #d0d7de;border-radius:7px;overflow:hidden}
+  .commit{background:#f6f8fa;padding:17px}
+  .file{padding:14px 18px;border-top:1px solid #d8dee4}
+  .readme{border:1px solid #d0d7de;border-radius:7px;margin-top:18px}
+  .readme-head{padding:16px;border-bottom:1px solid #d8dee4;font-weight:600}
+  .readme-body{padding:38px 32px;height:160px}
+  .readme-body h1{font-size:28px}
+  .about h3{margin:0 0 20px}.about{padding-top:5px}.about hr{border:0;border-top:1px solid #d8dee4;margin:17px 0}
+  @media(max-width:1000px){.sidebar{width:230px}.dash-inner{width:90%;grid-template-columns:1fr}.latest{display:none}.form-page{width:90%}.repo-page{width:90%}.repo-content{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <button class="hamburger btn">☰</button>
+  <div class="github-mark">●</div>
+  <div id="headerTitle" class="brand">Dashboard</div>
+  <div class="header-right">
+    <input class="search btn" placeholder="⌕  Type / to search">
+    <button class="icon-btn btn">◉⌄</button>
+    <button id="plusBtn" class="icon-btn btn">＋⌄</button>
+    <button class="icon-btn btn">◉</button>
+    <button class="icon-btn btn">♧</button>
+    <button class="icon-btn btn">▣</button>
+    <img class="avatar btn" src="__PLACEHOLDER_ASSETS_BASE_DIR__/006.png" width="34" height="34" alt="avatar">
+  </div>
+</header>
+
+<div id="dashboardView" class="app">
+  <aside class="sidebar">
+    <button class="new-side btn" id="sideNew">▣ New</button>
+    <div class="side-title">Top repositories</div>
+    <input class="repo-search btn" placeholder="Find a repository...">
+    <div class="repo-item"><img class="small-avatar" src="__PLACEHOLDER_ASSETS_BASE_DIR__/006.png" width="18" height="18" alt="">Jimmy6668889/jack</div>
+  </aside>
+  <main class="dashboard">
+    <div class="dash-inner">
+      <section>
+        <h1>Home</h1>
+        <div class="copilot">Ask Copilot <span class="send">⌁</span></div>
+        <div class="suggestions">
+          <button class="suggestion btn purple">◉ &nbsp;Interpret an architecture diagram</button>
+          <button class="suggestion btn green">♧ &nbsp;Summarize a pull request</button>
+          <button class="suggestion btn green">⊙ &nbsp;Suggest next steps for an issue</button>
+        </div>
+        <div class="feed-head"><span>Feed</span><button class="filter btn">☷ &nbsp;Filter</button></div>
+        <div class="feed-card">
+          <div class="trend">⌁ &nbsp;Trending repositories&nbsp; · &nbsp;<a class="btn">See more</a></div>
+          <div class="repo-row">
+            <button class="star btn">☆ Star　⌄</button>
+            <div class="repo-name">🌈 winapps-org/winapps</div>
+            <div class="repo-desc">Run Windows apps such as Microsoft Office/Adobe in Linux (Ubuntu/Fedora) and GNOME/KDE as if they were a part of the native OS, including Nautilus integration. Hard fork of https://github.com/Fmst...</div>
+            <div class="repo-meta"><span style="color:#40c463">●</span> Shell　☆ 6.3k</div>
+          </div>
+          <div class="repo-row">
+            <button class="star btn">☆ Star　⌄</button>
+            <div class="repo-name">🌈 moeru-ai/airi</div>
+            <div class="repo-desc">💔 🐧 Self hosted, you owned Grok Companion, a container of souls of waifu, cyber livings to bring them into our worlds, wishing to achieve Neuro-sama's altitude. Capable of realtime voice chat, Minec...</div>
+            <div class="repo-meta"><span style="color:#40c463">●</span> Vue　☆ 9.5k</div>
+          </div>
+        </div>
+        <div class="footer">◉　© 2025 GitHub, Inc.　 Terms　 Privacy　 Security　 Status　 Docs　 Contact　 Manage cookies　 Do not share my personal information</div>
+      </section>
+      <aside class="latest">
+        <h3>Latest changes</h3>
+        <div class="latest-item"><span class="muted">3 days ago</span><br>Premium request average policy is generally available for Copilot Busines...</div>
+        <div class="latest-item"><span class="muted">3 days ago</span><br>GraphQL Explorer removal from API documentation on November 1, 2025</div>
+        <div class="latest-item"><span class="muted">3 days ago</span><br>Enterprises can create organization roles for use across their enterprise, and...</div>
+        <div class="latest-item"><span class="muted">3 days ago</span><br>Pull request “Files changed” public preview experience – August 21 updates</div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<div id="createMenu" class="create-menu">
+  <div class="menu-row btn" id="menuIssue">◉　New issue</div>
+  <div class="menu-row btn" id="menuRepo">▣　New repository</div>
+  <div class="menu-row btn">⇧　Import repository</div>
+  <div class="menu-row btn">▣　New codespace</div>
+  <div class="menu-row btn">◇　New gist</div>
+  <div class="menu-row btn">▥　New organization</div>
+  <div class="menu-row btn">▣　New project</div>
+</div>
+
+<section id="formView" class="hidden">
+  <div class="form-page">
+    <h1>Create a new repository</h1><span class="preview">Preview</span><a class="switch btn">Switch back to classic experience</a>
+    <div class="intro">Repositories contain a project's files and version history. Have a project elsewhere? <u class="btn">Import a repository</u>.</div>
+    <div class="required">Required fields are marked with an asterisk (*).</div>
+
+    <div class="step">
+      <div class="step-number">1</div><h2>General</h2>
+      <div class="field-row">
+        <div style="width:185px"><div class="field-label">Owner *</div><button class="owner btn"><img class="small-avatar" src="__PLACEHOLDER_ASSETS_BASE_DIR__/006.png" width="18" height="18" alt=""> Jimmy6668889　⌄</button></div>
+        <div style="flex:1"><div class="field-label">Repository name *</div><div class="field-row"><span class="slash">/</span><input id="repoName" class="text-input btn"></div><div id="available" class="available hidden">● jackccc is available.</div></div>
+      </div>
+      <div class="hint">Great repository names are short and memorable. How about <strong>sturdy-waffle?</strong></div>
+      <div class="field-label">Description</div>
+      <input id="description" class="description btn">
+      <div id="counter" class="counter">0 / 350 characters</div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">2</div><h2>Configuration</h2>
+      <div class="config-box">
+        <div class="visibility">
+          <div><div class="field-label">Choose visibility *</div><div class="subtext">Choose who can see and commit to this repository</div></div>
+          <div class="dropdown-wrap"><button id="visibilityBtn" class="select-btn btn">▣ &nbsp;Public　⌄</button>
+            <div id="visibilityMenu" class="visibility-menu hidden">
+              <div class="vis-option btn" data-value="Public">✓　▣　<b>Public</b><div class="subtext" style="margin-left:33px">Anyone on the internet can see this repository. You choose who can commit.</div></div>
+              <div class="vis-option btn" data-value="Private">　🔒　<b>Private</b><div class="subtext" style="margin-left:33px">You choose who can see and commit to this repository.</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="option-row"><div><div class="field-label">Add README</div><div class="subtext">READMEs can be used as longer descriptions. <u>About READMEs</u></div></div><div class="toggle-label"><span id="readmeText">Off</span><button id="readmeToggle" class="toggle btn"><span></span></button></div></div>
+        <div class="option-row"><div><div class="field-label">Add .gitignore</div><div class="subtext">.gitignore tells git which files not to track. <u>About ignoring files</u></div></div><button class="select-btn btn">No .gitignore　⌄</button></div>
+        <div class="option-row"><div><div class="field-label">Add license</div><div class="subtext">Licenses explain how others can use your code. <u>About licenses</u></div></div>
+          <div class="dropdown-wrap"><button id="licenseBtn" class="select-btn btn">No license　⌄</button>
+            <div id="licenseMenu" class="license-menu hidden"><b>Choose a license</b><input class="license-search btn" placeholder="⌕  Search licenses"><div class="license-list">
+              <div class="license-item btn" data-license="No license">✓　No license</div><div class="license-item btn" data-license="Apache License 2.0">Apache License 2.0</div><div class="license-item btn" data-license="GNU General Public License v3.0">GNU General Public License v3.0</div><div class="license-item btn" data-license="MIT License">MIT License</div><div class="license-item btn">BSD 2-Clause "Simplified" License</div><div class="license-item btn">BSD 3-Clause "New" or "Revised" License</div><div class="license-item btn">Boost Software License 1.0</div><div class="license-item btn">Creative Commons Zero v1.0 Universal</div><div class="license-item btn">Eclipse Public License 2.0</div><div class="license-item btn">GNU Affero General Public License v3.0</div>
+            </div></div>
+          </div>
+        </div>
+      </div>
+      <button id="createRepo" class="create-btn btn">Create repository</button>
+    </div>
+  </div>
+</section>
+
+<section id="repoView" class="hidden">
+  <div class="repo-page">
+    <div class="repo-title">◉　Jimmy6668889　/　<b>jackccc</b>　🔒</div>
+    <div class="repo-content">
+      <main>
+        <div class="repo-actions"><button class="plain-btn btn">⌘ Code</button><button class="plain-btn btn">Issues</button><button class="plain-btn btn">Pull requests</button><button class="plain-btn btn">Actions</button><button class="plain-btn btn">Projects</button><button class="plain-btn btn">Security</button><button class="plain-btn btn">Insights</button><button class="plain-btn btn">Settings</button></div>
+        <div class="repo-actions"><button class="plain-btn btn">⑂ main　⌄</button><span style="padding:9px">⑂ 1 Branch　 ◇ 0 Tags</span><button class="plain-btn btn" style="margin-left:auto">Go to file</button><button class="plain-btn btn">Add file⌄</button><button class="green-btn btn">〈〉 Code⌄</button></div>
+        <div class="file-box"><div class="commit">🌈 Jimmy6668889　 Initial commit <span style="float:right">31b2bf4 · now　 ◷ 1 Commit</span></div><div class="file">▱　LICENSE <span style="float:right">Initial commit　　　　　　　　 now</span></div><div class="file">▱　README.md <span style="float:right">Initial commit　　　　　　　　 now</span></div></div>
+        <div class="readme"><div class="readme-head">▣ README</div><div class="readme-body"><h1>jackccc</h1><hr><p>an interesting boy</p></div></div>
+      </main>
+      <aside class="about"><h3>About</h3><p>an interesting boy</p><p>▣　Readme</p><p>⌁　Activity</p><p>☆　0 stars</p><p>◉　0 watching</p><p>♧　0 forks</p><hr><h3>Releases</h3><p class="muted">No releases published</p><a class="btn">Create a new release</a><hr><h3>Packages</h3><p class="muted">No packages published</p><a class="btn">Publish your first package</a></aside>
+    </div>
+    <div class="footer">◉　© 2025 GitHub, Inc.　 Terms　 Privacy　 Security　 Status　 Docs　 Contact　 Manage cookies　 Do not share my personal information</div>
+  </div>
+</section>
+
+<script>
+  const menu=document.getElementById('createMenu');
+  const dashboard=document.getElementById('dashboardView'), form=document.getElementById('formView'), repo=document.getElementById('repoView');
+  const title=document.getElementById('headerTitle');
+  document.getElementById('plusBtn').onclick=()=>menu.classList.toggle('hidden');
+  function openForm(){menu.classList.add('hidden');dashboard.classList.add('hidden');repo.classList.add('hidden');form.classList.remove('hidden');title.textContent='New repository';window.scrollTo(0,0)}
+  document.getElementById('menuRepo').onclick=openForm;
+  document.getElementById('sideNew').onclick=openForm;
+  const name=document.getElementById('repoName'), avail=document.getElementById('available');
+  name.addEventListener('input',()=>{avail.classList.toggle('hidden',name.value.trim()!=='jackccc')});
+  const desc=document.getElementById('description'), counter=document.getElementById('counter');
+  desc.addEventListener('input',()=>counter.textContent=desc.value.length+' / 350 characters');
+  const vbtn=document.getElementById('visibilityBtn'), vmenu=document.getElementById('visibilityMenu');
+  vbtn.onclick=()=>vmenu.classList.toggle('hidden');
+  document.querySelectorAll('.vis-option').forEach(x=>x.onclick=()=>{vbtn.innerHTML=(x.dataset.value==='Private'?'🔒':'▣')+'　'+x.dataset.value+'　⌄';vmenu.classList.add('hidden')});
+  const toggle=document.getElementById('readmeToggle'), rtext=document.getElementById('readmeText');
+  toggle.onclick=()=>{toggle.classList.toggle('on');rtext.textContent=toggle.classList.contains('on')?'On':'Off'};
+  const lbtn=document.getElementById('licenseBtn'), lmenu=document.getElementById('licenseMenu');
+  lbtn.onclick=()=>lmenu.classList.toggle('hidden');
+  document.querySelectorAll('.license-item').forEach(x=>x.onclick=()=>{lbtn.textContent=x.dataset.license||x.textContent.trim();lmenu.classList.add('hidden')});
+  document.getElementById('createRepo').onclick=()=>{form.classList.add('hidden');repo.classList.remove('hidden');title.textContent='jackccc';window.scrollTo(0,0)};
+  document.addEventListener('click',e=>{if(!e.target.closest('.dropdown-wrap')&&!e.target.closest('#visibilityBtn')){vmenu.classList.add('hidden');lmenu.classList.add('hidden')}});
+</script>
+</body>
+</html>
+```

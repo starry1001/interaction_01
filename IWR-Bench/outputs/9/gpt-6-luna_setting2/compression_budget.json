@@ -1,0 +1,189 @@
+{
+  "setting": 2,
+  "unit": "estimated image input tokens",
+  "profile": {
+    "reference_model": "gpt-5.6-luna",
+    "assumed_for": "gpt-6-luna",
+    "assumption_not_officially_verified": true,
+    "detail": "original",
+    "patch_size": 32,
+    "token_multiplier": 1.2,
+    "max_dimension": 65535,
+    "max_patches": 30000
+  },
+  "target_retained_fraction": 0.6,
+  "baseline": "sum of original screenshot token estimates in each group, excluding added labels and padding",
+  "reference_estimated_tokens": 10440,
+  "source_estimated_tokens": 10800,
+  "output_estimated_tokens": 6238,
+  "retained_token_fraction": 0.5975095785440613,
+  "retained_vs_unscaled_image_fraction": 0.5775925925925925,
+  "source_pixels": 9177600,
+  "output_pixels": 5254112,
+  "allocations": [
+    {
+      "source_size": [
+        1920,
+        2868
+      ],
+      "source_pixels": 5506560,
+      "source_patches": 5400,
+      "source_estimated_tokens": 6480,
+      "reference_estimated_tokens": 6264,
+      "target_estimated_tokens": 3758,
+      "effective_target_estimated_tokens": 3758,
+      "minimum_patch_limited": false,
+      "profile_cap_limited": false,
+      "output_size": [
+        1457,
+        2176
+      ],
+      "output_pixels": 3170432,
+      "output_patches": 3128,
+      "output_estimated_tokens": 3754,
+      "retained_token_fraction": 0.5992975734355045,
+      "retained_vs_unscaled_image_fraction": 0.5793209876543209,
+      "rounding_shortfall_tokens": 4,
+      "output": "screenshot_sheet_0.png",
+      "screenshot_count": 3,
+      "source_indices": [
+        0,
+        1,
+        2
+      ],
+      "layout": "vertical",
+      "source_regions": [
+        {
+          "index": 0,
+          "source_size": [
+            1920,
+            924
+          ],
+          "source_sheet_box": [
+            0,
+            0,
+            1920,
+            924
+          ],
+          "output_sheet_box": [
+            0,
+            0,
+            1457,
+            702
+          ]
+        },
+        {
+          "index": 1,
+          "source_size": [
+            1920,
+            924
+          ],
+          "source_sheet_box": [
+            0,
+            956,
+            1920,
+            1880
+          ],
+          "output_sheet_box": [
+            0,
+            725,
+            1457,
+            1427
+          ]
+        },
+        {
+          "index": 2,
+          "source_size": [
+            1920,
+            924
+          ],
+          "source_sheet_box": [
+            0,
+            1912,
+            1920,
+            2836
+          ],
+          "output_sheet_box": [
+            0,
+            1450,
+            1457,
+            2152
+          ]
+        }
+      ],
+      "original_screenshot_pixels": 5322240
+    },
+    {
+      "source_size": [
+        1920,
+        1912
+      ],
+      "source_pixels": 3671040,
+      "source_patches": 3600,
+      "source_estimated_tokens": 4320,
+      "reference_estimated_tokens": 4176,
+      "target_estimated_tokens": 2505,
+      "effective_target_estimated_tokens": 2505,
+      "minimum_patch_limited": false,
+      "profile_cap_limited": false,
+      "output_size": [
+        1447,
+        1440
+      ],
+      "output_pixels": 2083680,
+      "output_patches": 2070,
+      "output_estimated_tokens": 2484,
+      "retained_token_fraction": 0.5948275862068966,
+      "retained_vs_unscaled_image_fraction": 0.575,
+      "rounding_shortfall_tokens": 21,
+      "output": "screenshot_sheet_1.png",
+      "screenshot_count": 2,
+      "source_indices": [
+        3,
+        4
+      ],
+      "layout": "vertical",
+      "source_regions": [
+        {
+          "index": 3,
+          "source_size": [
+            1920,
+            924
+          ],
+          "source_sheet_box": [
+            0,
+            0,
+            1920,
+            924
+          ],
+          "output_sheet_box": [
+            0,
+            0,
+            1447,
+            696
+          ]
+        },
+        {
+          "index": 4,
+          "source_size": [
+            1920,
+            924
+          ],
+          "source_sheet_box": [
+            0,
+            956,
+            1920,
+            1880
+          ],
+          "output_sheet_box": [
+            0,
+            720,
+            1447,
+            1416
+          ]
+        }
+      ],
+      "original_screenshot_pixels": 3548160
+    }
+  ]
+}

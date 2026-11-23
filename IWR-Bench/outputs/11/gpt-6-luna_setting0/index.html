@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>16Personalities</title>
+<style>
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:Arial,Helvetica,sans-serif;color:#273044;background:#fff}
+  .btn{cursor:pointer}
+  header{
+    height:94px;background:#fff;display:flex;align-items:center;justify-content:space-between;
+    padding:0 30px;position:fixed;top:0;left:0;right:0;z-index:20;
+    box-shadow:0 2px 12px rgba(25,35,55,.08)
+  }
+  .brand{display:flex;align-items:center;gap:10px;color:#394052;font-family:Georgia,serif;font-size:29px;white-space:nowrap}
+  .brand img{width:55px;height:55px;object-fit:contain}
+  .brand-mark{width:54px;height:54px;border-radius:50%;position:relative;
+    background:conic-gradient(#51a9be 0 25%,#e7b62d 25% 47%,#48b57e 47% 72%,#87539a 72% 100%);
+    -webkit-mask:radial-gradient(circle,transparent 0 33%,#000 34% 43%,transparent 44% 51%,#000 52% 60%,transparent 61% 68%,#000 69% 74%,transparent 75%);
+    mask:radial-gradient(circle,transparent 0 33%,#000 34% 43%,transparent 44% 51%,#000 52% 60%,transparent 61% 68%,#000 69% 74%,transparent 75%);
+  }
+  nav{display:flex;align-items:center;gap:31px;margin-left:160px;font-size:18px;color:#444957}
+  nav a{color:inherit;text-decoration:none;padding:37px 0;border-top:4px solid transparent}
+  nav a.active{border-color:#4ba4b5}
+  .right{display:flex;align-items:center;gap:25px;font-size:17px;color:#545864}
+  .icon{font-size:22px;color:#747981}
+  .test-btn,.next-btn{background:#8751a0;color:#fff;border:0;border-radius:32px;padding:18px 40px;font-size:18px;font-weight:bold}
+  main{padding-top:94px}
+  .landing{background:#4b9fb4;min-height:1210px;position:relative;overflow:hidden;text-align:center;color:#fff;padding-top:116px}
+  .landing:after{content:"";position:absolute;bottom:-2px;left:-5%;width:110%;height:290px;background:#fff;clip-path:polygon(0 47%,18% 23%,37% 45%,56% 14%,77% 42%,100% 20%,100% 100%,0 100%)}
+  .landing h1{font-size:53px;margin:0 0 25px;font-weight:700}
+  .landing p{font-size:22px;line-height:1.45;max-width:720px;margin:0 auto 34px}
+  .hero-image{position:absolute;left:0;right:0;bottom:90px;width:100%;height:660px;object-fit:cover;object-position:center;mix-blend-mode:normal}
+  .stats{position:absolute;z-index:3;bottom:15px;left:0;right:0;display:flex;justify-content:center;gap:170px;font-size:43px;font-weight:bold}
+  .stats span:nth-child(1){color:#49a7bb}.stats span:nth-child(2){color:#ddb62b}.stats span:nth-child(3){color:#35a779}.stats span:nth-child(4){color:#76528e}
+  
+  .test-page{background:#fff;min-height:1800px;padding:62px 0 150px}
+  .test-title{text-align:center;margin:0 auto 42px}
+  .test-title .brand-mark{margin:0 auto 23px;width:76px;height:76px}
+  .test-title h1{font-size:55px;margin:0 0 20px}
+  .test-title p{font-size:22px;margin:0}
+  .cards{width:1300px;margin:0 auto 74px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .card{height:308px;border-radius:8px;overflow:hidden;background:#fff;box-shadow:0 12px 28px rgba(30,40,60,.1);border-top:5px solid #4ca7ba;padding:0 22px 20px}
+  .card:nth-child(2){border-color:#40ad7b}.card:nth-child(3){border-color:#805296}
+  .card-img{height:160px;display:flex;justify-content:center;align-items:center;background:#eaf6f8;margin:0 -22px 14px}
+  .card:nth-child(2) .card-img{background:#eaf8f0}.card:nth-child(3) .card-img{background:#f4edf6}
+  .card-img img{width:170px;height:145px;object-fit:contain}
+  .pill{display:inline-block;border-radius:16px;padding:6px 12px;color:#fff;background:#4ca7ba;font-size:13px;font-weight:bold}
+  .card:nth-child(2) .pill{background:#40ad7b}.card:nth-child(3) .pill{background:#805296}
+  .card h2{font-size:24px;margin:10px 0 10px}.card p{font-size:17px;line-height:1.45;margin:0}
+  .questions{width:1080px;margin:auto}
+  .question{padding:28px 0 34px;border-bottom:1px solid #eef0f3;transition:.2s}
+  .question.dim{color:#c8cbd0}
+  .question.active{color:#273044}
+  .question h3{font-size:22px;margin:0 0 28px;font-weight:600}
+  .scale{display:flex;align-items:center;gap:38px}
+  .agree,.disagree{font-size:19px;min-width:78px}
+  .agree{color:#46ae7f}.disagree{color:#76528c}
+  .circles{display:flex;align-items:center;gap:38px;flex:1;justify-content:center}
+  .choice{width:38px;height:38px;border:3px solid #45b484;border-radius:50%;background:#fff;position:relative}
+  .choice:nth-child(1),.choice:nth-child(7){width:70px;height:70px}
+  .choice:nth-child(2),.choice:nth-child(6){width:56px;height:56px}
+  .choice:nth-child(3),.choice:nth-child(5){width:46px;height:46px}
+  .choice:nth-child(4){border-color:#92969c}
+  .choice:nth-child(n+5){border-color:#805996}
+  .choice.selected{background:#43b77e;border-color:#43b77e}
+  .choice.selected:after{content:"✓";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:25px}
+  .choice:nth-child(n+5).selected{background:#8952a0;border-color:#8952a0}
+  .bottom-action{margin-top:30px}
+  .progressbar{width:1080px;margin:0 auto 40px;border:1px solid #edf0f2;height:64px;display:flex;align-items:center;padding:0 20px;justify-content:space-between;color:#4da0b2}
+  .progress{width:300px;height:9px;background:#e9e9ee;border-radius:8px;overflow:hidden;margin-left:auto;margin-right:20px}.progress i{display:block;width:12%;height:100%;background:#4ca4b5}
+  .step2 .cards{margin-bottom:40px}
+  .social{height:220px;background:#f3f3f3;display:flex;justify-content:center;align-items:center;gap:28px;margin-top:100px}
+  .social span{border:1px solid #bfc0c5;width:62px;height:62px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:25px}
+  .hidden{display:none}
+  @media(max-width:1200px){
+    nav{gap:14px;margin-left:30px;font-size:14px}.cards,.questions,.progressbar{width:90%}.stats{gap:50px}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand btn" onclick="showLanding()"><div class="brand-mark"></div><span>16Personalities</span></div>
+  <nav>
+    <a class="active btn" onclick="showTest()">Personality Test</a>
+    <a class="btn">Personality Types⌄</a>
+    <a class="btn">Career Suite</a>
+    <a class="btn">Teams &amp; Pros⌄</a>
+    <a class="btn">Resources⌄</a>
+  </nav>
+  <div class="right"><span class="icon btn">⌕</span><span class="icon btn">◉</span><span class="btn">Log In</span></div>
+</header>
+
+<main>
+<section id="landing" class="landing">
+  <h1>“It’s so incredible to finally be understood.”</h1>
+  <p>Only 10 minutes to get a “freakishly accurate” description of who<br>you are and why you do things the way you do.</p>
+  <button class="test-btn btn" onclick="showTest()">Take the Test&nbsp; →</button>
+  <img class="hero-image" src="../../../data/data/11/assets/026.png" width="1600" height="700" alt="Personality test illustration">
+  <div class="stats"><span>108K+</span><span>184M+</span><span>1436M+</span><span>91.2%</span></div>
+</section>
+
+<section id="test" class="test-page hidden">
+  <div id="intro">
+    <div class="test-title">
+      <div class="brand-mark"></div>
+      <h1>Free Personality Test</h1>
+      <p>NERIS Type Explorer<sup>®</sup></p>
+    </div>
+    <div class="cards">
+      <div class="card"><div class="card-img"><img src="../../../data/data/11/assets/025.png" width="260" height="180" alt="Complete the test"></div><span class="pill">STEP 1</span><h2>Complete the Test</h2><p>Be yourself and answer honestly to find out your personality type.</p></div>
+      <div class="card"><div class="card-img"><img src="../../../data/data/11/assets/027.png" width="260" height="180" alt="Detailed results"></div><span class="pill">STEP 2</span><h2>View Detailed Results</h2><p>Learn how your personality type influences many areas of your life.</p></div>
+      <div class="card"><div class="card-img"><img src="../../../data/data/11/assets/028.png" width="260" height="180" alt="Unlock potential"></div><span class="pill">STEP 3</span><h2>Unlock Your Potential</h2><p>Find jobs that suit your personality and get career guidance that actually helps.</p></div>
+    </div>
+  </div>
+  <div id="stepbar" class="progressbar hidden"><span class="btn">← PREVIOUS STEP</span><div class="progress"><i></i></div><span>Step 2 of 10</span></div>
+  <div class="questions" id="questions"></div>
+</section>
+</main>
+
+<script>
+const firstQuestions=[
+"You regularly make new friends.",
+"Complex and novel ideas excite you more than simple and straightforward ones.",
+"You usually feel more persuaded by what resonates emotionally with you than by factual arguments.",
+"Your living and working spaces are clean and organized.",
+"You usually stay calm, even under a lot of pressure.",
+"You find the idea of networking or promoting yourself to strangers very daunting."
+];
+const secondQuestions=[
+"You prioritize and plan tasks effectively, often completing them well before the deadline.",
+"People’s stories and emotions speak louder to you than numbers or data.",
+"You like to use organizing tools like schedules and lists.",
+"Even a small mistake can cause you to doubt your overall abilities and knowledge."
+];
+let answers={};
+function showLanding(){document.getElementById('landing').classList.remove('hidden');document.getElementById('test').classList.add('hidden');window.scrollTo(0,0)}
+function showTest(){
+ document.getElementById('landing').classList.add('hidden');document.getElementById('test').classList.remove('hidden');
+ renderQuestions(firstQuestions);document.getElementById('intro').classList.remove('hidden');document.getElementById('stepbar').classList.add('hidden');window.scrollTo(0,0)
+}
+function renderQuestions(list){
+ const q=document.getElementById('questions');q.innerHTML='';
+ list.forEach((text,qi)=>{
+  const row=document.createElement('div');row.className='question '+(qi?'dim':'active');row.dataset.q=qi;
+  row.innerHTML='<h3>'+text+'</h3><div class="scale"><span class="agree">Agree</span><div class="circles">'+[1,2,3,4,5,6,7].map(n=>'<button class="choice btn" data-value="'+n+'"></button>').join('')+'</div><span class="disagree">Disagree</span></div>';
+  row.querySelectorAll('.choice').forEach(c=>c.onclick=()=>{row.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));c.classList.add('selected');answers[qi]=c.dataset.value;row.classList.add('active');row.classList.remove('dim')});
+  q.appendChild(row)
+ });
+ const action=document.createElement('div');action.className='bottom-action';action.innerHTML='<button class="next-btn btn">Next&nbsp; →</button>';q.appendChild(action);
+ action.querySelector('button').onclick=()=>{document.getElementById('intro').classList.add('hidden');document.getElementById('stepbar').classList.remove('hidden');renderQuestions(secondQuestions);window.scrollTo(0,0)};
+}
+showLanding();
+</script>
+</body>
+</html>

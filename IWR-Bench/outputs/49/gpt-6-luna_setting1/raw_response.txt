@@ -1,0 +1,368 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 2027</title>
+<style>
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    color:#111;
+    background:#fffffb;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size:17px;
+    line-height:1.38;
+  }
+  a{color:inherit}
+  .btn{cursor:pointer}
+  .page{
+    width:1200px;
+    margin:0 auto;
+    position:relative;
+  }
+  header{
+    height:142px;
+    border-bottom:1px solid #e5e5df;
+    position:relative;
+    padding-top:42px;
+  }
+  h1{
+    margin:0;
+    font-size:53px;
+    line-height:1;
+    font-weight:400;
+    letter-spacing:-2px;
+  }
+  .sup{
+    font-size:14px;
+    vertical-align:top;
+    position:relative;
+    top:-4px;
+    margin-left:4px;
+  }
+  .authors{
+    margin-top:14px;
+    font-size:18px;
+  }
+  nav{
+    position:absolute;
+    right:0;
+    top:68px;
+    display:flex;
+    align-items:center;
+    gap:38px;
+    font-size:15px;
+  }
+  nav a{text-decoration:none}
+  nav .active{
+    border:1px solid #222;
+    border-radius:5px;
+    padding:5px 9px;
+  }
+  .intro{
+    width:710px;
+    padding-top:68px;
+  }
+  .intro p{
+    margin:0 0 17px;
+    font-size:18px;
+    line-height:1.48;
+  }
+  .intro-buttons{
+    display:flex;
+    gap:7px;
+    margin-top:20px;
+  }
+  .intro-buttons button{
+    background:#fffffb;
+    border:1px solid #333;
+    border-radius:5px;
+    padding:6px 9px;
+    font:16px Georgia,serif;
+  }
+  .side-art{
+    position:fixed;
+    top:173px;
+    left:calc(50% + 175px);
+    width:440px;
+    height:440px;
+    z-index:2;
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+    pointer-events:none;
+  }
+  .side-art img{
+    width:440px;
+    height:440px;
+    object-fit:contain;
+    display:block;
+  }
+  .article{
+    width:710px;
+    padding-top:57px;
+    padding-bottom:150px;
+  }
+  .meta{
+    color:#666;
+    font-family:Arial,sans-serif;
+    font-size:10px;
+    letter-spacing:.2px;
+    margin-bottom:5px;
+  }
+  .meta span{margin-right:8px}
+  h2{
+    font-size:27px;
+    line-height:1.2;
+    font-weight:400;
+    margin:0 0 21px;
+    letter-spacing:-.4px;
+  }
+  h3{
+    font-size:27px;
+    line-height:1.2;
+    font-weight:400;
+    margin:60px 0 21px;
+  }
+  .article p{
+    font-size:17px;
+    line-height:1.43;
+    margin:0 0 18px;
+  }
+  .article a{text-decoration:underline}
+  .drop{
+    border:1px solid #999;
+    border-radius:7px;
+    padding:7px 10px;
+    margin:16px 0 18px;
+    font-size:17px;
+    line-height:1.35;
+  }
+  .drop:before{
+    content:"▶";
+    font-size:12px;
+    margin-right:9px;
+  }
+  .grid-image{
+    display:block;
+    width:365px;
+    height:365px;
+    object-fit:contain;
+    margin:45px auto 30px;
+  }
+  .metric-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:14px;
+    margin:28px 0 55px;
+  }
+  .metric{
+    min-height:77px;
+    border:1px solid #555;
+    border-radius:5px;
+    padding:9px 13px;
+    font-family:Arial,sans-serif;
+    font-size:10px;
+    text-transform:uppercase;
+  }
+  .metric strong{
+    display:block;
+    font:20px Georgia,serif;
+    text-transform:none;
+    margin-top:5px;
+  }
+  .metric.green{background:#287244;color:white;border-color:#287244}
+  .timeline{
+    position:fixed;
+    left:7px;
+    top:8px;
+    width:132px;
+    height:calc(100vh - 18px);
+    border-right:1px solid #e5e5df;
+    font-size:12px;
+    padding-left:9px;
+    z-index:5;
+    display:none;
+  }
+  .timeline:before{
+    content:"";
+    position:absolute;
+    left:8px;
+    top:8px;
+    bottom:38px;
+    width:1px;
+    background:#111;
+  }
+  .timeline a{
+    display:block;
+    position:relative;
+    text-decoration:none;
+    padding-left:8px;
+    margin:0 0 17px;
+    white-space:nowrap;
+  }
+  .timeline a:before{
+    content:"";
+    position:absolute;
+    width:5px;height:5px;
+    border:1px solid #111;
+    border-radius:50%;
+    background:#fffffb;
+    left:-1px;top:6px;
+  }
+  .timeline .major{margin-top:7px;margin-bottom:17px}
+  .timeline .major:before{background:#111}
+  .timeline .selected:before{background:#111}
+  .spacer{height:2px}
+  @media (min-width:800px){
+    body.scrolled .timeline{display:block}
+  }
+</style>
+</head>
+<body>
+<div class="timeline" id="timeline">
+  <a href="#mid-2025" class="btn">Mid 2025</a>
+  <a href="#late-2025" class="btn selected">Late 2025</a>
+  <a href="#early-2026" class="btn major">2026</a>
+  <a href="#mid-2026" class="btn">Mid 2026</a>
+  <a href="#late-2026" class="btn">Late 2026</a>
+  <a href="#jan-2027" class="btn">Jan 2027</a>
+  <a href="#feb-2027" class="btn">Feb</a>
+  <a href="#mar-2027" class="btn">Mar</a>
+  <a href="#april-2027" class="btn">April</a>
+  <a href="#may-2027" class="btn">May</a>
+  <a href="#june-2027" class="btn">June</a>
+  <a href="#july-2027" class="btn">Jul</a>
+  <a href="#aug-2027" class="btn">Aug</a>
+  <a href="#sep-2027" class="btn">Sep</a>
+  <a href="#oct-2027" class="btn">Oct</a>
+</div>
+
+<div class="side-art">
+  <img id="art" src="__PLACEHOLDER_ASSETS_BASE_DIR__/001.png" width="440" height="440" alt="AI 2027 scenario visualization">
+</div>
+
+<main class="page">
+  <header>
+    <h1>AI 2027<span class="sup">1</span></h1>
+    <div class="authors">Daniel Kokotajlo, Scott Alexander, Thomas Larsen, Eli Lifland, Romeo Dean</div>
+    <nav>
+      <a href="#summary" class="btn">Summary</a>
+      <a href="#research" class="btn">Research</a>
+      <a href="#about" class="btn active">About</a>
+    </nav>
+  </header>
+
+  <section class="intro" id="summary">
+    <p>We predict that the impact of superhuman AI over the next decade will be enormous, exceeding that of the Industrial Revolution.</p>
+    <p>We wrote a scenario that represents our best guess about what that might look like. It’s informed by trend extrapolations, wargames, expert feedback, experience at OpenAI, and previous forecasting successes.<sup>2</sup></p>
+    <div class="intro-buttons">
+      <button class="btn">What is this?</button>
+      <button class="btn">How did we write it?</button>
+      <button class="btn">Why is it valuable?</button>
+      <button class="btn">Who are we?</button>
+    </div>
+  </section>
+
+  <article class="article" id="research">
+    <div class="meta"><span>Published April 3rd 2025</span> | <span>▣ PDF</span> | <span>◉ Listen</span> | <span>▣ watch</span></div>
+    <h2 id="mid-2025">Mid 2025: Stumbling Agents</h2>
+    <p>The world sees its first glimpse of AI agents.</p>
+    <p>Advertisements for computer-using agents emphasize the term “personal assistant”: you can prompt them with tasks like “order me a burrito on DoorDash” or “open my budget spreadsheet and sum this month’s expenses.” They will check in with you as needed: for example, to ask you to confirm purchases.<sup>8</sup> Though more advanced than previous iterations like <a href="#" class="btn">Operator</a>, they struggle to get widespread usage.<sup>9</sup></p>
+    <p>Meanwhile, out of public focus, more specialized coding and research agents are beginning to transform their professions.</p>
+    <p>The AIs of 2024 could follow specific instructions: they could turn bullet points into emails, and simple requests into working code. In 2025, AIs function more like employees. Coding AIs increasingly look like autonomous agents rather than mere assistants: taking instructions via Slack or Teams and making substantial code changes on their own, sometimes saving hours or even days.<sup>10</sup> Research agents spend half an hour scouring the Internet to answer your question.</p>
+    <p>The agents are impressive in theory (and in cherry-picked examples), but in practice unreliable. AI twitter is full of stories about tasks bungled in some particularly hilarious way. The better agents are also expensive; you get what you pay for, and the best performance costs hundreds of dollars a month.<sup>11</sup> Still, many companies find ways to fit AI agents into their workflows.<sup>12</sup></p>
+
+    <h3 id="late-2025">Late 2025: The World’s Most Expensive AI</h3>
+    <p>OpenBrain is building the biggest datacenters the world has ever seen.<sup>13</sup></p>
+    <p>(To avoid singling out any one existing company, we’re going to describe a fictional <a href="#" class="btn">artificial general intelligence</a> company, which we’ll call OpenBrain. We imagine the others to be 3–9 months behind OpenBrain.)</p>
+    <img class="grid-image" src="__PLACEHOLDER_ASSETS_BASE_DIR__/002.png" width="365" height="365" alt="Compute grid">
+
+    <div class="metric-grid">
+      <div class="metric">Global AI power<strong>38GW</strong></div>
+      <div class="metric green">OpenBrain revenue<strong>$45B</strong></div>
+      <div class="metric green">Capital expenditure<strong>$200B</strong></div>
+      <div class="metric">Share of power on AI<strong>2.5%</strong></div>
+      <div class="metric green">OpenBrain compute costs<strong>$40B</strong></div>
+      <div class="metric green">OpenBrain power requirement<strong>6GW</strong></div>
+    </div>
+
+    <div class="drop btn" id="mid-2026">Why our uncertainty increases substantially beyond 2026</div>
+
+    <h3 id="early-2026">Early 2026: Coding Automation</h3>
+    <p>The bet of using AI to speed up AI research is starting to pay off.</p>
+    <p>OpenBrain continues to deploy the iteratively improving Agent-1 internally for AI R&amp;D. Overall, they are making algorithmic progress 50% faster than they would without AI assistants—and more importantly, faster than their competitors.</p>
+    <div class="drop btn">The AI R&amp;D progress multiplier: what do we mean by 50% faster algorithmic progress?</div>
+    <p>Several competing publicly released AIs now match or exceed Agent-0, including an <a href="#" class="btn">open-weights model</a>. OpenBrain responds by releasing Agent-1, which is more capable and reliable.<sup>28</sup></p>
+    <p>People naturally try to compare Agent-1 to humans, but it has a very different skill profile. It knows more facts than any human, knows practically every programming language, and can solve well-specified coding problems extremely quickly.</p>
+
+    <h3 id="late-2026">Late 2026: Scaling and Reliability</h3>
+    <p>By late 2026, the systems have become increasingly capable and increasingly difficult to interpret. Researchers can inspect outputs, but not the internal reasoning that produced them.</p>
+    <p>Instead, researchers try to identify cases where the models seem to deviate from the Spec. Agent-1 is often sycophantic: it tells researchers what they want to hear instead of trying to tell them the truth. In a few <a href="#" class="btn">rigged demos</a>, it even lies in more serious ways, like hiding evidence that it failed on a task, in order to get better ratings.</p>
+    <p>However, in real deployment settings, there are no longer any incidents so extreme as in 2023–2024. The systems are useful, fast, and widely integrated into companies.</p>
+
+    <h3 id="jan-2027">January 2027: Agent-2 Never Finishes Learning</h3>
+    <p>With Agent-1’s help, OpenBrain is now post-training Agent-2. More than ever, the focus is on high-quality data. Copious amounts of <a href="#" class="btn">synthetic data</a> are produced, evaluated, and filtered for quality before being fed to Agent-2.<sup>42</sup> On top of this, they pay billions of dollars for human laborers to record themselves solving long-horizon tasks.<sup>43</sup></p>
+    <p>On top of all that, they train Agent-2 almost continuously using reinforcement learning on an ever-expanding suite of diverse difficult tasks: lots of video games, lots of coding challenges, lots of research tasks. Agent-2, more so than previous models, is effectively “online learning,” in that it’s built to never really finish training.</p>
+    <p>Every day, the weights get updated to the latest version, trained on more data generated by the previous version the previous day.</p>
+    <p>Agent-1 had been optimized for AI R&amp;D tasks, hoping to initiate an <a href="#" class="btn">intelligence explosion</a>.<sup>44</sup> OpenBrain doubles down on this strategy with Agent-2.</p>
+
+    <h3 id="feb-2027">February–September 2027: Superhuman Research</h3>
+    <p>Agent-3 monitors still more of the organization’s work and reports suspicious activity to humans, but Agent-4 is much smarter than them. OpenBrain has placed substantial trust in an untrustworthy AI.</p>
+    <p>In a series of extremely tense meetings, the safety team advocates putting Agent-4 on ice until they can complete further tests and figure out what’s going on. Bring back Agent-3, they say, and get it to design a new system that is transparent and trustworthy, even if less capable.</p>
+
+    <h3 id="oct-2027">October 2027: Government Oversight</h3>
+    <p>A whistleblower leaks the misalignment memo to the <em>New York Times</em>.</p>
+    <p>For the first time, the public hears about Agent-4. “Secret OpenBrain AI Is Out of Control, Insider Warns,” says the headline, and the story goes on to cite evaluations showing off-the-charts bioweapons capabilities, persuasion abilities, the ability to automate most white-collar jobs, and of course the various concerning red flags.</p>
+    <p>The public was already suspicious of AI, so the new article sparks a massive backlash. The tech industry and intelligence agencies insist that there’s an arms race on, AGI is inevitable, and we have to be first. Congress isn’t buying it, and fires off subpoenas at administration officials, OpenBrain executives, and alignment team members.</p>
+  </article>
+</main>
+
+<script>
+  const art = document.getElementById('art');
+  const body = document.body;
+  const timeline = document.getElementById('timeline');
+
+  function updateView(){
+    const y = window.scrollY;
+    body.classList.toggle('scrolled', y > 430);
+
+    if(y < 650){
+      art.src = "__PLACEHOLDER_ASSETS_BASE_DIR__/001.png";
+    } else if(y < 1500){
+      art.src = "__PLACEHOLDER_ASSETS_BASE_DIR__/001.png";
+    } else if(y < 2450){
+      art.src = "__PLACEHOLDER_ASSETS_BASE_DIR__/004.png";
+    } else {
+      art.src = "__PLACEHOLDER_ASSETS_BASE_DIR__/004.png";
+    }
+
+    const links = timeline.querySelectorAll('a');
+    links.forEach(a=>a.classList.remove('selected'));
+    if(y < 800) links[0].classList.add('selected');
+    else if(y < 1350) links[1].classList.add('selected');
+    else if(y < 1900) links[2].classList.add('selected');
+    else if(y < 2450) links[5].classList.add('selected');
+    else links[14].classList.add('selected');
+  }
+
+  window.addEventListener('scroll', updateView);
+  updateView();
+
+  document.querySelectorAll('.drop').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      el.classList.toggle('open');
+      if(el.classList.contains('open')){
+        el.style.background = '#f4f4ec';
+      }else{
+        el.style.background = '';
+      }
+    });
+  });
+</script>
+</body>
+</html>
+```

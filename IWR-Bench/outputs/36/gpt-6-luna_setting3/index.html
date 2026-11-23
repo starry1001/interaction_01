@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Steam Charts Replica</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;background:#0d1118;color:#d6d7d8}
+body{overflow-x:hidden}
+:root{
+  --nav:#171d25;--panel:#1a2029;--panel2:#222a35;--blue:#1a9fff;
+  --lightblue:#66c0f4;--green:#75b022;--line:#080b10;
+}
+button,.btn{cursor:pointer}
+.topbar{height:110px;background:#171d25;display:flex;align-items:center}
+.topinner{width:960px;margin:auto;display:flex;align-items:center;position:relative}
+.steam-logo{width:148px;height:54px;object-fit:contain;margin-right:56px}
+.mainnav{display:flex;gap:19px;font-size:18px;font-weight:bold}
+.mainnav a{color:#d6d7d8;text-decoration:none}
+.mainnav a.active{color:#1a9fff;border-bottom:3px solid #1a9fff;padding-bottom:8px}
+.account{position:absolute;right:-185px;top:-28px;color:#aaa;font-size:12px}
+.install{background:#75a900;color:#e5f5cd;padding:7px 13px;margin-right:10px}
+.desktop-banner{height:59px;background:#2788d2;display:none;align-items:center;justify-content:center;gap:20px;color:white}
+.desktop-banner button{border:0;padding:11px 20px;background:#d9efff;color:#234568;font-weight:bold}
+.storebar{height:39px;background:linear-gradient(90deg,#6c9dc8,#294ca1);display:flex;align-items:center;padding:0 14px;color:#dce8f5;font-weight:bold;font-size:14px}
+.storebar span{margin-right:30px}
+.search{margin-left:auto;width:205px;height:29px;background:#75a2bb66;border:2px solid #1c3b82;color:white;padding:4px 10px;font-style:italic}
+.search-icon{width:27px;height:29px;background:#65b4dc;text-align:center;padding-top:5px;color:#075289}
+.layout{display:flex;min-height:calc(100vh - 110px)}
+.sidebar{width:200px;background:#0d1117;flex:none;padding-top:102px;color:#a9b0b7}
+.sideitem{height:54px;padding:17px 18px;font-size:14px;border-left:3px solid transparent}
+.sideitem.active{background:#454d5e;color:#fff;border-left-color:#7dbce7}
+.sidegroup{font-size:12px;letter-spacing:1px;margin:20px 18px 10px;color:#707b86}
+.sideitem .ico{display:inline-block;width:28px;font-size:23px;vertical-align:middle;color:#e4e9ed}
+.content{width:960px;margin:34px auto 70px;position:relative}
+.page-title{font-size:37px;color:#fff;margin:28px 0 4px;font-weight:bold}
+.subtitle{font-size:20px;color:#c3c9ce;margin-bottom:34px}
+.overview .content{background:#0d1118}
+.chartbox{height:255px;background:linear-gradient(#1b1c24,#11141b);border:1px solid #20242b;position:relative;padding:40px 25px;margin-bottom:55px}
+.chartlines{position:absolute;left:62px;right:280px;top:44px;bottom:35px;background:repeating-linear-gradient(to bottom,transparent 0 45px,#3e4752 46px 48px)}
+.chartwave{position:absolute;left:62px;top:65px;width:610px;height:140px;opacity:.8;background:linear-gradient(160deg,transparent 18%,#164a73 19% 24%,transparent 25% 29%,#164a73 30% 36%,transparent 37% 43%,#164a73 44% 50%,transparent 51%);clip-path:polygon(0 55%,5% 40%,10% 8%,15% 42%,20% 60%,28% 62%,34% 28%,40% 7%,46% 40%,52% 59%,60% 60%,67% 28%,73% 6%,80% 40%,87% 60%,94% 57%,100% 42%,100% 100%,0 100%)}
+.chartstats{position:absolute;right:55px;top:43px}.stat{font-size:33px;color:#eee;margin-bottom:55px}.stat small{display:block;color:#80d21b;font-size:12px;font-weight:bold}.stat:nth-child(2) small{color:#57a7d8}
+.section-title{font-size:18px;color:#b5bcc5;margin-bottom:13px}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.chart-card{background:#1b1e24;border:1px solid #11151b;padding:5px}
+.chart-card img{width:100%;height:220px;object-fit:cover;display:block}
+.cardrows{padding:8px 8px 0}
+.cardrow{height:43px;border-bottom:1px solid #41454a;padding:12px 5px;font-size:14px;color:#eee}
+.cardrow:first-child{border-bottom:2px solid #4db3e8}
+.cardrow span{color:#8e9aa5;margin-right:15px}
+.seeall{background:#354a64;color:#e8eef4;border:0;width:100%;padding:14px;margin-top:7px}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:54px}
+.tile img{width:100%;height:205px;object-fit:cover;filter:brightness(.65)}
+.tile{position:relative}.tile div{position:absolute;left:0;right:0;top:90px;text-align:center;font-size:26px;color:#fff;font-weight:bold}
+.yeartile{grid-column:1/3}.yeartile img{height:180px}
+
+.top-sellers .content{margin-top:34px}
+.top-sellers .storebar{margin-bottom:0}
+.country{position:absolute;right:130px;top:87px;font-size:13px}
+.seller-table{margin-top:48px;background:rgba(35,39,46,.84)}
+.seller-head,.seller-row{display:grid;grid-template-columns:55px 145px 1fr 125px 90px 70px;align-items:center}
+.seller-head{height:35px;font-size:12px;color:#dce0e4}
+.seller-row{height:72px;border-top:2px solid #10151b;color:#eee;font-size:15px}
+.seller-row:nth-child(even){background:#292e36}
+.seller-row:hover{background:#3b414b}
+.rank{text-align:center;font-size:18px;font-weight:bold}
+.seller-row img{width:138px;height:56px;object-fit:cover}
+.price{text-align:right}.change{text-align:center;color:#83ca1c}.weeks{text-align:center}
+.seller-title{font-weight:bold;color:#fff}
+.side-detail{position:fixed;right:18px;top:485px;width:400px;height:370px;background:#1b222a;box-shadow:0 0 20px #000;z-index:3}
+.side-detail .hero{height:205px;width:100%;object-fit:cover;background:#111}
+.side-detail .detailbody{padding:12px;font-size:14px}
+.side-detail h3{margin:0 0 10px;color:white;font-size:20px}
+.side-detail p{color:#9bd33c}
+
+.product-bg{background:#1d3046;min-height:100vh}
+.product-page{background:radial-gradient(ellipse at top,#294864 0,#1b2c40 45%,#1b2b3f 100%);min-height:100vh}
+.product-page .content{width:960px;margin-top:24px}
+.sign-banner{height:59px;background:#2788d2;margin:-24px calc((960px - 100vw)/2) 24px;padding-left:calc((100vw - 960px)/2);display:flex;align-items:center;gap:20px}
+.product-breadcrumb{font-size:12px;color:#8293a1;margin-bottom:8px}
+.product-title{font-size:25px;color:white;margin:0 0 15px}
+.community{float:right;background:#39769b;color:#a8e1ff;padding:10px 17px;border:0}
+.sale-banner{width:960px;height:145px;object-fit:cover}
+.product-grid{display:grid;grid-template-columns:600px 325px;gap:15px;margin-top:15px}
+.video{height:355px;background:#000;position:relative}
+.video-label{position:absolute;top:0;left:0;background:#08090b;padding:7px 10px;color:#ddd}
+.controls{position:absolute;bottom:0;left:0;right:0;height:48px;background:#171717;border-top:8px solid #454545;padding:10px;font-size:20px}
+.video-thumbs{position:absolute;bottom:-62px;height:55px;left:0;right:0;display:flex;gap:4px}
+.video-thumbs img{width:112px;height:55px;object-fit:cover}
+.description{background:#17232d;padding:0 12px;color:#d6dce1;line-height:1.35;font-size:14px}
+.description img{width:325px;height:160px;object-fit:cover;margin-bottom:10px}
+.wishlist{background:#142234;margin-top:73px;padding:20px 15px;color:#d6dce1;font-size:13px}
+.collection{margin-top:34px;height:57px;background:url('../../../data/data/36/assets/252.png') center/cover;display:flex;align-items:center;padding:12px 16px;color:white;font-size:17px}
+.buy-layout{display:grid;grid-template-columns:600px 325px;gap:15px;margin-top:14px}
+.offers h2{font-size:20px;color:#fff;margin:14px 0 2px}
+.offer{background:#708399;padding:15px 10px;margin:0 0 15px;color:#fff;min-height:98px;position:relative}
+.offer small{color:#aed3ed}
+.offer .actions{position:absolute;right:12px;bottom:14px;display:flex}
+.discount{background:#79b900;color:#101800;font-weight:bold;font-size:24px;padding:8px 9px}
+.amount{background:#4a6629;padding:11px;color:#c5ed69}
+.cartbtn{background:#79b900;border:2px solid #111;color:#112200;font-size:16px;padding:8px 14px}
+.info-btn{background:#63b5e8;border:2px solid #111;padding:8px 14px;color:#102b3e}
+.features{background:#142333;padding:10px 14px;min-height:300px}
+.features div{padding:10px 0;border-bottom:1px solid #263a4d;color:#66c0f4}
+.language{margin-top:20px;border-top:1px solid #45586c;padding-top:15px}
+.language table{width:100%;font-size:13px}
+.language td{padding:4px;border-bottom:1px solid #384958}
+.modal-shade{position:fixed;inset:0;background:rgba(0,0,0,.78);display:none;z-index:20}
+.modal-shade.show{display:block}
+.modal{width:650px;background:#293039;position:absolute;top:312px;left:50%;transform:translateX(-50%);padding:26px;border-top:2px solid #4bc4ef;box-shadow:0 0 30px #000}
+.close{position:absolute;right:12px;top:8px;color:#aaa;font-size:22px}
+.modal h2{margin:0 0 27px;color:white;font-size:25px}
+.cartitem{height:150px;background:#1b2028;padding:16px;display:flex;gap:16px}
+.cartitem img{width:210px;height:95px;object-fit:cover}
+.cartitem h3{margin:3px 0 25px;font-size:17px;color:white}
+.modal-actions{display:flex;gap:20px;margin-top:24px}
+.modal-actions button{height:35px;border:0;color:white;font-size:15px}
+.continue{background:#536173;flex:1}.viewcart{background:#4ca8e5;flex:1}
+@media(max-width:1000px){.content,.product-page .content{width:calc(100% - 220px);margin-right:20px}.sale-banner{width:100%}.product-grid,.buy-layout{grid-template-columns:1fr}.description,.features{min-height:auto}.sidebar{width:180px}.side-detail{display:none}.seller-row{grid-template-columns:45px 120px 1fr 90px 60px 45px}.seller-row img{width:115px}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topinner">
+    <img class="steam-logo" src="../../../data/data/36/assets/149.png" width="148" height="54" alt="Steam">
+    <nav class="mainnav">
+      <a class="active btn" href="#" onclick="showPage('overview');return false">STORE</a>
+      <a class="btn" href="#">COMMUNITY</a><a class="btn" href="#">ABOUT</a><a class="btn" href="#">SUPPORT</a>
+    </nav>
+    <div class="account"><span class="install btn">Install Steam</span> login　|　 language⌄</div>
+  </div>
+</header>
+
+<div id="desktopBanner" class="desktop-banner"><button class="btn">Open in Desktop App</button><b>You're not signed in!</b><span>Open this page in the Steam App to wishlist, follow, purchase and see recommendations</span></div>
+
+<div id="overviewPage" class="page overview">
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sideitem active btn" onclick="showPage('overview')"><span class="ico">⌂</span>Charts Overview</div>
+      <div class="sidegroup">LIVE CHARTS</div>
+      <div class="sideitem btn" onclick="showPage('sellers')"><span class="ico">⌁</span>Top Sellers</div>
+      <div class="sideitem btn"><span class="ico">◉</span>Most Played</div>
+      <div class="sideitem btn"><span class="ico">◔</span>Steam Deck</div>
+      <div class="sidegroup">WEEKLY CHARTS</div>
+      <div class="sideitem btn"><span class="ico">□</span>Aug 12, 2025</div>
+      <div class="sideitem btn"><span class="ico">□</span>Aug 5, 2025</div>
+      <div class="sideitem btn"><span class="ico">□</span>Jul 29, 2025</div>
+      <div class="sidegroup">MONTHLY: TOP RELEASES</div>
+      <div class="sideitem btn"><span class="ico">□</span>July 2025</div>
+      <div class="sideitem btn"><span class="ico">□</span>June 2025</div>
+      <div class="sideitem btn"><span class="ico">□</span>May 2025</div>
+      <div class="sidegroup">BEST OF YEAR</div>
+      <div class="sideitem btn"><span class="ico">□</span>2024</div>
+      <div class="sideitem btn"><span class="ico">□</span>2023</div>
+      <div class="sideitem btn"><span class="ico">□</span>2022</div>
+    </aside>
+    <main class="content">
+      <div class="storebar"><span>Your Store</span><span>New &amp; Noteworthy</span><span>Categories</span><span>Points Shop</span><span>News</span><span>Labs</span><input class="search" placeholder="search"><span class="search-icon">⌕</span></div>
+      <h1 class="page-title">CHARTS OVERVIEW</h1>
+      <div class="subtitle">Top selling and top played games across Steam</div>
+      <div class="section-title">PLAYERS ONLINE</div>
+      <div class="chartbox"><div class="chartlines"></div><div class="chartwave"></div><div class="chartstats"><div class="stat">36,143,694<small>PEAK ONLINE</small></div><div class="stat">27,044,673<small>ONLINE NOW</small></div></div></div>
+      <div class="cards">
+        <section><div class="section-title">TOP SELLING GAMES</div><div class="chart-card"><img src="../../../data/data/36/assets/212.jpg" width="600" height="220"><div class="cardrows"><div class="cardrow"><span>1</span>Counter-Strike 2</div><div class="cardrow"><span>2</span>Marvel Rivals</div><div class="cardrow"><span>3</span>Borderlands 4</div><div class="cardrow"><span>4</span>PEAK</div><div class="cardrow"><span>5</span>METAL GEAR SOLID Δ: SNAKE EATER</div></div><button class="seeall btn" onclick="showPage('sellers')">SEE ALL 100 TOP SELLERS</button></div></section>
+        <section><div class="section-title">MOST PLAYED</div><div class="chart-card"><img src="../../../data/data/36/assets/212.jpg" width="600" height="220"><div class="cardrows"><div class="cardrow"><span>1</span>Counter-Strike 2 <b style="float:right">883,007</b></div><div class="cardrow"><span>2</span>Dota 2 <b style="float:right">538,625</b></div><div class="cardrow"><span>3</span>PUBG: BATTLEGROUNDS <b style="float:right">409,575</b></div><div class="cardrow"><span>4</span>Delta Force <b style="float:right">141,927</b></div><div class="cardrow"><span>5</span>Apex Legends™ <b style="float:right">125,006</b></div></div><button class="seeall btn">SEE ALL 100 MOST PLAYED</button></div></section>
+      </div>
+      <div class="tiles"><div class="tile"><div>WEEKLY TOP SELLERS</div><img src="../../../data/data/36/assets/251.png" width="465" height="205"></div><div class="tile"><div>TOP NEW RELEASES</div><img src="../../../data/data/36/assets/216.jpg" width="465" height="205"></div><div class="tile yeartile"><div>BEST OF 2024</div><img src="../../../data/data/36/assets/101.jpg" width="960" height="180"></div></div>
+    </main>
+  </div>
+</div>
+
+<div id="sellersPage" class="page top-sellers" style="display:none">
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sideitem btn" onclick="showPage('overview')"><span class="ico">⌂</span>Charts Overview</div>
+      <div class="sidegroup">LIVE CHARTS</div>
+      <div class="sideitem active btn"><span class="ico">⌁</span>Top Sellers</div>
+      <div class="sideitem btn"><span class="ico">◉</span>Most Played</div><div class="sideitem btn"><span class="ico">◔</span>Steam Deck</div>
+      <div class="sidegroup">WEEKLY CHARTS</div><div class="sideitem btn"><span class="ico">□</span>Aug 12, 2025</div><div class="sideitem btn"><span class="ico">□</span>Aug 5, 2025</div><div class="sideitem btn"><span class="ico">□</span>Jul 29, 2025</div>
+      <div class="sidegroup">MONTHLY: TOP RELEASES</div><div class="sideitem btn"><span class="ico">□</span>July 2025</div><div class="sideitem btn"><span class="ico">□</span>June 2025</div><div class="sideitem btn"><span class="ico">□</span>May 2025</div>
+      <div class="sidegroup">BEST OF YEAR</div><div class="sideitem btn"><span class="ico">□</span>2024</div><div class="sideitem btn"><span class="ico">□</span>2023</div><div class="sideitem btn"><span class="ico">□</span>2022</div>
+    </aside>
+    <main class="content">
+      <div class="storebar"><span>Your Store</span><span>New &amp; Noteworthy</span><span>Categories</span><span>Points Shop</span><span>News</span><span>Labs</span><input class="search" placeholder="search"><span class="search-icon">⌕</span></div>
+      <div class="country">United States　⌄</div>
+      <h1 class="page-title">TOP SELLERS</h1><div class="subtitle">Top 100 selling games right now, by revenue</div>
+      <div class="seller-table"><div class="seller-head"><span>RANK</span><span></span><span></span><span>PRICE ⓘ</span><span>CHANGE ⓘ</span><span>WEEKS ⓘ</span></div>
+      <div id="sellerRows"></div></div>
+    </main>
+  </div>
+  <div class="side-detail"><img class="hero" src="../../../data/data/36/assets/254.jpg" width="400" height="205"><div class="detailbody"><h3>Steam Deck</h3><p>$399.00</p><small>Jan 18, 2025</small></div></div>
+</div>
+
+<div id="productPage" class="page product-page" style="display:none">
+  <div class="layout">
+    <aside class="sidebar" style="padding-top:102px">
+      <div class="sideitem btn" onclick="showPage('overview')"><span class="ico">⌂</span>Charts Overview</div>
+      <div class="sidegroup">LIVE CHARTS</div><div class="sideitem btn" onclick="showPage('sellers')"><span class="ico">⌁</span>Top Sellers</div><div class="sideitem btn"><span class="ico">◉</span>Most Played</div><div class="sideitem btn"><span class="ico">◔</span>Steam Deck</div>
+    </aside>
+    <main class="content">
+      <div class="sign-banner"><button class="btn">Open in Desktop App</button><b>You're not signed in!</b><span>Open this page in the Steam App to wishlist, follow, purchase and see recommendations</span></div>
+      <div class="storebar"><span>Your Store</span><span>New &amp; Noteworthy</span><span>Categories</span><span>Points Shop</span><span>News</span><span>Labs</span><input class="search" placeholder="search"><span class="search-icon">⌕</span></div>
+      <div class="product-breadcrumb">All Games &gt; Action Games &gt; KINGDOM HEARTS Series Franchise &gt; KINGDOM HEARTS -HD 1.5+2.5 ReMIX-</div>
+      <button class="community btn">Community Hub</button><h1 class="product-title">KINGDOM HEARTS -HD 1.5+2.5 ReMIX-</h1>
+      <img class="sale-banner" src="../../../data/data/36/assets/252.png" width="960" height="145">
+      <div class="product-grid"><div class="video"><div class="video-label">General / Cinematic | ESRB EN Launch</div><div class="controls">Ⅱ　🔇　0:00 / 0:00　　　　　　　　　　　　　⚙　⛶</div><div class="video-thumbs"><img src="../../../data/data/36/assets/035.jpg" width="112" height="55"><img src="../../../data/data/36/assets/031.jpg" width="112" height="55"><img src="../../../data/data/36/assets/047.jpg" width="112" height="55"><img src="../../../data/data/36/assets/053.jpg" width="112" height="55"><img src="../../../data/data/36/assets/058.jpg" width="112" height="55"></div></div><div class="description"><img src="../../../data/data/36/assets/211.jpg" width="325" height="160"><b>KINGDOM HEARTS -HD 1.5+2.5 ReMIX-</b> is an HD remastered collection of 6 unforgettable KINGDOM HEARTS experiences. Take up your Keyblade to save the Disney worlds from darkness.<br><br><span style="color:#70c5ed">RECENT REVIEWS:　Very Positive</span><br><span style="color:#70c5ed">ENGLISH REVIEWS:　Very Positive</span><br><br>RELEASE DATE:　Jun 13, 2024<br><br>DEVELOPER:　<span style="color:#66c0f4">Square Enix</span><br>PUBLISHER:　<span style="color:#66c0f4">Square Enix</span><br><br><span style="background:#1e5876;padding:5px">Action</span> <span style="background:#1e5876;padding:5px">RPG</span> <span style="background:#1e5876;padding:5px">Adventure</span></div></div>
+      <div class="wishlist">Sign in to add this item to your wishlist, follow it, or mark it as ignored</div>
+      <div class="collection">Check out the entire KINGDOM HEARTS Series collection on Steam</div>
+      <div class="buy-layout"><div class="offers"><div class="offer"><h2>Buy KINGDOM HEARTS -HD 1.5+2.5 ReMIX-</h2><small>WEEKEND DEAL! Offer ends August 29</small><div class="actions"><span class="discount">-40%</span><span class="amount">$29.99</span><button class="cartbtn btn" onclick="openCart()">Add to Cart</button></div></div><div class="offer" style="min-height:205px"><h2>Buy KINGDOM HEARTS INTEGRUM MASTERPIECE</h2><small><b style="color:#80c83a">Includes 3 items.</b> KINGDOM HEARTS -HD 1.5+2.5 ReMIX-, KINGDOM HEARTS HD 2.8 Final Chapter Prologue, KINGDOM HEARTS III + Re Mind (DLC)</small><div style="margin-top:17px;background:#252c32;padding:7px"><img src="../../../data/data/36/assets/123.jpg" width="100" height="45"><img src="../../../data/data/36/assets/124.jpg" width="100" height="45"><img src="../../../data/data/36/assets/131.jpg" width="100" height="45"></div><small>WEEKEND DEAL! Offer ends August 29</small><div class="actions"><button class="info-btn btn">View Info</button><span class="discount">-40%</span><span class="amount">$59.99</span><button class="cartbtn btn" onclick="openCart()">Add to Cart</button></div></div></div><div><div class="features"><div>♟　Single-player</div><div>✹　Steam Achievements</div><div>☁　Steam Cloud</div><div>♟　Family Sharing</div><p>Full Controller Support</p><div>🎮　Xbox Controllers</div><div>🎮　PlayStation Controllers</div><div style="background:#786c4b;color:#eee">Requires agreement to a 3rd-party EULA</div><div>Languages:</div><div class="language"><table><tr><td>English</td><td>✓</td><td>✓</td><td>✓</td></tr><tr><td>French</td><td>✓</td><td></td><td>✓</td></tr><tr><td>Italian</td><td>✓</td><td></td><td>✓</td></tr><tr><td>German</td><td>✓</td><td></td><td>✓</td></tr></table></div></div></div></div>
+    </main>
+  </div>
+</div>
+
+<div id="modalShade" class="modal-shade"><div class="modal"><button class="close btn" onclick="closeCart()">×</button><h2>Added to your cart!</h2><div class="cartitem"><img src="../../../data/data/36/assets/211.jpg" width="210" height="95"><div><h3>KINGDOM HEARTS -HD 1.5+2.5 REMIX-</h3><span style="background:#79b900;color:#172000;padding:9px;font-weight:bold">-40%</span>　<span>$29.99</span><br><button class="btn" style="margin-top:18px;background:#293746;color:#ddd;border:0;padding:9px 18px">For my account　⌄</button></div></div><div class="modal-actions"><button class="continue btn" onclick="closeCart()">Continue Shopping</button><button class="viewcart btn">View My Cart (1)</button></div></div></div>
+
+<script>
+const assets='../../../data/data/36/assets/';
+const games=[
+['Counter-Strike 2','212.jpg','Free To Play','▲ 1','680'],
+['Marvel Rivals','253.jpg','Free To Play','▲ 3','37'],
+['Steam Deck','254.jpg','$399.00','','182'],
+['Borderlands 4','011.jpg','$69.99','▲ 19','10'],
+['PEAK','014.jpg','$7.99','▲ 2','10'],
+['METAL GEAR SOLID Δ: SNAKE EATER','034.jpg','$69.99','NEW','1'],
+['HELLDIVERS™ 2','039.jpg','$39.99','▲ 26','84'],
+['KINGDOM HEARTS -HD 1.5+2.5 ReMIX-','124.jpg','-40%　$29.99','NEW','1'],
+['Battlefield™ 6','044.jpg','$69.99','▼ 8','3'],
+['Apex Legends™','055.jpg','Free To Play','▲ 7','250'],
+['Dead by Daylight','061.jpg','$19.99','▼ 1','432'],
+['Umamusume: Pretty Derby','066.jpg','Free To Play','▼ 1','8'],
+['Warframe','071.jpg','Free To Play','▲ 1','647'],
+['Lost Ark','077.jpg','Free To Play','▲ 45','17'],
+['EA SPORTS™ Madden NFL 26','082.jpg','$69.99','▲ 1','2'],
+['Battlefield™ 2042','086.jpg','-95%　$2.99','NEW','1'],
+['Ready or Not','090.jpg','$49.99','▼ 5','40'],
+['Black Desert','102.jpg','-90%　$0.99','▲ 8','8'],
+['War Thunder','097.jpg','Free To Play','▲ 5','425']
+];
+function renderRows(){
+ const box=document.getElementById('sellerRows');
+ box.innerHTML=games.map((g,i)=>`<div class="seller-row btn" onclick="${i===7?'showPage(\\'product\\')':''}"><span class="rank">${i+1}</span><img src="${assets+g[1]}" width="138" height="56"><span class="seller-title">${g[0]}</span><span class="price">${g[2]}</span><span class="change">${g[3]}</span><span class="weeks">${g[4]}</span></div>`).join('');
+}
+function showPage(name){
+ document.querySelectorAll('.page').forEach(p=>p.style.display='none');
+ if(name==='overview')document.getElementById('overviewPage').style.display='block';
+ if(name==='sellers'){document.getElementById('sellersPage').style.display='block';renderRows()}
+ if(name==='product'){document.getElementById('productPage').style.display='block';document.getElementById('desktopBanner').style.display='flex'}
+ window.scrollTo(0,0);
+}
+function openCart(){document.getElementById('modalShade').classList.add('show')}
+function closeCart(){document.getElementById('modalShade').classList.remove('show')}
+</script>
+</body>
+</html>

@@ -1,0 +1,217 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glassdoor Community</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;background:#fff;color:#111;font-family:Arial,Helvetica,sans-serif;font-size:14px}
+  body{min-height:1304px}
+  button,input,textarea{font:inherit}
+  .btn{cursor:pointer}
+  .topbar{height:68px;border-bottom:1px solid #ddd;display:flex;align-items:center}
+  .topbar-inner{width:1280px;margin:auto;display:flex;align-items:center;height:100%}
+  .logo{width:125px;height:31px;object-fit:contain;object-position:left center}
+  .nav{display:flex;gap:43px;margin-left:285px;font-weight:bold}
+  .nav span{white-space:nowrap}
+  .top-actions{margin-left:auto;display:flex;align-items:center;gap:27px}
+  .top-icon{font-size:21px;line-height:1}
+  .search-icon{font-size:22px}
+  .user-icon{border:1.5px solid #111;width:19px;height:19px;border-radius:50%;font-size:13px;text-align:center;line-height:17px}
+  .page{width:1270px;margin:33px auto 0;display:grid;grid-template-columns:270px 588px 280px;gap:65px;align-items:start}
+  .left{width:270px}
+  .profile-card{height:202px;border:1px solid #d9dce0;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px #eee}
+  .profile-top{height:90px;background:#fafafd;border-bottom:1px solid #e5e6ea;display:flex;align-items:center;padding:15px 20px;gap:13px}
+  .anon{width:49px;height:49px;border-radius:50%;border:2px solid #dfe7ef;background:#fff;display:flex;align-items:center;justify-content:center;font-size:24px}
+  .profile-text{line-height:20px}
+  .profile-text small{font-size:13px}
+  .profile-text strong{display:block;font-size:14px}
+  .down{margin-left:auto;font-size:19px}
+  .create{margin:20px auto;display:block;border:0;border-radius:30px;background:#07121d;color:#fff;font-weight:bold;padding:14px 19px}
+  .create b{font-size:21px;margin-left:5px}
+  .left-heading{font-size:20px;font-weight:bold;border-top:1px solid #ddd;padding-top:15px;margin-top:17px;margin-bottom:12px}
+  .bowl-item{height:50px;display:flex;align-items:center;font-weight:bold;gap:8px}
+  .mini-avatar{width:24px;height:24px;border-radius:50%;object-fit:cover;background:#d9edf0}
+  .tech-dot{background:#d5cf27;border-radius:4px}
+  .dark-dot{background:#20252a}
+  .color-dot{background:linear-gradient(135deg,#52be73,#7f50d5,#f0db34)}
+  .explore{margin-top:15px;border:1px solid #555;background:white;border-radius:8px;padding:8px 12px;font-weight:bold;font-size:14px}
+  .explore .green-dot{display:inline-block;width:12px;height:12px;background:#52d98f;border-radius:50%;margin-left:4px}
+  .center{width:588px}
+  .feed-search{height:45px;border-radius:24px;background:#f5f5f5;color:#6e7479;display:flex;align-items:center;padding:0 17px;font-size:17px;margin-bottom:17px}
+  .magnify{font-size:24px;margin-right:6px}
+  .composer{height:108px;border:1px solid #d9dde1;border-radius:7px 7px 0 0;display:flex;align-items:center;padding:0 38px;gap:16px}
+  .composer .anon{width:35px;height:35px;font-size:18px}
+  .composer-arrow{font-size:22px}
+  .composer-input{height:48px;border:1px solid #d6d9dc;border-radius:4px;flex:1;padding:0 16px;color:#66727a;font-size:16px;display:flex;align-items:center}
+  .post{border:1px solid #d9dde1;border-top:0;padding:20px 30px 25px}
+  .post-head{display:flex;align-items:center;color:#111}
+  .discover{color:#6c7478;font-size:13px;margin-bottom:20px}
+  .join{margin-left:auto;border:0;background:#f6f6f6;border-radius:7px;padding:6px 10px;font-weight:bold}
+  .post-user{display:flex;align-items:center;gap:10px;flex:1}
+  .post-avatar{width:34px;height:34px;border-radius:50%;object-fit:cover;background:#c9eef1}
+  .user-lines strong{display:block;font-size:15px}
+  .user-lines span{font-size:14px}
+  .time{color:#798086;margin-right:10px}
+  .dots{font-size:18px;letter-spacing:2px}
+  .post-body{font-size:16px;line-height:21px;margin-top:10px}
+  .read{color:#718087;text-decoration:underline}
+  .post-actions{height:42px;display:flex;align-items:end;gap:27px;color:#68737a;font-size:16px}
+  .action{border:0;background:none;padding:4px 0;color:inherit}
+  .action.like.active{color:#19a974;font-weight:bold}
+  .reaction-count{margin-left:auto;color:#263238}
+  .reactions{font-size:14px;color:#f0b500;letter-spacing:-5px;margin-right:5px}
+  .comment-box{background:#f4f5f6;border-radius:8px;margin:8px 0 0 40px;padding:10px 12px;font-size:15px;line-height:21px}
+  .comment-box strong{display:block;margin-bottom:7px}
+  .second{padding-top:21px}
+  .second .post-body{max-width:510px}
+  .third{padding-top:22px;padding-bottom:0}
+  .third .post-user{align-items:flex-start}
+  .verified{color:#18a66d;font-weight:bold}
+  .third-body{font-size:16px;line-height:28px;margin-top:8px}
+  .video{width:calc(100% + 60px);margin:12px -30px 0;height:360px;object-fit:cover;object-position:center top}
+  .right{border:1px solid #d9dde1;border-radius:8px;overflow:hidden}
+  .right h2{font-size:21px;margin:25px 15px 27px}
+  .explore-all{color:#159b68;font-size:16px;font-weight:bold;margin:0 15px 18px}
+  .recommend{height:138px;border-bottom:1px solid #dfe1e2;padding:15px;position:relative}
+  .rec-top{display:flex;gap:10px}
+  .rec-avatar{width:48px;height:48px;border-radius:50%;object-fit:cover;flex:none}
+  .rec-title{font-weight:bold;font-size:15px}
+  .rec-desc{color:#737b80;font-size:13px;line-height:17px;margin-top:2px}
+  .rec-bottom{position:absolute;bottom:13px;right:15px;display:flex;gap:24px;align-items:center;font-weight:bold}
+  .rec-count{position:absolute;left:21px;bottom:13px;color:#6c7478;font-size:13px}
+  .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.32);z-index:5}
+  .overlay.show{display:block}
+  .modal{position:absolute;width:608px;height:1045px;top:130px;left:50%;transform:translateX(-50%);background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 4px 20px #555}
+  .modal-header{height:64px;display:flex;align-items:center;padding:0 32px;border-bottom:1px solid #eee;font-size:20px;font-weight:bold}
+  .modal-join{margin-left:auto;color:#159b68;font-size:14px;font-weight:normal}
+  .close{border:0;background:none;font-size:30px;margin-left:22px;font-weight:200}
+  .modal-scroll{height:981px;overflow-y:auto;padding:28px 32px}
+  .modal .post-body{font-size:16px;line-height:21px}
+  .modal .comment-box{margin-left:40px;margin-top:18px}
+  .modal-comment{height:95px;border:1px solid #cfd4d8;border-radius:4px;margin:28px 0 0 40px;padding:14px;color:#7a8287;font-size:16px}
+  .modal-tools{display:flex;justify-content:flex-end;gap:25px;margin:10px 0 29px;color:#d2d5d7;font-weight:bold}
+  .modal-comment-item{margin:24px 0 0 40px}
+  .modal-comment-item .comment-box{margin:0}
+  .modal-comment-item .small-actions{display:flex;gap:25px;color:#68737a;padding:12px 0}
+  @media(max-width:1100px){
+    .topbar-inner,.page{width:96%}
+    .nav{margin-left:80px;gap:20px}
+    .page{grid-template-columns:230px minmax(450px,588px) 250px;gap:25px}
+    .left{width:230px}.right{width:250px}
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <img class="logo" src="__PLACEHOLDER_ASSETS_BASE_DIR__/026.svg" width="125" height="31" alt="Glassdoor">
+    <nav class="nav"><span class="btn">Community</span><span class="btn">Jobs</span><span class="btn">Companies</span><span class="btn">Salaries</span></nav>
+    <div class="top-actions"><span class="search-icon btn">⌕ <small>Search</small></span><span class="top-icon btn">♧</span><span class="user-icon btn">♙</span></div>
+  </div>
+</header>
+
+<main class="page">
+  <aside class="left">
+    <section class="profile-card">
+      <div class="profile-top">
+        <div class="anon">♧</div>
+        <div class="profile-text"><small>Post anonymously as</small><strong>Software Engineer</strong></div>
+        <span class="down">⌄</span>
+      </div>
+      <button class="create btn">Create post <b>＋</b></button>
+    </section>
+    <div class="left-heading">My Bowls</div>
+    <div class="bowl-item"><img class="mini-avatar" src="__PLACEHOLDER_ASSETS_BASE_DIR__/021.webp" width="24" height="24"><span>Jobs in STEM</span></div>
+    <div class="bowl-item"><img class="mini-avatar" src="__PLACEHOLDER_ASSETS_BASE_DIR__/010.png" width="24" height="24"><span>Job Hunting in Tech</span></div>
+    <div class="bowl-item"><span class="mini-avatar tech-dot"></span><span>Tech</span></div>
+    <div class="bowl-item"><span class="mini-avatar dark-dot"></span><span>Software Engineering</span></div>
+    <div class="bowl-item"><span class="mini-avatar color-dot"></span><span>Salaries in STEM</span></div>
+    <div class="bowl-item"><span class="mini-avatar color-dot"></span><span>Salaries in Tech</span></div>
+    <button class="explore btn">♧ &nbsp; Explore Bowls <i class="green-dot"></i></button>
+  </aside>
+
+  <section class="center">
+    <div class="feed-search"><span class="magnify">⌕</span>Search for Bowls or conversations</div>
+    <div class="composer">
+      <div class="anon">♧</div><span class="composer-arrow">⌄</span>
+      <div class="composer-input btn">Post as “Software Engineer”</div>
+    </div>
+
+    <article class="post first">
+      <div class="discover">Discover new communities <button class="join btn">Join Bowl</button></div>
+      <div class="post-head">
+        <div class="post-user btn" onclick="openModal()">
+          <img class="post-avatar" src="__PLACEHOLDER_ASSETS_BASE_DIR__/021.webp" width="34" height="34">
+          <div class="user-lines"><strong>The Worklife Bowl</strong><span>Human Resources Manager</span></div>
+        </div>
+        <span class="time">2w</span><span class="dots">•••</span>
+      </div>
+      <div class="post-body">Don’t give up. I am 73 years old and was offered a full time position today. The new salary is what I was making but a 6 times greater bonus potential. The new job is in an industry that I worked in ... <span class="read">read more</span></div>
+      <div class="post-actions">
+        <button class="action like btn" onclick="toggleLike(this)">♡ Like</button>
+        <button class="action btn" onclick="openModal()">◯ &nbsp;340 Comments</button>
+        <button class="action btn">♧ &nbsp;Share</button>
+        <span class="reaction-count"><span class="reactions">●●●●</span>2539</span>
+      </div>
+      <div class="comment-box"><strong>♧ &nbsp; Consultant 1</strong>Huge congratulations! Made me happy reading this, all the very best :)</div>
+    </article>
+
+    <article class="post second">
+      <div class="discover">Discover new communities <button class="join btn">Join Bowl</button></div>
+      <div class="post-head">
+        <div class="post-user"><img class="post-avatar" src="__PLACEHOLDER_ASSETS_BASE_DIR__/018.jpg" width="34" height="34"><div class="user-lines"><strong>#OverheardAtWork</strong><span>Analyst</span></div></div>
+        <span class="time">1mo</span><span class="dots">•••</span>
+      </div>
+      <div class="post-body">I asked a colleague out, and she said she wouldn’t go because it’s too hard to date someone at work in case it doesn’t pan out well. I heard her tell someone on her team that “it’s too risky”. Is that... <span class="read">read more</span></div>
+      <div class="post-actions"><button class="action btn">♡ Like</button><button class="action btn">◯ &nbsp;566 Comments</button><button class="action btn">♧ &nbsp;Share</button><span class="reaction-count"><span class="reactions">●●●</span>555</span></div>
+      <div class="comment-box"><strong>♧ &nbsp; Regional Lead 1</strong>Just let it go mate. Sure it can work, but it can also fail, and when it fails it’s failing bad. Either she’s very principled, or a relationship is...</div>
+    </article>
+
+    <article class="post third">
+      <div class="discover">Discover new communities <button class="join btn">Follow bowl</button></div>
+      <div class="post-head">
+        <div class="post-user"><img class="post-avatar" src="__PLACEHOLDER_ASSETS_BASE_DIR__/019.jpg" width="34" height="34"><div class="user-lines"><strong class="verified">Bo Baxter ✦</strong><strong>posted in The Water Cooler</strong></div></div>
+        <button class="join btn">Follow</button><span class="time">3d</span><span class="dots">•••</span>
+      </div>
+      <div class="third-body">As summer starts to wind down, hopefully productivity does the opposite 😅<br>Do you go through seasonal slumps, or are you always on it?</div>
+      <img class="video" src="__PLACEHOLDER_ASSETS_BASE_DIR__/074.png" width="588" height="360" alt="Community post image">
+    </article>
+  </section>
+
+  <aside class="right">
+    <h2>Bowls for you</h2>
+    <div class="explore-all btn">Explore all Bowls →</div>
+    <div class="recommend"><div class="rec-top"><img class="rec-avatar" src="__PLACEHOLDER_ASSETS_BASE_DIR__/018.jpg" width="48" height="48"><div><div class="rec-title">Job Referrals!</div><div class="rec-desc">Best way to get your foot in the door with your favorite company! Plus employees won’t mind gettin...</div></div></div><span class="rec-count">1M</span><div class="rec-bottom"><span class="btn">View</span><button class="join btn">Join</button></div></div>
+    <div class="recommend"><div class="rec-top"><img class="rec-avatar" src="__PLACEHOLDER_ASSETS_BASE_DIR__/021.webp" width="48" height="48"><div><div class="rec-title">The Worklife Bowl</div><div class="rec-desc">A bowl for professionals from any industry to come together and discuss the day-to-day happenin...</div></div></div><span class="rec-count">11M</span><div class="rec-bottom"><span class="btn">View</span><button class="join btn">Join</button></div></div>
+    <div class="recommend"><div class="rec-top"><img class="rec-avatar" src="__PLACEHOLDER_ASSETS_BASE_DIR__/023.jpg" width="48" height="48"><div><div class="rec-title">New York City</div><div class="rec-desc">To help NYC residents as well as visitors discover what the world’s most popular city has to offer!</div></div></div><span class="rec-count">230K</span><div class="rec-bottom"><span class="btn">View</span><button class="join btn">Join</button></div></div>
+    <div class="recommend"><div class="rec-top"><img class="rec-avatar" src="__PLACEHOLDER_ASSETS_BASE_DIR__/024.webp" width="48" height="48"><div><div class="rec-title">Personal Investment Chatter</div><div class="rec-desc">Offer questions and experiences related to personal finance and investments</div></div></div><span class="rec-count">440K</span><div class="rec-bottom"><span class="btn">View</span><button class="join btn">Join</button></div></div>
+    <div class="recommend"><div class="rec-top"><img class="rec-avatar" src="__PLACEHOLDER_ASSETS_BASE_DIR__/025.jpg" width="48" height="48"><div><div class="rec-title">Career Advice for Students</div><div class="rec-desc">A place for students to ask questions and get advice from working professionals. Please do...</div></div></div><span class="rec-count">3M</span><div class="rec-bottom"><span class="btn">View</span><button class="join btn">Join</button></div></div>
+  </aside>
+</main>
+
+<div class="overlay" id="overlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-header">The Worklife Bowl <span class="modal-join btn">Join</span><button class="close btn" onclick="closeModal()">×</button></div>
+    <div class="modal-scroll">
+      <div class="post-head"><div class="post-user"><img class="post-avatar" src="__PLACEHOLDER_ASSETS_BASE_DIR__/021.webp" width="34" height="34"><div class="user-lines"><strong>The Worklife Bowl</strong><span>Human Resources Manager</span></div></div><span class="time">2w</span><span class="dots">•••</span></div>
+      <div class="post-body">Don’t give up. I am 73 years old and was offered a full time position today. The new salary is what I was making but a 6 times greater bonus potential. The new job is in an industry that I worked in for 22 years, but that was 25 years ago. A friend that I worked with 25 years ago got me an interview. Never underestimate networking. For good reason and not so seasoned job seekers: don’t quit, don’t let the system get you down, don’t stay discouraged, and don’t give up. If I can, you can too</div>
+      <div class="post-actions"><button class="action like active btn">♥ Like</button><button class="action btn">◯ &nbsp;340 Comments</button><button class="action btn">♧ &nbsp;Share</button><span class="reaction-count"><span class="reactions">●●●●</span>2539</span></div>
+      <div class="modal-comment btn">Join this bowl to comment</div>
+      <div class="modal-tools">☷ &nbsp; Popular　⌄</div>
+      <div class="modal-comment-item"><div class="comment-box"><strong>♧ &nbsp; Consultant 1</strong>Huge congratulations! Made me happy reading this, all the very best :)</div><div class="small-actions">♡ Like　 ◯ Reply　 ♧ Share <span style="margin-left:auto">💚 167</span></div></div>
+      <div class="modal-comment-item"><div class="comment-box"><strong>♧ &nbsp; IBM 1</strong>Thanks for the vote of confidence, and congrats on landing the new role.<br><br>At 48, facing the probability that IBM isn’t my final stop, I think way too much about ageism and my career taking a ski jump trajectory when that time comes. Your story shows that it doesn’t have to be that way.</div><div class="small-actions">♡ Like　 ◯ Reply　 ♧ Share <span style="margin-left:auto">💚 61</span></div></div>
+      <div style="color:#159b68;font-weight:bold;margin:18px 40px">View 3 more replies</div>
+    </div>
+  </div>
+</div>
+<script>
+function openModal(){document.getElementById('overlay').classList.add('show');document.body.style.overflow='hidden'}
+function closeModal(){document.getElementById('overlay').classList.remove('show');document.body.style.overflow=''}
+function toggleLike(el){el.classList.toggle('active');el.textContent=el.classList.contains('active')?'♥ Like':'♡ Like'}
+</script>
+</body>
+</html>
+```

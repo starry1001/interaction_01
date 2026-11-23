@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Booking.com Replica</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:#262626;font-family:Arial,Helvetica,sans-serif;font-size:14px}
+button,input{font:inherit}
+.btn{cursor:pointer}
+.site{width:1200px;margin:0 auto}
+header{height:132px;background:#003b95;color:#fff}
+.header-inner{width:820px;margin:auto;height:100%;position:relative}
+.topbar{height:62px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:22px;font-weight:700;letter-spacing:-1px}
+.account{display:flex;align-items:center;gap:19px;font-size:13px}
+.flag{font-size:20px}
+.account button{border:0;background:#fff;color:#006ce4;padding:9px 12px;font-size:12px}
+.nav{height:70px;display:flex;align-items:center;gap:24px}
+.nav-item{display:flex;align-items:center;gap:7px;padding:11px 12px;border-radius:22px;white-space:nowrap}
+.nav-item.active{border:1px solid #a9c5e7;background:#1d579f}
+.nav-icon{font-size:18px}
+.hero{height:423px;background:#000;position:relative;overflow:visible}
+.hero-bg{height:100%;width:100%;object-fit:cover;opacity:.92}
+.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.78),rgba(0,0,0,.1) 55%,rgba(0,0,0,.35))}
+.hero-content{position:absolute;z-index:2;top:58px;left:120px;color:#fff;width:520px}
+.hero h1{font-size:38px;line-height:1.32;margin:0 0 7px;font-weight:700}
+.hero p{font-size:20px;line-height:1.35;margin:0 0 32px}
+.learn{background:#0071c2;color:white;border:0;padding:14px 17px;font-weight:bold}
+.credit-card{position:absolute;z-index:2;top:68px;left:685px;width:300px;height:185px;border-radius:13px;background:linear-gradient(135deg,#263fc0,#132d9e);box-shadow:0 3px 8px #001a55;color:#5d75e7;padding:10px 15px;font-size:35px;font-weight:bold;line-height:.9}
+.credit-card small{position:absolute;right:12px;top:12px;color:#fff;font-size:9px}
+.credit-card .chip{position:absolute;left:25px;top:72px;width:39px;height:28px;border-radius:5px;background:#ddd}
+.credit-card .visa{position:absolute;right:16px;bottom:15px;color:#fff;font-size:27px;font-style:italic}
+.search-wrap{position:absolute;z-index:5;bottom:-25px;left:120px;width:840px}
+.searchbar{height:65px;border:3px solid #febb02;border-radius:6px;background:#fff;display:flex;box-shadow:0 2px 5px #aaa}
+.field{height:100%;display:flex;align-items:center;gap:10px;padding:0 15px;border-right:1px solid #ddd;position:relative;color:#333}
+.field .ico{font-size:22px;color:#555}
+.destination{width:295px}.dates{width:295px}.guests{width:240px}
+.search-btn{width:112px;background:#0071c2;border:0;color:#fff;font-weight:bold;font-size:17px}
+.subchecks{height:42px;display:flex;align-items:center;gap:20px;color:#444;font-size:12px}
+.check{width:17px;height:17px;border:1px solid #aaa;border-radius:3px;display:inline-block;vertical-align:middle;margin-right:6px;background:white}
+.content{width:840px;margin:128px auto 0}
+.offers-title{font-size:20px;margin:0 0 5px}
+.subtitle{color:#777;margin-bottom:12px}
+.cards{display:flex;gap:16px}
+.offer{height:128px;border:1px solid #ddd;border-radius:6px;overflow:hidden;position:relative;flex:1;background:#fff}
+.offer img{width:100%;height:100%;object-fit:cover}
+.offer:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.6),transparent 80%)}
+.offer-text{position:absolute;z-index:2;color:#fff;left:16px;top:18px}
+.offer-text small{display:block;margin-bottom:8px}
+.offer-text strong{font-size:18px;display:block;margin-bottom:8px}
+.offer-text button{background:#0071c2;color:white;border:0;padding:8px 13px;font-size:12px}
+.quick{display:flex;align-items:center;padding:17px;width:100%}
+.quick h3{margin:0 0 8px;font-size:18px}
+.quick p{margin:0;color:#666;font-size:12px}
+.quick img{width:100px;height:100px;object-fit:cover;margin-left:auto}
+.dropdown{position:absolute;z-index:20;top:63px;background:#fff;color:#222;border-radius:4px;box-shadow:0 3px 12px #999}
+.location-menu{left:0;width:430px}
+.location-menu h4{margin:17px 15px 10px}
+.loc{height:58px;border-top:1px solid #ddd;padding:10px 15px;display:flex;gap:14px;align-items:center}
+.loc:hover{background:#f2f2f2}
+.pin{font-size:24px;color:#666}
+.loc b{display:block;font-size:13px}.loc small{color:#555}
+.calendar{width:590px;left:295px;padding:0 17px 16px}
+.cal-tabs{height:54px;border-bottom:1px solid #ddd;display:flex;justify-content:space-around;align-items:center;color:#0071c2}
+.cal-tabs span:first-child{border-bottom:2px solid #0071c2;height:54px;padding:18px 90px}
+.months{display:flex;gap:25px;padding-top:15px}
+.month{width:255px}.month-head{display:flex;justify-content:space-between;font-weight:bold;padding:0 18px 12px}
+.week,.days{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;gap:3px}
+.week{color:#777;font-size:11px;margin-bottom:5px}
+.day{height:35px;padding-top:10px;font-size:12px;cursor:pointer;border-radius:2px}
+.day:hover,.day.selected{background:#0071c2;color:#fff}
+.day.muted{color:#bbb}
+.guest-menu{right:0;width:300px;padding:20px 20px 14px}
+.grow{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.counter{width:110px;height:37px;border:1px solid #aaa;display:flex;align-items:center;justify-content:space-around}
+.counter button{border:0;background:none;color:#0071c2;font-size:19px}
+.guest-menu hr{border:0;border-top:1px solid #ddd;margin:12px 0}
+.toggle{width:31px;height:17px;background:#888;border-radius:12px;display:inline-block}
+.toggle:after{content:"";display:block;width:13px;height:13px;background:white;border-radius:50%;margin:2px}
+.pets{display:flex;justify-content:space-between;align-items:center;margin:12px 0}
+.note{font-size:11px;color:#666;line-height:1.6}
+@media(max-width:900px){.site{width:100%}.header-inner,.content{width:90%}.hero-content{left:6%;}.search-wrap{left:6%;width:88%}.credit-card{left:60%;transform:scale(.8);transform-origin:left top}.destination{width:30%}.dates{width:30%}.guests{width:25%}}
+</style>
+</head>
+<body>
+<div class="site">
+<header>
+  <div class="header-inner">
+    <div class="topbar">
+      <div class="logo">Booking.com</div>
+      <div class="account"><b>USD</b><span class="flag">🇺🇸</span><span>ⓘ</span><b>List your property</b><button class="btn">Register</button><button class="btn">Sign in</button></div>
+    </div>
+    <div class="nav">
+      <div class="nav-item active btn"><span class="nav-icon">▱</span>Stays</div>
+      <div class="nav-item btn"><span class="nav-icon">✈</span>Flights</div>
+      <div class="nav-item btn"><span class="nav-icon">♧</span>Flight + Hotel</div>
+      <div class="nav-item btn"><span class="nav-icon">▰</span>Car rental</div>
+      <div class="nav-item btn"><span class="nav-icon">♜</span>Cruises</div>
+      <div class="nav-item btn"><span class="nav-icon">⚙</span>Attractions</div>
+      <div class="nav-item btn"><span class="nav-icon">▤</span>Airport taxis</div>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <img class="hero-bg" src="../../../data/data/5/assets/005.jpg" width="1200" height="423" alt="">
+  <div class="hero-content">
+    <h1>Meet the card that<br>travels with you</h1>
+    <p>Earn 5% in <u>Travel Credits</u> on Booking.com with the<br>Genius Rewards Visa<sup>®</sup>. Terms apply.</p>
+    <button class="learn btn">Learn more</button>
+  </div>
+  <div class="credit-card">Booking.c<br>om</div>
+
+  <div class="search-wrap">
+    <div class="searchbar">
+      <div class="field destination btn" id="destination"><span class="ico">▱</span><span id="destText">Where are you going?</span></div>
+      <div class="field dates btn" id="dates"><span class="ico">▦</span><span id="dateText">Check-in date&nbsp; — &nbsp;Check-out date</span></div>
+      <div class="field guests btn" id="guests"><span class="ico">♙</span><span id="guestText">2 adults · 0 children · 1 room</span><span style="margin-left:auto">⌄</span></div>
+      <button class="search-btn btn">Search</button>
+    </div>
+    <div class="subchecks">
+      <span><i class="check"></i>I'm looking for an entire home or apartment</span>
+      <span><i class="check"></i>I'm looking for flights</span>
+    </div>
+
+    <div class="dropdown location-menu" id="locationMenu" style="display:none">
+      <h4>Trending destinations</h4>
+      <div class="loc btn" data-city="Los Angeles, United States"><span class="pin">♧</span><span><b>Los Angeles</b><small>United States</small></span></div>
+      <div class="loc btn" data-city="Las Vegas, United States"><span class="pin">♧</span><span><b>Las Vegas</b><small>United States</small></span></div>
+      <div class="loc btn" data-city="San Francisco, United States"><span class="pin">♧</span><span><b>San Francisco</b><small>United States</small></span></div>
+      <div class="loc btn" data-city="San Diego, United States"><span class="pin">♧</span><span><b>San Diego</b><small>United States</small></span></div>
+    </div>
+
+    <div class="dropdown calendar" id="calendar" style="display:none">
+      <div class="cal-tabs"><span>Calendar</span><span>I'm flexible</span></div>
+      <div class="months">
+        <div class="month"><div class="month-head"><span>‹</span><b id="leftMonth">August 2025</b><span></span></div><div class="week"><span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span></div><div class="days" id="leftDays"></div></div>
+        <div class="month"><div class="month-head"><span></span><b id="rightMonth">September 2025</b><span>›</span></div><div class="week"><span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span></div><div class="days" id="rightDays"></div></div>
+      </div>
+    </div>
+
+    <div class="dropdown guest-menu" id="guestMenu" style="display:none">
+      <div class="grow"><span>Adults</span><div class="counter"><button class="btn minus" data-type="adult">−</button><span id="adultCount">2</span><button class="btn plus" data-type="adult">+</button></div></div>
+      <div class="grow"><span>Children</span><div class="counter"><button class="btn minus">−</button><span>0</span><button class="btn plus">+</button></div></div>
+      <div class="grow"><span>Rooms</span><div class="counter"><button class="btn minus" data-type="room">−</button><span id="roomCount">1</span><button class="btn plus" data-type="room">+</button></div></div>
+      <hr><div class="pets"><span>Traveling with pets?</span><i class="toggle"></i></div>
+      <div class="note">Assistance animals aren't considered pets.<br><span style="color:#0071c2">Read more about traveling with assistance animals</span></div>
+    </div>
+  </div>
+</section>
+
+<main class="content">
+  <h2 class="offers-title">Offers</h2>
+  <div class="subtitle">Promotions, deals, and special offers for you</div>
+  <div class="cards">
+    <div class="offer">
+      <img src="../../../data/data/5/assets/035.jpg" width="410" height="128" alt="">
+      <div class="offer-text"><small>Vacation rentals</small><strong>Live the dream in a vacation home</strong><small>Choose from houses, villas, cabins, and more</small><button class="btn">Book now</button></div>
+    </div>
+    <div class="offer">
+      <div class="quick"><div><h3>Quick escape, quality time</h3><p>Save up to 20% with a Getaway Deal</p><br><button class="learn btn">Save on stays</button></div><img src="../../../data/data/5/assets/036.jpg" width="100" height="100" alt=""></div>
+    </div>
+  </div>
+</main>
+</div>
+
+<script>
+const $=s=>document.querySelector(s);
+const menus=[$('#locationMenu'),$('#calendar'),$('#guestMenu')];
+function closeMenus(except){menus.forEach(m=>{if(m!==except)m.style.display='none'})}
+$('#destination').onclick=()=>{let m=$('#locationMenu');closeMenus(m);m.style.display=m.style.display==='block'?'none':'block'};
+$('#dates').onclick=()=>{let m=$('#calendar');closeMenus(m);m.style.display=m.style.display==='block'?'none':'block'};
+$('#guests').onclick=()=>{let m=$('#guestMenu');closeMenus(m);m.style.display=m.style.display==='block'?'none':'block'};
+
+document.querySelectorAll('.loc').forEach(x=>x.onclick=()=>{$('#destText').textContent=x.dataset.city;$('#locationMenu').style.display='none'});
+let adult=2,room=1,start=null,end=null;
+function daysFor(month,year,el){
+ let first=new Date(year,month,1).getDay(), total=new Date(year,month+1,0).getDate();
+ el.innerHTML='';
+ for(let i=0;i<first;i++){let s=document.createElement('span');s.className='day muted';el.appendChild(s)}
+ for(let d=1;d<=total;d++){let s=document.createElement('span');s.className='day btn';s.textContent=d;s.dataset.month=month;s.dataset.day=d;
+  s.onclick=()=>{if(!start||end){start={m:month,d};end=null;$('#dateText').textContent='Mon, Sep 1  —  Check-out date'}else{end={m:month,d};$('#dateText').textContent='Mon, Sep 1  —  Wed, Sep 3';$('#calendar').style.display='block'};document.querySelectorAll('.day').forEach(q=>q.classList.remove('selected')); if(start)document.querySelectorAll('.day').forEach(q=>{if(+q.dataset.day===start.d&&+q.dataset.month===start.m)q.classList.add('selected')});if(end)document.querySelectorAll('.day').forEach(q=>{if(+q.dataset.day===end.d&&+q.dataset.month===end.m)q.classList.add('selected')})};
+  el.appendChild(s)
+ }
+}
+daysFor(7,2025,$('#leftDays'));daysFor(8,2025,$('#rightDays'));
+document.querySelectorAll('.plus,.minus').forEach(b=>b.onclick=e=>{e.stopPropagation();let t=b.dataset.type;if(t==='adult'){adult+=b.classList.contains('plus')?1:-1;adult=Math.max(1,adult);$('#adultCount').textContent=adult}if(t==='room'){room+=b.classList.contains('plus')?1:-1;room=Math.max(1,room);$('#roomCount').textContent=room}$('#guestText').textContent=`${adult} adults · 0 children · ${room} room${room>1?'s':''}`});
+</script>
+</body>
+</html>

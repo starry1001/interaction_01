@@ -1,0 +1,95 @@
+{
+  "total_step": 7,
+  "success_step": 6,
+  "screenshot_paths_to_eval": [
+    "outputs/43/gpt-6-luna_setting0/evalpoints/0.png",
+    "outputs/43/gpt-6-luna_setting0/evalpoints/2.png"
+  ],
+  "all_mllm_scores": [
+    0.9,
+    0.85
+  ],
+  "all_dino_scores": [
+    0.8408203125,
+    0.8583984375
+  ],
+  "all_ocr_scores": [
+    0.8394557823129252,
+    0.8462585034013606
+  ],
+  "all_avg_scores": [
+    0.8600920316043084,
+    0.8515523136337869
+  ],
+  "mllm_score": 0.875,
+  "dino_score": 0.849609375,
+  "ocr_score": 0.8428571428571429,
+  "avg_score": 0.8558221726190476,
+  "all_mllm_res": [
+    "---\nComments:\n-Layout (9/10): The two-column product page layout, spacing, and panel placement are very similar. There are minor differences in the vertical spacing and sizing of a few right-side sections.\n-Elements (12/15): Most components are present, including the thumbnail rail, price and fulfillment panels, color swatches, and protection-plan options. The main product image is noticeably smaller and appears to show a different finish, and a few icons differ.\n-Content and Text (39/40): Product title, pricing, features, ratings, availability, and most other visible text match closely.\n-Style (13/15): Typography, colors, borders, and the orange accents are closely reproduced, with small differences in icon treatments and panel styling.\n-Overall (17/20): The page is a strong match in structure and content, but the product image’s size and appearance are a prominent visual mismatch.\n\nScore: 90/100\n---",
+    "---\nComments:\n- **Layout (8/10):** The two-column product page structure and overall alignment are close. The main product image is much smaller in the generated page, leaving substantially more empty space in the gallery.\n- **Elements (12/15):** Most key elements are present, including the thumbnail strip, price and delivery cards, color swatches, and protection-plan section. Some icons and thumbnail imagery differ, and the selected protection-plan option does not match.\n- **Content and Text (37/40):** Product title, price, feature bullets, delivery information, and most other text closely match. The main content discrepancy is the protection-plan selection: the reference selects “No thanks,” while the generated page selects the 3-year plan.\n- **Style (12/15):** The white-and-orange color scheme, typography, borders, and general retail-page styling are similar. The product image’s smaller scale and silver appearance differ noticeably from the reference’s larger white appliance.\n- **Overall (16/20):** A strong match in structure and text, with the undersized main image and protection-plan selection being the most visible differences.\n\n**Score: 85/100**\n---"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "Was 5+,049-00 s9690 Save S80.00 (8%) EdgeStar 15 in. Wide 20 Ibs. Built-In Ice Maker in White with upto 25 Ibs: 5162.0O/mo * suggested payments with 6 months financing Apply Now 0 Daily Ice Production (1031 Questions & Answers (38) White front and reversible door ensure stylish and convenient use Crescent-shaped ice maker produces long-lasting ice Self-contained design allows easy installation View More_Details 8 Color/Finish: White 4 Pickup at ] Huntington Park Delivering to 90255 Ship to Store Delivery 28 Sep 3 Aug 28 - Sep 2 131 avallable 131 available FREE Check Nearby Stores Delivery_Details Protect This Item Select a Home Depot Protection Plan by Allstate for: 3 Year S150.00 +6_ No thanks What to Expect Share Print Aug",
+      "screenshot_text": "00 EdgeStar S969\" Was $1049-00 Save $80.00 (8%6) 15 in. Wide 20 Ibs Built-In Ice Maker in White with upto 25 Ibs: 5162.OOlmo** suggested payments with months** financing Apply Now 0 Daily Ice Production (103) Questions & Answers (36) White front and reversible door ensure stylish and convenient use Crescent-shaped ice maker produces ~lasting ice Self-contained design allows easy installation View More_Details 8 ColorIFinish: White 9 Pickup at Delivering to 90255 1 Huntington Park Ship to Store Delivery Aug 28 Sep 3 28 - 131 available 131 available FREE Check Nearby_Stores Delivery_Details Protect This Item Select a Home Depot Protection Plan by Allstate for: 3 Year / S150.00 No thanks +6 Watto Expect Share Print long- Aug sep",
+      "similarity": 0.8394557823129252
+    },
+    {
+      "checkpoint_text": "Was S+ 049-00 s9690 Save S80.00 (8%) EdgeStar 15 in. Wide 20 Ibs. Built-In Ice Maker in White with upto 25 Ibs: 5162.OO/mo\"\" suggested payments with 6 months\"* financing Apply Now 0 Daily Ice Production (103) Questions & Answers (38) White front and reversible door ensure stylish and convenient use Crescent-shaped ice maker produces long-lasting ice Self-contained design allows easy installation View More_Details 8 Color/Finish: White 9 Qj Pickup at ] Huntington Park Delivering to 90255 Ship to Store Delivery 28 Sep 3 28 131 available 131 available FREE Check Nearby Stores Delivery_Details Protect This Item Select a Home Depot Protection by Allstate for: 3 Year S150.00 +6_ No thanks What to Expect Share Print Aug Aug Sep Plan",
+      "screenshot_text": "00 EdgeStar S969\" Was $1049-00 Save $80.00 (8%6) 15 in. Wide 20 Ibs Built-In Ice Maker in White with upto 25 Ibs: 5162.OOlmo** suggested payments with months** financing Apply Now 0 Daily Ice Production (103) Questions & Answers (36) White front and reversible door ensure stylish and convenient use Crescent-shaped ice maker produces ~lasting ice Self-contained design allows easy installation View More_Details 8 ColorIFinish: White 9 Pickup at Delivering t0 90255 1 Huntington Park Ship to Store Delivery Aug 28 Sep 3 28 - 131 available 131 available FREE Check Nearby_Stores Delivery_Details Protect This Item Select a Home Depot Protection Plan by Allstate for: 3 Year / S150.00 No thanks +6 Watto Expect Share Print long- Aug sep",
+      "similarity": 0.8462585034013606
+    }
+  ],
+  "assertion_results": [
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/43/gpt-6-luna_setting0/evalpoints/0.png",
+      "curr_img_path": "outputs/43/gpt-6-luna_setting0/evalpoints/1.png",
+      "response": "{\n  \"think\": \"The orange border and selection check move from “Ship to Store” in Image 1 to “Delivery” in Image 2, indicating Delivery was clicked.\",\n  \"result\": \"Yes\"\n}",
+      "assertion": "The 'Delivery' button is clicked.",
+      "thinking": "The orange border and selection check move from “Ship to Store” in Image 1 to “Delivery” in Image 2, indicating Delivery was clicked."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/43/gpt-6-luna_setting0/evalpoints/1.png",
+      "curr_img_path": "outputs/43/gpt-6-luna_setting0/evalpoints/2.png",
+      "response": "{\"think\":\"In Image 1, the selected orange radio is next to “No thanks.” In Image 2, the orange selected radio is next to “3 Year / $150.00.”\",\"result\":\"Yes\"}",
+      "assertion": "The '3 Year / $150.00' radio button is clicked.",
+      "thinking": "In Image 1, the selected orange radio is next to “No thanks.” In Image 2, the orange selected radio is next to “3 Year / $150.00.”"
+    },
+    null,
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/43/gpt-6-luna_setting0/evalpoints/3.png",
+      "curr_img_path": "outputs/43/gpt-6-luna_setting0/evalpoints/4.png",
+      "response": "{\"think\":\"The quantity selector shows 1 in Image 1 and 2 in Image 2, so the quantity increased.\",\"result\":\"Yes\"}",
+      "assertion": "The quantity is increased to 2.",
+      "thinking": "The quantity selector shows 1 in Image 1 and 2 in Image 2, so the quantity increased."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/43/gpt-6-luna_setting0/evalpoints/4.png",
+      "curr_img_path": "outputs/43/gpt-6-luna_setting0/evalpoints/5.png",
+      "response": "{\"think\":\"The quantity changes from 2 in Image 1 to 3 in Image 2. The price below the yellow PayPal button also changes from $86.39/mo to $112.49/mo.\",\"result\":\"Yes\"}",
+      "assertion": "The quantity is increased to 3, and the price below the yellow 'PayPal' button changes to '$112.49/mo'.",
+      "thinking": "The quantity changes from 2 in Image 1 to 3 in Image 2. The price below the yellow PayPal button also changes from $86.39/mo to $112.49/mo."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/43/gpt-6-luna_setting0/evalpoints/5.png",
+      "curr_img_path": "outputs/43/gpt-6-luna_setting0/evalpoints/6.png",
+      "response": "{\"think\":\"The quantity changes from 3 to 4, and the price below the PayPal button changes from $112.49/mo to $164.70/mo.\",\"result\":\"Yes\"}",
+      "assertion": "The quantity is increased to 4, and the price below the yellow 'PayPal' button changes to '$164.70/mo'.",
+      "thinking": "The quantity changes from 3 to 4, and the price below the PayPal button changes from $112.49/mo to $164.70/mo."
+    },
+    {
+      "result": "No",
+      "prev_img_path": "outputs/43/gpt-6-luna_setting0/evalpoints/6.png",
+      "curr_img_path": "outputs/43/gpt-6-luna_setting0/evalpoints/7.png",
+      "response": "{\"think\":\"The quantity increases from 4 to 5, but the price below the PayPal button changes to $269.10/mo, not $216.90/mo.\",\"result\":\"No\"}",
+      "assertion": "The quantity is increased to 5, and the price below the yellow 'PayPal' button changes to '$216.90/mo'.",
+      "thinking": "The quantity increases from 4 to 5, but the price below the PayPal button changes to $269.10/mo, not $216.90/mo."
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "total_step": 7,
+  "success_step": 2,
+  "screenshot_paths_to_eval": [
+    "outputs/5/gpt-6-luna_setting3/evalpoints/0.png"
+  ],
+  "all_mllm_scores": [
+    0.95
+  ],
+  "all_dino_scores": [
+    0.921875
+  ],
+  "all_ocr_scores": [
+    0.9319826338639653
+  ],
+  "all_avg_scores": [
+    0.9346192112879884
+  ],
+  "mllm_score": 0.95,
+  "dino_score": 0.921875,
+  "ocr_score": 0.9319826338639653,
+  "avg_score": 0.9346192112879884,
+  "all_mllm_res": [
+    "Comments:\n-Layout (10 points): The overall structure, spacing, alignment, and section positioning closely match the reference. Header, hero banner, search bar, checkboxes, and offers section are all placed correctly, with only minor horizontal and vertical offsets. **9/10**\n-Elements (15 points): Nearly all major elements are present, including the Booking.com header, navigation tabs, account controls, promotional hero, card graphic, search controls, and offer cards. Some icons and small UI details differ slightly in appearance. **14/15**\n-Content and Text (40 points): Text content is highly accurate throughout. Headings, promotional copy, navigation labels, search fields, buttons, and offers correspond closely to the reference, with no meaningful omissions. **39/40**\n-Style (15 points): Colors, typography, imagery, borders, button styling, and overall visual treatment are very similar. Minor differences appear in icon design, sizing, and some font rendering. **14/15**\n-Overall (20 points): This is a very close reproduction of the reference webpage and would be visually indistinguishable at a glance. Remaining differences are primarily small spacing, icon, and rendering variations. **19/20**\n\nScore: **95/100**"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "Bookingcom USD List your property Register Sign in Stays Flights Flight Hotel Car rental Cruises Attractions Airport taxis Meet the card that Genlus Rewards travels with you Booking ) Earn 5% in Travel Credits on Booking com with the Jale zom Genius Rewards Visae. Terms apply: Kuc A VISA Slanaturt Learn more Where are you going? Check-in date Check-out date 2 adults 0 children Troom Search Im looking for an entire home or apartment Km looking for flights Offers Promotions, deals, and special offers for you Vacation rentals Quick escape, quality time Live the dream in a vacation home Save Up to 2078 with Getaway Deal Choose from houses; villas cabins and more Save on stays",
+      "screenshot_text": "Booking com USD List your property Register Sign in Stays Flights Flight Hotel Car rental Cruises Attractions Airport taxis Meet the card that Genius Rewards travels with you Bookinge Earn 5% in Travel Credits on Booking com with the Ingcom Genius Rewards Visa\" Terms apply: ng.coli VISA Slgnature Learn more Where are you going? Check-in date Check-out date 2 adults children room Search Fm looking for an entire home or apartment Im looking for flights Offers Promotions; deals and special offers for you Vacation rentals Quick escape; quality time Live the dream in a vacation home Save up t0 2096 with Getaway Deal Choose from houses; villas, cabins; and more Save on stays Bookvour stav",
+      "similarity": 0.9319826338639653
+    }
+  ],
+  "assertion_results": [
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/5/gpt-6-luna_setting3/evalpoints/0.png",
+      "curr_img_path": "outputs/5/gpt-6-luna_setting3/evalpoints/1.png",
+      "response": "{\"think\":\"Image 2 shows a dropdown beneath the destination search field labeled “Trending destinations,” listing place names such as Los Angeles, Las Vegas, San Francisco, and San Diego. Image 1 has no dropdown visible.\",\"result\":\"Yes\"}",
+      "assertion": "A drop-down box pops up showing the place name",
+      "thinking": "Image 2 shows a dropdown beneath the destination search field labeled “Trending destinations,” listing place names such as Los Angeles, Las Vegas, San Francisco, and San Diego. Image 1 has no dropdown visible."
+    },
+    {
+      "result": "Yes",
+      "prev_img_path": "outputs/5/gpt-6-luna_setting3/evalpoints/1.png",
+      "curr_img_path": "outputs/5/gpt-6-luna_setting3/evalpoints/2.png",
+      "response": "{\"think\":\"Image 1 shows Los Angeles as an option in the trending destinations list, while the destination field is still empty. In Image 2, the field reads “Los Angeles, United States,” indicating it has been selected.\",\"result\":\"Yes\"}",
+      "assertion": "The 'Los Angeles' destination is selected.",
+      "thinking": "Image 1 shows Los Angeles as an option in the trending destinations list, while the destination field is still empty. In Image 2, the field reads “Los Angeles, United States,” indicating it has been selected."
+    },
+    null,
+    null,
+    null,
+    null,
+    null
+  ]
+}

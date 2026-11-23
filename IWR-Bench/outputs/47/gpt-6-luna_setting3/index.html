@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TradingView Replica</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:Arial,Helvetica,sans-serif;color:#202124;background:#fff;font-size:14px}
+  .app{width:100vw;height:100vh;min-width:1200px;display:flex;flex-direction:column}
+  .topbar{height:42px;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;gap:17px;padding:0 10px;white-space:nowrap}
+  .topbar .hamb{font-size:23px;width:34px;text-align:center}
+  .search{display:flex;gap:6px;align-items:center;font-size:16px;min-width:94px}
+  .search:before{content:"⌕";font-size:26px;line-height:10px;transform:rotate(-20deg)}
+  .divider{width:1px;height:24px;background:#e2e5e8}
+  .topicon{font-size:19px;color:#4b5563}
+  .toplabel{font-size:14px}
+  .plus{border:1px solid #777;border-radius:50%;height:20px;width:20px;line-height:17px;text-align:center;font-size:18px}
+  .spacer{flex:1}
+  .save{font-size:14px;line-height:12px}
+  .save small{display:block;font-size:11px;color:#8b95a1}
+  .publish{background:#30343b;color:#fff;border:0;border-radius:18px;padding:7px 13px;font-weight:bold}
+  .workspace{flex:1;display:flex;min-height:0}
+  .lefttools{width:54px;border-right:1px solid #e2e5e8;display:flex;flex-direction:column;align-items:center;padding-top:8px;gap:8px;color:#202124}
+  .tool{width:42px;height:34px;display:flex;align-items:center;justify-content:center;font-size:23px;position:relative}
+  .tool.line:after{content:"";width:24px;height:1px;background:#333;transform:rotate(-35deg)}
+  .tool.sliders:after{content:"☷";font-size:25px}
+  .tool.text:after{content:"T";font-size:21px}
+  .tool.circle:after{content:"☻";font-size:22px}
+  .tool.ruler:after{content:"⌁";font-size:29px;transform:rotate(-45deg)}
+  .tool.zoom:after{content:"⊕";font-size:26px}
+  .tool.lock:after{content:"♧";font-size:23px}
+  .tool.trash:after{content:"♜";font-size:23px;transform:rotate(180deg)}
+  .center{flex:1;min-width:0;display:flex;flex-direction:column}
+  .charthead{height:51px;display:flex;align-items:flex-start;padding:8px 10px 0;position:relative;z-index:2}
+  .quote-buttons{display:flex;gap:19px;margin-right:13px}
+  .quote{width:80px;height:36px;border:1px solid #e16c80;border-radius:6px;text-align:center;color:#d83154;line-height:17px;font-size:13px}
+  .quote.blue{border-color:#7094e8;color:#4872d2}
+  .quote small{display:block;font-size:11px}
+  .instrument{font-size:15px;padding-top:2px}
+  .instrument .badge{display:inline-flex;width:20px;height:20px;border-radius:50%;color:#fff;align-items:center;justify-content:center;font-size:10px;margin-right:5px;background:#24a87e}
+  .ohlc{color:#229d7e;margin-left:13px;font-size:13px}
+  .chartwrap{flex:1;min-height:0;position:relative}
+  canvas{display:block;width:100%;height:100%}
+  .bottomtabs{height:42px;border-top:1px solid #e4e7ea;display:flex;align-items:center;gap:28px;padding:0 16px;font-size:14px}
+  .bottomtabs .range{margin-right:auto;color:#333;word-spacing:8px}
+  .rightside{width:350px;border-left:1px solid #dfe3e7;display:flex;flex-direction:column;position:relative}
+  .watchhead{height:54px;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;padding:0 14px;font-weight:bold}
+  .watchhead span:first-child{margin-right:auto}
+  .watchhead .smallaction{font-size:22px;margin-left:20px;font-weight:normal}
+  .columns{height:29px;display:grid;grid-template-columns:1fr 73px 72px 64px;align-items:center;color:#7b8188;padding:0 12px;border-bottom:1px solid #f0f1f2}
+  .list{height:426px;overflow:hidden;border-bottom:1px solid #e4e7ea}
+  .group{height:28px;padding:9px 17px 0;color:#89909a;font-size:12px}
+  .row{height:33px;display:grid;grid-template-columns:1fr 75px 65px 60px;align-items:center;padding:0 12px;border:1px solid transparent;cursor:pointer}
+  .row.selected{border:2px solid #333;border-radius:7px}
+  .name{display:flex;align-items:center;gap:7px}
+  .dot{width:20px;height:20px;border-radius:50%;display:inline-flex;color:#fff;font-size:10px;align-items:center;justify-content:center;font-weight:bold}
+  .green{color:#28a47c}.red{color:#db4561}
+  .detail{padding:14px 17px;overflow:hidden}
+  .detailtop{display:flex;align-items:center;font-size:17px;font-weight:bold;margin-bottom:18px}
+  .detailtop .dot{margin-right:8px}
+  .detailtop .actions{margin-left:auto;font-size:20px;font-weight:normal;word-spacing:8px}
+  .sub{font-size:13px;margin-bottom:3px}
+  .sub.gray{color:#87909a}
+  .price{font-size:28px;font-weight:bold;margin-top:22px}
+  .delta{color:#1d9275;font-weight:bold;font-size:16px;margin-top:3px}
+  .market{font-size:12px;color:#159675;margin-top:9px}
+  .news{margin-top:14px;background:#eee9f8;border-radius:5px;padding:8px 10px;color:#51515b;font-size:12px}
+  .performance{margin-top:25px;font-weight:bold}
+  .perfgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:9px}
+  .perfgrid div{text-align:center;padding:9px 2px;background:#e4f6ef;color:#268a72;font-size:12px;font-weight:normal}
+  .perfgrid div:nth-child(n+4){background:#fae3e8;color:#cb4b65}
+  .rail{width:48px;border-left:1px solid #e3e5e8;display:flex;flex-direction:column;align-items:center;gap:19px;padding-top:11px;font-size:24px}
+  .rail .r{width:30px;height:30px;text-align:center}
+  .rail .r:last-child{margin-top:auto;margin-bottom:8px}
+  .tooltip{position:absolute;right:8px;bottom:75px;background:#222;color:white;padding:5px 10px;font-size:12px;display:none}
+  @media(max-width:1500px){.rightside{width:315px}.rail{width:42px}.row{grid-template-columns:1fr 65px 58px 54px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <div class="hamb btn">☰</div><div class="search"><span id="searchSymbol">DXY</span></div>
+    <div class="plus btn">+</div><div class="divider"></div><div class="toplabel">D</div>
+    <div class="topicon">♮</div><div class="topicon">⌁</div><div class="toplabel">Indicators</div>
+    <div class="topicon">⊞</div><div class="topicon">◷</div><div class="toplabel">Alert</div>
+    <div class="topicon">◀◀</div><div class="toplabel">Replay</div><div class="topicon">↶</div><div class="topicon">↷</div>
+    <div class="spacer"></div><div class="topicon">□</div><div class="save">Save<small>Save</small></div><div>⌄</div>
+    <div class="topicon">♨</div><div class="topicon">⬡</div><div class="topicon">⛶</div><div class="topicon">▣</div>
+    <button class="publish btn">Publish</button>
+  </div>
+  <div class="workspace">
+    <div class="lefttools">
+      <div class="tool btn">＋</div><div class="tool line btn"></div><div class="tool sliders btn"></div><div class="tool">⌘</div>
+      <div class="tool">⌘</div><div class="tool text btn"></div><div class="tool circle btn"></div><div class="tool ruler btn"></div>
+      <div class="tool zoom btn"></div><div class="tool lock btn"></div><div class="tool">◉</div><div class="tool trash btn"></div>
+    </div>
+    <div class="center">
+      <div class="charthead">
+        <div class="quote-buttons"><div class="quote" id="sell"></div><div class="quote blue" id="buy"></div></div>
+        <div class="instrument"><span class="badge" id="badge">S</span><span id="instrumentName">U.S. Dollar Index · 1D · TVC</span></div>
+        <div class="ohlc" id="ohlc">O97.725 H97.966 L97.714 C97.846 +0.114 (+0.12%)</div>
+      </div>
+      <div class="chartwrap"><canvas id="chart"></canvas></div>
+      <div class="bottomtabs"><span>Pine Editor</span><span>Strategy Tester</span><span>Replay Trading</span><span>Trading Panel</span><span class="range">1D&nbsp; 5D&nbsp; 1M&nbsp; 3M&nbsp; 6M&nbsp; YTD&nbsp; 1Y&nbsp; 5Y&nbsp; All&nbsp;&nbsp; ▣</span><span>04:51:47 UTC</span></div>
+    </div>
+    <div class="rightside">
+      <div class="watchhead"><span>Watchlist⌄</span><span class="smallaction btn">＋</span><span class="smallaction">◔</span><span>•••</span></div>
+      <div class="columns"><span>Symbol</span><span>Last</span><span>Chg</span><span>Chg%</span></div>
+      <div class="list" id="watchlist"></div>
+      <div class="detail" id="detail"></div>
+    </div>
+    <div class="rail">
+      <div class="r btn">▤</div><div class="r btn">◷</div><div class="r">▱</div><div class="r">◉</div><div class="r">▣</div><div class="r">◌</div><div class="r">▦</div><div class="r">◔</div><div class="r">♧</div><div class="r">?</div>
+    </div>
+  </div>
+</div>
+<script>
+const symbols={
+ DXY:{name:"U.S. Dollar Index · 1D · TVC",value:"97.846",chg:"+0.114",pct:"+0.12%",color:"#209c78",badge:"S",sell:"97.846",buy:"97.846",ohlc:"O97.725 H97.966 L97.714 C97.846 +0.114 (+0.12%)",desc:"U.S. Dollar Index",market:"Market open",series:"dxy"},
+ VIX:{name:"Volatility S&P 500 Index · 1D · CBOE",value:"14.22",chg:"−2.38",pct:"−14.34%",color:"#36a76e",badge:"×",sell:"14.22",buy:"14.22",ohlc:"O23.94 H25.18 L23.30 C24.60 −0.10 (−0.40%)",desc:"Volatility S&P 500 Index",market:"Market closed",series:"vix"},
+ DJI:{name:"Dow Jones Industrial Average Index · 1D · TVC",value:"45,631.74",chg:"+846.24",pct:"+1.89%",color:"#25a9c9",badge:"30",sell:"45,631.74",buy:"45,631.74",ohlc:"O41,000.19 H41,164.33 L40,759.41 C40,829.00 −389.83 (−0.95%)",desc:"Dow Jones Industrial Average Index",market:"Market closed",series:"dji"},
+ NDQ:{name:"US 100 Index · 1D · TVC",value:"23,498.12",chg:"+355.53",pct:"+1.54%",color:"#1e9bbd",badge:"100",sell:"23,498.12",buy:"23,498.12",ohlc:"O19,709.64 H19,927.23 L19,659.32 C19,791.35 −176.60 (−0.88%)",desc:"US 100 Index",market:"Market closed",series:"ndq"}
+};
+const order=["SPX","NDQ","DJI","VIX","DXY","AAPL","TSLA","NFLX","LCI"];
+const extras={SPX:["6,466.92","+96.74","+1.52%","#b72a58","500"],NDQ:["23,498.12","+355.53","+1.54%","#1b9abb","100"],DJI:["45,631.74","+846.24","+1.89%","#2fa9c9","30"],VIX:["14.22","−2.38","−14.34%","#39a66d","×"],DXY:["97.846","+0.114","+0.12%","#209b7a","S"],AAPL:["227.76","+2.86","+1.27%","#111","●"],TSLA:["340.01","+19.90","+6.22%","#d21e43","T"],NFLX:["1,204.65","−1.56","−0.13%","#111","N"]};
+let current="DXY";
+function renderWatch(){
+ let html='<div class="group">⌄ &nbsp; INDICES</div>';
+ order.slice(0,5).forEach(k=>{let a=extras[k],sel=k===current?' selected':'';html+=`<div class="row btn${sel}" data-symbol="${k}"><span class="name"><i class="dot" style="background:${a[3]}">${a[4]}</i>${k}</span><span>${a[0]}</span><span class="${a[1][0]=='−'?'red':'green'}">${a[1]}</span><span class="${a[2][0]=='−'?'red':'green'}">${a[2]}</span></div>`});
+ html+='<div class="group">⌄ &nbsp; STOCKS</div>';
+ order.slice(5,8).forEach(k=>{let a=extras[k];html+=`<div class="row btn"><span class="name"><i class="dot" style="background:${a[3]}">${a[4]}</i>${k}</span><span>${a[0]}</span><span class="green">${a[1]}</span><span class="green">${a[2]}</span></div>`});
+ html+='<div class="group">⌄ &nbsp; FUTURES</div><div class="row"><span class="name"><i class="dot" style="background:#111">A</i>ICHI</span><span>62.76</span><span>0.00</span><span>0.00%</span></div>';
+ document.getElementById("watchlist").innerHTML=html;
+ document.querySelectorAll(".row[data-symbol]").forEach(x=>x.onclick=()=>select(x.dataset.symbol));
+}
+function select(s){if(!symbols[s])return;current=s;renderWatch();let d=symbols[s];document.getElementById("searchSymbol").textContent=s;document.getElementById("instrumentName").textContent=d.name;document.getElementById("ohlc").textContent=d.ohlc;document.getElementById("badge").textContent=d.badge;document.getElementById("badge").style.background=d.color;document.getElementById("sell").innerHTML=d.sell+"<small>SELL</small>";document.getElementById("buy").innerHTML=d.buy+"<small>BUY</small>";document.getElementById("detail").innerHTML=`<div class="detailtop"><i class="dot" style="background:${d.color}">${d.badge}</i>${s}<span class="actions">⊞　♧　•••</span></div><div class="sub">${d.desc} ↗ · ${s==="VIX"?"CBOE":"TVC"}</div><div class="sub gray">Index · Cfd</div><div class="price">${d.value}<small style="font-size:12px;font-weight:normal"> USD</small></div><div class="delta">${d.chg} &nbsp;${d.pct}</div><div class="market">● ${d.market}</div><div class="news">ϟ　21 minutes ago · The 'Why' matters for rallies, and rate cuts　›</div><div class="performance">Performance</div><div class="perfgrid"><div>0.06%<br>1W</div><div>0.41%<br>1M</div><div>−1.11%<br>3M</div><div>−7.84%<br>6M</div><div>−9.83%<br>YTD</div><div>−3.55%<br>1Y</div></div>`;draw();}
+const canvas=document.getElementById("chart"),ctx=canvas.getContext("2d");
+function draw(){
+ const r=canvas.getBoundingClientRect(),dpr=devicePixelRatio||1;canvas.width=r.width*dpr;canvas.height=r.height*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);let w=r.width,h=r.height;
+ ctx.fillStyle="#fff";ctx.fillRect(0,0,w,h);let left=0,right=73,top=0,bottom=42,cw=w-right,ch=h-bottom;
+ ctx.strokeStyle="#eef0f2";ctx.lineWidth=1;
+ for(let i=0;i<12;i++){let x=left+i*cw/11;ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,ch);ctx.stroke()}
+ for(let i=0;i<20;i++){let y=top+i*ch/19;ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(cw,y);ctx.stroke()}
+ let s=symbols[current].series,N=148,vals=[],v=s==="dxy"?106:s==="vix"?16:s==="dji"?42000:20500;
+ for(let i=0;i<N;i++){let t=i/(N-1),base;
+   if(s==="dxy")base=108-10*t+2.5*Math.sin(i*.15)+(.7*Math.sin(i*.7));
+   else if(s==="vix")base=16+4*Math.sin(i*.13)+2*Math.sin(i*.5)+(i>72&&i<90?28*Math.sin((i-72)/18*Math.PI):0);
+   else if(s==="dji")base=42000+2800*t+1700*Math.sin(i*.13)-4500*Math.exp(-Math.pow((i-80)/9,2));
+   else base=20500+3000*t+1000*Math.sin(i*.12)-3800*Math.exp(-Math.pow((i-80)/10,2));
+   vals.push(base);
+ }
+ let min=Math.min(...vals),max=Math.max(...vals),range=max-min;const py=x=>ch-((x-min)/range)*(ch-20)-10;
+ for(let i=0;i<N;i++){let x=12+i*(cw-38)/(N-1),o=vals[i]+Math.sin(i*2.7)*range*.018,c=vals[i]+Math.sin(i*1.9)*range*.022,hi=Math.max(o,c)+range*(.012+Math.abs(Math.sin(i))* .014),lo=Math.min(o,c)-range*(.012+Math.abs(Math.cos(i))* .014);let y1=py(hi),y2=py(lo),yo=py(o),yc=py(c),up=c>=o;ctx.strokeStyle=up?"#159d78":"#d9234b";ctx.fillStyle=ctx.strokeStyle;ctx.beginPath();ctx.moveTo(x,y1);ctx.lineTo(x,y2);ctx.stroke();ctx.fillRect(x-2.1,Math.min(yo,yc),4.2,Math.max(2,Math.abs(yc-yo)))}
+ ctx.fillStyle="#4b525a";ctx.font="12px Arial";let labels=["Oct","Nov","Dec","2025","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep"];labels.forEach((x,i)=>ctx.fillText(x,35+i*(cw-78)/(labels.length-1),ch+25));
+ let ticks=6;for(let i=0;i<ticks;i++){let val=max-(max-min)*i/(ticks-1);ctx.fillText(s==="vix"?val.toFixed(2):Math.round(val).toLocaleString(),cw+9,14+i*(ch-22)/(ticks-1))}
+ ctx.font="bold 20px Arial";ctx.fillStyle="#15191d";ctx.fillText("TV TradingView",15,ch-26);
+}
+window.addEventListener("resize",draw);renderWatch();select("DXY");
+</script>
+</body>
+</html>

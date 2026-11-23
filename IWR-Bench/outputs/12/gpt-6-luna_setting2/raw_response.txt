@@ -1,0 +1,251 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>eBay Home</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;background:#fff;color:#191919;font-family:Arial,Helvetica,sans-serif;font-size:13px}
+  button,input{font:inherit}
+  .btn{cursor:pointer}
+  .topbar{height:32px;border-bottom:1px solid #e5e5e5;font-size:12px}
+  .topbar-inner,.main-inner,.nav-inner,.page{max-width:1480px;margin:auto}
+  .topbar-inner{height:100%;display:flex;align-items:center;justify-content:space-between}
+  .top-left,.top-right{display:flex;align-items:center;gap:28px}
+  .topbar a,.nav a{color:#222;text-decoration:none}
+  .mainbar{height:76px;border-bottom:1px solid #ddd}
+  .main-inner{height:100%;display:flex;align-items:center;gap:18px}
+  .logo{width:117px;height:auto;display:block}
+  .shopcat{font-size:12px;color:#555;line-height:14px;width:70px}
+  .shopcat span{display:block}
+  .searchbox{height:46px;border:2px solid #191919;border-radius:25px;display:flex;align-items:center;flex:1;max-width:1015px;overflow:hidden;margin-left:0}
+  .search-icon{font-size:22px;padding:0 12px;color:#444}
+  .searchbox input{border:0;outline:0;flex:1;height:100%;font-size:16px}
+  .category{height:100%;width:150px;border-left:1px solid #ddd;display:flex;align-items:center;justify-content:center;color:#555}
+  .search-btn{height:46px;width:166px;border:0;border-radius:25px;background:#0969e8;color:#fff;font-weight:bold;margin-left:-7px}
+  .advanced{font-size:12px;color:#555}
+  .nav{height:48px;border-bottom:1px solid #eee}
+  .nav-inner{height:100%;display:flex;align-items:center;justify-content:center;gap:28px;white-space:nowrap}
+  .nav a{font-size:12px}
+  .page{padding-top:20px;padding-bottom:80px}
+  .hero{height:375px;border-radius:16px;overflow:hidden;position:relative;background:#eba000;margin-bottom:42px}
+  .hero-slide{height:100%;display:none;position:relative}
+  .hero-slide.active{display:block}
+  .hero-copy{position:absolute;z-index:2;left:94px;top:82px}
+  .hero-copy h1{font-size:34px;margin:0 0 13px;font-weight:700;letter-spacing:-.5px}
+  .hero-copy p{font-size:17px;margin:0 0 25px}
+  .hero-copy .hero-button{background:#5d3900;border:0;color:#fff;border-radius:22px;padding:14px 23px;font-weight:bold}
+  .hero-image{position:absolute;right:66px;top:36px;width:660px;height:287px;object-fit:cover;border-radius:16px}
+  .hero-controls{position:absolute;bottom:16px;right:27px;display:flex;gap:9px;align-items:center;z-index:3}
+  .hero-controls button{border:0;background:#fff;width:32px;height:32px;border-radius:50%;font-size:18px}
+  .hero-dots{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:7px;z-index:3}
+  .hero-dots button{width:8px;height:8px;border:1px solid #5e4500;padding:0;border-radius:50%;background:transparent}
+  .hero-dots button.active{background:#5e4500}
+  .section{margin-bottom:50px}
+  .section-title{display:flex;justify-content:space-between;align-items:end;margin-bottom:18px}
+  .section-title h2{font-size:24px;margin:0;font-weight:700}
+  .section-title a{color:#222;text-decoration:underline}
+  .product-row{display:flex;gap:16px;overflow:hidden;position:relative}
+  .product{flex:0 0 260px;min-width:0}
+  .product-image{height:274px;background:#f4f4f4;border-radius:15px;position:relative;overflow:hidden}
+  .product-image img{width:100%;height:100%;object-fit:cover;display:block}
+  .heart{position:absolute;right:10px;top:10px;width:34px;height:34px;background:white;border:0;border-radius:50%;font-size:23px;line-height:30px}
+  .discount{display:inline-block;margin-top:8px;border:1px solid #e00000;color:#d60000;border-radius:8px;padding:2px 7px;font-size:11px;font-weight:bold}
+  .product-name{height:38px;margin-top:6px;line-height:18px;overflow:hidden;font-size:13px}
+  .price{font-weight:bold;font-size:16px;margin-top:4px}
+  .old{font-size:11px;color:#777;text-decoration:line-through;margin-left:5px;font-weight:normal}
+  .live-sub{color:#666;margin-top:4px}
+  .live-row{display:flex;gap:17px;overflow:hidden}
+  .live-card{position:relative;flex:0 0 283px;height:188px;border-radius:15px;overflow:hidden;background:#eee}
+  .live-card img{width:100%;height:100%;object-fit:cover;display:block}
+  .watchers{position:absolute;right:9px;top:9px;background:#e60000;color:white;border-radius:18px;padding:8px 12px;font-weight:bold;font-size:12px}
+  .arrow-side{position:absolute;top:50%;transform:translateY(-50%);width:31px;height:31px;border-radius:50%;border:1px solid #ddd;background:#fff;z-index:4}
+  .arrow-left{left:-15px}.arrow-right{right:-15px}
+  @media(max-width:900px){
+    .topbar-inner,.main-inner,.nav-inner,.page{padding-left:16px;padding-right:16px}
+    .top-left{gap:10px}.top-right{display:none}
+    .nav-inner{gap:12px;overflow:hidden;justify-content:flex-start}
+    .shopcat,.advanced{display:none}
+    .searchbox{min-width:0}
+    .category{display:none}
+    .hero-copy{left:35px;top:50px}.hero-copy h1{font-size:26px}
+    .hero-image{right:20px;width:48%;height:220px;top:65px}
+    .product{flex-basis:220px}.product-image{height:235px}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="top-left">
+        <a class="btn" href="#">Hi Zhao!⌄</a>
+        <a class="btn" href="#">Daily Deals</a>
+        <a class="btn" href="#">Brand Outlet</a>
+        <a class="btn" href="#">Gift Cards</a>
+        <a class="btn" href="#">Help &amp; Contact</a>
+      </div>
+      <div class="top-right">
+        <a class="btn" href="#">Sell</a>
+        <a class="btn" href="#">Watchlist⌄</a>
+        <a class="btn" href="#">My eBay⌄</a>
+        <a class="btn" href="#">♧</a>
+        <a class="btn" href="#">🛒</a>
+      </div>
+    </div>
+  </div>
+  <div class="mainbar">
+    <div class="main-inner">
+      <a class="btn" href="#"><img class="logo" src="__PLACEHOLDER_ASSETS_BASE_DIR__/090.svg" width="117" height=" fifty" alt="eBay"></a>
+      <div class="shopcat">Shop by<span>category⌄</span></div>
+      <form class="searchbox" onsubmit="return false">
+        <span class="search-icon">⌕</span>
+        <input aria-label="Search" placeholder="Search for anything">
+        <div class="category">All Categories⌄</div>
+      </form>
+      <button class="btn search-btn">Search</button>
+      <span class="advanced">Advanced</span>
+    </div>
+  </div>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="btn" href="#">eBay Live</a>
+      <a class="btn" href="#">Saved</a>
+      <a class="btn" href="#">Motors</a>
+      <a class="btn" href="#">Electronics</a>
+      <a class="btn" href="#">Collectibles</a>
+      <a class="btn" href="#">Home &amp; Garden</a>
+      <a class="btn" href="#">Clothing, Shoes &amp; Accessories</a>
+      <a class="btn" href="#">Toys</a>
+      <a class="btn" href="#">Sporting Goods</a>
+      <a class="btn" href="#">Business &amp; Industrial</a>
+      <a class="btn" href="#">Jewelry &amp; Watches</a>
+      <a class="btn" href="#">Refurbished</a>
+    </div>
+  </nav>
+</header>
+
+<main class="page">
+  <section class="hero">
+    <div class="hero-slide active">
+      <div class="hero-copy">
+        <h1>Style your alter ego this fall</h1>
+        <p>Bring them out with vintage curated by Emma Chamberlain.</p>
+        <button class="btn hero-button">Shop her collection</button>
+      </div>
+      <img class="hero-image" src="__PLACEHOLDER_ASSETS_BASE_DIR__/005.webp" width="660" height="287" alt="">
+    </div>
+    <div class="hero-slide" style="background:#242424">
+      <div class="hero-copy" style="color:#fff">
+        <h1>Huge selection. Free returns.</h1>
+        <p>Refunds on select parts and accessories are now fast and easy.</p>
+        <button class="btn hero-button" style="background:#fff;color:#222">Shop now</button>
+      </div>
+      <img class="hero-image" src="__PLACEHOLDER_ASSETS_BASE_DIR__/002.webp" width="660" height="287" alt="">
+    </div>
+    <div class="hero-slide" style="background:#a98772">
+      <div class="hero-copy" style="color:#fff">
+        <h1>Legit ’fits that are legit fresh</h1>
+        <p>Get streetwear verified by experts with Authenticity Guarantee.</p>
+        <button class="btn hero-button" style="background:#fff;color:#222">Shop streetwear</button>
+      </div>
+      <img class="hero-image" src="__PLACEHOLDER_ASSETS_BASE_DIR__/003.webp" width="660" height="287" alt="">
+    </div>
+    <div class="hero-slide" style="background:#ffc515">
+      <div class="hero-copy">
+        <h1>Trending this fall</h1>
+        <p>eBay Watchlist is here. Find must-haves, styled by Brie Welch.</p>
+        <button class="btn hero-button">Shop the looks</button>
+      </div>
+      <img class="hero-image" src="__PLACEHOLDER_ASSETS_BASE_DIR__/001.webp" width="660" height="287" alt="">
+    </div>
+    <div class="hero-dots">
+      <button class="btn active" data-slide="0"></button>
+      <button class="btn" data-slide="1"></button>
+      <button class="btn" data-slide="2"></button>
+      <button class="btn" data-slide="3"></button>
+    </div>
+    <div class="hero-controls">
+      <button class="btn" id="prev">‹</button>
+      <button class="btn" id="next">›</button>
+      <button class="btn" id="pause">Ⅱ</button>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">
+      <h2>Deals for you</h2><a class="btn" href="#">See all</a>
+    </div>
+    <div class="product-row">
+      <button class="btn arrow-side arrow-left">‹</button>
+      <article class="product">
+        <div class="product-image"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/009.webp" width="260" height="274" alt=""><button class="btn heart">♡</button></div>
+        <span class="discount">10% OFF</span><div class="product-name">Size 12.5 - Awake NY x Jordan Air Ship PE SP University Red</div><div class="price">$81.00 <span class="old">$90.00</span></div>
+      </article>
+      <article class="product">
+        <div class="product-image"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/010.webp" width="260" height="274" alt=""><button class="btn heart">♡</button></div>
+        <span class="discount">10% OFF</span><div class="product-name">Jordan Air Ship x Awake NY "Game Royal" FN8675-104 Size 9</div><div class="price">$143.99 <span class="old">$159.99</span></div>
+      </article>
+      <article class="product">
+        <div class="product-image"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/011.webp" width="260" height="274" alt=""><button class="btn heart">♡</button></div>
+        <span class="discount">45% OFF</span><div class="product-name">12-Inch Sliding Compound Miter Saw - 15 Amp Double Bevel with Extension...</div><div class="price">$219.99 <span class="old">$399.99</span></div>
+      </article>
+      <article class="product">
+        <div class="product-image"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/012.webp" width="260" height="274" alt=""><button class="btn heart">♡</button></div>
+        <span class="discount">15% OFF</span><div class="product-name">Nike Jordan Awake NY Air Ship PE SP University Red Sz 8 M SNKRS IN HAND</div><div class="price">$212.49 <span class="old">$249.99</span></div>
+      </article>
+      <article class="product">
+        <div class="product-image"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/013.webp" width="260" height="274" alt=""><button class="btn heart">♡</button></div>
+        <span class="discount">12% OFF</span><div class="product-name">Nike Jordan Air Ship PE SP 'Awake NY' (Size 10.5) *Brand New/OG Box*...</div><div class="price">$96.76 <span class="old">$109.95</span></div>
+      </article>
+      <article class="product">
+        <div class="product-image"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/014.webp" width="260" height="274" alt=""><button class="btn heart">♡</button></div>
+        <span class="discount">10% OFF</span><div class="product-name">Sliding Compound Miter Saw with Laser</div><div class="price">$197.97 <span class="old">$219.97</span></div>
+      </article>
+      <button class="btn arrow-side arrow-right">›</button>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">
+      <div><h2>eBay Live</h2><div class="live-sub">Tune in and shop curated experiences</div></div>
+      <a class="btn" href="#">See all</a>
+    </div>
+    <div class="live-row">
+      <div class="live-card"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/044.png" width="283" height="188" alt=""><span class="watchers">⌁ 2415</span></div>
+      <div class="live-card"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/047.png" width="283" height="188" alt=""><span class="watchers">⌁ 1386</span></div>
+      <div class="live-card"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/049.png" width="283" height="188" alt=""><span class="watchers">⌁ 796</span></div>
+      <div class="live-card"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/051.png" width="283" height="188" alt=""><span class="watchers">⌁ 1821</span></div>
+      <div class="live-card"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/053.png" width="283" height="188" alt=""><span class="watchers">⌁ 692</span></div>
+      <div class="live-card"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/055.png" width="283" height="188" alt=""><span class="watchers">⌁ 901</span></div>
+    </div>
+  </section>
+</main>
+
+<script>
+  const slides=[...document.querySelectorAll('.hero-slide')];
+  const dots=[...document.querySelectorAll('.hero-dots button')];
+  let current=0, timer, paused=false;
+  function show(i){
+    current=(i+slides.length)%slides.length;
+    slides.forEach((s,n)=>s.classList.toggle('active',n===current));
+    dots.forEach((d,n)=>d.classList.toggle('active',n===current));
+  }
+  function start(){clearInterval(timer);if(!paused)timer=setInterval(()=>show(current+1),5000)}
+  dots.forEach((d,i)=>d.addEventListener('click',()=>{show(i);start()}));
+  document.getElementById('prev').addEventListener('click',()=>{show(current-1);start()});
+  document.getElementById('next').addEventListener('click',()=>{show(current+1);start()});
+  document.getElementById('pause').addEventListener('click',function(){
+    paused=!paused; this.textContent=paused?'▶':'Ⅱ'; start();
+  });
+  document.querySelectorAll('.heart').forEach(b=>b.addEventListener('click',function(){
+    this.textContent=this.textContent==='♡'?'♥':'♡';
+    this.style.color=this.textContent==='♥'?'#e00000':'#191919';
+  }));
+  start();
+</script>
+</body>
+</html>
+```

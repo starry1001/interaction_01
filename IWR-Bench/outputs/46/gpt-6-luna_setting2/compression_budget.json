@@ -1,0 +1,301 @@
+{
+  "setting": 2,
+  "unit": "estimated image input tokens",
+  "profile": {
+    "reference_model": "gpt-5.6-luna",
+    "assumed_for": "gpt-6-luna",
+    "assumption_not_officially_verified": true,
+    "detail": "original",
+    "patch_size": 32,
+    "token_multiplier": 1.2,
+    "max_dimension": 65535,
+    "max_patches": 30000
+  },
+  "target_retained_fraction": 0.6,
+  "baseline": "sum of original screenshot token estimates in each group, excluding added labels and padding",
+  "reference_estimated_tokens": 30555,
+  "source_estimated_tokens": 31217,
+  "output_estimated_tokens": 18318,
+  "retained_token_fraction": 0.5995090819833088,
+  "retained_vs_unscaled_image_fraction": 0.5867956562129609,
+  "source_pixels": 26212320,
+  "output_pixels": 15399936,
+  "allocations": [
+    {
+      "source_size": [
+        2180,
+        4008
+      ],
+      "source_pixels": 8737440,
+      "source_patches": 8694,
+      "source_estimated_tokens": 10433,
+      "reference_estimated_tokens": 10185,
+      "target_estimated_tokens": 6111,
+      "effective_target_estimated_tokens": 6111,
+      "minimum_patch_limited": false,
+      "profile_cap_limited": false,
+      "output_size": [
+        1671,
+        3072
+      ],
+      "output_pixels": 5133312,
+      "output_patches": 5088,
+      "output_estimated_tokens": 6106,
+      "retained_token_fraction": 0.5995090819833088,
+      "retained_vs_unscaled_image_fraction": 0.5852583149621393,
+      "rounding_shortfall_tokens": 5,
+      "output": "screenshot_sheet_0.png",
+      "screenshot_count": 3,
+      "source_indices": [
+        0,
+        1,
+        2
+      ],
+      "layout": "vertical",
+      "source_regions": [
+        {
+          "index": 0,
+          "source_size": [
+            2180,
+            1304
+          ],
+          "source_sheet_box": [
+            0,
+            0,
+            2180,
+            1304
+          ],
+          "output_sheet_box": [
+            0,
+            0,
+            1671,
+            1000
+          ]
+        },
+        {
+          "index": 1,
+          "source_size": [
+            2180,
+            1304
+          ],
+          "source_sheet_box": [
+            0,
+            1336,
+            2180,
+            2640
+          ],
+          "output_sheet_box": [
+            0,
+            1024,
+            1671,
+            2024
+          ]
+        },
+        {
+          "index": 2,
+          "source_size": [
+            2180,
+            1304
+          ],
+          "source_sheet_box": [
+            0,
+            2672,
+            2180,
+            3976
+          ],
+          "output_sheet_box": [
+            0,
+            2048,
+            1671,
+            3048
+          ]
+        }
+      ],
+      "original_screenshot_pixels": 8528160
+    },
+    {
+      "source_size": [
+        2180,
+        2672
+      ],
+      "source_pixels": 5824960,
+      "source_patches": 5796,
+      "source_estimated_tokens": 6956,
+      "reference_estimated_tokens": 6790,
+      "target_estimated_tokens": 4074,
+      "effective_target_estimated_tokens": 4074,
+      "minimum_patch_limited": false,
+      "profile_cap_limited": false,
+      "output_size": [
+        1671,
+        2048
+      ],
+      "output_pixels": 3422208,
+      "output_patches": 3392,
+      "output_estimated_tokens": 4071,
+      "retained_token_fraction": 0.5995581737849779,
+      "retained_vs_unscaled_image_fraction": 0.5852501437607821,
+      "rounding_shortfall_tokens": 3,
+      "output": "screenshot_sheet_1.png",
+      "screenshot_count": 2,
+      "source_indices": [
+        3,
+        4
+      ],
+      "layout": "vertical",
+      "source_regions": [
+        {
+          "index": 3,
+          "source_size": [
+            2180,
+            1304
+          ],
+          "source_sheet_box": [
+            0,
+            0,
+            2180,
+            1304
+          ],
+          "output_sheet_box": [
+            0,
+            0,
+            1671,
+            1000
+          ]
+        },
+        {
+          "index": 4,
+          "source_size": [
+            2180,
+            1304
+          ],
+          "source_sheet_box": [
+            0,
+            1336,
+            2180,
+            2640
+          ],
+          "output_sheet_box": [
+            0,
+            1024,
+            1671,
+            2024
+          ]
+        }
+      ],
+      "original_screenshot_pixels": 5685440
+    },
+    {
+      "source_size": [
+        2180,
+        5344
+      ],
+      "source_pixels": 11649920,
+      "source_patches": 11523,
+      "source_estimated_tokens": 13828,
+      "reference_estimated_tokens": 13580,
+      "target_estimated_tokens": 8148,
+      "effective_target_estimated_tokens": 8148,
+      "minimum_patch_limited": false,
+      "profile_cap_limited": false,
+      "output_size": [
+        1671,
+        4096
+      ],
+      "output_pixels": 6844416,
+      "output_patches": 6784,
+      "output_estimated_tokens": 8141,
+      "retained_token_fraction": 0.5994845360824742,
+      "retained_vs_unscaled_image_fraction": 0.5887330054960949,
+      "rounding_shortfall_tokens": 7,
+      "output": "screenshot_sheet_2.png",
+      "screenshot_count": 4,
+      "source_indices": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "layout": "vertical",
+      "source_regions": [
+        {
+          "index": 5,
+          "source_size": [
+            2180,
+            1304
+          ],
+          "source_sheet_box": [
+            0,
+            0,
+            2180,
+            1304
+          ],
+          "output_sheet_box": [
+            0,
+            0,
+            1671,
+            1000
+          ]
+        },
+        {
+          "index": 6,
+          "source_size": [
+            2180,
+            1304
+          ],
+          "source_sheet_box": [
+            0,
+            1336,
+            2180,
+            2640
+          ],
+          "output_sheet_box": [
+            0,
+            1024,
+            1671,
+            2024
+          ]
+        },
+        {
+          "index": 7,
+          "source_size": [
+            2180,
+            1304
+          ],
+          "source_sheet_box": [
+            0,
+            2672,
+            2180,
+            3976
+          ],
+          "output_sheet_box": [
+            0,
+            2048,
+            1671,
+            3048
+          ]
+        },
+        {
+          "index": 8,
+          "source_size": [
+            2180,
+            1304
+          ],
+          "source_sheet_box": [
+            0,
+            4008,
+            2180,
+            5312
+          ],
+          "output_sheet_box": [
+            0,
+            3072,
+            1671,
+            4072
+          ]
+        }
+      ],
+      "original_screenshot_pixels": 11370880
+    }
+  ]
+}

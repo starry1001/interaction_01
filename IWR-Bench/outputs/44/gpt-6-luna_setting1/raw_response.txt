@@ -1,0 +1,462 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hemingway Editor</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 100%; min-height: 100%; }
+  body {
+    background: #f0f1f4;
+    color: #29313e;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow-x: hidden;
+  }
+  button { font: inherit; cursor: pointer; }
+  .top-message {
+    height: 34px;
+    background: #b9e8f8;
+    border-bottom: 1px solid #a9deef;
+    color: #27647c;
+    text-align: center;
+    font-size: 14px;
+    line-height: 33px;
+    white-space: nowrap;
+  }
+  .top-message a { color: #209a58; text-decoration: underline; margin-left: 8px; }
+  .toolbar {
+    height: 60px;
+    background: #e4e8f0;
+    border-bottom: 1px solid #cdd1d8;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 17px;
+  }
+  .brand {
+    color: #101927;
+    font: bold 24px Georgia, "Times New Roman", serif;
+    line-height: 22px;
+    position: relative;
+  }
+  .brand small {
+    display: block;
+    text-align: right;
+    font: italic 10px Georgia, serif;
+    line-height: 8px;
+    margin-right: 5px;
+  }
+  .tools {
+    position: absolute;
+    left: 50%;
+    top: 7px;
+    transform: translateX(-50%);
+    height: 43px;
+    display: flex;
+    align-items: center;
+    padding: 0 7px;
+    border: 1px solid #d6d8df;
+    border-radius: 7px;
+    background: #f6f7fa;
+    box-shadow: 0 1px 3px #c6c9d0;
+    white-space: nowrap;
+    color: #343945;
+    font-size: 14px;
+  }
+  .tools button {
+    border: 0;
+    background: transparent;
+    padding: 8px 12px;
+    color: inherit;
+    font-size: 14px;
+  }
+  .tools button:hover, .plain-btn:hover { background: #e8eaf0; }
+  .tools .separator { height: 28px; width: 1px; background: #d8dbe2; }
+  .plus {
+    color: white;
+    background: #a000b7;
+    font-weight: bold;
+    font-size: 11px;
+    border-radius: 3px;
+    padding: 2px 4px;
+    vertical-align: 1px;
+  }
+  .plain-btn {
+    background: #f1f2f5;
+    border: 1px solid #c2c6cf;
+    border-radius: 4px;
+    color: #39404c;
+    padding: 5px 9px;
+    font-size: 14px;
+  }
+  .menu-wrap { position: relative; }
+  .menu-pop {
+    display: none;
+    position: absolute;
+    z-index: 5;
+    right: 0;
+    top: 35px;
+    width: 180px;
+    background: white;
+    border: 1px solid #c8cbd2;
+    box-shadow: 0 3px 8px #aaa;
+    padding: 6px;
+  }
+  .menu-pop.open { display: block; }
+  .menu-pop button { display: block; width: 100%; text-align: left; border: 0; background: white; padding: 9px; }
+  .right-head { display: flex; gap: 0; position: absolute; right: 19px; bottom: -1px; }
+  .right-head button {
+    border: 0;
+    padding: 8px 12px;
+    background: #d7dae1;
+    color: #555b66;
+    font-size: 14px;
+  }
+  .right-head button.active { background: #f6f7fa; color: #222; }
+  .page { position: relative; min-height: calc(100vh - 94px); }
+  .promo {
+    position: absolute;
+    left: 16px;
+    top: 36px;
+    width: 180px;
+    text-align: center;
+  }
+  .ai-btn {
+    background: #ad00c4;
+    color: white;
+    border: 1px solid #9300a8;
+    border-radius: 4px;
+    height: 44px;
+    width: 165px;
+    font-size: 18px;
+    box-shadow: 0 1px 2px #bbb;
+  }
+  .dotted-arrow {
+    width: 30px;
+    height: 80px;
+    margin: 8px auto 2px;
+    border-right: 3px dashed #a63cc0;
+    border-radius: 50%;
+    transform: rotate(8deg);
+    position: relative;
+    left: -8px;
+  }
+  .dotted-arrow:after {
+    content: "▼";
+    color: #a63cc0;
+    position: absolute;
+    top: -3px;
+    right: -7px;
+    font-size: 13px;
+    transform: rotate(15deg);
+  }
+  .promo-copy {
+    color: #9e35ad;
+    font-size: 13px;
+    line-height: 18px;
+    transform: rotate(-4deg);
+  }
+  .promo-copy strong { display: block; font-size: 13px; }
+  .editor {
+    position: absolute;
+    left: 46.1%;
+    top: 22px;
+    width: min(960px, 45vw);
+    color: #29313e;
+    font: 20px/25px Georgia, "Times New Roman", serif;
+  }
+  .editor h1 {
+    font: bold 30px/40px Georgia, "Times New Roman", serif;
+    color: #17202d;
+    margin: 0 0 28px;
+    letter-spacing: .1px;
+  }
+  .editor p { margin: 0 0 20px; }
+  .editor mark {
+    color: inherit;
+    padding: 0 1px;
+    cursor: pointer;
+  }
+  .yellow { background: #fff176; }
+  .red { background: #f5a1ad; }
+  .blue { background: #b9e9f8; }
+  .purple { background: #d9c9fb; }
+  .hide-highlights mark { background: transparent; }
+  .sidebar {
+    position: absolute;
+    top: 8px;
+    right: 19px;
+    width: 192px;
+    font-size: 16px;
+    color: #343b48;
+  }
+  .readability {
+    height: 151px;
+    border-bottom: 1px solid #d2d4da;
+    padding: 14px 0 12px;
+    position: relative;
+  }
+  .readability strong { font-size: 16px; color: #29313b; }
+  .info { font-size: 14px; border: 1px solid #70747d; border-radius: 50%; display: inline-block; width: 14px; height: 14px; line-height: 12px; text-align: center; margin-left: 7px; }
+  .settings {
+    position: absolute;
+    right: 0;
+    top: 12px;
+    height: 27px;
+    width: 35px;
+    border: 1px solid #777c85;
+    background: #f4f5f7;
+    border-radius: 4px;
+    font-size: 19px;
+    line-height: 20px;
+  }
+  .grade { color: #47815c; margin-top: 6px; }
+  .good { color: #7a7e86; margin-top: 4px; }
+  .stats-summary {
+    height: 89px;
+    border-bottom: 1px solid #d2d4da;
+    padding-top: 19px;
+  }
+  .words { font-size: 18px; }
+  .more {
+    margin-top: 8px;
+    color: #888d96;
+    font-size: 14px;
+    border: 0;
+    background: transparent;
+    padding: 0;
+  }
+  .expanded-stats {
+    display: none;
+    border-bottom: 1px solid #d2d4da;
+    padding: 18px 5px 14px 0;
+    text-align: right;
+    font: italic 16px/25px Arial, sans-serif;
+  }
+  .expanded-stats strong { font-style: normal; color: #2d3440; }
+  .expanded-stats.visible { display: block; }
+  .stats-summary.hidden { display: none; }
+  .cards { padding-top: 16px; }
+  .card {
+    width: 192px;
+    min-height: 58px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    padding: 8px 8px;
+    font-size: 15px;
+    line-height: 19px;
+    position: relative;
+  }
+  .card.red-card { background: #f8c4cb; color: #8e4650; }
+  .card.yellow-card { background: #fff07c; color: #74651b; }
+  .card.green-card { background: #d0ff91; color: #4c7231; min-height: 77px; }
+  .card.blue-card { background: #b7e5f8; color: #35546a; min-height: 63px; }
+  .card.purple-card { background: #d9cafa; color: #644b93; }
+  .count {
+    display: inline-block;
+    font-weight: bold;
+    background: rgba(255,255,255,.45);
+    padding: 0 3px;
+    margin-right: 4px;
+    font-size: 17px;
+  }
+  .eye {
+    position: absolute;
+    right: 7px;
+    top: 7px;
+    border: 0;
+    background: transparent;
+    color: #9b7580;
+    padding: 0;
+    font-size: 14px;
+    line-height: 15px;
+  }
+  .card a { text-decoration: underline; color: inherit; font-size: 13px; }
+  .upgrade {
+    display: inline-block;
+    background: #55a954;
+    color: white;
+    border-radius: 3px;
+    font-size: 13px;
+    line-height: 17px;
+    padding: 0 5px;
+    font-weight: bold;
+  }
+  .copyright { text-align: right; color: #a4a7ae; font-size: 13px; margin-top: 16px; }
+  .tutorial {
+    position: fixed;
+    left: 4px;
+    bottom: 82px;
+    width: 204px;
+    height: 98px;
+    border-radius: 8px;
+    background: #b8e9fb;
+    color: #39718b;
+    text-align: center;
+    padding: 11px 8px;
+    font-size: 14px;
+    line-height: 20px;
+  }
+  .tutorial button { margin-top: 6px; border: 1px solid #477085; border-radius: 4px; color: #304d5d; background: #cceefa; padding: 4px 9px; }
+  .scrollbar {
+    position: fixed;
+    left: 0;
+    bottom: 4px;
+    width: 205px;
+    color: #888;
+    font-size: 14px;
+    line-height: 12px;
+  }
+  .scrollbar:before { content: "◀"; position: absolute; left: 1px; }
+  .scrollbar:after { content: "▶"; position: absolute; right: 1px; }
+  .scrollbar span { display: block; height: 9px; background: #929292; border-radius: 5px; margin: 2px 17px; }
+  .settings-pop {
+    display:none; position:absolute; top:42px; right:0; z-index:4; width:210px; padding:12px;
+    background:white; border:1px solid #bbb; box-shadow:0 2px 6px #aaa; font-size:14px;
+  }
+  .settings-pop.open { display:block; }
+  .settings-pop label { display:block; margin:7px 0; }
+  @media (max-width: 1100px) {
+    .editor { left: 25%; width: 55%; }
+    .sidebar { right: 10px; width: 175px; }
+    .card { width: 175px; }
+    .tools { transform: translateX(-50%) scale(.85); }
+  }
+</style>
+</head>
+<body>
+  <div class="top-message">Hemingway's classic desktop app. Save/load files and work offline. No AI. <a href="#" class="btn">Learn more</a></div>
+  <header class="toolbar">
+    <div class="brand">Hemingway<small>Editor</small></div>
+    <nav class="tools" aria-label="Editor tools">
+      <button class="btn">File <span class="plus">Plus</span></button><i class="separator"></i>
+      <button class="btn">✣ Fix Grammar <span class="plus">Plus</span></button><i class="separator"></i>
+      <button class="btn">✣ Rewrite <span class="plus">Plus</span></button><i class="separator"></i>
+      <button class="btn">Paragraph⌄</button><i class="separator"></i>
+      <button class="btn" title="Bold"><b>B</b></button>
+      <button class="btn" title="Italic"><i>I</i></button>
+      <button class="btn" title="Link">↗</button>
+    </nav>
+    <button class="plain-btn btn">How to use Hemingway</button>
+    <div class="menu-wrap">
+      <button class="plain-btn btn" id="menuButton">Menu ⌄</button>
+      <div class="menu-pop" id="menuPop">
+        <button class="btn">New document</button>
+        <button class="btn">Save document</button>
+        <button class="btn">Open document</button>
+      </div>
+    </div>
+    <div class="right-head">
+      <button class="btn" id="writeButton">Write</button>
+      <button class="btn active" id="editButton">Edit</button>
+      <button class="btn" id="feedbackButton">Feedback</button>
+    </div>
+  </header>
+
+  <main class="page">
+    <aside class="promo">
+      <button class="ai-btn btn">AI Tools - Try Free</button>
+      <div class="dotted-arrow"></div>
+      <div class="promo-copy"><strong>Hemingway Editor Plus</strong>Fix highlighted issues, check<br>grammar, and adjust tone.<br>Free 2-week trial.</div>
+    </aside>
+
+    <article class="editor" id="editor">
+      <h1>Hemingway App makes your writing<br>concise and correct.</h1>
+      <p><mark class="yellow">The app highlights lengthy, complex sentences and common errors: if you see a yellow sentence, shorten or split it.</mark> <mark class="red">If you see a red highlight, your sentence is so dense and complicated that your readers will get lost trying to follow its meandering, convoluted logic—try editing this sentence to remove the red highlight.</mark></p>
+      <p>You can <mark class="purple">utilize</mark> a simpler word instead of a purple one. Click on highlights to fix them.</p>
+      <p>Adverbs, passive voice, and other weakening phrases <mark class="blue">are marked</mark> in blue. <mark class="blue">I believe</mark> you should replace them with more forceful language.</p>
+      <p>Our Hemingway Editor Plus service uses AI to fix these highlights for you. It also features an advanced grammar checker that marks issues in green. It goes far beyond other grammar tools to catch even the trickiest errors. You can also change the tone or style of your writing by selecting text and using the "AI tools" button at the top.</p>
+      <p>To get started, paste in something you're working on and edit away. Or, click the Write button to hide highlights and compose something new.</p>
+    </article>
+
+    <aside class="sidebar">
+      <div class="readability">
+        <strong>Readability</strong><span class="info">i</span>
+        <button class="settings btn" id="settingsButton">☷</button>
+        <div class="settings-pop" id="settingsPop">
+          <strong>Settings</strong>
+          <label><input type="checkbox" checked> Show highlights</label>
+          <label><input type="checkbox" checked> Show readability</label>
+        </div>
+        <div class="grade">Grade 8</div>
+        <div class="good">Good.</div>
+      </div>
+      <div class="stats-summary" id="statsSummary">
+        <div class="words">Words: 185</div>
+        <button class="more btn" id="moreButton">Show more stats ⌄</button>
+      </div>
+      <div class="expanded-stats" id="expandedStats">
+        <div>Letters: <strong>871</strong></div>
+        <div>Characters: <strong>1,075</strong></div>
+        <div>Words: <strong>185</strong></div>
+        <div>Sentences: <strong>13</strong></div>
+        <div>Paragraphs: <strong>6</strong></div>
+        <div>Reading <strong>0h 0m</strong></div>
+        <div>time: <strong>44s</strong></div>
+        <button class="more btn" id="fewerButton">Show fewer stats ⌃</button>
+      </div>
+      <div class="cards">
+        <div class="card red-card"><span class="count">1</span>of 13 sentences is<br>very hard to read.<button class="eye btn" data-type="red">◉</button></div>
+        <div class="card yellow-card"><span class="count">1</span>of 13 sentences is<br>hard to read.<button class="eye btn" data-type="yellow">◉</button></div>
+        <div class="card green-card">Find grammar and spelling<br>issues with Editor Plus.<br><span class="upgrade btn">Upgrade</span></div>
+        <div class="card blue-card"><span class="count">2</span>weakeners.<button class="eye btn" data-type="blue">◉</button><br><a href="#" class="btn">View details</a></div>
+        <div class="card purple-card"><span class="count">1</span>word with a simpler<br>alternative.<button class="eye btn" data-type="purple">◉</button></div>
+      </div>
+      <div class="copyright">© 2013-2025 .38 Long LLC</div>
+    </aside>
+
+    <div class="tutorial">Want to learn how to use<br>Hemingway Editor?<br><button class="btn">Open Tutorial</button></div>
+    <div class="scrollbar"><span></span></div>
+  </main>
+<script>
+  const editor = document.getElementById('editor');
+  document.getElementById('moreButton').addEventListener('click', () => {
+    document.getElementById('statsSummary').classList.add('hidden');
+    document.getElementById('expandedStats').classList.add('visible');
+  });
+  document.getElementById('fewerButton').addEventListener('click', () => {
+    document.getElementById('expandedStats').classList.remove('visible');
+    document.getElementById('statsSummary').classList.remove('hidden');
+  });
+  document.querySelectorAll('.eye').forEach(button => {
+    button.addEventListener('click', () => {
+      const type = button.dataset.type;
+      document.querySelectorAll('.' + type).forEach(mark => {
+        mark.style.backgroundColor = mark.style.backgroundColor ? '' : 'transparent';
+      });
+      button.style.opacity = button.style.opacity === '0.45' ? '1' : '0.45';
+    });
+  });
+  document.querySelectorAll('.editor mark').forEach(mark => {
+    mark.addEventListener('click', () => {
+      mark.style.backgroundColor = 'transparent';
+    });
+  });
+  document.getElementById('writeButton').addEventListener('click', () => {
+    editor.classList.add('hide-highlights');
+    editor.setAttribute('contenteditable', 'true');
+    document.getElementById('writeButton').classList.add('active');
+    document.getElementById('editButton').classList.remove('active');
+  });
+  document.getElementById('editButton').addEventListener('click', () => {
+    editor.classList.remove('hide-highlights');
+    editor.setAttribute('contenteditable', 'false');
+    document.getElementById('editButton').classList.add('active');
+    document.getElementById('writeButton').classList.remove('active');
+  });
+  document.getElementById('menuButton').addEventListener('click', () => {
+    document.getElementById('menuPop').classList.toggle('open');
+  });
+  document.getElementById('settingsButton').addEventListener('click', () => {
+    document.getElementById('settingsPop').classList.toggle('open');
+  });
+  document.getElementById('feedbackButton').addEventListener('click', () => {
+    alert('Thanks for your feedback!');
+  });
+</script>
+</body>
+</html>
+```

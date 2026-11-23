@@ -1,0 +1,329 @@
+{
+  "setting": 2,
+  "unit": "estimated image input tokens",
+  "profile": {
+    "reference_model": "gpt-5.6-luna",
+    "assumed_for": "gpt-6-luna",
+    "assumption_not_officially_verified": true,
+    "detail": "original",
+    "patch_size": 32,
+    "token_multiplier": 1.2,
+    "max_dimension": 65535,
+    "max_patches": 30000
+  },
+  "target_retained_fraction": 0.6,
+  "baseline": "sum of original screenshot token estimates in each group, excluding added labels and padding",
+  "reference_estimated_tokens": 13308,
+  "source_estimated_tokens": 13068,
+  "output_estimated_tokens": 7980,
+  "retained_token_fraction": 0.5996393146979261,
+  "retained_vs_unscaled_image_fraction": 0.610651974288338,
+  "source_pixels": 11051040,
+  "output_pixels": 6784960,
+  "allocations": [
+    {
+      "source_size": [
+        3864,
+        1430
+      ],
+      "source_pixels": 5525520,
+      "source_patches": 5445,
+      "source_estimated_tokens": 6534,
+      "reference_estimated_tokens": 6654,
+      "target_estimated_tokens": 3992,
+      "effective_target_estimated_tokens": 3992,
+      "minimum_patch_limited": false,
+      "profile_cap_limited": false,
+      "output_size": [
+        3029,
+        1120
+      ],
+      "output_pixels": 3392480,
+      "output_patches": 3325,
+      "output_estimated_tokens": 3990,
+      "retained_token_fraction": 0.5996393146979261,
+      "retained_vs_unscaled_image_fraction": 0.610651974288338,
+      "rounding_shortfall_tokens": 2,
+      "output": "screenshot_sheet_0.png",
+      "screenshot_count": 6,
+      "source_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "layout": "horizontal",
+      "source_regions": [
+        {
+          "index": 0,
+          "source_size": [
+            644,
+            1398
+          ],
+          "source_sheet_box": [
+            0,
+            0,
+            644,
+            1398
+          ],
+          "output_sheet_box": [
+            0,
+            0,
+            505,
+            1095
+          ]
+        },
+        {
+          "index": 1,
+          "source_size": [
+            644,
+            1398
+          ],
+          "source_sheet_box": [
+            644,
+            0,
+            1288,
+            1398
+          ],
+          "output_sheet_box": [
+            504,
+            0,
+            1010,
+            1095
+          ]
+        },
+        {
+          "index": 2,
+          "source_size": [
+            644,
+            1398
+          ],
+          "source_sheet_box": [
+            1288,
+            0,
+            1932,
+            1398
+          ],
+          "output_sheet_box": [
+            1009,
+            0,
+            1515,
+            1095
+          ]
+        },
+        {
+          "index": 3,
+          "source_size": [
+            644,
+            1398
+          ],
+          "source_sheet_box": [
+            1932,
+            0,
+            2576,
+            1398
+          ],
+          "output_sheet_box": [
+            1514,
+            0,
+            2020,
+            1095
+          ]
+        },
+        {
+          "index": 4,
+          "source_size": [
+            644,
+            1398
+          ],
+          "source_sheet_box": [
+            2576,
+            0,
+            3220,
+            1398
+          ],
+          "output_sheet_box": [
+            2019,
+            0,
+            2525,
+            1095
+          ]
+        },
+        {
+          "index": 5,
+          "source_size": [
+            644,
+            1398
+          ],
+          "source_sheet_box": [
+            3220,
+            0,
+            3864,
+            1398
+          ],
+          "output_sheet_box": [
+            2524,
+            0,
+            3029,
+            1095
+          ]
+        }
+      ],
+      "original_screenshot_pixels": 5401872
+    },
+    {
+      "source_size": [
+        3864,
+        1430
+      ],
+      "source_pixels": 5525520,
+      "source_patches": 5445,
+      "source_estimated_tokens": 6534,
+      "reference_estimated_tokens": 6654,
+      "target_estimated_tokens": 3992,
+      "effective_target_estimated_tokens": 3992,
+      "minimum_patch_limited": false,
+      "profile_cap_limited": false,
+      "output_size": [
+        3029,
+        1120
+      ],
+      "output_pixels": 3392480,
+      "output_patches": 3325,
+      "output_estimated_tokens": 3990,
+      "retained_token_fraction": 0.5996393146979261,
+      "retained_vs_unscaled_image_fraction": 0.610651974288338,
+      "rounding_shortfall_tokens": 2,
+      "output": "screenshot_sheet_1.png",
+      "screenshot_count": 6,
+      "source_indices": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "layout": "horizontal",
+      "source_regions": [
+        {
+          "index": 6,
+          "source_size": [
+            644,
+            1398
+          ],
+          "source_sheet_box": [
+            0,
+            0,
+            644,
+            1398
+          ],
+          "output_sheet_box": [
+            0,
+            0,
+            505,
+            1095
+          ]
+        },
+        {
+          "index": 7,
+          "source_size": [
+            644,
+            1398
+          ],
+          "source_sheet_box": [
+            644,
+            0,
+            1288,
+            1398
+          ],
+          "output_sheet_box": [
+            504,
+            0,
+            1010,
+            1095
+          ]
+        },
+        {
+          "index": 8,
+          "source_size": [
+            644,
+            1398
+          ],
+          "source_sheet_box": [
+            1288,
+            0,
+            1932,
+            1398
+          ],
+          "output_sheet_box": [
+            1009,
+            0,
+            1515,
+            1095
+          ]
+        },
+        {
+          "index": 9,
+          "source_size": [
+            644,
+            1398
+          ],
+          "source_sheet_box": [
+            1932,
+            0,
+            2576,
+            1398
+          ],
+          "output_sheet_box": [
+            1514,
+            0,
+            2020,
+            1095
+          ]
+        },
+        {
+          "index": 10,
+          "source_size": [
+            644,
+            1398
+          ],
+          "source_sheet_box": [
+            2576,
+            0,
+            3220,
+            1398
+          ],
+          "output_sheet_box": [
+            2019,
+            0,
+            2525,
+            1095
+          ]
+        },
+        {
+          "index": 11,
+          "source_size": [
+            644,
+            1398
+          ],
+          "source_sheet_box": [
+            3220,
+            0,
+            3864,
+            1398
+          ],
+          "output_sheet_box": [
+            2524,
+            0,
+            3029,
+            1095
+          ]
+        }
+      ],
+      "original_screenshot_pixels": 5401872
+    }
+  ]
+}

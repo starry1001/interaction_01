@@ -1,0 +1,79 @@
+{
+  "total_step": 22,
+  "success_step": 2,
+  "screenshot_paths_to_eval": [
+    "outputs/31/gpt-6-luna_setting1/evalpoints/0.png",
+    "outputs/31/gpt-6-luna_setting1/evalpoints/0.png",
+    "outputs/31/gpt-6-luna_setting1/evalpoints/1.png"
+  ],
+  "all_mllm_scores": [
+    0.77,
+    0.31,
+    0.3
+  ],
+  "all_dino_scores": [
+    0.9482421875,
+    0.92578125,
+    0.8974609375
+  ],
+  "all_ocr_scores": [
+    0.5846994535519126,
+    0.2898936170212766,
+    0.3160621761658031
+  ],
+  "all_avg_scores": [
+    0.7676472136839708,
+    0.5085582890070922,
+    0.5045077045552677
+  ],
+  "mllm_score": 0.45999999999999996,
+  "dino_score": 0.923828125,
+  "ocr_score": 0.3968850822463308,
+  "avg_score": 0.5935710690821102,
+  "all_mllm_res": [
+    "Comments:\n- **Layout (7/10 points):** The main dashboard structure is well preserved: left sidebar, top workspace header, navigation tabs, three-column top cards, full-width Folders panel, and Lists table. However, the generated page omits the large purple global header/search bar and several upper-right controls, and the overall proportions and spacing differ from the reference.\n- **Elements (11/15 points):** Most major elements are present, including Recent, Docs, Bookmarks, Folders, Lists, workspace navigation, sidebar projects, and action buttons. Some elements are missing or simplified, such as the global toolbar, Filters/refresh controls, top-right utility buttons, bookmark icon treatment, and lower dashboard cards visible in the reference.\n- **Content and Text (34/40 points):** The primary text content is highly similar, including “Team Space,” navigation labels, “Project 1,” “Project 2,” “Project Notes,” “Recent,” “Docs,” “Bookmarks,” “Folders,” “Lists,” and the empty-state messages. Some reference text and controls are absent, especially in the global header and utility areas.\n- **Style (10/15 points):** The generated version retains the clean ClickUp-like white interface, purple accents, light borders, cards, and typography. However, it lacks the reference’s dark purple top bar, has less detailed iconography, different font sizing/weight in places, and somewhat flatter/lighter visual styling.\n- **Overall (15/20 points):** This is a strong structural recreation of the central workspace dashboard with very similar content and organization. The missing global header and several secondary controls prevent it from being a close pixel-level match.\n\n**Score: 77/100**",
+    "Comments:\n- **Layout (2/10):** Both pages use a left navigation sidebar and a card-based workspace, but the overall structures differ substantially. The first page has a purple global header and a two-column dashboard with multiple widgets, while the second has a workspace navigation bar, three top cards, and full-width sections for folders and lists.\n- **Elements (5/15):** Shared elements include the ClickUp-style sidebar, workspace/team-space navigation, project entries, rounded white cards, and purple action buttons. However, the primary widgets and controls are largely different: Agenda, My Work, and Assigned to me are absent from the second page, which instead includes Docs, Bookmarks, Folders, and Lists.\n- **Content and Text (10/40):** Some text overlaps, including “Home,” “Team Space,” “Project 1,” and “Project 2.” Most visible content is different, though. The first page contains a greeting, recent tasks, meeting information, agenda details, and assigned work, whereas the second contains Recent, Docs, Bookmarks, Folders, and list progress data.\n- **Style (9/15):** The pages share a similar product aesthetic: light gray background, white rounded panels, subtle borders/shadows, compact sans-serif typography, purple highlights, and a similar sidebar treatment. The first page’s dark purple top bar and denser dashboard styling are not present in the second.\n- **Overall (5/20):** The shared ClickUp-like visual language and navigation affordances provide some resemblance, but the page purpose, content arrangement, header treatment, and major dashboard components differ considerably.\n\n**Score: 31/100**",
+    "Comments:\n-Layout (10 points): The generated page uses a similar ClickUp-style left sidebar and top navigation, but the main content layout is substantially different. The reference shows a Team Space overview with three top cards, a Folders section, and a Lists section, while the generated page displays a task/list table with a large instructional popover. **3/10**\n-Elements (15 points): Some shared elements are present, including the workspace sidebar, Team Space navigation, project entries, purple accent buttons, and ClickUp-like controls. However, key reference elements such as the Recent, Docs, Bookmarks, Folders, and Lists cards are missing. The generated page adds unrelated task columns, filters, and a tutorial modal. **5/15**\n-Content and Text (40 points): There is limited overlap in text such as “Team Space,” “Project 1,” “Project 2,” and “Project Notes.” Most of the visible text differs: the reference contains “Overview,” “Recent,” “Docs,” “Bookmarks,” “Folders,” “Lists,” and “No Folders to show,” while the generated page contains task-management labels and onboarding text. **10/40**\n-Style (15 points): The general visual language is somewhat similar, with a white interface, light gray dividers, purple highlights, compact sans-serif typography, and a ClickUp-inspired sidebar. However, the generated screenshot includes a dark purple global header and a prominent dark tutorial overlay not present in the reference. **7/15**\n-Overall (20 points): The page appears to belong to the same product and shares some navigation structure, but it represents a different view and state. The central composition, information hierarchy, and visible content do not closely match the reference. **5/20**\n\nScore: 30/100"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "Search 8AI Upgrade New RER's Wor_ Team Space Agents Automate Ask AI Share Home Overview List '0o Board Calendar Gantt B Table View Hide Customize Add card Inbox Get the most out of your Overviewl Add, reorder; and resize cards to customize this page Get Started More Filtets Hide Protect viewy Refreshed: just now Auto refresh; On Favorites Spaces Recent Docs Bookmarks Everything Project in Team Space Project in Team Space Team Space Project Project 2 Project Notes Bookmarks make it easy t0 save ClickUp items or any URL from around the wcd; Create Space Add Bookmark Folders No Folders L0 show Lists Name Color Progress Stant End Priority Owner Project 1 0/4 Project 2 0/3 New List Resources Workload by Status 1/5 8 Invite Help",
+      "screenshot_text": "Team Space 43Z's Wor__ Overview 3 List Board Calendar Gantt Table View Customize Add card Home Get the most out of your Overviewl Add, reorder; and resize cards t0 customize this page Get Started Inbox More Recent Docs Bookmarks Favorites Project 1 in Team Space Project 1 in Team Space Spaces Everything Team Space Bookmarks make It to save ClickUp items or any URL from around the web: Project 1 Add Bookmark Project 2 Project Notes Create Space Folders No Folders t0 show Lists Name Color Progress Start End Priority Owner Project 0/4 Project 2 0/3 New List Invite @ Help easy",
+      "similarity": 0.5846994535519126
+    },
+    {
+      "checkpoint_text": "Search #AI Upgrade New 0 # RER's Wor_ Home Manage cards Home Good morning; #55 Inbox More Recents Agenda Project in Team Space Aug 24, Sun Today Favorites meeting n Project Spaces meeting AII 111 in #83s List Everything Task n Project Team Space Task 2 n Project Project Task 3 in Project Project 2 Task 3 Project Notes Task Create Space Tacl My Work Assigned to me To Do Done Delegated Group: Status Subtasks Columns Filter Closed Search Customize Today TO DO Add Task meeting Team Space Project Today Name Prority Duc date meeting Urgent Today Overdue Add Task Next Unscheduled Personal List 0 Assigned comments Group: None Subtasks Columns Closed Searchu Customize Add Task Name Assignee Due date Priority Date created 8 Invite Help day Filtet Tasks",
+      "screenshot_text": "Team Space 43Z's Wor__ Overview 3 List Board Calendar Gantt Table View Customize Add card Home Get the most out of your Overviewl Add, reorder; and resize cards t0 customize this page Get Started Inbox More Recent Docs Bookmarks Favorites Project 1 in Team Space Project 1 in Team Space Spaces Everything Team Space Bookmarks make It to save ClickUp items or any URL from around the web: Project 1 Add Bookmark Project 2 Project Notes Create Space Folders No Folders t0 show Lists Name Color Progress Start End Priority Owner Project 0/4 Project 2 0/3 New List Invite @ Help easy",
+      "similarity": 0.2898936170212766
+    },
+    {
+      "checkpoint_text": "Search #AI Upgrade New RER's Wor_ Team Space 3= Project 1 Agents Automate Ask Al Share Home Gantt B Table View Search Hide Customize Add Task Inbox Filter Closed Assignee Search More Favorites Assignee Due date Priority Status Comments Spaces Meet List View TO DO Everything Get started by learning how to use List TO DO View t0 manage your work Team Space TO DO Explore on my own Show me Project = Today Urgent TO DO Project 2 of 6 Project Notes Create Space 1/5 8 Invite Help",
+      "screenshot_text": "Team Space 43Z's Wor__ Overview 3 List Board Calendar Gantt Table View Customize Add card Home Get the most out of your Overviewl Add, reorder; and resize cards t0 customize this page Get Started Inbox More Recent Docs Bookmarks Favorites Project 1 in Team Space Project 1 in Team Space Spaces Everything Team Space Bookmarks make It to save ClickUp items or any URL from around the web: Project 1 Add Bookmark Project 2 Project Notes Create Space Folders No Folders t0 show Lists Name Color Progress Start End Priority Owner Project 0/4 Project 2 0/3 New List Invite @ Help easy",
+      "similarity": 0.3160621761658031
+    }
+  ],
+  "assertion_results": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ]
+}

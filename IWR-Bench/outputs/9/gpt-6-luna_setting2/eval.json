@@ -1,0 +1,83 @@
+{
+  "total_step": 4,
+  "success_step": 4,
+  "screenshot_paths_to_eval": [
+    "outputs/9/gpt-6-luna_setting2/evalpoints/0.png",
+    "outputs/9/gpt-6-luna_setting2/evalpoints/0.png",
+    "outputs/9/gpt-6-luna_setting2/evalpoints/1.png",
+    "outputs/9/gpt-6-luna_setting2/evalpoints/2.png",
+    "outputs/9/gpt-6-luna_setting2/evalpoints/3.png"
+  ],
+  "all_mllm_scores": [
+    0.84,
+    0.11,
+    0.48,
+    0.26,
+    0.25
+  ],
+  "all_dino_scores": [
+    0.25537109375,
+    0.390625,
+    0.30224609375,
+    0.666015625,
+    0.56396484375
+  ],
+  "all_ocr_scores": [
+    0.8361111111111111,
+    0.25,
+    0.1015625,
+    0.17689530685920574,
+    0.22661870503597126
+  ],
+  "all_avg_scores": [
+    0.6438274016203703,
+    0.2502083333333333,
+    0.29460286458333335,
+    0.36763697728640193,
+    0.34686118292865703
+  ],
+  "mllm_score": 0.388,
+  "dino_score": 0.43564453125,
+  "ocr_score": 0.3182375246012576,
+  "avg_score": 0.3806273519504192,
+  "all_mllm_res": [
+    "Comments:\n- **Layout (8/10 points):** The overall structure is highly consistent: top navigation, product category bar, promotional strip, large title area, and hero section are all positioned similarly. There are noticeable differences in vertical spacing and sizing, with the generated version’s header and navigation taking more height.\n- **Elements (14/15 points):** Nearly all major elements are present, including the Apple logo, navigation links, product icons, promotional banner, “iPhone” heading, tagline, hero image, and pause control. The product icon sizing and spacing vary slightly.\n- **Content and Text (38/40 points):** Text content is almost entirely accurate and matches the reference, including navigation labels, product names, promotional copy, “iPhone,” and “Designed to be loved.” Minor differences in text scale and positioning are present.\n- **Style (10/15 points):** Typography, monochrome palette, whitespace, and Apple-like minimalist styling are well reproduced. However, the hero imagery differs substantially in both subject and color treatment: the reference shows a light-colored close-up phone image, while the generated version shows a dark, side-profile phone image.\n- **Overall (14/20 points):** The page is clearly recognizable as the same iPhone landing page and closely matches the reference in structure and content. The primary limitation is the different hero carousel image, along with moderate scaling and spacing differences.\n\n**Score: 84/100**",
+    "Comments:\n- **Layout (10 points): 1/10** — The screenshots show substantially different page positions and structures. The reference begins at the top with the Apple global navigation, iPhone sub-navigation, promotional strip, title area, and hero image. The generated page is scrolled much farther down, showing the lower portion of a hero image and the “Get to know iPhone” card section.\n- **Elements (15 points): 2/15** — The generated page includes some recognizable iPhone-related elements and carousel cards, but it lacks the reference’s global header, product navigation icons, promotional banner, “iPhone” heading, tagline, and main hero composition.\n- **Content and Text (40 points): 2/40** — Text content differs almost entirely. The reference prominently contains “iPhone,” “Designed to be loved.”, navigation labels, and the trade-in message, while the generated page mainly shows “Get to know iPhone.” and feature-card text.\n- **Style (15 points): 4/15** — Both pages use Apple-like typography, a white background, rounded imagery, and a clean minimalist aesthetic. However, the visible imagery, spacing, hierarchy, card treatment, and overall visual composition are substantially different.\n- **Overall (20 points): 2/20** — There is only a broad thematic similarity as an Apple iPhone webpage. The visible layout, content, and page section do not match the reference closely.\n\n**Score: 11/100**",
+    "Comments:\n- **Layout (10 points): 4/10** — Both screenshots use a wide, minimalist Apple-style layout with generous whitespace and rounded media sections, but the visible structures differ substantially. The first shows a horizontal card carousel, while the second shows a large hero image followed by the “Get to know iPhone.” heading.\n- **Elements (15 points): 6/15** — Both include large iPhone imagery, rounded corners, scrolling/slider controls, and a prominent section heading. However, the first contains multiple feature cards and plus buttons, whereas the second primarily displays a single large product visual with pause controls.\n- **Content and Text (40 points): 17/40** — The exact heading “Get to know iPhone.” appears in both, and the product-focused theme is consistent. Most of the supporting text differs or is not visible in the reference screenshot, including the Apple Intelligence, camera, battery, and innovation card copy.\n- **Style (15 points): 12/15** — Strong similarity in typography, clean white background, premium product photography, rounded media containers, and restrained Apple visual language. The first screenshot uses more varied card backgrounds and dense overlay text.\n- **Overall (20 points): 9/20** — The screenshots appear to belong to the same Apple iPhone webpage and share branding and visual direction, but they show notably different sections or scroll positions, limiting direct visual similarity.\n\n**Score: 48/100**",
+    "Comments:\n- **Layout (10 points): 3/10** — Both screenshots use a wide, minimalist Apple-style layout with generous whitespace and horizontally arranged content. However, the visible sections differ substantially: one shows a product lineup carousel, while the other shows a “Get to know iPhone” card grid.\n- **Elements (15 points): 4/15** — Both include large headings, product imagery, carousel/navigation indicators, and horizontally distributed content. The reference contains five large promotional cards, while the generated view contains four product tiles and comparison controls.\n- **Content and Text (40 points): 5/40** — The text content is almost entirely different. The generated page shows “Explore the lineup,” “Compare all models,” and model names such as “iPhone 16 Pro,” whereas the reference shows “Get to know iPhone” and promotional copy including “AI-opening possibilities,” “Picture your best photos and videos,” and “Fast that lasts.”\n- **Style (15 points): 9/15** — The typography, spacing, neutral background, rounded imagery, and polished Apple-like visual language are reasonably similar. However, the reference uses dark, colorful promotional cards, while the generated section uses isolated product renders on a pale background.\n- **Overall (20 points): 5/20** — The pages appear to belong to the same Apple iPhone website and share a similar design system, but the section structure, imagery, copy, and visual composition are substantially different.\n\n**Score: 26/100**",
+    "Comments:\n- **Layout (2/10):** The two screenshots show substantially different page sections and structures. The reference displays a four-column product comparison table with aligned rows, while the generated page shows a horizontal set of five promotional cards followed by an “Explore the lineup” section. Shared spacing and grid-like organization are limited.\n- **Elements (4/15):** Both include Apple/iPhone promotional content, rounded cards or product columns, imagery, and blue action/link styling. However, the reference contains product images, color swatches, comparison icons, specifications, and “Learn more”/“Buy” controls that are largely absent from the generated view.\n- **Content and Text (7/40):** The generated page includes related Apple messaging such as “Apple Intelligence,” camera, chip, battery, innovation, environment, and “Explore the lineup.” Nevertheless, it does not reproduce the reference’s key product names, pricing, specifications, feature labels, or comparison copy.\n- **Style (7/15):** There is some similarity in Apple-like typography, restrained color palette, rounded imagery, blue links, and clean whitespace. The generated page uses large editorial cards and dark photographic backgrounds, whereas the reference uses a light gray comparison-table background with compact black text and icons.\n- **Overall (5/20):** The pages appear to belong to the same Apple iPhone site and may be adjacent sections of the same experience, but the visible layouts, content hierarchy, and primary UI components differ considerably.\n\n**Score: 25/100**"
+  ],
+  "all_ocr_texts": [
+    {
+      "checkpoint_text": "Store Mac iPad iPhone Watch Vision AirPods TV & Home Entertainment Accessories Support OS iPhone 16 Pro iPhone 16 iPhone 16e iPhone 15 Compare AirPods AirTag Accessories Apple Card IOS 26 Shop iPhone Previewi Get S160-5600 in credit toward iPhone 16 or iPhone 16 Pro when you trade in iPhone 12 or higher: Shop iPhone > iPhone Designed to be loved:",
+      "screenshot_text": "Store Mac iPad iPhone Watch Vision AirPods TV & Home Entertainment Accessories Support i05.26 [hone 16 Pro [hona 16 [hone 16e [hona 15 Compare AiPods Ailag Accessones Apple Card Shop Phone Preview Get S160-S600 in credit toward iPhone 16 or iPhone 16 Pro when you trade in iPhone 12 or higher: Shop iPhone iPhone Designed to be loved: Mind Lainey ' Wilscn To S",
+      "similarity": 0.8361111111111111
+    },
+    {
+      "checkpoint_text": "Get to know iPhone. Apple Intelligence Cutting-Edge Cameras Chip and Battery Life Innovation Enviroi Al-opening possibilities ' Picture your best Fast that lasts: Beautiful and durable, photos and videos: by design: 94 Reci",
+      "screenshot_text": "Store Mac iPad iPhone Watch Vision AirPods TV & Home Entertainment Accessories Support i05.26 [hone 16 Pro [hona 16 [hone 16e [hona 15 Compare AiPods Ailag Accessones Apple Card Shop Phone Preview Get S160-S600 in credit toward iPhone 16 or iPhone 16 Pro when you trade in iPhone 12 or higher: Shop iPhone iPhone Designed to be loved: Mind Lainey ' Wilscn To S",
+      "similarity": 0.25
+    },
+    {
+      "checkpoint_text": "Get to know iPhone. Apple Intelligence Cutting-Edge Cameras Chip and Battery Life Innovation Envirol Al-opening possibilities ' Picture your best Fast that lasts: Beautiful and durable, Recy photos and videos: by design: e . Grnmoi A18 OFCE0J PRO FDj J8 da",
+      "screenshot_text": "Get to know iPhone: Fao Sd",
+      "similarity": 0.1015625
+    },
+    {
+      "checkpoint_text": "Explore the lineup: Compare all models jphone 16 Pro iphone iphone 16e jphone 15",
+      "screenshot_text": "Get to know iPhone: Apple Intelligence Cutting-Edge Cameras Chip and Battery Life Innovation Environment Al-opening Picture your best Fast that lasts: Beautiful and durable, Recycled: Recyclable: possibilities.1 photos and videos: by design: Cnmtin dattpaai ma Cen A18 Lctn PRO",
+      "similarity": 0.17689530685920574
+    },
+    {
+      "checkpoint_text": "iPhone 16 Pro iPhone 16 iPhone 16e iPhone 15 The ultimate iPhone. A total powerhouse: Latest iPhone. Greatest price: As amazing as ever: From S999 or S41.62/mo. for 24 mo\" From S799 or S33.29/mo. for 24 mosu From S599 or S24.95/mo. for 24 moau From S699 or S29.12/mo. for 24 mozu Learn more Learn more Learn more Learn more Apple Intelligence- Apple Intelligence- Apple Intelligence- A18 A18 A18 A16 A18 Pro chip with 6-core GPU A18 chip with 5-core GPU A18 chip with 4-core GPU A16 Bionic chip with 5-core GPU Camera Control Camera Control Buy Buy Buy Buy",
+      "screenshot_text": "Apple Intelligence Cutting-Edge Cameras Chip and Battery Life Innovation Environment Al-opening Picture best Fast that lasts: Beautiful and durable, Recycled: Recyclable: possibilities.1 photos and videos: by design: U Cnmtin dattpaai ma Cen A18 Lctn PRO Explore the lineup: Compare all models > your",
+      "similarity": 0.22661870503597126
+    }
+  ],
+  "assertion_results": [
+    null,
+    null,
+    null,
+    null
+  ]
+}

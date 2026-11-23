@@ -1,0 +1,402 @@
+```html
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Polygon — Latest in Gaming and Entertainment</title>
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: #fff;
+    color: #111;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow-x: hidden;
+  }
+  a { color: inherit; }
+  .btn { cursor: pointer; }
+  .site-header {
+    height: 150px;
+    background: #fff;
+    position: relative;
+    z-index: 20;
+    transition: height .2s, background .2s;
+  }
+  .header-inner {
+    width: min(1310px, calc(100% - 70px));
+    height: 100%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .brand {
+    display: block;
+    width: 340px;
+    height: 90px;
+  }
+  .brand img { display: block; width: 340px; height: 90px; object-fit: contain; }
+  .header-nav { display: flex; align-items: center; gap: 48px; color: #c40055; font-weight: 700; font-size: 16px; }
+  .header-nav a { text-decoration: none; }
+  .user-icon {
+    width: 25px; height: 25px; border-radius: 50%; background: #c40055;
+    display: inline-flex; align-items: center; justify-content: center; color: white;
+    font-size: 13px;
+  }
+  .hamburger { border: 0; background: none; padding: 4px; width: 30px; height: 28px; }
+  .hamburger span { display: block; width: 23px; height: 3px; background: #c40055; margin: 4px 0; }
+  .sticky-tools { display: none; align-items: center; gap: 18px; }
+  .sign-in { border: 0; background: #fff; border-radius: 20px; padding: 9px 13px; font-size: 12px; font-weight: bold; }
+  .site-header.scrolled {
+    position: fixed; top: 0; left: 0; right: 0; height: 32px;
+    background: #61ff65; border-bottom: 2px solid #bdffbc;
+  }
+  .site-header.scrolled .header-inner { width: min(1310px, calc(100% - 70px)); }
+  .site-header.scrolled .brand { width: 30px; height: 30px; }
+  .site-header.scrolled .brand img { width: 25px; height: 25px; }
+  .site-header.scrolled .header-nav { display: none; }
+  .site-header.scrolled .sticky-tools { display: flex; }
+  .site-header.scrolled .hamburger span { background: #111; }
+  .menu-panel {
+    display: none; position: fixed; z-index: 30; right: max(calc((100vw - 1310px)/2), 35px);
+    top: 40px; width: 250px; padding: 20px; background: #61ff65;
+    box-shadow: 0 5px 20px #0002;
+  }
+  .menu-panel.open { display: grid; gap: 14px; }
+  .menu-panel a { font-weight: bold; }
+  .page-main { padding-top: 0; }
+  .top-layout {
+    width: 1200px; max-width: calc(100% - 80px); margin: 0 auto;
+    display: grid; grid-template-columns: 570px 235px 205px; gap: 35px;
+    align-items: start; padding-top: 40px;
+  }
+  .hero-card img { width: 570px; height: 390px; display: block; object-fit: cover; }
+  .category { color: #c40055; font-size: 12px; font-weight: 800; letter-spacing: .4px; text-transform: uppercase; margin: 13px 0 7px; }
+  h1, h2, h3, p { margin-top: 0; }
+  .hero-title {
+    font-size: 38px; line-height: 1.2; font-weight: 800; letter-spacing: -.7px;
+    margin: 0 0 12px;
+  }
+  .headline { text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 2px; }
+  .byline { color: #777; font-size: 12px; letter-spacing: 1.4px; text-transform: uppercase; }
+  .small-feature { margin-bottom: 26px; }
+  .small-feature img { display: block; width: 235px; height: 160px; object-fit: cover; }
+  .small-feature .category { margin-top: 11px; }
+  .small-feature h2 { font-size: 20px; line-height: 1.25; margin: 0 0 8px; }
+  .small-feature .byline { font-size: 11px; letter-spacing: 1px; }
+  .latest-side { border-left: 1px dashed #ddd; padding-left: 19px; }
+  .latest-side h2 { font-size: 27px; font-weight: 400; letter-spacing: 1px; margin: 0 0 14px; }
+  .bolt { font-size: 28px; margin-left: 5px; }
+  .side-item { margin-bottom: 20px; }
+  .side-item time { display: block; color: #c40055; text-transform: uppercase; font-weight: 800; font-size: 11px; margin-bottom: 7px; }
+  .side-item a { font-size: 16px; line-height: 1.22; color: #555; text-decoration: underline; }
+  .plus-section { width: 1200px; max-width: calc(100% - 80px); margin: 42px auto 0; }
+  .section-heading { font-weight: 400; font-size: 30px; letter-spacing: 1px; margin: 0 0 22px; }
+  .section-heading.pink { color: #c40055; }
+  .plus-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .story-image {
+    display: block; width: 100%; height: 190px; object-fit: cover;
+    border: 6px solid #d50052; border-radius: 10px;
+  }
+  .story-card h3 { font-size: 21px; line-height: 1.25; margin: 0 0 9px; }
+  .story-card .category { margin: 12px 0 7px; }
+  .story-card .byline { font-size: 11px; }
+  .ad-space { height: 470px; }
+  .gamescom {
+    width: 1200px; max-width: calc(100% - 80px); margin: 0 auto;
+    border-top: 2px solid #76ff8b; padding-top: 14px;
+  }
+  .section-top { display: flex; justify-content: space-between; align-items: center; }
+  .section-top .section-heading { margin: 0 0 25px; }
+  .see-more { font-size: 11px; font-weight: 800; text-decoration: none; margin: 0 12px 22px 0; }
+  .games-grid { display: grid; grid-template-columns: 1fr 1.35fr 1fr; gap: 30px; align-items: start; }
+  .games-grid .story-image { height: 205px; }
+  .games-grid .story-card:nth-child(2) .story-image { height: 270px; }
+  .grounded {
+    width: min(1500px, calc(100% - 100px)); margin: 285px auto 0;
+    border-radius: 10px; background: #61ff65; padding: 38px 70px 35px;
+  }
+  .grounded .section-heading { font-size: 34px; font-weight: 800; letter-spacing: 0; margin-bottom: 32px; }
+  .grounded .section-top .section-heading { margin-bottom: 32px; }
+  .grounded-grid { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 42px; }
+  .grounded-item {
+    display: grid; grid-template-columns: 1fr 112px; gap: 22px; align-items: center;
+    min-height: 145px; border-bottom: 1px solid #42e94b; padding: 12px 0;
+  }
+  .grounded-item:nth-last-child(-n+3) { border-bottom: 0; }
+  .grounded-item a { font-size: 18px; line-height: 1.12; font-weight: 700; }
+  .grounded-item img { width: 112px; height: 112px; object-fit: cover; border-radius: 12px; }
+  .playing { width: 1200px; max-width: calc(100% - 80px); margin: 48px auto 0; }
+  .playing .section-heading { margin-bottom: 27px; }
+  .playing-grid { display: grid; grid-template-columns: 1fr 1.35fr 1fr; gap: 30px; align-items: start; }
+  .playing-grid .story-image { height: 250px; }
+  .playing-grid .story-card:nth-child(2) .story-image { height: 315px; }
+  .big-gap { height: 390px; }
+  .latest-page {
+    width: calc(100% - 120px); margin: 0 auto 150px;
+    display: grid; grid-template-columns: 1fr 460px; gap: 80px;
+  }
+  .latest-page h2 { color: #c40055; font-size: 34px; font-weight: 400; letter-spacing: 1px; }
+  .latest-row { min-height: 235px; display: grid; grid-template-columns: 1fr 300px; gap: 30px; align-items: center; }
+  .latest-row h3 { font-size: 30px; line-height: 1.18; margin: 7px 0; }
+  .tag { background: #61ff65; padding: 4px 8px; font-size: 14px; text-transform: uppercase; }
+  .latest-row img { width: 300px; height: 230px; object-fit: cover; border-radius: 12px; }
+  .trending { margin-top: 230px; }
+  .trending h3 { color: #c40055; font-size: 23px; letter-spacing: 1px; font-weight: 400; }
+  .trending img { width: 180px; height: 130px; object-fit: cover; border-radius: 10px; float: left; margin-right: 15px; }
+  .trending p { font-size: 19px; }
+  @media (max-width: 1050px) {
+    .header-inner { width: calc(100% - 32px); }
+    .brand, .brand img { width: 220px; }
+    .header-nav { gap: 18px; }
+    .top-layout { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(180px, .8fr); }
+    .hero-card img { width: 100%; height: auto; aspect-ratio: 1.46; }
+    .latest-side { display: none; }
+    .small-feature img { width: 100%; }
+    .grounded { padding: 30px; }
+    .grounded-grid { grid-template-columns: repeat(2, 1fr); }
+    .grounded-item:nth-last-child(-n+3) { border-bottom: 1px solid #42e94b; }
+  }
+  @media (max-width: 650px) {
+    .site-header { height: 90px; }
+    .brand, .brand img { width: 190px; height: 60px; }
+    .header-nav a { display: none; }
+    .top-layout, .plus-grid, .games-grid, .playing-grid, .latest-page { display: block; }
+    .top-layout { max-width: calc(100% - 32px); padding-top: 20px; }
+    .hero-title { font-size: 30px; }
+    .small-feature { margin-top: 28px; }
+    .small-feature img { height: auto; aspect-ratio: 1.47; }
+    .plus-section, .gamescom, .playing { max-width: calc(100% - 32px); }
+    .story-card { margin-bottom: 28px; }
+    .story-image, .games-grid .story-image, .playing-grid .story-image,
+    .games-grid .story-card:nth-child(2) .story-image, .playing-grid .story-card:nth-child(2) .story-image {
+      height: auto; aspect-ratio: 1.5;
+    }
+    .grounded { width: calc(100% - 32px); padding: 24px; margin-top: 100px; }
+    .grounded-grid { display: block; }
+    .grounded-item { grid-template-columns: 1fr 90px; }
+    .grounded-item img { width: 90px; height: 90px; }
+    .ad-space { height: 200px; }
+    .big-gap { height: 180px; }
+    .latest-page { width: calc(100% - 32px); }
+    .latest-row { grid-template-columns: 1fr; }
+    .latest-row img { width: 100%; }
+    .trending { margin-top: 50px; }
+  }
+</style>
+</head>
+<body>
+<header class="site-header" id="header">
+  <div class="header-inner">
+    <a class="brand btn" href="#" aria-label="Polygon home">
+      <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/054.svg" width="340" height="90" alt="Polygon">
+    </a>
+    <nav class="header-nav">
+      <a class="btn" href="#gamescom">Guides</a>
+      <a class="btn" href="#playing">Gaming</a>
+      <a class="btn" href="#latest">Entertainment</a>
+      <a class="btn user-icon" href="#signin" aria-label="Sign in">●</a>
+      <button class="btn hamburger menu-toggle" aria-label="Open menu"><span></span><span></span><span></span></button>
+    </nav>
+    <div class="sticky-tools">
+      <button class="btn sign-in">Sign In Now&nbsp; ●</button>
+      <button class="btn hamburger menu-toggle" aria-label="Open menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="menu-panel" id="menu">
+  <a class="btn" href="#gamescom">Gaming</a>
+  <a class="btn" href="#playing">Reviews &amp; previews</a>
+  <a class="btn" href="#latest">Entertainment</a>
+  <a class="btn" href="#grounded">Guides</a>
+</div>
+
+<main class="page-main">
+  <section class="top-layout">
+    <article class="hero-card">
+      <a class="btn" href="#gamescom"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/116.png" width="570" height="390" alt="A colorful garden and greenhouse in a cozy game"></a>
+      <div class="category">Gamescom</div>
+      <h1 class="hero-title"><a class="btn headline" href="#gamescom">One of 2026's most interesting cozy games combines hotel renovation, ghosts, and ska</a></h1>
+      <div class="byline">By Marloes Valentina Stella　 ▣</div>
+    </article>
+    <div>
+      <article class="small-feature">
+        <a class="btn" href="#latest"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/093.jpg" width="235" height="160" alt="Grand Theft Auto 6"></a>
+        <div class="category">Grand Theft Auto 6</div>
+        <h2><a class="btn headline" href="#latest">Too many games are about to cannibalize each other trying to fill GTA 6’s vacuum</a></h2>
+        <div class="byline">By Austin Manchester　 ▣ 7</div>
+      </article>
+      <article class="small-feature">
+        <a class="btn" href="#latest"><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/132.png" width="235" height="160" alt="A scene from Star Trek"></a>
+        <div class="category">Star Trek</div>
+        <h2><a class="btn headline" href="#latest">Star Trek: Strange New Worlds asks if Starfleet are colonizers</a></h2>
+        <div class="byline">By Samantha Nelson　 ▣ 5</div>
+      </article>
+    </div>
+    <aside class="latest-side">
+      <h2>THE LATEST <span class="bolt">⚡</span></h2>
+      <div class="side-item"><time>11 hours ago</time><a class="btn" href="#latest">Bone Lake works as a sex pun, but it's also scary erotic horror</a></div>
+      <div class="side-item"><time>12 hours ago</time><a class="btn" href="#latest">Another game has been delayed because of Hollow Knight: Silksong</a></div>
+      <div class="side-item"><time>12 hours ago</time><a class="btn" href="#latest">Alan Wake, one of the best horror thriller games of all time, is barely over a dollar now</a></div>
+      <div class="side-item"><time>13 hours ago</time><a class="btn" href="#latest">KPop Demon Hunters’ sing-along version is already on Netflix</a></div>
+      <div class="side-item"><time>14 hours ago</time><a class="btn" href="#latest">Fortnite adds virtual band Gorillaz for season 10</a></div>
+      <div class="side-item"><time>20 hours ago</time><a class="btn" href="#latest">KPop Demon Hunters gives Netflix its first theatrical win</a></div>
+      <div class="side-item"><time>1 day ago</time><a class="btn" href="#latest">Pokémon Mystery Dungeon is a criminally underrated roguelike</a></div>
+      <div class="side-item"><time>2 days ago</time><a class="btn" href="#latest">Is Avengers: Doomsday already doomed?</a></div>
+      <div class="side-item"><time>2 days ago</time><a class="btn" href="#latest">30 years ago, Nintendo’s biggest flop was decades ahead of its time</a></div>
+    </aside>
+  </section>
+
+  <section class="plus-section">
+    <h2 class="section-heading pink">PLUS THIS</h2>
+    <div class="plus-grid">
+      <article class="story-card">
+        <a class="btn" href="#latest"><img class="story-image" src="__PLACEHOLDER_ASSETS_BASE_DIR__/120.png" width="360" height="190" alt="BoJack Horseman characters"></a>
+        <div class="category">Animation</div>
+        <h3><a class="btn headline" href="#latest">BoJack Horseman's creator returns with a dark new animated comedy 'for everybody'</a></h3>
+        <div class="byline">By Samantha Nelson　 ▣</div>
+      </article>
+      <article class="story-card">
+        <a class="btn" href="#latest"><img class="story-image" src="__PLACEHOLDER_ASSETS_BASE_DIR__/138.png" width="360" height="190" alt="Story of Seasons characters"></a>
+        <div class="category">Story of Seasons: Grand Bazaar</div>
+        <h3><a class="btn headline" href="#latest">A farming sim that admits you can’t save the world alone</a></h3>
+        <div class="byline">By Aimee Hart　 ▣ 1</div>
+      </article>
+      <article class="story-card">
+        <a class="btn" href="#latest"><img class="story-image" src="__PLACEHOLDER_ASSETS_BASE_DIR__/141.png" width="360" height="190" alt="A filmmaker at a desk"></a>
+        <div class="category">Culture</div>
+        <h3><a class="btn headline" href="#latest">Spike Lee's new movie is a scathing attack on social media — but he says Instagram has one great use</a></h3>
+        <div class="byline">By Tasha Robinson　 ▣ 1</div>
+      </article>
+    </div>
+  </section>
+
+  <div class="ad-space"></div>
+
+  <section class="gamescom" id="gamescom">
+    <div class="section-top">
+      <h2 class="section-heading">GAMESCOM 2025</h2>
+      <a class="btn see-more" href="#playing">SEE MORE ›</a>
+    </div>
+    <div class="games-grid">
+      <article class="story-card">
+        <a class="btn" href="#latest"><img class="story-image" src="__PLACEHOLDER_ASSETS_BASE_DIR__/142.png" width="360" height="205" alt="A horror game battle"></a>
+        <div class="category">Gamescom</div>
+        <h3><a class="btn headline" href="#latest">John Carpenter's newest horror is actually a game — and I played it</a></h3>
+        <div class="byline">By Samantha Nelson　 ▣</div>
+      </article>
+      <article class="story-card">
+        <a class="btn" href="#latest"><img class="story-image" src="__PLACEHOLDER_ASSETS_BASE_DIR__/143.png" width="450" height="270" alt="A small character runs through a vivid green landscape"></a>
+        <div class="category">Previews</div>
+        <h3><a class="btn headline" href="#latest">Somehow, the sequel to Planet of Lana feels bigger, prettier, and deeper in every way</a></h3>
+        <div class="byline">By Marloes Valentina Stella　 ▣ 5</div>
+      </article>
+      <article class="story-card">
+        <a class="btn" href="#latest"><img class="story-image" src="__PLACEHOLDER_ASSETS_BASE_DIR__/139.png" width="360" height="205" alt="Sci-fi action game scene"></a>
+        <div class="category">Pragmata</div>
+        <h3><a class="btn headline" href="#latest">Pragmata’s combat-puzzle mechanics live up to the hype</a></h3>
+        <div class="byline">By Michael McWhertor　 ▣</div>
+      </article>
+    </div>
+  </section>
+
+  <section class="grounded" id="grounded">
+    <div class="section-top">
+      <h2 class="section-heading">Little guys, big secrets</h2>
+      <a class="btn see-more" href="#playing">SEE MORE ›</a>
+    </div>
+    <div class="grounded-grid">
+      <div class="grounded-item"><a class="btn" href="#latest">Where to find sturdy quartzite in Grounded 2</a><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/056.jpg" width="112" height="112" alt="A Grounded 2 forest scene"></div>
+      <div class="grounded-item"><a class="btn" href="#latest">Where to find brittle quartzite for brittle... whetstone in Grounded 2</a><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/057.jpg" width="112" height="112" alt="A Grounded 2 cave"></div>
+      <div class="grounded-item"><a class="btn" href="#latest">Where to find crow feather pieces in Grounded 2</a><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/058.jpg" width="112" height="112" alt="A Grounded 2 garden"></div>
+      <div class="grounded-item"><a class="btn" href="#latest">Where to find Wolf Spiders in Grounded 2</a><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/059.jpg" width="112" height="112" alt="A spider in tall grass"></div>
+      <div class="grounded-item"><a class="btn" href="#latest">All ranger station locations in Grounded 2</a><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/060.jpg" width="112" height="112" alt="A ranger station"></div>
+      <div class="grounded-item"><a class="btn" href="#latest">Two studios, one backyard: How Obsidian and Eidos... gambled on Grounded 2</a><img src="__PLACEHOLDER_ASSETS_BASE_DIR__/061.jpg" width="112" height="112" alt="A backyard adventure"></div>
+    </div>
+  </section>
+
+  <section class="playing" id="playing">
+    <div class="section-top">
+      <h2 class="section-heading pink">WHAT WE’RE PLAYING</h2>
+      <a class="btn see-more" href="#latest">SEE MORE ›</a>
+    </div>
+    <div class="playing-grid">
+      <article class="story-card">
+        <a class="btn" href="#latest"><img class="story-image" src="__PLACEHOLDER_ASSETS_BASE_DIR__/126.png" width="360" height="250" alt="Bright indie game action"></a>
+        <div class="category">Impressions</div>
+        <h3><a class="btn headline" href="#latest">This indie gem could be the summer’s best roguelike</a></h3>
+        <div class="byline">By Austin Manchester　 ▣</div>
+      </article>
+      <article class="story-card">
+        <a class="btn" href="#latest"><img class="story-image" src="__PLACEHOLDER_ASSETS_BASE_DIR__/144.png" width="450" height="315" alt="A small silver robot"></a>
+        <div class="category">Nintendo Switch 2</div>
+        <h3><a class="btn headline" href="#latest">The Switch 2's latest GameCube game is a truly delightful hidden gem</a></h3>
+        <div class="byline">By Giovanni Colantonio　 ▣ 4</div>
+      </article>
+      <article class="story-card">
+        <a class="btn" href="#latest"><img class="story-image" src="__PLACEHOLDER_ASSETS_BASE_DIR__/145.png" width="360" height="250" alt="A warrior from Blood of the Dawnwalker"></a>
+        <div class="category">Gamescom</div>
+        <h3><a class="btn headline" href="#latest">Blood of the Dawnwalker lets you choose your own vampire adventure</a></h3>
+        <div class="byline">By Samantha Nelson　 ▣ 2</div>
+      </article>
+    </div>
+  </section>
+
+  <div class="big-gap"></div>
+
+  <section class="latest-page" id="latest">
+    <div>
+      <h2>LATEST</h2>
+      <article class="latest-row">
+        <div>
+          <span class="tag">Horror</span>
+          <h3><a class="btn headline" href="#latest">Bone Lake works as a sex pun, but it's also scary erotic horror</a></h3>
+          <div class="byline">By Isaac Rouse　 11 hours ago　 ▣</div>
+        </div>
+        <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/117.png" width="300" height="230" alt="A woman in a dim green-lit scene">
+      </article>
+      <article class="latest-row">
+        <div>
+          <span class="tag">News</span>
+          <h3><a class="btn headline" href="#latest">Another game has been delayed because of Hollow Knight: Silksong</a></h3>
+          <div class="byline">By Polygon Staff　 12 hours ago</div>
+        </div>
+        <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/118.png" width="300" height="230" alt="A colorful game scene">
+      </article>
+      <article class="latest-row">
+        <div>
+          <span class="tag">Entertainment</span>
+          <h3><a class="btn headline" href="#latest">Alan Wake is one of the best horror thriller games of all time</a></h3>
+          <div class="byline">By Polygon Staff　 12 hours ago</div>
+        </div>
+        <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/119.png" width="300" height="230" alt="A dark cinematic scene">
+      </article>
+    </div>
+    <aside class="trending">
+      <h3>TRENDING NOW</h3>
+      <img src="__PLACEHOLDER_ASSETS_BASE_DIR__/137.png" width="180" height="130" alt="A dramatic television scene">
+      <p><a class="btn headline" href="#latest">Zach Cregger is still grieving. That’s why he made his new movie.</a></p>
+    </aside>
+  </section>
+</main>
+
+<script>
+  const header = document.getElementById('header');
+  const menu = document.getElementById('menu');
+  function updateHeader() {
+    header.classList.toggle('scrolled', window.scrollY > 100);
+  }
+  window.addEventListener('scroll', updateHeader, { passive: true });
+  updateHeader();
+  document.querySelectorAll('.menu-toggle').forEach(button => {
+    button.addEventListener('click', () => menu.classList.toggle('open'));
+  });
+  document.addEventListener('click', event => {
+    if (!menu.contains(event.target) && !event.target.closest('.menu-toggle')) menu.classList.remove('open');
+  });
+</script>
+</body>
+</html>
+```

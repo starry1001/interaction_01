@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>eBay – Deals for you</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; font-family: Arial, Helvetica, sans-serif; color: #191919; }
+  body { background: #fff; overflow-x: hidden; }
+  button, a { font: inherit; color: inherit; }
+  .btn { cursor: pointer; }
+  .page-width { width: 1500px; max-width: calc(100% - 48px); margin: 0 auto; }
+  header { height: 180px; border-bottom: 1px solid #ddd; background: #fff; }
+  .topline { height: 32px; border-bottom: 1px solid #e5e5e5; font-size: 14px; }
+  .topline .page-width { height: 100%; display: flex; justify-content: space-between; align-items: center; }
+  .toplinks, .rightlinks { display: flex; align-items: center; gap: 38px; }
+  .topline a, .nav a { text-decoration: none; white-space: nowrap; }
+  .search-row { height: 86px; display: flex; align-items: center; gap: 20px; }
+  .logo { width: 115px; flex: 0 0 115px; font-size: 51px; line-height: 1; letter-spacing: -5px; font-weight: 500; text-decoration: none; }
+  .logo span:nth-child(1) { color: #e53238; }
+  .logo span:nth-child(2) { color: #0064d2; }
+  .logo span:nth-child(3) { color: #f5af02; }
+  .logo span:nth-child(4) { color: #86b817; }
+  .shop-category { width: 70px; font-size: 14px; line-height: 15px; color: #555; text-decoration: none; }
+  .searchbox { height: 48px; display: flex; align-items: center; flex: 1; border: 2px solid #333; border-radius: 28px; overflow: hidden; }
+  .search-icon { padding: 0 16px; font-size: 20px; color: #555; }
+  .searchbox input { border: 0; outline: 0; font-size: 17px; flex: 1; min-width: 50px; }
+  .category { height: 100%; min-width: 165px; display: flex; align-items: center; justify-content: center; border-left: 1px solid #ddd; color: #555; font-size: 14px; }
+  .search-button { height: 48px; width: 170px; border: 0; border-radius: 28px; background: #3669e8; color: #fff; font-size: 16px; font-weight: bold; }
+  .advanced { text-decoration: none; font-size: 13px; color: #555; margin-left: -12px; }
+  .nav { height: 61px; display: flex; align-items: center; gap: 28px; overflow: hidden; font-size: 14px; }
+  main { padding-top: 0; }
+  .hero { height: 377px; border-radius: 16px; overflow: hidden; position: relative; background: #f9b914; margin-top: 0; }
+  .hero-slide { position: absolute; inset: 0; display: none; }
+  .hero-slide.active { display: block; }
+  .hero.split { background: #f7b90d; color: #583500; }
+  .hero-copy { position: absolute; z-index: 2; left: 95px; top: 84px; width: 650px; }
+  .hero-copy h1 { margin: 0 0 10px; font-size: 38px; line-height: 1.13; letter-spacing: -.5px; }
+  .hero-copy p { margin: 0 0 26px; font-size: 18px; }
+  .pill { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 21px; border-radius: 26px; background: #fff; font-weight: bold; text-decoration: none; font-size: 17px; }
+  .split .pill { color: #fff; background: #684000; }
+  .hero-photo { position: absolute; right: 68px; top: 36px; width: 610px; height: 290px; object-fit: cover; border-radius: 15px; }
+  .hero .full-photo { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+  .hero .darken:after { content:""; position:absolute; inset:0; background:linear-gradient(90deg,rgba(0,0,0,.48),rgba(0,0,0,.03) 78%); }
+  .hero .over-photo { color: white; left: 95px; top: 92px; width: 710px; }
+  .hero .over-photo h1 { font-size: 38px; }
+  .hero .over-photo p { font-size: 18px; }
+  .hero .over-photo .pill { color: #111; }
+  .hero-controls { position: absolute; z-index: 5; right: 34px; bottom: 16px; display: flex; gap: 9px; }
+  .round-control { border: 0; background: rgba(255,255,255,.94); border-radius: 50%; width: 36px; height: 36px; display: grid; place-items: center; font-size: 22px; line-height: 1; }
+  .dots { position: absolute; z-index: 5; bottom: 17px; left: 50%; display: flex; gap: 7px; }
+  .dot { width: 8px; height: 8px; padding: 0; border: 1px solid #694b00; border-radius: 50%; background: transparent; }
+  .dot.selected { background: #654300; }
+  .hero-photo-slide { position:absolute; inset:0; }
+  .hero-photo-slide img { width:100%; height:100%; object-fit:cover; }
+  .hero-photo-slide .hero-copy { color:#fff; left:95px; top:90px; }
+  .hero-photo-slide .pill { color:#111; }
+  .section-title { display: flex; align-items: center; justify-content: space-between; margin: 42px 0 25px; }
+  .section-title h2 { margin: 0; font-size: 23px; line-height: 1.2; }
+  .see-all { font-size: 14px; }
+  .deal-window { position: relative; overflow: hidden; }
+  .deal-row { display: flex; gap: 16px; width: max-content; transition: transform .35s ease; }
+  .deal-card { flex: 0 0 264px; width: 264px; }
+  .deal-image { height: 276px; width: 264px; border-radius: 17px; overflow: hidden; background: #f4f4f4; position: relative; }
+  .deal-image img { width: 100%; height: 100%; display: block; object-fit: cover; }
+  .heart { position: absolute; right: 9px; top: 9px; background: #fff; border: 0; border-radius: 50%; width: 34px; height: 34px; font-size: 23px; line-height: 1; }
+  .discount { display: inline-block; border: 1px solid #d83346; border-radius: 12px; padding: 2px 8px; color: #bc2434; font-size: 12px; font-weight: bold; margin-top: 8px; }
+  .deal-name { height: 45px; margin: 7px 0 4px; font-size: 15px; line-height: 19px; overflow: hidden; }
+  .price { font-weight: bold; font-size: 16px; }
+  .old-price { color: #777; font-size: 12px; text-decoration: line-through; margin-left: 5px; }
+  .edge-button { position: absolute; z-index: 3; top: 40%; background: #fff; border: 1px solid #ddd; border-radius: 50%; width: 38px; height: 38px; font-size: 24px; box-shadow: 0 1px 4px #aaa; }
+  .edge-button.left { left: -18px; }
+  .edge-button.right { right: -18px; }
+  .fake-scroll { height: 7px; background: #aaa; width: 50%; border-radius: 8px; margin-top: 16px; }
+  .live-section { margin-top: 48px; }
+  .live-section .section-title { margin-bottom: 25px; }
+  .live-sub { color: #777; font-size: 16px; margin-top: 3px; }
+  .live-row { display: flex; gap: 16px; overflow: hidden; }
+  .live-card { flex: 0 0 250px; height: 330px; border-radius: 18px; overflow: hidden; position: relative; background: #f4f4f4; }
+  .live-card img { width: 100%; height: 100%; object-fit: cover; }
+  .watchers { position: absolute; top: 9px; right: 8px; background: #e60000; color: #fff; border-radius: 20px; padding: 8px 13px; font-size: 14px; font-weight: bold; }
+  .more-section { margin-top: 60px; min-height: 600px; }
+  .help { position: fixed; right: 38px; bottom: 36px; width: 42px; height: 42px; border: 1px solid #ddd; border-radius: 50%; background: white; font-size: 23px; box-shadow: 0 1px 4px #ddd; }
+  .bottom-bar { position: fixed; z-index: 20; left: 0; right: 0; bottom: 0; height: 11px; background: #eee; border-top: 1px solid #bbb; }
+  .bottom-bar:before { content:""; position:absolute; left:18px; right:20px; top:2px; height:7px; background:#999; border-radius:6px; }
+  @media (max-width: 900px) {
+    .page-width { max-width: calc(100% - 24px); }
+    header { height: auto; }
+    .topline, .nav { display:none; }
+    .search-row { height:80px; gap:8px; }
+    .logo { width:80px; flex-basis:80px; font-size:39px; }
+    .shop-category, .advanced, .category { display:none; }
+    .search-button { width:90px; }
+    .hero { height:290px; }
+    .hero-copy, .hero-photo-slide .hero-copy { left:24px; top:35px; width:55%; }
+    .hero-copy h1 { font-size:25px; }
+    .hero-copy p { font-size:14px; }
+    .hero-photo { right:15px; width:43%; height:220px; top:35px; }
+    .deal-card { flex-basis:190px; width:190px; }
+    .deal-image { width:190px; height:200px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="topline">
+    <div class="page-width">
+      <div class="toplinks">
+        <a class="btn" href="#">Hi Zhao!⌄</a><a class="btn" href="#">Daily Deals</a><a class="btn" href="#">Brand Outlet</a><a class="btn" href="#">Gift Cards</a><a class="btn" href="#">Help &amp; Contact</a>
+      </div>
+      <div class="rightlinks">
+        <a class="btn" href="#">Sell</a><a class="btn" href="#">Watchlist⌄</a><a class="btn" href="#">My eBay⌄</a><a class="btn" href="#" aria-label="Notifications">♧</a><a class="btn" href="#" aria-label="Cart">🛒</a>
+      </div>
+    </div>
+  </div>
+  <div class="page-width search-row">
+    <a class="logo btn" href="#" aria-label="eBay"><span>e</span><span>b</span><span>a</span><span>y</span></a>
+    <a class="shop-category btn" href="#">Shop by<br>category⌄</a>
+    <div class="searchbox"><span class="search-icon">⌕</span><input aria-label="Search" placeholder="Search for anything"><div class="category">All Categories　⌄</div></div>
+    <button class="search-button btn">Search</button>
+    <a class="advanced btn" href="#">Advanced</a>
+  </div>
+  <nav class="page-width nav">
+    <a class="btn" href="#">eBay Live</a><a class="btn" href="#">Saved</a><a class="btn" href="#">Motors</a><a class="btn" href="#">Electronics</a><a class="btn" href="#">Collectibles</a><a class="btn" href="#">Home &amp; Garden</a><a class="btn" href="#">Clothing, Shoes &amp; Accessories</a><a class="btn" href="#">Toys</a><a class="btn" href="#">Sporting Goods</a><a class="btn" href="#">Business &amp; Industrial</a><a class="btn" href="#">Jewelry &amp; Watches</a><a class="btn" href="#">Refurbished</a>
+  </nav>
+</header>
+
+<main class="page-width">
+  <section class="hero split" id="hero">
+    <div class="hero-slide active" data-slide="0">
+      <div class="hero-copy">
+        <h1>Style your alter ego this fall</h1>
+        <p>Bring them out with vintage curated by Emma Chamberlain.</p>
+        <a class="pill btn" href="#">Shop her collection</a>
+      </div>
+      <img class="hero-photo" src="../../../data/data/12/assets/005.webp" width="610" height="290" alt="Fashion collection">
+    </div>
+    <div class="hero-slide hero-photo-slide darken" data-slide="1">
+      <img class="full-photo" src="../../../data/data/12/assets/002.webp" width="1500" height="377" alt="Automotive tools and accessories">
+      <div class="hero-copy over-photo">
+        <h1>Huge selection. Free returns.</h1>
+        <p>Refunds on select parts and accessories are now fast and easy.</p>
+        <a class="pill btn" href="#">Shop now</a>
+      </div>
+    </div>
+    <div class="hero-slide hero-photo-slide darken" data-slide="2">
+      <img class="full-photo" src="../../../data/data/12/assets/003.webp" width="1500" height="377" alt="Streetwear collection">
+      <div class="hero-copy over-photo">
+        <h1>Legit 'fits that are legit fresh</h1>
+        <p>Get streetwear verified by experts with Authenticity Guarantee.</p>
+        <a class="pill btn" href="#">Shop streetwear</a>
+      </div>
+    </div>
+    <div class="hero-slide split" data-slide="3">
+      <div class="hero-copy">
+        <h1>Trending this fall</h1>
+        <p>eBay Watchlist is here. Find must-haves, styled by Brie Welch.</p>
+        <a class="pill btn" href="#">Shop the looks</a>
+      </div>
+      <img class="hero-photo" src="../../../data/data/12/assets/001.webp" width="610" height="290" alt="Fall fashion trends">
+    </div>
+    <div class="dots" aria-label="Choose banner">
+      <button class="dot btn selected" aria-label="Slide 1"></button><button class="dot btn" aria-label="Slide 2"></button><button class="dot btn" aria-label="Slide 3"></button><button class="dot btn" aria-label="Slide 4"></button>
+    </div>
+    <div class="hero-controls">
+      <button class="round-control btn" id="heroPrev" aria-label="Previous banner">‹</button>
+      <button class="round-control btn" id="heroNext" aria-label="Next banner">›</button>
+      <button class="round-control btn" id="heroPause" aria-label="Pause">Ⅱ</button>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title"><h2>Deals for you</h2><a class="see-all btn" href="#">See all</a></div>
+    <div class="deal-window">
+      <button class="edge-button left btn" id="dealPrev" aria-label="Previous deals">‹</button>
+      <div class="deal-row" id="dealRow">
+        <article class="deal-card">
+          <div class="deal-image"><img src="../../../data/data/12/assets/009.webp" width="264" height="276" alt="Air Jordan sneaker"><button class="heart btn" aria-label="Save item">♡</button></div>
+          <span class="discount">10% OFF</span><p class="deal-name">Size 12.5 - Awake NY x Jordan Air Ship PE SP University Red</p><div class="price">$81.00<span class="old-price">$90.00</span></div>
+        </article>
+        <article class="deal-card">
+          <div class="deal-image"><img src="../../../data/data/12/assets/010.webp" width="264" height="276" alt="Jordan Air Ship sneaker"><button class="heart btn" aria-label="Save item">♡</button></div>
+          <span class="discount">10% OFF</span><p class="deal-name">Jordan Air Ship x Awake NY "Game Royal" FN8675-104 Size 9</p><div class="price">$143.99<span class="old-price">$159.99</span></div>
+        </article>
+        <article class="deal-card">
+          <div class="deal-image"><img src="../../../data/data/12/assets/011.webp" width="264" height="276" alt="Sliding compound miter saw"><button class="heart btn" aria-label="Save item">♡</button></div>
+          <span class="discount">45% OFF</span><p class="deal-name">12-Inch Sliding Compound Miter Saw - 15 Amp Double Bevel with Extension...</p><div class="price">$219.99<span class="old-price">$399.99</span></div>
+        </article>
+        <article class="deal-card">
+          <div class="deal-image"><img src="../../../data/data/12/assets/012.webp" width="264" height="276" alt="Air Jordan sneakers"><button class="heart btn" aria-label="Save item">♡</button></div>
+          <span class="discount">15% OFF</span><p class="deal-name">Nike Jordan Awake NY Air Ship PE SP University Red Sz 8 M SNKRS IN HAND</p><div class="price">$212.49<span class="old-price">$249.99</span></div>
+        </article>
+        <article class="deal-card">
+          <div class="deal-image"><img src="../../../data/data/12/assets/013.webp" width="264" height="276" alt="White and red sneakers"><button class="heart btn" aria-label="Save item">♡</button></div>
+          <span class="discount">12% OFF</span><p class="deal-name">Nike Jordan Air Ship PE SP Awake NY (Size 10.5) Brand New/OG Box</p><div class="price">$96.76<span class="old-price">$109.95</span></div>
+        </article>
+        <article class="deal-card">
+          <div class="deal-image"><img src="../../../data/data/12/assets/014.webp" width="264" height="276" alt="Miter saw"><button class="heart btn" aria-label="Save item">♡</button></div>
+          <span class="discount">10% OFF</span><p class="deal-name">Sliding Compound Miter Saw with Laser Guide</p><div class="price">$197.97<span class="old-price">$219.99</span></div>
+        </article>
+        <article class="deal-card">
+          <div class="deal-image"><img src="../../../data/data/12/assets/015.webp" width="264" height="276" alt="Compound miter saw"><button class="heart btn" aria-label="Save item">♡</button></div>
+          <span class="discount">20% OFF</span><p class="deal-name">Dual bevel sliding compound miter saw</p><div class="price">$189.99</div>
+        </article>
+      </div>
+      <button class="edge-button right btn" id="dealNext" aria-label="Next deals">›</button>
+    </div>
+    <div class="fake-scroll"></div>
+  </section>
+
+  <section class="live-section">
+    <div class="section-title">
+      <div><h2>eBay Live</h2><div class="live-sub">Tune in and shop curated experiences</div></div>
+      <a class="see-all btn" href="#">See all</a>
+    </div>
+    <div class="live-row">
+      <div class="live-card"><img src="../../../data/data/12/assets/044.png" width="250" height="330" alt="Coin and jewelry live"><span class="watchers">⌒ 2415</span></div>
+      <div class="live-card"><img src="../../../data/data/12/assets/047.png" width="250" height="330" alt="Football collectibles live"><span class="watchers">⌒ 1386</span></div>
+      <div class="live-card"><img src="../../../data/data/12/assets/049.png" width="250" height="330" alt="Lucky Vault live"><span class="watchers">⌒ 796</span></div>
+      <div class="live-card"><img src="../../../data/data/12/assets/051.png" width="250" height="330" alt="Luxury handbag auction"><span class="watchers">⌒ 1821</span></div>
+      <div class="live-card"><img src="../../../data/data/12/assets/053.png" width="250" height="330" alt="Sports cards live"><span class="watchers">⌒ 692</span></div>
+      <div class="live-card"><img src="../../../data/data/12/assets/055.png" width="250" height="330" alt="Pokemon collectibles live"><span class="watchers">⌒ 1240</span></div>
+    </div>
+  </section>
+  <section class="more-section"></section>
+</main>
+<button class="help btn" aria-label="Help">?</button>
+<div class="bottom-bar"></div>
+
+<script>
+  const slides = [...document.querySelectorAll('.hero-slide')];
+  const dots = [...document.querySelectorAll('.dot')];
+  let current = 0;
+  function showSlide(index) {
+    current = (index + slides.length) % slides.length;
+    slides.forEach((slide, i) => slide.classList.toggle('active', i === current));
+    dots.forEach((dot, i) => dot.classList.toggle('selected', i === current));
+  }
+  document.getElementById('heroNext').addEventListener('click', () => showSlide(current + 1));
+  document.getElementById('heroPrev').addEventListener('click', () => showSlide(current - 1));
+  dots.forEach((dot, i) => dot.addEventListener('click', () => showSlide(i)));
+
+  const row = document.getElementById('dealRow');
+  let offset = 0;
+  document.getElementById('dealNext').addEventListener('click', () => {
+    offset = Math.min(offset + 280, row.scrollWidth - row.parentElement.clientWidth);
+    row.style.transform = `translateX(-${offset}px)`;
+  });
+  document.getElementById('dealPrev').addEventListener('click', () => {
+    offset = Math.max(0, offset - 280);
+    row.style.transform = `translateX(-${offset}px)`;
+  });
+  document.querySelectorAll('.heart').forEach(button => button.addEventListener('click', () => {
+    button.textContent = button.textContent === '♡' ? '♥' : '♡';
+  }));
+  document.getElementById('heroPause').addEventListener('click', function () {
+    this.textContent = this.textContent === 'Ⅱ' ? '▶' : 'Ⅱ';
+  });
+</script>
+</body>
+</html>
